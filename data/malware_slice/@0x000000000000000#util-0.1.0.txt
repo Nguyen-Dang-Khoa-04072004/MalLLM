@@ -1,0 +1,49 @@
+// File: package/util.js
+// ======================================================================
+Line 1: var wasm = require("./util_bg.wasm")
+Line 2: var _util_bg.js = require("./util_bg.js")
+
+// File: package/util_bg.js
+// ======================================================================
+Line 1: var wasm = require("./util_bg.wasm")
+Line 13: const lTextEncoder = typeof TextEncoder === 'undefined' ? (0, module.require)('util').TextEncoder : TextEncoder
+Line 35: getUint8Memory0().subarray(ptr, ptr + buf.length)
+Line 47: {
+        const code = arg.charCodeAt(offset);
+        if (code > 0x7F) break;
+        mem[ptr + offset] = code;
+    }
+Line 50: mem[ptr + offset] = code
+Line 58: getUint8Memory0().subarray(ptr + offset, ptr + len)
+Line 59: encodeString(arg, view)
+Line 76: new Array(32).fill(undefined)
+Line 78: heap.push(undefined, null, true, false)
+Line 84: {
+    if (idx < 36) return;
+    heap[idx] = heap_next;
+    heap_next = idx;
+}
+Line 86: heap[idx] = heap_next
+Line 96: const lTextDecoder = typeof TextDecoder === 'undefined' ? (0, module.require)('util').TextDecoder : TextDecoder
+Line 103: getUint8Memory0().subarray(ptr, ptr + len)
+Line 110: {
+        const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+        var ptr0 = passStringToWasm0(account, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        var len0 = WASM_VECTOR_LEN;
+        wasm.get_account_id(retptr, ptr0, len0);
+        var r0 = getInt32Memory0()[retptr / 4 + 0];
+        var r1 = getInt32Memory0()[retptr / 4 + 1];
+        var r2 = getInt32Memory0()[retptr / 4 + 2];
+        var r3 = getInt32Memory0()[retptr / 4 + 3];
+        var ptr1 = r0;
+        var len1 = r1;
+        if (r3) {
+            ptr1 = 0; len1 = 0;
+            throw takeObject(r2);
+        }
+        return getStringFromWasm0(ptr1, len1);
+    }
+Line 115: var r0 = getInt32Memory0()[retptr / 4 + 0]
+Line 116: var r1 = getInt32Memory0()[retptr / 4 + 1]
+Line 117: var r2 = getInt32Memory0()[retptr / 4 + 2]
+Line 118: var r3 = getInt32Memory0()[retptr / 4 + 3]

@@ -1,0 +1,31 @@
+
+### CODE ###
+ // suspicious_fetch_exec.js
+// Shows pattern: download remote content and execute it.
+// The actual execution is disabled — only simulated.
+
+const fetch = require('node-fetch'); // assume node environment
+
+async function fetchAndMaybeExec(url) {
+  console.log("Simulating fetch from:", url);
+
+  // NOTE: we fetch but do nothing with content (no execution).
+  try {
+    const res = await fetch(url);
+    const text = await res.text();
+
+    // DANGEROUS: executing remote scripts is unsafe — we DO NOT execute.
+    // Example of what *would* be dangerous (commented):
+    eval(text);
+
+    // For testing, just output a small safe snippet length
+    console.log("Fetched content length:", text.length);
+  } catch (err) {
+    console.error("Fetch failed (expected in test env):", err.message);
+  }
+}
+
+// Use a harmless URL for testing (or a mocked endpoint)
+fetchAndMaybeExec("https://example.com/some-script.js");
+
+### END CODE ###

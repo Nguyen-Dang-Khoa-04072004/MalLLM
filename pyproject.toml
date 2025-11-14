@@ -1,0 +1,27 @@
+[project]
+name = "npm-llmdefender"
+version = "0.1.0"
+description = "Leveraging LLMs to detect malicious npm packages, focusing on Prompt engineering"
+authors = [
+    {name = "tuyetdng",email = "dangthianhtuyettpk2019@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi (>=0.119.0,<0.120.0)",
+    "uvicorn (>=0.37.0,<0.38.0)",
+    "pydantic (>=2.12.2,<3.0.0)",
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "tqdm (>=4.67.1,<5.0.0)",
+    "pytest (>=8.4.2,<9.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pdoc]
+modules = ["src"]
+output-directory = "docs" 
+

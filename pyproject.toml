@@ -1,9 +1,9 @@
 [project]
-name = "npm-llmdefender"
+name = "malllm"
 version = "0.1.0"
 description = "Leveraging LLMs to detect malicious npm packages, focusing on Prompt engineering"
 authors = [
-    {name = "tuyetdng",email = "dangthianhtuyettpk2019@gmail.com"}
+    { name = "Ho Gia Thang", email = "hogiathang2@gmail.com" }
 ]
 readme = "README.md"
 requires-python = ">=3.11"
@@ -25,3 +25,9 @@ build-backend = "poetry.core.masonry.api"
 modules = ["src"]
 output-directory = "docs" 
 
+[tool.poetry]
+packages = [
+    { include = "src"},
+    { include = "tests"},
+    { include = "data"}
+]

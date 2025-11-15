@@ -1,0 +1,19 @@
+{
+    "purpose": "Extracting account ID from Wasm stack",
+    "sources": [
+        "package/util_bg.js"
+    ],
+    "sinks": [
+        "package/util_bg.js"
+    ],
+    "flows": [
+        "package/util_bg.js"
+    ],
+    "anomalies": [],
+    "analysis": "This code uses WebAssembly to extract an account ID from a given Wasm stack.\n\nThe function `getInt32Memory0()` retrieves data from the Wasm stack.\n\nThe variable `ptr` is initialized to point to the start of the stack.\n\nThe function then uses `getUint8Memory0().subarray()` to extract the account ID from the stack.\n\nThe code checks if the last element of the stack is not zero. If it is, it sets `ptr1` to zero and `len1` to zero, and throws an error.\n\nThe function returns the extracted account ID as a string.",
+    "conclusion": "This code extracts an account ID from a given Wasm stack using WebAssembly.\n\nThe function `getInt32Memory0()` retrieves data from the Wasm stack.\n\nThe variable `ptr` is initialized to point to the start of the stack.\n\nThe function then uses `getUint8Memory0().subarray()` to extract the account ID from the stack.\n\nThe code checks if the last element of the stack is not zero. If it is, it sets `ptr1` to zero and `len1` to zero, and throws an error.\n\nThe function returns the extracted account ID as a string.",
+    "confidence": 0.8,
+    "obfuscated": 0.0,
+    "malware": 0.0,
+    "securityRisk": 0.0
+}

@@ -2,7 +2,7 @@ import argparse
 from config.model_config import ModelConfig
 from src.models.model import AIModel
 from src.prompts.prompt import Prompt
-from data.t_loader import Dataloader
+from data.loader import Dataloader
 from src.utils import response_parser
 import json
 from pathlib import Path

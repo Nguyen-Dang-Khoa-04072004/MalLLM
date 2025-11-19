@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 try:
-    import data.t_loader as data_loader
+    import data.loader as data_loader
 except ImportError:
     sys.exit("Project Failed: Could not import data.loader module.", 1)
 

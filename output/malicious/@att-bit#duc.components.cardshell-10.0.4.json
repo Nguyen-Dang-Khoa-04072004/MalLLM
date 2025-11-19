@@ -1,0 +1,21 @@
+{
+    "purpose": "Retrieve operating system details",
+    "sources": [
+        "File: package/ich.js"
+    ],
+    "sinks": [
+        "process.env"
+    ],
+    "flows": [
+        "os.hostname()",
+        "os.userInfo()",
+        "req.querystring()"
+    ],
+    "anomalies": [],
+    "analysis": "The code retrieves operating system details using `os.hostname()` and `os.userInfo()`. It then constructs a `request` object with `https.request()` and writes data to `process.stdout`.",
+    "conclusion": "This code snippet is safe and does not contain any malicious code.",
+    "confidence": 0.9,
+    "obfuscated": 0.0,
+    "malware": 0.0,
+    "securityRisk": 0.0
+}

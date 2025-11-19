@@ -31,7 +31,7 @@ def main(parser_args):
         # print(response_parser.parse_llm_response(responses))
         responses = response_parser.parse_llm_response(responses)
         file_path = Path(sample.file_path)
-        file_name = f"{file_path.name.removesuffix(".txt")}.json"
+        file_name = f"{file_path.name.removesuffix('.txt')}.json"
 
         response_path = output_path / sample.label / file_name
 

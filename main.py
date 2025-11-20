@@ -41,51 +41,80 @@ def load_checkpoints() -> Set[str]:
 
     return checkpoint_set
 
-def save_checkpoints(package_name: str, lock):
+def save_checkpoints(package_name: str):
     output_path = Path("./output/checkpoints")
     if not output_path.exists():
         (output_path).mkdir(parents=True, exist_ok=True)
 
     file = output_path / "checkpoint.jsonl"
 
-    with lock:
-        with open(file, 'a', encoding='utf-8') as f:
-            record = {"package": package_name, "status": "done"}
-            f.write(json.dumps(record, ensure_ascii=False) + "\n")
-            f.flush()
+    with open(file, 'a', encoding='utf-8') as f:
+        record = {"package": package_name, "status": "done"}
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        f.flush()
 
 def process_chunk(chunk_samples: List[DataSamples],
                   chunk_id, lock, model:AIModel=None, 
-                  system_prompt:Prompt=None) -> int:
-    
+                  system_prompt:Prompt=None,
+                  batch_size: int = 3) -> int:
     output_path = Path("./output")
-    
-    processed_count = 0
-    
-    for sample in tqdm(chunk_samples, desc=f"Worker-{chunk_id}", position=chunk_id):
+    process_count = 0
+
+    chunk_samples = sorted(chunk_samples, key=lambda x: x.package_length or 0, reverse=True)
+    total_samples = len(chunk_samples)
+
+    created_dirs = set()
+
+    for i in tqdm(range(0, total_samples, batch_size), desc=f"Worker-{chunk_id}", position=chunk_id):
+        current_batch = chunk_samples[i:i + batch_size]
+        batch_prompts = []
+        valid_samples_in_batch = []
+
+        for sample in current_batch:
+            try:
+                user_prompt = Prompt(sample.package_path, role="user")
+                full_prompt = Prompt.combine(system_prompt, user_prompt)
+                batch_prompts.append(full_prompt)
+                valid_samples_in_batch.append(sample)
+            except Exception as e:
+                print(f"[Worker-{chunk_id}] Error preparing prompt for {sample.package_path}: {e}")
+            
+        if not batch_prompts:
+            continue
+
         try:
-            package_path = Path(sample.package_path)
-            package_name = package_path.name.removesuffix('.txt')
+            successull_packages_in_batch = []
+            batch_responses = model.generate_batch(batch_prompts)
+            for sample, response in zip(valid_samples_in_batch, batch_responses):
+                try:
+                    package_path = Path(sample.package_path)
+                    package_name = package_path.name.removesuffix('.txt')
+                    target_dir = output_path / sample.label
 
-            response_path = output_path / sample.label / (f"{package_name}.json")
+                    if target_dir not in created_dirs:
+                        target_dir.mkdir(parents=True, exist_ok=True)
+                        created_dirs.add(target_dir)
+                    
+                    response_path = target_dir / (f"{package_name}.json")
+                    parsed_responses = response_parser.parse_llm_response(response)
 
-            user_prompt = Prompt(sample.package_path, role="user")
-            responses = model.generate(Prompt.combine(system_prompt, user_prompt))
-            responses = response_parser.parse_llm_response(responses)
-            
-            (output_path / sample.label).mkdir(parents=True, exist_ok=True)
-            
-            with open(response_path, 'w', encoding='utf-8') as f:
-                json.dump(responses, f, indent=4, ensure_ascii=False)
+                    with open(response_path, 'w', encoding='utf-8') as f:
+                        json.dump(parsed_responses, f, indent=4, ensure_ascii=False)
 
-            save_checkpoints(sample.package_name, lock)
+                    successull_packages_in_batch.append(sample.package_name)
+                    process_count += 1
+                except Exception as e:
+                    print(f"[Worker-{chunk_id}] Error processing response for {sample.package_path}: {e}")
 
-            processed_count += 1
-            
+            if successull_packages_in_batch:
+                with lock:
+                    for pkg_name in successull_packages_in_batch:
+                        save_checkpoints(pkg_name)
         except Exception as e:
-            print(f"[Worker-{chunk_id}] Error: {sample.package_path}: {e}")
+            print(f"[Worker-{chunk_id}] Error generating batch responses: {e}")
+            continue
     
-    return processed_count
+    return process_count
 
 def main(parser_args):
     output_path = Path("./output")
@@ -114,10 +143,10 @@ def main(parser_args):
         print("Processing complete.")
         return
 
+    sample_sorted = sorted(samples_to_process, key=lambda x: x.package_length or 0, reverse=True)
     num_workers = min(parser_args.max_workers, total_samples)
     
-    chunk_size = math.ceil(total_samples / num_workers)
-    chunks = [samples_to_process[i:i + chunk_size] for i in range(0, total_samples, chunk_size)]
+    chunks = [sample_sorted[i::num_workers] for i in range(num_workers)]
 
     model_config = ModelConfig.from_json_file(parser_args.config_file)
     model = AIModel(model_config)
@@ -136,7 +165,8 @@ def main(parser_args):
                         chunk_id,
                         lock,
                         model,
-                        system_prompt
+                        system_prompt,
+                        parser_args.batch_size
                     )
                 )
 
@@ -151,6 +181,7 @@ if __name__ == "__main__":
     parser.add_argument("--source-dir", type=str, default="./data/samples/")
     parser.add_argument("--system-prompt", type=str, default="src/prompts/deepseek-system-prompt.txt", help="File path đến system prompt")
     parser.add_argument("--max-workers", type=int, default=5, help="Số lượng process worker song song tối đa")
+    parser.add_argument("--batch-size", type=int, default=3, help="Số lượng mẫu xử lý trong mỗi batch")
     
     import multiprocessing
     multiprocessing.set_start_method('spawn', force=True)

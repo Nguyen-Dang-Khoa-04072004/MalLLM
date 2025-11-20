@@ -12,6 +12,17 @@ from data.loader import Dataloader, DataSamples
 from src.utils import response_parser
 from typing import List, Set
 
+# Global variables for worker processes
+_worker_model = None
+_worker_system_prompt = None
+
+def init_worker(config_file: str, system_prompt_path: str):
+    """Initialize model and system prompt in each worker process"""
+    global _worker_model, _worker_system_prompt
+    model_config = ModelConfig.from_json_file(config_file)
+    _worker_model = AIModel(model_config)
+    _worker_system_prompt = Prompt(system_prompt_path, role="system")
+
 def load_checkpoints() -> Set[str]:
     output_path = Path("./output/checkpoints")
 
@@ -54,9 +65,10 @@ def save_checkpoints(package_name: str):
         f.flush()
 
 def process_chunk(chunk_samples: List[DataSamples],
-                  chunk_id, lock, model:AIModel=None, 
-                  system_prompt:Prompt=None,
+                  chunk_id, lock,
                   batch_size: int = 3) -> int:
+    global _worker_model, _worker_system_prompt
+    
     output_path = Path("./output")
     process_count = 0
 
@@ -73,7 +85,7 @@ def process_chunk(chunk_samples: List[DataSamples],
         for sample in current_batch:
             try:
                 user_prompt = Prompt(sample.package_path, role="user")
-                full_prompt = Prompt.combine(system_prompt, user_prompt)
+                full_prompt = Prompt.combine(_worker_system_prompt, user_prompt)
                 batch_prompts.append(full_prompt)
                 valid_samples_in_batch.append(sample)
             except Exception as e:
@@ -84,7 +96,7 @@ def process_chunk(chunk_samples: List[DataSamples],
 
         try:
             successull_packages_in_batch = []
-            batch_responses = model.generate_batch(batch_prompts)
+            batch_responses = _worker_model.generate_batch(batch_prompts)
             for sample, response in zip(valid_samples_in_batch, batch_responses):
                 try:
                     package_path = Path(sample.package_path)
@@ -148,14 +160,14 @@ def main(parser_args):
     
     chunks = [sample_sorted[i::num_workers] for i in range(num_workers)]
 
-    model_config = ModelConfig.from_json_file(parser_args.config_file)
-    model = AIModel(model_config)
-    system_prompt = Prompt(parser_args.system_prompt, role="system")
-
     with mp.Manager() as manager:
         lock = manager.Lock()
 
-        with ProcessPoolExecutor(max_workers=num_workers) as executor:
+        with ProcessPoolExecutor(
+            max_workers=num_workers,
+            initializer=init_worker,
+            initargs=(parser_args.config_file, parser_args.system_prompt)
+        ) as executor:
             futures = []
             for chunk_id, chunk_samples in enumerate(chunks):
                 futures.append(
@@ -164,8 +176,6 @@ def main(parser_args):
                         chunk_samples,
                         chunk_id,
                         lock,
-                        model,
-                        system_prompt,
                         parser_args.batch_size
                     )
                 )

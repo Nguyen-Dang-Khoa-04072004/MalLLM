@@ -67,8 +67,7 @@ class AIModel:
             return_tensors="pt",
             padding=True,
             padding_side="left",
-            truncation=True,
-            max_length=1024
+            truncation=True
         ).to(self.model.device)
 
         with torch.no_grad(), torch.autocast(device_type=self.model.device.type, dtype=torch.float16):

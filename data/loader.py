@@ -6,6 +6,7 @@ from typing import List, Optional
 class DataSamples:
     package_name: str
     package_path: Optional[Path] = None
+    package_length: Optional[int] = None
     label: Optional[str] = None
 
 @dataclass
@@ -33,7 +34,8 @@ class Dataloader:
                 samples.append(DataSamples(
                     package_name=file_path.name.removesuffix('.txt'),
                     package_path=file_path,
-                    label=label
+                    label=label,
+                    package_length=file_path.stat().st_size
                 ))
 
         return samples

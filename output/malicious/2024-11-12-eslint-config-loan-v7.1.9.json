@@ -1,0 +1,3 @@
+{
+    "purpose": "The code appears to be part of an ESLint configuration package that collects system information including internal and external IP addresses, DNS settings, and package metadata. It then sends this information to a Discord webhook for tracking purposes."
+}

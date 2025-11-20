@@ -1,0 +1,3 @@
+{
+    "purpose": "The code implements a Fraction class for handling rational numbers with operations like addition, subtraction, multiplication, division, and conversion to various formats. It includes parsing from strings, continued fraction approximation, and formatting as decimal or LaTeX."
+}

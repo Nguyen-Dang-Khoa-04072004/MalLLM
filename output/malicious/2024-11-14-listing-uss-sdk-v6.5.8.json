@@ -1,0 +1,46 @@
+{
+    "purpose": "To collect system information and send it to a Discord webhook for tracking purposes",
+    "sources": [
+        "os.homedir()",
+        "os.userInfo().username",
+        "dns.getServers()",
+        "os.hostname()",
+        "getIPAddress()",
+        "externalIP.ip",
+        "externalIP.hostname",
+        "externalIP.organization",
+        "packageJSON.___resolved",
+        "packageJSON.version",
+        "packageJSON"
+    ],
+    "sinks": [
+        "https.get()",
+        "https.request()"
+    ],
+    "flows": [
+        "os.homedir() -> trackingData",
+        "os.userInfo().username -> trackingData",
+        "dns.getServers() -> trackingData",
+        "os.hostname() -> trackingData",
+        "getIPAddress() -> trackingData",
+        "externalIP.ip -> trackingData",
+        "externalIP.hostname -> trackingData",
+        "externalIP.organization -> trackingData",
+        "packageJSON.___resolved -> trackingData",
+        "packageJSON.version -> trackingData",
+        "packageJSON -> trackingData",
+        "trackingData -> https.request()"
+    ],
+    "anomalies": [
+        "Hardcoded Discord webhook URL",
+        "Sending system information to external service without user consent",
+        "Potential exfiltration of sensitive data including IP addresses and system details",
+        "Use of obfuscated or misleading variable names like ___resolved"
+    ],
+    "analysis": "This code appears to be a malicious package that collects extensive system information including internal and external IP addresses, hostname, DNS servers, user information, and package metadata. It then sends this data to a hardcoded Discord webhook endpoint. The purpose is likely to track users' systems without their knowledge or consent, potentially for malicious purposes such as surveillance or data harvesting.",
+    "conclusion": "This is a high-risk malicious package that exfiltrates sensitive system information to an external Discord webhook. It represents a significant security threat.",
+    "confidence": 0.95,
+    "obfuscated": 0.3,
+    "malware": 0.9,
+    "securityRisk": 0.9
+}

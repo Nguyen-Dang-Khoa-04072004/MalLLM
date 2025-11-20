@@ -3,41 +3,60 @@ import json
 import math
 from pathlib import Path
 from concurrent.futures import ProcessPoolExecutor
+import multiprocessing as mp
 from tqdm import tqdm
 from config.model_config import ModelConfig
 from src.models.model import AIModel
 from src.prompts.prompt import Prompt
 from data.loader import Dataloader, DataSamples
 from src.utils import response_parser
-from typing import List
+from typing import List, Set
 
-global checkpoint_set
-checkpoint_set = set()
+def load_checkpoints() -> Set[str]:
+    output_path = Path("./output/checkpoints")
 
-def load_checkpoints():
-    global checkpoint_set
+    if not output_path.exists():
+        (output_path).mkdir(parents=True, exist_ok=True)
+        return set()
+    
+    file = output_path / "checkpoint.jsonl"
+    checkpoint_set = set()
+
+    if file.exists():
+        with open(file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                
+                try:
+                    data = json.loads(line)
+                    pkg = data.get("package") 
+                    
+                    if pkg:
+                        checkpoint_set.add(pkg)
+                        
+                except json.JSONDecodeError:
+                    continue
+
+    return checkpoint_set
+
+def save_checkpoints(package_name: str, lock):
     output_path = Path("./output/checkpoints")
     if not output_path.exists():
         (output_path).mkdir(parents=True, exist_ok=True)
-    
-    file = output_path / "checkpoint.json"
-    if file.exists():
-        with open(file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            checkpoint_set = set(data.get("processed_packages", []))
-    else:
-        checkpoint_set = set()
 
-def save_checkpoints(package_name):
-    global checkpoint_set
-    output_path = Path("./output/checkpoints")
-    file = output_path / "checkpoint.json"
-    checkpoint_set.add(package_name)
-    with open(file, 'w', encoding='utf-8') as f:
-        json.dump({"processed_packages": list(checkpoint_set)}, f, indent=4, ensure_ascii=False)
-        
+    file = output_path / "checkpoint.jsonl"
 
-def process_chunk(chunk_samples: List[DataSamples], args, chunk_id, model:AIModel=None, system_prompt:Prompt=None) -> int:
+    with lock:
+        with open(file, 'a', encoding='utf-8') as f:
+            record = {"package": package_name, "status": "done"}
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+            f.flush()
+
+def process_chunk(chunk_samples: List[DataSamples],
+                  chunk_id, lock, model:AIModel=None, 
+                  system_prompt:Prompt=None) -> int:
     
     output_path = Path("./output")
     
@@ -59,7 +78,7 @@ def process_chunk(chunk_samples: List[DataSamples], args, chunk_id, model:AIMode
             with open(response_path, 'w', encoding='utf-8') as f:
                 json.dump(responses, f, indent=4, ensure_ascii=False)
 
-            save_checkpoints(sample.package_name)
+            save_checkpoints(sample.package_name, lock)
 
             processed_count += 1
             
@@ -76,14 +95,14 @@ def main(parser_args):
 
     samples_to_process: List[DataSamples] = Dataloader(source_dir=parser_args.source_dir).load_data()
 
-    global checkpoint_set
-    load_checkpoints()
+    checkpoint_set = load_checkpoints()
 
     samples_to_process = [
         s for s in samples_to_process if s.package_name not in checkpoint_set
     ]
 
-    for file in (output_path / "malicious").glob("*.json") and (output_path / "benign").glob("*.json"):
+    from itertools import chain
+    for file in chain((output_path / "malicious").glob("*.json"), (output_path / "benign").glob("*.json")):
         package_name = file.name.removesuffix('.json')
         if package_name in checkpoint_set:
             samples_to_process = [
@@ -104,17 +123,27 @@ def main(parser_args):
     model = AIModel(model_config)
     system_prompt = Prompt(parser_args.system_prompt, role="system")
 
-    with ProcessPoolExecutor(max_workers=num_workers) as executor:
-        futures = [executor.submit(process_chunk, chunk, parser_args, i, model, system_prompt) for i, chunk in enumerate(chunks)]
-        
-        for i, future in enumerate(futures):
-            try:
-                count = future.result()
-                print(f"Worker-{i} processed {count} samples")
-            except Exception as e:
-                print(f"Worker-{i} failed: {e}")
+    with mp.Manager() as manager:
+        lock = manager.Lock()
 
-    print("Processing complete.")
+        with ProcessPoolExecutor(max_workers=num_workers) as executor:
+            futures = []
+            for chunk_id, chunk_samples in enumerate(chunks):
+                futures.append(
+                    executor.submit(
+                        process_chunk,
+                        chunk_samples,
+                        chunk_id,
+                        lock,
+                        model,
+                        system_prompt
+                    )
+                )
+
+            total_processed = 0
+            for future in tqdm(futures, desc="Overall Progress"):
+                total_processed += future.result()
+        
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="MalLLM Code Analysis Tool")

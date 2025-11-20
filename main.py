@@ -1,90 +1,132 @@
 import argparse
 import json
 import math
-import time
 from pathlib import Path
 from concurrent.futures import ProcessPoolExecutor
+import multiprocessing as mp
 from tqdm import tqdm
 from config.model_config import ModelConfig
 from src.models.model import AIModel
 from src.prompts.prompt import Prompt
-from data.loader import Dataloader
+from data.loader import Dataloader, DataSamples
 from src.utils import response_parser
+from typing import List, Set
 
-def load_checkpoint(checkpoint_file):
-    max_retries = 5
-    retry_delay = 0.1
-    
-    for attempt in range(max_retries):
-        try:
-            if checkpoint_file.exists():
-                with open(checkpoint_file, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    if isinstance(data, list):
-                        return {item['file_path'] for item in data}, data
-            return set(), []
-        except (json.JSONDecodeError, IOError):
-            if attempt < max_retries - 1:
-                time.sleep(retry_delay)
-            else:
-                return set(), []
+# Global variables for worker processes
+_worker_model = None
+_worker_system_prompt = None
 
-def save_checkpoint(checkpoint_file, processed_list):
-    max_retries = 5
-    retry_delay = 0.1
-    
-    for attempt in range(max_retries):
-        try:
-            temp_file = checkpoint_file.with_suffix('.tmp')
-            with open(temp_file, 'w', encoding='utf-8') as f:
-                json.dump(processed_list, f, indent=4, ensure_ascii=False)
-            temp_file.replace(checkpoint_file)
-            return True
-        except IOError:
-            if attempt < max_retries - 1:
-                time.sleep(retry_delay)
-            else:
-                return False
+def init_worker(config_file: str, system_prompt_path: str):
+    """Initialize model and system prompt in each worker process"""
+    global _worker_model, _worker_system_prompt
+    model_config = ModelConfig.from_json_file(config_file)
+    _worker_model = AIModel(model_config)
+    _worker_system_prompt = Prompt(system_prompt_path, role="system")
 
-def process_chunk(chunk_samples, args, chunk_id, force):
-    config = ModelConfig.from_json_file(args.config_file)
-    model = AIModel(config)
-    system_prompt = Prompt(args.system_prompt, role="system")
-    checkpoint_dir = Path("./output/checkpoints")
-    checkpoint_file = checkpoint_dir / "checkpoint.json"
-    output_path = Path("./output")
+def load_checkpoints() -> Set[str]:
+    output_path = Path("./output/checkpoints")
+
+    if not output_path.exists():
+        (output_path).mkdir(parents=True, exist_ok=True)
+        return set()
     
-    processed_count = 0
-    
-    for sample in tqdm(chunk_samples, desc=f"Worker-{chunk_id}", position=chunk_id):
-        try:
-            file_path = Path(sample.file_path)
-            file_name = f"{file_path.name.removesuffix('.txt')}.json"
-            response_path = output_path / sample.label / file_name
-            
-            processed_set, processed_list = load_checkpoint(checkpoint_file)
-            
-            if not force:
-                if response_path.exists() or sample.file_path in processed_set:
+    file = output_path / "checkpoint.jsonl"
+    checkpoint_set = set()
+
+    if file.exists():
+        with open(file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                
+                try:
+                    data = json.loads(line)
+                    pkg = data.get("package") 
+                    
+                    if pkg:
+                        checkpoint_set.add(pkg)
+                        
+                except json.JSONDecodeError:
                     continue
 
-            user_prompt = Prompt(sample.file_path, role="user")
-            responses = model.generate(Prompt.combine(system_prompt, user_prompt))
-            responses = response_parser.parse_llm_response(responses)
-            
-            (output_path / sample.label).mkdir(parents=True, exist_ok=True)
-            
-            with open(response_path, 'w', encoding='utf-8') as f:
-                json.dump(responses, f, indent=4, ensure_ascii=False)
-            
-            processed_list.append({'file_path': sample.file_path})
-            save_checkpoint(checkpoint_file, processed_list)
-            processed_count += 1
-            
-        except Exception as e:
-            print(f"[Worker-{chunk_id}] Error: {sample.file_path}: {e}")
+    return checkpoint_set
+
+def save_checkpoints(package_name: str):
+    output_path = Path("./output/checkpoints")
+    if not output_path.exists():
+        (output_path).mkdir(parents=True, exist_ok=True)
+
+    file = output_path / "checkpoint.jsonl"
+
+    with open(file, 'a', encoding='utf-8') as f:
+        record = {"package": package_name, "status": "done"}
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        f.flush()
+
+def process_chunk(chunk_samples: List[DataSamples],
+                  chunk_id, lock,
+                  batch_size: int = 3) -> int:
+    global _worker_model, _worker_system_prompt
     
-    return processed_count
+    output_path = Path("./output")
+    process_count = 0
+
+    chunk_samples = sorted(chunk_samples, key=lambda x: x.package_length or 0, reverse=True)
+    total_samples = len(chunk_samples)
+
+    created_dirs = set()
+
+    for i in tqdm(range(0, total_samples, batch_size), desc=f"Worker-{chunk_id}", position=chunk_id):
+        current_batch = chunk_samples[i:i + batch_size]
+        batch_prompts = []
+        valid_samples_in_batch = []
+
+        for sample in current_batch:
+            try:
+                user_prompt = Prompt(sample.package_path, role="user")
+                full_prompt = Prompt.combine(_worker_system_prompt, user_prompt)
+                batch_prompts.append(full_prompt)
+                valid_samples_in_batch.append(sample)
+            except Exception as e:
+                print(f"[Worker-{chunk_id}] Error preparing prompt for {sample.package_path}: {e}")
+            
+        if not batch_prompts:
+            continue
+
+        try:
+            successull_packages_in_batch = []
+            batch_responses = _worker_model.generate_batch(batch_prompts)
+            for sample, response in zip(valid_samples_in_batch, batch_responses):
+                try:
+                    package_path = Path(sample.package_path)
+                    package_name = package_path.name.removesuffix('.txt')
+                    target_dir = output_path / sample.label
+
+                    if target_dir not in created_dirs:
+                        target_dir.mkdir(parents=True, exist_ok=True)
+                        created_dirs.add(target_dir)
+                    
+                    response_path = target_dir / (f"{package_name}.json")
+                    parsed_responses = response_parser.parse_llm_response(response)
+
+                    with open(response_path, 'w', encoding='utf-8') as f:
+                        json.dump(parsed_responses, f, indent=4, ensure_ascii=False)
+
+                    successull_packages_in_batch.append(sample.package_name)
+                    process_count += 1
+                except Exception as e:
+                    print(f"[Worker-{chunk_id}] Error processing response for {sample.package_path}: {e}")
+
+            if successull_packages_in_batch:
+                with lock:
+                    for pkg_name in successull_packages_in_batch:
+                        save_checkpoints(pkg_name)
+        except Exception as e:
+            print(f"[Worker-{chunk_id}] Error generating batch responses: {e}")
+            continue
+    
+    return process_count
 
 def main(parser_args):
     output_path = Path("./output")
@@ -92,48 +134,64 @@ def main(parser_args):
     (output_path / "benign").mkdir(parents=True, exist_ok=True)
     (output_path / "checkpoints").mkdir(parents=True, exist_ok=True)
 
-    print("Loading all samples...")
-    all_samples = Dataloader(source_dir=parser_args.source_dir).load_data()
-    
-    samples_to_process = []
-    for sample in all_samples:
-        f_name = f"{Path(sample.file_path).name.removesuffix('.txt')}.json"
-        if parser_args.force or not (output_path / sample.label / f_name).exists():
-            samples_to_process.append(sample)
+    samples_to_process: List[DataSamples] = Dataloader(source_dir=parser_args.source_dir).load_data()
+
+    checkpoint_set = load_checkpoints()
+
+    samples_to_process = [
+        s for s in samples_to_process if s.package_name not in checkpoint_set
+    ]
+
+    from itertools import chain
+    for file in chain((output_path / "malicious").glob("*.json"), (output_path / "benign").glob("*.json")):
+        package_name = file.name.removesuffix('.json')
+        if package_name in checkpoint_set:
+            samples_to_process = [
+                s for s in samples_to_process if s.package_name != package_name
+            ]
             
     total_samples = len(samples_to_process)
-    print(f"Total samples to process: {total_samples}")
-
     if total_samples == 0:
-        print("All samples processed.")
+        print("Processing complete.")
         return
 
-    MAX_WORKERS = parser_args.max_workers
+    sample_sorted = sorted(samples_to_process, key=lambda x: x.package_length or 0, reverse=True)
+    num_workers = min(parser_args.max_workers, total_samples)
     
-    chunk_size = math.ceil(total_samples / MAX_WORKERS)
-    chunks = [samples_to_process[i:i + chunk_size] for i in range(0, total_samples, chunk_size)]
+    chunks = [sample_sorted[i::num_workers] for i in range(num_workers)]
 
-    print(f"Starting {len(chunks)} workers on {MAX_WORKERS} processes...")
+    with mp.Manager() as manager:
+        lock = manager.Lock()
 
-    with ProcessPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        futures = [executor.submit(process_chunk, chunk, parser_args, i, parser_args.force) for i, chunk in enumerate(chunks)]
+        with ProcessPoolExecutor(
+            max_workers=num_workers,
+            initializer=init_worker,
+            initargs=(parser_args.config_file, parser_args.system_prompt)
+        ) as executor:
+            futures = []
+            for chunk_id, chunk_samples in enumerate(chunks):
+                futures.append(
+                    executor.submit(
+                        process_chunk,
+                        chunk_samples,
+                        chunk_id,
+                        lock,
+                        parser_args.batch_size
+                    )
+                )
+
+            total_processed = 0
+            for future in tqdm(futures, desc="Overall Progress"):
+                total_processed += future.result()
         
-        for i, future in enumerate(futures):
-            try:
-                count = future.result()
-                print(f"Worker-{i} processed {count} samples")
-            except Exception as e:
-                print(f"Worker-{i} failed: {e}")
-
-    print("Processing complete.")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run AI Model with Parallel Processing.")
+    parser = argparse.ArgumentParser(description="MalLLM Code Analysis Tool")
     parser.add_argument("--config-file", type=str, default="config/deepseek-coder-6.7b.json", help="File path dẫn đến config file")
     parser.add_argument("--source-dir", type=str, default="./data/samples/")
     parser.add_argument("--system-prompt", type=str, default="src/prompts/deepseek-system-prompt.txt", help="File path đến system prompt")
     parser.add_argument("--max-workers", type=int, default=5, help="Số lượng process worker song song tối đa")
-    parser.add_argument("--force", action="store_true", help="Tạo lại tất cả các mẫu ngay cả khi đầu ra đã tồn tại")
+    parser.add_argument("--batch-size", type=int, default=3, help="Số lượng mẫu xử lý trong mỗi batch")
     
     import multiprocessing
     multiprocessing.set_start_method('spawn', force=True)

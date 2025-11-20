@@ -4,7 +4,9 @@ from typing import List, Optional
 
 @dataclass
 class DataSamples:
-    file_path: str
+    package_name: str
+    package_path: Optional[Path] = None
+    package_length: Optional[int] = None
     label: Optional[str] = None
 
 @dataclass
@@ -29,8 +31,11 @@ class Dataloader:
 
         for category_path, label in [(malicious_path, "malicious"), (benign_path, "benign")]:
             for file_path in category_path.glob("**/*.txt"):
-                print(f"Processing file: {file_path}")
-
-                samples.append(DataSamples(file_path=str(file_path), label=label))
+                samples.append(DataSamples(
+                    package_name=file_path.name.removesuffix('.txt'),
+                    package_path=file_path,
+                    label=label,
+                    package_length=file_path.stat().st_size
+                ))
 
         return samples

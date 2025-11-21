@@ -1,7 +1,7 @@
-import config
+from pathlib import Path
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from config.model_config import ModelConfig
-from src.prompts.prompt import Prompt
+from model_config import ModelConfig
+from prompt import Prompt
 import torch
 
 # Load model & tokenizer
@@ -11,25 +11,31 @@ class AIModel:
         self.config = config
         self.tokenizer = AutoTokenizer.from_pretrained(config.model_name,trust_remote_code=True)
         self.model = AutoModelForCausalLM.from_pretrained(config.model_name,dtype=torch.float16, device_map="auto")
-    
-    def generate(self, prompt : Prompt) -> str:
-
-        # Tokenize input properly with attention mask
+    def read_file(self, file_path : Path):
+        if not file_path.exists():
+            raise FileNotFoundError(f"Prompt file not found: {file_path}")
+        with open(file_path, "r", encoding="utf-8") as f:
+            return f.read().strip() 
+    def tokenize(self, input_file_path : Path): 
+        # Read prompts from given file
+        prompt = [
+            {"role": "system", "content": self.read_file(Path("system-prompt.txt"))},
+            {"role": "system", "content": self.read_file(input_file_path)}
+        ]
         inputs = self.tokenizer.apply_chat_template(
             prompt,
             add_generation_prompt=True,
             return_tensors="pt"
         )
         inputs = inputs.to(self.model.device)
-
-        # Ensure pad_token_id is set (some models don’t define one)
         if self.tokenizer.pad_token_id is None:
             self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
-
+        return inputs
+    def generate(self, inputs) -> str:
         # Generate output
         outputs = self.model.generate(
             input_ids=inputs,
-            attention_mask=(inputs != self.tokenizer.pad_token_id),  # ✅ add attention mask
+            attention_mask=(inputs != self.tokenizer.pad_token_id),
             max_new_tokens=self.config.max_new_tokens,
             do_sample=self.config.do_sample,
             top_k=self.config.top_k,
@@ -45,7 +51,7 @@ class AIModel:
             outputs[0][inputs.shape[1]:],
             skip_special_tokens=True
         )
-
+        
     def generate_batch(self, prompts : list[Prompt]) -> list[str]:
         self.tokenizer.padding_side = "left"
 

@@ -1,7 +1,7 @@
 from pathlib import Path
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from model_config import ModelConfig
-from prompt import Prompt
+from model.model_config import ModelConfig
+from model.prompt import Prompt
 import torch
 
 # Load model & tokenizer
@@ -19,7 +19,7 @@ class AIModel:
     def tokenize(self, input_file_path : Path): 
         # Read prompts from given file
         prompt = [
-            {"role": "system", "content": self.read_file(Path("system-prompt.txt"))},
+            {"role": "system", "content": self.read_file(Path("model/system-prompt.txt"))},
             {"role": "system", "content": self.read_file(input_file_path)}
         ]
         inputs = self.tokenizer.apply_chat_template(

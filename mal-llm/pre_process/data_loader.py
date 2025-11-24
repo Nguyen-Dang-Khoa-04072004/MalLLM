@@ -11,7 +11,7 @@ class DataSamples:
 
 @dataclass
 class Dataloader:
-    source_dir: str = "./data/samples/"
+    source_dir: str = "../data"
 
 
     def load_data(self) -> List[DataSamples]:

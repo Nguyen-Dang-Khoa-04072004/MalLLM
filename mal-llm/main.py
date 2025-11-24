@@ -4,7 +4,7 @@ from model.model_config import ModelConfig
 from model.model import AIModel
 from pathlib import Path
 from eval.eval_model import *
-
+import random
 NUM_WORKERS = 4
 
 def set_up_model(config_file: Path):
@@ -37,7 +37,7 @@ def inference(sample, model):
 if __name__ == '__main__':
     samples = Dataloader().load_data()
     model = set_up_model(Path('../config/qwen-coder-0.5b.json'))
-
+    random.shuffle(samples)
     with ThreadPoolExecutor(max_workers=NUM_WORKERS) as executor:
         futures = [executor.submit(inference, s, model) for s in samples]
 

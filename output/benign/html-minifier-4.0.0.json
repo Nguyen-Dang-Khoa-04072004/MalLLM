@@ -1,0 +1,7 @@
+
+```python
+# File: package/cli.js
+# ======================================================================
+Line 30: var camelCase = require('camel-case')
+Line 31: var fs = require('fs')
+Line 32: var info = require('./package.json

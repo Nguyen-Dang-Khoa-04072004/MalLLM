@@ -1,0 +1,4 @@
+Line 14: const part3 = v3[i] || 0
+Line 15: const part4 = v4[i] || 0
+Line 16: const part5 = v5[i] || 0
+Line 17: const part6 = v6[i

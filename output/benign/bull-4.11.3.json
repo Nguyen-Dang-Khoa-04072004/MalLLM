@@ -1,0 +1,7 @@
+Line 65: {
+        const index = keyValue.indexOf('=');
+        const key = keyValue.substring(0, index);
+        const value = keyValue.substring(index + 1);
+        client[key] = value;
+      }
+Line 6

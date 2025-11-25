@@ -1,0 +1,6 @@
+Line 4: {
+  const j = api.jscodeshift;
+  const printOptions = options.printOptions || {quote: 'single'};
+  const root = j(file.source);
+
+  const body = root.get().value.program.body;

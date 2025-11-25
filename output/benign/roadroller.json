@@ -1,0 +1,5 @@
+Line 682: {
+            const sel = sparseSelectors[i];
+            if (sel > 0x7fff) throw 'sparseSelectors overflow';
+            let indicesLo = 0, indicesHi = 0;
+            for (let j = 0; j < 15;

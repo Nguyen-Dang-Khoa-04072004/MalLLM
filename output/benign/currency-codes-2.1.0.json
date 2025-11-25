@@ -1,0 +1,5 @@
+
+Line 1: {
+    code: entry.Ccy && entry.Ccy._,
+    number: entry.CcyNbr && entry.CcyNbr._,
+    digits: (entry.CcyMnrUnts && parseInt(entry.CcyMn

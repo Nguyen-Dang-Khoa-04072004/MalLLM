@@ -1,0 +1,9 @@
+Line 10: {
+    const prev = []
+    const result = []
+    let i = -1
+    while (i < x.length){
+      result[ i ] = [ x[ i ], y[ i ] ]
+    }
+
+// File: package/src/

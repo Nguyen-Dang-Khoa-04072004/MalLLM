@@ -1,0 +1,7 @@
+    const columns = []
+    const fks = {};
+    const relatedData = this.syncing.relatedData;
+    const options = this.options;
+    const knex = this.query;
+    const model = this.model;
+    const fk = this.foreign

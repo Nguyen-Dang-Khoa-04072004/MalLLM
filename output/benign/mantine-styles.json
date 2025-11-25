@@ -1,0 +1,6 @@
+Line 10: {
+    acc[key] = __spreadValues({}, acc[key]),
+    styles[key]
+};
+Line 11: {
+    acc[key] = __spreadValues(__spreadValues({}, acc[key]), styles[key

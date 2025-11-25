@@ -1,0 +1,3 @@
+Line 1: var JsonRpc = require("eosjs").JsonRpc
+Line 2: var EosdtConnectorInterface = require("./interfaces/connector").EosdtConnectorInterface
+Line 3: var ITrxParamsArgument = require("./interfaces/

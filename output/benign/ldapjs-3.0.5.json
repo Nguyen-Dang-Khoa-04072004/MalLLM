@@ -1,0 +1,2 @@
+Line 13: const template = await fs.readFile(path.join(branding, 'template.html'), { encoding: 'utf8' })
+Line 14: fs.copyFile(path.join(dist, file.replace(/md$/, 'html')), path.

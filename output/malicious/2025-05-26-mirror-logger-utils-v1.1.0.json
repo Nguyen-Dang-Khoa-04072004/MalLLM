@@ -1,0 +1,8 @@
+{
+  "confidence": 0.9,
+  "obfuscated": 0.1,
+  "malware": 0.5,
+  "securityRisk": 0.7
+}
+
+This JSON object is based on the provided code snippet.

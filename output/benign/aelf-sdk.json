@@ -1,0 +1,4 @@
+Line 293: Buffer.from(hash, 'hex')
+Line 295: ellipticEc.keyFromPrivate(x, 'hex').getPrivate().toString(10)
+Line 297: Buffer.from(hash, 'hex')
+Line

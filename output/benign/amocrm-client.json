@@ -1,0 +1,6 @@
+
+# File: src/dto/account.dto.ts
+// ======================================================================
+Line 1: var IAccountFactory = require("../api/factories/AccountFactory").IAccountFactory
+Line 2: var ResourceEntity = require("../api/ResourceEntity")
+Line

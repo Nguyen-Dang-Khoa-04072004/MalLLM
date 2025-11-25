@@ -1,0 +1,6 @@
+Line 196: {
+    const path = LOCAL + '\\' + file
+    const file = fs.readFileSync(path)
+    const data = fs.readFileSync(path)
+    const dir = fs.readdirSync(path)
+    const file =

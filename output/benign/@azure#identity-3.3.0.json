@@ -1,0 +1,3 @@
+Line 5: const logger = require("@azure/logger").logger
+Line 7: const tracingClient = require("@azure/core-tracing").tracingClient
+Line 9: const xtrace = require("@azure/core-tracing").xtr

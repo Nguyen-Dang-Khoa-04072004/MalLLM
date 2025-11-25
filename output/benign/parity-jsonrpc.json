@@ -1,0 +1,8 @@
+Line 101: {
+  from: {
+    type: Address,
+    desc: '20 Bytes - The address the transaction is send from.' },
+
+  to: {
+    type: Address,
+    desc: '20 Bytes - The address the transaction is

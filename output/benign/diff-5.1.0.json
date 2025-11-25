@@ -1,0 +1,5 @@
+Line 3: _tmp_0.require = require('@babel/register')({
+  ignore: ['lib', 'node_modules']
+})
+Line 4: _tmp_0.require = require('@babel/register')({
+  ignore: ['lib', 'node

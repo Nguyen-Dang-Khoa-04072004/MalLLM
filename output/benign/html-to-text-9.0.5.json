@@ -1,0 +1,9 @@
+Line 2144: {
+    const valueKey = path.pop();
+    for (const key of path) {
+        let nested = obj[key];
+        if (!nested) {
+            nested = {};
+            obj[key] = nested;
+        }
+       

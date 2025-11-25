@@ -1,0 +1,9 @@
+Line 10: {
+    const registeredStyles = []
+    const rawClassName = getRegisteredStyles(registered, registeredStyles, className);
+    return {
+      args,
+      ref
+    };
+    _iterator_0.next()
+    _iterator_

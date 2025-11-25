@@ -1,0 +1,4 @@
+Line 1: var UserResponse = require("./user").UserResponse
+Line 2: var UserCollection = require("./user-collection").UserCollection
+Line 20: var UserCollection = require("./user-collection").UserCollection
+Line 1: var UserResponse = require("./

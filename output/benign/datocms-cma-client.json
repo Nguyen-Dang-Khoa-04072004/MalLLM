@@ -1,0 +1,7 @@
+
+You can use this function to fetch all item types and their fields, and then use the `findNestedModels` function to recursively find all nested models and blocks.
+
+```ts
+import { ApiTypes, RawApiTypes } from '../generated/ApiTypes';
+
+export function fetch

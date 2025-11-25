@@ -1,0 +1,4 @@
+		Line 21: {
+			fieldId: args.fieldId || (`${this.containerId}Field${this.containerItems.length + 1}`),
+			fieldName: args.fieldName,
+			fieldProperties: args.fieldProperties ||

@@ -1,0 +1,4 @@
+Line 347: valuePath.isIdentifier()
+Line 350: callee.node.name.includes("jsx")
+Line 353: parentJsxCall.isCallExpressio...
+Line 356: valuePath.isIdentifier()

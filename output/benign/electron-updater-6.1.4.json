@@ -1,0 +1,6 @@
+Line 11: {
+    const testError = error || stderr;
+    try {
+        const test = (0, builder_util_runtime_1.parseOut)(out)
+    };
+    let data = (0, builder_util_runtime_1.parseOut)(

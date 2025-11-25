@@ -1,0 +1,5 @@
+Line 40: {
+    const nextNav = path[index + 1];
+    if (nextNav) {
+        const navKey = nextNav['@@qim/nav'];
+        if (navKey === _$none.$noneKey || navKey === _$set.$

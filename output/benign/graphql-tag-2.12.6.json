@@ -1,0 +1,3 @@
+Line 467: assert.equal(fragments.some(fragment => fragment.name.value === 'friends'), true)
+Line 469: assert.equal(fragments.some(fragment => fragment.name.value === 'enemies'), true)
+Line 47

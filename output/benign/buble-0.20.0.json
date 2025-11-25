@@ -1,0 +1,6 @@
+Line 161: {
+		element = elements[i];
+		if (element.type === 'SpreadElement') {
+			code.overwrite(element.start, element.argument.start);
+		} else {
+			code.appendLeft(element.start

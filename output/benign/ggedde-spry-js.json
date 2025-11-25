@@ -1,0 +1,6 @@
+Line 53: {
+                (window[loadVar] as object) = SpryJS;
+                if (load) {
+                    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+                        initLoad(loadVar);
+                    } else

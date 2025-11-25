@@ -1,0 +1,4 @@
+Line 15: _tmp_0.outDir = 'dist',
+Line 16: _tmp_0.clean = true,
+Line 17: _tmp_0.splitting = false,
+Line 18: _tmp_0.sourcemap = true,

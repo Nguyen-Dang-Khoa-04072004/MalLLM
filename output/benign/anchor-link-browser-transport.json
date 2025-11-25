@@ -1,0 +1,5 @@
+Line 124: {
+            a = a.multiply(new Polynomial([1, math.gexp(i)], 0))
+        }
+Line 125: {
+            a = a.multiply(new Polynomial([1, math

@@ -1,0 +1,8 @@
+Line 2886: {
+  const a = xc && !xc[0];
+  const b = yc && !yc[0];
+
+  // Either NaN?
+  if (!i || !j) return null;
+
+  a = i < 0;

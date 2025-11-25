@@ -1,0 +1,7 @@
+
+// File: package/lib/eventsource.js
+// ======================================================================
+Line 1: var util = require('util')
+Line 2: var events = require('events')
+Line 3: var https = require('https')
+Line 4: var http = require('

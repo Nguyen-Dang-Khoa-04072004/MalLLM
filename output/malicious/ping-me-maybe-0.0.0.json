@@ -1,0 +1,7 @@
+{
+  "confidence": 0.8,
+  "obfuscated": 0.2,
+  "malware": 0.5,
+  "securityRisk": 0.7
+}
+This code snippet appears to be a Node.js script that

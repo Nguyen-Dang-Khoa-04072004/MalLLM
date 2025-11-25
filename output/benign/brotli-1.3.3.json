@@ -1,0 +1,13 @@
+Line 3: {
+  const p = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < len) {
+    p[i] = src[i];
+  }
+  
+  return p;
+};
+
+# File: package

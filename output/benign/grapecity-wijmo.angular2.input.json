@@ -1,0 +1,2 @@
+Line 557: _tmp_1192.push(type: core_1.NgModule,
+        args: [{ imports: [common_1.CommonModule], declarations: moduleExports.concat([WjMenuItemTemplateDir]), exports: moduleEx

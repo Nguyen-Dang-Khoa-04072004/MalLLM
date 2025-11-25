@@ -1,0 +1,4 @@
+Line 1: var XYAxis = require("@hpcc-js/common").XYAxis
+Line 2: var Scatter = require("@hpcc-js/common").Scatter
+Line 3: var d3ScaleLinear = require("d3-scale").scaleLinear
+Line

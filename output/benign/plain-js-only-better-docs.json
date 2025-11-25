@@ -1,0 +1,4 @@
+Line 210: {
+      if (!member.jsDoc) { return }
+      let memberComment = src.substring(member.jsDoc[0].pos, member.jsDoc[0].end)
+      const modifiers = (member.modifiers || []).map(

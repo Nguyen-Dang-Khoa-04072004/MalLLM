@@ -1,0 +1,5 @@
+Line 10: {
+  const primaryKeyProperty = table[BlinkKey].options.primary;
+  let minComplexity = Number.MAX_SAFE_INTEGER;
+  let bestFilter = { btree, matcher, property };
+  let items: T[]

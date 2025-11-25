@@ -1,0 +1,7 @@
+Line 34: {
+  const property = 'window';
+  const jsdom = require('jsdom').jsdom;
+  const global = jsdom.envir...
+Line 4: {
+  const property = 'window';
+  const jsdom = require('jsdom').

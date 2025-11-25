@@ -1,0 +1,11 @@
+Line 15: {
+  const a = {
+    type: 'NameExpression',
+    name: namedTypes[type.type]
+  };
+  return a;
+  }
+Line 17: {
+    type: 'TypeApplication',
+    expression: {
+     

@@ -1,0 +1,7 @@
+
+The response should be an object with the following properties:
+
+- `code`: The code of the response.
+- `message`: The message of the response.
+- `stdout`: The standard output of the response.
+- `stderr`: The standard error output of the

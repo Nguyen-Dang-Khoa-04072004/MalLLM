@@ -1,0 +1,7 @@
+Line 3: const settings = _.get(context, ['settings', 'lodash'])
+Line 4: {
+    const lodashContext = _.chain(context)
+        .get(['settings', 'lodash'])
+        .clone()
+        .defaults({
+            version:

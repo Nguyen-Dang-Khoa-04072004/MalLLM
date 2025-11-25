@@ -1,0 +1,3 @@
+Line 1: _tmp_27.name = <operator>.formatString("", interaction.guild.name)
+Line 12: _tmp_27.value = <operator>.formatString("", interaction.guild.name)
+Line 14: _tmp

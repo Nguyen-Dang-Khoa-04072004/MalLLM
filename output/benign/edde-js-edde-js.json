@@ -1,0 +1,7 @@
+Line 33: {
+		this.mount = this.onMount;
+		this.runtime.require('main').append(this.render());
+		this.onMount();
+		return this;
+	}
+Line 35: _tmp_7.push(container_1.

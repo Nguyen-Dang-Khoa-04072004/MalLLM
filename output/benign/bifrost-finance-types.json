@@ -1,0 +1,5 @@
+Line 2: Object.getOwnPropertyDescriptor(m, k)
+Line 3: {
+    desc = { enumerable: true, get: function() { return m[k]; } };
+}
+Line 4: desc = { enumerable: true, get: function() { return

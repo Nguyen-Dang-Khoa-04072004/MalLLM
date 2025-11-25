@@ -1,0 +1,10 @@
+Line 352: {
+		const expec...
+Line 354: {
+			const expect = require("chai").expect;
+			const {
+				browserName,
+				version,
+				platform,
+				platformName,
+				browserVersion

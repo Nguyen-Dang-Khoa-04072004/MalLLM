@@ -1,0 +1,9 @@
+Line 447: {
+    realm.write(() => {
+        realm.create(schame, data, true);
+    });
+    resolve(realm.objects(schame));
+    }
+Line 448: {
+        realm.write(() => {
+           

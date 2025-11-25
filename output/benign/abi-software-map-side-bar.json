@@ -1,0 +1,9 @@
+Line 124: generateMarkdown(file)
+Line 130: {
+      const {
+        name: displayName,
+        componentDesc: {
+          default: [desc]
+        },
+        props: transformData(props),
+        events: transformData(events

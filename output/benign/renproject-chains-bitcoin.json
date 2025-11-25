@@ -1,0 +1,7 @@
+    const utils_1 = require("@renproject/utils")
+    const Zcash = {
+        label: "Zcash",
+        selector: "Zcash",
+        nativeAsset: {
+            name: "Zcash",
+            symbol: "ZEC

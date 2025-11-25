@@ -1,0 +1,3 @@
+Line 5701: _tmp_571.params = pick_1(config, ['ownerId', 'tilesetId'])
+Line 5704: _tmp_573.tilesetId = validator.required(validator.string)
+Line

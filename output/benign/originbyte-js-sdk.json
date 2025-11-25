@@ -1,0 +1,8 @@
+```
+
+## Code:
+```javascript
+// File: src/client/FullClient.ts
+// ======================================================================
+Line 1: var TransactionEffects = require("@mysten/sui.js").TransactionEffects
+Line 2: var TransactionResult = require

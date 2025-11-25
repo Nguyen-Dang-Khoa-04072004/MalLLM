@@ -1,0 +1,4 @@
+Line 14: _tmp_1.push(":target")
+Line 15: _tmp_1.push(":first-line")
+Line 16: _tmp_1.push(":first-letter")
+Line 17: _tmp_1.push("

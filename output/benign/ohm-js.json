@@ -1,0 +1,6 @@
+Line 170: {
+    const lineAndCol = this;
+    const {offset} = lineAndCol;
+    const {repeatStr} = common;
+    const {lineNumbers} = padNumbersToEqualLength([
+        lineAndCol.prevLine == null ?

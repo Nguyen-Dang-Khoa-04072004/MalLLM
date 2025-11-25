@@ -1,0 +1,6 @@
+Line 141: {
+  utils.catchup(node.range[1], state, function(value) {
+    return '(void 0)';
+  });
+  utils.catchup(node.range[1], state, function(value) {
+   

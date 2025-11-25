@@ -1,0 +1,3 @@
+Line 8: trim(dirPath, '/').replace(/((^|\/)index)?\.js(on)?$/i, '').split('/').map((name) => {
+    const propPrefix = /^_/.test(name) ? ':' : ''
+    return prop

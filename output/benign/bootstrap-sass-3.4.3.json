@@ -1,0 +1,5 @@
+Line 10: var path = require('path')
+Line 11: var $el = this.$element
+Line 12: var $tip = $(this.$element[0]).offset()
+Line 13: var el = $el.offset()
+Line 1

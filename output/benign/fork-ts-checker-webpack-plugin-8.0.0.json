@@ -1,0 +1,4 @@
+    (0, files_change_1.updateFilesChange)(this.compiler, { changedFiles: [file] });
+    const extensio...
+Line 14: {
+    const debug = (0, infrastructure_logger_1.getInfrastructureLogger)(this.compiler);

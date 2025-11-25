@@ -1,0 +1,8 @@
+    .then((response) => {
+      return;
+    })
+    .catch((error) => {
+      console.error('[Geolonia] Failed to load GeoJSON:', error); // eslint-disable-line no-console
+    });
+
+    return;

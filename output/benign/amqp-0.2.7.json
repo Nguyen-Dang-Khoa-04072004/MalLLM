@@ -1,0 +1,5 @@
+# File: package/util/delete-queue.js
+# ======================================================================
+Line 1: amqp = require('../amqp')
+Line 6: var creds =
+  { host:     process.env['AMQP_HOST']      || 'localhost

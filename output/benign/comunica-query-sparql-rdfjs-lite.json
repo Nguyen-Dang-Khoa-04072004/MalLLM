@@ -1,0 +1,4 @@
+Line 4: const actor_init_query_1 = require("@comunica/actor-init-query")
+Line 5: const QueryEngine_1 = require("./QueryEngine")
+Line 6: const QueryEngine_2 = require("./QueryEngine")
+Line 7

@@ -1,0 +1,9 @@
+Line 4: {
+    transitionDelay: values[0],
+    transitionDuration: values[0],
+    transitionProperty: values[0],
+    transitionTimingFunction: values[0]
+};
+
+// File: shorthands/utils.esm.js
+// =================================================================

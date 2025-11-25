@@ -1,0 +1,11 @@
+```
+Your output MUST follow **exactly** this JSON structure:
+
+{
+  "confidence": float,
+  "obfuscated": float,
+  "malware": float,
+  "securityRisk": float
+}
+Rules:
+1. Output ONLY

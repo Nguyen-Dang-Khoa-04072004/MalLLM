@@ -1,0 +1,8 @@
+Line 9424: {
+    const res = run(input, {
+        fileName: 'NES-REPL'
+    });
+    if (res.error) {
+        console.log(res.error.str);
+    }
+    const out = (_a

@@ -1,0 +1,5 @@
+Line 230: {
+    const templateOptions = this.options.getTemplateId();
+    const voucherSelectEl = this.options.getVoucherTemplateId();
+    const template = this.options.getTemplateId();
+    const voucherSelectEl = this

@@ -1,0 +1,9 @@
+Line 10: {
+    var res = this.conv.write(chunk);
+    done();
+    Line 11: {
+        let res = this.conv.end();
+        done();
+    }
+Line 12: {
+        let res = this.

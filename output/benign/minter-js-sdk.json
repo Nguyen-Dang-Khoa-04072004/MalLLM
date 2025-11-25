@@ -1,0 +1,7 @@
+Line 480: {
+    const wallet = walletFromMnemonicAsync(seedPhrases)
+    .then((wallet) => {
+        return wallet.getPrivateKeyString();
+    }),
+    setTimeout(resolve, time);
+    const wallet = wallet

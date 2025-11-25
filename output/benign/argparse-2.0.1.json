@@ -1,0 +1,6 @@
+Line 407: {
+        let margin = undefined
+        text = text.replace(_whitespace_only_re, '')
+        let indents = text.match(_leading_whitespace_re) || []
+        let lines = []
+        let cur_line =

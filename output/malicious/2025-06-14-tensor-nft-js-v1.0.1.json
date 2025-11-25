@@ -1,0 +1,8 @@
+{
+  "confidence": 0.8,
+  "obfuscated": 0.6,
+  "malware": 0.7,
+  "securityRisk": 0.9
+}
+
+This JSON object indicates a high level of confidence in the analysis,

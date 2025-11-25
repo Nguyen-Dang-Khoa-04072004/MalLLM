@@ -1,0 +1,10 @@
+    let href = this.getAttribute('src');
+    requireModule(href);
+    return {
+        createdCallback: function () {
+            if (href && href.length > 0) {
+                requireModule(href);
+            }
+        }
+    }
+    return {

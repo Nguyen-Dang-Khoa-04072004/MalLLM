@@ -1,0 +1,3 @@
+Line 7: const TeamsChannelAccount = require("botframework-core").TeamsChannelAccount
+Line 8: const TeamsInfo = require("botframework-core").TeamsInfo
+Line 10: const TeamsMeetingInfo = require("botframework-core").TeamsMe

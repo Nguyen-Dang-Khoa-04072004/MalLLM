@@ -1,0 +1,8 @@
+
+# File: src/shared/components/entifixTable/entifixTable.js
+# ======================================================================
+Line 1: {
+    'use strict';
+
+    angular.module('entifix-js').controller('EntifixTableController', controller);
+

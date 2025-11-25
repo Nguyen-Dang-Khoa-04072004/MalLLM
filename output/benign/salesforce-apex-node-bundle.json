@@ -1,0 +1,5 @@
+Line 18: logLevel["trace"] = "trace"
+Line 19: logLevel["debug"] = "debug"
+Line 1: logLevel["info"] = "info"
+Line 2: logLevel["warn"] = "warn"
+Line 22: log

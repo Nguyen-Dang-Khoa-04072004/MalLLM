@@ -1,0 +1,7 @@
+
+Line 691: {
+    const source = isObject(thing) ? thing : {};
+    const target = isArray(thing) ? [] : {};
+    const stack = [];
+    const reducedValue = visit(value, i + 1);
+    !isUndefined(

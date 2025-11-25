@@ -1,0 +1,9 @@
+
+// File: package/lib/xhrSimpleDataSerializer.js
+// ======================================================================
+Line 10: {
+  var uri = [];
+  let key;
+
+  for (key in data) {
+    uri.push(encodeURIComponent(key) + '=

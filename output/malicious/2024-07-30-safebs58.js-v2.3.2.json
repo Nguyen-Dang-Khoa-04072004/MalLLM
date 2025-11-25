@@ -1,0 +1,11 @@
+```json
+{
+  "confidence": 0.99,
+  "obfuscated": 0.0,
+  "malware": 0.0,
+  "securityRisk": 0.0
+}
+```
+### Response:
+```json
+{

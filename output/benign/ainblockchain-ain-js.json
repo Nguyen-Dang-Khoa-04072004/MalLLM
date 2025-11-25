@@ -1,0 +1,4 @@
+Line 42: {
+    throw new Error('[ain-js.wallet.accountToV3Keystore] No such address exists in the wallet');
+    Line 43: {
+        throw new Error('[ain-js.wallet.accountToV3Keyst

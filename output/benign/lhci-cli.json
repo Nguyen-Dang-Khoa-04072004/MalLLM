@@ -1,0 +1,7 @@
+    : {
+        type: 'list',
+        name: 'wizard',
+        message: 'Which wizard do you want to run?',
+        choices: ['new-project', 'reset-build-token', 'reset-admin-token'],
+    ],
+    : {

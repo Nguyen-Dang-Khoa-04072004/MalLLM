@@ -1,0 +1,3 @@
+Line 3: var VertexProps = require("@hpcc-js/react").VertexProps
+Line 4: var VertexProps = require("@hpcc-js/react").VertexProps
+Line 5: var VertexProps = require("@hpcc-js/react").Vertex

@@ -1,0 +1,3 @@
+Line 8: const packageJson = await Promise.resolve(`${packageName + '/package.json'}`).then(s => __importStar(require(s)));
+Line 9: if (!('builders' in packageJson)) {
+    throw new Error('Invalid package.json

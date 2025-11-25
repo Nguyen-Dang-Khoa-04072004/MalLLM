@@ -1,0 +1,4 @@
+Line 121: this._eventEmitter.emit('error', error)
+Line 130: this._eventEmitter.emit('message', response)
+Line 133: this._eventEmitter.emit('message', response)
+Line 14

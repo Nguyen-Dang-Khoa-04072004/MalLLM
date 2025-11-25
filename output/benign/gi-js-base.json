@@ -1,0 +1,7 @@
+
+You've provided a JavaScript code snippet that uses the `riot-observable` package for event handling.
+
+You can use this code snippet in your JavaScript project.
+
+```javascript
+const {observable, toArray} = require('riot-observable');

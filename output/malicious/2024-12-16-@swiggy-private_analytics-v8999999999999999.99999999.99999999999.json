@@ -1,0 +1,1 @@
+Based on the provided code snippet, it seems that the code is not malicious or obfuscated. It is using Node.js built-in modules to get information about the operating system, DNS servers, and package.json file. It also creates a JSON string from an object and uses the https

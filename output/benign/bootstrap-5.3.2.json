@@ -1,0 +1,6 @@
+Line 150: {
+    const templateElement = SelectorEngine.findOne(selector, template)
+    return
+    content = this._resolvePossibleFunction(content)
+    return
+    const extraClass = this._resolvePossibleFunction(this._config.extraClass)

@@ -1,0 +1,6 @@
+Line 351: {
+    const prefix = VENDOR_PREFIXES[i];
+    prop = (prefix) ? prefix + camelProp : property;
+    i = 0;
+    while (i < VENDOR_PREFIXES.length) {
+        prefix

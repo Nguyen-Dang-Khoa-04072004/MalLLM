@@ -1,0 +1,6 @@
+
+// File: package/src/authority/Authority.ts
+// ======================================================================
+Line 6: var Constants = require("./Constants").Constants
+Line 7: var ClientAuthError = require("../error/ClientAuthError").ClientAuthError
+Line 8: var

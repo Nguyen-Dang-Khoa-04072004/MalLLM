@@ -1,0 +1,5 @@
+Your output MUST follow **exactly** this JSON structure:
+
+{
+  "confidence": float,               // overall confidence in your assessment (0.00–1.00)
+  "obfuscated": float,               // how likely the code is intentionally obfusc

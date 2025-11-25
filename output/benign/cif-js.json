@@ -1,0 +1,6 @@
+Line 14: _tmp_2.resBigInt = res.toString()
+Li# Code Review for CanCommunity.js
+
+## Code Review
+
+The code is well-structured and follows good practices. It's a good example of how to use EOSIO smart

@@ -1,0 +1,11 @@
+Line 30: {
+  const result: number[] = [];
+
+  for (let i = start; i <= end; i++) {
+    result.push(i);
+  }
+
+  return result;
+}
+Line 31: {
+  const result:

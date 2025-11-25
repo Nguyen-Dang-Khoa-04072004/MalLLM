@@ -1,0 +1,7 @@
+Line 1783: {
+        const el = this[i];
+        let animateInstance = a.elements[i].dom7AnimateInstance;
+
+        if (!animateInstance) {
+            a.elements[i].dom7AnimateInstance = a;
+       

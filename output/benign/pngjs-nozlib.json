@@ -1,0 +1,9 @@
+
+Line 3: {
+
+  this._buffer = buffer;
+  this._reads = [];
+}
+Line 6: this._reads = []
+Line 11: this._reads.push({
+    length: Math.abs(length),  // if length < 

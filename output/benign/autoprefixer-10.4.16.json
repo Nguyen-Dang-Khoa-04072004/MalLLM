@@ -1,0 +1,6 @@
+
+You are required to implement a function that will take in a CSS string and return a CSS string with Autoprefixer applied to it.
+
+You should use Autoprefixer to add vendor prefixes to CSS properties.
+
+You should use Autoprefixer to remove vendor prefixes from CSS properties

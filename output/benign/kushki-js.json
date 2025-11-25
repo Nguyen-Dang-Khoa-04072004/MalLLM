@@ -1,0 +1,2 @@
+Line 42: _tmp_10.push(inversify_1.injectable())
+Line 43: _tmp_10.push(__param(0, inversify_1.inject(Identifiers_1.IDENTIFIERS.KushkiGate

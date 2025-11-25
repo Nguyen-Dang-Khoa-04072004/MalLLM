@@ -1,0 +1,11 @@
+```
+```
+
+## Code: gulpfile.js
+
+```javascript
+// File: gulpfile.js
+// ======================================================================
+Line 3: const fs = require('fs')
+Line 4: const gulp = require('gulp')
+Line 5: const

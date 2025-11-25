@@ -1,0 +1,2 @@
+Line 14: _tmp_3.reporter = ['text', 'html', 'clover', 'json', 'cobertura']
+Line 16: _tmp_5.reporter = ['text', 'html', 'clover', 'json', 'cobertura']

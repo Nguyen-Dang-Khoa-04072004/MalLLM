@@ -1,0 +1,9 @@
+Line 10251: {
+    var term = process.env.TERM
+    if (term)
+      return term
+  }
+Line 10252: {
+    var term = process.env.TERM
+    if (term)
+      return term

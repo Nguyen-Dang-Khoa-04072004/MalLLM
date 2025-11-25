@@ -1,0 +1,4 @@
+Line 120: str.includes('>', tagStart + 2)
+Line 121: str.includes('>', tagStart + 2)
+Line 122: str.includes('>', tagStart + 2)
+Line 123: str.includes('

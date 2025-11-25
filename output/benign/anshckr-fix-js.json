@@ -1,0 +1,9 @@
+Line 84: {
+      const stmt = body[i];
+      let record;
+      switch (stmt.type) {
+        // var foo = ...
+        case 'VariableDeclaration':
+          scanVariableDeclaration(stmt);
+          break;
+        // function foo() { ...

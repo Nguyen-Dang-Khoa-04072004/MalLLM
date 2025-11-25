@@ -1,0 +1,7 @@
+    const len = outArray.length
+    const paddingCount = outArray[len - 1]
+    for (let i = 1; i <= paddingCount; i++) {
+        outArray.push(paddingCount)
+    }
+    const output = []
+    const x =

@@ -1,0 +1,6 @@
+        Clipper(i, j=0)
+        Clipper(i=0)
+        Clipper(i=0)
+        Clipper(i=0)
+        Clipper.add(i=0)
+        Clipper.add(i=0

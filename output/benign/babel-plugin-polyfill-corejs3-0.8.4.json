@@ -1,0 +1,10 @@
+Line 40: {
+    const {
+        object
+    } = path.node;
+    const {
+        context1
+    } = path.scope.generateDeclaredUidIdentifier("context");
+    const {
+        context2
+    } = path.scope.generateDecl

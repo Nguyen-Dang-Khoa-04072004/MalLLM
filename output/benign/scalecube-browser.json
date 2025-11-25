@@ -1,0 +1,11 @@
+Line 6342: {
+          setTimeout(function () {
+            checkRegistry();
+          }, period);
+        }
+Line 6343: {
+          setTimeout(function () {
+            checkRegistry();
+          }, period)
+        }
+Line 63

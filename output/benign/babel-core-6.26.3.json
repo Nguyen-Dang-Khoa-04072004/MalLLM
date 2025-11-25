@@ -1,0 +1,5 @@
+Line 4: {
+    const filename = filename.replace(/\\/g, "/");
+    const only = arguments[2];
+    const ignore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+    const pattern = filename.replace(/\\

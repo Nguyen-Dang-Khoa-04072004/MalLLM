@@ -1,0 +1,3 @@
+Line 17: var CateEnum = require("./cate-enum").CateEnum
+Line 18: var CateEnum = require("./cate-enum").CateEnum
+Line 19: var CateEnum = require("./cate-enum").Cate

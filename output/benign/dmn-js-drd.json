@@ -1,0 +1,7 @@
+Line 2: export default {
+  __depends__: [DrdImporter],
+  __init__: ['drdImporter'],
+  drdImporter: ['type', DrdImporter]
+};
+Line 3: {
+  const DrdImporter = require

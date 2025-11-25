@@ -1,0 +1,8 @@
+```
+```
+Line 3: var prime = require('prime')
+Line 4: var FSModule = require('./FSModule')
+Line 5: var arr = {
+	'forEach': require('prime/array/forEach')
+}
+Line 6: _tmp_0.

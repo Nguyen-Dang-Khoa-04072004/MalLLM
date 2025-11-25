@@ -1,0 +1,6 @@
+Line 269: {
+        // 校验经纬度和半径
+        const longitude = param[0][0]
+        const latitude = param[0][1]
+        Validate.isGeopoint('longitude', longitude)
+        Validate

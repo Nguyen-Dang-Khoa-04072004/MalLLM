@@ -1,0 +1,3 @@
+Line 228: navigator.getBattery().then((battery) => _readPowerState(battery))
+Line 241: navigator.getBattery().then((battery) => _readPowerState(battery))
+Line 254: navigator

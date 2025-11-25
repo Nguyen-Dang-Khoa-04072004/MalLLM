@@ -1,0 +1,9 @@
+Line 220: {
+    const fns = obj[key];
+    if (typeof fns === "function") {
+      fns.call(state, path, state);
+    }
+    return fns;
+  }
+Line 222: {
+   

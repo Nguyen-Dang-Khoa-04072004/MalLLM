@@ -1,0 +1,8 @@
+Line 19: var values = _slicedToArray(values, 1),
+        index = 0;
+        return {
+          done: true,
+          value: values
+        };
+      }
+Line 20: var values = _slicedToArray(values

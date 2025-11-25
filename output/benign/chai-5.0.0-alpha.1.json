@@ -1,0 +1,4 @@
+// ======================================================================
+Line 1: var shouldGetter = require("./index.js").shouldGetter
+Line 2: var shouldSetter = require("./index.js").shouldSetter
+Line 3: var shouldWrapper = require("./index.js").shouldWrapper

@@ -1,0 +1,5 @@
+// ======================================================================
+Line 1: {
+  var rejection = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return function () {
+    var resolution = arguments.length > 0 && arguments[0] !== undefined ? arguments[

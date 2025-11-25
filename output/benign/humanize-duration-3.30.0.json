@@ -1,0 +1,9 @@
+Line 1890: {
+    var language = getLanguage(options);
+    if (!pieces.length) {
+      return renderPiece(
+        { unitName: smallestUnitName, unitCount: 0 },
+        language,
+        options
+      );
+    }

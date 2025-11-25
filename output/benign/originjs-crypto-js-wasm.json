@@ -1,0 +1,6 @@
+Line 7482: {
+    const cipherParams = cipherParams; // Shortcuts
+    const ciphertext = cipherParams.ciphertext;
+    const iv = cipherParams.iv;
+    const key = cipherParams.key;
+    const keySize

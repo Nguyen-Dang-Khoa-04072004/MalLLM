@@ -1,0 +1,6 @@
+Line 2310: {
+    const obj = Symbol.iterator;
+    const prop = Symbol.prototype.toString;
+    const inputString = Symbol.iterator;
+    const outputString = Symbol.prototype.toString;
+    const symbolValueOf = Symbol.prototype.valueOf;

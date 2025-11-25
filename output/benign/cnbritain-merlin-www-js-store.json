@@ -1,0 +1,7 @@
+{
+  "confidence": 0.9,
+  "obfuscated": 0.1,
+  "malware": 0.1,
+  "securityRisk": 0.2
+}
+This code snippet appears to be a JavaScript object that acts as

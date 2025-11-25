@@ -1,0 +1,7 @@
+Line 81: {
+      var cmds = [],
+          control = getPlanItemControl(bo, controlRef),
+          rule = getRule(bo, controlRef, ruleRef);
+
+      if (rule) {
+        cmds.push(cmdHelper.updateProperties(rule

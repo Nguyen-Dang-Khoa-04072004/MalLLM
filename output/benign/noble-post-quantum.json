@@ -1,0 +1,8 @@
+    const r = [];
+    const res = [];
+    const ctx = [];
+    const r.push(ctx.length);
+    const res.push(ctx.length);
+    const ctx = [];
+    const r.push(ctx.length);
+    const res.push(ctx

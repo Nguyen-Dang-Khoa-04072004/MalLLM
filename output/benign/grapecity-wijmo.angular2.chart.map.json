@@ -1,0 +1,12 @@
+```
+{
+  "confidence": 0.9,
+  "obfuscated": 0.8,
+  "malware": 0.7,
+  "securityRisk": 0.6
+}
+```
+### Response:
+```
+{
+  "

@@ -1,0 +1,5 @@
+Line 1154: {
+    const listMap = $$2(target, "target");
+    const list = listMap[String(type)];
+    if (list && list.attrListener) {
+        removeListener(list, list.attrListener.callback, false);

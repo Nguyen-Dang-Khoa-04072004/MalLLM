@@ -1,0 +1,6 @@
+Line 7244: _tmp_998.push({
+            type: Injectable,
+            args: [{ providedIn: 'root' }]
+        })
+Line 7245: _tmp_999.push({
+            type: Inject

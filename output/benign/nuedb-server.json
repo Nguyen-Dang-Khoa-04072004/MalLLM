@@ -1,0 +1,10 @@
+
+Line 10: {
+    let result = [];
+    let startIndex = 0;
+
+    for (let i = 0; i < str.length; i++) {
+        result.push(str.substring(startIndex, i));
+    }
+
+    return

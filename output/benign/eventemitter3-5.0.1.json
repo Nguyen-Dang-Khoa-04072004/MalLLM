@@ -1,0 +1,7 @@
+{
+  "confidence": 0.8,
+  "obfuscated": 0.1,
+  "malware": 0.0,
+  "securityRisk": 0.05
+}
+This code appears to be a simple implementation of an EventEmit

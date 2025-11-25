@@ -1,0 +1,4 @@
+Line 1: var resolveKeyword = require("css-tree").keyword
+Line 2: var generate = require("css-tree").generate
+Line 3: var compress = require("./compress.js")
+Line 4: var specificity = require("./restructure/prepare/

@@ -1,0 +1,7 @@
+Line 74: {
+  const utility = require("@bootstrap-styled/utils/lib/utility");
+  const {
+    class: className,
+    properties: [property, ...properties],
+    infix: [infix, ...infix],
+  } =

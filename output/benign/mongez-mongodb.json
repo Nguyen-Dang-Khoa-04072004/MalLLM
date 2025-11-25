@@ -1,0 +1,6 @@
+
+// File: esm/aggregate/Aggregate.js
+// ======================================================================
+Line 1: var aggregate = require("../aggregate.js").aggregate
+Line 2: var database = require("../database.js").database
+Line 3: var @

@@ -1,0 +1,6 @@
+
+// File: vitest.config.mjs
+// ======================================================================
+Line 1: var resolve = require("node:path").resolve
+Line 2: var defineConfig = require("vitest/config").defineConfig
+Line 3: var name = require("./package.

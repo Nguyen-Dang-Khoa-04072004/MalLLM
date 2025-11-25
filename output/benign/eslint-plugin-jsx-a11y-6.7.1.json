@@ -1,0 +1,5 @@
+
+// File: package/lib/rules/accessible-alt-text.js
+// ======================================================================
+Line 3: var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault")
+Line 8: var _jsxAstUtils =

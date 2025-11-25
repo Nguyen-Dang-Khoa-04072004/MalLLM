@@ -1,0 +1,6 @@
+
+// File: src/utils/uuid.js
+// ======================================================================
+Line 1: const crypto = require('node:crypto')
+Line 2: const uuid = crypto.randomUUID()
+Line 3: const bytes = new Uint8Array(16

@@ -1,0 +1,6 @@
+Line 10: {
+    const [id] = ids;
+    const { [id]: deletedEntity, ...rest } = state.entities;
+    stateEntities = rest;
+    updatedIds = state.ids.map((current) => current[idKey]);
+   

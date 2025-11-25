@@ -1,0 +1,5 @@
+
+# 4896: new this(x).asin()
+# 4908: finalise(x = new this(x), x.e + 1, 3)
+# 4920: new this(x).atan()
+# 49

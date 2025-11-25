@@ -1,0 +1,6 @@
+Line 47: {
+		lastVertex = vertices[vertices.length - 1];
+		let toProcess = [...points.filter((p) => !p.eq(lastVertex))];
+		let furthes...
+
+	Line 49: {

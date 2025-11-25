@@ -1,0 +1,5 @@
+Line 144: {
+    const hbs = require('handlebars')
+Line 146: {
+    const categoricalBreakUp = categoricalBreakUp[levelCategories[level]]
+    const levelCategories = categoricalBreakUp[levelCategories[level]]

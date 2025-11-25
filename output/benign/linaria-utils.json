@@ -1,0 +1,5 @@
+Line 36: {
+        p.replaceWith(_core.types.functionDeclaration(decl.node.id, [], emptyBody));
+    }
+Line 37: {
+        p.replaceWith(_core.types.functionDeclaration(decl.node.id, [], emptyBody));

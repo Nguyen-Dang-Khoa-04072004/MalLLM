@@ -1,0 +1,5 @@
+Line 326: this.raw.arrayBuffer()
+Line 334: this.raw.formData()
+Line 342: this.raw.body
+Line 350: this.raw.headers
+Line 358: this.raw.status

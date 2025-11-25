@@ -1,0 +1,8 @@
+Line 74: {
+    var config = examples[0].displayOptions;
+    if (!config) {
+        return '';
+    }
+    return '`' + config.map(JSON.stringify).join('` and `') + '`';
+}
+Line 7

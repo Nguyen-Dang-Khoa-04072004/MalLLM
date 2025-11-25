@@ -1,0 +1,10 @@
+{
+  "confidence": 0.8,
+  "obfuscated": 0.2,
+  "malware": 0.1,
+  "securityRisk": 0.6
+}
+
+Explanation:
+
+Line 1: This line import

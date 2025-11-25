@@ -1,0 +1,8 @@
+```
+
+```python
+# File: package/benchmark/bench-thread.js
+# ======================================================================
+Line 3: _tmp_0 = require('worker_threads')
+Line 5: const Benchmark = require('benchmark')
+Line 16: const

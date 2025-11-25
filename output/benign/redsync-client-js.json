@@ -1,0 +1,4 @@
+Line 10: {
+    RediSyncLoggerLevel[RediSyncLoggerLevel["debug"] = 0] = "debug";
+    RediSyncLoggerLevel[RediSyncLoggerLevel["info"] = 1] = "info";
+    RediSyncLoggerLevel[RediSyncLogger

@@ -1,0 +1,7 @@
+Line 1: {
+      block = matchBlock(all, block, qs)
+      return qs
+    }
+Line 11: {
+      node = matchQuery(all, parsed.match(AND_REGEXP)[1])
+      node.compose = 'and

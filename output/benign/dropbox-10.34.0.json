@@ -1,0 +1,3 @@
+Line 1: {
+    const domain = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_API_DOMAIN;
+    const domainDelimiter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '

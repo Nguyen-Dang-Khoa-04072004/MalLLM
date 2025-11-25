@@ -1,0 +1,4 @@
+Line 65: {
+    const values = opts[i].substr(0, 1) === '-'
+    const lambda = opts[i].substr(0, 1) === '--'
+    const out = opts[i].substr(0, 1

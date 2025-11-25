@@ -1,0 +1,3 @@
+Line 3: _tmp_0.SANDBOX = "https://sandbox-api.iyzipay.com"
+Line 4: _tmp_0.PRODUCTION = "https://api.iyzipay.com"
+Line 5: _tmp_1

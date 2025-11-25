@@ -1,0 +1,3 @@
+Line 270: chalk.blue(resourceName)
+Line 272: chalk.grey(`Skipping import of ${resourceName}`)
+Line 274: _tmp_27.push(promptPattern.replace(/%/, chalk

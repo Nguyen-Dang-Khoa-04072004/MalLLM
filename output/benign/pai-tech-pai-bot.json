@@ -1,0 +1,4 @@
+Line 80: {
+    const pai_code = fs.readFileSync(queueFolder + files[0], 'utf8');
+    console.log('not pai-code to run');
+    fs.writeFileSync(`${queueFolder}in.pai`

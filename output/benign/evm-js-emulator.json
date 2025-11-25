@@ -1,0 +1,9 @@
+Line 242: {
+    const promise = Promise.resolve(value);
+    const res = await promise;
+    return res;
+};
+Line 244: {
+    const promise = Promise.resolve(value);
+    const res = await promise;
+    return res

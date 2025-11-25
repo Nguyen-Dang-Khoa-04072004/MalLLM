@@ -1,0 +1,7 @@
+    this.createNativeFunction(this.getScope(), state.value);
+    stack.push({node: node['body'], scope: scope});
+    return;
+}
+Line 3992: {
+    state.doneBody_ = true;
+    stack.push({node

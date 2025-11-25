@@ -1,0 +1,5 @@
+Line 10: {
+    const chalk = require('chalk')
+Line 12: const emoji = require('../out/emoji')
+Line 14: const fs = require('fs')
+Line 16: const globalModulesPath = require('

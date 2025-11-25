@@ -1,0 +1,5 @@
+Line 141: {
+  triggerKey(getFlagsContainerElement()[0], 'keypress', key);
+Line 142: triggerKey(getFlagsContainerElement()[0], 'keyup', key);
+Line 143: {
+  triggerKey(get

@@ -1,0 +1,2 @@
+Line 1: __extends(WjFlexChartTrendLine,e);function WjFlexChartTrendLine(t,r,i){var a=e.call(this)||this;a.isInitialized=
+Line 2: _tmp_12.

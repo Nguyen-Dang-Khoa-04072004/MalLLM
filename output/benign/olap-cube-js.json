@@ -1,0 +1,5 @@
+Line 10: {
+				T = arguments[2];
+				A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
+Line 11: {
+				kValue =

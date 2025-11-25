@@ -1,0 +1,9 @@
+
+Line 299: {
+      this.methods = [];
+      this.constraints = [];
+      this.variableUIDCounter = 1;
+      this.methodUIDCounter = 1;
+    }
+Line 300: this.variables = []
+Line 30

@@ -1,0 +1,10 @@
+Line 12: {
+    const result = [];
+    array.forEach((arr) => {
+        arr.forEach((item) => {
+            result.push(item);
+    });
+    return result;
+};
+Line 14: const result = []
+Line 1

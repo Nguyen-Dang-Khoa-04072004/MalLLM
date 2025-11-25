@@ -1,0 +1,4 @@
+    const logContainer = $(`<ul id="log2screen">`).first();
+    return content => {
+        if (content?.isJQx) {
+            return $.li(content.data.get(`header`) ? {class: `head`} :

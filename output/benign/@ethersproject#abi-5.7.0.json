@@ -1,0 +1,7 @@
+Line 686: {
+            const value = result[index];
+
+            if (value instanceof Error) {
+                Object.defineProperty(result, index, {
+                    enumerable: true,
+                    get: () => { throw wrapAccessError(`index ${ index }`

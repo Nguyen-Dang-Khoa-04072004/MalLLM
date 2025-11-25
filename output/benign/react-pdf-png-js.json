@@ -1,0 +1,4 @@
+Line 1: const fs = require("fs")
+Line 2: const zlib = require("zlib")
+Line 4: PNG = lib/png-js.js::program:PNG:<init>
+Line 7: fs.readFile(path, (err,

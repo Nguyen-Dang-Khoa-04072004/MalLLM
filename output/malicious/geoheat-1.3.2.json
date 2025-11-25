@@ -1,0 +1,8 @@
+Line 18: {
+    const value = amender[key];
+    const chopedKeys = chop(key);
+    return chopedKeys.reduce((prev, chopedKey) => {
+        retur
+    }, ace);
+    return prev;
+    const result

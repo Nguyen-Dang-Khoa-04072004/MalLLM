@@ -1,0 +1,8 @@
+Line 290: {
+    this.logger('info', 'ErmisAuth - Connected', {
+      tags: ['ErmisAuth'],
+    });
+    this.disconnected = false;
+    this.address = address;
+  }
+Line 291

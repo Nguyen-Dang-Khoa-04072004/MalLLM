@@ -1,0 +1,5 @@
+Line 31: {
+            const serialOptions = serialOptions || {};
+            const baud = serialOptions.baudRate || this.DEFAULT_BAUD_RATE;
+            const bufferSize = serialOptions.bufferSize || this.DEFAULT_BUFFER_SIZE;
+            const flow

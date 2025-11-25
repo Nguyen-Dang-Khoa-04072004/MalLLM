@@ -1,0 +1,4 @@
+Line 145: {
+    const map3Keys = (term3 !== undefined ?
+        (quotedTerm3 ? this.getQueriedPatternKeys(map3, term3) : (id3 in map3 ? [id3] : [])) :
+        Obje

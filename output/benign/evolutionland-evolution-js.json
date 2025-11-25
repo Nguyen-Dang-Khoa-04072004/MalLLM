@@ -1,0 +1,2 @@
+Line 24: new BigNumber(value, 10).times(units[from]).div(units[to]).toString(10)
+Line 25: new BigNumber(value, 10).times(units[from]).div(units

@@ -1,0 +1,9 @@
+```
+
+## Code: package/all.js
+
+```javascript
+// File: package/all.js
+// ======================================================================
+Line 7: var _createTester = require('./internal/createTester.js')
+Line 11: var _eachOf = require

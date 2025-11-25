@@ -1,0 +1,4 @@
+Line 177: {
+        const type = (chartConf && chartConf['type']) || 'bar';
+        this.coreChartThemeService.setColorschemesOptions(this.themeColorsOverrides(type));
+        const configs = configurations.length ? configurations :

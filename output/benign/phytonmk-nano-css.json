@@ -1,0 +1,3 @@
+Line 3: var addonCache = require('../addon/cache').addon
+Line 4: var addonStable = require('../addon/stable').addon
+Line 5: var addonNesting = require('../addon/nesting').addon

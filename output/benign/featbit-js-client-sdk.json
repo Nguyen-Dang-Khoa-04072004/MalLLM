@@ -1,0 +1,8 @@
+Line 4: {
+    const timer = setTimeout(resolve, delayMillis);
+
+// File: src/utils/index.ts
+// ======================================================================
+Line 1: {
+    const patternString = match[1]; // Update the pattern string
+    flags = match[

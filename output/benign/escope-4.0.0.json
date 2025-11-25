@@ -1,0 +1,10 @@
+Line 10: {
+  _classCallCheck(this, Variable);
+
+  /**
+   * The variable name, as given in the source code.
+   * @member {String} Variable#name
+   */
+  this.name = name;
+  /**
+  

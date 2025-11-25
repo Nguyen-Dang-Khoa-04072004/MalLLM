@@ -1,0 +1,9 @@
+
+// File: spec/spec-helper.js
+// ======================================================================
+Line 1: (function() {
+
+}).call(this)
+Line 2: {
+    const ContentEdit = require('contenteditable');
+    const ContentTools = ContentEdit.ContentTools;

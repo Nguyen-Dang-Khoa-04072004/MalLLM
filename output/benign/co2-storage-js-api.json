@@ -1,0 +1,9 @@
+Line 3397: {
+		const that = this
+		try {
+			await this.ensureIpfsIsRunning()
+		}
+		catch(error) {
+			return new Promise((resolve, reject) => {
+				reject({
+				

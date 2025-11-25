@@ -1,0 +1,4 @@
+Line 3: var Buffer = require("node:buffer").Buffer;
+Line 4: var TextDecoder = require("node:util").TextDecoder;
+Line 5: var TextEncoder = require("node:util").TextEncoder;
+Line 6: var wasi

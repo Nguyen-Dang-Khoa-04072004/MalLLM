@@ -1,0 +1,6 @@
+Line 2670: {
+    const result = [],
+    type = stmt.type || Syntax.Program,
+    expr = stmt,
+    expr.type = stmt.type || Syntax.Program,
+    expr.kind = stmt.kind || '

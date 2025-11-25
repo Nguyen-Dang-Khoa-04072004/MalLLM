@@ -1,0 +1,5 @@
+Line 80: {
+            let b = L.stack[ra].value;
+            let z = L.stack[ra + 1].value;
+            let b_offset = L.stack[ra + 2].value;
+            let z_offset = L.stack[ra + 

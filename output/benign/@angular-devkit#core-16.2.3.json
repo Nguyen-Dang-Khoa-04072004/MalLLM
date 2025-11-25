@@ -1,0 +1,9 @@
+Line 120: {
+    const metadata = workspace[metadata_1.JsonWorkspaceSymbol];
+    if (metadata) {
+        if (!metadata.hasChanges) {
+            return;
+        }
+    }
+    else {
+        // update existing JSON workspace

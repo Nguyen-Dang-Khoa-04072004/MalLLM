@@ -1,0 +1,11 @@
+Line 550: {
+    const transport = {
+        api: {
+            send: (message) => {
+                const { type, data } = message;
+            }
+        }
+    };
+    const message = {
+        type: 'open',
+        data:

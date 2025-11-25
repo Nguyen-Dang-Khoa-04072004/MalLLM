@@ -1,0 +1,9 @@
+Line 171: {
+    const buffer = fs.readFileSync(filename, mode)
+    return buffer
+  }
+Line 172: {
+    const buffer = fs.readFileSync(filename, mode)
+    return buffer
+  }
+Line 17

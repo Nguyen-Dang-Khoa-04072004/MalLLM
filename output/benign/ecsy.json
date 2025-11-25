@@ -1,0 +1,4 @@
+Line 22: var _Utils.js = require("./Utils.js")
+Line 23: var _EntityManager.js = require("./EntityManager.js")
+Line 24: var _ComponentManager.js = require("./ComponentManager.js")
+Line 2

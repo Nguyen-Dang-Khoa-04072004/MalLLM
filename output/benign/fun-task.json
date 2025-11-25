@@ -1,0 +1,6 @@
+Line 1383: {
+    const mapping = {
+        equals: 'fantasy-land/equals',
+        concat: 'fantasy-land/concat',
+        empty: 'fantasy-land/empty',
+        map: 'fantasy-land

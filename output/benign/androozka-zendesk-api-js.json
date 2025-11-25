@@ -1,0 +1,5 @@
+Line 1: const Joi = require('@hapi/joi')
+Line 2: const path = require('path')
+Line 4: ['index.js'].includes(i)
+Line 7: ['index.js'].includes(i)
+Line 10: ['

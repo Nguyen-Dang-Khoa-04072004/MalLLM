@@ -1,0 +1,11 @@
+
+```javascript
+// File: lib/number_helpers.js
+// ======================================================================
+Line 2: (function() {
+  var NumberHelpers;
+
+  NumberHelpers = (function() {
+    function NumberHelpers() {}
+
+    NumberHelpers.number

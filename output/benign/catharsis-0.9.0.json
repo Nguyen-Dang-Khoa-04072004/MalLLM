@@ -1,0 +1,10 @@
+Line 10: {
+    const result = [];
+    const strings = [];
+
+    const Types = require('./types')
+    .parseTypeExpression();
+    const strings = [];
+    const Types = require('./types')
+    .parseTypeExpression();
+    const

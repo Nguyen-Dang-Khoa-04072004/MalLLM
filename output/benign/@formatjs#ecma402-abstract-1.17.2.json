@@ -1,0 +1,4 @@
+Line 1: var _a = require("tslib")._a
+Line 2: var _b = require("tslib")._b
+Line 3: var _c = require("tslib")._c
+Line 4: var _d = require("tslib")._d

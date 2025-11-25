@@ -1,0 +1,10 @@
+    const data = {};
+
+    if (status > 300 && code === 'success') {
+        throw new Error('Wrong response code');
+    }
+
+    data.code = code;
+    if (message) {
+        data.message = message;
+    }

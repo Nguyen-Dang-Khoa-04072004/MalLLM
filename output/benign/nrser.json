@@ -1,0 +1,8 @@
+Line 6: {
+    const args = [i];
+    const expected = mapping[i + 1];
+
+    it(formatter(args, expected, funcName), () => {
+        tester({ actual: func(...args), expected, testMethod });
+    });
+

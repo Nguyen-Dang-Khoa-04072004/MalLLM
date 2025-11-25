@@ -1,0 +1,8 @@
+
+Line 4: const http = require('http')
+Line 6: const autocannon = require('../autocannon')
+Line 10: {
+  res.end('hello world')
+}
+Line 11: res.end('hello world')
+Line 1

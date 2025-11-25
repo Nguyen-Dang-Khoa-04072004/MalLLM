@@ -1,0 +1,7 @@
+Line 101: # PlayFab SDK for JavaScript
+
+The PlayFab SDK for JavaScript provides a set of APIs to interact with the PlayFab backend services.
+
+## Installation
+
+To install the PlayFab SDK for JavaScript, you can use

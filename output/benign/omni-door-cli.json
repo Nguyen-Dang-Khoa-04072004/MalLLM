@@ -1,0 +1,5 @@
+Line 10: var handlers = {};
+Line 11: var utils_1 = require("@omni-door/utils")
+Line 13: var plugin = plugins[i];
+Line 14: var handlers = {};
+Line 15: var util

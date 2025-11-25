@@ -1,0 +1,9 @@
+```json
+{
+  "confidence": 0.9,
+  "obfuscated": 0.3,
+  "malware": 0.5,
+  "securityRisk": 0.7
+}
+```
+This JSON object represents the analysis of the provided

@@ -1,0 +1,4 @@
+Line 1: var MapService = require("../map/map.service").MapService
+Line 2: var i0 = require("@angular/core")
+Line 3: var _tmp_3 = require("./index")### Response:
+Line 4: var MapService = require

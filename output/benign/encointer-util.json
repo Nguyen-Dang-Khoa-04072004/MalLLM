@@ -1,0 +1,4 @@
+Line 1: var BN = require("bn.js")
+Line 3: var safeIntegerToRadix2 = require("./common.js").safeIntegerToRadix2
+Line 23: {
+    const [upperBits, lowerBits] = num.toString(

@@ -1,0 +1,10 @@
+Line 47: {
+  this.global[name] = value;
+  }
+Line 48: {
+  this.global[name] = value;
+  }
+Line 50: {
+  this.global[name] = value;
+  }
+Line

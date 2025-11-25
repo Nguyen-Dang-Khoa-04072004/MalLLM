@@ -1,0 +1,4 @@
+
+Line 100: objectHelper.blacklist(options, ['email', 'onRedirecting'])
+Line 102: objectHelper.blacklist(options, ['email', 'onRedirecting'])
+Line 104: objectHelper.blacklist(options, ['

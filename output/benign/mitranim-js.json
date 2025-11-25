@@ -1,0 +1,4 @@
+Line 512: val.includes(`%23`)
+Line 518: val.includes(`%26`)
+Line 524: val.includes(`%2B`)
+Line 530: val.includes(`%2

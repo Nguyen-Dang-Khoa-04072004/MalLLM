@@ -1,0 +1,9 @@
+Line 10: {
+    const moduleReady = new Promise((resolve, reject) => {
+        const onModuleReady = () => {
+            const event = {
+                id: 'onload',
+                data: {
+                    drivers: {
+                        gdal: {
+                            G

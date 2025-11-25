@@ -1,0 +1,4 @@
+Line 3: var ClassTransformer = require("./ClassTransformer").ClassTransformer
+Line 4: var _ClassTransformer = require("./ClassTransformer")
+Line 5: var _decorators = require("./decorators")
+Line 6: var _interfaces = require

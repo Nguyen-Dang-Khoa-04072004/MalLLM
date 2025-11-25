@@ -1,0 +1,5 @@
+Line 234: {
+    if (_i3 >= _iterator3.length) break;
+    _ref3 = _iterator3[_i3++];
+
+    if (t.isIdentifier(specifier.imported || specifier.exported, { name: "default

@@ -11,4 +11,4 @@ venv_llm/
 .DS_Store
 Thumbs.db
 data
-output
+# output

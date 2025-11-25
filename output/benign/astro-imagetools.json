@@ -1,0 +1,5 @@
+Line 10: const configFunction = configFile
+  ? await import(configFile).catch(async () => await import("/" + configFile))
+  : null
+Line 12: _tmp_5.push("astro-imagetools.config.js")
+Line 

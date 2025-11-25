@@ -1,0 +1,4 @@
+Line 38: _tmp_1.dependencies = ['@doodad-js/templates']
+Line 55: pagesWidgets.REGISTER(doodad.BASE(templatesHtml.PageTemplate.$extend(
+				{
+					$TYPE_NAME:

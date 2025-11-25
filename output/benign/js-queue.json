@@ -1,0 +1,7 @@
+{
+  "confidence": 0.8,
+  "obfuscated": 0.1,
+  "malware": 0.0,
+  "securityRisk": 0.0
+}
+This code appears to be a simple implementation of a queue data structure in

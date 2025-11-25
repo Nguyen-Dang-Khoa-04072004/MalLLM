@@ -1,0 +1,7 @@
+Line 814: {
+		imageData = image.data;
+		width = image.width;
+		height = image.height;
+		r = image.data[0];
+		g = image.data[1];
+		b = image.

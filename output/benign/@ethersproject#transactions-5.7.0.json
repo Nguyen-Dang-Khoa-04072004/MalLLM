@@ -1,0 +1,7 @@
+Line 497: {
+    const transaction = RLP.decode(payload.slice(1))
+    Line 498: {
+        nonce: handleNumber(transaction[0]).toNumber()
+    };
+    Line 499: {
+        non

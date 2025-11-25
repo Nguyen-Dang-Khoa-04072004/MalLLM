@@ -1,0 +1,9 @@
+Line 90: {
+    const worker = new Worker(workerPath, {
+        workerData: { workerPort, debug },
+        transferList: [workerPort],
+        execArgv: [],
+    });
+    const {
+        properties,
+        _ecma: {

@@ -1,0 +1,6 @@
+Line 64: fromEntry.commitMetadata().then(() => {
+    toEntry.setRefreshNeeded();
+    return toEntry.refresh();
+  });
+Line 66: es.getContextId(subj)
+Line 68: es.getEntry(

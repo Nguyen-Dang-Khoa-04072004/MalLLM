@@ -1,0 +1,10 @@
+Line 78: {
+        setTimeout(resolve, timeout);
+    }
+Line 79: {
+        setTimeout(resolve, timeout);
+    }
+Line 80: {
+        setTimeout(resolve, timeout);
+    }
+Line 81: {

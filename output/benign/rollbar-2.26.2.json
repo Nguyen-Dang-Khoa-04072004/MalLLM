@@ -1,0 +1,7 @@
+    Line 49: {
+        k = keys[i];
+        v = obj[k];
+    }
+    result = result[k] = obj[k];
+    seen = seen || { obj: [], mapped: []};
+    result.push(k, v);

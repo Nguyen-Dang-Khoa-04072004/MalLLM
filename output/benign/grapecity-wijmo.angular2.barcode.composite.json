@@ -1,0 +1,4 @@
+Line 1: _tmp_44.push(type: core_1.NgModule,
+    args: [{ imports: [common_1.CommonModule], declarations: moduleExports.slice(), exports: moduleExports.slice() }]
+    }])
+Line

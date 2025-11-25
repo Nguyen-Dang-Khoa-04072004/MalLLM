@@ -1,0 +1,5 @@
+Line 1: {
+    const [key, value] = entries[i]
+    let normalized = maybeNormalize(value)
+    if (normalized !== undefined && result === undefined) {
+        result = Object.fromEntries(entries.slice(0, i))

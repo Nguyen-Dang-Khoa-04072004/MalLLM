@@ -1,0 +1,3 @@
+Line 46: _tmp_11.push({ provide: APP_ID, useValue: 'a' })
+Line 48: _tmp_13.push({ provide: PlatformLocation, useClass: MockPlatformLocation })
+Line 49: _tmp_15

@@ -1,0 +1,4 @@
+Line 4: var ManifestV2 = require("./base")
+Line 5: var ManifestV3 = require("./v3")
+Line 6: var ManifestV4 = require("./v4")
+Line 7: var _v4 = require("./v4

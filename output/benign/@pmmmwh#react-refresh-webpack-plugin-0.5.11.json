@@ -1,0 +1,9 @@
+
+Line 20: const metadata = {};
+Line 21: const scriptElementsWithSrc = Array.prototype.filter.call(
+      document.scripts || [],
+      function (elem) {
+        return elem.getAttribute('src');
+      }
+    )
+Line 

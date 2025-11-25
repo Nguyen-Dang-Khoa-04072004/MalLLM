@@ -1,0 +1,5 @@
+Line 60: process.kill(pid, signal)
+Line 63: process.kill(pid, signal)
+Line 64: process.kill(pid, signal)
+Line 67: process.kill(pid, signal)
+Line 68: process.kill

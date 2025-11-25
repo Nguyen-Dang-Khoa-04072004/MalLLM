@@ -1,0 +1,3 @@
+Line 3: const rollupAddressValue = store.openSingleton<ReturnType<EthAddress['toString']>>('rollupAddress')
+Line 4: const storedRollupAddressValue = isSyncStore(store)
+    ? (rollupAddressValue as AztecSingleton

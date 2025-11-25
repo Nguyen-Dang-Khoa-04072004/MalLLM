@@ -1,0 +1,8 @@
+```javascript
+// Import necessary modules and functions
+var React = require('react');
+var ReactDOM = require('react-dom');
+var ReactDOMServer = require('react-dom/server');
+var ReactDom = require('react-dom/client');
+var ReactRouter = require('react-router-dom');
+var ReactHistory = require('react-router-dom

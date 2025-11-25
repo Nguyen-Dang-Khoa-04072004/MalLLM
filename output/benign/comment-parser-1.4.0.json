@@ -1,0 +1,4 @@
+Line 1: var Tokens = require("../primitives.js").Tokens
+Line 2: var Transform = require("./index.js").Transform
+Line 3: var rewireSource = require("../util.js").rewireSourc
+Line 4: _tmp

@@ -1,0 +1,3 @@
+Line 12: {
+    const resolvedPath = _path2.default.resolve(this._inDirPath, this._filePath)
+    Line 13: _path2.default.relative(_path2.default.dirname(this._inDirPath), this._filePath

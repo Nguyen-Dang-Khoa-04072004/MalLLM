@@ -13,10 +13,10 @@ class AIModel:
         self.model = AutoModelForCausalLM.from_pretrained(config.model_name,dtype=torch.float16, device_map="auto")
     def read_file(self, file_path : Path):
         # Nếu file_path là relative, resolve dựa trên folder model.py
-        if not file_path.is_absolute():
+        if not file_path.exists() and not file_path.is_absolute():
             file_path = Path(__file__).parent / file_path
-        if not file_path.exists():
-            raise FileNotFoundError(f"Prompt file not found: {file_path}")
+            if not file_path.exists():
+                raise FileNotFoundError(f"Prompt file not found: {file_path}")
         with open(file_path, "r", encoding="utf-8") as f:
             return f.read().strip()
 

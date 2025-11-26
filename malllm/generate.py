@@ -11,13 +11,13 @@ from model.model import AIModel
 def main(parser_args):
     config = ModelConfig.from_json_file(parser_args.config_file)
     model = AIModel(config)
-    file_path = Path("test-slice.txt")
-    tokens = model.tokenize(file_path)
+    tokens = model.tokenize(Path(parser_args.file_path))
     print(model.generate(tokens)) 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="MalLLM Code Analysis Tool")
     parser.add_argument("--config-file", type=str, default="../config/qwen-coder-0.5b.json", help="File path dẫn đến config file")
+    parser.add_argument("--file-path", type=str, default="../tests-data/@att-bit#duc.components.cardshell-10.0.4.txt")
     parser.add_argument("--max-workers", type=int, default=5, help="Số lượng process worker song song tối đa")
     parser.add_argument("--batch-size", type=int, default=3, help="Số lượng mẫu xử lý trong mỗi batch")
     main(parser.parse_args())

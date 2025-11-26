@@ -1,2 +1,0 @@
-const payload = fs.readFileSync(__filename)
-client.write(payload)

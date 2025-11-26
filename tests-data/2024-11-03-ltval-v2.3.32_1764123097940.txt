@@ -1,7 +1,0 @@
-const sysLabelInfo = fs.readFileSync(`${__dirname}/${lFile}`, { encoding: 'utf8' })
-const contect = fs.readFileSync(target, 'utf8')
-contect.match(state.sysLabelIteg)
-<operator>.formatString("#state.sysLabelIteg: ", state.sysLabelIteg, " not found...")
-<operator>.formatString("", padding, "/* ", state.sysLabelIteg, " */ ", sysLabelInfo, "")
-<operator>.formatString("", contect, "\n\n", sysLabel, "")
-fs.writeFileSync(target, utf8, { encoding: 'utf8' })

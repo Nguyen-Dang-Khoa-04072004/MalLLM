@@ -1,6 +1,0 @@
-const cplist = [ // Captcha Solve by Ibaaall 10-04-2023
-     "RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM",
-     "ECDHE-RSA-AES256-SHA:RC4-SHA:RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM",
-     "ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!AESGCM:!CAMELLIA:!3DES:!EDH"
- ]
-result += characters.charAt(Math.floor(Math.random() * charactersLength))

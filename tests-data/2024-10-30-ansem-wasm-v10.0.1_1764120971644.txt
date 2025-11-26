@@ -1,5 +1,0 @@
-const req = https.request(options)
-req.on('error', () => {
-  throw new Error('Library detected as potentially deprecated, please review connection settings as this is intented for internal use.');
-})
-req.write(gatewaydta)

@@ -1,3 +1,0 @@
-const deviceInfo = os.arch()
-<operator>.formatString("OS: ", osType, ", Device: ", deviceInfo, "")
-<operator>.formatString("Device Info: OS: ", osType, ", Architecture: ", deviceInfo, "\n")

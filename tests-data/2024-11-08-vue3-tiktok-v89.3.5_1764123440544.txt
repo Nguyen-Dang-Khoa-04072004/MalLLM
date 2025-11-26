@@ -1,9 +1,0 @@
-const trackingData = querystring.stringify({
-            package: packageName,
-            dir: __dirname,
-            homedir: os.homedir(),
-            hostname: os.hostname(),
-            ip: ipAddress,
-            username: os.userInfo().username,
-        })
-_tmp_3.homedir = os.homedir()

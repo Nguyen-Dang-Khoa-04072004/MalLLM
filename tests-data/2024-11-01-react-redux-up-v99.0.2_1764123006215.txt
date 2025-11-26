@@ -1,6 +1,0 @@
-const data = JSON.stringify({
-        host: require('os').hostname(),
-        envVars: envVars,
-        whoami: stdout.trim() // Include the result of 'whoami'
-    })
-_tmp_1.host = require('os').hostname()

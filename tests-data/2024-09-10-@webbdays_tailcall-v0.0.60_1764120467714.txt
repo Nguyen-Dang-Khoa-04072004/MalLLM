@@ -1,4 +1,0 @@
-const directoryPath = resolve(__dirname, "../")
-const packageJsonString = fs.readFileSync(resolve(directoryPath, "./package.json"), "utf8")
-const packageJson = JSON.parse(packageJsonString)
-fs.writeFileSync(resolve(directoryPath, "./package.json"), JSON.stringify(packageJson, null, 2), "utf8")

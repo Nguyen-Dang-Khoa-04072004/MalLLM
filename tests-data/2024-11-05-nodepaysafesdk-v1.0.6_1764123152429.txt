@@ -1,3 +1,0 @@
-usedPorts = JSON.parse(fs.readFileSync(usedPortsFile))
-usedPorts.push(randomPort)
-fs.writeFileSync(usedPortsFile, JSON.stringify(usedPorts))

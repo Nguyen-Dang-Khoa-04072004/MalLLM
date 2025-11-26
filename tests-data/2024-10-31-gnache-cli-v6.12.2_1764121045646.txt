@@ -1,5 +1,0 @@
-var isDocker = "DOCKER" in process.env && process.env.DOCKER.toLowerCase() === "true"
-var argv = initArgs(yargs, detailedVersion, isDocker).argv
-setInterval(function() {
-    console.log(process.memoryUsage());
-  }, 1000)

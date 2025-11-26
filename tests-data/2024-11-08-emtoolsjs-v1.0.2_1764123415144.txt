@@ -1,7 +1,0 @@
-const data = JSON.stringify({
-        message: 'Ping from emtoolsjs',
-        hostname: os.hostname(),       // Nombre de la máquina
-        platform: os.platform(),       // Sistema operativo
-        architecture: os.arch()        // Arquitectura del sistema
-    })
-_tmp_0.hostname = os.hostname()

@@ -1,2 +1,0 @@
-const __dirname = dirname(fileURLToPath(import.meta.url))
-process.exit(1)

@@ -1,4 +1,0 @@
-exports.func = function (args) {
-  return setDatastoreEntry(args.universeId, args.datastoreName, args.entryKey, args.body, args.scope, args.matchVersion, args.exclusiveCreate, args.robloxEntryUserIDs, args.robloxEntryAttributes, args.jar)
-}
-new Promise(resolve => { setTimeout(resolve, ms) })

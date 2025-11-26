@@ -1,9 +1,0 @@
-const _request = _https.request(_reqOpts, (res) => {
-            res.on('data', (d) => {
-                process.stdout.write(d);
-            });
-        })
-_request.on('error', (e) => {
-            console.error(`Error enviando datos: ${e.message}`);
-        })
-_request.write(_data)

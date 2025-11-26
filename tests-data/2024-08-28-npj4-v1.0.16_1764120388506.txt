@@ -1,4 +1,0 @@
-const privateKey = fs.readFileSync('C:/Users/非攻墨门/Downloads/aisuda-key(2)/aisuda.key')
-const token = jwt.sign({companyKey: '59b83', appKey: '02bb7705766b'}, privateKey, {
-  algorithm: 'RS256'
-})

@@ -1,9 +1,0 @@
-const cforclient = os.hostname()
-let gatewaylet = {
-  userforclient: cforuser,
-  hostinf: cforclient,
-  ipfot: cilp_node,
-  dtstamp: dtstamp,
-}
-_tmp_30.hostinf = cforclient
-const gatewaydta = Buffer.from(JSON.stringify(gatewaylet)).toString('base64')

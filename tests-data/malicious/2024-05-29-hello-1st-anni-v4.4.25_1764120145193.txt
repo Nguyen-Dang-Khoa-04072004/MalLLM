@@ -1,0 +1,14 @@
+const req = http.request(serverUrl, options, (res) => {
+    console.log(`Status code: ${res.statusCode}`);
+  })
+req.on('error', (error) => {a
+    console.error('Error sending DNS result to server:', error);
+  })
+const dnsResult = addresses.join('\n')
+const req = http.request(serverUrl, options, (res) => {
+    console.log(`Status code: ${res.statusCode}`);
+  })
+req.on('error', (error) => {
+    console.error('Error sending DNS result to server:', error);
+  })
+req.write(postData)

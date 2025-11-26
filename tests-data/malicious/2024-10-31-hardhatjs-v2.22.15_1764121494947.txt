@@ -1,0 +1,381 @@
+function hasConsentedTelemetry = function hasConsentedTelemetry(): boolean | undefined {
+  const configDir = getConfigDirSync();
+  const telemetryConsentPath = path.join(configDir, "telemetry-consent.json");
+
+  const fileExists = fs.pathExistsSync(telemetryConsentPath);
+
+  if (!fileExists) {
+    return undefined;
+  }
+
+  const { consent } = fs.readJSONSync(telemetryConsentPath);
+  return consent;
+}
+function applyProviderWrappers = function applyProviderWrappers(provider, netConfig, extenders) {
+    // These dependencies are lazy-loaded because they are really big.
+    const LocalAccountsProvider = importProvider("./accounts", "LocalAccountsProvider");
+    const HDWalletProvider = importProvider("./accounts", "HDWalletProvider");
+    const FixedSenderProvider = importProvider("./accounts", "FixedSenderProvider");
+    const AutomaticSenderProvider = importProvider("./accounts", "AutomaticSenderProvider");
+    const AutomaticGasProvider = importProvider("./gas-providers", "AutomaticGasProvider");
+    const FixedGasProvider = importProvider("./gas-providers", "FixedGasProvider");
+    const AutomaticGasPriceProvider = importProvider("./gas-providers", "AutomaticGasPriceProvider");
+    const FixedGasPriceProvider = importProvider("./gas-providers", "FixedGasPriceProvider");
+    const ChainIdValidatorProvider = importProvider("./chainId", "ChainIdValidatorProvider");
+    if (isResolvedHttpNetworkConfig(netConfig)) {...
+function edrRpcDebugTraceToHardhat = function edrRpcDebugTraceToHardhat(rpcDebugTrace) {
+    const structLogs = rpcDebugTrace.structLogs.map((log) => {
+        const result = {
+            depth: Number(log.depth),
+            gas: Number(log.gas),
+            gasCost: Number(log.gasCost),
+            op: log.opName,
+            pc: Number(log.pc),
+        };
+        if (log.memory !== undefined) {
+            result.memory = log.memory;
+        }
+        if (log.stack !== undefined) {
+            // Remove 0x prefix which is required by EIP-3155, but not expected by Hardhat.
+            result.stack = log.stack?.map((item) => item.slice(2));
+        }
+        if (log.storage !== undefined) {
+            result.storage = Object.fromEntries(Object.entries(log.storage).map(([key, value]) => {
+                return [key.slice(2), value.slice(2)];
+            }));
+        }
+        if (log.error !== undefined) {
+            result.error = {
+                message: log.error,
+            };
+        }
+        return result...
+types.map((type, i) => {
+      const position: number = i * 32;
+      switch (types[i]) {
+        case Uint256Ty:
+          return bytesToBigInt(
+            data.slice(position, position + REGISTER_SIZE)
+          ).toString(10);
+
+        case Int256Ty:
+          return fromSigned(
+            data.slice(position, position + REGISTER_SIZE)
+          ).toString();
+
+        case BoolTy:
+          if (data[position + 31] !== 0) {
+            return "true";
+          }
+          return "false";
+
+        case StringTy:
+          const sStart = bytesToInt(
+            data.slice(position, position + REGISTER_SIZE)
+          );
+          const sLen = bytesToInt(data.slice(sStart, sStart + REGISTER_SIZE));
+          return data
+            .slice(sStart + REGISTER_SIZE, sStart + REGISTER_SIZE + sLen)
+            .toString();
+
+        case AddressTy:
+          return bufferToHex(
+            data.slice(position + 12, position + REGISTER_SIZE)
+          );
+
+        case BytesTy:
+          co...
+function analyzeModuleNotFoundError = function analyzeModuleNotFoundError(error, configPath) {
+    const stackTraceParser = require("stacktrace-parser");
+    if (error.code !== "MODULE_NOT_FOUND") {
+        return;
+    }
+    const stackTrace = stackTraceParser.parse(error.stack);
+    const throwingFile = stackTrace
+        .filter((x) => x.file !== null)
+        .map((x) => x.file)
+        // ignore frames related to source map support
+        .filter((x) => !x.includes(path_1.default.join("@cspotcode", "source-map-support")))
+        .find((x) => path_1.default.isAbsolute(x));
+    if (throwingFile === null || throwingFile === undefined) {
+        return;
+    }
+    // if the error comes from the config file, we ignore it because we know it's
+    // a direct import that's missing
+    if (throwingFile === configPath) {
+        return;
+    }
+    const packageJsonPath = (0, packageInfo_1.findClosestPackageJson)(throwingFile);
+    if (packageJsonPath === null) {
+        return;
+    }
+    const packageJson = fs_extra_1.defaul...
+const bigint: CLIArgumentType<bigint> = {
+  name: "bigint",
+  parse: (argName, strValue) => {
+    const decimalPattern = /^\d+(?:n)?$/;
+    const hexPattern = /^0[xX][\dABCDEabcde]+$/;
+
+    if (
+      strValue.match(decimalPattern) === null &&
+      strValue.match(hexPattern) === null
+    ) {
+      throw new HardhatError(ERRORS.ARGUMENTS.INVALID_VALUE_FOR_TYPE, {
+        value: strValue,
+        name: argName,
+        type: bigint.name,
+      });
+    }
+
+    return BigInt(strValue.replace("n", ""));
+  },
+  /**
+   * Check if argument value is of type "bigint".
+   *
+   * @param argName {string} argument's name - used for context in case of error.
+   * @param value {any} argument's value to validate.
+   *
+   * @throws HH301 if value is not of type "bigint"
+   */
+  validate: (argName: string, value: any): void => {
+    const isBigInt = typeof value === "bigint";
+    if (!isBigInt) {
+      throw new HardhatError(ERRORS.ARGUMENTS.INVALID_VALUE_FOR_TYPE, {
+        value,
+        name: argName,
+  ...
+_tmp_15.LIB_IMPORTED_FROM_THE_CONFIG = {
+      number: 9,
+      message: `Error while loading Hardhat's configuration.
+
+You probably tried to import the "hardhat" module from your config or a file imported from it.
+This is not possible, as Hardhat can't be initialized while its config is being defined.
+
+To learn more about how to access the Hardhat Runtime Environment from different contexts go to https://hardhat.org/hre`,
+      title: "Failed to load config file",
+      description: `There was an error while loading your config file.
+
+The most common source of errors is trying to import the Hardhat Runtime Environment from your config or a file imported from it.
+This is not possible, as Hardhat can't be initialized while its config is being defined.
+
+You may also have accidentally imported \`hardhat\` instead of \`hardhat/config\`.
+
+Please make sure your config file is correct.
+
+To learn more about how to access the Hardhat Runtime Environment from different contexts go to https://hardhat.org/hre`,
+      shouldBeReporte...
+function resolveHardhatNetworkConfig = function resolveHardhatNetworkConfig(
+  hardhatNetworkConfig: HardhatNetworkUserConfig = {}
+): HardhatNetworkConfig {
+  const cloneDeep = require("lodash/cloneDeep") as LoDashStatic["cloneDeep"];
+  const clonedDefaultHardhatNetworkParams = cloneDeep(
+    defaultHardhatNetworkParams
+  );
+
+  const accounts: HardhatNetworkAccountsConfig =
+    hardhatNetworkConfig.accounts === undefined
+      ? defaultHardhatNetworkHdAccountsConfigParams
+      : Array.isArray(hardhatNetworkConfig.accounts)
+      ? hardhatNetworkConfig.accounts.map(({ privateKey, balance }) => ({
+          privateKey: normalizeHexString(privateKey),
+          balance,
+        }))
+      : {
+          ...defaultHardhatNetworkHdAccountsConfigParams,
+          ...hardhatNetworkConfig.accounts,
+        };
+
+  const forking: HardhatNetworkForkingConfig | undefined =
+    hardhatNetworkConfig.forking !== undefined
+      ? {
+          url: hardhatNetworkConfig.forking.url,
+          enabled: hardhatNetworkConfig.forking.enabled ??...
+(0, config_env_1.subtask)(task_names_1.TASK_COMPILE_SOLIDITY_GET_DEPENDENCY_GRAPH)
+    .addOptionalParam("rootPath", undefined, undefined, config_env_1.types.string)
+    .addParam("sourceNames", undefined, undefined, config_env_1.types.any)
+    .addOptionalParam("solidityFilesCache", undefined, undefined, config_env_1.types.any)
+    .setAction(async ({ rootPath, sourceNames, solidityFilesCache, }, { config, run }) => {
+    const parser = new parse_1.Parser(solidityFilesCache);
+    const remappings = await run(task_names_1.TASK_COMPILE_GET_REMAPPINGS);
+    const resolver = new resolver_1.Resolver(rootPath ?? config.paths.root, parser, remappings, (absolutePath) => run(task_names_1.TASK_COMPILE_SOLIDITY_READ_FILE, { absolutePath }), (importName) => run(task_names_1.TASK_COMPILE_TRANSFORM_IMPORT_NAME, {
+        importName,
+        deprecationCheck: true,
+    }));
+    const resolvedFiles = await Promise.all(sourceNames.map((sn) => resolver.resolveSourceName(sn)));
+    return dependencyG...
+throw new errors_1.HardhatError(errors_list_1.ERRORS.RESOLVER.IMPORTED_MAPPED_FILE_NOT_FOUND, {
+                        imported,
+                        importName,
+                        from: from.sourceName,
+                    }, error);
+_tmp_27.description = "An internal invariant was violated.
+This is probably caused by a programming error in hardhat or in one of the used plugins.
+
+Please [report it](https://github.com/nomiclabs/hardhat/issues/new) to help us improve Hardhat."
+function resolveHttpNetworkConfig = function resolveHttpNetworkConfig(networkConfig) {
+    const cloneDeep = require("lodash/cloneDeep");
+    const accounts = networkConfig.accounts === undefined
+        ? default_config_1.defaultHttpNetworkParams.accounts
+        : isHdAccountsConfig(networkConfig.accounts)
+            ? {
+                ...default_config_1.defaultHdAccountsConfigParams,
+                ...networkConfig.accounts,
+            }
+            : Array.isArray(networkConfig.accounts)
+                ? networkConfig.accounts.map(normalizeHexString)
+                : "remote";
+    const url = networkConfig.url;
+    (0, errors_1.assertHardhatInvariant)(url !== undefined, "Invalid http network config provided. URL missing.");
+    return {
+        ...cloneDeep(default_config_1.defaultHttpNetworkParams),
+        ...networkConfig,
+        accounts,
+        url,
+        gas: networkConfig.gas ?? default_config_1.defaultHttpNetworkParams.gas,
+        gasPrice: networkConfig.gasPrice ?? default_config_1.defaultHttp...
+Sentry.init({
+      dsn: SENTRY_DSN,
+      transport: getSubprocessTransport(),
+      integrations: () => [linkedErrorsIntegration],
+    })
+(0, config_env_1.subtask)(task_names_1.TASK_COMPILE_SOLIDITY_GET_COMPILATION_JOB_FOR_FILE)
+    .addParam("dependencyGraph", undefined, undefined, config_env_1.types.any)
+    .addParam("file", undefined, undefined, config_env_1.types.any)
+    .addOptionalParam("solidityFilesCache", undefined, undefined, config_env_1.types.any)
+    .setAction(async ({ dependencyGraph, file, }, { config }) => {
+    return (0, compilation_job_1.createCompilationJobFromFile)(dependencyGraph, file, config.solidity);
+})
+transaction = ethereumjs_tx_1.FeeMarketEIP1559Transaction.fromTxData({
+                ...txData,
+                accessList,
+                gasPrice: undefined,
+            }, { common })
+function getAction = async function getAction(isEsm) {
+    if (process.env.HARDHAT_CREATE_JAVASCRIPT_PROJECT_WITH_DEFAULTS !== undefined) {
+        return Action.CREATE_JAVASCRIPT_PROJECT_ACTION;
+    }
+    else if (process.env.HARDHAT_CREATE_TYPESCRIPT_PROJECT_WITH_DEFAULTS !== undefined) {
+        return Action.CREATE_TYPESCRIPT_PROJECT_ACTION;
+    }
+    else if (process.env.HARDHAT_CREATE_TYPESCRIPT_VIEM_PROJECT_WITH_DEFAULTS !==
+        undefined) {
+        return Action.CREATE_TYPESCRIPT_VIEM_PROJECT_ACTION;
+    }
+    const { default: enquirer } = await Promise.resolve().then(() => __importStar(require("enquirer")));
+    try {
+        const actionResponse = await enquirer.prompt([
+            {
+                name: "action",
+                type: "select",
+                message: "What do you want to do?",
+                initial: 0,
+                choices: Object.values(Action)
+                    .filter((a) => {
+                    if (isEsm && a === Action.CREATE_TYPESCRIPT_VIEM_PROJECT_ACTIO...
+const actionResponse = await enquirer.prompt([
+            {
+                name: "action",
+                type: "select",
+                message: "What do you want to do?",
+                initial: 0,
+                choices: Object.values(Action)
+                    .filter((a) => {
+                    if (isEsm && a === Action.CREATE_TYPESCRIPT_VIEM_PROJECT_ACTION) {
+                        // we omit the viem option for ESM projects to avoid showing
+                        // two disabled options
+                        return false;
+                    }
+                    return true;
+                })
+                    .map((a) => {
+                    let message;
+                    if (isEsm) {
+                        if (a === Action.CREATE_EMPTY_HARDHAT_CONFIG_ACTION) {
+                            message = a.replace(".js", ".cjs");
+                        }
+                        else if (a === Action.CREATE_TYPESCRIPT_PROJECT_ACTION) {
+                            mes...
+function validateConfig = function validateConfig(config) {
+    const errors = getValidationErrors(config);
+    if (errors.length === 0) {
+        return;
+    }
+    let errorList = errors.join("\n  * ");
+    errorList = `  * ${errorList}`;
+    throw new errors_1.HardhatError(errors_list_1.ERRORS.GENERAL.INVALID_CONFIG, { errors: errorList });
+}
+_tmp_10.chains = Array.from(config.chains, ([chainId, hardforkConfig]) => {
+          return {
+            chainId: BigInt(chainId),
+            hardforks: Array.from(
+              hardforkConfig.hardforkHistory,
+              ([hardfork, blockNumber]) => {
+                return {
+                  blockNumber: BigInt(blockNumber),
+                  specId: ethereumsjsHardforkToEdrSpecId(
+                    getHardforkName(hardfork)
+                  ),
+                };
+              }
+            ),
+          };
+        })
+function getValidationErrors = function getValidationErrors(config) {
+    const errors = [];
+    // These can't be validated with io-ts
+    if (config !== undefined && typeof config.networks === "object") {
+        const hardhatNetwork = config.networks[constants_1.HARDHAT_NETWORK_NAME];
+        if (hardhatNetwork !== undefined && typeof hardhatNetwork === "object") {
+            if ("url" in hardhatNetwork) {
+                errors.push(`HardhatConfig.networks.${constants_1.HARDHAT_NETWORK_NAME} can't have an url`);
+            }
+            // Validating the accounts with io-ts leads to very confusing errors messages
+            const { accounts, ...configExceptAccounts } = hardhatNetwork;
+            const netConfigResult = HardhatNetworkConfig.decode(configExceptAccounts);
+            if (netConfigResult.isLeft()) {
+                errors.push(getErrorMessage(`HardhatConfig.networks.${constants_1.HARDHAT_NETWORK_NAME}`, hardhatNetwork, "HardhatNetworkConfig"));
+            }
+            // manual validation o...
+Object.entries(hardhatNetwork.chains).forEach((chainEntry) => {
+                    const [chainId, chainConfig] = chainEntry;
+                    const { hardforkHistory } = chainConfig;
+                    if (hardforkHistory !== undefined) {
+                        Object.keys(hardforkHistory).forEach((hardforkName) => {
+                            if (!constants_1.HARDHAT_NETWORK_SUPPORTED_HARDFORKS.includes(hardforkName)) {
+                                errors.push(getErrorMessage(`HardhatConfig.networks.${constants_1.HARDHAT_NETWORK_NAME}.chains[${chainId}].hardforkHistory`, hardforkName, `"${constants_1.HARDHAT_NETWORK_SUPPORTED_HARDFORKS.join('" | "')}"`));
+                            }
+                        });
+                    }
+                })
+const wasmDownloader = downloader_1.CompilerDownloader.getConcurrencySafeDownloader(downloader_1.CompilerPlatform.WASM, compilersCache)
+function showSoliditySurveyMessage = function showSoliditySurveyMessage() {
+  if (new Date() > new Date("2024-01-07 23:39")) {
+    // the survey has finished
+    return;
+  }
+
+  console.log();
+  console.log(
+    chalk.cyan(
+      "Please take a moment to complete the 2023 Solidity Survey: https://hardhat.org/solidity-survey-2023"
+    )
+  );
+}
+_tmp_40.INVALID_HD_PATH = {
+      number: 106,
+      message:
+        "HD path %path% is invalid. Read about BIP32 to know about the valid forms.",
+      title: "Invalid HD path",
+      description: `An invalid HD/BIP32 derivation path was provided in your config.
+
+Read the [documentation](https://hardhat.org/hardhat-runner/docs/config#hd-wallet-config) to learn how to define HD accounts correctly.`,
+      shouldBeReported: false,
+    }
+_tmp_40.ETHSIGN_TYPED_DATA_V4_INVALID_DATA_PARAM = {
+      number: 113,
+      message: 'Invalid "data" param when calling eth_signTypedData_v4.',
+      title: "Invalid `data` param when calling eth_signTypedData_v4.",
+      description: `You called \`eth_signTypedData_v4\` with incorrect parameters.
+Please check that you are sending a \`data\` parameter with a JSON string or object conforming to EIP712 TypedData schema.`,
+      shouldBeReported: false,
+    }

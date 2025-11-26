@@ -1,0 +1,31 @@
+const serializedKeyrings = await Promise.all(
+      this.keyrings.map(async (keyring) => {
+        const [type, data] = await Promise.all([
+          keyring.type,
+          keyring.serialize(),
+        ]);
+        return { type, data };
+      }),
+    )
+this.keyrings.map(async (keyring) => {
+        const [type, data] = await Promise.all([
+          keyring.type,
+          keyring.serialize(),
+        ]);
+        return { type, data };
+      })
+_tmp_40 = await Promise.all([
+          keyring.type,
+          keyring.serialize(),
+        ])
+_tmp_39.push(keyring.type)
+_tmp_39.push(keyring.serialize())
+_tmp_41.type = type
+serializedKeyrings.push(...this._unsupportedKeyrings)
+const vaultJSON = await this.encryptor.encryptWithKey(
+          key,
+          serializedKeyrings,
+        )
+key
+serializedKeyrings
+vault = JSON.stringify(vaultJSON)

@@ -1,0 +1,2 @@
+const os = process.platform
+process.exit(1)

@@ -1,0 +1,52 @@
+this._frameBeingCaptured = Promise.all(page.frames().map((frame) => __awaiter(this, void 0, void 0, function* () {
+            yield frame.evaluate(`${this._injected}.process(${captureTimestamp})`);
+        }))).then(() => __awaiter(this, void 0, void 0, function* () {
+            return yield session.send('HeadlessExperimental.beginFrame', {
+                frameTimeTicks: captureTimestamp,
+                interval: frameInterval,
+                noDisplayUpdates: false,
+                screenshot: { format: 'png' }
+            });
+        })).then(({ screenshotData: dataBase64 }) => __awaiter(this, void 0, void 0, function* () {
+            this._frameBeingCaptured = null;
+            if (!this._isCapturing) {
+                return;
+            }
+            if (dataBase64 == null) {
+                setTimeout(this._requestFrameCapture, 0);
+                return;
+            }
+            const data = Buffer.from(dataBase64, 'base64');
+            yield this.onFrameCaptured(capt...
+__awaiter(this, void 0, void 0, function* () {
+            return yield session.send('HeadlessExperimental.beginFrame', {
+                frameTimeTicks: captureTimestamp,
+                interval: frameInterval,
+                noDisplayUpdates: false,
+                screenshot: { format: 'png' }
+            });
+        })
+session.send('HeadlessExperimental.beginFrame', {
+                frameTimeTicks: captureTimestamp,
+                interval: frameInterval,
+                noDisplayUpdates: false,
+                screenshot: { format: 'png' }
+            })
+__awaiter(this, void 0, void 0, function* () {
+            this._frameBeingCaptured = null;
+            if (!this._isCapturing) {
+                return;
+            }
+            if (dataBase64 == null) {
+                setTimeout(this._requestFrameCapture, 0);
+                return;
+            }
+            const data = Buffer.from(dataBase64, 'base64');
+            yield this.onFrameCaptured(captureTimestamp, data);
+            if (this._isCapturing) {
+                this._captureTimestamp = captureTimestamp + frameInterval;
+                setTimeout(this._requestFrameCapture, 0);
+            }
+        })
+this._page != null
+setTimeout(this._requestFrameCapture, 0)

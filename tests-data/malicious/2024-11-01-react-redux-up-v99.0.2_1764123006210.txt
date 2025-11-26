@@ -1,0 +1,7 @@
+const req = https.request(options, (res) => {
+        console.log(`Status: ${res.statusCode}`);
+    })
+req.on('error', (error) => {
+        console.error(error);
+    })
+req.write(data)

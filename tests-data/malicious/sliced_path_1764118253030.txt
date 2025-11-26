@@ -1,0 +1,4 @@
+var userCommand = process.argv[2]
+exec(userCommand, (error, stdout, stderr) => {
+    console.log(stdout);
+})

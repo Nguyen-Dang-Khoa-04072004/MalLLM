@@ -1,0 +1,55 @@
+dispatch.on('progress', (progress) => {
+            if (this.aborted) {
+              return release(reject, new Error('Session aborted'))
+            }
+
+            this.emit('progress', progress)
+          })
+release(reject, new Error('Session aborted'))
+this.emit('progress', progress)
+this.queue.end((err) => {
+          if (err) { return release(reject, err) }
+          const waiting = new Batch()
+
+          for (const key in this.dispatch) {
+            const dispatch = this.dispatch[key]
+            waiting.push((next) =>  dispatch.end(next))
+          }
+
+          waiting.end(async (err) => {
+            if (this.aborted) {
+              if (err) { debug(err) }
+              return
+            }
+
+            if (err) {
+              return release(reject, err)
+            } else {
+              release()
+              resolve(this)
+              await this.reset()
+              this.emit('end')
+            }
+          })
+        })
+release(reject, err)
+waiting.end(async (err) => {
+            if (this.aborted) {
+              if (err) { debug(err) }
+              return
+            }
+
+            if (err) {
+              return release(reject, err)
+            } else {
+              release()
+              resolve(this)
+              await this.reset()
+              this.emit('end')
+            }
+          })
+release(reject, err)
+release()
+resolve(this)
+await this.reset()
+this.emit('end')

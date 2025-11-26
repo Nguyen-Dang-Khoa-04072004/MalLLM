@@ -6,13 +6,13 @@ import argparse
 from pathlib import Path
 from model.model_config import ModelConfig
 from model.model import AIModel
-
-
+from utils.utils import extract_json_string
 def main(parser_args):
     config = ModelConfig.from_json_file(parser_args.config_file)
     model = AIModel(config)
     tokens = model.tokenize(Path(parser_args.file_path))
-    print(model.generate(tokens)) 
+    response = model.generate(tokens)
+    print(extract_json_string(response))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="MalLLM Code Analysis Tool")

@@ -1,9 +1,9 @@
 {
   "model_name": "deepseek-ai/deepseek-coder-6.7b-instruct",
-  "max_new_tokens": 64,
-  "do_sample": false,
-  "top_k": 1,
-  "top_p": 1,
-  "temperature": 0.0,
+  "max_new_tokens": 128,    
+  "do_sample": false,       
+  "top_k": 1,              
+  "top_p": 1.0,            
+  "temperature": 0.0, 
   "num_return_sequences": 1
 }

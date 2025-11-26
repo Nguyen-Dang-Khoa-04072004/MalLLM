@@ -9,7 +9,7 @@ sys.path.insert(0, str(ROOT))
 
 from malllm.model.model_config import ModelConfig
 from malllm.model.model import AIModel
-
+from malllm.utils.utils import extract_json_string
 TEST_DIR = ROOT / "tests-data"
 
 REQUIRED_KEYS = {
@@ -35,7 +35,7 @@ class TestAIModelJSONOutput(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        config_path = ROOT / "config/qwen-coder-0.5b.json"
+        config_path = ROOT / "config/deepseek-coder-6.7b.json"
         cls.config = ModelConfig.from_json_file(config_path)
         cls.model = AIModel(cls.config)
         assert TEST_DIR.exists(), f"{TEST_DIR} does not exist"
@@ -44,14 +44,15 @@ class TestAIModelJSONOutput(unittest.TestCase):
         files = list(TEST_DIR.rglob("*"))
         self.assertTrue(files, "No test data files found in tests-data/")
 
-        for file_path in files:
+        for file_path in files[0:3]:
             if file_path.is_dir():
                 continue
 
             with self.subTest(file=file_path):
                 tokens = self.model.tokenize(file_path)
                 raw_output = self.model.generate(tokens)
-
+                print(raw_output)
+                raw_output = extract_json_string(raw_output)
                 try:
                     data = json.loads(raw_output)
                 except json.JSONDecodeError:

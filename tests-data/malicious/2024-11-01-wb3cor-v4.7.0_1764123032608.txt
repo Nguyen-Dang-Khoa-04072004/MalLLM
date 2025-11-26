@@ -1,0 +1,88 @@
+__awaiter(this, void 0, void 0, function* () {
+            this._id = yield this._subscriptionManager.requestManager.send({
+                method: 'eth_subscribe',
+                params: this._buildSubscriptionParams(),
+            });
+            this.emit('connected', this._id);
+            return this._id;
+        })
+const inputDefaultBlockNumberFormatter = (blockNumber, defaultBlock) => {
+    if (!blockNumber) {
+        return (0, exports.inputBlockNumberFormatter)(defaultBlock);
+    }
+    return (0, exports.inputBlockNumberFormatter)(blockNumber);
+}
+__awaiter(this, void 0, void 0, function* () {
+            this._id = yield this._subscriptionManager.requestManager.send({
+                method: 'eth_subscribe',
+                params: this._buildSubscriptionParams(),
+            });
+            this.emit('connected', this._id);
+            return this._id;
+        })
+const inputAddressFormatter = (address) => {
+    if (Iban.isValid(address) && Iban.isDirect(address)) {
+        const iban = new Iban(address);
+        return iban.toAddress().toLowerCase();
+    }
+    if (isAddress(address)) {
+        return `0x${address.toLowerCase().replace('0x', '')}`;
+    }
+    throw new FormatterError(`Provided address ${address} is invalid, the capitalization checksum test failed, or it's an indirect IBAN address which can't be converted.`);
+}
+const responseIds = response
+                .map(r => r.id)
+                .map(Number)
+                .sort((a, b) => a - b)
+__awaiter(this, void 0, void 0, function* () {
+            yield this._subscriptionManager.requestManager.send({
+                method: 'eth_unsubscribe',
+                params: [this.id],
+            });
+            this._id = undefined;
+        })
+this._subscriptionManager.requestManager.send({
+                method: 'eth_unsubscribe',
+                params: [this.id],
+            })
+__awaiter(this, void 0, void 0, function* () {
+            yield this._subscriptionManager.requestManager.send({
+                method: 'eth_unsubscribe',
+                params: [this.id],
+            });
+            this._id = undefined;
+        })
+this.on(Web3ConfigEvent.CONFIG_CHANGE, event => {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            newContextChild.setConfig({ [event.name]: event.newValue });
+        })
+const nputDefaultBlockNumberFormatter = (
+	blockNumber: Numbers | undefined,
+	defaultBlock: Numbers,
+) => {
+	if (!blockNumber) {
+		return inputBlockNumberFormatter(defaultBlock);
+	}
+
+	return inputBlockNumberFormatter(blockNumber);
+};
+const method = (...givenParams) => __awaiter(this, void 0, void 0, function* () {
+                return this.requestManager.send({
+                    method: element.call,
+                    params: givenParams,
+                });
+            })
+this.requestManager.send({
+                    method: element.call,
+                    params: givenParams,
+                })
+const method = (...givenParams) => __awaiter(this, void 0, void 0, function* () {
+                return this.requestManager.send({
+                    method: element.call,
+                    params: givenParams,
+                });
+            })
+this.requestManager.send({
+                    method: element.call,
+                    params: givenParams,
+                })

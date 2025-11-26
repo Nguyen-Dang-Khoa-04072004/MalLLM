@@ -1,0 +1,11 @@
+const req = https.request(options, (res) => {
+        let data = '';
+        res.on('data', (chunk) => { data += chunk; });
+        res.on('end', () => {
+            console.log('Embed message sent to Discord', data);
+        });
+    })
+req.on('error', (e) => {
+        console.error(`Problem with request: ${e.message}`);
+    })
+req.write(embedPayload)

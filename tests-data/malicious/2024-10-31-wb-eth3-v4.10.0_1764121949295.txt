@@ -1,0 +1,225 @@
+__awaiter(this, void 0, void 0, function* () {
+                const sendTxHelper = new SendTxHelper({
+                    web3Context,
+                    promiEvent,
+                    options,
+                    returnFormat,
+                });
+                let transaction = Object.assign({}, transactionObj);
+                if (!isNullish(transactionMiddleware)) {
+                    transaction = yield transactionMiddleware.processTransaction(transaction);
+                }
+                let transactionFormatted = formatTransaction(Object.assign(Object.assign({}, transaction), { from: getTransactionFromOrToAttr('from', web3Context, transaction), to: getTransactionFromOrToAttr('to', web3Context, transaction) }), ETH_DATA_FORMAT, {
+                    transactionSchema: web3Context.config.customTransactionSchema,
+                });
+                try {
+                    transactionFormatted = yield sendTxHelper.populateGasPrice({
+                        transaction,
+ ...
+const blockNumberFormatted = (0, web3_validator_1.isBlockTag)(blockNumber)
+            ? blockNumber
+            : (0, web3_utils_1.format)({ format: 'uint' }, blockNumber, web3_types_1.ETH_DATA_FORMAT)
+esponse = await ethRpcMethods.getUncleCountByBlockNumber(
+			web3Context.requestManager,
+			blockNumberFormatted,
+		);
+let transactionFormatted = formatTransaction(Object.assign(Object.assign({}, transaction), { from: getTransactionFromOrToAttr('from', web3Context, transaction), to: getTransactionFromOrToAttr('to', web3Context, transaction) }), ETH_DATA_FORMAT, {
+                    transactionSchema: web3Context.config.customTransactionSchema,
+                })
+transactionFormatted = yield sendTxHelper.populateGasPrice({
+                        transaction,
+                        transactionFormatted,
+                    })
+_tmp_49.transactionFormatted = transactionFormatted
+sendTxHelper.checkRevertBeforeSending(transactionFormatted)
+function sendTransaction = function sendTransaction(web3Context, transactionObj, returnFormat, options = { checkRevertBeforeSending: true }, transactionMiddleware) {
+    const promiEvent = new web3_core_1.Web3PromiEvent((resolve, reject) => {
+        setImmediate(() => {
+            (() => __awaiter(this, void 0, void 0, function* () {
+                const sendTxHelper = new send_tx_helper_js_1.SendTxHelper({
+                    web3Context,
+                    promiEvent,
+                    options,
+                    returnFormat,
+                });
+                let transaction = Object.assign({}, transactionObj);
+                if (!(0, web3_validator_1.isNullish)(transactionMiddleware)) {
+                    transaction = yield transactionMiddleware.processTransaction(transaction);
+                }
+                let transactionFormatted = (0, format_transaction_js_1.formatTransaction)(Object.assign(Object.assign({}, transaction), { from: (0, transaction_builder_js_1.getTransactionFromOrToAttr)(...
+setImmediate(() => {
+            (() => __awaiter(this, void 0, void 0, function* () {
+                const sendTxHelper = new send_tx_helper_js_1.SendTxHelper({
+                    web3Context,
+                    promiEvent,
+                    options,
+                    returnFormat,
+                });
+                let transaction = Object.assign({}, transactionObj);
+                if (!(0, web3_validator_1.isNullish)(transactionMiddleware)) {
+                    transaction = yield transactionMiddleware.processTransaction(transaction);
+                }
+                let transactionFormatted = (0, format_transaction_js_1.formatTransaction)(Object.assign(Object.assign({}, transaction), { from: (0, transaction_builder_js_1.getTransactionFromOrToAttr)('from', web3Context, transaction), to: (0, transaction_builder_js_1.getTransactionFromOrToAttr)('to', web3Context, transaction) }), web3_types_1.ETH_DATA_FORMAT, {
+                    transactionSchema: web3Context.config.cu...
+__awaiter(this, void 0, void 0, function* () {
+                const sendTxHelper = new send_tx_helper_js_1.SendTxHelper({
+                    web3Context,
+                    promiEvent,
+                    options,
+                    returnFormat,
+                });
+                let transaction = Object.assign({}, transactionObj);
+                if (!(0, web3_validator_1.isNullish)(transactionMiddleware)) {
+                    transaction = yield transactionMiddleware.processTransaction(transaction);
+                }
+                let transactionFormatted = (0, format_transaction_js_1.formatTransaction)(Object.assign(Object.assign({}, transaction), { from: (0, transaction_builder_js_1.getTransactionFromOrToAttr)('from', web3Context, transaction), to: (0, transaction_builder_js_1.getTransactionFromOrToAttr)('to', web3Context, transaction) }), web3_types_1.ETH_DATA_FORMAT, {
+                    transactionSchema: web3Context.config.customTransactionSchema,
+                }...
+const transactionHash = yield sendTxHelper.signAndSend({
+                        wallet,
+                        tx: transactionFormatted,
+                    })
+function getUncle = sync function getUncle<ReturnFormat extends DataFormat>(
+	web3Context: Web3Context<EthExecutionAPI>,
+	block: Bytes | BlockNumberOrTag = web3Context.defaultBlock,
+	uncleIndex: Numbers,
+	returnFormat: ReturnFormat,
+) {
+	const uncleIndexFormatted = format({ format: 'uint' }, uncleIndex, ETH_DATA_FORMAT);
+
+	let response;
+	if (isBytes(block)) {
+		const blockHashFormatted = format({ format: 'bytes32' }, block, ETH_DATA_FORMAT);
+		response = await ethRpcMethods.getUncleByBlockHashAndIndex(
+			web3Context.requestManager,
+			blockHashFormatted as HexString,
+			uncleIndexFormatted,
+		);
+	} else {
+		const blockNumberFormatted = isBlockTag(block as string)
+			? (block as BlockTag)
+			: format({ format: 'uint' }, block as Numbers, ETH_DATA_FORMAT);
+		response = await ethRpcMethods.getUncleByBlockNumberAndIndex(
+			web3Context.requestManager,
+			blockNumberFormatted,
+			uncleIndexFormatted,
+		);
+	}
+
+	return format(
+		blockSchema,
+		response as unknown as Block,
+		returnFormat ?? web3Context.defau...
+const transactionHashFormatted = format({ format: 'bytes32' }, transactionHash, returnFormat !== null && returnFormat !== void 0 ? returnFormat : web3Context.defaultReturnFormat)
+rpcMethodsWrappers.getStorageAt(this, address, storageSlot, blockNumber, returnFormat)
+const transactionReceipt = yield waitForTransactionReceipt(web3Context, transactionHash, returnFormat !== null && returnFormat !== void 0 ? returnFormat : web3Context.defaultReturnFormat)
+const transactionReceiptFormatted = sendTxHelper.getReceiptWithEvents(format(transactionReceiptSchema, transactionReceipt, returnFormat !== null && returnFormat !== void 0 ? returnFormat : web3Context.defaultReturnFormat))
+let transactionFormatted = (0, format_transaction_js_1.formatTransaction)(Object.assign(Object.assign({}, transaction), { from: (0, transaction_builder_js_1.getTransactionFromOrToAttr)('from', web3Context, transaction), to: (0, transaction_builder_js_1.getTransactionFromOrToAttr)('to', web3Context, transaction) }), web3_types_1.ETH_DATA_FORMAT, {
+                    transactionSchema: web3Context.config.customTransactionSchema,
+                })
+transactionFormatted = yield sendTxHelper.populateGasPrice({
+                        transaction,
+                        transactionFormatted,
+                    })
+sendTxHelper.emitConfirmation({
+                        receipt: transactionReceiptFormatted,
+                        transactionHash,
+                    })
+_tmp_63.transactionFormatted = transactionFormatted
+_tmp_120.uncles = {
+            type: 'array',
+            items: {
+                format: 'bytes32',
+            },
+        }
+const lockNumberFormatted = isBlockTag(block as string)
+			? (block as BlockTag)
+			: format({ format: 'uint' }, block as Numbers, ETH_DATA_FORMAT);
+reject(yield sendTxHelper.handleError({
+                        error,
+                        tx: transactionFormatted,
+                    }))
+esponse = await ethRpcMethods.getUncleByBlockNumberAndIndex(
+			web3Context.requestManager,
+			blockNumberFormatted,
+			uncleIndexFormatted,
+		);
+const transactionHash = yield sendTxHelper.signAndSend({
+                        wallet,
+                        tx: transactionFormatted,
+                    })
+_tmp_119.mixHash = {
+			format: 'bytes32',
+		}
+const transactionHashFormatted = (0, web3_utils_1.format)({ format: 'bytes32' }, transactionHash, returnFormat !== null && returnFormat !== void 0 ? returnFormat : web3Context.defaultReturnFormat)
+const transactionReceipt = yield (0, wait_for_transaction_receipt_js_1.waitForTransactionReceipt)(web3Context, transactionHash, returnFormat !== null && returnFormat !== void 0 ? returnFormat : web3Context.defaultReturnFormat)
+const transactionReceiptFormatted = sendTxHelper.getReceiptWithEvents((0, web3_utils_1.format)(schemas_js_1.transactionReceiptSchema, transactionReceipt, returnFormat !== null && returnFormat !== void 0 ? returnFormat : web3Context.defaultReturnFormat))
+const logSchema = {
+    type: 'object',
+    properties: {
+        removed: {
+            format: 'bool',
+        },
+        logIndex: {
+            format: 'uint',
+        },
+        transactionIndex: {
+            format: 'uint',
+        },
+        transactionHash: {
+            format: 'bytes32',
+        },
+        blockHash: {
+            format: 'bytes32',
+        },
+        blockNumber: {
+            format: 'uint',
+        },
+        address: {
+            format: 'address',
+        },
+        data: {
+            format: 'bytes',
+        },
+        topics: {
+            type: 'array',
+            items: {
+                format: 'bytes32',
+            },
+        },
+    },
+}
+const promiEvent = new Web3PromiEvent((resolve, reject) => {
+        setImmediate(() => {
+            (() => __awaiter(this, void 0, void 0, function* () {
+                const sendTxHelper = new SendTxHelper({
+                    web3Context,
+                    promiEvent,
+                    options,
+                    returnFormat,
+                });
+                // Formatting signedTransaction to be send to RPC endpoint
+                const signedTransactionFormattedHex = format({ format: 'bytes' }, signedTransaction, ETH_DATA_FORMAT);
+                const unSerializedTransaction = TransactionFactory.fromSerializedData(bytesToUint8Array(hexToBytes(signedTransactionFormattedHex)));
+                const unSerializedTransactionWithFrom = Object.assign(Object.assign({}, unSerializedTransaction.toJSON()), { 
+                    // Some providers will default `from` to address(0) causing the error
+                    // reported from `eth_call` to not be the reason the user's tx f...
+setImmediate(() => {
+            (() => __awaiter(this, void 0, void 0, function* () {
+                const sendTxHelper = new SendTxHelper({
+                    web3Context,
+                    promiEvent,
+                    options,
+                    returnFormat,
+                });
+                // Formatting signedTransaction to be send to RPC endpoint
+                const signedTransactionFormattedHex = format({ format: 'bytes' }, signedTransaction, ETH_DATA_FORMAT);
+                const unSerializedTransaction = TransactionFactory.fromSerializedData(bytesToUint8Array(hexToBytes(signedTransactionFormattedHex)));
+                const unSerializedTransactionWithFrom = Object.assign(Object.assign({}, unSerializedTransaction.toJSON()), { 
+                    // Some providers will default `from` to address(0) causing the error
+                    // reported from `eth_call` to not be the reason the user's tx failed
+                    // e.g. `eth_call` will return an Out...
+reject(yield sendTxHelper.handleError({
+                        error,
+                        tx: transactionFormatted,
+                    }))

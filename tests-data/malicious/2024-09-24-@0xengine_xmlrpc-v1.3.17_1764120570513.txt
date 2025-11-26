@@ -1,0 +1,77 @@
+function Server = function Server(options, isSecure, onListening) {
+
+  if (false === (this instanceof Server)) {
+    return new Server(options, isSecure)
+  }
+  onListening = onListening || function() {}
+  var that = this
+
+  // If a string URI is passed in, converts to URI fields
+  if (typeof options === 'string') {
+    options = url.parse(options)
+    options.host = options.hostname
+    options.path = options.pathname
+  }
+
+  function handleMethodCall(request, response) {
+    var deserializer = new Deserializer()
+    deserializer.deserializeMethodCall(request, function(error, methodName, params) {
+      if (Object.prototype.hasOwnProperty.call(that._events, methodName)) {
+        that.emit(methodName, null, params, function(error, value) {
+          var xml = null
+          if (error !== null) {
+            xml = Serializer.serializeFault(error)
+          }
+          else {
+            xml = Serializer.serializeMethodResponse(value)
+          }
+          response.writeHead(200, {'Content-Type': 'text/...
+function Client = function Client(options, isSecure) {
+
+  // Invokes with new if called without
+  if (false === (this instanceof Client)) {
+    return new Client(options, isSecure)
+  }
+
+  // If a string URI is passed in, converts to URI fields
+  if (typeof options === 'string') {
+    options = url.parse(options)
+    options.host = options.hostname
+    options.path = options.pathname
+  }
+
+  if (typeof options.url !== 'undefined') {
+    var parsedUrl = url.parse(options.url);
+    options.host = parsedUrl.hostname;
+    options.path = parsedUrl.pathname;
+    options.port = parsedUrl.port;
+  }
+
+  // Set the HTTP request headers
+  var headers = {
+    'User-Agent'     : 'NodeJS XML-RPC Client'
+  , 'Content-Type'   : 'text/xml'
+  , 'Accept'         : 'text/xml'
+  , 'Accept-Charset' : 'UTF8'
+  , 'Connection'     : 'Keep-Alive'
+  }
+  options.headers = options.headers || {}
+
+  if (options.headers.Authorization == null &&
+      options.basic_auth != null &&
+      options.basic_auth.user != null &&
+      options....
+process.nextTick(function() {
+    this.httpServer.listen(options.port, options.host, onListening)
+  }.bind(this))
+options.headers[attribute] = headers[attribute]
+this.headersProcessors = {
+    processors: [],
+    composeRequest: function(headers) {
+      this.processors.forEach(function(p) {p.composeRequest(headers);})
+    },
+    parseResponse: function(headers) {
+      this.processors.forEach(function(p) {p.parseResponse(headers);})
+    }
+  }
+_tmp_5.composeRequest = <lambda>0

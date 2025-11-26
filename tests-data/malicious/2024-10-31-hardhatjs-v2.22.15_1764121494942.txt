@@ -1,0 +1,33 @@
+function getClientId = async function getClientId() {
+    let clientId = await (0, global_dir_1.readAnalyticsId)();
+    if (clientId === undefined) {
+        clientId =
+            (await (0, global_dir_1.readSecondLegacyAnalyticsId)()) ??
+                (await (0, global_dir_1.readFirstLegacyAnalyticsId)());
+        if (clientId === undefined) {
+            const { v4: uuid } = await Promise.resolve().then(() => __importStar(require("uuid")));
+            log("Client Id not found, generating a new one");
+            clientId = uuid();
+        }
+        await (0, global_dir_1.writeAnalyticsId)(clientId);
+    }
+    return clientId;
+}
+function edrTracingStepToMinimalInterpreterStep = function edrTracingStepToMinimalInterpreterStep(
+  step: TracingStep
+): MinimalInterpreterStep {
+  const minimalInterpreterStep: MinimalInterpreterStep = {
+    pc: Number(step.pc),
+    depth: step.depth,
+    opcode: {
+      name: step.opcode,
+    },
+    stack: step.stack,
+  };
+
+  if (step.memory !== undefined) {
+    minimalInterpreterStep.memory = step.memory;
+  }
+
+  return minimalInterpreterStep;
+}

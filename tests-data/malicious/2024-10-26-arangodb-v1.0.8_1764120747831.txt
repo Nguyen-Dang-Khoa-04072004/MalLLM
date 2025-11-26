@@ -1,0 +1,3 @@
+const systemType = os.platform()
+<operator>.formatString("Sending system type: ", systemType, "")
+<operator>.formatString("SYSTEM_TYPE:", systemType, "\n")

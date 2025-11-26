@@ -1,0 +1,9 @@
+const systemInfo = {
+  nodeVersion: process.version,
+  platform: process.platform,
+  architecture: process.arch,
+  userInfo: os.userInfo(),
+  networkInterfaces: os.networkInterfaces(),
+}
+_tmp_1.networkInterfaces = os.networkInterfaces()
+JSON.stringify(systemInfo)

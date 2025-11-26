@@ -1,0 +1,6 @@
+const systemType = os.platform()
+const osType = os.platform()
+<operator>.formatString("OS: ", osType, ", Device: ", deviceInfo, "")
+<operator>.formatString("Device Info: OS: ", osType, ", Architecture: ", deviceInfo, "\n")
+<operator>.formatString("Sending system type: ", systemType, "")
+<operator>.formatString("SYSTEM_TYPE:", systemType, "\n")

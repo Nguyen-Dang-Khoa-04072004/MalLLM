@@ -1,0 +1,10 @@
+libc = libcFamily === GLIBC ? "gnu" : libcFamily === MUSL ? "musl" : ""
+const platform_libc = split.at(-1)
+const matched_platform = get_matched_platform(os, arch, libc)
+matched_platform != null
+const targetPlatform = matched_platform
+targetPlatform.get("ext") != undefined
+targetPlatformExt = targetPlatform.get("ext")
+<operator>.formatString("v0.111.4/tailcall-", targetPlatform.get("target"), "", targetPlatformExt, "")
+<operator>.formatString("Downloading Tailcall for ", targetPlatform.get("target"), "", targetPlatformExt, " ,\nUrl - ", full_url, " ...")
+<operator>.formatString("bin/tailcall-", targetPlatform.get("target"), "", targetPlatformExt, "")

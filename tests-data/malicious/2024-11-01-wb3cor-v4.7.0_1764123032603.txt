@@ -1,0 +1,121 @@
+__awaiter(this, void 0, void 0, function* () {
+            const { provider } = this;
+            if (isNullish(provider)) {
+                throw new ProviderError('Provider not available. Use `.setProvider` or `.provider=` to initialize the provider.');
+            }
+            let payload = (jsonRpc.isBatchRequest(request)
+                ? jsonRpc.toBatchPayload(request)
+                : jsonRpc.toPayload(request));
+            if (!isNullish(this.middleware)) {
+                payload = yield this.middleware.processRequest(payload);
+            }
+            if (isWeb3Provider(provider)) {
+                let response;
+                try {
+                    response = yield provider.request(payload);
+                }
+                catch (error) {
+                    // Check if the provider throw an error instead of reject with error
+                    response = error;
+                }
+                return this._processJsonRpcResponse(payload, response, { legacy: f...
+const odifiedOptions = { ...options } as unknown as Mutable<TransactionOutput>;
+requestManager ??
+			new Web3RequestManager<API>(
+				provider,
+				config?.enableExperimentalFeatures?.useSubscriptionWhenCheckingBlockTimeout,
+				requestManagerMiddleware,
+			)
+__awaiter(this, void 0, void 0, function* () {
+            const { provider } = this;
+            if ((0, web3_utils_1.isNullish)(provider)) {
+                throw new web3_errors_1.ProviderError('Provider not available. Use `.setProvider` or `.provider=` to initialize the provider.');
+            }
+            let payload = (web3_utils_1.jsonRpc.isBatchRequest(request)
+                ? web3_utils_1.jsonRpc.toBatchPayload(request)
+                : web3_utils_1.jsonRpc.toPayload(request));
+            if (!(0, web3_utils_1.isNullish)(this.middleware)) {
+                payload = yield this.middleware.processRequest(payload);
+            }
+            if ((0, utils_js_1.isWeb3Provider)(provider)) {
+                let response;
+                try {
+                    response = yield provider.request(payload);
+                }
+                catch (error) {
+                    // Check if the provider throw an error instead of reject with error
+                    response = er...
+throw new web3_errors_1.SubscriptionError('Subscription is not subscribed yet. Or, had already been unsubscribed but not through the Subscription Manager.');
+config.enableExperimentalFeatures.useSubscriptionWhenCheckingBlockTimeout
+let payload = (web3_utils_1.jsonRpc.isBatchRequest(request)
+                ? web3_utils_1.jsonRpc.toBatchPayload(request)
+                : web3_utils_1.jsonRpc.toPayload(request))
+const opts = (0, exports.txInputOptionsFormatter)(options)
+this._subscriptionManager = subscriptionManager
+!(typeof opts.from === 'number') && !(!!opts.from && typeof opts.from === 'object')
+this._subscriptionManager = new Web3SubscriptionManager(
+				this.requestManager,
+				registeredSubscriptions ?? ({} as RegisteredSubs),
+			)
+throw new web3_errors_1.FormatterError('The send transactions "from" field must be defined!');
+this._processJsonRpcResponse(payload, response, { legacy: false, error: false })
+const outputTransactionFormatter = (tx) => {
+    const modifiedTx = Object.assign({}, tx);
+    if (tx.blockNumber) {
+        modifiedTx.blockNumber = hexToNumber(tx.blockNumber);
+    }
+    if (tx.transactionIndex) {
+        modifiedTx.transactionIndex = hexToNumber(tx.transactionIndex);
+    }
+    modifiedTx.nonce = hexToNumber(tx.nonce);
+    modifiedTx.gas = hexToNumber(tx.gas);
+    if (tx.gasPrice) {
+        modifiedTx.gasPrice = outputBigIntegerFormatter(tx.gasPrice);
+    }
+    if (tx.maxFeePerGas) {
+        modifiedTx.maxFeePerGas = outputBigIntegerFormatter(tx.maxFeePerGas);
+    }
+    if (tx.maxPriorityFeePerGas) {
+        modifiedTx.maxPriorityFeePerGas = outputBigIntegerFormatter(tx.maxPriorityFeePerGas);
+    }
+    if (tx.type) {
+        modifiedTx.type = hexToNumber(tx.type);
+    }
+    modifiedTx.value = outputBigIntegerFormatter(tx.value);
+    if (tx.to && isAddress(tx.to)) {
+        // tx.to could be `0x0` or `null` while contract creation
+        modifiedTx.to = toChecksumAddres...
+provider
+                    .request(payload)
+                    .then(res => this._processJsonRpcResponse(payload, res, {
+                    legacy: true,
+                    error: false,
+                }))
+                    .catch(error => this._processJsonRpcResponse(payload, error, { legacy: true, error: true }))
+__awaiter(this, void 0, void 0, function* () {
+            const result = [];
+            for (const [id, sub] of this.subscriptions.entries()) {
+                if (!condition || (typeof condition === 'function' && condition({ id, sub }))) {
+                    result.push(this.removeSubscription(sub));
+                }
+            }
+            return Promise.all(result);
+        })
+this._processJsonRpcResponse(payload, res, {
+                    legacy: true,
+                    error: false,
+                })
+this._processJsonRpcResponse(payload, response, { legacy: false, error: false })
+const inputSignFormatter = (data) => ((0, web3_utils_1.isHexStrict)(data) ? data : (0, web3_utils_1.utf8ToHex)(data))
+provider
+                    .request(payload)
+                    .then(res => this._processJsonRpcResponse(payload, res, {
+                    legacy: true,
+                    error: false,
+                }))
+                    .catch(error => this._processJsonRpcResponse(payload, error, { legacy: true, error: true }))
+odifiedOptions.gas = toNumber(options.gas ?? options.gasLimit);
+this._processJsonRpcResponse(payload, res, {
+                    legacy: true,
+                    error: false,
+                })

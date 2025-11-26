@@ -1,0 +1,7 @@
+this.httpServer = isSecure ? https.createServer(options, handleMethodCall)
+                            : http.createServer(handleMethodCall)
+http.createServer(handleMethodCall)
+process.nextTick(function() {
+    this.httpServer.listen(options.port, options.host, onListening)
+  }.bind(this))
+options.headers[attribute] = headers[attribute]

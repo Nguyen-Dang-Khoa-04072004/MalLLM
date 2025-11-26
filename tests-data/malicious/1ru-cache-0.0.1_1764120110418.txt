@@ -1,0 +1,6 @@
+const node = this[CACHE].get(key)
+const item = node.value
+this[DISPOSE](key, item.value)
+this[LENGTH] += len - item.length
+this.get(key)
+this[CACHE].forEach((value, key) => get(this, key, false))

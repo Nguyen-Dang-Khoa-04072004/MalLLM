@@ -1,0 +1,263 @@
+function getEnvHardhatArguments = function getEnvHardhatArguments(paramDefinitions, envVariables) {
+    const envArgs = {};
+    for (const paramName of (0, unsafe_1.unsafeObjectKeys)(paramDefinitions)) {
+        const definition = paramDefinitions[paramName];
+        const envVarName = paramNameToEnvVariable(paramName);
+        const rawValue = envVariables[envVarName];
+        if (rawValue !== undefined) {
+            try {
+                envArgs[paramName] = definition.type.parse(paramName, rawValue);
+            }
+            catch (error) {
+                if (error instanceof Error) {
+                    throw new errors_1.HardhatError(errors_list_1.ERRORS.ARGUMENTS.INVALID_ENV_VAR_VALUE, {
+                        varName: envVarName,
+                        value: rawValue,
+                    }, error);
+                }
+                // eslint-disable-next-line @nomicfoundation/hardhat-internal-rules/only-hardhat-error
+                throw error;
+            }
+        }
+        else {
+            envArgs...
+function createProvider = async function createProvider(config, networkName, artifacts, extenders = []) {
+    let eip1193Provider;
+    const networkConfig = config.networks[networkName];
+    const paths = config.paths;
+    if (networkName === constants_1.HARDHAT_NETWORK_NAME) {
+        const hardhatNetConfig = networkConfig;
+        const { createHardhatNetworkProvider } = await Promise.resolve().then(() => __importStar(require("../../hardhat-network/provider/provider")));
+        let forkConfig;
+        if (hardhatNetConfig.forking?.enabled === true &&
+            hardhatNetConfig.forking?.url !== undefined) {
+            forkConfig = {
+                jsonRpcUrl: hardhatNetConfig.forking?.url,
+                blockNumber: hardhatNetConfig.forking?.blockNumber,
+                httpHeaders: hardhatNetConfig.forking.httpHeaders,
+            };
+        }
+        const accounts = (0, util_1.normalizeHardhatNetworkAccountsConfig)(hardhatNetConfig.accounts);
+        const { getForkCacheDirPath } = require("../../...
+const CONSOLE_LOG_SIGNATURES: Record<number, string[]> = {
+  0x51973ec9: [],
+  0x2d5b6cb9: [Int256Ty],
+  0xf82c50f1: [Uint256Ty],
+  0x41304fac: [StringTy],
+  0x32458eed: [BoolTy],
+  0x2c2ecbc2: [AddressTy],
+  0x0be77f56: [BytesTy],
+  0x6e18a128: [Bytes1Ty],
+  0xe9b62296: [Bytes2Ty],
+  0x2d834926: [Bytes3Ty],
+  0xe05f48d1: [Bytes4Ty],
+  0xa684808d: [Bytes5Ty],
+  0xae84a591: [Bytes6Ty],
+  0x4ed57e28: [Bytes7Ty],
+  0x4f84252e: [Bytes8Ty],
+  0x90bd8cd0: [Bytes9Ty],
+  0x013d178b: [Bytes10Ty],
+  0x04004a2e: [Bytes11Ty],
+  0x86a06abd: [Bytes12Ty],
+  0x94529e34: [Bytes13Ty],
+  0x9266f07f: [Bytes14Ty],
+  0xda9574e0: [Bytes15Ty],
+  0x665c6104: [Bytes16Ty],
+  0x339f673a: [Bytes17Ty],
+  0xc4d23d9a: [Bytes18Ty],
+  0x5e6b5a33: [Bytes19Ty],
+  0x5188e3e9: [Bytes20Ty],
+  0xe9da3560: [Bytes21Ty],
+  0xd5fae89c: [Bytes22Ty],
+  0xaba1cf0d: [Bytes23Ty],
+  0xf1b35b34: [Bytes24Ty],
+  0x0b84bc58: [Bytes25Ty],
+  0xf8b149f1: [Bytes26Ty],
+  0x3a3757dd: [Bytes27Ty],
+  0xc82aeaee: [Bytes28Ty],
+  0x4b69c3d5: [Bytes29Ty...
+function validatePrivateKey = function validatePrivateKey(
+  privateKey: unknown,
+  index: number,
+  network: string,
+  errors: string[]
+) {
+  if (typeof privateKey !== "string") {
+    errors.push(
+      getPrivateKeyError(
+        index,
+        network,
+        `Expected string, received ${typeof privateKey}`
+      )
+    );
+  } else {
+    // private key validation
+    const pkWithPrefix = /^0x/.test(privateKey)
+      ? privateKey
+      : `0x${privateKey}`;
+
+    // 32 bytes = 64 characters + 2 char prefix = 66
+    if (pkWithPrefix.length < 66) {
+      errors.push(
+        getPrivateKeyError(
+          index,
+          network,
+          "private key too short, expected 32 bytes"
+        )
+      );
+    } else if (pkWithPrefix.length > 66) {
+      errors.push(
+        getPrivateKeyError(
+          index,
+          network,
+          "private key too long, expected 32 bytes"
+        )
+      );
+    } else if (hexString.decode(pkWithPrefix).isLeft()) {
+      errors.push(
+        getPrivateKeyError(
+          index,
+...
+function isValidJsonResponse = function isValidJsonResponse(payload: any) {
+  if (payload.jsonrpc !== "2.0") {
+    return false;
+  }
+
+  if (
+    typeof payload.id !== "number" &&
+    typeof payload.id !== "string" &&
+    payload.id !== null
+  ) {
+    return false;
+  }
+
+  if (payload.id === null && payload.error === undefined) {
+    return false;
+  }
+
+  if (payload.result === undefined && payload.error === undefined) {
+    return false;
+  }
+
+  if (payload.error !== undefined) {
+    if (typeof payload.error.code !== "number") {
+      return false;
+    }
+
+    if (typeof payload.error.message !== "string") {
+      return false;
+    }
+  }
+
+  return true;
+}
+function createLazyProxy = function createLazyProxy(targetCreator, dummyTargetCreator, validator) {
+    let realTarget;
+    const dummyTarget = dummyTargetCreator(getRealTarget);
+    function getRealTarget() {
+        if (realTarget === undefined) {
+            const target = targetCreator();
+            validator(target);
+            // We copy all properties. We won't use them, but help us avoid Proxy
+            // invariant violations
+            const properties = Object.getOwnPropertyNames(target);
+            for (const property of properties) {
+                const descriptor = Object.getOwnPropertyDescriptor(target, property);
+                Object.defineProperty(dummyTarget, property, descriptor);
+            }
+            Object.setPrototypeOf(dummyTarget, Object.getPrototypeOf(target));
+            // Using a null prototype seems to tirgger a V8 bug, so we forbid it
+            // See: https://github.com/nodejs/node/issues/29730
+            if (Object.getPrototypeOf(target) === null) {
+         ...
+function selectHardfork = function selectHardfork(
+  forkBlockNumber: bigint | undefined,
+  currentHardfork: string,
+  hardforkActivations: HardforkHistoryConfig | undefined,
+  blockNumber: bigint
+): string {
+  if (forkBlockNumber === undefined || blockNumber > forkBlockNumber) {
+    return currentHardfork;
+  }
+
+  if (hardforkActivations === undefined || hardforkActivations.size === 0) {
+    throw new InternalError(
+      `No known hardfork for execution on historical block ${blockNumber.toString()} (relative to fork block number ${forkBlockNumber}). The node was not configured with a hardfork activation history.  See http://hardhat.org/custom-hardfork-history`
+    );
+  }
+
+  /** search this._hardforkActivations for the highest block number that
+   * isn't higher than blockNumber, and then return that found block number's
+   * associated hardfork name. */
+  const hardforkHistory: Array<[name: string, block: number]> = Array.from(
+    hardforkActivations.entries()
+  );
+  const [hardfork, activationBlock] = har...
+function getRealTarget = function getRealTarget(): ActualT {
+    if (realTarget === undefined) {
+      const target = targetCreator();
+      validator(target);
+
+      // We copy all properties. We won't use them, but help us avoid Proxy
+      // invariant violations
+      const properties = Object.getOwnPropertyNames(target);
+      for (const property of properties) {
+        const descriptor = Object.getOwnPropertyDescriptor(target, property)!;
+        Object.defineProperty(dummyTarget, property, descriptor);
+      }
+
+      Object.setPrototypeOf(dummyTarget, Object.getPrototypeOf(target));
+
+      // Using a null prototype seems to tirgger a V8 bug, so we forbid it
+      // See: https://github.com/nodejs/node/issues/29730
+      if (Object.getPrototypeOf(target) === null) {
+        throw new HardhatError(ERRORS.GENERAL.UNSUPPORTED_OPERATION, {
+          operation:
+            "Using lazyFunction or lazyObject to construct objects/functions with prototype null",
+        });
+      }
+
+      if (!Object.isExtens...
+_tmp_16.LIB_IMPORTED_FROM_THE_CONFIG = {
+            number: 9,
+            message: `Error while loading Hardhat's configuration.
+
+You probably tried to import the "hardhat" module from your config or a file imported from it.
+This is not possible, as Hardhat can't be initialized while its config is being defined.
+
+To learn more about how to access the Hardhat Runtime Environment from different contexts go to https://hardhat.org/hre`,
+            title: "Failed to load config file",
+            description: `There was an error while loading your config file.
+
+The most common source of errors is trying to import the Hardhat Runtime Environment from your config or a file imported from it.
+This is not possible, as Hardhat can't be initialized while its config is being defined.
+
+You may also have accidentally imported \`hardhat\` instead of \`hardhat/config\`.
+
+Please make sure your config file is correct.
+
+To learn more about how to access the Hardhat Runtime Environment from different contexts go to https://hardhat.org/hre...
+subtask(TASK_COMPILE_SOLIDITY_GET_SOURCE_PATHS)
+  .addOptionalParam("sourcePath", undefined, undefined, types.string)
+  .setAction(
+    async (
+      { sourcePath }: { sourcePath?: string },
+      { config }
+    ): Promise<string[]> => {
+      return getAllFilesMatching(sourcePath ?? config.paths.sources, (f) =>
+        f.endsWith(".sol")
+      );
+    }
+  )
+function getMessageFromLastStackTraceEntry = function getMessageFromLastStackTraceEntry(stackTraceEntry) {
+    switch (stackTraceEntry.type) {
+        case 3 /* StackTraceEntryType.PRECOMPILE_ERROR */:
+            return `Transaction reverted: call to precompile ${stackTraceEntry.precompile} failed`;
+        case 7 /* StackTraceEntryType.FUNCTION_NOT_PAYABLE_ERROR */:
+            return `Transaction reverted: non-payable function was called with value ${stackTraceEntry.value.toString(10)}`;
+        case 8 /* StackTraceEntryType.INVALID_PARAMS_ERROR */:
+            return `Transaction reverted: function was called with incorrect parameters`;
+        case 9 /* StackTraceEntryType.FALLBACK_NOT_PAYABLE_ERROR */:
+            return `Transaction reverted: fallback function is not payable and was called with value ${stackTraceEntry.value.toString(10)}`;
+        case 10 /* StackTraceEntryType.FALLBACK_NOT_PAYABLE_AND_NO_RECEIVE_ERROR */:
+            return `Transaction reverted: there's no receive function, fallback function is not pa...

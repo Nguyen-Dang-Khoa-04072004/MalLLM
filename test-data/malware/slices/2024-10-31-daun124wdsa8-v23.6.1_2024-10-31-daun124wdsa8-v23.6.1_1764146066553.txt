@@ -1,0 +1,72 @@
+(_tmp_0 = new CLI({
+    cachePath: cacheDir,
+    scriptName: 'puppeteer',
+    prefixCommand: {
+        cmd: 'browsers',
+        description: 'Manage browsers of this Puppeteer installation',
+    },
+    allowCachePathOverride: false,
+    pinnedBrowsers: {
+        [Browser.CHROME]: {
+            buildId: puppeteer.configuration.chrome?.version ||
+                PUPPETEER_REVISIONS['chrome'] ||
+                'latest',
+            skipDownload: puppeteer.configuration.chrome?.skipDownload ?? false,
+        },
+        [Browser.FIREFOX]: {
+            buildId: puppeteer.configuration.firefox?.version ||
+                PUPPETEER_REVISIONS['firefox'] ||
+                'latest',
+            skipDownload: puppeteer.configuration.firefox?.skipDownload ?? true,
+        },
+        [Browser.CHROMEHEADLESSSHELL]: {
+            buildId: puppeteer.configuration['chrome-headless-shell']?.version ||
+                PUPPETEER_REVISIONS['chrome-headless-shell'] ||
+                'latest',
+            skipDo...).run
+(_tmp_2 = new browsers_1.CLI({
+    cachePath: cacheDir,
+    scriptName: 'puppeteer',
+    prefixCommand: {
+        cmd: 'browsers',
+        description: 'Manage browsers of this Puppeteer installation',
+    },
+    allowCachePathOverride: false,
+    pinnedBrowsers: {
+        [browsers_1.Browser.CHROME]: {
+            buildId: puppeteer_js_1.default.configuration.chrome?.version ||
+                revisions_js_1.PUPPETEER_REVISIONS['chrome'] ||
+                'latest',
+            skipDownload: puppeteer_js_1.default.configuration.chrome?.skipDownload ?? false,
+        },
+        [browsers_1.Browser.FIREFOX]: {
+            buildId: puppeteer_js_1.default.configuration.firefox?.version ||
+                revisions_js_1.PUPPETEER_REVISIONS['firefox'] ||
+                'latest',
+            skipDownload: puppeteer_js_1.default.configuration.firefox?.skipDownload ?? true,
+        },
+        [browsers_1.Browser.CHROMEHEADLESSSHELL]: {
+            buildId: puppeteer_js_1.default.configuration['chrom...).run
+function getDefaultBrowser = function getDefaultBrowser(browser) {
+    // Validate configuration.
+    if (browser && !isSupportedBrowser(browser)) {
+        throw new Error(`Unsupported browser ${browser}`);
+    }
+    switch (browser) {
+        case 'firefox':
+            return 'firefox';
+        default:
+            return 'chrome';
+    }
+}
+const result = await install({
+      browser,
+      cacheDir,
+      platform,
+      buildId,
+      downloadProgressCallback: makeProgressCallback(browser, buildId),
+      baseUrl,
+      buildIdAlias:
+        buildId !== unresolvedBuildId ? unresolvedBuildId : undefined,
+    })
+logPolitely('**INFO** Skipping Chrome download as instructed.')

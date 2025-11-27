@@ -1,0 +1,180 @@
+__awaiter(this, void 0, void 0, function* () {
+            if (isNullish(this._socketConnection)) {
+                throw new Error('Connection is undefined');
+            }
+            // if socket disconnected - open connection
+            if (this.getStatus() === 'disconnected') {
+                this.connect();
+            }
+            const requestId = jsonRpc.isBatchRequest(request)
+                ? request[0].id
+                : request.id;
+            if (!requestId) {
+                throw new Web3WSProviderError('Request Id not defined');
+            }
+            if (this._sentRequestsQueue.has(requestId)) {
+                throw new RequestAlreadySentError(requestId);
+            }
+            const deferredPromise = new Web3DeferredPromise();
+            deferredPromise.catch(error => {
+                this._eventEmitter.emit('error', error);
+            });
+            const reqItem = {
+                payload: request,
+                deferredPromise,
+            }...
+convert(
+					arrObject as Record<string, unknown> | unknown[],
+					schema,
+					dataPath,
+					format,
+					oneOfPath,
+				)
+this.getStatus() === 'disconnected'
+let schemaProp = findSchemaByDataPath(schema, dataPath, oneOfPath)
+const requestId = jsonRpc.isBatchRequest(request)
+                ? request[0].id
+                : request.id
+const arseTypeN = (value: string, typeLength: number): number => {
+	const typesize = /^(\d+).*$/.exec(value.slice(typeLength));
+	return typesize ? parseInt(typesize[1], 10) : 0;
+};
+(_tmp_35 = this._sentRequestsQueue).has
+let trWithoutNullCharacter = str.replace(/^(?:\u0000)/, '');
+const itLength = (value: bigint | number): number => {
+	const updatedVal = value.toString(2);
+	return updatedVal.length;
+};
+throw new web3_errors_1.InvalidLargeValueError(value);
+__awaiter(this, void 0, void 0, function* () {
+            if ((0, validation_js_1.isNullish)(this._socketConnection)) {
+                throw new Error('Connection is undefined');
+            }
+            // if socket disconnected - open connection
+            if (this.getStatus() === 'disconnected') {
+                this.connect();
+            }
+            const requestId = jsonRpc.isBatchRequest(request)
+                ? request[0].id
+                : request.id;
+            if (!requestId) {
+                throw new web3_errors_1.Web3WSProviderError('Request Id not defined');
+            }
+            if (this._sentRequestsQueue.has(requestId)) {
+                throw new web3_errors_1.RequestAlreadySentError(requestId);
+            }
+            const deferredPromise = new web3_deferred_promise_js_1.Web3DeferredPromise();
+            deferredPromise.catch(error => {
+                this._eventEmitter.emit('error', error);
+            });
+            const reqItem = {
+    ...
+size ? (0, string_manipulation_js_1.leftPad)(num.toString(16), (size / 8) * 2) : num.toString(16)
+hexCharCode.length % 2 !== 0 ? <operator>.formatString("0", hexCharCode, "") : hexCharCode
+const olidityPack = (type: string, val: EncodingTypes): string => {
+	const value = val.toString();
+	if (type === 'string') {
+		if (typeof val === 'string') return utf8ToHex(val);
+		throw new InvalidStringError(val);
+	}
+	if (type === 'bool' || type === 'boolean') {
+		if (typeof val === 'boolean') return val ? '01' : '00';
+		throw new InvalidBooleanError(val);
+	}
+
+	if (type === 'address') {
+		if (!isAddress(value)) {
+			throw new InvalidAddressError(value);
+		}
+		return value;
+	}
+	const name = elementaryName(type);
+	if (type.startsWith('uint')) {
+		const size = parseTypeN(name, 'uint'.length);
+
+		if (size % 8 || size < 8 || size > 256) {
+			throw new InvalidSizeError(value);
+		}
+		const num = toNumber(value);
+		if (bitLength(num) > size) {
+			throw new InvalidLargeValueError(value);
+		}
+		if (num < BigInt(0)) {
+			throw new InvalidUnsignedIntegerError(value);
+		}
+
+		return size ? leftPad(num.toString(16), (size / 8) * 2) : num.toString(16);
+	}
+
+	if (type.startsWith('int')) {
+		const size = ...
+const requestId = jsonRpc.isBatchRequest(request)
+                ? request[0].id
+                : request.id
+const asciiToHex = (str) => {
+    web3_validator_1.validator.validate(['string'], [str]);
+    let hexString = '';
+    for (let i = 0; i < str.length; i += 1) {
+        const hexCharCode = str.charCodeAt(i).toString(16);
+        // might need a leading 0
+        hexString += hexCharCode.length % 2 !== 0 ? `0${hexCharCode}` : hexCharCode;
+    }
+    return `0x${hexString}`;
+}
+(_tmp_40 = this._sentRequestsQueue).has
+const convert = (
+	data: Record<string, unknown> | unknown[] | unknown,
+	schema: JsonSchema,
+	dataPath: string[],
+	format: DataFormat,
+	oneOfPath: [string, number][] = [],
+) => {
+	// If it's a scalar value
+	if (!isObject(data) && !Array.isArray(data)) {
+		return convertScalarValue(data, schema?.format as string, format);
+	}
+
+	const object = data as Record<string, unknown>;
+	// case when schema is array and `items` is object
+	if (
+		Array.isArray(object) &&
+		schema?.type === 'array' &&
+		(schema?.items as JsonSchema)?.type === 'object'
+	) {
+		convertArray({
+			value: object,
+			schemaProp: schema,
+			schema,
+			object,
+			key: '',
+			dataPath,
+			format,
+			oneOfPath,
+		});
+	} else {
+		for (const [key, value] of Object.entries(object)) {
+			dataPath.push(key);
+			let schemaProp = findSchemaByDataPath(schema, dataPath, oneOfPath);
+
+			// If value is a scaler value
+			if (isNullish(schemaProp)) {
+				delete object[key];
+				dataPath.pop();
+
+				continue;
+			}
+
+			// If value is an object, r...
+const reqItem = {
+                payload: request,
+                deferredPromise,
+            }
+const oUtf8 = (input: HexString | Uint8Array) => {
+	if (typeof input === 'string') {
+		return hexToUtf8(input);
+	}
+	validator.validate(['bytes'], [input]);
+	return bytesToUtf8(input);
+};
+this._pendingRequestsQueue.set(requestId, reqItem)
+const object = data as Record<string, unknown>

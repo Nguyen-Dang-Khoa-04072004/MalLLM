@@ -1,0 +1,1 @@
+const split = platform.get("build").split("-")

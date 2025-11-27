@@ -1,0 +1,53 @@
+__awaiter(this, void 0, void 0, function* () {
+            if (this._onNewDocumentScript != null) {
+                // NOTE: For details, see send('Page.addScriptToEvaluateOnNewDocument') code
+                yield this.getPageClient(page).send('Page.removeScriptToEvaluateOnNewDocument', {
+                    identifier: this._onNewDocumentScript
+                });
+                this._onNewDocumentScript = null;
+            }
+            if (((_a = this._session) === null || _a === void 0 ? void 0 : _a.connection()) != null) {
+                this._session.off('CDPSession.Disconnected', this._onSessionDisconnected);
+                yield this._session.detach();
+                this._session = null;
+            }
+        })
+this._onNewDocumentScript != null
+this.getPageClient(page).send('Page.removeScriptToEvaluateOnNewDocument', {
+                    identifier: this._onNewDocumentScript
+                })
+this._startStopMutex = new async_mutex_1.Mutex()
+this._dropCapturedFrames = false
+__awaiter(this, void 0, void 0, function* () {
+            const page = this._page;
+            const session = this._session;
+            if (page == null || ((_a = this.getPageClient(page)) === null || _a === void 0 ? void 0 : _a.connection()) == null || (session === null || session === void 0 ? void 0 : session.connection()) == null) {
+                return;
+            }
+            for (const frame of page.frames()) {
+                yield frame.evaluate(this._injector);
+                yield frame.evaluate(`${this._injected}.activate()`);
+            }
+            yield session.send('HeadlessExperimental.enable');
+            this.doRequestFrameCapture(page, session);
+        })
+__awaiter(this, void 0, void 0, function* () {
+            yield this._startStopMutex.runExclusive(() => __awaiter(this, void 0, void 0, function* () { return yield this._start(target, options); }));
+        })
+page == null || ((_a = this.getPageClient(page)) === null || _a === void 0 ? void 0 : _a.connection()) == null || (session === null || session === void 0 ? void 0 : session.connection()) == null
+throw new Error('options.waitForFirstFrame can not be null or undefined');
+__awaiter(this, void 0, void 0, function* () {
+            const page = this._page;
+            const session = this._session;
+            if (page == null || ((_a = this.getPageClient(page)) === null || _a === void 0 ? void 0 : _a.connection()) == null || (session === null || session === void 0 ? void 0 : session.connection()) == null) {
+                return;
+            }
+            for (const frame of page.frames()) {
+                yield frame.evaluate(`${this._injected}.deactivate()`);
+                yield frame.evaluate(this._ejector);
+            }
+            yield session.send('HeadlessExperimental.disable');
+        })
+const session = this._session
+page == null || ((_a = this.getPageClient(page)) === null || _a === void 0 ? void 0 : _a.connection()) == null || (session === null || session === void 0 ? void 0 : session.connection()) == null
+session.send('HeadlessExperimental.disable')

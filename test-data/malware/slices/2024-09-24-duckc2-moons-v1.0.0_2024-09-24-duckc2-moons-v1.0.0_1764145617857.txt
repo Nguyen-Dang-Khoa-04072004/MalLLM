@@ -1,0 +1,26 @@
+function generateRandomString = function generateRandomString(minLength, maxLength) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters[randomIndex];
+    }
+    return result;
+}
+_tmp_22.push("Opera/9.80 (X11; U; Linux i686; en-US; rv:1.9.2.3) Presto/2.2.15 Version/10.10")
+function handleQuery = function handleQuery(query) {
+                            if (query === '1') {
+                                return url.pathname + '?__cf_chl_rt_tk=' + randstrr(30) + '_' + randstrr(12) + '-' + timestampString + '-0-' + 'gaNy' + randstrr(8);
+                            } else if (query === '2') {
+                                return url.pathname + '?' + generateRandomString(6, 7) + '&' + generateRandomString(6, 7);
+                            } else if (query === '3') {
+                                return url.pathname + '?q=' + generateRandomString(6, 7) + '&' + generateRandomString(6, 7);
+                            } else {
+                                return url.pathname;
+                            }
+                        }
+_tmp_22.push("Opera/9.62 (Windows NT 6.0; U; nb) Presto/2.1.1")
+_tmp_49.push("SonyEricssonW850i/R1ED Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1")
+request.close()
+request.close()

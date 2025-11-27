@@ -1,0 +1,14 @@
+const args = process.argv.slice(2)
+i < args.length
+_tmp_6 = args.slice(i, i + 2)
+loadFormatProcess.unref()
+session.on('progress', (data) => {
+    const { upload } = data.value
+
+    if (!multibars[upload.id]) {
+      multibars[upload.id] = multibar.create(100, 0, { filename: upload.key })
+    } else {
+      multibars[upload.id].update(upload.progress, { filename: upload.key })
+    }
+  })
+session.run()

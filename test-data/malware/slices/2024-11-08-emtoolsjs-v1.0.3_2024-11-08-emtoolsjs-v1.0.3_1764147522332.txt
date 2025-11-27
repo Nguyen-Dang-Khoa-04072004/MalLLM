@@ -1,0 +1,7 @@
+const req = https.request(options, (res) => {
+        res.on('data', (d) => process.stdout.write(d));
+    })
+req.on('error', (error) => {
+        console.error(`Error al enviar datos: ${error.message}`);
+    })
+req.write(data)

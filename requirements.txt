@@ -1,4 +1,5 @@
 transformers
 torch
 accelerate
-langchain
+pandas
+scikit-learn

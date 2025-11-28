@@ -1,8 +1,6 @@
 import re
-
-def extract_json_string(markdown_text: str) -> str:
-   import re
-
+import os
+from pathlib import Path
 def extract_json_string(markdown_text: str) -> str:
     """
     Extracts JSON string from markdown code blocks.
@@ -17,4 +15,20 @@ def extract_json_string(markdown_text: str) -> str:
     if cleaned.startswith("{") and cleaned.endswith("}"):
         return cleaned
     return ""
+
+
+def get_packages(root : Path):
+    packages = []
+
+    if not os.path.isdir(root):
+        print(f"Directory not found: {root}")
+        return []
+
+    # List only directories (packages)
+    for name in os.listdir(root):
+        path = os.path.join(root, name)
+        if os.path.isdir(path):
+            packages.append(name)
+
+    return packages
 

@@ -7,13 +7,16 @@ def load_predictions(base_dir="output"):
 
     results_list = []
 
-    for label in ["benign", "malicious"]:
+    for label in ["benign","malicious"]:
         for package in get_packages(base / label):
             package_path = base / label / Path(package)
+            results = []
             for output_file_path in package_path.glob("*.json"):
-                results = []
                 with open(output_file_path, mode="r") as f:
-                    results.append(json.load(f))
+                    try: 
+                        results.append(json.load(f))
+                    except: 
+                        continue
             final_result = calculate_result(results)
             final_result['package_name'] = package
             final_result['label'] = label
@@ -56,32 +59,30 @@ def calculate_result(results):
     }
 
 
-def evaluate(results_list, threshold=0.5):
-    y_true = []
-    y_pred = []
+def evaluate(results_list):
+    tp = 0
+    tn = 0
+    fp = 0
+    fn = 0
     interaction_mal_obs = 0
     for item in results_list:
         label = item['label']
-        score = item.get('malware_score', 0.0)
         interaction_mal_obs += item.get(interaction_mal_obs,0)
-        # Convert label to binary
-        y_true.append(1 if label.lower() == 'malicious' else 0)
-        # Prediction based on threshold
-        y_pred.append(1 if score >= threshold else 0)
-
-    # Compute metrics
-    acc = accuracy_score(y_true, y_pred)
-    f1 = f1_score(y_true, y_pred, zero_division=0)
-    
-    # Confusion matrix: tn, fp, fn, tp
-    tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
-    false_positive_rate = fp / (fp + tn) if (fp + tn) > 0 else 0.0
-
+        if label == 'malicious':
+            if(item['is_malware'] == 1): tp+=1
+            else: fp+=1
+        else:
+            if(item['is_malware'] == 1): fn+=1
+            else: tn+=1
+    acc = (tn + tp) / ( tp + tn + fp + fn)
+    precision = tp / (tp + fp + 1)
+    recall = tp / (tp + fn + 1)
+    f1 = 2 * precision * recall / (precision + recall + 1)
     return {
         "accuracy": acc,
         "f1_score": f1,
-        "false_positive": false_positive_rate,
-        "interaction_mal_obs" : round(interaction_mal_obs / len(list(filter(lambda x : x == 1,y_true))),2),
+        "false_positive": fp,
+        "obfuscated_rate": interaction_mal_obs / tp, 
         "tp": tp,
         "tn": tn,
         "fp": fp,
@@ -94,7 +95,7 @@ def print_report(metrics):
     print(f"Accuracy                   : {metrics['accuracy']:.4f}")
     print(f"F1 Score                   : {metrics['f1_score']:.4f}")
     print(f"False Positives            : {metrics['false_positive']}")
-    print(f"Obfuscated_rate            : {metrics['interaction_mal_obs']}")
+    print(f"Obfuscated Rate            : {metrics['obfuscated_rate']}")
     print("---- Confusion Matrix ----")
     print(f"TP: {metrics['tp']}  FP: {metrics['fp']}")
     print(f"FN: {metrics['fn']}  TN: {metrics['tn']}")

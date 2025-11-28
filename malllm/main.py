@@ -42,10 +42,10 @@ if __name__ == '__main__':
     # Load samples using your existing Dataloader
     samples = Dataloader().load_data()
     # Load model
-    model = set_up_model(Path('../config/qwen-coder-0.5b.json'))
+    model = set_up_model(Path('../config/deepseek-coder-6.7b.json'))
 
     # Shuffle to improve batch distribution
-    # random.shuffle(samples)
+    random.shuffle(samples)
 
     # Multithreaded inference
     with ThreadPoolExecutor(max_workers=NUM_WORKERS) as executor:

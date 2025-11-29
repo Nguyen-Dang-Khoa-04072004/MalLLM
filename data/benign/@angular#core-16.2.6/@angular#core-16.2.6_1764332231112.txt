@@ -1,0 +1,64 @@
+function serializeLView = function serializeLView(lView, context) {
+    const ngh = {};
+    const tView = lView[TVIEW];
+    // Iterate over DOM element references in an LView.
+    for (let i = HEADER_OFFSET; i < tView.bindingStartIndex; i++) {
+        const tNode = tView.data[i];
+        const noOffsetIndex = i - HEADER_OFFSET;
+        // Local refs (e.g. <div #localRef>) take up an extra slot in LViews
+        // to store the same element. In this case, there is no information in
+        // a corresponding slot in TNode data structure. If that's the case, just
+        // skip this slot and move to the next one.
+        if (!tNode) {
+            continue;
+        }
+        // Check if a native node that represents a given TNode is disconnected from the DOM tree.
+        // Such nodes must be excluded from the hydration (since the hydration won't be able to
+        // find them), so the TNode ids are collected and used at runtime to skip the hydration.
+        //
+        // This situation may happen during th...
+function createResultForNode = function createResultForNode(lView, tNode, matchingIdx, read) {
+    if (matchingIdx === -1) {
+        // if read token and / or strategy is not specified, detect it using appropriate tNode type
+        return createResultByTNodeType(tNode, lView);
+    }
+    else if (matchingIdx === -2) {
+        // read a special token from a node injector
+        return createSpecialToken(lView, tNode, read);
+    }
+    else {
+        // read a token
+        return getNodeInjectable(lView, lView[TVIEW], matchingIdx, tNode);
+    }
+}
+function detachView = function detachView(lContainer, removeIndex) {
+    if (lContainer.length <= CONTAINER_HEADER_OFFSET)
+        return;
+    const indexInContainer = CONTAINER_HEADER_OFFSET + removeIndex;
+    const viewToDetach = lContainer[indexInContainer];
+    if (viewToDetach) {
+        const declarationLContainer = viewToDetach[DECLARATION_LCONTAINER];
+        if (declarationLContainer !== null && declarationLContainer !== lContainer) {
+            detachMovedView(declarationLContainer, viewToDetach);
+        }
+        if (removeIndex > 0) {
+            lContainer[indexInContainer - 1][NEXT] = viewToDetach[NEXT];
+        }
+        const removedLView = removeFromArray(lContainer, CONTAINER_HEADER_OFFSET + removeIndex);
+        removeViewFromDOM(viewToDetach[TVIEW], viewToDetach);
+        // notify query that a view has been removed
+        const lQueries = removedLView[QUERIES];
+        if (lQueries !== null) {
+            lQueries.detachView(removedLView[TVIEW]);
+        }
+        viewToDetach[PAR...
+function getRenderedText = function getRenderedText(component) {
+    const hostElement = getHostElement(component);
+    return hostElement.textContent || '';
+}
+<operator>.formatString("Special token to read should be one of ElementRef, TemplateRef or ViewContainerRef but got ", stringify(read), ".")
+let platform = getPlatform()
+!platform || platform.injector.get(ALLOW_MULTIPLE_PLATFORMS, false)
+const platform = getPlatform()
+!platform
+!platform.injector.get(requiredToken, null)

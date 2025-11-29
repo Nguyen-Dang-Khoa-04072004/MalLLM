@@ -1,0 +1,216 @@
+documentation
+      .build(argv.input, argv)
+      .then(comments =>
+        documentation.formats[argv.format](comments, argv).then(onFormatted)
+      )
+      .catch(err => {
+        /* eslint no-console: 0 */
+        if (err instanceof Error) {
+          console.error(err.stack);
+        } else {
+          console.error(err);
+        }
+        process.exit(1);
+      })
+u(
+            'listItem',
+            [
+              u(
+                'paragraph',
+                [
+                  u('inlineCode', param.name),
+                  u('text', ' '),
+                  !!param.type && u('strong', formatType(param.type)),
+                  u('text', ' ')
+                ]
+                  .concat(param.description ? param.description.children : [])
+                  .concat([
+                    !!param.default &&
+                      u('paragraph', [
+                        u('text', ' (optional, default '),
+                        u('inlineCode', param.default),
+                        u('text', ')')
+                      ])
+                  ])
+                  .filter(Boolean)
+              )
+            ]
+              .concat(param.properties && paramList(param.properties))
+              .filter(Boolean)
+          )
+(_tmp_10 = documentation
+    .build(argv.input, argv)
+    .then(comments => documentation.formats.remark(comments, argv))
+    .then(docsAst =>
+      remark()
+        .use(plugin, {
+          section: argv.section,
+          toInject: JSON.parse(docsAst)
+        })
+        .process(readmeContent)
+    )
+    .then(file => {
+      const diffRaw = createPatch('', readmeContent, file.value, '', '');
+      if (diffRaw.split('\n').length === 5) {
+        log(`${argv.readmeFile} is up to date.`);
+        process.exit(0);
+      }
+
+      // Replace diff headers with real values
+      const cleanedDiff = diffRaw
+        .replace(/^([^\n]+)\n([^\n]+)\n/m, '')
+        .replace(/^---.*/gm, `--- ${argv.readmeFile}\tremoved`)
+        .replace(/^\+\+\+.*/gm, `+++ ${argv.readmeFile}\tadded`);
+
+      // Includes newlines for easier joins
+      const diffLines = cleanedDiff.split(/^/m);
+      const diffHeader = diffLines
+        .slice(0, 2)
+        .join('')
+        .replace(/[^\n\r]+/g, chalk.yellow('$&'));
+    ...).catch
+traverse(ast, {
+    Statement(path) {
+      path.skip();
+    },
+    ExportDeclaration(path) {
+      const declaration = path.get('declaration');
+      if (t.isDeclaration(declaration)) {
+        traverseExportedSubtree(declaration, data, addComments);
+        return path.skip();
+      }
+
+      if (path.isExportDefaultDeclaration()) {
+        if (declaration.isIdentifier()) {
+          const binding = declaration.scope.getBinding(declaration.node.name);
+          traverseExportedSubtree(binding.path, data, addComments);
+          return path.skip();
+        }
+
+        traverseExportedSubtree(declaration, data, addComments);
+        return path.skip();
+      }
+
+      if (t.isExportNamedDeclaration(path)) {
+        const specifiers = path.get('specifiers');
+        const source = path.node.source;
+        const exportKind = path.node.exportKind;
+        specifiers.forEach(specifier => {
+          let specData = data;
+          let local;
+          if (t.isExportDefaultSpecifier(specifi...
+add('fromMarkdownExtensions', {
+    transforms: [
+      function (markdownAST) {
+        return findAndReplace(markdownAST, [
+          [new RegExp(linkRegExp.source, 'g'), replace('link')],
+          [new RegExp(tutorialRegExp.source, 'g'), replace('tutorial')]
+        ]);
+      }
+    ],
+    enter: {
+      literalJsDoclink(token) {
+        const str = this.sliceSerialize(token);
+        let match = null;
+        if (str.startsWith('{@link')) {
+          match = linkRegExp.exec(str);
+        } else {
+          match = tutorialRegExp.exec(str);
+        }
+
+        this.enter(replace('link')(...match), token);
+      }
+    },
+    exit: {
+      literalJsDoclink(token) {
+        this.exit(token);
+      }
+    }
+  })
+_tmp_8.transforms = [
+      function (markdownAST) {
+        return findAndReplace(markdownAST, [
+          [new RegExp(linkRegExp.source, 'g'), replace('link')],
+          [new RegExp(tutorialRegExp.source, 'g'), replace('tutorial')]
+        ]);
+      }
+    ]
+fixed.sort((a, b) => {
+    if (indexes[a.name] !== undefined && indexes[b.name] !== undefined) {
+      return indexes[a.name] - indexes[b.name];
+    }
+    return 0;
+  })
+_tmp_10.push([new RegExp(linkRegExp.source, 'g'), replace('link')])
+const sharedOutputOptions = {
+  theme: {
+    describe: 'specify a theme: this must be a valid theme module',
+    alias: 't'
+  },
+  'project-name': {
+    describe: 'project name. by default, inferred from package.json'
+  },
+  'project-version': {
+    describe: 'project version. by default, inferred from package.json'
+  },
+  'project-description': {
+    describe: 'project description. by default, inferred from package.json'
+  },
+  'project-homepage': {
+    describe: 'project homepage. by default, inferred from package.json'
+  },
+  favicon: {
+    describe: 'favicon used in html'
+  },
+  format: {
+    alias: 'f',
+    default: 'json',
+    choices: ['json', 'md', 'remark', 'html']
+  },
+  watch: {
+    describe: 'watch input files and rebuild documentation when they change',
+    alias: 'w',
+    type: 'boolean'
+  },
+  'markdown-toc': {
+    describe: 'include a table of contents in markdown output',
+    default: true,
+    type: 'boolean'
+  },
+  'markdown-toc-max-depth': {
+    describe:
+      'specif...
+_tmp_8.enter = {
+      literalJsDoclink(token) {
+        const str = this.sliceSerialize(token);
+        let match = null;
+        if (str.startsWith('{@link')) {
+          match = linkRegExp.exec(str);
+        } else {
+          match = tutorialRegExp.exec(str);
+        }
+
+        this.enter(replace('link')(...match), token);
+      }
+    }
+properties.map(property =>
+          u(
+            'listItem',
+            [
+              u(
+                'paragraph',
+                [
+                  u('inlineCode', property.name),
+                  u('text', ' '),
+                  u('strong', formatType(property.type)),
+                  u('text', ' ')
+                ]
+                  .concat(
+                    property.description ? property.description.children : []
+                  )
+                  .filter(Boolean)
+              ),
+              property.properties && propertyList(property.properties)
+            ].filter(Boolean)
+          )
+        )

@@ -1,0 +1,18 @@
+new Promise(function (resolve, reject) {
+    var specFormat = SPEC_FORMATS.filter(function (f) {
+      return args[f];
+    })[0];
+    var directory = args.destination || path.join(process.cwd(), 'integrations');
+    var callback = function callback(err) {
+      if (err) reject(err);else resolve(require(path.join(directory, args.name, 'openapi.json')));
+    };
+    if (args.openapi) {
+      integrateOpenAPI(directory, args.name, args.openapi, args.patch, callback);
+    } else if (specFormat) {
+      integrateSpec(directory, args.name, specFormat, args[specFormat], callback);
+    } else if (args.rss) {
+      integrateRSS(directory, args.name, args.rss, callback);
+    } else {
+      throw new Error("Must specify an API specification or RSS feed");
+    }
+  })

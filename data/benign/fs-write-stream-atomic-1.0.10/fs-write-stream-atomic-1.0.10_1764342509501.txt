@@ -1,0 +1,3 @@
+this.__isWin = options && options.hasOwnProperty('isWin') ? options.isWin : process.platform === 'win32'
+this.__atomicTmp = getTmpname(path)
+this.__atomicStream = fs.WriteStream(this.__atomicTmp, options)

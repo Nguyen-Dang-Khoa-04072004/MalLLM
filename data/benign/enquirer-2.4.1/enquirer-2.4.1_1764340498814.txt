@@ -1,0 +1,64 @@
+const erase = ansi.erase = {
+  screen: code.screen,
+  up: code.up,
+  down: code.down,
+  line: code.line,
+  lineEnd: code.lineEnd,
+  lineStart: code.lineStart,
+  lines(n) {
+    let str = '';
+    for (let i = 0; i < n; i++) {
+      str += ansi.erase.line + (i < n - 1 ? ansi.cursor.up(1) : '');
+    }
+    if (n) str += ansi.code.beginning;
+    return str;
+  }
+}
+this.state.index = this.increment(this.state.index)
+const keypress = (s = '', event = {}) => {
+  let parts;
+  let key = {
+    name: event.name,
+    ctrl: false,
+    meta: false,
+    shift: false,
+    option: false,
+    sequence: s,
+    raw: s,
+    ...event
+  };
+
+  if (Buffer.isBuffer(s)) {
+    if (s[0] > 127 && s[1] === void 0) {
+      s[0] -= 128;
+      s = '\x1b' + String(s);
+    } else {
+      s = String(s);
+    }
+  } else if (s !== void 0 && typeof s !== 'string') {
+    s = String(s);
+  } else if (!s) {
+    s = key.sequence || '';
+  }
+
+  key.sequence = key.sequence || s || key.name;
+
+  if (s === '\r') {
+    // carriage return
+    key.raw = void 0;
+    key.name = 'return';
+  } else if (s === '\n') {
+    // enter, should have been called linefeed
+    key.name = 'enter';
+  } else if (s === '\t') {
+    // tab
+    key.name = 'tab';
+  } else if (s === '\b' || s === '\x7f' || s === '\x1b\x7f' || s === '\x1b\b') {
+    // backspace or ctrl+h
+    key.name = 'backspace';
+    key.meta = s.charAt(0) === '\x1b';
+  } else if (s === '\x1b' || s === '\...
+this.state.clipboard.push(words.pop())
+let item = items.find(item => item.name === token.key)
+assert(this.prompts[type], `Prompt "${type}" is not registered`)
+ele.value = [ele.value, ele.name].find(this.isValue.bind(this))

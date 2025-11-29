@@ -1,0 +1,2 @@
+dataType0 === "boolean" || data0 === null
+              || (dataType0 === "string" && data0 && data0 == +data0 && !(data0 % 1))

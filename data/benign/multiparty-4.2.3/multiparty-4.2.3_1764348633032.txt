@@ -1,0 +1,3 @@
+var buffer = fieldStream.read()
+!buffer
+value += decoder.write(buffer)

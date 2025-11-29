@@ -1,0 +1,18 @@
+app.get('/sse', (req, res) => {
+  console.log('new connection')
+
+  const sseStream = new SseStream(req)
+  sseStream.pipe(res)
+  const pusher = setInterval(() => {
+    sseStream.write({
+      event: 'server-time',
+      data: new Date().toTimeString()
+    })
+  }, 1000)
+
+  res.on('close', () => {
+    console.log('lost connection')
+    clearInterval(pusher)
+    sseStream.unpipe(res)
+  })
+})

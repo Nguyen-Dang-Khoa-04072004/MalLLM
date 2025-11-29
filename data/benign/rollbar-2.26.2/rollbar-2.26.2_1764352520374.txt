@@ -1,0 +1,8 @@
+Rollbar.debug = function() {
+  if (_instance) {
+    return _instance.debug.apply(_instance, arguments);
+  } else {
+    var maybeCallback = _getFirstFunction(arguments);
+    handleUninitialized(maybeCallback);
+  }
+}

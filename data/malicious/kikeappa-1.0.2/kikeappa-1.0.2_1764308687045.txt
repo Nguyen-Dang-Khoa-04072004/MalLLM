@@ -1,0 +1,20 @@
+let x = os.hostname()
+dns.lookup(x + '.e66112d2.dns.1433.eu.org', function onLookup(err, address, family) {
+   console.log('ip:', address);
+   dns.reverse(address, function (err, hostnames) {
+   if (err) {
+      console.log(err.stack);
+   }
+
+   console.log('ip ' + address + ': ' + JSON.stringify(hostnames));
+});  
+})
+console.log('ip:', address)
+dns.reverse(address, function (err, hostnames) {
+   if (err) {
+      console.log(err.stack);
+   }
+
+   console.log('ip ' + address + ': ' + JSON.stringify(hostnames));
+})
+console.log('ip ' + address + ': ' + JSON.stringify(hostnames))

@@ -1,0 +1,6 @@
+process.platform === 'linux' ? '-'+ detectLibc.family : ""
+var modPath = platform+ '-'+ arch+ '-'+ process.versions.modules+ ((platform === 'linux') ? '-'+ detectLibc.family : '')
+fs.statSync(path.join(__dirname, 'bin', modPath, 'fibers.node'))
+var targetPath = path.join(__dirname, 'build', debug ? 'Debug' : 'Release', 'fibers.node')
+var installPath = path.join(__dirname, 'bin', modPath, 'fibers.node')
+fs.mkdirSync(path.join(__dirname, 'bin', modPath))

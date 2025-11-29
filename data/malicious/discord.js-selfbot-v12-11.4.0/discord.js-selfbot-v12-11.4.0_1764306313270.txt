@@ -1,0 +1,1 @@
+throw new TypeError('Target must be a TextChannel, DMChannel, GroupDMChannel, or Guild.');

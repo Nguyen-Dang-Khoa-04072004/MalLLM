@@ -1,0 +1,57 @@
+this.users.forEach(user => {
+      const member = this._guild.member(user);
+      if (member) this._members.set(member.user.id, member);
+    })
+<operator>.formatString("<@", reply instanceof GuildMember && reply.nickname ? '!' : '', "", id, ">")
+_iterator_1 = <operator>.iterator(this.client.guilds.values())
+transcoder.on('error', e => {
+      this.destroyCurrentStream();
+      if (this.listenerCount('error') > 0) this.emit('error', e);
+      this.emit('warn', `prism transcoder error - ${e}`);
+    })
+const send = chan => {
+        if (content instanceof Array) {
+          const messages = [];
+          (function sendChunk(list, index) {
+            const options = index === list.length ? { tts, embed } : { tts };
+            chan.send(list[index], options, index === list.length ? files : null).then(message => {
+              messages.push(message);
+              if (index >= list.length - 1) return resolve(messages);
+              return sendChunk(list, ++index);
+            });
+          }(content, 0));
+        } else {
+          this.rest.makeRequest('post', Endpoints.Channel(chan).messages, true, {
+            content, tts, nonce, embed,
+          }, files).then(data => resolve(this.client.actions.MessageCreate.handle(data).message), reject);
+        }
+      }
+dispatcher.on('volumeChange', (o, n) => {
+        this.unregisterDispatcher(dispatcher, o);
+        if (!this._dispatchers.has(n)) {
+          this._dispatchers.set(n, new Set());
+          this._encoders.set(n, OpusEncoders.fetch());
+        }
+        this._dispatchers.get(n).add(dispatcher);
+      })
+_tmp_8.settings = <operator>.formatString("", base, "/settings")
+const options = index === list.length ? { tts, embed } : { tts }
+Promise.all(options.files.map(file =>
+        this.client.resolver.resolveBuffer(file.attachment).then(buffer => {
+          file.file = buffer;
+          return file;
+        })
+      )).then(files => this.client.rest.methods.sendMessage(this, content, options, files))
+const listener = message => {
+        if (!message || message._eval !== script) return;
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        if (!message._error) resolve(message._result); else reject(Util.makeError(message._error));
+      }
+const onCollect = item => {
+        cleanup();
+        resolve(item);
+      }
+this.rest.makeRequest('post', Endpoints.Guild(guild).ack, true).then(() => guild)
+_tmp_45 = VoiceReceiver._tryDecode(this.opusEncoders.get(user.id), data)
+TextBasedChannel.applyToClass(GroupDMChannel, true, ['bulkDelete'])

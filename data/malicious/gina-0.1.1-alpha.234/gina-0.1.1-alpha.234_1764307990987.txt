@@ -1,0 +1,1 @@
+filename =  bundleConf.content.statics[ bundleConf.staticResources[staticIndex] ]

@@ -1,0 +1,1 @@
+regexpCache.get(cacheKey)

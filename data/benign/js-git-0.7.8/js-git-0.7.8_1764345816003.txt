@@ -1,0 +1,4 @@
+function onNewTree = function onNewTree(err, hash) {
+      if (err) return callall(err);
+      options.setRootTree(hash, onSaveRoot);
+    }

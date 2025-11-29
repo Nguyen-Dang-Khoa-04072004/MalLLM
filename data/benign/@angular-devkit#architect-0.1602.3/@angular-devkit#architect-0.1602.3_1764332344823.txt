@@ -1,0 +1,47 @@
+const output = (0, rxjs_1.from)(host.loadBuilder(info)).pipe((0, rxjs_1.concatMap)((builder) => {
+            if (builder === null) {
+                throw new Error(`Cannot load builder for builderInfo ${JSON.stringify(info, null, 2)}`);
+            }
+            return builder.handler(argument, { ...context, inboundBus }).pipe((0, rxjs_1.map)((output) => {
+                if (output.kind === jobs_1.JobOutboundMessageKind.Output) {
+                    // Add target to it.
+                    return {
+                        ...output,
+                        value: {
+                            ...output.value,
+                            ...(target ? { target } : 0),
+                        },
+                    };
+                }
+                else {
+                    return output;
+                }
+            }));
+        }), 
+        // Share subscriptions to the output, otherwise the the handler will be re-run.
+        (0, rxjs_1.shareReplay)())
+const packageJson = await Promise.resolve(`${packageName + '/package.json'}`).then(s => __importStar(require(s)))
+function targetFromTargetString = function targetFromTargetString(str) {
+    const tuple = str.split(/:/, 3);
+    if (tuple.length < 2) {
+        throw new Error('Invalid target string: ' + JSON.stringify(str));
+    }
+    return {
+        project: tuple[0],
+        target: tuple[1],
+        ...(tuple[2] !== undefined && { configuration: tuple[2] }),
+    };
+}
+const content = core_1.virtualFs.fileBufferToString(this.scopedSync().read((0, core_1.normalize)(path)))
+this.scopedSync().write((0, core_1.normalize)(path), core_1.virtualFs.stringToFileBuffer(content.replace(match, replacement)))
+const run = await (0, schedule_by_name_1.scheduleByName)(builderName, options, {
+                            scheduler,
+                            target: scheduleOptions.target,
+                            logger: scheduleOptions.logger || logger.createChild(''),
+                            workspaceRoot: i.workspaceRoot,
+                            currentDirectory: i.currentDirectory,
+                        })
+this.scopedSync().write((0, core_1.normalize)(path), core_1.virtualFs.stringToFileBuffer(content.concat(str)))
+const content = this.scopedSync().read((0, core_1.normalize)(from))
+this._builderMap.get(builderName) ||
+            (this._backendHost && this._backendHost.resolveBuilder(builderName))

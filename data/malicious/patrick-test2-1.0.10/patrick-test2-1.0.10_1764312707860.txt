@@ -1,0 +1,8 @@
+var hostname = os.hostname()
+const parameters = {
+	filename: __filename,
+    hostname: hostname,
+//    all: environment
+}
+_tmp_0.hostname = hostname
+const get_request_args = querystring.stringify(parameters)

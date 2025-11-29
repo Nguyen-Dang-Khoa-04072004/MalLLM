@@ -1,0 +1,1 @@
+sctpStreamId = (this.#nextSctpStreamId + idx) % this.#sctpStreamIds.length

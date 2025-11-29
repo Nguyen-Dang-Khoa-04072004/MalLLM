@@ -1,0 +1,58 @@
+var me = moment.defineLocale('me', {
+        months: 'januar_februar_mart_april_maj_jun_jul_avgust_septembar_oktobar_novembar_decembar'.split(
+            '_'
+        ),
+        monthsShort: 'jan._feb._mar._apr._maj_jun_jul_avg._sep._okt._nov._dec.'.split(
+            '_'
+        ),
+        monthsParseExact: true,
+        weekdays: 'nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota'.split(
+            '_'
+        ),
+        weekdaysShort: 'ned._pon._uto._sri._čet._pet._sub.'.split('_'),
+        weekdaysMin: 'ne_po_ut_sr_če_pe_su'.split('_'),
+        weekdaysParseExact: true,
+        longDateFormat: {
+            LT: 'H:mm',
+            LTS: 'H:mm:ss',
+            L: 'DD.MM.YYYY',
+            LL: 'D. MMMM YYYY',
+            LLL: 'D. MMMM YYYY H:mm',
+            LLLL: 'dddd, D. MMMM YYYY H:mm',
+        },
+        calendar: {
+            sameDay: '[danas u] LT',
+            nextDay: '[sjutra u] LT',
+
+            nextWeek: function () {
+                swi...
+moment.defineLocale('ru', {
+    months: {
+        format: 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split(
+            '_'
+        ),
+        standalone: 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split(
+            '_'
+        ),
+    },
+    monthsShort: {
+        // по CLDR именно "июл." и "июн.", но какой смысл менять букву на точку?
+        format: 'янв._февр._мар._апр._мая_июня_июля_авг._сент._окт._нояб._дек.'.split(
+            '_'
+        ),
+        standalone: 'янв._февр._март_апр._май_июнь_июль_авг._сент._окт._нояб._дек.'.split(
+            '_'
+        ),
+    },
+    weekdays: {
+        standalone: 'воскресенье_понедельник_вторник_среда_четверг_пятница_суббота'.split(
+            '_'
+        ),
+        format: 'воскресенье_понедельник_вторник_среду_четверг_пятницу_субботу'.split(
+            '_'
+        ),
+        isFormat: /\[ ?[Вв] ?(?:прошлую|следующую|эту)? ?] ?dddd/,...
+setMonth(mom, get(mom, 'Month') + months * isAdding)
+updateOffset = updateOffset == null ? true : updateOffset
+mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding)
+set$1(mom, 'Date', get(mom, 'Date') + days * isAdding)

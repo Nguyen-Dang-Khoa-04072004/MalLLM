@@ -1,0 +1,41 @@
+var _ref3 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (fd, dest, data) {
+    const doOpen = fd === undefined;
+    let openfd = fd ? fd : -1;
+
+    if (disableTimestampCorrection === undefined) {
+      // if timestamps match already, no correction is needed.
+      // the need to correct timestamps varies based on OS and node versions.
+      const destStat = yield lstat(dest);
+      disableTimestampCorrection = fileDatesEqual(destStat.mtime, data.mtime);
+    }
+
+    if (disableTimestampCorrection) {
+      return;
+    }
+
+    if (doOpen) {
+      try {
+        openfd = yield open(dest, 'a', data.mode);
+      } catch (er) {
+        // file is likely read-only
+        try {
+          openfd = yield open(dest, 'r', data.mode);
+        } catch (err) {
+          // We can't even open this file for reading.
+          return;
+        }
+      }
+    }
+
+    try {
+      if (openfd) {
+        yield futimes(openfd, data.atime, data.mtime);
+      }
+    } catch (er) {
+      // I...
+const doOpen = fd === undefined
+const destStat = yield lstat(dest)
+openfd = yield open(dest, 'a', data.mode)
+openfd = yield open(dest, 'r', data.mode)
+doOpen && openfd
+close(openfd)

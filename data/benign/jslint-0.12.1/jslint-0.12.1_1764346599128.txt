@@ -1,0 +1,11 @@
+var procOptions = optModule.getOptions(process.env.HOME, options)
+var files = globFiles(options.argv.remain, glob, options.filter)
+files.forEach(function (file) {
+        opener.write(file);
+    })
+_tmp_36.node = [
+            "Buffer", "clearImmediate", "clearInterval", "clearTimeout",
+            "console", "exports", "module", "process", "querystring",
+            "require", "setImmediate", "setInterval", "setTimeout",
+            "__dirname", "__filename"
+        ]

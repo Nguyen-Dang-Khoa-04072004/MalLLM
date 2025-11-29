@@ -1,0 +1,81 @@
+host.read(this.path).then(function (content) {
+            var prefix = content.substring(0, _this.pos);
+            var suffix = content.substring(_this.pos);
+            return host.write(_this.path, "".concat(prefix).concat(_this.toAdd).concat(suffix));
+        })
+exports.stringUtils = {
+    dasherize: strings_1.dasherize,
+    decamelize: strings_1.decamelize,
+    camelize: strings_1.camelize,
+    classify: strings_1.classify,
+    underscore: strings_1.underscore,
+    group: strings_1.group,
+    capitalize: strings_1.capitalize,
+    featurePath: strings_1.featurePath,
+    pluralize: strings_1.pluralize,
+}
+(_tmp_3 = imports
+        .map(function (p) { var _a, _b; return (_b = (_a = p === null || p === void 0 ? void 0 : p.importClause) === null || _a === void 0 ? void 0 : _a.namedBindings) === null || _b === void 0 ? void 0 : _b.elements; })
+        .reduce(function (imports, curr) { return imports.concat(curr !== null && curr !== void 0 ? curr : []); }, [])
+        .map(function (specifier) {
+        if (!ts.isImportSpecifier(specifier)) {
+            return { hit: false };
+        }
+        var serializerImports = Object.keys(renames);
+        if (serializerImports.includes(specifier.name.text)) {
+            return { hit: true, specifier: specifier, text: specifier.name.text };
+        }
+        // if import is renamed
+        if (specifier.propertyName &&
+            serializerImports.includes(specifier.propertyName.text)) {
+            return { hit: true, specifier: specifier, text: specifier.propertyName.text };
+        }
+        return { hit: false };
+    })
+        .filter(function (_a) ...).filter
+host.read(this.path).then(function (content) {
+            var prefix = content.substring(0, _this.pos);
+            var suffix = content.substring(_this.end);
+            // TODO: throw error if toRemove doesn't match removed string.
+            return host.write(_this.path, "".concat(prefix).concat(suffix));
+        })
+Object.defineProperty(exports, "visitNgModules", { enumerable: true, get: function () { return visitors_1.visitNgModules; } })
+this.router.events
+            .pipe(withLatestFrom(this.store))
+            .subscribe(([event, storeState]) => {
+            this.lastEvent = event;
+            if (event instanceof NavigationStart) {
+                this.routerState = this.serializer.serialize(this.router.routerState.snapshot);
+                if (this.trigger !== RouterTrigger.STORE) {
+                    this.storeState = storeState;
+                    this.dispatchRouterRequest(event);
+                }
+            }
+            else if (event instanceof RoutesRecognized) {
+                routesRecognized = event;
+                if (!dispatchNavLate && this.trigger !== RouterTrigger.STORE) {
+                    this.dispatchRouterNavigation(event);
+                }
+            }
+            else if (event instanceof NavigationCancel) {
+                this.dispatchRouterCancel(event);
+                this.reset();
+            }
+            else if (event instanceof NavigationError) {
+                this.d...
+host.read(this.path).then(function (content) {
+            var prefix = content.substring(0, _this.pos);
+            var suffix = content.substring(_this.pos + _this.oldText.length);
+            var text = content.substring(_this.pos, _this.pos + _this.oldText.length);
+            if (text !== _this.oldText) {
+                return Promise.reject(new Error("Invalid replace: \"".concat(text, "\" != \"").concat(_this.oldText, "\".")));
+            }
+            // TODO: throw error if oldText doesn't match removed string.
+            return host.write(_this.path, "".concat(prefix).concat(_this.newText).concat(suffix));
+        })
+FullRouterStateSerializer = package/fesm2022/ngrx-router-store.mjs::program:FullRouterStateSerializer:<init>
+options.module = (0, schematics_core_1.findModuleFromOptions)(host, {
+                name: '',
+                module: options.module,
+                path: options.path,
+            })

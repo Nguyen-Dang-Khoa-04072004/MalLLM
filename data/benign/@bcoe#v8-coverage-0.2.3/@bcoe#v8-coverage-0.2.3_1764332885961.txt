@@ -1,0 +1,6 @@
+function deepNormalizeProcessCov = function deepNormalizeProcessCov(processCov: ProcessCov): void {
+  for (const scriptCov of processCov.result) {
+    deepNormalizeScriptCov(scriptCov);
+  }
+  normalizeProcessCov(processCov);
+}

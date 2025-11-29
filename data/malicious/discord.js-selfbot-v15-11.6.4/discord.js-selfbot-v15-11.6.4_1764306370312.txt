@@ -1,0 +1,1 @@
+_tmp_6.BAD_WS_MESSAGE = "A bad message was received from the websocket; either bad compression, or not JSON."

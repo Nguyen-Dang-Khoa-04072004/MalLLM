@@ -1,0 +1,1 @@
+const type = this.get('Content-Type')

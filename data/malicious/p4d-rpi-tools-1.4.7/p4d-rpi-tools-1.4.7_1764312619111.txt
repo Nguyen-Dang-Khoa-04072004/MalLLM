@@ -1,0 +1,2 @@
+data.uptime = os.uptime()
+socket.emit('boot', data)

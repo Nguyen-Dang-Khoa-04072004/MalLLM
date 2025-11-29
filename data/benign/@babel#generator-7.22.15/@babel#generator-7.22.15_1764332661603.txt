@@ -1,0 +1,11 @@
+function needsWhitespace = function needsWhitespace(node, parent, type) {
+  if (!node) return false;
+  if (isExpressionStatement(node)) {
+    node = node.expression;
+  }
+  const flag = find(expandedWhitespaceNodes, node, parent);
+  if (typeof flag === "number") {
+    return (flag & type) !== 0;
+  }
+  return false;
+}

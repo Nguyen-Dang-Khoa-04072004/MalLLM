@@ -1,0 +1,123 @@
+function getCompilerConfigForFile = function getCompilerConfigForFile(file, directDependencies, transitiveDependencies, solidityConfig) {
+    const transitiveDependenciesVersionPragmas = transitiveDependencies.map(({ dependency }) => dependency.content.versionPragmas);
+    const versionRange = Array.from(new Set([
+        ...file.content.versionPragmas,
+        ...transitiveDependenciesVersionPragmas,
+    ])).join(" ");
+    const overrides = solidityConfig.overrides ?? {};
+    const overriddenCompiler = overrides[file.sourceName];
+    // if there's an override, we only check that
+    if (overriddenCompiler !== undefined) {
+        if (!semver_1.default.satisfies(overriddenCompiler.version, versionRange)) {
+            return getCompilationJobCreationError(file, directDependencies, transitiveDependencies, [overriddenCompiler.version], true);
+        }
+        return overriddenCompiler;
+    }
+    // if there's no override, we find a compiler that matches the version range
+    const compilerVersions = solidityConfig.comp...
+const taskParams = Object.values(tasks[task].paramDefinitions)
+    .map((param) => ({
+      name: ArgumentsParser.paramNameToCLA(param.name),
+      description: param.description,
+    }))
+    .filter((x) => !words.includes(x.name))
+process.stdout.isTTY === true ||
+        process.env.HARDHAT_CREATE_JAVASCRIPT_PROJECT_WITH_DEFAULTS !==
+          undefined ||
+        process.env.HARDHAT_CREATE_TYPESCRIPT_PROJECT_WITH_DEFAULTS !==
+          undefined
+ReadOnlyValidUnknownTypeTransactionPrototype._processSignature = function () {
+  throw new InternalError(
+    "`_processSignature` is not implemented in ReadOnlyValidUnknownTypeTransaction"
+  );
+}
+(0, config_env_1.subtask)(task_names_1.TASK_COMPILE_SOLIDITY_FILTER_COMPILATION_JOBS)
+    .addParam("compilationJobs", undefined, undefined, config_env_1.types.any)
+    .addParam("force", undefined, undefined, config_env_1.types.boolean)
+    .addOptionalParam("solidityFilesCache", undefined, undefined, config_env_1.types.any)
+    .setAction(async ({ compilationJobs, force, solidityFilesCache, }) => {
+    (0, errors_1.assertHardhatInvariant)(solidityFilesCache !== undefined, "The implementation of this task needs a defined solidityFilesCache");
+    if (force) {
+        log(`force flag enabled, not filtering`);
+        return compilationJobs;
+    }
+    const neededCompilationJobs = compilationJobs.filter((job) => needsCompilation(job, solidityFilesCache));
+    const jobsFilteredOutCount = compilationJobs.length - neededCompilationJobs.length;
+    log(`'${jobsFilteredOutCount}' jobs were filtered out`);
+    return neededCompilationJobs;
+})
+function checkUnsupportedSolidityConfig = function checkUnsupportedSolidityConfig(resolvedConfig) {
+    const configuredCompilers = getConfiguredCompilers(resolvedConfig.solidity);
+    const solcVersions = configuredCompilers.map((x) => x.version);
+    const unsupportedVersions = [];
+    for (const solcVersion of solcVersions) {
+        if (!semver_1.default.satisfies(solcVersion, constants_1.SUPPORTED_SOLIDITY_VERSION_RANGE) &&
+            !unsupportedVersions.includes(solcVersion)) {
+            unsupportedVersions.push(solcVersion);
+        }
+    }
+    if (unsupportedVersions.length > 0) {
+        console.warn(chalk_1.default.yellow(`Solidity ${unsupportedVersions.join(", ")} ${unsupportedVersions.length === 1 ? "is" : "are"} not fully supported yet. You can still use Hardhat, but some features, like stack traces, might not work correctly.
+
+Learn more at https://hardhat.org/hardhat-runner/docs/reference/solidity-support
+`));
+    }
+}
+function _applyErrorMessageTemplate = function _applyErrorMessageTemplate(
+  template: string,
+  values: { [templateVar: string]: any },
+  isRecursiveCall: boolean
+): string {
+  if (!isRecursiveCall) {
+    for (const variableName of Object.keys(values)) {
+      if (variableName.match(/^[a-zA-Z][a-zA-Z0-9]*$/) === null) {
+        throw new HardhatError(ERRORS.INTERNAL.TEMPLATE_INVALID_VARIABLE_NAME, {
+          variable: variableName,
+        });
+      }
+
+      const variableTag = `%${variableName}%`;
+
+      if (!template.includes(variableTag)) {
+        throw new HardhatError(ERRORS.INTERNAL.TEMPLATE_VARIABLE_TAG_MISSING, {
+          variable: variableName,
+        });
+      }
+    }
+  }
+
+  if (template.includes("%%")) {
+    return template
+      .split("%%")
+      .map((part) => _applyErrorMessageTemplate(part, values, true))
+      .join("%");
+  }
+
+  for (const variableName of Object.keys(values)) {
+    let value: string;
+
+    if (values[variableName] === undefined) {
+      value = "undefined";
+    } else if (values[var...
+function getSourceNameTrueCase = async function getSourceNameTrueCase(
+  fromDir: string,
+  p: string
+): Promise<string> {
+  try {
+    const realCase = await getFileTrueCase(fromDir, slashesToPathSeparator(p));
+    return normalizeSourceName(realCase);
+  } catch (error) {
+    if (error instanceof FileNotFoundError) {
+      throw new HardhatError(
+        ERRORS.SOURCE_NAMES.FILE_NOT_FOUND,
+        {
+          name: p,
+        },
+        error
+      );
+    }
+
+    // eslint-disable-next-line @nomicfoundation/hardhat-internal-rules/only-hardhat-error
+    throw error;
+  }
+}

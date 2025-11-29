@@ -1,0 +1,3 @@
+that.query(q, null, null, type)
+typeof type === 'object' && type && type.port
+that.query(q, type, null, rinfo)

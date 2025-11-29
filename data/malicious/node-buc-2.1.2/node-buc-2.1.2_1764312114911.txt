@@ -1,0 +1,6 @@
+request(url, args, function(err, content){
+    if (err) {
+      return callback(err);
+    }
+    callback(null, content || {});
+  })

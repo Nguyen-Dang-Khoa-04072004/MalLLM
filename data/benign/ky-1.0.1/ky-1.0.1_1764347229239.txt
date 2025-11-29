@@ -1,0 +1,1 @@
+const totalBytes = Number(response.headers.get('content-length')) || 0

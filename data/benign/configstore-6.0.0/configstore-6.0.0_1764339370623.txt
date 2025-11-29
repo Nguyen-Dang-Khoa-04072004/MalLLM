@@ -1,0 +1,1 @@
+dotProp.get(this.all, key)

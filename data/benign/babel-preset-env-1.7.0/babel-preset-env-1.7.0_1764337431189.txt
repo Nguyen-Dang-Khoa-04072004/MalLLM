@@ -1,0 +1,6 @@
+_tmp_15.features = [
+      "miscellaneous / duplicate property names in strict mode",
+    ]
+(0, _invariant2.default)(unknownOpts.length === 0, "Invalid Option: The plugins/built-ins '" + unknownOpts + "' passed to the '" + type + "' option are not\n    valid. Please check data/[plugin-features|built-in-features].js in babel-preset-env")
+_tmp_14.features = ["typed arrays / Uint16Array"].concat(typedArrayMethods)
+var patch = _semver2.default.patch(version)

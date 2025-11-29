@@ -1,0 +1,10 @@
+dot_json.get(args['<key-path>'], function(object){
+			if (object === undefined) {
+				return;
+			}
+			if (typeof object === 'object') {
+				console.log(JSON.stringify(object, null, '  '));
+				return;
+			}
+			console.log(object);
+		})

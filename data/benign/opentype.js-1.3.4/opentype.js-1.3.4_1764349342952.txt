@@ -1,0 +1,1 @@
+subtableParsers[4] = function parseLookup4() { return { error: 'GPOS Lookup 4 not supported' }; }

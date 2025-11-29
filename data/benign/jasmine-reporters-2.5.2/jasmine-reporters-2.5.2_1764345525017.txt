@@ -1,0 +1,21 @@
+self.specDone = function(spec) {
+            spec = getSpec(spec, currentSuite);
+            spec._endTime = new Date();
+            if (isSkipped(spec)) {
+                spec._suite._skipped++;
+                totalSpecsSkipped++;
+            }
+            if (isDisabled(spec)) {
+                spec._suite._disabled++;
+                totalSpecsDisabled++;
+            }
+            if (isFailed(spec)) {
+                spec._suite._failures++;
+                // NUnit wants to know nested failures, so add for parents too
+                for (var parent=spec._suite._parent; parent; parent=parent._parent) {
+                    parent._nestedFailures++;
+                }
+                totalSpecsFailed++;
+            }
+            totalSpecsExecuted++;
+        }

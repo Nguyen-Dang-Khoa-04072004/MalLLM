@@ -1,0 +1,11 @@
+_tmp_7.push({
+    key: "setRefreshToken",
+    value: function setRefreshToken(refreshToken) {
+      this.refreshToken = refreshToken;
+    }
+    /**
+       * Gets the access token's expiration date
+       * @returns {Date} date of token expiration
+       */
+
+  })

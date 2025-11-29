@@ -1,0 +1,30 @@
+const tryReadFile = {
+  async (file) {
+    return readFile.async(file).catch(() => null)
+  },
+
+  sync (file) {
+    try {
+      return fs.readFileSync(file)
+    } catch (err) {
+      return null
+    }
+  }
+}
+_tmp_17.sync = sync
+fs.readFileSync(file)
+zalgo.run(tryReadFile, path.join(dir, '.git', m[1]))
+_tmp_0.push(zalgo.run(tryReadFile, path.join(dir, '.git', 'HEAD'))
+      .then(head => {
+        if (!head) return []
+
+        return zalgo.all([
+          zalgo.run(tryReadFile, path.join(dir, '.git', 'packed-refs')),
+          git.tryGetRef(zalgo, dir, head),
+          git.tryGetDiff(zalgo, dir)
+        ])
+          .then(results => {
+            return [head].concat(results.filter(Boolean))
+          })
+      }))
+_tmp_3.push(zalgo.run(tryReadFile, path.join(dir, '.git', 'packed-refs')))

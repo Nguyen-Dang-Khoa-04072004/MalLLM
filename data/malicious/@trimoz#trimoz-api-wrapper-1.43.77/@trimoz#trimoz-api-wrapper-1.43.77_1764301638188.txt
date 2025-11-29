@@ -1,0 +1,1 @@
+url += gainValuesOverride['reminderHourlyRate'] ? '&reminderHourlyRate=' + gainValuesOverride['reminderHourlyRate'] : ''

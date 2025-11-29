@@ -1,0 +1,9 @@
+var server = ('function' === typeof app)
+      ? http.createServer(app)
+      : app
+http.createServer(app)
+typeof server !== 'string' && server && server.listen && server.address
+!server.address()
+server = server.listen(0)
+server && server.close
+server.close(callback)

@@ -1,0 +1,4 @@
+_tmp_0.headers = {
+                authorization: `bearer ${this.apiKey}`,
+            }
+const range: string = request.get('range')

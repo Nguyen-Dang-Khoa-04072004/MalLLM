@@ -1,0 +1,5 @@
+$scope.$on('$destroy', function() {
+    while (watchers.length) {
+      watchers.shift()();
+    }
+  })

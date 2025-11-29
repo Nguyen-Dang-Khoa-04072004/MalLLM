@@ -1,0 +1,50 @@
+var args = process.argv.slice(2).filter(function (arg) {
+  if (arg === '-f') {
+    force = true;
+    return false;
+  } else if (arg.substring(0, 13) === '--target_arch') {
+    arch = arg.substring(14);
+  } else if (arg === '--debug') {
+    debug = true;
+  }
+  return true;
+})
+process.exit(1)
+cp.spawn(
+    process.platform === 'win32' ? 'node-gyp.cmd' : 'node-gyp',
+    ['rebuild'].concat(args),
+    {
+      stdio: 'inherit',
+    }
+  ).on('exit', function (err) {
+    if (err) {
+      if (err === 127) {
+        console.error(
+          'node-gyp not found! Please upgrade your install of npm! You need at least 1.1.5 (I think) ' +
+            'and preferably 1.1.30.'
+        );
+      } else {
+        console.error('Build failed');
+      }
+      return process.exit(err);
+    }
+    afterBuild();
+  })
+process.platform === 'win32' ? "node-gyp.cmd" : "node-gyp"
+_tmp_2 = __ecma.Array.factory()
+function (err) {
+    if (err) {
+      if (err === 127) {
+        console.error(
+          'node-gyp not found! Please upgrade your install of npm! You need at least 1.1.5 (I think) ' +
+            'and preferably 1.1.30.'
+        );
+      } else {
+        console.error('Build failed');
+      }
+      return process.exit(err);
+    }
+    afterBuild();
+  }
+err === 127
+process.exit(err)

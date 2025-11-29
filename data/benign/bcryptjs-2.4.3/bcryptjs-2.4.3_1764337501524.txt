@@ -1,0 +1,45 @@
+fs.writeFileSync(
+    path.join(distDir, "bcrypt.js"),
+    MetaScript.transform(fs.readFileSync(filename = path.join(srcDir, "wrap.js")), filename, scope, srcDir)
+)
+path.join(distDir, "bcrypt.js")
+function step = function step() {
+        if (!to)
+            return;
+        if (pool.length >= 255) { // stop at 255 values (1 more is added on fetch)
+            stop();
+            return;
+        }
+        var now = new Date().getTime();
+        // use actual time difference
+        pool.push(now-last);
+        // always compute, occasionally use Math.random
+        var rnd = (Math.random() * 0xffffffff)|0;
+        if (now % 2)
+            pool[pool.length-1] += rnd;
+        last = now;
+        to = setTimeout(step, 100+Math.random()*512); // use hypothetical time difference
+    }
+var P_ORIG = [
+    0x243f6a88, 0x85a308d3, 0x13198a2e, 0x03707344, 0xa4093822,
+    0x299f31d0, 0x082efa98, 0xec4e6c89, 0x452821e6, 0x38d01377,
+    0xbe5466cf, 0x34e90c6c, 0xc0ac29b7, 0xc97c50dd, 0x3f84d5b5,
+    0xb5470917, 0x9216d5d9, 0x8979fb1b
+]
+function(global, factory) {
+
+    /* AMD */ if (typeof define === 'function' && define["amd"])
+        define([], factory);
+    /* CommonJS */ else if (typeof require === 'function' && typeof module === "object" && module && module["exports"])
+        module["exports"] = factory();
+    /* Global */ else
+        (global["dcodeIO"] = global["dcodeIO"] || {})["bcrypt"] = factory();
+
+}(this, function() {
+    "use strict";
+
+    //? include("bcrypt.js");
+
+    return bcrypt;
+})
+MetaScript.transform(fs.readFileSync(filename = path.join(srcDir, "bower.json")), filename, scope, srcDir)

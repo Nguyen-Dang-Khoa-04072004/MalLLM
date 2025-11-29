@@ -1,0 +1,79 @@
+function getValue = function getValue(data, key) {
+  var regex = new RegExp(".*" + "openlegacy.jfrog.io" + ".*" + key + "=(.*)");
+  var match = regex.exec(data);
+  if (match) return match[1];
+  else return null;
+}
+var regex = new RegExp(".*" + "openlegacy.jfrog.io" + ".*" + key + "=(.*)")
+http.get(url, function (res) {
+    console.log(`Found file: ${url}`);
+    const { statusCode } = res;
+    let error;
+    if (statusCode !== 200) {
+      error = new Error(
+        "Request Failed.\n" + `${statusCode}: ${res.statusMessage}`
+      );
+    }
+    if (error) {
+      console.log(error.message);
+      process.exit(1);
+    }
+    res.pipe(file);
+    file.on("finish", () => {
+      file.close();
+      console.log(`Downloaded file: ${targetDir}/${fileName}`);
+      unzip(fileName, targetDir);
+      fs.unlinkSync(fileName);
+    });
+  })
+<operator>.formatString("@ol/", name, "/-/@ol/", version, "/", targetOs, "?archiveType=zip")
+function base64decode = function base64decode(base64) {
+  let value = Buffer.from(base64, "base64")
+    .toString("ascii")
+    .replace(/(\r\n|\n|\r)/g, "");
+  return value;
+}
+<operator>.formatString("", jfrogAuth.user, ":", jfrogAuth.pass, "")
+<operator>.formatString("", statusCode, ": ", res.statusMessage, "")
+function getNpmAuth = function getNpmAuth(rootDir) {
+  let rootNpmRc = `${rootDir}/.npmrc`;
+  let homeNpmRc = `${homedir}/.npmrc`;
+  let npmRc = ``;
+  if (fs.existsSync(rootNpmRc)) {
+    npmRc = rootNpmRc;
+  } else if (fs.existsSync(homeNpmRc)) {
+    npmRc = homeNpmRc;
+  } else {
+    console.error(`Cannot find NPM config, the following paths don't exist: '${homeNpmRc}', '${rootNpmRc}'`);
+    return;
+  }
+  console.log(`Found NPM config: ${npmRc}`);
+  let fileContents = getContents(npmRc);
+  let pass = base64decode(getValue(fileContents, "_password"));
+  let user = getValue(fileContents, "username");
+  let npmAuth = {
+    "user": user,
+    "pass": pass
+  }
+  return npmAuth;
+}
+<operator>.formatString("", homedir, "/.npmrc")
+fs.existsSync(rootNpmRc)
+file.on("finish", () => {
+      file.close();
+      console.log(`Downloaded file: ${targetDir}/${fileName}`);
+      unzip(fileName, targetDir);
+      fs.unlinkSync(fileName);
+    })
+<operator>.formatString("", statusCode, ": ", res.statusMessage, "")
+unzip(fileName, targetDir)
+<operator>.formatString("Cannot find NPM config, the following paths don't exist: '", homeNpmRc, "', '", rootNpmRc, "'")
+let fileContents = getContents(npmRc)
+file.on("finish", () => {
+      file.close();
+      console.log(`Downloaded file: ${targetDir}/${fileName}`);
+      unzip(fileName, targetDir);
+      fs.unlinkSync(fileName);
+    })
+unzip(fileName, targetDir)
+fs.unlinkSync(fileName)

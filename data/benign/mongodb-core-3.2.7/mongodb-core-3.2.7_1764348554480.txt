@@ -1,0 +1,29 @@
+Mongos.prototype.connect = function(options) {
+  var self = this;
+  // Add any connect level options to the internal state
+  this.s.connectOptions = options || {};
+
+  // Set connecting state
+  stateTransition(this, CONNECTING);
+
+  // Create server instances
+  var servers = this.s.seedlist.map(function(x) {
+    const server = new Server(
+      Object.assign({}, self.s.options, x, options, {
+        reconnect: false,
+        monitoring: false,
+        parent: self,
+        clientInfo: clone(self.s.clientInfo)
+      })
+    );
+
+    relayEvents(server, self, ['serverDescriptionChanged']);
+    return server;
+  });
+
+  // Emit the topology opening event
+  emitSDAMEvent(this, 'topologyOpening', { topologyId: this.id });
+
+  // Start all server connections
+  connectProxies(self, servers);
+}

@@ -1,0 +1,15 @@
+options.template = fs.readFileSync(options.template, 'utf8')
+jsdoc2md
+      .render(options)
+      .then(output => {
+        process.stdout.write(output)
+        process.exit(0)
+      })
+      .catch(handleError)
+options
+_tmp_15.push({
+    name: 'private',
+    type: Boolean,
+    description: 'Include identifiers marked [bold]{@private} in the output'
+  })
+(_tmp_9 = process.stdout).write

@@ -1,0 +1,2 @@
+clearTimeout(this._scheduledTimeouts.get(id))
+(_tmp_46 = this._scheduledTimeouts).delete

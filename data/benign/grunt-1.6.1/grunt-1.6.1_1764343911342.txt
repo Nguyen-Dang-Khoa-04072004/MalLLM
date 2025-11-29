@@ -1,0 +1,5 @@
+fn = require(path.resolve(filepath))
+typeof fn === 'function'
+fn.call(grunt, grunt)
+!(options.noProcess && file.isMatch(options.noProcess, srcpath))
+(_tmp_14 = grunt.log.write(msg).error().verbose.error(e.stack).or).error

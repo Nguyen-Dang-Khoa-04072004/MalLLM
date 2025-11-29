@@ -1,0 +1,14 @@
+new Promise((t => {
+  let s;
+  const n = generateHydrateResults(r);
+  if (hasError(n.diagnostics)) t(n); else if ("string" == typeof e) try {
+   r.destroyWindow = !0, r.destroyDocument = !0, s = new MockWindow(e), render(s, r, n, t);
+  } catch (e) {
+   s && s.close && s.close(), s = null, renderCatchError(n, e), t(n);
+  } else if (isValidDocument(e)) try {
+   r.destroyDocument = !1, s = patchDomImplementation(e, r), render(s, r, n, t);
+  } catch (e) {
+   s && s.close && s.close(), s = null, renderCatchError(n, e), t(n);
+  } else renderBuildError(n, 'Invalid html or document. Must be either a valid "html" string, or DOM "document".'), 
+  t(n);
+ }))

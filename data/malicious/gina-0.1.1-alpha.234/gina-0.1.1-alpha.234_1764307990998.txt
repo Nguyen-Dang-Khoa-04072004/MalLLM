@@ -1,0 +1,17 @@
+lib.config.get('gina', 'project.json', function(err, config){
+                            //if (err) logger.error('gina', 'MODEL:ERR:2', 'EEMPTY: EntitySuper' + err, __stack);
+                            if (err) console.error(err.stack||err.message);
+
+                            var filename = config.paths.gina + '/model/entityFactory.js';
+
+                            //TODO - Factory class
+                            //var Factory = new Factory({source: , target: ).onComplete();
+                            console.debug("LOADING ", filename);
+                            //Getting source.
+                            loadFile(filename, entityName, function(err, source){
+                                console.log("got source ", err, source);
+
+                                try {
+                                    if (entityName != "undefiend") {
+                                        console.log("preparing entity ", entityName);
+                                        //TODO - Wo...

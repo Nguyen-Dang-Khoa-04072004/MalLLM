@@ -1,0 +1,50 @@
+socket.on("message", async (data) => {
+            const msg_options = {};
+            if (data instanceof ArrayBuffer) {
+                msg_options.binary = true;
+                data = Buffer.from(data).toString();
+            }
+            if (socket.readyState !== 1)
+                return; // TODO: should have debug logs here
+            let parsedData;
+            try {
+                parsedData = JSON.parse(data);
+            }
+            catch (error) {
+                return socket.send(JSON.stringify({
+                    jsonrpc: "2.0",
+                    error: utils.createError(-32700, error.toString()),
+                    id: null
+                }), msg_options);
+            }
+            if (Array.isArray(parsedData)) {
+                if (!parsedData.length)
+                    return socket.send(JSON.stringify({
+                        jsonrpc: "2.0",
+                        error: utils.createError(-32600, "Invalid array"),
+                        id: null
+  ...
+data instanceof ArrayBuffer
+(_tmp_38 = Buffer.from(data)).toString
+parsedData = JSON.parse(data)
+socket.send(JSON.stringify({
+                    jsonrpc: "2.0",
+                    error: utils.createError(-32700, error.toString()),
+                    id: null
+                }), msg_options)
+Array.isArray(parsedData)
+!parsedData.length
+socket.send(JSON.stringify({
+                        jsonrpc: "2.0",
+                        error: utils.createError(-32600, "Invalid array"),
+                        id: null
+                    }), msg_options)
+_iterator_3 = <operator>.iterator(parsedData)
+const response = await this._runMethod(message, socket._id, ns)
+!response
+responses.push(response)
+!responses.length
+socket.send(JSON.stringify(responses), msg_options)
+const response = await this._runMethod(parsedData, socket._id, ns)
+!response
+socket.send(JSON.stringify(response), msg_options)

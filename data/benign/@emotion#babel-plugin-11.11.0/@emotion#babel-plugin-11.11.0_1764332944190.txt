@@ -1,0 +1,25 @@
+const getReferencedSpecifier = (path, specifierName) => {
+  const specifiers = path.get('specifiers')
+  return specifierName === 'default'
+    ? specifiers.find(p => p.isImportDefaultSpecifier())
+    : specifiers.find(p => p.node.local.name === specifierName)
+}
+specifierName === 'default' ? specifiers.find(p => p.isImportDefaultSpecifier()) : specifiers.find(p => p.node.local.name === specifierName)
+path = state.file.scope.path
+          .get('body')
+          .find(p => p.isImportDeclaration() && p.node.source.value === source)
+importIdentifier = addNamed(
+        state.file.path,
+        importedSpecifier,
+        importSource,
+        {
+          nameHint
+        }
+      )
+path
+          .get('source')
+          .replaceWith(
+            babel.types.stringLiteral(source.replace(/\/macro$/, ''))
+          )
+!alternatePath.isObjectExpression()
+alternatePath.get('properties').map(p => p.node.key.name)

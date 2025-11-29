@@ -1,0 +1,25 @@
+var addTypenameToDocument = Object.assign(function (doc) {
+    return graphql.visit(doc, {
+        SelectionSet: {
+            enter: function (node, _key, parent) {
+                if (parent &&
+                    parent.kind ===
+                        graphql.Kind.OPERATION_DEFINITION) {
+                    return;
+                }
+                var selections = node.selections;
+                if (!selections) {
+                    return;
+                }
+                var skip = selections.some(function (selection) {
+                    return (isField(selection) &&
+                        (selection.name.value === "__typename" ||
+                            selection.name.value.lastIndexOf("__", 0) === 0));
+                });
+                if (skip) {
+                    return;
+                }
+                var field = parent;
+                if (isField(field) &&
+                    field.directives &&
+                    field.directives.some(function (d) { retur...

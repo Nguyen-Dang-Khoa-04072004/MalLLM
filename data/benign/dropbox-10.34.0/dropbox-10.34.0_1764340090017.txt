@@ -1,0 +1,1 @@
+this.request('sharing/list_mountable_folders/continue', arg, 'user', 'api', 'rpc', 'sharing.read')

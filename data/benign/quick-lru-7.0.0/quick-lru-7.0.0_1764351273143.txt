@@ -1,0 +1,1 @@
+!this.#deleteIfExpired(key, this.#oldCache.get(key))

@@ -1,0 +1,31 @@
+urllib.request(url, args, function (err, result, res) {
+    debug('%s %s, \nargs: %j, \nresult: %j', res && res.statusCode, url, args, result);
+
+    if (err && err.name === 'JSONResponseFormatError') {
+      // try to fix \t bug http://gitlab.alibaba-inc.com/node/node-buc/issues/14
+      result = result.toString().replace(/\t/g, '');
+      try {
+        result = JSON.parse(result);
+        err = null;
+      } catch (e) {}
+    }
+
+    if (err) {
+      err.data = Buffer.isBuffer(result) ? result.toString() : result;
+      return callback(err);
+    }
+    if (!result) {
+      return callback();
+    }
+
+    var errMsg = result.errors && result.errors[0];
+    if (errMsg) {
+      err = new Error(errMsg.msg || 'HTTP Status ' + res.statusCode);
+      err.name = 'BucAPIRequestError';
+      err.data = result;
+      return callback(err);
+    }
+
+    if (res && res.statusCode >= 400 && res.statusCode < 500) {
+      if (result.Code) {
+        err = new Error(result.Message + ' (hostId: ' + result.Ho...

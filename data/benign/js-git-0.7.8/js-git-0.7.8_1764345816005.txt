@@ -1,0 +1,42 @@
+readRef.call(local, ref, function (err, body) {
+      if (err) return callback(err);
+      if (body === undefined) return remote.readRef(ref, callback);
+      callback(null, body);
+    })
+function loadAsDelayed = function loadAsDelayed(type, hash, callback) {
+    if (!callback) return loadAsDelayed.bind(repo, type, hash);
+    setTimeout(function () {
+      return loadAs.call(repo, type, hash, callback);
+    }, ms);
+  }
+function sync = function sync(local, remote, ref, depth, callback) {
+  if (typeof ref !== "string") throw new TypeError("ref must be string");
+  if (typeof depth !== "number") throw new TypeError("depth must be number");
+
+  var hasCache = {};
+
+  remote.readRef(ref, function (err, hash) {
+    if (!hash) return callback(err);
+    importCommit(hash, depth, function (err) {
+      if (err) return callback(err);
+      callback(null, hash);
+    });
+  });
+
+  // Caching has check.
+  function check(type, hash, callback) {
+    if (typeof type !== "string") throw new TypeError("type must be string");
+    if (typeof hash !== "string") throw new TypeError("hash must be string");
+    if (hasCache[hash]) return callback(null, true);
+    local.hasHash(hash, function (err, has) {
+      if (err) return callback(err);
+      hasCache[hash] = has;
+      callback(null, has);
+    });
+  }
+
+  function importCommit(hash, depth, callback) {
+    check("commit", hash, onCheck);
+
+    function onCheck(err, has) {
+      if (err ||...

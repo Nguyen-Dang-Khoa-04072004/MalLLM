@@ -1,0 +1,104 @@
+(_tmp_16 = Promise.resolve().then(async () => {
+    const buckets = await readdirOrEmpty(indexDir)
+    await Promise.all(buckets.map(async (bucket) => {
+      const bucketPath = path.join(indexDir, bucket)
+      const subbuckets = await readdirOrEmpty(bucketPath)
+      await Promise.all(subbuckets.map(async (subbucket) => {
+        const subbucketPath = path.join(bucketPath, subbucket)
+
+        // "/cachename/<bucket 0xFF>/<bucket 0xFF>./*"
+        const subbucketEntries = await readdirOrEmpty(subbucketPath)
+        await Promise.all(subbucketEntries.map(async (entry) => {
+          const entryPath = path.join(subbucketPath, entry)
+          try {
+            const entries = await bucketEntries(entryPath)
+            // using a Map here prevents duplicate keys from showing up
+            // twice, I guess?
+            const reduced = entries.reduce((acc, entry) => {
+              acc.set(entry.key, entry)
+              return acc
+            }, new Map())
+            // reduced is a map of key...).catch
+const buckets = await readdirOrEmpty(indexDir)
+await Promise.all(buckets.map(async (bucket) => {
+      const bucketPath = path.join(indexDir, bucket)
+      const subbuckets = await readdirOrEmpty(bucketPath)
+      await Promise.all(subbuckets.map(async (subbucket) => {
+        const subbucketPath = path.join(bucketPath, subbucket)
+
+        // "/cachename/<bucket 0xFF>/<bucket 0xFF>./*"
+        const subbucketEntries = await readdirOrEmpty(subbucketPath)
+        await Promise.all(subbucketEntries.map(async (entry) => {
+          const entryPath = path.join(subbucketPath, entry)
+          try {
+            const entries = await bucketEntries(entryPath)
+            // using a Map here prevents duplicate keys from showing up
+            // twice, I guess?
+            const reduced = entries.reduce((acc, entry) => {
+              acc.set(entry.key, entry)
+              return acc
+            }, new Map())
+            // reduced is a map of key => entry
+            for (const entry of reduced.values()) {
+              const formatted ...
+const bucketPath = path.join(indexDir, bucket)
+const subbuckets = await readdirOrEmpty(bucketPath)
+await Promise.all(subbuckets.map(async (subbucket) => {
+        const subbucketPath = path.join(bucketPath, subbucket)
+
+        // "/cachename/<bucket 0xFF>/<bucket 0xFF>./*"
+        const subbucketEntries = await readdirOrEmpty(subbucketPath)
+        await Promise.all(subbucketEntries.map(async (entry) => {
+          const entryPath = path.join(subbucketPath, entry)
+          try {
+            const entries = await bucketEntries(entryPath)
+            // using a Map here prevents duplicate keys from showing up
+            // twice, I guess?
+            const reduced = entries.reduce((acc, entry) => {
+              acc.set(entry.key, entry)
+              return acc
+            }, new Map())
+            // reduced is a map of key => entry
+            for (const entry of reduced.values()) {
+              const formatted = formatEntry(cache, entry)
+              if (formatted) {
+                stream.write(formatted)
+              }
+            }
+          } catch (err) {
+            ...
+const subbucketPath = path.join(bucketPath, subbucket)
+const subbucketEntries = await readdirOrEmpty(subbucketPath)
+await Promise.all(subbucketEntries.map(async (entry) => {
+          const entryPath = path.join(subbucketPath, entry)
+          try {
+            const entries = await bucketEntries(entryPath)
+            // using a Map here prevents duplicate keys from showing up
+            // twice, I guess?
+            const reduced = entries.reduce((acc, entry) => {
+              acc.set(entry.key, entry)
+              return acc
+            }, new Map())
+            // reduced is a map of key => entry
+            for (const entry of reduced.values()) {
+              const formatted = formatEntry(cache, entry)
+              if (formatted) {
+                stream.write(formatted)
+              }
+            }
+          } catch (err) {
+            if (err.code === 'ENOENT') {
+              return undefined
+            }
+            throw err
+          }
+        }))
+const entryPath = path.join(subbucketPath, entry)
+const entries = await bucketEntries(entryPath)
+const reduced = entries.reduce((acc, entry) => {
+              acc.set(entry.key, entry)
+              return acc
+            }, new Map())
+_iterator_0 = <operator>.iterator(reduced.values())
+const formatted = formatEntry(cache, entry)
+stream.write(formatted)

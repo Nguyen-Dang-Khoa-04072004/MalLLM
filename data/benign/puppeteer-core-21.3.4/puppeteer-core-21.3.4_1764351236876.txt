@@ -1,0 +1,1230 @@
+#connectionEventHandlers = new Map<
+    Bidi.BrowsingContextEvent['method'],
+    Handler<any>
+  >([
+    ['browsingContext.contextCreated', this.#onContextCreated.bind(this)],
+    ['browsingContext.contextDestroyed', this.#onContextDestroyed.bind(this)],
+    ['browsingContext.domContentLoaded', this.#onContextDomLoaded.bind(this)],
+    ['browsingContext.fragmentNavigated', this.#onContextNavigation.bind(this)],
+    ['browsingContext.navigationStarted', this.#onContextNavigation.bind(this)],
+  ]);
+const chromeArguments = [
+            '--allow-pre-commit-input',
+            '--disable-background-networking',
+            '--disable-background-timer-throttling',
+            '--disable-backgrounding-occluded-windows',
+            '--disable-breakpad',
+            '--disable-client-side-phishing-detection',
+            '--disable-component-extensions-with-background-pages',
+            '--disable-component-update',
+            '--disable-default-apps',
+            '--disable-dev-shm-usage',
+            '--disable-extensions',
+            `--disable-features=${disabledFeatures.join(',')}`,
+            '--disable-hang-monitor',
+            '--disable-ipc-flooding-protection',
+            '--disable-popup-blocking',
+            '--disable-prompt-on-repost',
+            '--disable-renderer-backgrounding',
+            '--disable-search-engine-choice-screen',
+            '--disable-sync',
+            '--enable-automation',
+            // TODO(sadym): remove '--enable-blink-features=IdleDetec...
+this.#interval = setInterval(async () => {
+            const result = await this.#fn();
+            if (!result) {
+                return;
+            }
+            deferred.resolve(result);
+            await this.stop();
+        }, this.#ms)
+#storeExistingTargetsForInit = () => {
+    if (!this.#waitForInitiallyDiscoveredTargets) {
+      return;
+    }
+    for (const [
+      targetId,
+      targetInfo,
+    ] of this.#discoveredTargetsByTargetId.entries()) {
+      const targetForFilter = new CdpTarget(
+        targetInfo,
+        undefined,
+        undefined,
+        this,
+        undefined
+      );
+      if (
+        (!this.#targetFilterCallback ||
+          this.#targetFilterCallback(targetForFilter)) &&
+        targetInfo.type !== 'browser'
+      ) {
+        this.#targetsIdsForInit.add(targetId);
+      }
+    }
+  };
+#onAttachedToTarget = async (parentSession, event) => {
+        const targetInfo = event.targetInfo;
+        const session = this.#connection.session(event.sessionId);
+        if (!session) {
+            throw new Error(`Session ${event.sessionId} was not created.`);
+        }
+        const target = this.#availableTargetsByTargetId.get(targetInfo.targetId);
+        (0, assert_js_1.assert)(target, `Target ${targetInfo.targetId} is missing`);
+        this.setupAttachmentListeners(session);
+        this.#availableTargetsBySessionId.set(session.id(), this.#availableTargetsByTargetId.get(targetInfo.targetId));
+        parentSession.emit(CDPSession_js_1.CDPSessionEvent.Ready, session);
+    };
+#networkManagerHandlers = [
+        [
+            NetworkManagerEvent.Request,
+            (request) => {
+                this.emit("request" /* PageEvent.Request */, request);
+            },
+        ],
+        [
+            NetworkManagerEvent.RequestServedFromCache,
+            (request) => {
+                this.emit("requestservedfromcache" /* PageEvent.RequestServedFromCache */, request);
+            },
+        ],
+        [
+            NetworkManagerEvent.Response,
+            (response) => {
+                this.emit("response" /* PageEvent.Response */, response);
+            },
+        ],
+        [
+            NetworkManagerEvent.RequestFailed,
+            (request) => {
+                this.emit("requestfailed" /* PageEvent.RequestFailed */, request);
+            },
+        ],
+        [
+            NetworkManagerEvent.RequestFinished,
+            (request) => {
+                this.emit("requestfinished" /* PageEvent.RequestFinished */, request);
+            },
+        ],
+  ...
+__esDecorate(this, _private_emulateTimezone_descriptor = { value: __setFunctionName(async function (client, timezoneState) {
+                    if (!timezoneState.active) {
+                        return;
+                    }
+                    try {
+                        await client.send('Emulation.setTimezoneOverride', {
+                            timezoneId: timezoneState.timezoneId || '',
+                        });
+                    }
+                    catch (error) {
+                        if ((0, ErrorLike_js_1.isErrorLike)(error) && error.message.includes('Invalid timezone')) {
+                            throw new Error(`Invalid timezone ID: ${timezoneState.timezoneId}`);
+                        }
+                        throw error;
+                    }
+                }, "#emulateTimezone") }, _private_emulateTimezone_decorators, { kind: "method", name: "#emulateTimezone", static: false, private: true, access: { has: obj => #emulateTimezone in obj, get: obj =...
+let Page = (() => {
+    let _classSuper = EventEmitter;
+    let _instanceExtraInitializers = [];
+    let _screenshot_decorators;
+    return class Page extends _classSuper {
+        static {
+            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+            __esDecorate(this, null, _screenshot_decorators, { kind: "method", name: "screenshot", static: false, private: false, access: { has: obj => "screenshot" in obj, get: obj => obj.screenshot }, metadata: _metadata }, null, _instanceExtraInitializers);
+            if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        }
+        /**
+         * @internal
+         */
+        _isDragging = (__runInitializers(this, _instanceExtraInitializers), false);
+        #requestHandlers = new WeakMap();
+        /**
+         * @internal
+         */
+        constructor() {
+         ...
+let Page = (() => {
+    let _classSuper = EventEmitter_js_1.EventEmitter;
+    let _instanceExtraInitializers = [];
+    let _screenshot_decorators;
+    return class Page extends _classSuper {
+        static {
+            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+            __esDecorate(this, null, _screenshot_decorators, { kind: "method", name: "screenshot", static: false, private: false, access: { has: obj => "screenshot" in obj, get: obj => obj.screenshot }, metadata: _metadata }, null, _instanceExtraInitializers);
+            if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        }
+        /**
+         * @internal
+         */
+        _isDragging = (__runInitializers(this, _instanceExtraInitializers), false);
+        #requestHandlers = new WeakMap();
+        /**
+         * @internal
+         */
+        constru...
+__esDecorate(this, _private_setDefaultBackgroundColor_descriptor = { value: __setFunctionName(async function (client, state) {
+                    if (!state.active) {
+                        return;
+                    }
+                    await client.send('Emulation.setDefaultBackgroundColorOverride', {
+                        color: state.color,
+                    });
+                }, "#setDefaultBackgroundColor") }, _private_setDefaultBackgroundColor_decorators, { kind: "method", name: "#setDefaultBackgroundColor", static: false, private: true, access: { has: obj => #setDefaultBackgroundColor in obj, get: obj => obj.#setDefaultBackgroundColor }, metadata: _metadata }, null, _instanceExtraInitializers)
+#waitForStableBoundingBoxIfNeeded = (handle) => {
+        if (!this.#waitForStableBoundingBox) {
+            return rxjs_js_1.EMPTY;
+        }
+        return (0, rxjs_js_1.defer)(() => {
+            // Note we don't use waitForFunction because that relies on RAF.
+            return (0, rxjs_js_1.from)(handle.evaluate(element => {
+                return new Promise(resolve => {
+                    window.requestAnimationFrame(() => {
+                        const rect1 = element.getBoundingClientRect();
+                        window.requestAnimationFrame(() => {
+                            const rect2 = element.getBoundingClientRect();
+                            resolve([
+                                {
+                                    x: rect1.x,
+                                    y: rect1.y,
+                                    width: rect1.width,
+                                    height: rect1.height,
+                                },
+                                {
+  ...
+const withSourcePuppeteerURLIfNone = (functionName, object) => {
+    if (Object.prototype.hasOwnProperty.call(object, SOURCE_URL)) {
+        return object;
+    }
+    const original = Error.prepareStackTrace;
+    Error.prepareStackTrace = (_, stack) => {
+        // First element is the function.
+        // Second element is the caller of this function.
+        // Third element is the caller of the caller of this function
+        // which is precisely what we want.
+        return stack[2];
+    };
+    const site = new Error().stack;
+    Error.prepareStackTrace = original;
+    return Object.assign(object, {
+        [SOURCE_URL]: PuppeteerURL.fromCallSite(functionName, site),
+    });
+}
+function convertArgument = async function convertArgument(arg) {
+            if (arg instanceof LazyArg) {
+                arg = await arg.get(this);
+            }
+            if (typeof arg === 'bigint') {
+                // eslint-disable-line valid-typeof
+                return { unserializableValue: `${arg.toString()}n` };
+            }
+            if (Object.is(arg, -0)) {
+                return { unserializableValue: '-0' };
+            }
+            if (Object.is(arg, Infinity)) {
+                return { unserializableValue: 'Infinity' };
+            }
+            if (Object.is(arg, -Infinity)) {
+                return { unserializableValue: '-Infinity' };
+            }
+            if (Object.is(arg, NaN)) {
+                return { unserializableValue: 'NaN' };
+            }
+            const objectHandle = arg && (arg instanceof CdpJSHandle || arg instanceof CdpElementHandle)
+                ? arg
+                : null;
+            if (objectHandle) {
+                if (objectHandle.realm !== this...
+_tmp_0.push({
+        name: 'iPad',
+        userAgent: 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1',
+        viewport: {
+            width: 768,
+            height: 1024,
+            deviceScaleFactor: 2,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: false,
+        },
+    })
+function convertArgument = async function convertArgument(arg) {
+            if (arg instanceof LazyArg_js_1.LazyArg) {
+                arg = await arg.get(this);
+            }
+            if (typeof arg === 'bigint') {
+                // eslint-disable-line valid-typeof
+                return { unserializableValue: `${arg.toString()}n` };
+            }
+            if (Object.is(arg, -0)) {
+                return { unserializableValue: '-0' };
+            }
+            if (Object.is(arg, Infinity)) {
+                return { unserializableValue: 'Infinity' };
+            }
+            if (Object.is(arg, -Infinity)) {
+                return { unserializableValue: '-Infinity' };
+            }
+            if (Object.is(arg, NaN)) {
+                return { unserializableValue: 'NaN' };
+            }
+            const objectHandle = arg && (arg instanceof JSHandle_js_1.CdpJSHandle || arg instanceof ElementHandle_js_1.CdpElementHandle)
+                ? arg
+                : null;
+            if (objectHandle) {
+ ...
+await this.#client
+            .send('Fetch.fulfillRequest', {
+            requestId: this._interceptionId,
+            responseCode: status,
+            responsePhrase: STATUS_TEXTS[status],
+            responseHeaders: headersArray(responseHeaders),
+            body: responseBody ? responseBody.toString('base64') : undefined,
+        })
+            .catch(error => {
+            this.#interceptionHandled = false;
+            return handleError(error);
+        })
+_tmp_1.push({
+        name: 'iPad',
+        userAgent: 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1',
+        viewport: {
+            width: 768,
+            height: 1024,
+            deviceScaleFactor: 2,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: false,
+        },
+    })
+await this.#client
+            .send('Fetch.fulfillRequest', {
+            requestId: this._interceptionId,
+            responseCode: status,
+            responsePhrase: HTTPRequest_js_1.STATUS_TEXTS[status],
+            responseHeaders: (0, HTTPRequest_js_1.headersArray)(responseHeaders),
+            body: responseBody ? responseBody.toString('base64') : undefined,
+        })
+            .catch(error => {
+            this.#interceptionHandled = false;
+            return handleError(error);
+        })
+this.#tabSession?.on(CDPSessionEvent.Ready, session => {
+            assert(session instanceof CdpCDPSession);
+            if (session._target()._subtype() !== 'prerender') {
+                return;
+            }
+            this.#frameManager.registerSpeculativeSession(session).catch(debugError);
+            this.#emulationManager
+                .registerSpeculativeSession(session)
+                .catch(debugError);
+        })
+this.#tabSession?.on(CDPSession_js_1.CDPSessionEvent.Ready, session => {
+            (0, assert_js_1.assert)(session instanceof CDPSession_js_2.CdpCDPSession);
+            if (session._target()._subtype() !== 'prerender') {
+                return;
+            }
+            this.#frameManager.registerSpeculativeSession(session).catch(util_js_1.debugError);
+            this.#emulationManager
+                .registerSpeculativeSession(session)
+                .catch(util_js_1.debugError);
+        })
+_tmp_0.push({
+        name: 'iPad landscape',
+        userAgent: 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1',
+        viewport: {
+            width: 1024,
+            height: 768,
+            deviceScaleFactor: 2,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: true,
+        },
+    })
+_tmp_1.push({
+        name: 'iPad landscape',
+        userAgent: 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1',
+        viewport: {
+            width: 1024,
+            height: 768,
+            deviceScaleFactor: 2,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: true,
+        },
+    })
+#ensureElementIsInTheViewportIfNeeded = (handle) => {
+        if (!this.#ensureElementIsInTheViewport) {
+            return rxjs_js_1.EMPTY;
+        }
+        return (0, rxjs_js_1.from)(handle.isIntersectingViewport({ threshold: 0 })).pipe((0, rxjs_js_1.filter)(isIntersectingViewport => {
+            return !isIntersectingViewport;
+        }), (0, rxjs_js_1.mergeMap)(() => {
+            return (0, rxjs_js_1.from)(handle.scrollIntoView());
+        }), (0, rxjs_js_1.mergeMap)(() => {
+            return (0, rxjs_js_1.defer)(() => {
+                return (0, rxjs_js_1.from)(handle.isIntersectingViewport({ threshold: 0 }));
+            }).pipe((0, rxjs_js_1.first)(rxjs_js_1.identity), (0, rxjs_js_1.retry)({ delay: exports.RETRY_DELAY }), (0, rxjs_js_1.ignoreElements)());
+        }));
+    };
+_iterator_1 = <operator>.iterator([
+            [1 /* MouseButtonFlag.Left */, MouseButton.Left],
+            [4 /* MouseButtonFlag.Middle */, MouseButton.Middle],
+            [2 /* MouseButtonFlag.Right */, MouseButton.Right],
+            [16 /* MouseButtonFlag.Forward */, MouseButton.Forward],
+            [8 /* MouseButtonFlag.Back */, MouseButton.Back],
+        ])
+_tmp_5.actions = [
+                {
+                    type: SourceActionsType.Key,
+                    id: "__puppeteer_keyboard" /* InputId.Keyboard */,
+                    actions: [
+                        {
+                            type: ActionType.KeyDown,
+                            value: getBidiKeyValue(key),
+                        },
+                    ],
+                },
+            ]
+this._wait(options).pipe(this.operators.conditions([
+            this.#ensureElementIsInTheViewportIfNeeded,
+            this.#waitForStableBoundingBoxIfNeeded,
+            this.#waitForEnabledIfNeeded,
+        ], signal), tap(() => {
+            return this.emit(LocatorEvent.Action, undefined);
+        }), mergeMap(handle => {
+            return from(handle.click(options)).pipe(catchError(err => {
+                void handle.dispose().catch(debugError);
+                throw err;
+            }));
+        }), this.operators.retryAndRaceWithSignalAndTimer(signal))
+_tmp_6.actions = [
+                {
+                    type: SourceActionsType.Key,
+                    id: "__puppeteer_keyboard" /* InputId.Keyboard */,
+                    actions: [
+                        {
+                            type: ActionType.KeyDown,
+                            value: getBidiKeyValue(key),
+                        },
+                    ],
+                },
+            ]
+throw new Error(`Could not find Chrome (ver. ${this.puppeteer.browserRevision}). This can occur if either\n` +
+                        ' 1. you did not perform an installation before running the script (e.g. `npm install`) or\n' +
+                        ` 2. your cache path is incorrectly configured (which is: ${this.puppeteer.configuration.cacheDirectory}).\n` +
+                        'For (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.');
+client
+            .send('Fetch.continueWithAuth', {
+            requestId: event.requestId,
+            authChallengeResponse: { response, username, password },
+        })
+            .catch(util_js_1.debugError)
+throw new Error(`Could not find Firefox (rev. ${this.puppeteer.browserRevision}). This can occur if either\n` +
+                        ' 1. you did not perform an installation for Firefox before running the script (e.g. `PUPPETEER_PRODUCT=firefox npm install`) or\n' +
+                        ` 2. your cache path is incorrectly configured (which is: ${this.puppeteer.configuration.cacheDirectory}).\n` +
+                        'For (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.');
+await Promise.all([...result.entries()].map(async ([key, value]) => {
+                            if (value instanceof JSHandle_js_1.JSHandle) {
+                                result.set(key, await this.realm.transferHandle(value));
+                            }
+                        }))
+this._wait(options).pipe(this.operators.conditions([
+            this.#ensureElementIsInTheViewportIfNeeded,
+            this.#waitForStableBoundingBoxIfNeeded,
+            this.#waitForEnabledIfNeeded,
+        ], signal), tap(() => {
+            return this.emit(LocatorEvent.Action, undefined);
+        }), mergeMap(handle => {
+            return from(handle.evaluate(el => {
+                if (el instanceof HTMLSelectElement) {
+                    return 'select';
+                }
+                if (el instanceof HTMLTextAreaElement) {
+                    return 'typeable-input';
+                }
+                if (el instanceof HTMLInputElement) {
+                    if (new Set([
+                        'textarea',
+                        'text',
+                        'url',
+                        'tel',
+                        'search',
+                        'password',
+                        'number',
+                        'email',
+                    ]).has(el.type...
+_tmp_12.actions = [
+                {
+                    type: SourceActionsType.Key,
+                    id: "__puppeteer_keyboard" /* InputId.Keyboard */,
+                    actions: [
+                        {
+                            type: ActionType.KeyUp,
+                            value: getBidiKeyValue(key),
+                        },
+                    ],
+                },
+            ]
+#onAttachedToTarget = (session) => {
+        assert(session instanceof CdpCDPSession);
+        this.#frameManager.onAttachedToTarget(session._target());
+        if (session._target()._getTargetInfo().type === 'worker') {
+            const worker = new WebWorker(session, session._target().url(), this.#addConsoleMessage.bind(this), this.#handleException.bind(this));
+            this.#workers.set(session.id(), worker);
+            this.emit("workercreated" /* PageEvent.WorkerCreated */, worker);
+        }
+        session.on(CDPSessionEvent.Ready, this.#onAttachedToTarget);
+    };
+exports.STATUS_TEXTS = {
+    '100': 'Continue',
+    '101': 'Switching Protocols',
+    '102': 'Processing',
+    '103': 'Early Hints',
+    '200': 'OK',
+    '201': 'Created',
+    '202': 'Accepted',
+    '203': 'Non-Authoritative Information',
+    '204': 'No Content',
+    '205': 'Reset Content',
+    '206': 'Partial Content',
+    '207': 'Multi-Status',
+    '208': 'Already Reported',
+    '226': 'IM Used',
+    '300': 'Multiple Choices',
+    '301': 'Moved Permanently',
+    '302': 'Found',
+    '303': 'See Other',
+    '304': 'Not Modified',
+    '305': 'Use Proxy',
+    '306': 'Switch Proxy',
+    '307': 'Temporary Redirect',
+    '308': 'Permanent Redirect',
+    '400': 'Bad Request',
+    '401': 'Unauthorized',
+    '402': 'Payment Required',
+    '403': 'Forbidden',
+    '404': 'Not Found',
+    '405': 'Method Not Allowed',
+    '406': 'Not Acceptable',
+    '407': 'Proxy Authentication Required',
+    '408': 'Request Timeout',
+    '409': 'Conflict',
+    '410': 'Gone',
+    '411': 'Length Required',
+    ...
+(_tmp_45 = (0, rxjs_js_1.from)(handle.evaluate(el => {
+                if (el instanceof HTMLSelectElement) {
+                    return 'select';
+                }
+                if (el instanceof HTMLTextAreaElement) {
+                    return 'typeable-input';
+                }
+                if (el instanceof HTMLInputElement) {
+                    if (new Set([
+                        'textarea',
+                        'text',
+                        'url',
+                        'tel',
+                        'search',
+                        'password',
+                        'number',
+                        'email',
+                    ]).has(el.type)) {
+                        return 'typeable-input';
+                    }
+                    else {
+                        return 'other-input';
+                    }
+                }
+                if (el.isContentEditable) {
+                    return 'contenteditable';
+                }
+                return 'unknown';
+   ...).pipe
+mergeMap(handle => {
+            return from(handle.evaluate(el => {
+                if (el instanceof HTMLSelectElement) {
+                    return 'select';
+                }
+                if (el instanceof HTMLTextAreaElement) {
+                    return 'typeable-input';
+                }
+                if (el instanceof HTMLInputElement) {
+                    if (new Set([
+                        'textarea',
+                        'text',
+                        'url',
+                        'tel',
+                        'search',
+                        'password',
+                        'number',
+                        'email',
+                    ]).has(el.type)) {
+                        return 'typeable-input';
+                    }
+                    else {
+                        return 'other-input';
+                    }
+                }
+                if (el.isContentEditable) {
+                    return 'contenteditable';
+                }
+            ...
+(_tmp_43 = from(handle.evaluate(el => {
+                if (el instanceof HTMLSelectElement) {
+                    return 'select';
+                }
+                if (el instanceof HTMLTextAreaElement) {
+                    return 'typeable-input';
+                }
+                if (el instanceof HTMLInputElement) {
+                    if (new Set([
+                        'textarea',
+                        'text',
+                        'url',
+                        'tel',
+                        'search',
+                        'password',
+                        'number',
+                        'email',
+                    ]).has(el.type)) {
+                        return 'typeable-input';
+                    }
+                    else {
+                        return 'other-input';
+                    }
+                }
+                if (el.isContentEditable) {
+                    return 'contenteditable';
+                }
+                return 'unknown';
+            }))
+  ...).pipe
+_tmp_0.push({
+        name: 'iPad (gen 7) landscape',
+        userAgent: 'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Mobile/15E148 Safari/604.1',
+        viewport: {
+            width: 1080,
+            height: 810,
+            deviceScaleFactor: 2,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: true,
+        },
+    })
+callFunctionOnPromise = this._client.send('Runtime.callFunctionOn', {
+        functionDeclaration: functionDeclarationWithSourceUrl,
+        executionContextId: this._contextId,
+        arguments: await Promise.all(args.map(convertArgument.bind(this))),
+        returnByValue,
+        awaitPromise: true,
+        userGesture: true,
+      })
+function createCdpHandle = function createCdpHandle(realm, remoteObject) {
+    if (remoteObject.subtype === 'node') {
+        return new ElementHandle_js_1.CdpElementHandle(realm, remoteObject);
+    }
+    return new JSHandle_js_1.CdpJSHandle(realm, remoteObject);
+}
+_tmp_1.push({
+        name: 'iPad (gen 7) landscape',
+        userAgent: 'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Mobile/15E148 Safari/604.1',
+        viewport: {
+            width: 1080,
+            height: 810,
+            deviceScaleFactor: 2,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: true,
+        },
+    })
+const _keyDefinitions: Readonly<Record<KeyInput, KeyDefinition>> = {
+  '0': {keyCode: 48, key: '0', code: 'Digit0'},
+  '1': {keyCode: 49, key: '1', code: 'Digit1'},
+  '2': {keyCode: 50, key: '2', code: 'Digit2'},
+  '3': {keyCode: 51, key: '3', code: 'Digit3'},
+  '4': {keyCode: 52, key: '4', code: 'Digit4'},
+  '5': {keyCode: 53, key: '5', code: 'Digit5'},
+  '6': {keyCode: 54, key: '6', code: 'Digit6'},
+  '7': {keyCode: 55, key: '7', code: 'Digit7'},
+  '8': {keyCode: 56, key: '8', code: 'Digit8'},
+  '9': {keyCode: 57, key: '9', code: 'Digit9'},
+  Power: {key: 'Power', code: 'Power'},
+  Eject: {key: 'Eject', code: 'Eject'},
+  Abort: {keyCode: 3, code: 'Abort', key: 'Cancel'},
+  Help: {keyCode: 6, code: 'Help', key: 'Help'},
+  Backspace: {keyCode: 8, code: 'Backspace', key: 'Backspace'},
+  Tab: {keyCode: 9, code: 'Tab', key: 'Tab'},
+  Numpad5: {
+    keyCode: 12,
+    shiftKeyCode: 101,
+    key: 'Clear',
+    code: 'Numpad5',
+    shiftKey: '5',
+    location: 3,
+  },
+  NumpadEnter: {
+    keyCode:...
+throw new Error(`Could not find Chrome (ver. ${this.puppeteer.browserRevision}). This can occur if either\n` +
+                        ' 1. you did not perform an installation before running the script (e.g. `npm install`) or\n' +
+                        ` 2. your cache path is incorrectly configured (which is: ${this.puppeteer.configuration.cacheDirectory}).\n` +
+                        'For (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.');
+function waitForEvent = async function waitForEvent(
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+emitter, eventName, predicate, timeout, abortPromise) {
+    const env_1 = { stack: [], error: void 0, hasError: false };
+    try {
+        const deferred = Deferred.create({
+            message: `Timeout exceeded while waiting for event ${String(eventName)}`,
+            timeout,
+        });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _ = __addDisposableResource(env_1, new EventSubscription(emitter, eventName, async (event) => {
+            if (await predicate(event)) {
+                deferred.resolve(event);
+            }
+        }), false);
+        try {
+            const response = await Deferred.race([deferred, abortPromise]);
+            if (isErrorLike(response)) {
+                throw response;
+            }
+            return response;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    catch (e_1) {
+ ...
+function releaseObject = async function releaseObject(client, remoteObject) {
+    if (!remoteObject.objectId) {
+        return;
+    }
+    await client
+        .send('Runtime.releaseObject', { objectId: remoteObject.objectId })
+        .catch(error => {
+        // Exceptions might happen in case of a page been navigated or closed.
+        // Swallow these since they are harmless and we don't leak anything in this case.
+        debugError(error);
+    });
+}
+this.#target._isClosedDeferred
+      .valueOrThrow()
+      .then(() => {
+        this.#client.off(CDPSessionEvent.Ready, this.#onAttachedToTarget);
+
+        this.#target
+          ._targetManager()
+          .off(TargetManagerEvent.TargetGone, this.#onDetachedFromTarget);
+
+        this.emit(PageEvent.Close, undefined);
+        this.#closed = true;
+      })
+      .catch(debugError)
+#waitForEnabledIfNeeded = <ElementType extends Node>(
+    handle: HandleFor<ElementType>,
+    signal?: AbortSignal
+  ): Observable<never> => {
+    if (!this.#waitForEnabled) {
+      return EMPTY;
+    }
+    return from(
+      handle.frame.waitForFunction(
+        element => {
+          if (!(element instanceof HTMLElement)) {
+            return true;
+          }
+          const isNativeFormControl = [
+            'BUTTON',
+            'INPUT',
+            'SELECT',
+            'TEXTAREA',
+            'OPTION',
+            'OPTGROUP',
+          ].includes(element.nodeName);
+          return !isNativeFormControl || !element.hasAttribute('disabled');
+        },
+        {
+          timeout: this._timeout,
+          signal,
+        },
+        handle
+      )
+    ).pipe(ignoreElements());
+  };
+await client
+        .send('Runtime.releaseObject', { objectId: remoteObject.objectId })
+        .catch(error => {
+        // Exceptions might happen in case of a page been navigated or closed.
+        // Swallow these since they are harmless and we don't leak anything in this case.
+        debugError(error);
+    })
+function releaseObject = async function releaseObject(client, remoteObject) {
+    if (!remoteObject.objectId) {
+        return;
+    }
+    await client
+        .send('Runtime.releaseObject', { objectId: remoteObject.objectId })
+        .catch(error => {
+        // Exceptions might happen in case of a page been navigated or closed.
+        // Swallow these since they are harmless and we don't leak anything in this case.
+        (0, util_js_1.debugError)(error);
+    });
+}
+this.#client.send('Input.dispatchMouseEvent', {
+                type: 'mousePressed',
+                modifiers: this.#keyboard._modifiers,
+                clickCount,
+                buttons,
+                button,
+                ...position,
+            })
+_tmp_1.push({
+        name: 'iPad Mini',
+        userAgent: 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1',
+        viewport: {
+            width: 768,
+            height: 1024,
+            deviceScaleFactor: 2,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: false,
+        },
+    })
+from(
+      handle.frame.waitForFunction(
+        element => {
+          if (!(element instanceof HTMLElement)) {
+            return true;
+          }
+          const isNativeFormControl = [
+            'BUTTON',
+            'INPUT',
+            'SELECT',
+            'TEXTAREA',
+            'OPTION',
+            'OPTGROUP',
+          ].includes(element.nodeName);
+          return !isNativeFormControl || !element.hasAttribute('disabled');
+        },
+        {
+          timeout: this._timeout,
+          signal,
+        },
+        handle
+      )
+    ).pipe(ignoreElements())
+function convertToDisjointRanges = function convertToDisjointRanges(nestedRanges) {
+    const points = [];
+    for (const range of nestedRanges) {
+        points.push({ offset: range.startOffset, type: 0, range });
+        points.push({ offset: range.endOffset, type: 1, range });
+    }
+    // Sort points to form a valid parenthesis sequence.
+    points.sort((a, b) => {
+        // Sort with increasing offsets.
+        if (a.offset !== b.offset) {
+            return a.offset - b.offset;
+        }
+        // All "end" points should go before "start" points.
+        if (a.type !== b.type) {
+            return b.type - a.type;
+        }
+        const aLength = a.range.endOffset - a.range.startOffset;
+        const bLength = b.range.endOffset - b.range.startOffset;
+        // For two "start" points, the one with longer range goes first.
+        if (a.type === 0) {
+            return bLength - aLength;
+        }
+        // For two "end" points, the one with shorter range goes first.
+        return aLength - bLength;
+    });...
+const currentValue = input.isContentEditable
+                                ? input.innerText
+                                : input.value
+points.sort((a, b) => {
+        // Sort with increasing offsets.
+        if (a.offset !== b.offset) {
+            return a.offset - b.offset;
+        }
+        // All "end" points should go before "start" points.
+        if (a.type !== b.type) {
+            return b.type - a.type;
+        }
+        const aLength = a.range.endOffset - a.range.startOffset;
+        const bLength = b.range.endOffset - b.range.startOffset;
+        // For two "start" points, the one with longer range goes first.
+        if (a.type === 0) {
+            return bLength - aLength;
+        }
+        // For two "end" points, the one with shorter range goes first.
+        return aLength - bLength;
+    })
+function waitForEvent = async function waitForEvent<T>(
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  emitter: any,
+  eventName: string | symbol,
+  predicate: (event: T) => Awaitable<boolean>,
+  timeout: number,
+  abortPromise: Promise<Error> | Deferred<Error>
+): Promise<T> {
+  const deferred = Deferred.create<T>({
+    message: `Timeout exceeded while waiting for event ${String(eventName)}`,
+    timeout,
+  });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  using _ = new EventSubscription(emitter, eventName, async (event: any) => {
+    if (await predicate(event)) {
+      deferred.resolve(event);
+    }
+  });
+
+  try {
+    const response = await Deferred.race<T | Error>([deferred, abortPromise]);
+    if (isErrorLike(response)) {
+      throw response;
+    }
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+await session.send('Page.addScriptToEvaluateOnNewDocument', {
+            source: `//# sourceURL=${PuppeteerURL.INTERNAL_URL}`,
+            worldName: name,
+        })
+await session.send('Page.addScriptToEvaluateOnNewDocument', {
+            source: `//# sourceURL=${util_js_1.PuppeteerURL.INTERNAL_URL}`,
+            worldName: name,
+        })
+const silentDetach = async () => {
+      await session.send('Runtime.runIfWaitingForDebugger').catch(debugError);
+      // We don't use `session.detach()` because that dispatches all commands on
+      // the connection instead of the parent session.
+      await parentSession
+        .send('Target.detachFromTarget', {
+          sessionId: session.id(),
+        })
+        .catch(debugError);
+    }
+_tmp_1.push({
+        name: 'iPad Pro landscape',
+        userAgent: 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1',
+        viewport: {
+            width: 1366,
+            height: 1024,
+            deviceScaleFactor: 2,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: true,
+        },
+    })
+callCdp(JSON.stringify({
+                type,
+                name,
+                seq,
+                args,
+                isTrivial: !args.some(value => {
+                    return value instanceof Node;
+                }),
+            }))
+this._wait(options).pipe(this.operators.conditions([
+            this.#ensureElementIsInTheViewportIfNeeded,
+            this.#waitForStableBoundingBoxIfNeeded,
+        ], signal), tap(() => {
+            return this.emit(LocatorEvent.Action, undefined);
+        }), mergeMap(handle => {
+            return from(handle.hover()).pipe(catchError(err => {
+                void handle.dispose().catch(debugError);
+                throw err;
+            }));
+        }), this.operators.retryAndRaceWithSignalAndTimer(signal))
+_tmp_1.push({
+        name: 'iPhone 4',
+        userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D257 Safari/9537.53',
+        viewport: {
+            width: 320,
+            height: 480,
+            deviceScaleFactor: 2,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: false,
+        },
+    })
+<operator>.formatString("    at ", frame.functionName || '<anonymous>', " (", frame.url, ":", frame.lineNumber + 1, ":", frame.columnNumber + 1, ")")
+function createCdpHandle = function createCdpHandle(
+  realm: IsolatedWorld,
+  remoteObject: Protocol.Runtime.RemoteObject
+): JSHandle | ElementHandle<Node> {
+  if (remoteObject.subtype === 'node') {
+    return new CdpElementHandle(realm, remoteObject);
+  }
+  return new CdpJSHandle(realm, remoteObject);
+}
+(0, rxjs_js_1.from)(handle.evaluate((el, scrollTop, scrollLeft) => {
+                if (scrollTop !== undefined) {
+                    el.scrollTop = scrollTop;
+                }
+                if (scrollLeft !== undefined) {
+                    el.scrollLeft = scrollLeft;
+                }
+            }, options?.scrollTop, options?.scrollLeft)).pipe((0, rxjs_js_1.catchError)(err => {
+                void handle.dispose().catch(util_js_1.debugError);
+                throw err;
+            }))
+mergeMap(() => {
+        return defer(() => {
+          return from(handle.isIntersectingViewport({threshold: 0}));
+        }).pipe(first(identity), retry({delay: RETRY_DELAY}), ignoreElements());
+      })
+_tmp_1.push({
+        name: 'iPhone 5',
+        userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1',
+        viewport: {
+            width: 320,
+            height: 568,
+            deviceScaleFactor: 2,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: false,
+        },
+    })
+_tmp_0.push({
+    name: 'iPad Pro 11 landscape',
+    userAgent:
+      'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Mobile/15E148 Safari/604.1',
+    viewport: {
+      width: 1194,
+      height: 834,
+      deviceScaleFactor: 2,
+      isMobile: true,
+      hasTouch: true,
+      isLandscape: true,
+    },
+  })
+function releaseObject = async function releaseObject(
+  client: CDPSession,
+  remoteObject: Protocol.Runtime.RemoteObject
+): Promise<void> {
+  if (!remoteObject.objectId) {
+    return;
+  }
+  await client
+    .send('Runtime.releaseObject', {objectId: remoteObject.objectId})
+    .catch(error => {
+      // Exceptions might happen in case of a page been navigated or closed.
+      // Swallow these since they are harmless and we don't leak anything in this case.
+      debugError(error);
+    });
+}
+const errorReasons: Record<ErrorCode, Protocol.Network.ErrorReason> = {
+  aborted: 'Aborted',
+  accessdenied: 'AccessDenied',
+  addressunreachable: 'AddressUnreachable',
+  blockedbyclient: 'BlockedByClient',
+  blockedbyresponse: 'BlockedByResponse',
+  connectionaborted: 'ConnectionAborted',
+  connectionclosed: 'ConnectionClosed',
+  connectionfailed: 'ConnectionFailed',
+  connectionrefused: 'ConnectionRefused',
+  connectionreset: 'ConnectionReset',
+  internetdisconnected: 'InternetDisconnected',
+  namenotresolved: 'NameNotResolved',
+  timedout: 'TimedOut',
+  failed: 'Failed',
+} as const
+new Promise((resolve, reject) => {
+                callPuppeteer.callbacks.set(seq, {
+                    resolve(value) {
+                        callPuppeteer.args.delete(seq);
+                        resolve(value);
+                    },
+                    reject(value) {
+                        callPuppeteer.args.delete(seq);
+                        reject(value);
+                    },
+                });
+            })
+this._wait(options).pipe(
+      this.operators.conditions(
+        [
+          this.#ensureElementIsInTheViewportIfNeeded,
+          this.#waitForStableBoundingBoxIfNeeded,
+          this.#waitForEnabledIfNeeded,
+        ],
+        signal
+      ),
+      tap(() => {
+        return this.emit(LocatorEvent.Action, undefined);
+      }),
+      mergeMap(handle => {
+        return from(handle.click(options)).pipe(
+          catchError(err => {
+            void handle.dispose().catch(debugError);
+            throw err;
+          })
+        );
+      }),
+      this.operators.retryAndRaceWithSignalAndTimer(signal)
+    )
+_tmp_0.push({
+    name: 'iPhone 4',
+    userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D257 Safari/9537.53',
+    viewport: {
+      width: 320,
+      height: 480,
+      deviceScaleFactor: 2,
+      isMobile: true,
+      hasTouch: true,
+      isLandscape: false,
+    },
+  })
+_tmp_43.push(session.send('Target.setAutoAttach', {
+        waitForDebuggerOnStart: true,
+        flatten: true,
+        autoAttach: true,
+        filter: this.#discoveryFilter,
+      }))
+_tmp_69.userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1"
+<operator>.formatString("Tried to find the browser at the configured path (", executablePath, ") for revision ", this.puppeteer.browserRevision, ", but no executable was found.")
+function getReadableAsBuffer = async function getReadableAsBuffer(readable, path) {
+    const buffers = [];
+    if (path) {
+        const fs = await importFSPromises();
+        const fileHandle = await fs.open(path, 'w+');
+        try {
+            for await (const chunk of readable) {
+                buffers.push(chunk);
+                await fileHandle.writeFile(chunk);
+            }
+        }
+        finally {
+            await fileHandle.close();
+        }
+    }
+    else {
+        for await (const chunk of readable) {
+            buffers.push(chunk);
+        }
+    }
+    try {
+        return Buffer.concat(buffers);
+    }
+    catch (error) {
+        return null;
+    }
+}
+_tmp_63.userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D257 Safari/9537.53"
+const protocolPermissions = permissions.map(permission => {
+      const protocolPermission =
+        WEB_PERMISSION_TO_PROTOCOL_PERMISSION.get(permission);
+      if (!protocolPermission) {
+        throw new Error('Unknown permission: ' + permission);
+      }
+      return protocolPermission;
+    })
+_tmp_0.push({
+    name: 'iPhone 6 Plus',
+    userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
+    viewport: {
+      width: 414,
+      height: 736,
+      deviceScaleFactor: 3,
+      isMobile: true,
+      hasTouch: true,
+      isLandscape: false,
+    },
+  })
+_tmp_0.push({
+        name: 'iPhone 7 Plus',
+        userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
+        viewport: {
+            width: 414,
+            height: 736,
+            deviceScaleFactor: 3,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: false,
+        },
+    })
+_tmp_73.userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1"
+(
+                      handle as unknown as ElementHandle<HTMLInputElement>
+                    ).evaluate((input, newValue) => {
+                      const currentValue = input.isContentEditable
+                        ? input.innerText
+                        : input.value;
+
+                      // Clear the input if the current value does not match the filled
+                      // out value.
+                      if (
+                        newValue.length <= currentValue.length ||
+                        !newValue.startsWith(input.value)
+                      ) {
+                        if (input.isContentEditable) {
+                          input.innerText = '';
+                        } else {
+                          input.value = '';
+                        }
+                        return newValue;
+                      }
+                      const originalValue = input.isContentEditable
+                        ? input.innerText
+                        : input.val...
+const STATUS_TEXTS: Record<string, string | undefined> = {
+  '100': 'Continue',
+  '101': 'Switching Protocols',
+  '102': 'Processing',
+  '103': 'Early Hints',
+  '200': 'OK',
+  '201': 'Created',
+  '202': 'Accepted',
+  '203': 'Non-Authoritative Information',
+  '204': 'No Content',
+  '205': 'Reset Content',
+  '206': 'Partial Content',
+  '207': 'Multi-Status',
+  '208': 'Already Reported',
+  '226': 'IM Used',
+  '300': 'Multiple Choices',
+  '301': 'Moved Permanently',
+  '302': 'Found',
+  '303': 'See Other',
+  '304': 'Not Modified',
+  '305': 'Use Proxy',
+  '306': 'Switch Proxy',
+  '307': 'Temporary Redirect',
+  '308': 'Permanent Redirect',
+  '400': 'Bad Request',
+  '401': 'Unauthorized',
+  '402': 'Payment Required',
+  '403': 'Forbidden',
+  '404': 'Not Found',
+  '405': 'Method Not Allowed',
+  '406': 'Not Acceptable',
+  '407': 'Proxy Authentication Required',
+  '408': 'Request Timeout',
+  '409': 'Conflict',
+  '410': 'Gone',
+  '411': 'Length Required',
+  '412': 'Precondition Failed',
+  '413': 'Payl...
+_tmp_82.viewport = {
+            width: 414,
+            height: 736,
+            deviceScaleFactor: 3,
+            isMobile: true,
+            hasTouch: true,
+            isLandscape: false,
+        }
+const currentValue = input.isContentEditable
+                        ? input.innerText
+                        : input.value
+await this.#client.send('Input.dispatchDragEvent', {
+      type: 'dragEnter',
+      x: target.x,
+      y: target.y,
+      modifiers: this.#keyboard._modifiers,
+      data,
+    })

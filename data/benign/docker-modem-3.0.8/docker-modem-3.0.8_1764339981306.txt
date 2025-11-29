@@ -1,0 +1,3 @@
+opts.timeout = parseInt(process.env.DOCKER_CLIENT_TIMEOUT, 10)
+var proto = url.parse(redirectUrl).protocol
+module.exports[proto].get(redirectUrl, redirectCallback(reqUrl, redirect), redirect)

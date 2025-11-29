@@ -1,0 +1,218 @@
+var metadataFromTargetMap = metadatas.get(target)
+const metadataFromTarget = metadataFromTargetMap.get(propertyName)
+var ancestorMetadataMap = metadatas.get(ancestor)
+this.transformationType === enums_1.TransformationType.PLAIN_TO_CLASS
+this.transformationType === TransformationType.CLASS_TO_PLAIN ||
+                        this.transformationType === TransformationType.CLASS_TO_CLASS
+this.transformationType === TransformationType.CLASS_TO_CLASS
+MetadataStorage.prototype.findMetadata = function (metadatas, target, propertyName) {
+            var metadataFromTargetMap = metadatas.get(target);
+            if (metadataFromTargetMap) {
+                var metadataFromTarget = metadataFromTargetMap.get(propertyName);
+                if (metadataFromTarget) {
+                    return metadataFromTarget;
+                }
+            }
+            for (var _i = 0, _a = this.getAncestors(target); _i < _a.length; _i++) {
+                var ancestor = _a[_i];
+                var ancestorMetadataMap = metadatas.get(ancestor);
+                if (ancestorMetadataMap) {
+                    var ancestorResult = ancestorMetadataMap.get(propertyName);
+                    if (ancestorResult) {
+                        return ancestorResult;
+                    }
+                }
+            }
+            return undefined;
+        }
+this.transformationType === enums_1.TransformationType.CLASS_TO_CLASS
+newValueKey = exposeMetadata.propertyName
+this.transformationType === TransformationType.PLAIN_TO_CLASS
+this_1.transformationType === TransformationType.CLASS_TO_PLAIN ||
+                        this_1.transformationType === TransformationType.CLASS_TO_CLASS
+this.transformationType === enums_1.TransformationType.PLAIN_TO_CLASS
+metadataFromAncestorsTarget.push(...ancestorMetadataMap.get(propertyName))
+subValue = value.get(valueKey)
+MetadataStorage.prototype.findMetadatas = function (metadatas, target, propertyName) {
+            var metadataFromTargetMap = metadatas.get(target);
+            var metadataFromTarget;
+            if (metadataFromTargetMap) {
+                metadataFromTarget = metadataFromTargetMap.get(propertyName);
+            }
+            var metadataFromAncestorsTarget = [];
+            for (var _i = 0, _a = this.getAncestors(target); _i < _a.length; _i++) {
+                var ancestor = _a[_i];
+                var ancestorMetadataMap = metadatas.get(ancestor);
+                if (ancestorMetadataMap) {
+                    if (ancestorMetadataMap.has(propertyName)) {
+                        metadataFromAncestorsTarget.push.apply(metadataFromAncestorsTarget, ancestorMetadataMap.get(propertyName));
+                    }
+                }
+            }
+            return metadataFromAncestorsTarget
+                .slice()
+                .reverse()
+                .concat((metadataFromTarget ...
+metadataFromAncestorsTarget
+            .slice()
+            .reverse()
+            .concat((metadataFromTarget || []).slice().reverse())
+value[valueKey] instanceof Function
+metadataFromAncestorsTarget
+            .slice()
+            .reverse()
+            .concat((metadataFromTarget || []).slice().reverse())
+let isSubValueMap = subValue instanceof Map
+MetadataStorage.prototype.getAncestors = function (target) {
+        if (!target)
+            return [];
+        if (!this._ancestorsMap.has(target)) {
+            var ancestors = [];
+            for (var baseClass = Object.getPrototypeOf(target.prototype.constructor); typeof baseClass.prototype !== 'undefined'; baseClass = Object.getPrototypeOf(baseClass.prototype.constructor)) {
+                ancestors.push(baseClass);
+            }
+            this._ancestorsMap.set(target, ancestors);
+        }
+        return this._ancestorsMap.get(target);
+    }
+subValue = value.get(valueKey)
+let baseClass = Object.getPrototypeOf(target.prototype.constructor)
+metadataFromAncestorsTarget.push.apply(metadataFromAncestorsTarget, ancestorMetadataMap.get(propertyName))
+const metadata = defaultMetadataStorage.findTypeMetadata(targetType, propertyName)
+const options = { newObject: newValue, object: value, property: propertyName }
+metadataFromAncestorsTarget
+                .slice()
+                .reverse()
+                .concat((metadataFromTarget || []).slice().reverse())
+metadata.options &&
+                            metadata.options.discriminator &&
+                            metadata.options.discriminator.property &&
+                            metadata.options.discriminator.subTypes
+const options = { newObject: newValue, object: value, property: propertyName }
+const newType = metadata.typeFunction ? metadata.typeFunction(options) : metadata.reflectedType
+metadata.options &&
+                            metadata.options.discriminator &&
+                            metadata.options.discriminator.property &&
+                            metadata.options.discriminator.subTypes
+MetadataStorage.prototype.getAncestors = function (target) {
+            if (!target)
+                return [];
+            if (!this._ancestorsMap.has(target)) {
+                var ancestors = [];
+                for (var baseClass = Object.getPrototypeOf(target.prototype.constructor); typeof baseClass.prototype !== 'undefined'; baseClass = Object.getPrototypeOf(baseClass.prototype.constructor)) {
+                    ancestors.push(baseClass);
+                }
+                this._ancestorsMap.set(target, ancestors);
+            }
+            return this._ancestorsMap.get(target);
+        }
+this.transformationType === TransformationType.PLAIN_TO_CLASS
+type = metadata.options.discriminator.subTypes.find(subType => {
+                                        if (subValue && subValue instanceof Object && metadata.options.discriminator.property in subValue) {
+                                            return subType.name === subValue[metadata.options.discriminator.property];
+                                        }
+                                    })
+subValue && subValue instanceof Object && metadata.options.discriminator.property in subValue
+var metadata_1 = defaultMetadataStorage.findTypeMetadata(targetType, propertyName)
+type = metadata.options.discriminator.subTypes.find(subType => {
+                                        if (subValue && subValue instanceof Object && metadata.options.discriminator.property in subValue) {
+                                            return subType.name === subValue[metadata.options.discriminator.property];
+                                        }
+                                    })
+subValue && subValue instanceof Object && metadata.options.discriminator.property in subValue
+var newType = metadata_1.typeFunction ? metadata_1.typeFunction(options) : metadata_1.reflectedType
+subValue && subValue instanceof Object && metadata.options.discriminator.property in subValue
+delete subValue[metadata.options.discriminator.property]
+subValue && subValue instanceof Object && metadata.options.discriminator.property in subValue
+this_1.transformationType === TransformationType.PLAIN_TO_CLASS
+type = metadata_1.options.discriminator.subTypes.find(function (subType) {
+                                        if (subValue && subValue instanceof Object && metadata_1.options.discriminator.property in subValue) {
+                                            return subType.name === subValue[metadata_1.options.discriminator.property];
+                                        }
+                                    })
+subValue && subValue instanceof Object && metadata_1.options.discriminator.property in subValue
+this.transformationType === enums_1.TransformationType.CLASS_TO_CLASS
+var defaultMetadataStorage = new MetadataStorage()
+this.transformationType === enums_1.TransformationType.CLASS_TO_PLAIN
+type = metadata
+typeof globalThis !== 'undefined'
+type = newType
+subValue[metadata_1.options.discriminator.property] = metadata_1.options.discriminator.subTypes.find(function (subType) { return subType.value === subValue.constructor; }).name
+this.transformationType === TransformationType.PLAIN_TO_CLASS
+const reflectedType = Reflect.getMetadata('design:type', targetType.prototype, propertyName)
+this_1.options.targetMaps
+map.target === targetType && !!map.properties[propertyName]
+const arrayType = Array.isArray(value[valueKey])
+                    ? this.getReflectedType(targetType, propertyName)
+                    : undefined
+this_1.options.enableImplicitConversion &&
+                        this_1.transformationType === TransformationType.PLAIN_TO_CLASS
+const arrayType = Array.isArray(value[valueKey])
+                    ? this.getReflectedType(targetType, propertyName)
+                    : undefined
+var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
+        if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+            if (ar || !(i in from)) {
+                if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+                ar[i] = from[i];
+            }
+        }
+        return to.concat(ar || Array.prototype.slice.call(from));
+    }
+(this.transformationType === TransformationType.PLAIN_TO_CLASS ||
+                        this.transformationType === TransformationType.CLASS_TO_CLASS) &&
+                        // eslint-disable-next-line @typescript-eslint/unbound-method
+                        ((descriptor && !descriptor.set) || newValue[newValueKey] instanceof Function)
+function instantiateArrayType = function instantiateArrayType(arrayType) {
+        var array = new arrayType();
+        if (!(array instanceof Set) && !('push' in array)) {
+            return [];
+        }
+        return array;
+    }
+(this.transformationType === enums_1.TransformationType.PLAIN_TO_CLASS ||
+                        this.transformationType === enums_1.TransformationType.CLASS_TO_CLASS) &&
+                        // eslint-disable-next-line @typescript-eslint/unbound-method
+                        ((descriptor && !descriptor.set) || newValue[newValueKey] instanceof Function)
+this.transformationType === enums_1.TransformationType.CLASS_TO_CLASS
+(descriptor && !descriptor.set) || newValue[newValueKey] instanceof Function
+!this.options.enableCircularCheck || !this.isCircular(subValue)
+!this.options.enableCircularCheck || !this.isCircular(subValue)
+this.transformationType === enums_1.TransformationType.CLASS_TO_PLAIN
+finalValue = this.applyCustomTransformations(finalValue, targetType, transformKey, value, this.transformationType)
+finalValue = value[transformKey] === finalValue ? subValue : finalValue
+finalValue = this.applyCustomTransformations(finalValue, targetType, transformKey, value, this.transformationType)
+finalValue = this.transform(subSource, finalValue, type, arrayType, isSubValueMap, level + 1)
+var transformKey = this_1.transformationType === TransformationType.PLAIN_TO_CLASS ? newValueKey : key
+finalValue = this.transform(subSource, finalValue, type, arrayType, isSubValueMap, level + 1)
+finalValue = this.transform(subSource, subValue, type, arrayType, isSubValueMap, level + 1)
+var newValue_1 = arrayType && this.transformationType === exports.TransformationType.PLAIN_TO_CLASS
+                    ? instantiateArrayType(arrayType)
+                    : []
+finalValue = this_1.transform(subSource, finalValue, type, arrayType_1, isSubValueMap, level + 1)
+value.forEach(function (subValue, index) {
+                    var subSource = source ? source[index] : undefined;
+                    if (!_this.options.enableCircularCheck || !_this.isCircular(subValue)) {
+                        var realTargetType = void 0;
+                        if (typeof targetType !== 'function' &&
+                            targetType &&
+                            targetType.options &&
+                            targetType.options.discriminator &&
+                            targetType.options.discriminator.property &&
+                            targetType.options.discriminator.subTypes) {
+                            if (_this.transformationType === exports.TransformationType.PLAIN_TO_CLASS) {
+                                realTargetType = targetType.options.discriminator.subTypes.find(function (subType) {
+                                    return subType.name === subValue[targetType.options.discriminator.property];
+                                })...
+finalValue !== undefined || this.options.exposeUnsetFields
+this.transformationType === TransformationType.CLASS_TO_CLASS
+realTargetType = targetType.options.discriminator.subTypes.find(function (subType) {
+                                    return subType.name === subValue[targetType.options.discriminator.property];
+                                })
+this.transformationType === enums_1.TransformationType.CLASS_TO_CLASS
+newValue.set(newValueKey, finalValue)
+finalValue = this.applyCustomTransformations(finalValue, targetType, key, value, this.transformationType)
+finalValue !== undefined || this.options.exposeUnsetFields
+realTargetType === undefined ? realTargetType = newType : realTargetType = realTargetType.value
+!targetType.options.keepDiscriminatorProperty
+_this.transformationType === exports.TransformationType.CLASS_TO_CLASS

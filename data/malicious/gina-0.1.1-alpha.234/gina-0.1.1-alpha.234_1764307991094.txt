@@ -1,0 +1,1 @@
+out = execSync('gina bundle:list @'+ self.projectName +' --format=json').toString().replace(/(\n|\r)$/, '').split(/(\n|\r)/g)

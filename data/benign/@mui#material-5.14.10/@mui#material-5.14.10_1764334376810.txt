@@ -1,0 +1,20 @@
+_tmp_90.MuiTablePagination = {
+      defaultProps: {
+        getItemAriaLabel: function getItemAriaLabel(type) {
+          if (type === 'first') {
+            return 'Birinci səhifəyə keç';
+          }
+          if (type === 'last') {
+            return 'Sonuncu səhifəyə keç';
+          }
+          if (type === 'next') {
+            return 'Növbəti səhifəyə keç';
+          }
+          // if (type === 'previous') {
+          return 'Əvvəlki səhifəyə keç';
+        },
+        labelRowsPerPage: 'Səhifəyə düşən sətrlər:'
+        // labelDisplayedRows: ({ from, to, count }) =>
+        //   `${from}–${to} dən ${count !== -1 ? count : `more than ${to}`}`,
+      }
+    }

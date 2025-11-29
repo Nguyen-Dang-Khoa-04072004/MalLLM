@@ -1,0 +1,19 @@
+message.context = Object.assign({
+      library: {
+        name: 'analytics-node',
+        version
+      }
+    }, message.context)
+_tmp_6.library = {
+        name: 'analytics-node',
+        version
+      }
+_tmp_7.version = version
+message.context
+<operator>.formatString("node-", md5(JSON.stringify(message)), "-", uuid(), "")
+message.anonymousId && !isString(message.anonymousId)
+message.anonymousId = JSON.stringify(message.anonymousId)
+message.userId && !isString(message.userId)
+message.userId = JSON.stringify(message.userId)
+const hasReachedFlushAt = this.queue.length >= this.flushAt
+const hasReachedQueueSize = this.queue.reduce((acc, item) => acc + JSON.stringify(item).length, 0) >= this.maxQueueSize

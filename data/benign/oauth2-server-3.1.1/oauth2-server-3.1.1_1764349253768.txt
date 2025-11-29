@@ -1,0 +1,4 @@
+throw new InvalidGrantError('Invalid grant: refresh token has expired');
+throw new ServerError('Server error: missing client `grants`');
+(e instanceof InvalidClientError) && request.get('authorization')
+(_tmp_40 = this.authenticateHandler.handle(request, response)).get

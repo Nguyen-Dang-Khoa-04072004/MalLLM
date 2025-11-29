@@ -1,0 +1,23 @@
+function LabelList = function LabelList(_ref) {
+  var _ref$valueAccessor = _ref.valueAccessor,
+    valueAccessor = _ref$valueAccessor === void 0 ? defaultAccessor : _ref$valueAccessor,
+    restProps = _objectWithoutProperties(_ref, _excluded);
+  var data = restProps.data,
+    dataKey = restProps.dataKey,
+    clockWise = restProps.clockWise,
+    id = restProps.id,
+    textBreakAll = restProps.textBreakAll,
+    others = _objectWithoutProperties(restProps, _excluded2);
+  if (!data || !data.length) {
+    return null;
+  }
+  return /*#__PURE__*/React.createElement(Layer, {
+    className: "recharts-label-list"
+  }, data.map(function (entry, index) {
+    var value = _isNil(dataKey) ? valueAccessor(entry, index) : getValueByDataKey(entry && entry.payload, dataKey);
+    var idProps = _isNil(id) ? {} : {
+      id: "".concat(id, "-").concat(index)
+    };
+    return /*#__PURE__*/React.createElement(Label, _extends({}, filterProps(entry, true), others, idProps, {
+      parentViewBox: entry.parentViewBox,
+      index:...

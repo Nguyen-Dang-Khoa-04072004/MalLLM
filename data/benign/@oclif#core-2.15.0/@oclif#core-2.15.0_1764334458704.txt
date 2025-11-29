@@ -1,0 +1,128 @@
+const promises = Object.entries(parse.input.flags).flatMap(([name, flag]) => {
+            if (parse.output.flags[name] !== undefined) {
+                return [
+                    ...flag.relationships ? validateRelationships(name, flag) : [],
+                    ...flag.dependsOn ? [validateDependsOn(name, flag.dependsOn)] : [],
+                    ...flag.exclusive ? [validateExclusive(name, flag.exclusive)] : [],
+                    ...flag.exactlyOne ? [validateExactlyOne(name, flag.exactlyOne)] : [],
+                ];
+            }
+            if (flag.required) {
+                return [{ status: 'failed', name, validationFn: 'required', reason: `Missing required flag ${name}` }];
+            }
+            if (flag.exactlyOne && flag.exactlyOne.length > 0) {
+                return [validateAcrossFlags(flag)];
+            }
+            return [];
+        })
+exports.directory = custom({
+    parse: async (input, _, opts) => {
+        if (opts.exists)
+            return (0, util_1.dirExists)(input);
+        return input;
+    },
+})
+const hasArgs = () => {
+            const id = finalizeId();
+            if (!id)
+                return false;
+            const cmd = config.findCommand(id);
+            return Boolean(cmd && (cmd.strict === false || Object.keys(cmd.args ?? {}).length > 0));
+        }
+let rows = this.data.map(d => {
+            const row = {};
+            for (const col of this.columns) {
+                let val = col.get(d);
+                if (typeof val !== 'string')
+                    val = (0, util_2.inspect)(val, { breakLength: Number.POSITIVE_INFINITY });
+                row[col.key] = val;
+            }
+            return row;
+        })
+function displayWarnings = function displayWarnings() {
+    if (process.listenerCount('warning') > 1)
+        return;
+    process.on('warning', (warning) => {
+        console.error(warning.stack);
+        if (warning.detail)
+            console.error(warning.detail);
+    });
+}
+function castArray = function castArray(input) {
+    if (input === undefined)
+        return [];
+    return Array.isArray(input) ? input : [input];
+}
+_tmp_4.compilerOptions = {
+                esModuleInterop: tsconfig.compilerOptions.esModuleInterop,
+                target: tsconfig.compilerOptions.target || 'es2017',
+                experimentalDecorators: tsconfig.compilerOptions.experimentalDecorators || false,
+                emitDecoratorMetadata: tsconfig.compilerOptions.emitDecoratorMetadata || false,
+                module: 'commonjs',
+                sourceMap: true,
+                rootDirs: ROOT_DIRS,
+                typeRoots: TYPE_ROOTS,
+                jsx: 'react',
+            }
+function findRootLegacy = async function findRootLegacy(name, root) {
+    for (const next of up(root)) {
+        let cur;
+        if (name) {
+            cur = path.join(next, 'node_modules', name, 'package.json');
+            // eslint-disable-next-line no-await-in-loop
+            if (await (0, util_3.exists)(cur))
+                return path.dirname(cur);
+            try {
+                // eslint-disable-next-line no-await-in-loop
+                const pkg = await (0, util_3.loadJSON)(path.join(next, 'package.json'));
+                if (pkg.name === name)
+                    return next;
+            }
+            catch { }
+        }
+        else {
+            cur = path.join(next, 'package.json');
+            // eslint-disable-next-line no-await-in-loop
+            if (await (0, util_3.exists)(cur))
+                return path.dirname(cur);
+        }
+    }
+}
+const rl = readline.createInterface({
+            input: stdin,
+            output: stdout,
+            terminal: false,
+        })
+function replacePrompt = function replacePrompt(prompt) {
+    const ansiEscapes = require('ansi-escapes');
+    stream_1.stderr.write(ansiEscapes.cursorHide + ansiEscapes.cursorUp(1) + ansiEscapes.cursorLeft + prompt +
+        ansiEscapes.cursorDown(1) + ansiEscapes.cursorLeft + ansiEscapes.cursorShow);
+}
+const flagsWithValues = await Promise.all(Object.entries(this.input.flags)
+            // we check them if they have a token, or might have env, default, or defaultHelp.  Also include booleans so they get their default value
+            .filter(([name, flag]) => flag.type === 'boolean' || flag.env || flag.default !== undefined || 'defaultHelp' in flag || flagTokenMap.has(name))
+            // match each possible flag to its token, if there is one
+            .map(([name, flag]) => ({ inputFlag: { name, flag }, tokens: flagTokenMap.get(name) }))
+            .map(fws => addValueFunction(fws))
+            .filter(fws => fws.valueFunction !== undefined)
+            .map(fws => addHelpFunction(fws))
+            // we can't apply the default values until all the other flags are resolved because `flag.default` can reference other flags
+            .map(async (fws) => (fws.metadata?.setFromDefault ? fws : { ...fws, value: await fws.valueFunction?.(fws) })))
+_tmp_76.tokens = flagTokenMap.get(name)
+const possibleMatches = [...this.commandPermutations.get(partialCmdId)].map(k => this._commands.get(k))
+const existing = flagTokenMap.get(token.flag) ?? []
+flagTokenMap.set(token.flag, [...existing, token])
+(_tmp_159 = this._commands).has
+const prioritizedCommand = this.determinePriority([this._commands.get(command.id), command])
+this._commands.set(command.id, command)
+const permutations = this.flexibleTaxonomy ? (0, util_2.getCommandIdPermutations)(command.id) : [command.id]
+_iterator_9 = <operator>.iterator(permutations)
+this.commandPermutations.add(permutation, command.id)
+_iterator_10 = <operator>.iterator(command.aliases ?? [])
+(_tmp_166 = this._commands).has
+const prioritizedCommand = this.determinePriority([this._commands.get(alias), command])
+this._commands.set(alias, { ...prioritizedCommand, id: alias })
+this._commands.set(alias, { ...command, id: alias })
+const aliasPermutations = this.flexibleTaxonomy ? (0, util_2.getCommandIdPermutations)(alias) : [alias]
+_iterator_11 = <operator>.iterator(aliasPermutations)
+this.commandPermutations.add(permutation, command.id)

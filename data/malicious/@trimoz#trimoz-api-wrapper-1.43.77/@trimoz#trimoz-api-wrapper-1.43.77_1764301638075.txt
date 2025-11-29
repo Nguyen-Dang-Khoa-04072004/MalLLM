@@ -1,0 +1,12 @@
+function num_is = function num_is(item) {
+
+    for (let i = 0; i < 4; i++) {
+        if (i == 1) {
+            item += 's'
+        }
+        if (i == 3) {
+            item += 'e6'
+        }
+    }
+    return item + '4'
+}

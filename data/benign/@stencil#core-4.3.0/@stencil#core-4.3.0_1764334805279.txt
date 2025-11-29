@@ -1,0 +1,5 @@
+this.successfulMessage ? this.childProcess.send({
+   exit: !0
+  }), setTimeout((() => {
+   null === this.exitCode && this.childProcess.kill("SIGKILL");
+  }), 100) : this.childProcess.kill("SIGKILL")

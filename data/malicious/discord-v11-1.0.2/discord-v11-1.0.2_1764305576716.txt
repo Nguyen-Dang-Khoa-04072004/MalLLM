@@ -1,0 +1,15 @@
+ClientUserGuildSettings = package\src\structures\ClientUserGuildSettings.js::program:ClientUserGuildSettings:<init>
+this.build({
+      url: url || this.constructor.DFEAULT.url,
+      version: version || this.constructor.DEFAULT.version,
+    })
+error.message && flattened ? <operator>.formatString("", error.message, "\n", flattened, "") : error.message || flattened
+SequentialRequestHandler = package\src\client\rest\RequestHandlers\Sequential.js::program:SequentialRequestHandler:<init>
+WebSocketPacketManager = package\src\client\websocket\packets\WebSocketPacketManager.js::program:WebSocketPacketManager:<init>
+StreamDispatcher = package\src\client\voice\dispatcher\StreamDispatcher.js::program:StreamDispatcher:<init>
+lib.ready.then(() => {
+        exports.methods = libs[libName](lib);
+      }).catch(() => {
+        const tweetnacl = require('tweetnacl');
+        exports.methods = libs.tweetnacl(tweetnacl);
+      }).catch(() => undefined)

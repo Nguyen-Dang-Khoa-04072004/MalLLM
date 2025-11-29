@@ -1,0 +1,12 @@
+this._acquiredConnection.rollbackTransaction(err => {
+        if (err) err = new TransactionError(err)
+
+        this._acquiredConnection.removeListener('rollbackTransaction', this._abort)
+        this.parent.release(this._acquiredConnection)
+        this._acquiredConnection = null
+        this._acquiredConfig = null
+
+        if (!err) debug('transaction(%d): rolled back', IDS.get(this))
+
+        callback(err)
+      })

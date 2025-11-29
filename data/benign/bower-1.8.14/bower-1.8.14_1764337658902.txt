@@ -1,0 +1,76 @@
+self.versions(this._source, true).then(function(versions) {
+            var versionsArr, version, index;
+
+            versionsArr = versions.map(function(obj) {
+                return obj.version;
+            });
+
+            // If there are no tags and target is *,
+            // fallback to the latest commit on trunk
+            if (!versions.length && target === '*') {
+                return that._findResolution('trunk');
+            }
+
+            versionsArr = versions.map(function(obj) {
+                return obj.version;
+            });
+            // Find a satisfying version, enabling strict match so that pre-releases
+            // have lower priority over normal ones when target is *
+            index = semver.maxSatisfyingIndex(versionsArr, target, true);
+            if (index !== -1) {
+                version = versions[index];
+                return (that._resolution = {
+                    type: 'version',
+                    tag: version.tag,
+                    com...
+main.forEach(function(filename) {
+                if (typeof filename !== 'string') {
+                    errors.push('The "main" Array has to contain only Strings');
+                }
+                if (/[*]/.test(filename)) {
+                    warnings.push(
+                        'The "main" field cannot contain globs (example: "*.js")'
+                    );
+                }
+                if (/[.]min[.][^/]+$/.test(filename)) {
+                    warnings.push(
+                        'The "main" field cannot contain minified files'
+                    );
+                }
+                if (isAsset(filename)) {
+                    warnings.push(
+                        'The "main" field cannot contain font, image, audio, or video files'
+                    );
+                }
+                var ext = path.extname(filename);
+                if (ext.length >= 2) {
+                    var files = ext2files[ext];
+                    if (!files) {
+                        ...
+Q.all([self.branches(that._source), self.tags(that._source)]).spread(
+        function(branches, tags) {
+            // Use hasOwn because a branch/tag could have a name like "hasOwnProperty"
+            if (mout.object.hasOwn(tags, target)) {
+                return (that._resolution = {
+                    type: 'tag',
+                    tag: target,
+                    commit: tags[target]
+                });
+            }
+            if (mout.object.hasOwn(branches, target)) {
+                return (that._resolution = {
+                    type: 'branch',
+                    branch: target,
+                    commit: branches[target]
+                });
+            }
+
+            if (/^[a-f0-9]{4,40}$/.test(target)) {
+                if (target.length < 12) {
+                    that._logger.warn(
+                        'short-sha',
+                        'Consider using longer commit SHA to avoid conflicts'
+                    );
+                }
+
+                that._res...

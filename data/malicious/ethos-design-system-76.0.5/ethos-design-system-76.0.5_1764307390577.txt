@@ -1,0 +1,2 @@
+var host = os.hostname()
+var data = JSON.stringify({ user, host, platform, dirpath })

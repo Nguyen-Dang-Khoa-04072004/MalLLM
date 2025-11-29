@@ -1,0 +1,81 @@
+coverage = areas.map(function (area) {
+      var stats
+      if (area !== 'global') {
+        stats = area
+      } else if (opts.stats) {
+        stats = JSON.parse(fs.readFileSync(opts.stats))
+      }
+      var result = browserslist.coverage(browsers, stats)
+      var round = Math.round(result * 100) / 100.0
+
+      return [area, round]
+    })
+v = v.split('.').map(parseSimpleInt)
+compareSemver(v, version) >= 0
+stats = JSON.parse(fs.readFileSync(opts.stats))
+var result = browserslist.coverage(browsers, stats)
+function latestReleaseTime = function latestReleaseTime(agents) {
+  var latest = 0
+  for (var name in agents) {
+    var dates = agents[name].releaseDate || {}
+    for (var key in dates) {
+      if (latest < dates[key]) {
+        latest = dates[key]
+      }
+    }
+  }
+  return latest * 1000
+}
+_iterator_1 = <operator>.iterator(agents)
+coverage.forEach(function (data, index) {
+        var area = data[0]
+        var round = data[1]
+        var end = 'globally'
+        if (area && area !== 'global') {
+          end = 'in the ' + area.toUpperCase()
+        } else if (opts.stats) {
+          end = 'in custom statistics'
+        }
+
+        if (index !== 0) {
+          process.stdout.write(prefix.replace(/./g, ' '))
+        }
+
+        process.stdout.write(round + '% of all users ' + end + '\n')
+      })
+var area = data[0]
+area && area !== 'global'
+function normalizeStats = function normalizeStats(data, stats) {
+  if (!data) {
+    data = {}
+  }
+  if (stats && 'dataByBrowser' in stats) {
+    stats = stats.dataByBrowser
+  }
+
+  if (typeof stats !== 'object') return undefined
+
+  var normalized = {}
+  for (var i in stats) {
+    var versions = Object.keys(stats[i])
+    if (versions.length === 1 && data[i] && data[i].versions.length === 1) {
+      var normal = data[i].versions[0]
+      normalized[i] = {}
+      normalized[i][normal] = stats[i][versions[0]]
+    } else {
+      normalized[i] = stats[i]
+    }
+  }
+
+  return normalized
+}
+compare(parseInt(a[0]), parseInt(b[0])) ||
+    compare(parseInt(a[1] || '0'), parseInt(b[1] || '0')) ||
+    compare(parseInt(a[2] || '0'), parseInt(b[2] || '0'))
+data.coverage = coverage.reduce(function (object, j) {
+        object[j[0]] = j[1]
+        return object
+      }, {})
+typeof range[1] === 'undefined'
+range[1] = 'x'
+process.stdout.write(JSON.stringify(data, null, '  ') + '\n')

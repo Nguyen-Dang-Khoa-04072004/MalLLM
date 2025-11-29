@@ -1,0 +1,17 @@
+c.once('error', er => {
+        if (c.extendedResults && (er instanceof UnexpectedDataError)) {
+          v.unused = c.bs.slice()
+          return resolve(v)
+        }
+        if (v !== NOT_FOUND) {
+          // Typescript work-around
+          // eslint-disable-next-line dot-notation
+          er['value'] = v
+        }
+        v = ERROR
+        c.close()
+        return reject(er)
+      })
+c.extendedResults && (er instanceof UnexpectedDataError)
+this.push('String (streaming)')
+c.close()

@@ -1,0 +1,55 @@
+var cwd = this.options.cwd || process.cwd()
+var relDir = cwd === dir ? '.' : path.relative(cwd, dir)
+relDir = relDir || ''
+current = current.map(function (curPath) {
+            if (fs.existsSync(path.join(dir, curPath)) && fs.lstatSync(path.join(dir, curPath)).isDirectory()) {
+              return curPath + path.sep;
+            } else {
+              return curPath;
+            }
+          })
+fs.existsSync(path.join(dir, curPath)) && fs.lstatSync(path.join(dir, curPath)).isDirectory()
+curPath + path.sep
+var previous = self.relative(relDir)
+previous.filter(function (file) {
+          return current.indexOf(file) < 0;
+        }).forEach(function (file) {
+          if (!helper.isDir(file)) {
+            var filepath = path.join(dir, file);
+            self.remove(filepath);
+            self.emit('deleted', filepath);
+          }
+        })
+current.indexOf(file) < 0
+function (file) {
+          if (!helper.isDir(file)) {
+            var filepath = path.join(dir, file);
+            self.remove(filepath);
+            self.emit('deleted', filepath);
+          }
+        }
+!helper.isDir(file)
+var filepath = path.join(dir, file)
+self.remove(filepath)
+self.emit('deleted', filepath)
+current.filter(function (file) {
+          return previous.indexOf(file) < 0;
+        }).forEach(function (file) {
+          // Is it a matching pattern?
+          var relFile = path.join(relDir, file);
+          // Add to watch then emit event
+          self._internalAdd(relFile, function () {
+            self.emit('added', path.join(dir, file));
+          });
+        })
+previous.indexOf(file) < 0
+function (file) {
+          // Is it a matching pattern?
+          var relFile = path.join(relDir, file);
+          // Add to watch then emit event
+          self._internalAdd(relFile, function () {
+            self.emit('added', path.join(dir, file));
+          });
+        }
+var relFile = path.join(relDir, file)
+self.emit('added', path.join(dir, file))

@@ -1,0 +1,194 @@
+FileReader.prototype._read = function () {
+  var self = this
+  // console.error('FR _read', self._path)
+  if (self._paused) {
+    // console.error('FR _read paused', self._path)
+    return
+  }
+
+  if (!self._stream) {
+    // console.error('FR _getStream calling', self._path)
+    return self._getStream()
+  }
+
+  // clear out the buffer, if there is one.
+  if (self._buffer.length) {
+    // console.error('FR _read has buffer', self._buffer.length, self._path)
+    var buf = self._buffer
+    for (var i = 0, l = buf.length; i < l; i++) {
+      var c = buf[i]
+      if (c === EOF) {
+        // console.error('FR Read emitting buffered end', self._path)
+        self.emit('end')
+      } else if (c === CLOSE) {
+        // console.error('FR Read emitting buffered close', self._path)
+        self.emit('close')
+      } else {
+        // console.error('FR Read emitting buffered data', self._path)
+        self.emit('data', c)
+      }
+
+      if (self._paused) {
+        // console.error('FR Read Re-paus...
+this._proxyTarget ? this._proxyTarget.pause() : false
+fs[ self.props.follow ? 'stat' : 'lstat' ](p, function (er, stat) {
+    if (er) return self.error(er)
+
+    var who = self._proxy || self
+
+    stat.path = p
+    stat.basename = path.basename(p)
+    stat.dirname = path.dirname(p)
+    var childProps = self.getChildProps.call(who, stat)
+    childProps.path = p
+    childProps.basename = path.basename(p)
+    childProps.dirname = path.dirname(p)
+
+    var entry = Reader(childProps, stat)
+
+    // console.error("DR Entry", p, stat.size)
+
+    self._currentEntry = entry
+
+    // "entry" events are for direct entries in a specific dir.
+    // "child" events are for any and all children at all levels.
+    // This nomenclature is not completely final.
+
+    entry.on('pause', function (who) {
+      if (!self._paused && !entry._disowned) {
+        self.pause(who)
+      }
+    })
+
+    entry.on('resume', function (who) {
+      if (self._paused && !entry._disowned) {
+        self.resume(who)
+      }
+    })
+
+    entry.on('stat', function (props) {
+      se...
+self.error(er)
+self.error(
+      'Did not get expected byte count.\n' +
+      'expect: ' + self.size + '\n' +
+      'actual: ' + self._bytesWritten)
+'Did not get expected byte count.\n' +
+      'expect: ' + self.size + '\n' +
+      'actual: ' + self._bytesWritten
+var childProps = self.getChildProps.call(who, stat)
+var entry = Reader(childProps, stat)
+entry.on('pause', function (who) {
+      if (!self._paused && !entry._disowned) {
+        self.pause(who)
+      }
+    })
+entry.on('resume', function (who) {
+      if (self._paused && !entry._disowned) {
+        self.resume(who)
+      }
+    })
+entry.on('stat', function (props) {
+      self.emit('_entryStat', entry, props)
+      if (entry._aborted) return
+      if (entry._paused) {
+        entry.once('resume', function () {
+          self.emit('entryStat', entry, props)
+        })
+      } else self.emit('entryStat', entry, props)
+    })
+function statCb = function statCb (er, current) {
+    if (self.filter && !self.filter.call(who, who, current)) {
+      self._aborted = true
+      self.emit('end')
+      self.emit('close')
+      return
+    }
+
+    // if it's not there, great.  We'll just create it.
+    // if it is there, then we'll need to change whatever differs
+    if (er || !current) {
+      return create(self)
+    }
+
+    self._old = current
+    var currentType = getType(current)
+
+    // if it's a type change, then we need to clobber or error.
+    // if it's not a type change, then let the impl take care of it.
+    if (currentType !== self.type || self.type === 'File' && current.nlink > 1) {
+      return rimraf(self._path, function (er) {
+        if (er) return self.error(er)
+        self._old = null
+        create(self)
+      })
+    }
+
+    // otherwise, just handle in the app-specific way
+    // this creates a fs.WriteStream, or mkdir's, or whatever
+    create(self)
+  }
+Reader.prototype._stat = function (currentStat) {
+  var self = this
+  var props = self.props
+  var stat = props.follow ? 'stat' : 'lstat'
+  // console.error("Reader._stat", self._path, currentStat)
+  if (currentStat) process.nextTick(statCb.bind(null, null, currentStat))
+  else fs[stat](self._path, statCb)
+
+  function statCb (er, props_) {
+    // console.error("Reader._stat, statCb", self._path, props_, props_.nlink)
+    if (er) return self.error(er)
+
+    Object.keys(props_).forEach(function (k) {
+      props[k] = props_[k]
+    })
+
+    // if it's not the expected size, then abort here.
+    if (undefined !== self.size && props.size !== self.size) {
+      return self.error('incorrect size')
+    }
+    self.size = props.size
+
+    var type = getType(props)
+    var handleHardlinks = props.hardlinks !== false
+
+    // special little thing for handling hardlinks.
+    if (handleHardlinks && type !== 'Directory' && props.nlink && props.nlink > 1) {
+      var k = props.dev + ':' + props.ino
+   ...
+self.emit('entryStat', entry, props)
+entry.on('ready', function EMITCHILD () {
+      // console.error("DR emit child", entry._path)
+      if (self._paused) {
+        // console.error("  DR emit child - try again later")
+        // pause the child, and emit the "entry" event once we drain.
+        // console.error("DR pausing child entry")
+        entry.pause(self)
+        return self.once('resume', EMITCHILD)
+      }
+
+      // skip over sockets.  they can't be piped around properly,
+      // so there's really no sense even acknowledging them.
+      // if someone really wants to see them, they can listen to
+      // the "socket" events.
+      if (entry.type === 'Socket') {
+        self.emit('socket', entry)
+      } else {
+        self.emitEntry(entry)
+      }
+    })
+var k = props.dev + ':' + props.ino
+entry.on('disown', onend)
+self.emit('childEnd', entry)
+type = self.type = self.props.type = 'Link'
+entry.on('error', function (er) {
+      if (entry._swallowErrors) {
+        self.warn(er)
+        entry.emit('end')
+        entry.emit('close')
+      } else {
+        self.emit('error', er)
+      }
+    })
+self.emit('error', er)

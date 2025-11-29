@@ -1,0 +1,16 @@
+text.replace(/:([A-Za-z0-9_\-\+]+?):/g, function (emojiString) {
+    var emojiSign = emoji.get(emojiString);
+    if (!emojiSign) return emojiString;
+    return emojiSign + ' ';
+  })
+var emojiSign = emoji.get(emojiString)
+const styles = Object.create(null)
+emojiSign + ' '
+text.replace(/:([A-Za-z0-9_\-\+]+?):/g, function (emojiString) {
+    var emojiSign = emoji__namespace.get(emojiString);
+    if (!emojiSign) return emojiString;
+    return emojiSign + ' ';
+  })
+var emojiSign = emoji__namespace.get(emojiString)
+!emojiSign
+emojiSign + ' '

@@ -1,0 +1,2 @@
+type === "hmac"
+signature === sign(input, key, method, type)

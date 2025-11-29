@@ -1,0 +1,21 @@
+var req = require('http').request({
+  host: url,
+  port : port,
+  path: '/p',
+  method : 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': post_data.length
+  }
+}, function(res) {
+  var res_data = '';
+
+  res.setEncoding('utf-8');
+
+  res.on('data', function(chunk) {
+    res_data += chunk;
+  });
+  res.on('end', function() {
+    return false;
+  });
+})

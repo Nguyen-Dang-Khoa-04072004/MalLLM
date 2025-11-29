@@ -1,0 +1,12 @@
+function createNoCodeFunction = function createNoCodeFunction () {
+  /* eslint no-constant-condition: "off" */
+  var num = 100
+
+  ;(function () {
+    if (null) {
+      // do nothing
+    } else {
+      fib(num)
+    }
+  })()
+}

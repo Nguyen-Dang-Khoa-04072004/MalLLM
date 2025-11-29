@@ -1,0 +1,40 @@
+file = await stat(resolve(cwd, filePath))
+const fileName = template(asset.name || basename(filePath))(context)
+_tmp_17.data = await readFile(resolve(cwd, filePath))
+_tmp_18.content-type = mime.getType(extname(fileName)) || "text/plain"
+stringify(
+      draftRelease,
+    )
+await Promise.all(
+      uniqBy([...prs, ...issues], "number").map(async (issue) => {
+        const body = successComment
+          ? template(successComment)({ ...context, issue })
+          : getSuccessComment(issue, releaseInfos, nextRelease);
+        try {
+          const comment = { owner, repo, issue_number: issue.number, body };
+          debug("create comment: %O", comment);
+          const {
+            data: { html_url: url },
+          } = await octokit.request(
+            "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+            comment,
+          );
+          logger.log("Added comment to issue #%d: %s", issue.number, url);
+
+          if (releasedLabels) {
+            const labels = releasedLabels.map((label) =>
+              template(label)(context),
+            );
+            await octokit.request(
+              "POST /repos/{owner}/{repo}/issues/{issue_number}/labels",
+              {
+                owner,
+                repo,
+                issue_n...
+const body = successComment
+          ? template(successComment)({ ...context, issue })
+          : getSuccessComment(issue, releaseInfos, nextRelease)
+errors.push(getError("ENOGHTOKEN", { owner, repo }))
+_tmp_10.details = "The **semantic-release** \`repositoryUrl\` option must a valid GitHub URL with the format \`<GitHub_or_GHE_URL>/<owner>/<repo>.git\`.
+
+By default the \`repositoryUrl\` option is retrieved from the \`repository\` property of your \`package.json\` or the [git origin url](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes) of the repository cloned by your CI environment."

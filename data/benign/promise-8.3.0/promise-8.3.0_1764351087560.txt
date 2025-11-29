@@ -1,0 +1,138 @@
+var src = fs.readFileSync(__dirname + '/src/' + filename, 'utf8')
+(_tmp_4 = this._value).getState
+_tmp_2.timeout = setTimeout(
+          onUnhandled.bind(null, promise._rejectionId),
+          // For reference errors and type errors, this almost always
+          // means the programmer made a mistake, so log them after just
+          // 100ms
+          // otherwise, wait 2 seconds to see if they get handled
+          matchWhitelist(err, DEFAULT_WHITELIST)
+            ? 100
+            : 2000
+        )
+var src = fs.readFileSync(__dirname + '/src/' + filename, 'utf8')
+var out = fixup(src)
+function Promise = function Promise(fn) {
+  if (typeof this !== 'object') {
+    throw new TypeError('Promises must be constructed via new');
+  }
+  if (typeof fn !== 'function') {
+    throw new TypeError('Promise constructor\'s argument is not a function');
+  }
+  this._deferredState = 0;
+  this._state = 0;
+  this._value = null;
+  this._deferreds = null;
+  if (fn === noop) return;
+  doResolve(fn, this);
+}
+var body = [
+    'return function (' + args.join(',') + ') {',
+    'var self = this;',
+    'var args;',
+    'var argLength = arguments.length;',
+    'if (arguments.length > ' + fnLength + ') {',
+    'args = new Array(arguments.length + 1);',
+    'for (var i = 0; i < arguments.length; i++) {',
+    'args[i] = arguments[i];',
+    '}',
+    '}',
+    'return new Promise(function (rs, rj) {',
+    'var cb = ' + callbackFn + ';',
+    'var res;',
+    'switch (argLength) {',
+    args.concat(['extra']).map(function (_, index) {
+      return (
+        'case ' + (index) + ':' +
+        'res = fn.call(' + ['self'].concat(args.slice(0, index)).concat('cb').join(',') + ');' +
+        'break;'
+      );
+    }).join(''),
+    'default:',
+    'args[argLength] = cb;',
+    'res = fn.apply(self, args);',
+    '}',
+    
+    'if (res &&',
+    '(typeof res === "object" || typeof res === "function") &&',
+    'typeof res.then === "function"',
+    ') {rs(res);}',
+    '});',
+    '};'
+  ].join('')
+Promise.all = function (arr) {
+  var args = iterableToArray(arr);
+
+  return new Promise(function (resolve, reject) {
+    if (args.length === 0) return resolve([]);
+    var remaining = args.length;
+    function res(i, val) {
+      if (val && (typeof val === 'object' || typeof val === 'function')) {
+        if (val instanceof Promise && val.then === Promise.prototype.then) {
+          while (val._y === 3) {
+            val = val._z;
+          }
+          if (val._y === 1) return res(i, val._z);
+          if (val._y === 2) reject(val._z);
+          val.then(function (val) {
+            res(i, val);
+          }, reject);
+          return;
+        } else {
+          var then = val.then;
+          if (typeof then === 'function') {
+            var p = new Promise(then.bind(val));
+            p.then(function (val) {
+              res(i, val);
+            }, reject);
+            return;
+          }
+        }
+      }
+      args[i] = val;
+      if (--remaining === 0) {
+        resolve(args);
+ ...
+options.allRejections ||
+      matchWhitelist(
+        rejections[id].error,
+        options.whitelist || DEFAULT_WHITELIST
+      )
+matchWhitelist(
+        rejections[id].error,
+        options.whitelist || DEFAULT_WHITELIST
+      )
+new Promise(function (resolve, reject) {
+    if (args.length === 0) return resolve([]);
+    var remaining = args.length;
+    function res(i, val) {
+      if (val && (typeof val === 'object' || typeof val === 'function')) {
+        if (val instanceof Promise && val.then === Promise.prototype.then) {
+          while (val._y === 3) {
+            val = val._z;
+          }
+          if (val._y === 1) return res(i, val._z);
+          if (val._y === 2) reject(val._z);
+          val.then(function (val) {
+            res(i, val);
+          }, reject);
+          return;
+        } else {
+          var then = val.then;
+          if (typeof then === 'function') {
+            var p = new Promise(then.bind(val));
+            p.then(function (val) {
+              res(i, val);
+            }, reject);
+            return;
+          }
+        }
+      }
+      args[i] = val;
+      if (--remaining === 0) {
+        resolve(args);
+      }
+    }
+    for (var i = 0; i < args.length; i++) {
+      res(i, args[i...
+fs.writeFileSync(__dirname + '/setimmediate/' + filename, out)

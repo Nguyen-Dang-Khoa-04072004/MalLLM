@@ -1,0 +1,5 @@
+var sorter = function (a, b) {
+                a = a.data[key];
+                b = b.data[key];
+                return a < b ? -1 : a > b ? 1 : 0;
+            }

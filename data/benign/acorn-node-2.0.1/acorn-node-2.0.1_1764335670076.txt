@@ -1,0 +1,54 @@
+function anonymous = function anonymous () {
+      Parser.apply(this, arguments);
+    }
+function (Parser) {
+    function anonymous () {
+      Parser.apply(this, arguments);
+    }
+
+    if ( Parser ) anonymous.__proto__ = Parser;
+    anonymous.prototype = Object.create( Parser && Parser.prototype );
+    anonymous.prototype.constructor = anonymous;
+
+    anonymous.prototype._maybeParseFieldValue = function _maybeParseFieldValue (field) {
+      if (this.eat(tt.eq)) {
+        var oldInFieldValue = this._inFieldValue
+        this._inFieldValue = true
+        field.value = this.parseExpression()
+        this._inFieldValue = oldInFieldValue
+      } else { field.value = null }
+    };
+
+    // Parse fields
+    anonymous.prototype.parseClassElement = function parseClassElement (_constructorAllowsSuper) {
+      if (this.options.ecmaVersion >= 8 && (this.type == tt.name || this.type.keyword || this.type == this.privateNameToken || this.type == tt.bracketL || this.type == tt.string || this.type == tt.num)) {
+        var branch = this._branch()
+        if (branch.type == tt.bracketL) {...
+function (ExtendedParser) {
+    function anonymous () {
+      ExtendedParser.apply(this, arguments);
+    }
+
+    if ( ExtendedParser ) anonymous.__proto__ = ExtendedParser;
+    anonymous.prototype = Object.create( ExtendedParser && ExtendedParser.prototype );
+    anonymous.prototype.constructor = anonymous;
+
+    anonymous.prototype._maybeParseFieldValue = function _maybeParseFieldValue (field) {
+      if (this.eat(tt.eq)) {
+        var oldInFieldValue = this._inStaticFieldScope
+        this._inStaticFieldScope = this.currentThisScope()
+        field.value = this.parseExpression()
+        this._inStaticFieldScope = oldInFieldValue
+      } else { field.value = null }
+    };
+
+    // Parse fields
+    anonymous.prototype.parseClassElement = function parseClassElement (_constructorAllowsSuper) {
+      if (this.options.ecmaVersion < 8 || !this.isContextual("static")) {
+        return ExtendedParser.prototype.parseClassElement.apply(this, arguments)
+      }
+
+      var branch = this._branch()...
+function full = function full (node, callback, baseVisitor, state, override) {
+  return walk.full(node, callback, baseVisitor || base, state, override)
+}

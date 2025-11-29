@@ -1,0 +1,4 @@
+await Promise.all(Object.keys(options.clients).map(id => {
+        return this.createInstanceAsync(options.clients[id], id)
+          .then(client => this.clients.set(id, client));
+      }))

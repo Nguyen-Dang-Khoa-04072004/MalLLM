@@ -1,0 +1,28 @@
+var s = net.createConnection(port || 6379, host)
+s.write = function() {
+        var data = exports.writeCommand.apply(this, arguments);
+        return _write.call(s, data);
+    }
+_tmp_26.descr = "LRANGE 100 elements, 8 bytes"
+s.on("data", function(data) {
+        var reply;
+        r.feed(data);
+        try {
+            while((reply = r.get()) !== undefined)
+                s.emit("reply", reply);
+        } catch(err) {
+            r = null;
+            s.emit("error", err);
+            s.destroy();
+        }
+    })
+_tmp_28.command = ["LRANGE", "mylist-64", "0", "99"]
+tests.push({
+    descr: "LRANGE 100 elements, 512 bytes",
+    command: ["LRANGE", "mylist-512", "0", "99"]
+})
+{
+            client.end();
+            if (--active_clients == 0)
+                done(test);
+        }

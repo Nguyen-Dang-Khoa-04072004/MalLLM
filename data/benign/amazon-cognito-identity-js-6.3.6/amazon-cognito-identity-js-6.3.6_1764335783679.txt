@@ -1,0 +1,7 @@
+_this3.request(operation, p, function (error, result) {
+          if (error) {
+            rej(error);
+          } else {
+            res(result);
+          }
+        })

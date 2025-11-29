@@ -1,0 +1,1 @@
+process.env.NODE_ENV !== "production" ? warning(location.pathname.charAt(0) === '/', "Relative pathnames are not supported in createMemoryHistory({ initialEntries }) (invalid entry: " + JSON.stringify(entry) + ")") : void 0

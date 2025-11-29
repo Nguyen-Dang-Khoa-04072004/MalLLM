@@ -1,0 +1,10 @@
+spawn(hooked.npm, ['run', script, '--silent'], {
+      env: process.env,
+      cwd: hooked.root,
+      stdio: [0, 1, 2]
+    }).once('close', function closed(code) {
+      if (code) return hooked.log(hooked.format(Hook.log.failure, script, code));
+
+      again(scripts);
+    })
+_tmp_23.env = process.env

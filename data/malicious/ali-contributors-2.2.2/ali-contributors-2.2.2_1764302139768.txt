@@ -1,0 +1,18 @@
+urllib.request(url, {
+    dataType: 'json',
+    followRedirect: true,
+  }, function(err, result, res) {
+    if (err) {
+      return callback(err);
+    }
+    if (res.statusCode === 404) {
+      return callback();
+    }
+
+    result = result || {};
+    if (res.statusCode !== 200) {
+      err = new Error('npm-web restful api error: ' + result.message + ', status: ' + res.statusCode);
+      return callback(err);
+    }
+    callback(null, result.data);
+  })

@@ -1,0 +1,12 @@
+_tmp_116.months = {
+    formatter: function formatter(value, format) {
+      return value.map(function (date) {
+        return pickervue_type_script_lang_js_DATE_FORMATTER(date, format);
+      });
+    },
+    parser: function parser(value, format) {
+      return (typeof value === 'string' ? value.split(', ') : value).map(function (date) {
+        return date instanceof Date ? date : pickervue_type_script_lang_js_DATE_PARSER(date, format);
+      });
+    }
+  }

@@ -1,0 +1,19 @@
+urllib.request(url, args, function (err, result, res) {
+    if (err) {
+      err.data = Buffer.isBuffer(result) ? result.toString() : result;
+      return callback(err);
+    }
+    if (!result) {
+      return callback();
+    }
+
+    var errMsg = result.errors && result.errors[0];
+    if (errMsg) {
+      err = new Error(errMsg.msg || 'HTTP Status ' + res.statusCode);
+      err.name = 'BucAPIRequestError';
+      err.data = result;
+      return callback(err);
+    }
+    debug('%s %j %j', url, args, result);
+    callback(null, result.content);
+  })

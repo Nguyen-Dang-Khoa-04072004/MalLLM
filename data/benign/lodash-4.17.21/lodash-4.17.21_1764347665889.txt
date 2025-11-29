@@ -1,0 +1,1 @@
+var reEscapedHtml = /&(?:amp|lt|gt|quot|#39);/g

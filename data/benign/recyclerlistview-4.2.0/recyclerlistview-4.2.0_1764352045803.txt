@@ -1,0 +1,5 @@
+const offset = props.contextProvider.get(uniqueKey + Constants.CONTEXT_PROVIDER_OFFSET_KEY_SUFFIX)
+typeof offset === "number" && offset > 0
+this._initialOffset = offset
+props.onRecreate({ lastOffset: this._initialOffset })
+const cachedLayouts = props.contextProvider.get(uniqueKey + Constants.CONTEXT_PROVIDER_LAYOUT_KEY_SUFFIX) as string

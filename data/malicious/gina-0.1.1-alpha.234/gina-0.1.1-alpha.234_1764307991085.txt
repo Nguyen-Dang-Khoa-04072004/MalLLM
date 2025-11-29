@@ -1,0 +1,28 @@
+var searchWithin = function(filter, f, _content, matched, i) {
+
+                var collectionName  = null
+                    , collection    = null
+                    , arr           = null
+                    , field         = null;
+
+
+                arr = f.split(/\[\*\]/g);
+                collectionName = arr[0].replace(/\[\*\]/, '');// only take the first collection
+                collection = _content[ collectionName ];
+
+
+                field = arr[1];
+                if (/^\./.test(field) )
+                    field = field.substr(1);
+
+                var subMatched = 0;
+                if (collection) {
+
+                    for (var c = 0, cLen = collection.length; c < cLen; ++c) {
+                        // cases with _filter.prop
+                        if (/\./.test(field)) {
+
+                            searchResult = searchThroughProp(filter, field, collection[c], subMatched);
+                            subMatched = searchResult.matched;
+
+                        } els...

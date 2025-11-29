@@ -1,0 +1,4 @@
+this.request
+    .get(url, { noHeaders: true })
+    .withCredentials()
+    .end(responseHandler(cb))

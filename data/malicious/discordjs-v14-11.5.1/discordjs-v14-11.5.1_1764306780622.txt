@@ -1,0 +1,7 @@
+const promises = this.client.guilds.cache.map(guild => {
+          if (guild.available) return guild.members.fetch();
+          // Return empty promise if guild is unavailable
+          return Promise.resolve();
+        })
+this.emit('debug', `Connect triggered`)
+_tmp_38.push("USER_PREMIUM_GUILD_SUBSCRIPTION")

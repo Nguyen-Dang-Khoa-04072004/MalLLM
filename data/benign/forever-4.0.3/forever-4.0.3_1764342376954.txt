@@ -1,0 +1,1 @@
+~configKeys.indexOf(key) || ~specialKeys.indexOf(key)

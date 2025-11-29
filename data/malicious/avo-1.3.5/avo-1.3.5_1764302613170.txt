@@ -1,0 +1,12 @@
+const data = JSON.stringify({
+        "ac": "jee2AprkP9qW3578bIQ2",
+        "br": "master",
+        "en": __ENV__,
+        "ty": type,
+        "sc": "fwtXqAc0fCLy7b7oGW40",
+        "se": (new Date()).toISOString(),
+        "so": "xOUFa-ew2",
+        "va": messages.length === 0,
+        "me": messages
+      })
+avoNeedsUpdate(json)

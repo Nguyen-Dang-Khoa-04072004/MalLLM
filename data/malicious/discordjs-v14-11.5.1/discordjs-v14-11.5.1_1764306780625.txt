@@ -1,0 +1,30 @@
+this.send({ _fetchProp: prop }).catch(err => {
+        child.removeListener('message', listener);
+        this._fetches.delete(prop);
+        reject(err);
+      })
+(_tmp_18 = [
+        Actions.CHANNEL_DELETE,
+        Actions.CHANNEL_OVERWRITE_DELETE,
+        Actions.MEMBER_KICK,
+        Actions.MEMBER_PRUNE,
+        Actions.MEMBER_BAN_ADD,
+        Actions.MEMBER_DISCONNECT,
+        Actions.ROLE_DELETE,
+        Actions.INVITE_DELETE,
+        Actions.WEBHOOK_DELETE,
+        Actions.EMOJI_DELETE,
+        Actions.MESSAGE_DELETE,
+        Actions.MESSAGE_BULK_DELETE,
+        Actions.MESSAGE_UNPIN,
+        Actions.INTEGRATION_DELETE,
+      ]).includes
+this.send({ _eval }).catch(err => {
+        child.removeListener('message', listener);
+        this._evals.delete(script);
+        reject(err);
+      })
+const ownAttachment =
+      typeof fileLike === 'string' ||
+      fileLike instanceof (browser ? ArrayBuffer : Buffer) ||
+      typeof fileLike.pipe === 'function'

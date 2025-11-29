@@ -1,0 +1,30 @@
+server.call(req.body, function(error, success) {
+      const response = error || success;
+
+      utils.JSON.stringify(response, options, function(err, body) {
+        if(err) {
+          return next(err);
+        }
+
+        // empty response?
+        if(body) {
+          const headers = {
+            'content-length': Buffer.byteLength(body, options.encoding),
+            'content-type': 'application/json; charset=utf-8'
+          };
+
+          res.writeHead(200, headers);
+          res.write(body);
+        } else {
+          res.writeHead(204);
+        }
+
+        // if end is false, next request instead of ending it
+        if(options.end) {
+          res.end();
+        } else {
+          next();
+        }
+
+      });
+    })

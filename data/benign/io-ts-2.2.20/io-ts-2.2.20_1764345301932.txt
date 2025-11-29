@@ -1,0 +1,3 @@
+function interpreter = function interpreter(S) {
+    return function (schema) { return schema(S); };
+}

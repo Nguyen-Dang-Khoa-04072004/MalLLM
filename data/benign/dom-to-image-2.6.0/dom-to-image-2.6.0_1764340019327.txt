@@ -1,0 +1,39 @@
+_createClass(TesseractWorker, [{
+		key: 'recognize',
+		value: function recognize(image, options) {
+			var _this = this;
+
+			return this._delay(function (job) {
+				if (typeof options === 'string') {
+					options = { lang: options };
+				} else {
+					options = options || {};
+					options.lang = options.lang || 'eng';
+				}
+
+				job._send('recognize', { image: image, options: options, workerOptions: _this.workerOptions });
+			});
+		}
+	}, {
+		key: 'detect',
+		value: function detect(image, options) {
+			var _this2 = this;
+
+			options = options || {};
+			return this._delay(function (job) {
+				job._send('detect', { image: image, options: options, workerOptions: _this2.workerOptions });
+			});
+		}
+	}, {
+		key: 'terminate',
+		value: function terminate() {
+			if (this.worker) adapter.terminateWorker(this);
+			this.worker = null;
+		}
+	}, {
+		key: '_delay',
+		value: function _delay(fn) {
+			var _this3 = this;
+
+			if (!this.worker) this.worker = adapter.spawnWorker(this, this.workerOptions);
+...

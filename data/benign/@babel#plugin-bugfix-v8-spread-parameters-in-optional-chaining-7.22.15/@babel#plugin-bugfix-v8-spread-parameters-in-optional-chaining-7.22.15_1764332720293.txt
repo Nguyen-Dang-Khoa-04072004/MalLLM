@@ -1,0 +1,4 @@
+optionalPath.isOptionalMemberExpression()
+optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("object"))
+optionalPath.isOptionalCallExpression()
+optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("callee"))

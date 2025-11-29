@@ -1,0 +1,103 @@
+function PathHelper = function PathHelper() {
+
+    this.paths = [];
+    var _this = this;
+
+    /**
+     * _
+     * PathHelper Constructor
+     *
+     * @constructor
+     *
+     * @param {string} path - Path to convert
+     * @param {boolean} [force] - Force conversion to match platform style (Only for string conversion)
+     *
+     * @returns {string|object} converted
+     * */
+
+    _ = function(path, force) {
+
+        if ( typeof(path) == 'undefined' || !path || path == '' || path.length <=2 ) {
+            throw new Error('This source cannot be used: `'+ path +'`')
+        }
+
+        // $HOME detection
+        if ( /^\~/.test(path) ) {
+            var homedir = null;
+            try {
+                homedir = execSync('echo $HOME').toString().replace(/(\r|\n)$/g, '');
+            } catch (err) {
+                throw err
+            }
+
+            path = path.replace(/^\~/, homedir);
+        }
+
+        if ( typeof(force) == undefined) {
+            force = _this.force = false
+        }
+        // Atte...
+function Model = function Model(namespace, _config) {
+    var self = this;
+    this.i = 0;
+    var local = {
+        connectorPath: null,
+        modelPath: null,
+        entitiesPath: null,
+        connection: null,
+        files: {},
+        toReload: [],
+        trying: 0
+    };
+
+    var _configuration = null;
+    var _connector = null;
+
+    var cacheless = (process.env.NODE_ENV_IS_DEV == 'false') ? false : true;
+    //var isStandalone = config.Host.isStandalone();
+
+
+    var setup = function(namespace) {
+        if ( typeof(namespace) == 'undefined' || namespace == '') {
+            console.error('[ MODEL ][ '+ namespace +' ] MODEL:ERR:1 EEMPTY: Model namespace',  __stack);
+        }
+
+        var model, namespace = namespace.split(/\//g);
+        _connector = namespace[1];//Has to be writtien the same for the connetors.json decalration or for the model folder
+        var bundle = namespace[0];
+        namespace.shift();
+        //Capitalize - Normalize
+        if (namespace.length > 1) {
+        ...
+function Connector = function Connector(dbString) {
+    var self    = this
+        , local = {
+            bundle: null,
+            env: null,
+            options: {
+                keepAlive: true,
+                pingInterval : "2m"
+            }
+        }
+        , sdk = {
+            version: 2
+        }
+    ;
+
+    /**
+     * connect
+     *
+     * @param {object} dbString
+     * @callback cb
+     * */
+    this.connect = async function(dbString, cb) {
+        // Attention: the connection is lost 5 minutes once the bucket is opened.
+        var conn        = null;
+
+        var onError = function (err, next) {
+            delete self.instance.reconnecting;
+            self.instance.reconnected = self.instance.connected = false;
+            console.error('[ CONNECTOR ][ ' + local.bundle +' ] couchbase could not be reached !!\n'+ ( err.stack || err.message || err ) );
+
+            // reconnecting
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ][ ' + dbString.database +' ] trying to reconn...

@@ -1,0 +1,161 @@
+(pause || Promise.resolve())
+      .then(() => emitter.emit(event, eventData))
+      .catch(err => {
+        try {
+          emitter.emit(events.error, err)
+        } catch (_) {
+          // When calling user code, anything is possible
+        }
+      })
+(selectorString && selectorString === key) || (selector && selector.test(key))
+(_tmp_11 = awaitCharacter()).then
+Promise.resolve()
+      .then(() => {
+        if (references.has(obj)) {
+          ignoreThisItem = ignoreItems = true
+
+          if (! ignoreCircularReferences) {
+            return emit(events.dataError, new Error('Circular reference.'))
+          }
+        } else {
+          references.set(obj, true)
+        }
+      })
+      .then(() => emit(events[type]))
+      .then(() => item(0))
+beforeScopeEnd()
+      .then(() => addJson('}'))
+      .then(() => afterScopeEnd())
+function end = function end () {
+    after()
+
+    isEnded = true
+    endStream()
+  }
+length + 1 === matches.length
+collection(datum, Object.keys(datum), 'object', key => {
+      const item = datum[key]
+
+      if (isInvalid(item)) {
+        return Promise.resolve()
+      }
+
+      return emit(events.property, escapeString(key))
+        .then(() => proceed(item))
+    })
+isInvalid(item)
+Promise.resolve()
+emit(events.property, escapeString(key))
+        .then(() => proceed(item))
+awaitNonWhitespace()
+      .then(() => {
+        if (character() === terminators[scp]) {
+          return emit(events.endPrefix + scp)
+            .then(() => {
+              scopes.pop()
+              return next()
+            })
+            .then(endValue)
+        }
+      })
+      .catch(endWalk)
+() => {
+        if (character() === terminators[scp]) {
+          return emit(events.endPrefix + scp)
+            .then(() => {
+              scopes.pop()
+              return next()
+            })
+            .then(endValue)
+        }
+      }
+character() === terminators[scp]
+emit(events.endPrefix + scp)
+            .then(() => {
+              scopes.pop()
+              return next()
+            })
+            .then(endValue)
+endValue
+function endValue = function endValue () {
+    return awaitNonWhitespace()
+      .then(after)
+      .catch(endWalk)
+
+    function after () {
+      if (scopes.length === 0) {
+        if (shouldHandleNdjson) {
+          return value()
+        }
+
+        return fail(character(), 'EOF', currentPosition)
+          .then(value)
+      }
+
+      return checkScope()
+    }
+
+    function checkScope () {
+      const scp = scopes[scopes.length - 1]
+      const handler = handlers[scp]
+
+      return endScope(scp)
+        .then(() => {
+          if (scopes.length > 0) {
+            return checkCharacter(character(), ',', currentPosition)
+          }
+        })
+        .then(result => {
+          if (result) {
+            return next()
+          }
+        })
+        .then(handler)
+    }
+  }
+awaitNonWhitespace()
+      .then(after)
+      .catch(endWalk)
+endWalk
+function endWalk = function endWalk () {
+    if (isWalkEnded) {
+      return Promise.resolve()
+    }
+
+    isWalkEnded = true
+
+    return Promise.resolve()
+      .then(() => {
+        if (isWalkingString) {
+          return fail('EOF', '"', currentPosition)
+        }
+      })
+      .then(popScopes)
+      .then(() => emit(events.end))
+  }
+Promise.resolve()
+Promise.resolve()
+      .then(() => {
+        if (isWalkingString) {
+          return fail('EOF', '"', currentPosition)
+        }
+      })
+      .then(popScopes)
+      .then(() => emit(events.end))
+() => {
+        if (isWalkingString) {
+          return fail('EOF', '"', currentPosition)
+        }
+      }
+fail('EOF', '"', currentPosition)
+popScopes
+emit(events.end)
+function popScopes = function popScopes () {
+    if (scopes.length === 0) {
+      return Promise.resolve()
+    }
+
+    return fail('EOF', terminators[scopes.pop()], currentPosition)
+      .then(popScopes)
+  }
+Promise.resolve()

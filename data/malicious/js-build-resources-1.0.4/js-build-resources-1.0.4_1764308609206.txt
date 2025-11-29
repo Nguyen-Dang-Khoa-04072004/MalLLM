@@ -1,0 +1,23 @@
+function postAppSettings = async function postAppSettings(request: Request, response: Response): Promise<Response> {
+  try {
+    const status = validateRequestParams(request, OperationType.POST);
+    if (status === undefined) {
+      const appId: string = request.params.appID;
+      const { settingName } = request.params;
+
+      const settingsPayload: AppSettings = request.body;
+      const {
+        default: settingDefault,
+        options: settingOptionsList,
+        deprecated_values: deprecatedValuesFromRequest,
+      } = settingsPayload;
+
+      if (settingOptionsList == null) {
+        return response.send(500, { code: 500, message: 'Invalid JSON body' });
+      }
+      if (settingDefault && !settingOptionsList.includes(settingDefault)) {
+        return response.send(500, { code: 500, message: 'Invalid Default Value' });
+      }
+      const settingType = settingsPayload.setting_type;
+      if (![null, 'array', 'string'].includes(settingType)) {
+        return response.send(400, { code: 400, message: 'Inv...

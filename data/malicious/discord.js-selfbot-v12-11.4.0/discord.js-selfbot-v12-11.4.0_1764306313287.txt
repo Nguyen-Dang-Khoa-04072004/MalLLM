@@ -1,0 +1,78 @@
+this === game || (
+      game &&
+      this.name === game.name &&
+      this.type === game.type &&
+      this.url === game.url
+    )
+game &&
+      this.name === game.name &&
+      this.type === game.type &&
+      this.url === game.url
+packetBuffer.writeUIntBE(this.player.voiceConnection.authentication.ssrc, 8, 4)
+const promise = new Promise((resolve, reject) => {
+      const listener = message => {
+        if (!message || message._eval !== script) return;
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        if (!message._error) resolve(message._result); else reject(Util.makeError(message._error));
+      };
+      this.process.on('message', listener);
+
+      this.send({ _eval: script }).catch(err => {
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        reject(err);
+      });
+    })
+const listener = message => {
+        if (!message || message._eval !== script) return;
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        if (!message._error) resolve(message._result); else reject(Util.makeError(message._error));
+      }
+_tmp_15.messages = {
+        toString: () => `${base}/messages`,
+        bulkDelete: `${base}/messages/bulk-delete`,
+      }
+new Permissions(this.permissions).has(
+      permission, typeof checkAdmin !== 'undefined' ? checkAdmin : !explicit
+    )
+channel._typing.has(this.id) ? new Date(channel._typing.get(this.id).since) : null
+this.send({ _eval: script }).catch(err => {
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        reject(err);
+      })
+this.joinedTimestamp = data.joined_at ? new Date(data.joined_at).getTime() : this.joinedTimestamp
+this.authenticateFailed('Token not provided from voice server packet.')
+this.mentions = new Mentions(
+      this,
+      'mentions' in data ? data.mentions : this.mentions.users,
+      'mentions_roles' in data ? data.mentions_roles : this.mentions.roles,
+      'mention_everyone' in data ? data.mention_everyone : this.mentions.everyone
+    )
+_tmp_13.push(Actions.CHANNEL_OVERWRITE_CREATE)
+this.fetchMessages({ limit: 1, around: messageID }).then(messages => {
+        const msg = messages.get(messageID);
+        if (!msg) throw new Error('Message not found.');
+        return msg;
+      })
+permission.map(p => this.resolve(p)).reduce((prev, p) => prev | p, 0)
+file = { attachment: file.file, name: path.basename(file.file) || 'file.jpg' }
+this.ratelimit.resetTimer = this.client.setTimeout(() => {
+        this.ratelimit.remaining = this.ratelimit.total;
+        this.processQueue();
+      }, this.ratelimit.time)
+(_tmp_14 = [
+      Actions.CHANNEL_DELETE,
+      Actions.CHANNEL_OVERWRITE_DELETE,
+      Actions.MEMBER_KICK,
+      Actions.MEMBER_PRUNE,
+      Actions.MEMBER_BAN_ADD,
+      Actions.ROLE_DELETE,
+      Actions.INVITE_DELETE,
+      Actions.WEBHOOK_DELETE,
+      Actions.EMOJI_DELETE,
+      Actions.MESSAGE_DELETE,
+    ]).includes
+options.maxID = long.fromNumber(t + 86400000).shiftLeft(22).toString()

@@ -1,0 +1,5 @@
+const tarExtractDir = win ? await fs.promises.mkdtemp(path.join(os.tmpdir(), 'node-gyp-tmp-')) : devDir
+const installVersionPath = path.resolve(tarExtractDir, 'installVersion')
+var nodeLibFile = path.join(nodeDir,
+        !gyp.opts.nodedir ? '<(target_arch)' : '$(Configuration)',
+        release.name + '.lib')

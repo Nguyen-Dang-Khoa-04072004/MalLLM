@@ -1,0 +1,10 @@
+(_tmp_37 = this.sharedWorkerErrors).push
+const options = {
+					...forkOptions,
+					providerStates,
+					lineNumbers,
+					recordNewSnapshots: !isCi,
+					// If we're looking for matches, run every single test process in exclusive-only mode
+					runOnlyExclusive: apiOptions.match.length > 0 || runtimeOptions.runOnlyExclusive === true,
+				}
+compareWithSnapshot = _tmp_59.compareWithSnapshot === void 0 ? notImplemented : _tmp_59.compareWithSnapshot

@@ -1,0 +1,4 @@
+currentWriter.next = nextWriter.next
+events.emit(type, arg)
+onInput = onInput || this.onInput
+"The following errors occurred:\n- " + failed.join("\n- ")

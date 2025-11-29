@@ -1,0 +1,195 @@
+const invite = await this.client.rest.post(Routes.channelInvites(id), {
+      body: {
+        temporary,
+        max_age: maxAge,
+        max_uses: maxUses,
+        unique,
+        target_user_id: this.client.users.resolveId(targetUser),
+        target_application_id: targetApplication?.id ?? targetApplication?.applicationId ?? targetApplication,
+        target_type: targetType,
+      },
+      reason,
+    })
+_tmp_23.body = {
+        temporary,
+        max_age: maxAge,
+        max_uses: maxUses,
+        unique,
+        target_user_id: this.client.users.resolveId(targetUser),
+        target_application_id: targetApplication?.id ?? targetApplication?.applicationId ?? targetApplication,
+        target_type: targetType,
+      }
+text.replace(/__(_)?/g, (_, match) => {
+    if (match) return ++i % 2 ? `${match}\\_\\_` : `\\_\\_${match}`;
+    return '\\_\\_';
+  })
+const body = {
+      name: data.name,
+      color: typeof data.color === 'undefined' ? undefined : resolveColor(data.color),
+      hoist: data.hoist,
+      permissions: typeof data.permissions === 'undefined' ? undefined : new PermissionsBitField(data.permissions),
+      mentionable: data.mentionable,
+      icon,
+      unicode_emoji: data.unicodeEmoji,
+    }
+this.extra = guild.members.cache.get(data.options.id) ?? {
+              id: data.options.id,
+              type: AuditLogOptionsType.Member,
+            }
+const d = await this.client.rest.patch(Routes.guildRole(this.guild.id, role.id), { body, reason: data.reason })
+const findName = thing => {
+      if (typeof thing === 'string') {
+        return basename(thing);
+      }
+
+      if (thing.path) {
+        return basename(thing.path);
+      }
+
+      return 'file.jpg';
+    }
+const timeout = setTimeout(() => {
+        this.client.removeListener(Events.GuildCreate, handleGuild);
+        this.client.decrementMaxListeners();
+        resolve(this.client.guilds._add(data));
+      }, 10_000).unref()
+_tmp_20.request_to_speak_timestamp = data.requestToSpeak ? new Date().toISOString() : data.requestToSpeak === false ? null : undefined
+await this.client.rest.post(Routes.interactionCallback(this.id, this.token), {
+      body: {
+        type: InteractionResponseType.Modal,
+        data: isJSONEncodable(modal) ? modal.toJSON() : this.client.options.jsonTransformer(modal),
+      },
+    })
+logs.webhooks.get(data.target_id) ??
+        new Webhook(
+          guild.client,
+          this.changes.reduce(
+            (o, c) => {
+              o[c.key] = c.new ?? c.old;
+              return o;
+            },
+            {
+              id: data.target_id,
+              guild_id: guild.id,
+            },
+          ),
+        )
+new Webhook(
+          guild.client,
+          this.changes.reduce(
+            (o, c) => {
+              o[c.key] = c.new ?? c.old;
+              return o;
+            },
+            {
+              id: data.target_id,
+              guild_id: guild.id,
+            },
+          ),
+        )
+permission_overwrites = channel.parent.permissionOverwrites.cache.map(o =>
+          PermissionOverwrites.resolve(o, this.guild),
+        )
+other.id === this.id &&
+        other.description === this.description &&
+        other.name === this.name &&
+        other.tags === this.tags
+const newData = await this.client.rest.patch(Routes.channel(channel.id), {
+      body: {
+        name: (data.name ?? channel.name).trim(),
+        type: data.type,
+        topic: data.topic,
+        nsfw: data.nsfw,
+        bitrate: data.bitrate ?? channel.bitrate,
+        user_limit: data.userLimit ?? channel.userLimit,
+        rtc_region: 'rtcRegion' in data ? data.rtcRegion : channel.rtcRegion,
+        video_quality_mode: data.videoQualityMode,
+        parent_id: parent,
+        lock_permissions: data.lockPermissions,
+        rate_limit_per_user: data.rateLimitPerUser,
+        default_auto_archive_duration: data.defaultAutoArchiveDuration,
+        permission_overwrites,
+      },
+      reason: data.reason,
+    })
+_tmp_29.body = {
+        name: (data.name ?? channel.name).trim(),
+        type: data.type,
+        topic: data.topic,
+        nsfw: data.nsfw,
+        bitrate: data.bitrate ?? channel.bitrate,
+        user_limit: data.userLimit ?? channel.userLimit,
+        rtc_region: 'rtcRegion' in data ? data.rtcRegion : channel.rtcRegion,
+        video_quality_mode: data.videoQualityMode,
+        parent_id: parent,
+        lock_permissions: data.lockPermissions,
+        rate_limit_per_user: data.rateLimitPerUser,
+        default_auto_archive_duration: data.defaultAutoArchiveDuration,
+        permission_overwrites,
+      }
+new Promise((resolve, reject) => {
+      const collector = new InteractionCollector(this.client, _options);
+      collector.once('end', (interactions, reason) => {
+        const interaction = interactions.first();
+        if (interaction) resolve(interaction);
+        else reject(new Error(ErrorCodes.InteractionCollectorError, reason));
+      });
+    })
+message.createMessageComponentCollector({
+    componentType: ComponentType.SelectMenu,
+    filter: i => {
+      expectType<SelectMenuInteraction>(i);
+      return true;
+    },
+  })
+const newData = await this.client.rest.patch(Routes.guild(this.id), { body: _data, reason: data.reason })
+const welcome_channels = welcomeChannels?.map(welcomeChannelData => {
+      const emoji = this.emojis.resolve(welcomeChannelData.emoji);
+      return {
+        emoji_id: emoji?.id,
+        emoji_name: emoji?.name ?? welcomeChannelData.emoji,
+        channel_id: this.channels.resolveId(welcomeChannelData.channel),
+        description: welcomeChannelData.description,
+      };
+    })
+_tmp_315.components = [
+      new ButtonBuilder(),
+      { type: ComponentType.Button, label: 'test', style: ButtonStyle.Primary, customId: 'test' },
+      {
+        type: ComponentType.Button,
+        label: 'another test',
+        style: ButtonStyle.Link,
+        url: 'https://discord.js.org',
+      },
+    ]
+_tmp_316.push(new ButtonBuilder())
+_tmp_316.push({
+        type: ComponentType.Button,
+        label: 'another test',
+        style: ButtonStyle.Link,
+        url: 'https://discord.js.org',
+      })
+const patchData = await this.client.rest.patch(Routes.guildWelcomeScreen(this.id), {
+      body: {
+        welcome_channels,
+        description,
+        enabled,
+      },
+    })
+_tmp_99.body = {
+        welcome_channels,
+        description,
+        enabled,
+      }
+const selectsRow: ActionRowData<MessageActionRowComponentData> = {
+    type: ComponentType.ActionRow,
+    components: [
+      new SelectMenuBuilder(),
+      {
+        type: ComponentType.SelectMenu,
+        label: 'select menu',
+        options: [{ label: 'test', value: 'test' }],
+        customId: 'test',
+      },
+    ],
+  }

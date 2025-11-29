@@ -1,0 +1,10 @@
+connection.once('authenticated', () => {
+        connection.once('ready', () => resolve(connection));
+        connection.once('error', reject);
+        connection.once('disconnect', () => this.connections.delete(channel.guild.id));
+      })
+const listener = message => {
+        if (!message || message._sEval !== script) return;
+        process.removeListener('message', listener);
+        if (!message._error) resolve(message._result); else reject(Util.makeError(message._error));
+      }

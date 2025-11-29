@@ -1,0 +1,1 @@
+_tmp_8.arguments = this.options.arguments || {}

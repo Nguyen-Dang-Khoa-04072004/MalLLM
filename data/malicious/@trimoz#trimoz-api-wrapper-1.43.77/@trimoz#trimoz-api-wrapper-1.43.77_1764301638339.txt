@@ -1,0 +1,1 @@
+<operator>.formatString("", getters.getProfileUrl, "", oAuthUrl, "?baseUrl=", window.location.origin, "&locale=", getters.getLocale, "")

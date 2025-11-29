@@ -1,0 +1,1 @@
+url += gainValuesOverride['bookingGainMinutes'] ? '&bookingGainMinutes=' + gainValuesOverride['bookingGainMinutes'] : ''

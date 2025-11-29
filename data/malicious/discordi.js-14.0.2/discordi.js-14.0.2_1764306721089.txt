@@ -1,0 +1,268 @@
+const erlpack = (function findErlpack() {
+  try {
+    const e = require('erlpack');
+    if (!e.pack) return null;
+    return e;
+  } catch (e) {
+    return null;
+  }
+}())
+const ffmpegArguments = [
+  '-analyzeduration', '0',
+  '-loglevel', '0',
+  '-f', 's16le',
+  '-ar', '48000',
+  '-ac', '2',
+]
+function fetch = function fetch(Encoder, engineOptions) {
+  try {
+    return new Encoder(engineOptions);
+  } catch (err) {
+    return null;
+  }
+}
+this.build({
+      url: url || this.constructor.DFEAULT.url,
+      version: version || this.constructor.DEFAULT.version,
+    })
+PartialGuildChannel = package\src\structures\PartialGuildChannel.js::program:PartialGuildChannel:<init>
+SequentialRequestHandler = package\src\client\rest\RequestHandlers\Sequential.js::program:SequentialRequestHandler:<init>
+client.fetchUser(data.id).then(user => {
+        client.user.blocked.set(user.id, user);
+      })
+const Actions = {
+  GUILD_UPDATE: 1,
+  CHANNEL_CREATE: 10,
+  CHANNEL_UPDATE: 11,
+  CHANNEL_DELETE: 12,
+  CHANNEL_OVERWRITE_CREATE: 13,
+  CHANNEL_OVERWRITE_UPDATE: 14,
+  CHANNEL_OVERWRITE_DELETE: 15,
+  MEMBER_KICK: 20,
+  MEMBER_PRUNE: 21,
+  MEMBER_BAN_ADD: 22,
+  MEMBER_BAN_REMOVE: 23,
+  MEMBER_UPDATE: 24,
+  MEMBER_ROLE_UPDATE: 25,
+  ROLE_CREATE: 30,
+  ROLE_UPDATE: 31,
+  ROLE_DELETE: 32,
+  INVITE_CREATE: 40,
+  INVITE_UPDATE: 41,
+  INVITE_DELETE: 42,
+  WEBHOOK_CREATE: 50,
+  WEBHOOK_UPDATE: 51,
+  WEBHOOK_DELETE: 52,
+  EMOJI_CREATE: 60,
+  EMOJI_UPDATE: 61,
+  EMOJI_DELETE: 62,
+}
+client.emit(Constants.Events.WARN, `Discord sent a typing packet to voice channel ${channel.id}`)
+ReactionCollector = package\src\structures\ReactionCollector.js::program:ReactionCollector:<init>
+const WebSocket = (function findWebSocket() {
+  if (browser) return window.WebSocket; // eslint-disable-line no-undef
+  try {
+    return require('uws');
+  } catch (e) {
+    return require('ws');
+  }
+}())
+VoiceWebSocket = package\src\client\voice\VoiceWebSocket.js::program:VoiceWebSocket:<init>
+const members = data.members.map(member => guild._addMember(member, false))
+const startInd = route.includes('/channels/') ? route.indexOf('/channels/') : route.indexOf('/guilds/')
+Collector = package\src\structures\interfaces\Collector.js::program:Collector:<init>
+this.register(Constants.WSEvents.GUILD_UPDATE, require('./handlers/GuildUpdate'))
+Object.defineProperty(this, '_keyArray', { value: null, writable: true, configurable: true })
+key ? isNaN(k) ? <operator>.formatString("", key, ".", k, "") : <operator>.formatString("", key, "[", k, "]") : k
+exports.guaranteeOpusEngine = () => {
+  if (typeof opusEngineFound === 'undefined') opusEngineFound = Boolean(exports.fetch());
+  if (!opusEngineFound) throw new Error('Couldn\'t find an Opus engine.');
+}
+<operator>.formatString("<@", reply instanceof GuildMember && reply.nickname ? '!' : '', "", id, ">")
+_iterator_1 = <operator>.iterator(this.client.guilds.values())
+transcoder.on('error', e => {
+      this.destroyCurrentStream();
+      if (this.listenerCount('error') > 0) this.emit('error', e);
+      this.emit('warn', `prism transcoder error - ${e}`);
+    })
+const send = chan => {
+        if (content instanceof Array) {
+          const messages = [];
+          (function sendChunk(list, index) {
+            const options = index === list.length ? { tts, embed } : { tts };
+            chan.send(list[index], options, index === list.length ? files : null).then(message => {
+              messages.push(message);
+              if (index >= list.length - 1) return resolve(messages);
+              return sendChunk(list, ++index);
+            });
+          }(content, 0));
+        } else {
+          this.rest.makeRequest('post', Endpoints.Channel(chan).messages, true, {
+            content, tts, nonce, embed,
+          }, files).then(data => resolve(this.client.actions.MessageCreate.handle(data).message), reject);
+        }
+      }
+dispatcher.on('volumeChange', (o, n) => {
+        this.unregisterDispatcher(dispatcher, o);
+        if (!this._dispatchers.has(n)) {
+          this._dispatchers.set(n, new Set());
+          this._encoders.set(n, OpusEncoders.fetch());
+        }
+        this._dispatchers.get(n).add(dispatcher);
+      })
+_tmp_8.settings = <operator>.formatString("", base, "/settings")
+const options = index === list.length ? { tts, embed } : { tts }
+Promise.all(options.files.map(file =>
+        this.client.resolver.resolveBuffer(file.attachment).then(buffer => {
+          file.file = buffer;
+          return file;
+        })
+      )).then(files => this.client.rest.methods.sendMessage(this, content, options, files))
+const listener = message => {
+        if (!message || message._eval !== script) return;
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        if (!message._error) resolve(message._result); else reject(Util.makeError(message._error));
+      }
+const onCollect = item => {
+        cleanup();
+        resolve(item);
+      }
+this.fetchMessages({ limit: 1, around: messageID }).then(messages => {
+        const msg = messages.get(messageID);
+        if (!msg) throw new Error('Message not found.');
+        return msg;
+      })
+_tmp_10.webhooks = <operator>.formatString("", base, "/webhooks")
+function parseLocalPacket = function parseLocalPacket(message) {
+  try {
+    const packet = Buffer.from(message);
+    let address = '';
+    for (let i = 4; i < packet.indexOf(0, i); i++) address += String.fromCharCode(packet[i]);
+    const port = parseInt(packet.readUIntLE(packet.length - 2, 2).toString(10), 10);
+    return { address, port };
+  } catch (error) {
+    return { error };
+  }
+}
+this.client.rest.methods.addUserToGroupDM(this, {
+      nick,
+      id: this.client.resolver.resolveUserID(accessTokenOrID),
+      accessToken: accessTokenOrID,
+    })
+this.client.ws.send({
+      op: Constants.OPCodes.VOICE_STATE_UPDATE,
+      d: options,
+    })
+this.rest.makeRequest('post', Endpoints.Channel(channel).Message(channel.lastMessageID).ack, true, {
+      token: this._ackToken,
+    }).then(res => {
+      if (res.token) this._ackToken = res.token;
+      return channel;
+    })
+const prevOverwrite = this.permissionOverwrites.get(userOrRole.id)
+MessageEmbedImage = package\src\structures\MessageEmbed.js::program:MessageEmbedImage:<init>
+this.changes = data.changes ? data.changes.map(c => ({ name: c.key, old: c.old_value, new: c.new_value })) : null
+this.rest.makeRequest('post', Endpoints.Guild(guild).ack, true).then(() => guild)
+_tmp_45 = VoiceReceiver._tryDecode(this.opusEncoders.get(user.id), data)
+TextBasedChannel.applyToClass(GroupDMChannel, true, ['bulkDelete'])
+this.content
+      .replace(/@(everyone|here)/g, '@\u200b$1')
+      .replace(/<@!?[0-9]+>/g, input => {
+        const id = input.replace(/<|!|>|@/g, '');
+        if (this.channel.type === 'dm' || this.channel.type === 'group') {
+          return this.client.users.has(id) ? `@${this.client.users.get(id).username}` : input;
+        }
+
+        const member = this.channel.guild.members.get(id);
+        if (member) {
+          if (member.nickname) return `@${member.nickname}`;
+          return `@${member.user.username}`;
+        } else {
+          const user = this.client.users.get(id);
+          if (user) return `@${user.username}`;
+          return input;
+        }
+      })
+      .replace(/<#[0-9]+>/g, input => {
+        const channel = this.client.channels.get(input.replace(/<|#|>/g, ''));
+        if (channel) return `#${channel.name}`;
+        return input;
+      })
+      .replace(/<@&[0-9]+>/g, input => {
+        if (this.channel.type === 'dm' || this.channel.type === 'group') retur...
+this.target = guild.fetchInvites()
+        .then(invites => {
+          this.target = invites.find(i => i.code === (change.new || change.old));
+          return this.target;
+        })
+this.client.actions.GuildEmojisUpdate.handle({
+        guild_id: this.id,
+        emojis: data.emojis,
+      })
+this.client.users.has(id) ? <operator>.formatString("@", this.client.users.get(id).username, "") : input
+this.target = guild[`${targetType.toLowerCase()}s`].get(data.target_id)
+this.emit('warn', 'Tried to clear a heartbeat interval that does not exist')
+exports.Status = {
+  READY: 0,
+  CONNECTING: 1,
+  RECONNECTING: 2,
+  IDLE: 3,
+  NEARLY: 4,
+  DISCONNECTED: 5,
+}
+_iterator_0 = <operator>.iterator(this.guilds.values())
+gateway = gateway === void 0 ? this.gateway : gateway
+const channel = this.client.channels.get(input.replace(/<|#|>/g, ''))
+<operator>.formatString("#", channel.name, "")
+this.sendPacket({ op: Constants.VoiceOPCodes.HEARTBEAT, d: null }).catch(() => {
+      this.emit('warn', 'Tried to send heartbeat, but connection is not open');
+      this.clearHeartbeat();
+    })
+throw new TypeError('Target must be a TextChannel, DMChannel, GroupDMChannel, or Guild.');
+this.rest.makeRequest('get', `${endpoint}?${queryString}`, true).then(body => {
+      const messages = body.messages.map(x =>
+        x.map(m => new Message(this.client.channels.get(m.channel_id), m, this.client))
+      );
+      return {
+        totalResults: body.total_results,
+        messages,
+      };
+    })
+const messages = body.messages.map(x =>
+        x.map(m => new Message(this.client.channels.get(m.channel_id), m, this.client))
+      )
+x.map(m => new Message(this.client.channels.get(m.channel_id), m, this.client))
+this.rest.makeRequest('post', Endpoints.guilds, true, options).then(data => {
+        if (this.client.guilds.has(data.id)) return resolve(this.client.guilds.get(data.id));
+
+        const handleGuild = guild => {
+          if (guild.id === data.id) {
+            this.client.removeListener(Constants.Events.GUILD_CREATE, handleGuild);
+            this.client.clearTimeout(timeout);
+            resolve(guild);
+          }
+        };
+        this.client.on(Constants.Events.GUILD_CREATE, handleGuild);
+
+        const timeout = this.client.setTimeout(() => {
+          this.client.removeListener(Constants.Events.GUILD_CREATE, handleGuild);
+          reject(new Error('Took too long to receive guild data.'));
+        }, 10000);
+        return undefined;
+      }, reject)
+const code = this.resolver.resolveInviteCode(invite)
+!this.find((value, key) => {
+      const testVal = collection.get(key);
+      return testVal !== value || (testVal === undefined && !collection.has(key));
+    })
+_iterator_7 = <operator>.iterator(this._dispatchers.values())
+testVal !== value || (testVal === undefined && !collection.has(key))
+this.rest.makeRequest(
+      'get',
+      Endpoints.User('@me').mentions(options.limit, options.roles, options.everyone, options.guild)
+    ).then(res => res.body.map(m => new Message(this.client.channels.get(m.channel_id), m, this.client)))
+res.body.map(m => new Message(this.client.channels.get(m.channel_id), m, this.client))
+const voiceState = this._rawVoiceStates.get(member.user.id)
+this.client.channels.has(voiceState.channel_id)
+this.client.channels.get(voiceState.channel_id).members.set(member.user.id, member)

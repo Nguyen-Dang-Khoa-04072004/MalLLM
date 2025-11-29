@@ -1,0 +1,3 @@
+let d = detector.visitorSuccessful(node)
+bytesRead = fs_.readSync(sourceFile, buffer, 0, chunkSize)
+fs_.writeSync(targetFile, buffer, 0, bytesRead)

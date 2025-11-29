@@ -1,0 +1,1 @@
+builder_util_1.log.info({ version: version_1.PACKAGE_VERSION }, "electron-builder")

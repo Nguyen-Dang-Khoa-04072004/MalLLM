@@ -1,0 +1,1 @@
+this.request('files/download_zip', arg, 'user', 'content', 'download', 'files.content.read')

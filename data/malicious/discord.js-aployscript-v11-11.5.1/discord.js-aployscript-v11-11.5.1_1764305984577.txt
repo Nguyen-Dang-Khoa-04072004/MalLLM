@@ -1,0 +1,4 @@
+this.client.actions.MessageDeleteBulk.handle({
+        channel_id: channel.id,
+        ids: messages,
+      }).messages

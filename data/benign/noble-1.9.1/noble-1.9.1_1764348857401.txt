@@ -1,0 +1,25 @@
+peripheral.device.gatt.connect()
+    .then(function(gattServer){
+      debug('peripheral connected', gattServer);
+
+      var onDisconnected = function(event){
+        debug('disconnected', peripheral.uuid);
+        self.emit('disconnect', peripheral.uuid);
+      };
+      peripheral.device.addEventListener('gattserverdisconnected', onDisconnected, {once: true});
+
+      self.emit('connect', deviceUuid);
+    }, function(err){
+      debug('err connecting', err);
+      self.emit('connect', deviceUuid, err);
+    })
+var peripheral = this._peripherals[deviceUuid]
+Gatt.prototype.writeAtt = function(data) {
+  debug(this._address + ': write: ' + data.toString('hex'));
+
+  this._aclStream.write(ATT_CID, data);
+}
+this._sendCommand(peripheral.ws, {
+    action: 'disconnect',
+    peripheralUuid: peripheral.uuid
+  })

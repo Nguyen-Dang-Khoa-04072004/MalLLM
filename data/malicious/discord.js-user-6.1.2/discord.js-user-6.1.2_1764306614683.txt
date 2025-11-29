@@ -1,0 +1,20 @@
+(Number(reset) * 1e3) - new Date(res.headers.get('date') || Date.now()).getTime() + Date.now()
+<operator>.formatString("Couldn't connect to ", gateway, " as the websocket is at state ", this.connection.status, "")
+new Promise((resolve, reject) => {
+      if (!this.ws || this.ws.readyState !== WebSocket.OPEN) throw new Error('WS_NOT_OPEN', data);
+      this.ws.send(data, null, error => {
+        if (error) reject(error); else resolve(data);
+      });
+    })
+_tmp_9.interval = this.client.setInterval(() => {
+          endpoint.post().catch(error => {
+            this.client.clearInterval(entry.interval);
+            this.client.user._typing.delete(this.id);
+            reject(error);
+          });
+        }, 9000)
+endpoint.post().catch(error => {
+            this.client.clearInterval(entry.interval);
+            this.client.user._typing.delete(this.id);
+            reject(error);
+          })

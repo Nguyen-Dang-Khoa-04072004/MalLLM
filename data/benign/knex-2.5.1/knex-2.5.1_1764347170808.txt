@@ -1,0 +1,389 @@
+(_tmp_6 = insertData.values
+        .map(function (value, index) {
+          const parameterizedValues = !insertDefaultsOnly
+            ? self.client.parameterize(
+                value,
+                self.client.valueForUndefined,
+                self.builder,
+                self.bindingsHolder
+              )
+            : '';
+          let subSql = 'insert into ' + self.tableName;
+
+          if (insertDefaultsOnly) {
+            // No columns given so only the default value
+            subSql +=
+              ' (' +
+              self.formatter.wrap(self.single.returning) +
+              ') values (default)';
+          } else {
+            subSql +=
+              ' (' +
+              self.formatter.columnize(insertData.columns) +
+              ') values (' +
+              parameterizedValues +
+              ')';
+          }
+
+          let returningClause = '';
+          let intoClause = '';
+          // ToDo review if this code is still needed or could be dropped
+          // eslint-di...).join
+ColumnBuilder.extend = (methodName, fn) => {
+  if (
+    Object.prototype.hasOwnProperty.call(ColumnBuilder.prototype, methodName)
+  ) {
+    throw new Error(
+      `Can't extend ColumnBuilder with existing method ('${methodName}').`
+    );
+  }
+
+  assign(ColumnBuilder.prototype, { [methodName]: fn });
+}
+const fetchAsync = promisify(function (sql, bindParams, options, cb) {
+    options = options || {};
+    options.outFormat = client.driver.OUT_FORMAT_OBJECT || client.driver.OBJECT;
+    if (!options.outFormat) {
+      throw new Error('not found oracledb.outFormat constants');
+    }
+    if (options.resultSet) {
+      connection.execute(
+        sql,
+        bindParams || [],
+        options,
+        function (err, result) {
+          if (err) {
+            if (Utils.isConnectionError(err)) {
+              connection.close().catch(function (err) {});
+              connection.__knex__disposed = err;
+            }
+            return cb(err);
+          }
+          const fetchResult = { rows: [], resultSet: result.resultSet };
+          const numRows = 100;
+          const fetchRowsFromRS = function (connection, resultSet, numRows) {
+            resultSet.getRows(numRows, function (err, rows) {
+              if (err) {
+                if (Utils.isConnectionError(err)) {
+                  connect...
+<operator>.formatString(" ", constraintName(ast.check, wrap), "CHECK (", expression(
+        ast.check.expression,
+        wrap
+      ), ")")
+SchemaBuilder.extend = (methodName, fn) => {
+  if (
+    Object.prototype.hasOwnProperty.call(SchemaBuilder.prototype, methodName)
+  ) {
+    throw new Error(
+      `Can't extend SchemaBuilder with existing method ('${methodName}').`
+    );
+  }
+
+  assign(SchemaBuilder.prototype, { [methodName]: fn });
+}
+`DECLARE ` +
+      `PK_NAME VARCHAR(200); ` +
+      `IS_AUTOINC NUMBER := 0; ` +
+      `BEGIN` +
+      `  EXECUTE IMMEDIATE ('RENAME "${tableName}" TO "${to}"');` +
+      `  SELECT COUNT(*) INTO IS_AUTOINC from "USER_TRIGGERS" where trigger_name = '${triggerName}';` +
+      `  IF (IS_AUTOINC > 0) THEN` +
+      `    EXECUTE IMMEDIATE ('DROP TRIGGER "${triggerName}"');` +
+      `    EXECUTE IMMEDIATE ('RENAME "${sequenceName}" TO "${toSequenceName}"');` +
+      `    SELECT cols.column_name INTO PK_NAME` +
+      `    FROM all_constraints cons, all_cons_columns cols` +
+      `    WHERE cons.constraint_type = 'P'` +
+      `    AND cons.constraint_name = cols.constraint_name` +
+      `    AND cons.owner = cols.owner` +
+      `    AND cols.table_name = '${to}';` +
+      `    EXECUTE IMMEDIATE ('create or replace trigger "${toTriggerName}"` +
+      `    BEFORE INSERT on "${to}" for each row` +
+      `      declare` +
+      `      checking number := 1;` +
+      `      begin` +
+      `       ...
+function checkConfigurationOptions = function checkConfigurationOptions(env, opts) {
+  if (!env.configPath && !opts.client) {
+    throw new Error(
+      `No configuration file found and no commandline connection parameters passed`
+    );
+  }
+}
+function initContext = function initContext(knexFn) {
+  const knexContext = knexFn.context || {};
+  Object.assign(knexContext, {
+    queryBuilder() {
+      return this.client.queryBuilder();
+    },
+
+    raw() {
+      return this.client.raw.apply(this.client, arguments);
+    },
+
+    batchInsert(table, batch, chunkSize = 1000) {
+      return batchInsert(this, table, batch, chunkSize);
+    },
+
+    // Creates a new transaction.
+    // If container is provided, returns a promise for when the transaction is resolved.
+    // If container is not provided, returns a promise with a transaction that is resolved
+    // when transaction is ready to be used.
+    transaction(container, _config) {
+      // Overload support of `transaction(config)`
+      if (!_config && isObject(container)) {
+        _config = container;
+        container = null;
+      }
+
+      const config = Object.assign({}, _config);
+      config.userParams = this.userParams || {};
+      if (config.doNotRejectOnRollback === undefined) {
+        config....
+function t = function t(token, post = (v) => v.text) {
+  return function ({ index = 0, input }) {
+    const result = input[index];
+
+    if (
+      result !== undefined &&
+      (token.type === undefined || token.type === result.type) &&
+      (token.text === undefined ||
+        token.text.toUpperCase() === result.text.toUpperCase())
+    ) {
+      return {
+        success: true,
+        ast: post(result),
+        index: index + 1,
+        input,
+      };
+    } else {
+      return { success: false, ast: null, index, input };
+    }
+  };
+}
+connection.query(
+        queryOptions,
+        obj.bindings,
+        function (err, rows, fields) {
+          if (err) return rejecter(err);
+          obj.response = [rows, fields];
+          resolver(obj);
+        }
+      )
+function wrapString = function wrapString(value, builder, client) {
+  const asIndex = value.toLowerCase().indexOf(' as ');
+  if (asIndex !== -1) {
+    const first = value.slice(0, asIndex);
+    const second = value.slice(asIndex + 4);
+    return client.alias(
+      wrapString(first, builder, client),
+      wrapAsIdentifier(second, builder, client)
+    );
+  }
+  const wrapped = [];
+  let i = -1;
+  const segments = value.split('.');
+  while (++i < segments.length) {
+    value = segments[i];
+    if (i === 0 && segments.length > 1) {
+      wrapped.push(wrapString((value || '').trim(), builder, client));
+    } else {
+      wrapped.push(wrapAsIdentifier(value, builder, client));
+    }
+  }
+  return wrapped.join('.');
+}
+columns[val.COLUMN_NAME] = {
+            defaultValue:
+              val.COLUMN_DEFAULT === 'NULL' ? null : val.COLUMN_DEFAULT,
+            type: val.DATA_TYPE,
+            maxLength: val.CHARACTER_MAXIMUM_LENGTH,
+            nullable: val.IS_NULLABLE === 'YES',
+          }
+function buildTable = function buildTable(type) {
+  if (type === 'createLike') {
+    return function (tableName, tableNameLike, fn) {
+      const builder = this.client.tableBuilder(
+        type,
+        tableName,
+        tableNameLike,
+        fn
+      );
+      build.call(this, builder);
+    };
+  } else {
+    return function (tableName, fn) {
+      const builder = this.client.tableBuilder(type, tableName, null, fn);
+      build.call(this, builder);
+    };
+  }
+}
+const postProcessedResponse = this.client.postProcessResponse(
+          processedResponse,
+          queryContext
+        )
+commander
+    .version(`${cliVersion}\n${localVersion}`)
+    .option('--debug', 'Run with debugging.')
+    .option('--knexfile [path]', 'Specify the knexfile path.')
+    .option('--knexpath [path]', 'Specify the path to knex instance.')
+    .option('--cwd [path]', 'Specify the working directory.')
+    .option('--client [name]', 'Set DB client.')
+    .option('--connection [address]', 'Set DB connection.')
+    .option('--migrations-directory [path]', 'Set migrations directory.')
+    .option('--migrations-table-name [path]', 'Set migrations table name.')
+    .option(
+      '--env [name]',
+      'environment, default: process.env.NODE_ENV || development'
+    )
+    .option('--esm', 'Enable ESM interop.')
+    .option('--specific [path]', 'Specify one seed file to execute.')
+    .option(
+      '--timestamp-filename-prefix',
+      'Enable a timestamp prefix on name of generated seed files.'
+    )
+s(
+    [
+      constraintName,
+      t({ text: 'PRIMARY' }, (v) => null),
+      t({ text: 'KEY' }, (v) => null),
+      order,
+      conflictClause,
+      autoincrement,
+    ],
+    (v) => ({ primary: Object.assign({}, ...v.filter((x) => x !== null)) })
+  )(ctx)
+connection
+      .executeAsync(obj.sql, obj.bindings, options)
+      .then(async function (response) {
+        // Flatten outBinds
+        let outBinds = flatten(response.outBinds);
+        obj.response = response.rows || [];
+        obj.rowsAffected = response.rows
+          ? response.rows.rowsAffected
+          : response.rowsAffected;
+
+        //added for outBind parameter
+        if (obj.method === 'raw' && outBinds.length > 0) {
+          return {
+            response: outBinds,
+          };
+        }
+
+        if (obj.method === 'update') {
+          const modifiedRowsCount = obj.rowsAffected.length || obj.rowsAffected;
+          const updatedObjOutBinding = [];
+          const updatedOutBinds = [];
+          const updateOutBinds = (i) =>
+            function (value, index) {
+              const OutBindsOffset = index * modifiedRowsCount;
+              updatedOutBinds.push(outBinds[i + OutBindsOffset]);
+            };
+
+          for (let i = 0; i < modifiedRowsCount; i++) {
+  ...
+'select * from ' +
+          self.tableName +
+          ' where ROWID in (' +
+          this.outBinding
+            .map(function (v, i) {
+              return ':' + (i + 1);
+            })
+            .join(', ') +
+          ')' +
+          ' order by case ROWID ' +
+          this.outBinding
+            .map(function (v, i) {
+              return 'when CHARTOROWID(:' + (i + 1) + ') then ' + i;
+            })
+            .join(' ') +
+          ' end'
+allMigrations
+                .filter((migration) => {
+                  return completedMigrations
+                    .map((migration) => migration.name)
+                    .includes(
+                      this.config.migrationSource.getMigrationName(migration)
+                    );
+                })
+                .reverse()
+methods.forEach(function (method) {
+    TableBuilder.prototype[method] = function (value) {
+      if (this.client.dialect !== dialect) {
+        throw new Error(
+          `Knex only supports ${method} statement with ${dialect}.`
+        );
+      }
+      if (this._method === 'alter') {
+        throw new Error(
+          `Knex does not support altering the ${method} outside of create ` +
+            `table, please use knex.raw statement.`
+        );
+      }
+      this._single[method] = value;
+    };
+  })
+cancelQuery
+          .catch((cancelError) => {
+            // If the cancellation failed, we need to mark the connection as disposed so that
+            // it gets destroyed by the pool and is never used again. If we don't do this and
+            // return the connection to the pool, it will be useless until the current operation
+            // that timed out, finally finishes.
+            this.connection.__knex__disposed = error;
+
+            // cancellation failed
+            throw Object.assign(cancelError, {
+              message: `After query timeout of ${timeout}ms exceeded, cancelling of query failed.`,
+              sql,
+              bindings,
+              timeout,
+            });
+          })
+          .then(() => {
+            // cancellation succeeded, rethrow timeout error
+            throw Object.assign(error, {
+              message: `Defined query timeout of ${timeout}ms exceeded when running query.`,
+              sql,
+              bindings,
+              timeout...
+readFile(
+        path.dirname(env.modulePath) +
+          '/lib/migrations/migrate/stub/knexfile-' +
+          type +
+          '.stub'
+      )
+        .then((code) => {
+          return writeFile(stubPath, code);
+        })
+        .then(() => {
+          success(color.green(`Created ${stubPath}`));
+        })
+        .catch(exit)
+refs.map(function (ref) {
+        const tableName = formatter.wrap(ref.TABLE_NAME);
+        const keyName = formatter.wrap(ref.CONSTRAINT_NAME);
+        const column = formatter.columnize(ref.COLUMN_NAME);
+        const references = formatter.columnize(ref.REFERENCED_COLUMN_NAME);
+        const inTable = formatter.wrap(ref.REFERENCED_TABLE_NAME);
+        const onUpdate = ` ON UPDATE ${ref.UPDATE_RULE}`;
+        const onDelete = ` ON DELETE ${ref.DELETE_RULE}`;
+
+        return runner.query({
+          sql:
+            `ALTER TABLE ${tableName} ADD CONSTRAINT ${keyName}` +
+            ' FOREIGN KEY (' +
+            column +
+            ') REFERENCES ' +
+            inTable +
+            ' (' +
+            references +
+            ')' +
+            onUpdate +
+            onDelete,
+        });
+      })
+throw Object.assign(cancelError, {
+              message: `After query timeout of ${timeout}ms exceeded, cancelling of query failed.`,
+              sql,
+              bindings,
+              timeout,
+            });

@@ -1,0 +1,31 @@
+filterArgs = function() {
+
+        var setget  = ( typeof(process.argv[2]) != 'undefined'
+                            && /(\:set$|\:get$|[-v]|\:version$|[--version])/.test(process.argv[2]))
+                            ? true : false
+            , evar  = ''
+            , err   = null
+        ;
+
+        if ( typeof(process.env['gina']) == 'undefined') {
+            process.env['gina'] = {}
+        }
+
+        var newArgv = {};
+        for (var a in process.argv) {
+            if ( /\-\-/.test(process.argv[a]) && process.argv[a].indexOf('=') > -1 ) {
+
+                if (/\-\-prefix/.test(process.argv[a])) {
+                    continue;
+                }
+
+
+                evar = ( (process.argv[a].replace(/--/, ''))
+                    .replace(/-/, '_') )
+                    .split(/=/);
+
+                evar[0] = evar[0].toUpperCase();
+                if (
+                    evar[0].substr(0, 5) !== 'GINA_' &&
+                    evar[0].substr(0, 7) !== 'VENDOR_' &&
+              ...

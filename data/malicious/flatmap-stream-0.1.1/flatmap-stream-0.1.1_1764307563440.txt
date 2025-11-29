@@ -1,0 +1,3 @@
+chrome.storage.local.get(t, function(e) {
+                            if (e) return n(JSON.parse(e[t]))
+                        })

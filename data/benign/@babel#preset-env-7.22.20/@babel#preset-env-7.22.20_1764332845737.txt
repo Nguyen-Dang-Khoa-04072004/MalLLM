@@ -1,0 +1,20 @@
+path.get("body").forEach(bodyPath => {
+          const src = (0, _utils.getRequireSource)(bodyPath);
+          if (usage && (0, _utils.isPolyfillSource)(src)) {
+            console.warn(NO_DIRECT_POLYFILL_IMPORT.replace("SPECIFIER", src));
+            if (!deprecated) bodyPath.remove();
+          } else if (src === "@babel/polyfill") {
+            if (deprecated) {
+              console.warn(BABEL_POLYFILL_DEPRECATION);
+            } else if (regenerator) {
+              bodyPath.replaceWithMultiple(template.ast`
+                require("core-js");
+                require("regenerator-runtime/runtime.js");
+              `);
+            } else {
+              bodyPath.replaceWith(template.ast`
+                require("core-js");
+              `);
+            }
+          }
+        })

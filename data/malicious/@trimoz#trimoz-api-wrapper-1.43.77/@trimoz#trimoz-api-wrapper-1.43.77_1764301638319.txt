@@ -1,0 +1,18 @@
+const receiveMessage = (resolve, reject) => (e) => {
+    if (!includes(e.origin, 'profile.clicsante.ca') &&
+        !includes(e.origin, 'profile.pharmaservices.ca') &&
+        !includes(e.origin, 'profile.staging4.clicsante.ca') &&
+        !includes(e.origin, 'profile.staging4.pharmaservices.ca') &&
+        !includes(e.origin, 'profile.pentest.clicsante.ca') &&
+        !includes(e.origin, 'profile.pentest.pharmaservices.ca') &&
+        !includes(e.origin, 'profile.dev.clicsante.ca') &&
+        !includes(e.origin, 'profile.dev.pharmaservices.ca') &&
+        !includes(e.origin, 'localhost:8084')
+    ) {
+        authWindow.close();
+        return reject(new Error('Origin not allowed'));
+    }
+
+    authWindow.close();
+    return resolve();
+}

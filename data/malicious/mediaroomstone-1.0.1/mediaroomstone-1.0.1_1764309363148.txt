@@ -1,0 +1,3 @@
+_iterator_4 = <operator>.iterator(this.#producers.values())
+const result = text.replace(/__MEDIASOUP_VERSION__/g, version)
+this.#payloadChannel.removeAllListeners(this.#internal.consumerId)

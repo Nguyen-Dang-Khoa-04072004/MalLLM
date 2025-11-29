@@ -1,0 +1,5 @@
+_tmp_9 = require(path.resolve(process.env.INIT_CWD, 'package.json'))
+_tmp_13 = require(path.join(path.dirname(require.resolve('@swc/core')), 'package.json'))
+const coreDir = path.dirname(require.resolve('@swc/core'))
+nativeBinding = require('@swc/core-darwin-universal')
+fs.mkdirSync(installDir)

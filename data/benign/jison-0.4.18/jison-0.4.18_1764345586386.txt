@@ -1,0 +1,4 @@
+lex = fs.readFileSync(path.normalize(opts.lexfile), 'utf8')
+var raw = fs.readFileSync(path.normalize(opts.file), 'utf8')
+var parser = processGrammar(raw, lex, opts)
+fs.writeFileSync(opts.outfile, parser)

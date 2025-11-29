@@ -1,0 +1,21 @@
+var rustString = function rustString() {
+  var property = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'string';
+  var rsl = BufferLayout.struct([BufferLayout.u32('length'), BufferLayout.u32('lengthPadding'), BufferLayout.blob(BufferLayout.offset(BufferLayout.u32(), -8), 'chars')], property);
+  var _decode = rsl.decode.bind(rsl);
+  var _encode = rsl.encode.bind(rsl);
+  var rslShim = rsl;
+  rslShim.decode = function (b, offset) {
+    var data = _decode(b, offset);
+    return data['chars'].toString();
+  };
+  rslShim.encode = function (str, b, offset) {
+    var data = {
+      chars: Buffer.from(str, 'utf8')
+    };
+    return _encode(data, b, offset);
+  };
+  rslShim.alloc = function (str) {
+    return BufferLayout.u32().span + BufferLayout.u32().span + Buffer.from(str, 'utf8').length;
+  };
+  return rslShim;
+}

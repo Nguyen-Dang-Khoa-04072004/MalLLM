@@ -1,0 +1,5 @@
+'var _ = eval("require")(' + JSON.stringify(require.resolve('lodash')) + ');' +
+    'module.exports = function (templateParams) { with(templateParams) {' +
+      // Execute the lodash template
+      'return (' + template.source + ')();' +
+    '}}'

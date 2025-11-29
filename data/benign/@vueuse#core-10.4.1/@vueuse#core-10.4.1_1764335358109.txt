@@ -1,0 +1,1 @@
+wakeLock = await navigator.wakeLock.request("screen")

@@ -1,0 +1,90 @@
+async.whilst(function (cb) {
+    cb(null, typeof response === 'undefined' && current < names.length);
+  }, function (next) {
+    var store = self.stores[names[current]];
+    current++;
+
+    if (store.get.length >= 2) {
+      return store.get(key, function (err, value) {
+        if (err) {
+          return next(err);
+        }
+
+        response = value;
+
+        // Merge objects if necessary
+        if (response && typeof response === 'object' && !Array.isArray(response)) {
+          mergeObjs.push(response);
+          response = undefined;
+        }
+
+        next();
+      });
+    }
+
+    response = store.get(key);
+
+    // Merge objects if necessary
+    if (response && typeof response === 'object' && !Array.isArray(response)) {
+      mergeObjs.push(response);
+      response = undefined;
+    }
+
+    next();
+  }, function (err) {
+    if (!err && mergeObjs.length) {
+      response = common.merge(mergeObjs.reverse());
+    }
+    return err ? callback(err) : callback(null, response);
+  })
+function (next) {
+    var store = self.stores[names[current]];
+    current++;
+
+    if (store.get.length >= 2) {
+      return store.get(key, function (err, value) {
+        if (err) {
+          return next(err);
+        }
+
+        response = value;
+
+        // Merge objects if necessary
+        if (response && typeof response === 'object' && !Array.isArray(response)) {
+          mergeObjs.push(response);
+          response = undefined;
+        }
+
+        next();
+      });
+    }
+
+    response = store.get(key);
+
+    // Merge objects if necessary
+    if (response && typeof response === 'object' && !Array.isArray(response)) {
+      mergeObjs.push(response);
+      response = undefined;
+    }
+
+    next();
+  }
+store.get(key, function (err, value) {
+        if (err) {
+          return next(err);
+        }
+
+        response = value;
+
+        // Merge objects if necessary
+        if (response && typeof response === 'object' && !Array.isArray(response)) {
+          mergeObjs.push(response);
+          response = undefined;
+        }
+
+        next();
+      })
+next(err)
+previous === base
+response = common.merge(mergeObjs.reverse())
+err ? callback(err) : callback(null, response)

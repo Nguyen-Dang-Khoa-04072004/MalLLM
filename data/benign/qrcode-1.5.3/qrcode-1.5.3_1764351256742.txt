@@ -1,0 +1,4 @@
+const last = data.get(row, col) +
+        data.get(row, col + 1) +
+        data.get(row + 1, col) +
+        data.get(row + 1, col + 1)

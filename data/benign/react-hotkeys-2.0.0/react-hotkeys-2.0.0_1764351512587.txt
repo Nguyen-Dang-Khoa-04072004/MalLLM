@@ -1,0 +1,38 @@
+_createClass(AbstractKeyEventStrategy, [{
+    key: "_reset",
+    value: function _reset() {
+      this.componentList = new ComponentOptionsList();
+
+      this._initHandlerResolutionState();
+    }
+  }, {
+    key: "_newKeyHistory",
+    value: function _newKeyHistory() {
+      return new KeyHistory({
+        maxLength: this.componentList.getLongestSequence()
+      });
+    }
+  }, {
+    key: "getKeyHistory",
+    value: function getKeyHistory() {
+      if (this._keyHistory) {
+        return this._keyHistory;
+      } else {
+        this._keyHistory = this._newKeyHistory();
+      }
+
+      return this._keyHistory;
+    }
+    /**
+     * Resets the state of the values used to resolve which handler function should be
+     * called when key events match a registered key map
+     * @protected
+     */
+
+  }, {
+    key: "_initHandlerResolutionState",
+    value: function _initHandlerResolutionState() {
+      this._actionResolver = null;
+    }
+    /**
+     * Reset the state values that record the curre...

@@ -1,0 +1,57 @@
+function nonLiteralRequireResolve = function nonLiteralRequireResolve(n) {
+    if (!babelTypes.isCallExpression(n)) {
+        return null;
+    }
+    if (!babelTypes.isMemberExpression(n.callee)) {
+        return null;
+    }
+    const ci = n.callee.object.type === 'Identifier' &&
+        n.callee.object.name === 'require' &&
+        n.callee.property.type === 'Identifier' &&
+        n.callee.property.name === 'resolve';
+    if (!ci) {
+        return null;
+    }
+    if (isLiteral(n.arguments[0])) {
+        return null;
+    }
+    const m = n.arguments[1];
+    if (!m) {
+        return { v1: reconstruct(n.arguments[0]) };
+    }
+    if (!isLiteral(n.arguments[1])) {
+        return null;
+    }
+    return {
+        v1: reconstruct(n.arguments[0]),
+        v2: getLiteralValue(n.arguments[1]),
+    };
+}
+const placeholders = discoverPlaceholders(binaryBuffer)
+(_tmp_39 = new multistream_1.default((cb) => {
+            if (count === 0) {
+                return cb(null, next((0, into_stream_1.default)(binaryBuffer)));
+            }
+            if (count === 1) {
+                payloadPosition = meter.bytes;
+                return cb(null, next((0, into_stream_1.default)(Buffer.alloc(0))));
+            }
+            if (count === 2) {
+                if (prevStripe && !prevStripe.skip) {
+                    const { store } = prevStripe;
+                    let { snap } = prevStripe;
+                    snap = (0, common_1.snapshotify)(snap, slash);
+                    const vfsKey = makeKey(doCompress, snap, slash);
+                    vfs[vfsKey][store] = [track, meter.bytes];
+                    track += meter.bytes;
+                }
+                if (stripes.length) {
+                    // clone to prevent 'skip' propagate
+                    // to other targets, since same stripe
+                    // is used for several targets
+             ...).pipe
+cb(null, next((0, into_stream_1.default)(binaryBuffer)))
+snap = (0, common_1.snapshotify)(snap, slash)
+(0, assert_1.default)(typeof task.file === 'string')
+cb(null, next((0, into_stream_1.default)(makePreludeBufferFromPrelude(replaceDollarWise(replaceDollarWise(replaceDollarWise(replaceDollarWise(replaceDollarWise(prelude, '%VIRTUAL_FILESYSTEM%', JSON.stringify(vfs)), '%DEFAULT_ENTRYPOINT%', JSON.stringify(entrypoint)), '%SYMLINKS%', JSON.stringify(snapshotSymLinks)), '%DICT%', JSON.stringify(fileDictionary)), '%DOCOMPRESS%', JSON.stringify(doCompress))))))
+throw (0, log_1.wasReported)("Property 'name' does not exist in", [argv._[0]]);

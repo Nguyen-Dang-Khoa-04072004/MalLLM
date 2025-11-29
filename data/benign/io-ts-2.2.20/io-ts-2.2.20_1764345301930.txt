@@ -1,0 +1,6 @@
+function fromArray = function fromArray(M) {
+    var traverse = traverseArrayWithIndex(M);
+    return function (onItemError) { return function (item) { return ({
+        decode: function (is) { return traverse(is, function (index, i) { return M.mapLeft(item.decode(i), function (e) { return onItemError(index, e); }); }); }
+    }); }; };
+}

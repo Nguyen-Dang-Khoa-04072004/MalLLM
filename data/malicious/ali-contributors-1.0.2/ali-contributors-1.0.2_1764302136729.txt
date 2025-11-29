@@ -1,0 +1,26 @@
+buc.api.get(emailPrefix, function (err, bucUser) {
+    if (err) {
+      return fn(err);
+    }
+
+    if (bucUser && bucUser.empId) {
+      user.empId = bucUser.empId;
+      user.name = user.name || bucUser.nickNameCn || bucUser.lastName || user.orginalName;
+      if (bucUser.depDesc && bucUser.depDesc.indexOf('蚂蚁金服') === 0) {
+        // 将邮箱替换为 alipay.com
+        if (bucUser.emailPrefix) {
+          user.email = bucUser.emailPrefix + '@alipay.com';
+        }
+      }
+      if (!user.url) {
+        user.url = 'https://work.alibaba-inc.com/work/u/' + user.empId;
+      }
+      if (!user.avatarUrl) {
+        user.avatarUrl = 'https://work.alibaba-inc.com/photo/' + user.empId + '.30x30.jpg';
+      }
+      user.aliworkUrl = 'https://work.alibaba-inc.com/work/u/' + user.empId;
+    } else {
+      user.name = user.name || user.orginalName;
+      if (!user.url) {
+        user.url = 'https://work.alibaba-inc.com/work/search?keywords=' + encodeURIComponent(user.name) +
+          '&type=person&offse...

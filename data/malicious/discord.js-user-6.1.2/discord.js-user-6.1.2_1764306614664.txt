@@ -1,0 +1,63 @@
+new Promise((resolve, reject) =>
+        this.client.api.guilds.post({ data: { name, region, icon } })
+          .then(data => {
+            if (this.client.guilds.has(data.id)) return resolve(this.client.guilds.get(data.id));
+
+            const handleGuild = guild => {
+              if (guild.id === data.id) {
+                this.client.removeListener(Events.GUILD_CREATE, handleGuild);
+                this.client.clearTimeout(timeout);
+                resolve(guild);
+              }
+            };
+            this.client.on(Events.GUILD_CREATE, handleGuild);
+
+            const timeout = this.client.setTimeout(() => {
+              this.client.removeListener(Events.GUILD_CREATE, handleGuild);
+              resolve(this.client.guilds.add(data));
+            }, 10000);
+            return undefined;
+          }, reject)
+      )
+this.client.api.guilds.post({ data: { name, region, icon } })
+          .then(data => {
+            if (this.client.guilds.has(data.id)) return resolve(this.client.guilds.get(data.id));
+
+            const handleGuild = guild => {
+              if (guild.id === data.id) {
+                this.client.removeListener(Events.GUILD_CREATE, handleGuild);
+                this.client.clearTimeout(timeout);
+                resolve(guild);
+              }
+            };
+            this.client.on(Events.GUILD_CREATE, handleGuild);
+
+            const timeout = this.client.setTimeout(() => {
+              this.client.removeListener(Events.GUILD_CREATE, handleGuild);
+              resolve(this.client.guilds.add(data));
+            }, 10000);
+            return undefined;
+          }, reject)
+throw new Error(
+        'The class/prototype returned from the extender function must extend the existing structure class/prototype.'
+      );
+module.exports = {
+  register,
+  Error: makeDiscordjsError(Error),
+  TypeError: makeDiscordjsError(TypeError),
+  RangeError: makeDiscordjsError(RangeError),
+}
+_tmp_7.data = {
+        name,
+        topic,
+        type: type ? ChannelTypes[type.toUpperCase()] : 'text',
+        nsfw,
+        bitrate,
+        user_limit: userLimit,
+        parent_id: parent,
+        permission_overwrites: resolvePermissions.call(this, overwrites),
+      }
+this.send({ _sFetchProp: prop }).catch(err => {
+        process.removeListener('message', listener);
+        reject(err);
+      })

@@ -1,0 +1,6 @@
+(_tmp_8 = fetch(e, {
+        headers: {
+            "Content-Type": "application/json",
+            authorization: n
+        }
+    })).json

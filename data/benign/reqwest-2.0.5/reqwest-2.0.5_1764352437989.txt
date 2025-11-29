@@ -1,0 +1,67 @@
+page.open('http://localhost:1234', function() {
+
+  function f() {
+    setTimeout(function () {
+      var clsName = page.evaluate(function() {
+        var el = document.getElementById('tests')
+        return el.className
+      })
+      if (!clsName.match(/sink-done/)) f()
+      else {
+        var count = 0
+        var fail = page.evaluate(function () {
+          var t = ''
+          var els = document.querySelectorAll('ol#tests .fail .fail')
+          for (var i = 0; i < els.length; i++) {
+            t += els[i].textContent + '\n'
+          }
+          return {text: t, count: els.length}
+        })
+        var pass = !!clsName.match(/sink-pass/)
+        if (pass) console.log('All tests have passed!')
+        else {
+          console.log(fail.count + ' test(s) failed')
+          console.log(fail.text.trim())
+        }
+
+        phantom.exit(pass ? 0 : 1)
+      }
+    }, 10)
+  }
+  f()
+})
+var clsName = page.evaluate(function() {
+        var el = document.getElementById('tests')
+        return el.className
+      })
+!function (name, context, definition) {
+  if (typeof module != 'undefined' && module.exports) module.exports = definition()
+  else if (typeof define == 'function' && define.amd) define(definition)
+  else context[name] = definition()
+}('reqwest', this, function () {
+
+  var context = this
+
+  if ('window' in context) {
+    var doc = document
+      , byTag = 'getElementsByTagName'
+      , head = doc[byTag]('head')[0]
+  } else {
+    var XHR2
+    try {
+      XHR2 = require('xhr2')
+    } catch (ex) {
+      throw new Error('Peer dependency `xhr2` required! Please npm install xhr2')
+    }
+  }
+
+
+  var httpsRe = /^http/
+    , protocolRe = /(^\w+):\/\//
+    , twoHundo = /^(20\d|1223)$/ //http://stackoverflow.com/questions/10046972/msie-returns-status-code-of-1223-for-ajax-request
+    , readyState = 'readyState'
+    , contentType = 'Content-Type'
+    , requestedWith = 'X-Requested-With'
+    , uniqid = 0
+    , callbackPrefix = 'reqwest_' + (+new Date())
+    , lastValue // data stored by the most ...

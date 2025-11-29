@@ -1,0 +1,7 @@
+const response = await sys.fetch('https://api.ionicjs.com/events/metrics', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        })

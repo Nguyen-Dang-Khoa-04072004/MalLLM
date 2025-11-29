@@ -1,0 +1,24 @@
+_tmp_7.args = [{
+                    selector: 'ngb-typeahead-window',
+                    exportAs: 'ngbTypeaheadWindow',
+                    standalone: true,
+                    imports: [NgbHighlight, NgFor, NgTemplateOutlet],
+                    encapsulation: ViewEncapsulation.None,
+                    host: {
+                        '(mousedown)': '$event.preventDefault()',
+                        '[class]': '"dropdown-menu show" + (popupClass ? " " + popupClass : "")',
+                        role: 'listbox',
+                        '[id]': 'id',
+                    },
+                    template: `
+		<ng-template #rt let-result="result" let-term="term" let-formatter="formatter">
+			<ngb-highlight [result]="formatter(result)" [term]="term"></ngb-highlight>
+		</ng-template>
+		<ng-template ngFor [ngForOf]="results" let-result let-idx="index">
+			<button
+				type="button"
+				class="dropdown-item"
+				role="option"
+				[id]="id + '-' + idx"
+				[class.active]="idx === activeIdx"
+				(mousee...

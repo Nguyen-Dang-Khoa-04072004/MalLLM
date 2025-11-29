@@ -1,0 +1,7 @@
+app.get('/tests/cookie_included/:cookieName', function(req, res) {
+    if (req.cookies && req.cookies[req.params.cookieName]) {
+        res.json(1);
+    } else {
+        res.json(0);
+    }
+})

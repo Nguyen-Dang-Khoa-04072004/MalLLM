@@ -1,0 +1,13 @@
+Promise.all(promises)
+        .then(() => this.triggerReady())
+        .catch(e => {
+          this.debug(`Failed to fetch all members before ready! ${e}`);
+          this.triggerReady();
+        })
+OAuth2Application.prototype.reset =
+  util.deprecate(OAuth2Application.prototype.reset, 'OAuth2Application#reset: userbot methods will be removed')
+this.client.actions.MessageDeleteBulk.handle({
+            channel_id: channel.id,
+            ids: messages
+          }).messages
+Constants.Endpoints.Guild(this).Icon(this.client.options.http.cdn, this.icon)

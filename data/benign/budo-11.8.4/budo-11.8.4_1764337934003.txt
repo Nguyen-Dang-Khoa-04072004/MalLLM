@@ -1,0 +1,59 @@
+function errorPopup = function errorPopup (message) {
+    message = message || ''
+    broadcast({ event: 'error-popup', message: message })
+  }
+console.warn('[budo] LiveReload disconnected. Please reload the page to retry.')
+var pushStateOpts = xtend(typeof opts.pushstate === 'boolean' ? {} : opts.pushstate)
+var initialLiveOpts = typeof opts.live === 'object' ? opts.live : undefined
+function trimPath = function trimPath (filePath) {
+    if (filePath.indexOf(cwd) === 0) {
+      filePath = rootDirName + filePath.substring(cwd.length + 1)
+    }
+    return filePath
+  }
+createServer(middleware, xtend(opts, { ip: defaultInternalIp }), function (err, serverInstance) {
+    if (err) {
+      emitter.emit('error', err)
+      return
+    }
+
+    server = serverInstance
+
+    // start portfinding + connect
+    getPorts(opts, handlePorts)
+  })
+function serveBundledLiveReload = function serveBundledLiveReload (res, successCallback) {
+    if (liveReloadClient) {
+      res.end(liveReloadClient)
+      successCallback(true)
+    } else {
+      fs.readFile(bundledReloadClientFile, function (err, src) {
+        if (err) {
+          if (shouldUseBundledLiveReload) {
+            if (err.code == 'ENOENT') {
+              console.error('[budo] The LiveReload client file does not exist, so it will be generated on the fly.');
+            } else {
+              console.error('[budo] Error reading the LiveReload client file, so it will be generated on the fly.\n  ' + err.message);
+            }
+          }
+          shouldUseBundledLiveReload = false
+          successCallback(false)
+        } else {
+          liveReloadClient = src
+          res.end(src)
+          successCallback(true)
+        }
+      })
+    }
+  }
+emitter.emit('connect', {
+      uri: uri,
+      port: port,
+      host: opts.host,
+      serve: opts.serve,
+      entries: entryFiles,
+      server: server,
+      webSocketServer: reloader ? reloader.webSocketServer : undefined,
+      dir: opts.dir
+    })
+_tmp_7.entries = entryFiles

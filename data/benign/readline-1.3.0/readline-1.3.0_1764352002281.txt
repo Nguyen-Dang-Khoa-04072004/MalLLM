@@ -1,0 +1,61 @@
+this.input = ('string' === typeof file) ? fs.createReadStream(file, opts) : file
+this.input.on('open', function(fd) {
+      self.emit('open', fd);
+    })
+    .on('data', function(data) {
+      for (var i = 0; i < data.length; i++) {
+        if (data[i] == 10 || data[i] == 13) { // Newline char was found.
+          if (data[i] == 10) {
+            lineCount++;
+            emit(lineCount, byteCount);
+          }
+        } else {
+          lineBuffer[lineLength] = data[i]; // Buffer new line data.
+          lineLength++;
+        }
+        byteCount++;
+      }
+    })
+    .on('error', function(err) {
+      self.emit('error', err);
+    })
+    .on('end', function() {
+      // Emit last line if anything left over since EOF won't trigger it.
+      if (lineLength) {
+        lineCount++;
+        emit(lineCount, byteCount);
+      }
+      self.emit('end');
+    })
+    .on('close', function() {
+      self.emit('close');
+    })
+self.emit('open', fd)
+function(data) {
+      for (var i = 0; i < data.length; i++) {
+        if (data[i] == 10 || data[i] == 13) { // Newline char was found.
+          if (data[i] == 10) {
+            lineCount++;
+            emit(lineCount, byteCount);
+          }
+        } else {
+          lineBuffer[lineLength] = data[i]; // Buffer new line data.
+          lineLength++;
+        }
+        byteCount++;
+      }
+    }
+emit(lineCount, byteCount)
+function(err) {
+      self.emit('error', err);
+    }
+self.emit('error', err)
+function() {
+      // Emit last line if anything left over since EOF won't trigger it.
+      if (lineLength) {
+        lineCount++;
+        emit(lineCount, byteCount);
+      }
+      self.emit('end');
+    }
+emit(lineCount, byteCount)

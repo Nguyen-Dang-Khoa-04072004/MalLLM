@@ -1,0 +1,1 @@
+var err = new XTTemplateError("Duplicate close tag, expected one close tag")

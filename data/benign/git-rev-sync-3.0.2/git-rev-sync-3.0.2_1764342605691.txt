@@ -1,0 +1,2 @@
+var packfileContents = fs.readFileSync(path.resolve(gitDir, 'packed-refs'), 'utf8')
+ref = packfileRegex.exec(packfileContents)[1]

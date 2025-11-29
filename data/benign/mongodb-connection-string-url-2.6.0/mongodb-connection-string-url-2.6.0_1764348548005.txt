@@ -1,0 +1,2 @@
+const props = new index_1.CommaAndColonSeparatedRecord(url.searchParams.get('authMechanismProperties'))
+props.get('AWS_SESSION_TOKEN')

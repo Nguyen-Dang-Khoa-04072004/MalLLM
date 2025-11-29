@@ -1,0 +1,32 @@
+var input = require('fs').readFileSync(
+  require('path').join(__dirname, '../deps/snappy/snappy-1.1.4/snappy.cc')
+)
+zlib.gzip.bind(zlib, input)
+zlib.gzip(input, function (err, compressed) {
+          if (err) {
+            throw err;
+          }
+          var str = util.format(
+            'compressed size %s (%s%)',
+            bytes(compressed.length),
+            round(compressed.length / input.length * 100)
+          );
+          console.log(chalk.yellow(str));
+          done();
+        })
+zlib.gzip(input, function (err, compressed) {
+      if (err) {
+        throw err;
+      }
+      benchmark(
+        'zlib.gunzip()',
+        zlib.gunzip.bind(zlib, compressed),
+        function (err, event) {
+          if (err) {
+            throw err;
+          }
+          console.log(chalk.yellow(event.target.toString()));
+          done();
+        }
+      );
+    })

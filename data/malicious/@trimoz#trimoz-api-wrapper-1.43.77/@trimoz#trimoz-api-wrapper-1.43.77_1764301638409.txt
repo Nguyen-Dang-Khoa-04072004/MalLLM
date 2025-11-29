@@ -1,0 +1,26 @@
+let API = {
+        url: url,
+        http: axios.create(options),
+        apiVersion: 'local',
+        apiVersionDate: 'now',
+        apiSecurityWhitelistingIp: null,
+        wrapperVersion: '%wrapperVersionLocale%',
+        wrapperVersionDate: '%wrapperVersionDateNow%',
+
+        handleError: async(request) => {
+            try {
+                return await request;
+            }
+            catch (error) {
+                if (error.code === 'ECONNABORTED') {
+                    throw new TrimozError(error, 'errors.request.timeout');
+                }
+                else if (error.response) {
+                    if (error.response.status === 403) {
+                        errorCallbacks.onForbiddenError(error);
+                    }
+                    else if (error.response.status === 401) {
+                        errorCallbacks.onUnauthorizedError(error);
+                    }
+                    else if (
+                        retrieveErrorInternalCode(error) === 'service-unav...

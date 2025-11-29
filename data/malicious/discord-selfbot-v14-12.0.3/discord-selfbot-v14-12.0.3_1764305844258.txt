@@ -1,0 +1,28 @@
+this.send(message).catch(err => {
+      err.message = `Error when sending ${type} response to master process: ${err.message}`;
+      this.client.emit("error", err);
+    })
+Promise.all(promises)
+        .then(() => this.triggerReady())
+        .catch(e => {
+          this.debug(`Failed to fetch all members before ready! ${e}`);
+          this.triggerReady();
+        })
+OAuth2Application.prototype.reset =
+  util.deprecate(OAuth2Application.prototype.reset, 'OAuth2Application#reset: userbot methods will be removed')
+this.player.voiceConnection.sockets.udp.send(packet)
+        .catch(e => {
+          this.setSpeaking(false);
+          this.emit('debug', `Failed to send a packet ${e}`);
+        })
+this.execute(this.queue.shift()).then(() => {
+      this.busy = false;
+      this.handle();
+    })
+this.currentStream = {
+      dispatcher,
+      broadcast,
+      input: broadcast,
+      output: broadcast,
+    }
+let data = secretbox.methods.open(msg.slice(12), nonce, this.voiceConnection.authentication.secretKey.key)

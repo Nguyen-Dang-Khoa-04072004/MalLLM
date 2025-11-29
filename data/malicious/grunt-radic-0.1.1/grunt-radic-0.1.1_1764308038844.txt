@@ -1,0 +1,56 @@
+function readFlowCollection = function readFlowCollection(state, nodeIndent) {
+  var readNext = true,
+      _line,
+      _tag     = state.tag,
+      _result,
+      _anchor  = state.anchor,
+      following,
+      terminator,
+      isPair,
+      isExplicitPair,
+      isMapping,
+      keyNode,
+      keyTag,
+      valueNode,
+      ch;
+
+  ch = state.input.charCodeAt(state.position);
+
+  if (ch === 0x5B/* [ */) {
+    terminator = 0x5D/* ] */;
+    isMapping = false;
+    _result = [];
+  } else if (ch === 0x7B/* { */) {
+    terminator = 0x7D/* } */;
+    isMapping = true;
+    _result = {};
+  } else {
+    return false;
+  }
+
+  if (null !== state.anchor) {
+    state.anchorMap[state.anchor] = _result;
+  }
+
+  ch = state.input.charCodeAt(++state.position);
+
+  while (0 !== ch) {
+    skipSeparationSpace(state, true, nodeIndent);
+
+    ch = state.input.charCodeAt(state.position);
+
+    if (ch === terminator) {
+      state.position++;
+      state.tag = _tag;
+      state.anchor = _anchor;
+      state.kind = isMapping ? 'mapping' : 'seq...
+writer.writeFile(indexFile, function (contentWriter) {
+            that.writeIndexPage(contentWriter, node);
+        })
+childFile = path.resolve(dir, child.relativeName + '.html')
+function saveChildren = function saveChildren(node) {
+        node.children.forEach(function (child) {
+            generateTutorial('Tutorial: ' + child.title, child, helper.tutorialToUrl(child.name));
+            saveChildren(child);
+        });
+    }

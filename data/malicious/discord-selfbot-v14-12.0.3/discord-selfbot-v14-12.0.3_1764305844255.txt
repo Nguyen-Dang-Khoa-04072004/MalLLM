@@ -1,0 +1,300 @@
+this.player.on('debug', m => {
+      /**
+       * Debug info from the connection.
+       * @event VoiceConnection#debug
+       * @param {string} message The debug message
+       */
+      this.emit('debug', `audio player - ${m}`);
+    })
+socket.once('message', message => {
+      const packet = parseLocalPacket(message);
+      if (packet.error) {
+        this.emit('error', packet.error);
+        return;
+      }
+
+      this.localAddress = packet.address;
+      this.localPort = packet.port;
+
+      this.voiceConnection.sockets.ws.sendPacket({
+        op: Constants.VoiceOPCodes.SELECT_PROTOCOL,
+        d: {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        },
+      });
+    })
+new Promise((resolve, reject) => {
+      this.once("ready", resolve);
+      this.once("disconnect", () =>
+        reject(
+          new Error(
+            `Shard ${this.id}'s Client disconnected before becoming ready.`
+          )
+        )
+      );
+      this.once("death", () =>
+        reject(
+          new Error(
+            `Shard ${this.id}'s process exited before its Client became ready.`
+          )
+        )
+      );
+      setTimeout(
+        () =>
+          reject(
+            new Error(
+              `Shard ${this.id}'s Client took too long to become ready.`
+            )
+          ),
+        30000
+      );
+    }).then(() => this.process)
+const permissions = new Permissions(roles.map(role => role.permissions))
+this.once("disconnect", () =>
+        reject(
+          new Error(
+            `Shard ${this.id}'s Client disconnected before becoming ready.`
+          )
+        )
+      )
+new Promise((resolve, reject) => {
+      const listener = message => {
+        if (!message || message._sEval !== script) return;
+        process.removeListener("message", listener);
+        if (!message._error) resolve(message._result);
+        else reject(Util.makeError(message._error));
+      };
+      process.on("message", listener);
+
+      this.send({ _sEval: script }).catch(err => {
+        process.removeListener("message", listener);
+        reject(err);
+      });
+    })
+item.reject(
+              err.status >= 400 && err.status < 500
+                ? new DiscordAPIError(
+                    res.request.path,
+                    res.body,
+                    res.request.method
+                  )
+                : err
+            )
+err.status >= 400 && err.status < 500 ? new DiscordAPIError(
+                    res.request.path,
+                    res.body,
+                    res.request.method
+                  ) : err
+this.voiceConnection.sockets.ws.sendPacket({
+        op: Constants.VoiceOPCodes.SELECT_PROTOCOL,
+        d: {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        },
+      })
+const transcoder = this.prism.transcode({
+      type: 'ffmpeg',
+      media: stream,
+      ffmpegArguments: ffmpegArguments.concat(['-ss', String(options.seek || 0)]),
+    })
+_tmp_12.d = {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        }
+this.send({ _sEval: script }).catch(err => {
+        process.removeListener("message", listener);
+        reject(err);
+      })
+setTimeout(
+        () =>
+          reject(
+            new Error(
+              `Shard ${this.id}'s Client took too long to become ready.`
+            )
+          ),
+        30000
+      )
+_tmp_6.SHARDING_REQUIRED = "This session would have handled too many guilds - Sharding is required."
+new Promise((resolve, reject) => {
+      if (this.ended) {
+        reject(this.collected);
+        return;
+      }
+
+      const cleanup = () => {
+        this.removeListener('collect', onCollect);
+        this.removeListener('end', onEnd);
+      };
+
+      const onCollect = item => {
+        cleanup();
+        resolve(item);
+      };
+
+      const onEnd = () => {
+        cleanup();
+        reject(this.collected); // eslint-disable-line prefer-promise-reject-errors
+      };
+
+      this.on('collect', onCollect);
+      this.on('end', onEnd);
+    })
+content = Util.escapeMarkdown(
+            this.client.resolver.resolveString(content),
+            true
+          )
+this.lastPinTimestamp = data.last_pin_timestamp ? new Date(data.last_pin_timestamp).getTime() : null
+this.client.setTimeout(
+              () => resolve(data),
+              this.requestResetTime -
+                Date.now() +
+                this.timeDifference +
+                this.client.options.restTimeOffset
+            )
+this.currentStream = {
+        dispatcher,
+        input: stream,
+        output: stream,
+      }
+<operator>.formatString("", base, "/mentions?limit=", limit, "&roles=", roles, "&everyone=", everyone, "", guildID ? `&guild_id=${guildID}` : "", "")
+this.player.voiceConnection.voiceManager.client.setTimeout(() => this.process(), data.length * 10)
+this.rest
+        .makeRequest("post", Endpoints.guilds, true, options)
+        .then(data => {
+          if (this.client.guilds.has(data.id))
+            return resolve(this.client.guilds.get(data.id));
+
+          const handleGuild = guild => {
+            if (guild.id === data.id) {
+              this.client.removeListener(
+                Constants.Events.GUILD_CREATE,
+                handleGuild
+              );
+              this.client.clearTimeout(timeout);
+              resolve(guild);
+            }
+          };
+          this.client.on(Constants.Events.GUILD_CREATE, handleGuild);
+
+          const timeout = this.client.setTimeout(() => {
+            this.client.removeListener(
+              Constants.Events.GUILD_CREATE,
+              handleGuild
+            );
+            reject(new Error("Took too long to receive guild data."));
+          }, 10000);
+          return undefined;
+        }, reject)
+process.emitWarning(
+      "Collection#findKey: pass a function instead",
+      "DeprecationWarning"
+    )
+(_tmp_134 = this.client.guilds).has
+this.client.rest.methods.kickGuildMember(this.guild, this, reason)
+const timeout = this.client.setTimeout(() => {
+            this.client.removeListener(
+              Constants.Events.GUILD_CREATE,
+              handleGuild
+            );
+            reject(new Error("Took too long to receive guild data."));
+          }, 10000)
+new Promise((resolve, reject) => {
+      if (member._roles.includes(role.id)) return resolve(member);
+
+      const listener = (oldMember, newMember) => {
+        if (
+          newMember.id === member.id &&
+          !oldMember._roles.includes(role.id) &&
+          newMember._roles.includes(role.id)
+        ) {
+          this.client.removeListener(
+            Constants.Events.GUILD_MEMBER_UPDATE,
+            listener
+          );
+          resolve(newMember);
+        }
+      };
+
+      this.client.on(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+      const timeout = this.client.setTimeout(() => {
+        this.client.removeListener(
+          Constants.Events.GUILD_MEMBER_UPDATE,
+          listener
+        );
+        reject(new Error("Adding the role timed out."));
+      }, 10e3);
+
+      return this.rest
+        .makeRequest(
+          "put",
+          Endpoints.Member(member).Role(role.id),
+          true,
+          undefined,
+          undefined,
+          reason
+        )
+    ...
+(_tmp_196 = member._roles).includes
+const timeout = this.client.setTimeout(() => {
+        this.client.removeListener(
+          Constants.Events.GUILD_MEMBER_UPDATE,
+          listener
+        );
+        reject(new Error("Adding the role timed out."));
+      }, 10e3)
+new Promise((resolve, reject) => {
+      if (!member._roles.includes(role.id)) return resolve(member);
+
+      const listener = (oldMember, newMember) => {
+        if (
+          newMember.id === member.id &&
+          oldMember._roles.includes(role.id) &&
+          !newMember._roles.includes(role.id)
+        ) {
+          this.client.removeListener(
+            Constants.Events.GUILD_MEMBER_UPDATE,
+            listener
+          );
+          resolve(newMember);
+        }
+      };
+
+      this.client.on(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+      const timeout = this.client.setTimeout(() => {
+        this.client.removeListener(
+          Constants.Events.GUILD_MEMBER_UPDATE,
+          listener
+        );
+        reject(new Error("Removing the role timed out."));
+      }, 10e3);
+
+      return this.rest
+        .makeRequest(
+          "delete",
+          Endpoints.Member(member).Role(role.id),
+          true,
+          undefined,
+          undefined,
+          reason
+        ...
+(_tmp_210 = member._roles).includes
+const timeout = this.client.setTimeout(() => {
+        this.client.removeListener(
+          Constants.Events.GUILD_MEMBER_UPDATE,
+          listener
+        );
+        reject(new Error("Removing the role timed out."));
+      }, 10e3)

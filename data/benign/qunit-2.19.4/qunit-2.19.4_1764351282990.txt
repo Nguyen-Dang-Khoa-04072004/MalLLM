@@ -1,0 +1,24 @@
+var clearTimeout = g.clearTimeout
+const watcher = watch(baseDir, {
+    persistent: true,
+    recursive: true,
+
+    // Bare minimum delay, we have another debounce in restart().
+    delay: DEBOUNCE_WATCH_LENGTH,
+    filter: (fullpath, skip) => {
+      if (/\/node_modules\//.test(fullpath) ||
+        ignoreDirs.includes(path.basename(fullpath))
+      ) {
+        return skip;
+      }
+      return includeExts.includes(path.extname(fullpath));
+    }
+  }, (event, fullpath) => {
+    console.log(`File ${event}: ${path.relative(baseDir, fullpath)}`);
+    changedPendingPurge.push(fullpath);
+    run.restart(args, options);
+  })
+watcher.on('ready', () => {
+    run(args, options);
+  })
+delete store[strKey]

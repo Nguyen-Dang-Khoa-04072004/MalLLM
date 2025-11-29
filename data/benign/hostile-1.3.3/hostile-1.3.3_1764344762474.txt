@@ -1,0 +1,2 @@
+var stat = fs.statSync(exports.HOSTS)
+fs.writeFileSync(exports.HOSTS, lines.join(''), { mode: stat.mode })

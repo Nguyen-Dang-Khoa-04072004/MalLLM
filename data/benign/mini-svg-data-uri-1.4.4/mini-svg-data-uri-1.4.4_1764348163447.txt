@@ -1,0 +1,22 @@
+_tmp_0.darkgrey = /#a9a9a9(ff)?(?!\w)/gi
+fs.readFile(source, 'utf8', (err, data) => {
+  if (err) {
+    console.error(err.message);
+    console.log(help);
+    process.exit(1);
+  }
+  const out = svgToMiniDataURI(data);
+  dest ? fs.writeFileSync(dest, out) : console.log(out);
+})
+function svgToTinyDataUri = function svgToTinyDataUri(svgString) {
+  if (typeof svgString !== 'string') {
+    throw new TypeError('Expected a string, but received ' + typeof svgString);
+  }
+  // Strip the Byte-Order Mark if the SVG has one
+  if (svgString.charCodeAt(0) === 0xfeff) { svgString = svgString.slice(1) }
+
+  var body = colorCodeToShorterNames(collapseWhitespace(svgString))
+    .replace(REGEX.quotes, "'");
+  return 'data:image/svg+xml,' + dataURIPayload(body);
+}
+dest ? fs.writeFileSync(dest, out) : console.log(out)

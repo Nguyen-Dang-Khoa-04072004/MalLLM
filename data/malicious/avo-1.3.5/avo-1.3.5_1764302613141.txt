@@ -1,0 +1,93 @@
+sources.map(source => {
+              return pify(fs.readFile)(source.path, 'utf8').then(data => {
+                let eventMap = getEventMap(data);
+                if (eventMap !== null) {
+                  let moduleMap = getModuleMap(data);
+                  let sourcePath = path.parse(source.path);
+                  let moduleName = _.get(
+                    source,
+                    'analysis.module',
+                    moduleMap || sourcePath.name || 'Avo'
+                  );
+
+                  let globs = [
+                    new Minimatch(
+                      _.get(source, 'analysis.glob', '**/*' + sourcePath.ext),
+                      {}
+                    ),
+                    new Minimatch('!' + source.path, {})
+                  ];
+
+                  let lookup = _.pickBy(cache, (value, path) =>
+                    _.every(globs, mm => mm.match(path))
+                  );
+
+                  return Promise.all(
+                    eventMap.map(eventName => {
+  ...
+pify(fs.readFile)(source.path, 'utf8').then(data => {
+                let eventMap = getEventMap(data);
+                if (eventMap !== null) {
+                  let moduleMap = getModuleMap(data);
+                  let sourcePath = path.parse(source.path);
+                  let moduleName = _.get(
+                    source,
+                    'analysis.module',
+                    moduleMap || sourcePath.name || 'Avo'
+                  );
+
+                  let globs = [
+                    new Minimatch(
+                      _.get(source, 'analysis.glob', '**/*' + sourcePath.ext),
+                      {}
+                    ),
+                    new Minimatch('!' + source.path, {})
+                  ];
+
+                  let lookup = _.pickBy(cache, (value, path) =>
+                    _.every(globs, mm => mm.match(path))
+                  );
+
+                  return Promise.all(
+                    eventMap.map(eventName => {
+                      let re = new RegExp(modul...
+let eventMap = getEventMap(data)
+let moduleMap = getModuleMap(data)
+let moduleName = _.get(
+                    source,
+                    'analysis.module',
+                    moduleMap || sourcePath.name || 'Avo'
+                  )
+source
+moduleMap || sourcePath.name || 'Avo'
+_.get(source, 'analysis.glob', '**/*' + sourcePath.ext)
+let lookup = _.pickBy(cache, (value, path) =>
+                    _.every(globs, mm => mm.match(path))
+                  )
+Promise.all(
+                    eventMap.map(eventName => {
+                      let re = new RegExp(moduleName + '\\.' + eventName);
+                      let results = _.flatMap(lookup, (data, path) => {
+                        let results = findMatches(data, re);
+                        return results.length ? [[path, results]] : [];
+                      });
+                      return [eventName, _.fromPairs(results)];
+                    })
+                  ).then(results => {
+                    return Object.assign({}, source, {
+                      results: _.fromPairs(results)
+                    });
+                  })
+eventMap.map(eventName => {
+                      let re = new RegExp(moduleName + '\\.' + eventName);
+                      let results = _.flatMap(lookup, (data, path) => {
+                        let results = findMatches(data, re);
+                        return results.length ? [[path, results]] : [];
+                      });
+                      return [eventName, _.fromPairs(results)];
+                    })
+let results = _.flatMap(lookup, (data, path) => {
+                        let results = findMatches(data, re);
+                        return results.length ? [[path, results]] : [];
+                      })
+_tmp_203.push(_.fromPairs(results))

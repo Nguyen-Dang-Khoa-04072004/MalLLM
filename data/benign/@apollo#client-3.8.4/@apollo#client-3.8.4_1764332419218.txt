@@ -1,0 +1,4 @@
+ref.current.options.onSubscriptionData({
+                        client: client,
+                        subscriptionData: result,
+                    })

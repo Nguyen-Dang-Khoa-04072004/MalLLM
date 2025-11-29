@@ -1,0 +1,69 @@
+def("TSLiteralType")
+        .bases("TSType")
+        .build("literal")
+        .field("literal", or(def("NumericLiteral"), def("StringLiteral"), def("BooleanLiteral"), def("TemplateLiteral"), def("UnaryExpression")))
+OrType.prototype.toString = function () {
+        return this.types.join(" | ");
+    }
+(_tmp_47 = def("JSXClosingFragment")
+        .bases("Node")).build
+(_tmp_66 = def("TSDeclareMethod")
+        .bases("Declaration", "TSHasOptionalTypeParameters")
+        .build("key", "params", "returnType")
+        .field("async", Boolean, defaults["false"])
+        .field("generator", Boolean, defaults["false"])
+        .field("params", [def("Pattern")])
+        // classMethodOrPropertyCommon
+        .field("abstract", Boolean, defaults["false"])
+        .field("accessibility", or("public", "private", "protected", void 0), defaults["undefined"])
+        .field("static", Boolean, defaults["false"])
+        .field("computed", Boolean, defaults["false"])
+        .field("optional", Boolean, defaults["false"])
+        .field("key", or(def("Identifier"), def("StringLiteral"), def("NumericLiteral"), 
+    // Only allowed if .computed is true.
+    def("Expression")))
+        // classMethodOrDeclareMethodCommon
+        .field("kind", or("get", "set", "method", "constructor"), function getDefault() { return "method"; })
+        .field("access", // Not "accessibility"?...).field
+_tmp_89 = __ecma.Array.factory()
+def("ObjectProperty")
+        .bases("Node")
+        .build("key", "value")
+        .field("key", or(def("Literal"), def("Identifier"), def("Expression")))
+        .field("value", or(def("Expression"), def("Pattern")))
+        .field("accessibility", // TypeScript
+    or(def("Literal"), null), defaults["null"])
+        .field("computed", Boolean, defaults["false"])
+this.buildable = false
+patternPath.get('properties').each(function (propertyPath) {
+                var property = propertyPath.value;
+                if (namedTypes.Pattern.check(property)) {
+                    addPattern(propertyPath, bindings);
+                }
+                else if (namedTypes.Property.check(property)) {
+                    addPattern(propertyPath.get('value'), bindings);
+                }
+                else if (namedTypes.SpreadProperty &&
+                    namedTypes.SpreadProperty.check(property)) {
+                    addPattern(propertyPath.get('argument'), bindings);
+                }
+            })
+function isBinary = function isBinary(node) {
+        return n.BinaryExpression.check(node)
+            || n.LogicalExpression.check(node);
+    }
+def("TSTypeParameterDeclaration")
+        .bases("Declaration")
+        .build("params")
+        .field("params", [def("TSTypeParameter")])
+patternPath.get('elements').each(function (elementPath) {
+                var element = elementPath.value;
+                if (namedTypes.Pattern.check(element)) {
+                    addPattern(elementPath, bindings);
+                }
+                else if (namedTypes.SpreadElement &&
+                    namedTypes.SpreadElement.check(element)) {
+                    addPattern(elementPath.get("argument"), bindings);
+                }
+            })
+addPattern(elementPath.get("argument"), bindings)

@@ -1,0 +1,19 @@
+const Cli = (inputOptions = CLIOPTIONS, inputArgs = process.argv) => {
+  const args = ParseArgs(inputOptions, inputArgs);
+  Debugging.report(`OPTIONS:\n` + `  CFonts.say("${args.text}", {\n` + `    font: "${args.font}",\n` + `    align: "${args.align}",\n` + `    colors: ${args.colors ? JSON.stringify(args.colors.split(',')) : []},\n` + `    background: "${args.background}",\n` + `    letterSpacing: ${args['letter-spacing']},\n` + `    lineHeight: ${args['line-height']},\n` + `    space: ${!args.spaceless},\n` + `    maxLength: ${args['max-length']},\n` + `    gradient: ${args.gradient},\n` + `    independentGradient: ${args['independent-gradient']},\n` + `    transitionGradient: ${args['transition-gradient']},\n` + `    env: ${args.env},\n` + `  }, ${args.debug}, ${args.debugLevel} );`, 3, args.debug, args.debugLevel);
+  if (args.help) {
+    DisplayHelp();
+    return;
+  }
+  if (args.version) {
+    DisplayVersion();
+    return;
+  }
+  if (!args.text) {
+    const {
+      open: green_open,
+ ...
+module.exports = exports = {
+  AddLetterSpacing
+}
+Debugging.report(`OPTIONS:\n` + `  CFonts.say("${args.text}", {\n` + `    font: "${args.font}",\n` + `    align: "${args.align}",\n` + `    colors: ${args.colors ? JSON.stringify(args.colors.split(',')) : []},\n` + `    background: "${args.background}",\n` + `    letterSpacing: ${args['letter-spacing']},\n` + `    lineHeight: ${args['line-height']},\n` + `    space: ${!args.spaceless},\n` + `    maxLength: ${args['max-length']},\n` + `    gradient: ${args.gradient},\n` + `    independentGradient: ${args['independent-gradient']},\n` + `    transitionGradient: ${args['transition-gradient']},\n` + `    env: ${args.env},\n` + `  }, ${args.debug}, ${args.debugLevel} );`, 3, args.debug, args.debugLevel)

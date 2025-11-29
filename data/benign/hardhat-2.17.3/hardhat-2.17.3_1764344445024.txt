@@ -1,0 +1,464 @@
+private _handleRequest = async (
+    req: JsonRpcRequest
+  ): Promise<JsonRpcResponse> => {
+    const result = await this._provider.request({
+      method: req.method,
+      params: req.params,
+    });
+
+    return {
+      jsonrpc: "2.0",
+      id: req.id,
+      result,
+    };
+  };
+function replacePragmaAbicoderDirectives = function replacePragmaAbicoderDirectives(file: string): string {
+  return file.replaceAll(PRAGMA_DIRECTIVES_REGEX, (...groups) => {
+    return `// Original pragma directive: ${removeUnnecessarySpaces(
+      groups[1]
+    )}`;
+  });
+}
+(0, config_env_1.subtask)(task_names_1.TASK_COMPILE_SOLIDITY_FILTER_COMPILATION_JOBS)
+    .addParam("compilationJobs", undefined, undefined, config_env_1.types.any)
+    .addParam("force", undefined, undefined, config_env_1.types.boolean)
+    .addOptionalParam("solidityFilesCache", undefined, undefined, config_env_1.types.any)
+    .setAction(async ({ compilationJobs, force, solidityFilesCache, }) => {
+    (0, errors_1.assertHardhatInvariant)(solidityFilesCache !== undefined, "The implementation of this task needs a defined solidityFilesCache");
+    if (force) {
+        log(`force flag enabled, not filtering`);
+        return compilationJobs;
+    }
+    const neededCompilationJobs = compilationJobs.filter((job) => needsCompilation(job, solidityFilesCache));
+    const jobsFilteredOutCount = compilationJobs.length - neededCompilationJobs.length;
+    log(`'${jobsFilteredOutCount}' jobs were filtered out`);
+    return neededCompilationJobs;
+})
+function _applyErrorMessageTemplate = function _applyErrorMessageTemplate(
+  template: string,
+  values: { [templateVar: string]: any },
+  isRecursiveCall: boolean
+): string {
+  if (!isRecursiveCall) {
+    for (const variableName of Object.keys(values)) {
+      if (variableName.match(/^[a-zA-Z][a-zA-Z0-9]*$/) === null) {
+        throw new HardhatError(ERRORS.INTERNAL.TEMPLATE_INVALID_VARIABLE_NAME, {
+          variable: variableName,
+        });
+      }
+
+      const variableTag = `%${variableName}%`;
+
+      if (!template.includes(variableTag)) {
+        throw new HardhatError(ERRORS.INTERNAL.TEMPLATE_VARIABLE_TAG_MISSING, {
+          variable: variableName,
+        });
+      }
+    }
+  }
+
+  if (template.includes("%%")) {
+    return template
+      .split("%%")
+      .map((part) => _applyErrorMessageTemplate(part, values, true))
+      .join("%");
+  }
+
+  for (const variableName of Object.keys(values)) {
+    let value: string;
+
+    if (values[variableName] === undefined) {
+      value = "undefined";
+    } else if (values[var...
+subtask(TASK_COMPILE_SOLIDITY_GET_DEPENDENCY_GRAPH)
+  .addOptionalParam("rootPath", undefined, undefined, types.string)
+  .addParam("sourceNames", undefined, undefined, types.any)
+  .addOptionalParam("solidityFilesCache", undefined, undefined, types.any)
+  .setAction(
+    async (
+      {
+        rootPath,
+        sourceNames,
+        solidityFilesCache,
+      }: {
+        rootPath?: string;
+        sourceNames: string[];
+        solidityFilesCache?: SolidityFilesCache;
+      },
+      { config, run }
+    ): Promise<taskTypes.DependencyGraph> => {
+      const parser = new Parser(solidityFilesCache);
+      const remappings = await run(TASK_COMPILE_GET_REMAPPINGS);
+      const resolver = new Resolver(
+        rootPath ?? config.paths.root,
+        parser,
+        remappings,
+        (absolutePath: string) =>
+          run(TASK_COMPILE_SOLIDITY_READ_FILE, { absolutePath }),
+        (importName: string) =>
+          run(TASK_COMPILE_TRANSFORM_IMPORT_NAME, {
+            importName,
+       ...
+tx = new ReadOnlyValidEIP1559Transaction_1.ReadOnlyValidEIP1559Transaction(new ethereumjs_util_1.Address(transaction.from), (0, rpcToTxData_1.rpcToTxData)(transaction))
+function isGlobalFlag = function isGlobalFlag(param) {
+    const paramName = ArgumentsParser_1.ArgumentsParser.cLAToParamName(param);
+    return hardhat_params_1.HARDHAT_PARAM_DEFINITIONS[paramName]?.isFlag === true;
+}
+function resolveSolidityConfig = function resolveSolidityConfig(userConfig) {
+    const userSolidityConfig = userConfig.solidity ?? default_config_1.DEFAULT_SOLC_VERSION;
+    const multiSolcConfig = normalizeSolidityConfig(userSolidityConfig);
+    const overrides = multiSolcConfig.overrides ?? {};
+    return {
+        compilers: multiSolcConfig.compilers.map(resolveCompiler),
+        overrides: (0, lang_1.fromEntries)(Object.entries(overrides).map(([name, config]) => [
+            name,
+            resolveCompiler(config),
+        ])),
+    };
+}
+_tmp_30.description = "You are trying to create a new hardhat project, but there are existing files that would be overwritten by the creation process.
+
+Either try using a new directory name, or remove the conflicting files."
+const matchingFunctionAbi = functionAbis?.find((functionAbi) => {
+    if (functionAbi.name === undefined) {
+      return false;
+    }
+
+    const functionAbiSelector = abi.methodID(
+      functionAbi.name,
+      functionAbi.inputs?.map((input) => input.type) ?? []
+    );
+
+    if (selector === undefined || functionAbiSelector === undefined) {
+      return false;
+    }
+
+    return selector.equals(functionAbiSelector);
+  })
+const config: NodeConfig = {
+      automine: this._config.automine,
+      blockGasLimit: this._config.blockGasLimit,
+      minGasPrice: this._config.minGasPrice,
+      genesisAccounts: this._config.genesisAccounts,
+      allowUnlimitedContractSize: this._config.allowUnlimitedContractSize,
+      tracingConfig: await this._makeTracingConfig(),
+      initialBaseFeePerGas: this._config.initialBaseFeePerGas,
+      mempoolOrder: this._config.mempoolOrder,
+      hardfork: this._config.hardfork,
+      chainId: this._config.chainId,
+      networkId: this._config.networkId,
+      initialDate: this._config.initialDate,
+      forkConfig: this._config.forkConfig,
+      forkCachePath:
+        this._config.forkConfig !== undefined
+          ? this._config.forkCachePath
+          : undefined,
+      coinbase: this._config.coinbase ?? DEFAULT_COINBASE,
+      chains: this._config.chains,
+      allowBlocksWithSameTimestamp: this._config.allowBlocksWithSameTimestamp,
+      enableTransientStorage: this._config...
+const json: CLIArgumentType<any> = {
+  name: "json",
+  parse(argName: string, strValue: string): any {
+    try {
+      return JSON.parse(strValue);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new HardhatError(
+          ERRORS.ARGUMENTS.INVALID_JSON_ARGUMENT,
+          {
+            param: argName,
+            error: error.message,
+          },
+          error
+        );
+      }
+
+      // eslint-disable-next-line @nomicfoundation/hardhat-internal-rules/only-hardhat-error
+      throw error;
+    }
+  },
+
+  /**
+   * Check if argument value is of type "json". We consider everything except
+   * undefined to be json.
+   *
+   * @param argName {string} argument's name - used for context in case of error.
+   * @param value {any} argument's value to validate.
+   *
+   * @throws HH301 if value is not of type "json"
+   */
+  validate: (argName: string, value: any): void => {
+    if (value === undefined) {
+      throw new HardhatError(ERRORS.ARGUMENTS.INVALID_VALUE_FOR_TYPE, {...
+function getMtimes = function getMtimes(filesLoadedBefore: string[], filesLoadedAfter: string[]) {
+  const loadedByHardhat = filesLoadedAfter.filter(
+    (f) => !filesLoadedBefore.includes(f)
+  );
+  const stats = loadedByHardhat.map((f) => fs.statSync(f));
+
+  const mtimes = loadedByHardhat.map((f, i) => ({
+    [f]: stats[i].mtime.valueOf(),
+  }));
+
+  if (mtimes.length === 0) {
+    return {};
+  }
+
+  return Object.assign(mtimes[0], ...mtimes.slice(1));
+}
+_tmp_15.ESM_TYPESCRIPT_PROJECT_CREATION = {
+            number: 20,
+            message: `Your project is an ESM project (you have "type": "module" set in your package.json) and you are trying to initialize a TypeScript project. This is not supported yet.`,
+            title: "Initializing a TypeScript sample project in an ESM project",
+            description: `Your project is an ESM project (you have "type": "module" set in your package.json) and you are trying to initialize a TypeScript project. This is not supported yet.`,
+            shouldBeReported: false,
+        }
+throw new HardhatError(
+          ERRORS.ARGUMENTS.INVALID_JSON_ARGUMENT,
+          {
+            param: argName,
+            error: error.message,
+          },
+          error
+        );
+task(TASK_NODE, "Starts a JSON-RPC server on top of Hardhat Network")
+  .addOptionalParam(
+    "hostname",
+    "The host to which to bind to for new connections (Defaults to 127.0.0.1 running locally, and 0.0.0.0 in Docker)",
+    undefined,
+    types.string
+  )
+  .addOptionalParam(
+    "port",
+    "The port on which to listen for new connections",
+    8545,
+    types.int
+  )
+  .addOptionalParam(
+    "fork",
+    "The URL of the JSON-RPC server to fork from",
+    undefined,
+    types.string
+  )
+  .addOptionalParam(
+    "forkBlockNumber",
+    "The block number to fork from",
+    undefined,
+    types.int
+  )
+  .setAction(
+    async (
+      {
+        forkBlockNumber,
+        fork: forkUrl,
+        hostname: hostnameParam,
+        port,
+      }: {
+        forkBlockNumber?: number;
+        fork?: string;
+        hostname?: string;
+        port: number;
+      },
+      { config, hardhatArguments, network, run }
+    ) => {
+      // we throw if the user specified a network argument and it's no...
+(param.typeName?.nodeType === "UserDefinedTypeName" ||
+        param?.nodeType === "UserDefinedTypeName") &&
+        param.typeDescriptions?.typeString !== undefined &&
+        param.typeDescriptions.typeString.startsWith("contract ")
+_tmp_42.description = "You are trying to send a transaction or sign some data with an
+account not managed by your Ethereum node nor Hardhat.
+
+Please double check your accounts and the \`from\` parameter in your RPC calls."
+this._indent(() => {
+            this._printError(err);
+            this.printEmptyLine();
+            this._print("If you think this is a bug in Hardhat, please report it here: https://hardhat.org/report-bug");
+        })
+tx = new ReadOnlyValidUnknownTypeTransaction(
+            new Address(transaction.from),
+            Number(transaction.type),
+            rpcToTxData(transaction)
+          )
+(proxiedHre as any).adhocProfileSync = (_name: string, f: () => any) => {
+        const adhocProfile = createTaskProfile(_name);
+        taskProfile!.children.push(adhocProfile);
+        try {
+          return f();
+        } finally {
+          completeTaskProfile(adhocProfile);
+        }
+      }
+function createProject = async function createProject() {
+  printAsciiLogo();
+
+  await printWelcomeMessage();
+
+  let packageJson: PackageJson | undefined;
+  if (await fsExtra.pathExists("package.json")) {
+    packageJson = await fsExtra.readJson("package.json");
+  }
+  const isEsm = packageJson?.type === "module";
+
+  const action = await getAction(isEsm);
+
+  if (action === Action.QUIT_ACTION) {
+    return;
+  }
+
+  if (isEsm && action === Action.CREATE_TYPESCRIPT_PROJECT_ACTION) {
+    throw new HardhatError(ERRORS.GENERAL.ESM_TYPESCRIPT_PROJECT_CREATION);
+  }
+
+  if (packageJson === undefined) {
+    await createPackageJson();
+  }
+
+  if (action === Action.CREATE_EMPTY_HARDHAT_CONFIG_ACTION) {
+    await writeEmptyHardhatConfig(isEsm);
+    console.log(
+      `${emoji("✨ ")}${chalk.cyan(`Config file created`)}${emoji(" ✨")}`
+    );
+
+    if (!isInstalled(HARDHAT_PACKAGE_NAME)) {
+      console.log("");
+      console.log(`You need to install hardhat locally to use it. Please run:`);
+      const cmd = await getRecommen...
+function correctSelectors = function correctSelectors(bytecodes, compilerOutput) {
+    for (const bytecode of bytecodes) {
+        if (bytecode.isDeployment) {
+            continue;
+        }
+        const contract = bytecode.contract;
+        const methodIdentifiers = compilerOutput.contracts[contract.location.file.sourceName][contract.name]
+            .evm.methodIdentifiers;
+        for (const [signature, hexSelector] of Object.entries(methodIdentifiers)) {
+            const functionName = signature.slice(0, signature.indexOf("("));
+            const selector = Buffer.from(hexSelector, "hex");
+            const contractFunction = contract.getFunctionFromSelector(selector);
+            if (contractFunction !== undefined) {
+                continue;
+            }
+            const fixedSelector = contract.correctSelector(functionName, selector);
+            if (!fixedSelector) {
+                // eslint-disable-next-line @nomicfoundation/hardhat-internal-rules/only-hardhat-error
+                throw new Err...
+function processVariableDeclarationAstNode = function processVariableDeclarationAstNode(
+  variableDeclarationNode: any,
+  fileIdToSourceFile: Map<number, SourceFile>,
+  contract: Contract,
+  file: SourceFile,
+  getterAbi?: ContractAbiEntry
+) {
+  const visibility = astVisibilityToVisibility(
+    variableDeclarationNode.visibility
+  );
+
+  // Variables can't be external
+  if (visibility !== ContractFunctionVisibility.PUBLIC) {
+    return;
+  }
+
+  const functionLocation = astSrcToSourceLocation(
+    variableDeclarationNode.src,
+    fileIdToSourceFile
+  )!;
+
+  const paramTypes = getterAbi?.inputs?.map((input) => input.type);
+
+  const cf = new ContractFunction(
+    variableDeclarationNode.name,
+    ContractFunctionType.GETTER,
+    functionLocation,
+    contract,
+    visibility,
+    false, // Getters aren't payable
+    getPublicVariableSelectorFromDeclarationAstNode(variableDeclarationNode),
+    paramTypes
+  );
+
+  contract.addLocalFunction(cf);
+  file.addFunction(cf);
+}
+<operator>.formatString("\nThe flattened file is using the pragma abicoder directive '", metadata.pragmaDirective, "' but these files have a different pragma abicoder directive: ", metadata.filesWithDifferentPragmaDirectives.join(
+            ", "
+          ), "")
+_tmp_38.NODE_IS_NOT_RUNNING = {
+            number: 108,
+            message: `Cannot connect to the network %network%.
+Please make sure your node is running, and check your internet connection and networks config`,
+            title: "Cannot connect to the network",
+            description: `Cannot connect to the network.
+
+Please make sure your node is running, and check your internet connection and networks config.`,
+            shouldBeReported: false,
+        }
+_tmp_37.INVALID_HD_PATH = {
+      number: 106,
+      message:
+        "HD path %path% is invalid. Read about BIP32 to know about the valid forms.",
+      title: "Invalid HD path",
+      description: `An invalid HD/BIP32 derivation path was provided in your config.
+
+Read the [documentation](https://hardhat.org/hardhat-runner/docs/config#hd-wallet-config) to learn how to define HD accounts correctly.`,
+      shouldBeReported: false,
+    }
+subtask(TASK_COMPILE_SOLIDITY_FILTER_COMPILATION_JOBS)
+  .addParam("compilationJobs", undefined, undefined, types.any)
+  .addParam("force", undefined, undefined, types.boolean)
+  .addOptionalParam("solidityFilesCache", undefined, undefined, types.any)
+  .setAction(
+    async ({
+      compilationJobs,
+      force,
+      solidityFilesCache,
+    }: {
+      compilationJobs: CompilationJob[];
+      force: boolean;
+      solidityFilesCache?: SolidityFilesCache;
+    }): Promise<CompilationJob[]> => {
+      assertHardhatInvariant(
+        solidityFilesCache !== undefined,
+        "The implementation of this task needs a defined solidityFilesCache"
+      );
+
+      if (force) {
+        log(`force flag enabled, not filtering`);
+        return compilationJobs;
+      }
+
+      const neededCompilationJobs = compilationJobs.filter((job) =>
+        needsCompilation(job, solidityFilesCache)
+      );
+
+      const jobsFilteredOutCount =
+        compilationJobs.length - neededCompilationJobs.length;
+   ...
+const cf = new ContractFunction(
+    variableDeclarationNode.name,
+    ContractFunctionType.GETTER,
+    functionLocation,
+    contract,
+    visibility,
+    false, // Getters aren't payable
+    getPublicVariableSelectorFromDeclarationAstNode(variableDeclarationNode),
+    paramTypes
+  )
+_tmp_21 = await this._node.runCall(
+      callParams,
+      blockNumberOrPending,
+      stateOverrideSet
+    )
+_tmp_38.INVALID_JSON_RESPONSE = {
+            number: 110,
+            message: "Invalid JSON-RPC response received: %response%",
+            title: "Invalid JSON-RPC response",
+            description: `One of your JSON-RPC requests received an invalid response.
+
+Please make sure your node is running, and check your internet connection and networks config.`,
+            shouldBeReported: false,
+        }
+console.error(
+          `For more info go to ${link} or run ${HARDHAT_NAME} with --show-stack-traces`
+        )

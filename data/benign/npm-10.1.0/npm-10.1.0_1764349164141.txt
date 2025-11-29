@@ -1,0 +1,330 @@
+const colorType = (type, chalk) => {
+  const { red, yellow, cyan, magenta, blue, green, gray } = chalk
+  const style = type === 'extraneous' ? red
+    : type === 'dev' ? yellow
+    : type === 'optional' ? cyan
+    : type === 'peer' ? magenta
+    : type === 'bundled' ? blue
+    : type === 'workspace' ? green
+    : type === 'overridden' ? gray
+    : /* istanbul ignore next */ s => s
+  return style(type)
+}
+const searchCachePackage = async (path, parsed, cacheKeys) => {
+  /* eslint-disable-next-line max-len */
+  const searchMFH = new RegExp(`^make-fetch-happen:request-cache:.*(?<!/[@a-zA-Z]+)/${parsed.name}/-/(${parsed.name}[^/]+.tgz)$`)
+  const searchPack = new RegExp(`^make-fetch-happen:request-cache:.*/${parsed.escapedName}$`)
+  const results = new Set()
+  cacheKeys = new Set(cacheKeys)
+  for (const key of cacheKeys) {
+    // match on the public key registry url format
+    if (searchMFH.test(key)) {
+      // extract the version from the filename
+      const filename = key.match(searchMFH)[1]
+      const noExt = filename.slice(0, -4)
+      const noScope = `${parsed.name.split('/').pop()}-`
+      const ver = noExt.slice(noScope.length)
+      if (semver.satisfies(ver, parsed.rawSpec)) {
+        results.add(key)
+      }
+      continue
+    }
+    // is this key a packument?
+    if (!searchPack.test(key)) {
+      continue
+    }
+
+    results.add(key)
+    let packument, details
+    try {
+      det...
+const promptOpen = async (npm, url, title, prompt, emitter) => {
+  const browser = npm.config.get('browser')
+  const isInteractive = process.stdin.isTTY === true && process.stdout.isTTY === true
+
+  try {
+    if (!/^https?:$/.test(new URL(url).protocol)) {
+      throw new Error()
+    }
+  } catch (_) {
+    throw new Error('Invalid URL: ' + url)
+  }
+
+  print(npm, title, url)
+
+  if (browser === false || !isInteractive) {
+    return
+  }
+
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  })
+
+  const tryOpen = await new Promise(resolve => {
+    rl.on('SIGINT', () => {
+      rl.close()
+      resolve('SIGINT')
+    })
+
+    rl.question(prompt, () => {
+      resolve(true)
+    })
+
+    if (emitter && emitter.addListener) {
+      emitter.addListener('abort', () => {
+        rl.close()
+
+        // clear the prompt line
+        npm.output('')
+
+        resolve(false)
+      })
+    }
+  })
+
+  if (tryOpen === 'SIGINT') {
+    throw new Error('canceled')
+  }
+
+  if (!...
+<operator>.formatString("npm <command>
+
+Usage:
+
+npm install        install all the dependencies in your project
+npm install <foo>  add the <foo> dependency to your project
+npm test           run this project's tests
+npm run <foo>      run the script named <foo>
+npm <command> -h   quick help on <command>
+npm -l             display usage info for all commands
+npm help <term>    search for help on <term>", browser, "
+npm help npm       more involved overview", browser, "
+
+All commands:
+", allCommands, "
+
+Specify configs in the ini-formatted file:
+", indent() + npm.config.get('userconfig'), "
+or on the command line via: npm <command> --key=value
+
+More configuration info: npm help config
+Configuration fields: npm help 7 config
+
+npm@", npm.version, " ", npm.npmRoot, "")
+static params = [
+    'save',
+    'save-exact',
+    'global',
+    'install-strategy',
+    'legacy-bundling',
+    'global-style',
+    'omit',
+    'strict-peer-deps',
+    'prefer-dedupe',
+    'package-lock',
+    'package-lock-only',
+    'foreground-scripts',
+    'ignore-scripts',
+    'audit',
+    'bin-links',
+    'fund',
+    'dry-run',
+    'cpu',
+    'os',
+    ...super.params,
+  ]
+const errorMessage = (er, npm) => {
+  const short = []
+  const detail = []
+  const files = []
+
+  if (er.message) {
+    er.message = replaceInfo(er.message)
+  }
+  if (er.stack) {
+    er.stack = replaceInfo(er.stack)
+  }
+
+  switch (er.code) {
+    case 'ERESOLVE': {
+      short.push(['ERESOLVE', er.message])
+      detail.push(['', ''])
+      // XXX(display): error messages are logged so we use the logColor since that is based
+      // on stderr. This should be handled solely by the display layer so it could also be
+      // printed to stdout if necessary.
+      const { explanation, file } = report(er, npm.logChalk, npm.noColorChalk)
+      detail.push(['', explanation])
+      files.push(['eresolve-report.txt', file])
+      break
+    }
+
+    case 'ENOLOCK': {
+      const cmd = npm.command || ''
+      short.push([cmd, 'This command requires an existing lockfile.'])
+      detail.push([cmd, 'Try creating one first with: npm i --package-lock-only'])
+      detail.push([cmd, `Original error: ${er.mes...
+const parseSqBrackets = str => {
+    const index = sqBracketsMatcher(str)
+
+    // once we find square brackets, we recursively parse all these
+    if (index) {
+      const preSqBracketPortion = index[1]
+
+      // we want to have a `new String` wrapper here in order to differentiate
+      // between multiple occurrences of the same string, e.g:
+      // foo.bar[foo.bar] should split into { foo: { bar: { 'foo.bar': {} } }
+      /* eslint-disable-next-line no-new-wrappers */
+      const foundKey = new String(index[2])
+      const postSqBracketPortion = index[3]
+
+      // we keep track of items found during this step to make sure
+      // we don't try to split-separate keys that were defined within
+      // square brackets, since the key name itself might contain dots
+      sqBracketItems.add(foundKey)
+
+      // returns an array that contains either dot-separate items (that will
+      // be split apart during the next step OR the fully parsed keys
+      // read from square brackets, e.g:
+    ...
+const keyValues = args => {
+  const kv = {}
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i].split('=')
+    const key = arg.shift()
+    const val = arg.length ? arg.join('=')
+      : i < args.length - 1 ? args[++i]
+      : ''
+    kv[key.trim()] = val.trim()
+  }
+  return kv
+}
+packages[name] === 'write' &&
+        (opts.conf.argv.remain.length === 0 ||
+          name.startsWith(opts.conf.argv.remain[0]))
+cli(process, {
+    node,
+    npm,
+    engines,
+    unsupportedMessage,
+    off: () => {
+      process.off('uncaughtException', syntaxErrorHandler)
+      process.off('unhandledRejection', syntaxErrorHandler)
+    },
+  })
+columnify(
+      [
+        { name: 'name:', value: tarball.name },
+        { name: 'version:', value: tarball.version },
+        tarball.filename && { name: 'filename:', value: tarball.filename },
+        { name: 'package size:', value: formatBytes(tarball.size) },
+        { name: 'unpacked size:', value: formatBytes(tarball.unpackedSize) },
+        { name: 'shasum:', value: tarball.shasum },
+        {
+          name: 'integrity:',
+          value:
+            tarball.integrity.toString().slice(0, 20) +
+            '[...]' +
+            tarball.integrity.toString().slice(80),
+        },
+        tarball.bundled.length && { name: 'bundled deps:', value: tarball.bundled.length },
+        tarball.bundled.length && {
+          name: 'bundled files:',
+          value: tarball.entryCount - tarball.files.length,
+        },
+        tarball.bundled.length && { name: 'own files:', value: tarball.files.length },
+        { name: 'total files:', value: tarball.entryCount },
+      ].filter(x => x)...
+'The `npm ci` command can only install with an existing package-lock.json or\n' +
+        'npm-shrinkwrap.json with lockfileVersion >= 1. Run an install with npm@5 or\n' +
+        'later to generate a package-lock.json file, then try again.'
+<operator>.formatString("Missing script: "", event, """, suggestions, "\n\nTo see a list of scripts, run:\n  npm run")
+const setError = () =>
+      this.usageError('npm pkg set expects a key=value pair of args.')
+const explainEdge = ({ name, type, bundled, from, spec, rawSpec, overridden }, depth, chalk) => {
+  const { bold } = chalk
+  let dep = type === 'workspace'
+    ? bold(relative(from.location, spec.slice('file:'.length)))
+    : `${bold(name)}@"${bold(spec)}"`
+  if (overridden) {
+    dep = `${colorType('overridden', chalk)} ${dep} (was "${rawSpec}")`
+  }
+
+  const fromMsg = ` from ${explainFrom(from, depth, chalk)}`
+
+  return (type === 'prod' ? '' : `${colorType(type, chalk)} `) +
+    (bundled ? `${colorType('bundled', chalk)} ` : '') +
+    `${dep}${fromMsg}`
+}
+Boolean(
+        this.npm.config.find('save') !== 'default' ||
+        this.npm.config.get('save-optional') ||
+        this.npm.config.get('save-peer') ||
+        this.npm.config.get('save-dev') ||
+        this.npm.config.get('save-prod')
+      )
+throw new Error(`As of npm@5, the npm cache self-heals from corruption issues
+  by treating integrity mismatches as cache misses.  As a result,
+  data extracted from the cache is guaranteed to be valid.  If you
+  want to make sure everything is consistent, use \`npm cache verify\`
+  instead.  Deleting the cache can only make npm go slower, and is
+  not likely to correct any problems you may be encountering!
+
+  On the other hand, if you're debugging an issue with the installer,
+  or race conditions that depend on the timing of writing to an empty
+  cache, you can use \`npm install --cache /tmp/empty-cache\` to use a
+  temporary cache instead of nuking the actual one.
+
+  If you're sure you want to delete the entire cache, rerun this command
+  with --force.`)
+'Unrecognized initializer: ' + initerName +
+          '\nFor more package binary executing power check out `npx`:' +
+          '\nhttps://docs.npmjs.com/cli/commands/npx'
+item.label = tree({
+            label: this.npm.chalk.bgBlack.white(url),
+            nodes: [pkgRef],
+          }).trim()
+await updateWorkspaces({
+      config,
+      flatOptions,
+      localPrefix,
+      npm: this.npm,
+      workspaces,
+    })
+<operator>.formatString("current: ", current, ", recommended: ", recommended, "")
+fs.mkdir(this.cache, { recursive: true })
+        .catch((e) => log.verbose('cache', `could not create cache: ${e}`))
+Object.keys(versions).forEach((v) => {
+      if (semver.satisfies(v, version, true)) {
+        args.forEach(arg => {
+          // remove readme unless we asked for it
+          if (args.indexOf('readme') !== -1) {
+            delete versions[v].readme
+          }
+
+          data.push(showFields(pckmnt, versions[v], arg))
+        })
+      }
+    })
+throw Object.assign(
+        new Error('Failed to update package: ' + JSON.stringify(err.message)),
+        { code: 'EOWNERMUTATE' }
+      )
+publicConf[key] = this.npm.config.get(key)
+_tmp_53.chars = {
+        top: '',
+        'top-mid': '',
+        'top-left': '',
+        'top-right': '',
+        bottom: '',
+        'bottom-mid': '',
+        'bottom-left': '',
+        'bottom-right': '',
+        left: '',
+        'left-mid': '',
+        mid: '',
+        'mid-mid': '',
+        right: '',
+        'right-mid': '',
+        middle: '  ',
+      }

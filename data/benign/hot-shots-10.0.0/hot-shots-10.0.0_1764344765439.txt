@@ -1,0 +1,3 @@
+<operator>.formatString("", this.prefix + stat + this.suffix, ":", value, "|", type, "")
+<operator>.formatString("|@", sampleRate, "")
+this.send(message, tags, callback)

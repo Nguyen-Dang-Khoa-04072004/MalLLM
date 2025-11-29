@@ -1,0 +1,12 @@
+i[scrollbarYRail].classList.add(cls.state.clicking)
+const maxScrollLeft = cursor.scrollWidth - cursor.clientWidth
+isNaN(this.scrollbarXBottom)
+(cursor.scrollLeft > 0 && deltaX < 0) ||
+            (cursor.scrollLeft < maxScrollLeft && deltaX > 0)
+this.railBorderXWidth =
+      toInt(railXStyle.borderLeftWidth) + toInt(railXStyle.borderRightWidth)
+toInt(railXStyle.borderLeftWidth) + toInt(railXStyle.borderRightWidth)
+toInt(railXStyle.marginLeft) + toInt(railXStyle.marginRight)
+CSS.set(this.scrollbarXRail, { display: '' })
+element.appendChild(this.scrollbarYRail)
+const railYStyle = CSS.get(this.scrollbarYRail)

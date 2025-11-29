@@ -1,0 +1,45 @@
+pidusage(process.pid, function pidusageStat(e, stat) {
+            // Requeue an updateReject irrespective of whether or not pidusage
+            // encountered an error
+            plugin._timeout = setTimeout(updateReject, plugin._interval);
+
+            // If we were unable to get cpu usage, don't make any new decisions.
+            if (
+                !stat ||
+                typeof stat.cpu !== 'number' ||
+                Number.isNaN(stat.cpu)
+            ) {
+                return;
+            }
+
+            // Divide by 100 to match Linux's `top` format
+            plugin._ewma.insert(stat.cpu / 100);
+            plugin._cpu = plugin._ewma.value();
+
+            // Update reject with the % of traffic we should be rejecting. This
+            // is safe since max > limit so the denominator can never be 0. If
+            // the current cpu usage is less that the limit, _reject will be
+            // negative and we will never shed load
+            plugin._reject =
+             ...
+this.useChain = new Chain({
+        onceNext: this.onceNext,
+        strictNext: this.strictNext
+    })
+reqCandidates.forEach(function forEach(candidate, idx) {
+                var version = semver.maxSatisfying(
+                    candidate.version,
+                    reqVersion
+                );
+
+                if (version) {
+                    if (!maxVersion || semver.gt(version, maxVersion)) {
+                        maxVersion = version;
+                        maxVersionIndex = idx;
+                    }
+                }
+            })
+function queryItem = function queryItem(key) {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(query[key]);
+    }
+!maxVersion || semver.gt(version, maxVersion)

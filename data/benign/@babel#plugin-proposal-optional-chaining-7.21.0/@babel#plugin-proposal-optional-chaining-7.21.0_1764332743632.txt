@@ -1,0 +1,40 @@
+optionalPath.isOptionalMemberExpression() || optionalPath.isOptionalCallExpression()
+const childPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.isOptionalMemberExpression() ? optionalPath.get("object") : optionalPath.get("callee"))
+optionalPath = childPath
+optionalPath.isOptionalMemberExpression() || optionalPath.isOptionalCallExpression()
+_tmp_17 = optionalPath
+node = _tmp_17.node
+optionalPath
+optionals.push(node)
+optionalPath.isOptionalMemberExpression()
+optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("object"))
+optionalPath.isOptionalCallExpression()
+optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("callee"))
+const node = optionals[i]
+const isCall = core.types.isCallExpression(node)
+const chainWithTypes = isCall ? node.callee : node.object
+const chain = helperSkipTransparentExpressionWrappers.skipTransparentExprWrapperNodes(chainWithTypes)
+isCall && core.types.isIdentifier(chain, {
+      name: "eval"
+    })
+pureGetters && isCall && isSimpleMemberExpression(chain)
+ref = scope.maybeGenerateMemoised(chain)
+check = core.types.assignmentExpression("=", core.types.cloneNode(ref), chainWithTypes)
+isCall && core.types.isMemberExpression(chain)
+pureGetters && isSimpleMemberExpression(chain)
+_tmp_28 = chain
+object = _tmp_28.object
+chain
+(_tmp_29 = core.types).isSuper
+const memoized = scope.maybeGenerateMemoised(object)
+!pureGetters || !isSimpleMemberExpression(object)
+const nonNullishCheck = noDocumentAll ? ast`${core.types.cloneNode(check)} != null` : ast`
+            ${core.types.cloneNode(check)} !== null && ${core.types.cloneNode(ref)} !== void 0`
+(_tmp_44 = core.types).cloneNode
+replacementPath.replaceWith(core.types.logicalExpression("&&", nonNullishCheck, replacement))
+replacementPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(replacementPath.get("right"))
+const nullishCheck = noDocumentAll ? ast`${core.types.cloneNode(check)} == null` : ast`
+            ${core.types.cloneNode(check)} === null || ${core.types.cloneNode(ref)} === void 0`
+const returnValue = isDeleteOperation ? ast`true` : ast`void 0`
+replacementPath.replaceWith(core.types.conditionalExpression(nullishCheck, returnValue, replacement))
+replacementPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(replacementPath.get("alternate"))

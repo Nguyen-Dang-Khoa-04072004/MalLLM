@@ -1,0 +1,21 @@
+var writeFiles = function() {
+            //restore env.json
+            if ( typeof(self.envDataWrote) == 'undefined' ) {
+                lib.generator.createFileFromDataSync(self.envData, self.envPath)
+            }
+            //restore project.json
+            if ( typeof(self.projectDataWrote) == 'undefined' ) {
+                if ( typeof(self.projectData.bundles[local.bundle]) != 'undefined') {
+                    delete self.projectData.bundles[local.bundle]
+                }
+                lib.generator.createFileFromDataSync(self.projectData, self.projectManifestPath)
+            }
+
+            //restore ports.json
+            if ( typeof(self.portsDataWrote) == 'undefined' ) {
+                lib.generator.createFileFromDataSync(self.portsData, self.portsPath)
+            }
+
+            //restore ports.reverse.json
+            if ( typeof(self.portsReverseDataWrote) == 'undefined' ) {
+                lib.generator.createFileFromDataSync(self.portsReverseData, self.portsRever...

@@ -1,0 +1,20 @@
+var readSource = function (entities, entityName, source) {
+        var arr             = source.split(/\//g)
+            , name          = arr[arr.length-1].replace(/\.sql/, '') || null
+            , comments      = ''
+            , queryString   = null
+            , includes      = null
+            , queryStatement= null // this is the usable queryString
+            , params        = []
+            , inlineParams  = [] // order of use inside the query
+            , returnType    = null // Array or Object : Array by default
+            , returnVariable= null // return variable
+        ;
+
+
+        if (! /^\./.test(source) && name && typeof(conn[name]) == 'undefined' ) {
+            // N.B: because of the cache, if replacement of placeholders is done, it will affect the statement
+            queryString = fs.readFileSync( source ).toString();
+            // handle includes
+            includes = queryString.match(/\@include(.*)\;/g) || null;
+            if ( includes && includes.length > ...

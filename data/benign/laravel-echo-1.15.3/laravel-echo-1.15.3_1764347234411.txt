@@ -1,0 +1,3 @@
+this.on('pusher:member_added', (member) => {
+            callback(member.info);
+        })

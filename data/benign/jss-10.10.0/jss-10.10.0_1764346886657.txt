@@ -1,0 +1,1 @@
+keyRegExp.test(key) ? new FontFaceRule(key, style, options) : null

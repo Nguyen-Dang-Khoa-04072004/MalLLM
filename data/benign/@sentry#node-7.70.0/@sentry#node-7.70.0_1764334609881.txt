@@ -1,0 +1,14 @@
+const shouldCreateSpan = (url) => {
+    if (shouldCreateSpanForRequest === undefined) {
+      return true;
+    }
+
+    const cachedDecision = createSpanUrlMap.get(url);
+    if (cachedDecision !== undefined) {
+      return cachedDecision;
+    }
+
+    const decision = shouldCreateSpanForRequest(url);
+    createSpanUrlMap.set(url, decision);
+    return decision;
+  }

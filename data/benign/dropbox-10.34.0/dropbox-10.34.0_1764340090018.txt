@@ -1,0 +1,1 @@
+this.request('sharing/update_file_member', arg, 'user', 'api', 'rpc', 'sharing.write')

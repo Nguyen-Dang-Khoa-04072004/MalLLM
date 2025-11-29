@@ -1,0 +1,2 @@
+const Canvas = require('./lib/canvas')
+process.stdout.write(main(query).toString())

@@ -1,0 +1,7 @@
+const locationProject = config.get('location') === 'project' || (
+      config.isDefault('location')
+      // this is different then `npm.global` which falls back to checking
+      // location which we do not want to use here
+      && !config.get('global')
+      && npm.localPackage
+    )

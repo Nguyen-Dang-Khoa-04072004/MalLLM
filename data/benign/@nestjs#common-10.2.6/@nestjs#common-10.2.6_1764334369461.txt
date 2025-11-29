@@ -1,0 +1,6 @@
+exports.ClassSerializerInterceptor = ClassSerializerInterceptor = tslib_1.__decorate([
+    (0, core_1.Injectable)(),
+    tslib_1.__param(0, (0, core_1.Inject)(REFLECTOR)),
+    tslib_1.__param(1, (0, core_1.Optional)()),
+    tslib_1.__metadata("design:paramtypes", [Object, Object])
+], ClassSerializerInterceptor)

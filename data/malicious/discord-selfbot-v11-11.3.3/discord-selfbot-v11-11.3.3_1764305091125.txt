@@ -1,0 +1,102 @@
+this._idletimeout = this.client.setTimeout(() => this.stop('idle'), options.idle)
+this.ws.client.emit('debug', 'Received gateway heartbeat')
+this.once('disconnect', () => reject(new Error(`Shard ${this.id}'s Client disconnected before becoming ready.`)))
+new Promise((resolve, reject) => {
+      if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+        throw new Error(`Voice websocket not open to send ${data}.`);
+      }
+      this.ws.send(data, null, error => {
+        if (error) reject(error); else resolve(data);
+      });
+    })
+setTimeout(() => reject(new Error(`Shard ${this.id}'s Client took too long to become ready.`)), 30000)
+this.client.setTimeout(
+              () => resolve(data),
+              this.requestResetTime - Date.now() + this.timeDifference + this.client.options.restTimeOffset
+            )
+(_tmp_14 = permissions
+      .remove(overwrites.everyone ? overwrites.everyone.deny : 0)
+      .add(overwrites.everyone ? overwrites.everyone.allow : 0)
+      .remove(overwrites.roles.length > 0 ? overwrites.roles.map(role => role.deny) : 0)
+      .add(overwrites.roles.length > 0 ? overwrites.roles.map(role => role.allow) : 0)
+      .remove(overwrites.member ? overwrites.member.deny : 0)
+      .add(overwrites.member ? overwrites.member.allow : 0)).freeze
+this.requestResetTime - Date.now() + this.timeDifference + this.client.options.restTimeOffset
+_iterator_1 = <operator>.iterator(guild.emojis.values())
+this.rest.makeRequest('post', Endpoints.guilds, true, options).then(data => {
+        if (this.client.guilds.has(data.id)) return resolve(this.client.guilds.get(data.id));
+
+        const handleGuild = guild => {
+          if (guild.id === data.id) {
+            this.client.removeListener(Constants.Events.GUILD_CREATE, handleGuild);
+            this.client.clearTimeout(timeout);
+            resolve(guild);
+          }
+        };
+        this.client.on(Constants.Events.GUILD_CREATE, handleGuild);
+
+        const timeout = this.client.setTimeout(() => {
+          this.client.removeListener(Constants.Events.GUILD_CREATE, handleGuild);
+          reject(new Error('Took too long to receive guild data.'));
+        }, 10000);
+        return undefined;
+      }, reject)
+MessageEmbed.Thumbnail = MessageEmbedThumbnail
+const timeout = this.client.setTimeout(() => {
+          this.client.removeListener(Constants.Events.GUILD_CREATE, handleGuild);
+          reject(new Error('Took too long to receive guild data.'));
+        }, 10000)
+new Promise((resolve, reject) => {
+      if (member._roles.includes(role.id)) return resolve(member);
+
+      const listener = (oldMember, newMember) => {
+        if (newMember.id === member.id && !oldMember._roles.includes(role.id) && newMember._roles.includes(role.id)) {
+          this.client.removeListener(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+          resolve(newMember);
+        }
+      };
+
+      this.client.on(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+      const timeout = this.client.setTimeout(() => {
+        this.client.removeListener(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+        reject(new Error('Adding the role timed out.'));
+      }, 10e3);
+
+      return this.rest.makeRequest('put', Endpoints.Member(member).Role(role.id), true, undefined, undefined, reason)
+        .catch(err => {
+          this.client.removeListener(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+          this.client.clearTimeout(timeout);
+          reject(err);
+        });...
+throw new TypeError('The retryLimit  options must be a number.');
+const timeout = this.client.setTimeout(() => {
+        this.client.removeListener(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+        reject(new Error('Adding the role timed out.'));
+      }, 10e3)
+new Promise((resolve, reject) => {
+      if (!member._roles.includes(role.id)) return resolve(member);
+
+      const listener = (oldMember, newMember) => {
+        if (newMember.id === member.id && oldMember._roles.includes(role.id) && !newMember._roles.includes(role.id)) {
+          this.client.removeListener(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+          resolve(newMember);
+        }
+      };
+
+      this.client.on(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+      const timeout = this.client.setTimeout(() => {
+        this.client.removeListener(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+        reject(new Error('Removing the role timed out.'));
+      }, 10e3);
+
+      return this.rest.makeRequest('delete', Endpoints.Member(member).Role(role.id), true, undefined, undefined, reason)
+        .catch(err => {
+          this.client.removeListener(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+          this.client.clearTimeout(timeout);
+          reject(err);
+     ...
+flags.remove(MessageFlags.FLAGS.SUPPRESS_EMBEDS)
+const timeout = this.client.setTimeout(() => {
+        this.client.removeListener(Constants.Events.GUILD_MEMBER_UPDATE, listener);
+        reject(new Error('Removing the role timed out.'));
+      }, 10e3)

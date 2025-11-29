@@ -1,0 +1,27 @@
+Action.fromList = function (names, directory, integrations, actions) {
+  var namedActions = names.map(function (n) {
+    return Action.fromName(n, directory, integrations, actions);
+  });
+  var outputSchema = { type: 'object', properties: {} };
+  namedActions.forEach(function (action) {
+    return outputSchema.properties[action.id] = {
+      type: 'object',
+      properties: {
+        error: {},
+        output: action.outputSchema || {}
+      }
+    };
+  });
+  var compositeAction = new Action({
+    inputSchema: (namedActions[0] || {}).inputSchema,
+    outputSchema: outputSchema,
+    handler: function handler(input, context) {
+      var outputs = {};
+      var ps = namedActions.map(function (action) {
+        return action.run(input, context).then(function (result) {
+          return outputs[action.id] = { output: result };
+        }, function (err) {
+          return outputs[action.id] = { error: err && err.message || err || "Unknown error" };
+        });
+      });
+      return Promi...

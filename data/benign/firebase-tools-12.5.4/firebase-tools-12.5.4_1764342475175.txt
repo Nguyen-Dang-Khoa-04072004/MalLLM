@@ -1,0 +1,425 @@
+function handlePreviewToggles = function handlePreviewToggles(args) {
+    const name = args[1];
+    const isValid = experiments.isValidExperiment(name);
+    if (args[0] === "--open-sesame") {
+        console.log(`${(0, colorette_1.bold)("firebase --open-sesame")} is deprecated and wil be removed in a future ` +
+            `version. Use the new "experiments" family of commands, including ${(0, colorette_1.bold)("firebase experiments:enable")}`);
+        if (isValid) {
+            console.log(`Enabling experiment ${(0, colorette_1.bold)(name)} ...`);
+            experiments.setEnabled(name, true);
+            experiments.flushToDisk();
+            console.log("Experiment enabled!");
+            return process.exit(0);
+        }
+        errorOut(name);
+    }
+    else if (args[0] === "--close-sesame") {
+        console.log(`${(0, colorette_1.bold)("firebase --open-sesame")} is deprecated and wil be removed in a future ` +
+            `version. Use the new "experiments" family of commands, including ${(0, colorette_1....
+function calculateChangesets = function calculateChangesets(want, have, keyFn, deleteAll) {
+    const toCreate = utils.groupBy(Object.keys(want)
+        .filter((id) => !have[id])
+        .map((id) => want[id]), keyFn);
+    const toDelete = utils.groupBy(Object.keys(have)
+        .filter((id) => !want[id])
+        .filter((id) => deleteAll || (0, deploymentTool_1.isFirebaseManaged)(have[id].labels || {}))
+        .map((id) => have[id]), keyFn);
+    const toSkipPredicate = (id) => !!(!want[id].targetedByOnly &&
+        have[id].hash &&
+        want[id].hash &&
+        want[id].hash === have[id].hash);
+    const toSkipEndpointsMap = Object.keys(want)
+        .filter((id) => have[id])
+        .filter((id) => toSkipPredicate(id))
+        .reduce((memo, id) => {
+        memo[id] = want[id];
+        return memo;
+    }, {});
+    const toSkip = utils.groupBy(Object.values(toSkipEndpointsMap), keyFn);
+    if (Object.keys(toSkip).length) {
+        utils.logLabeledBullet("functions", `Skipping the deploy of unchanged functi...
+function promptForFailurePolicies = async function promptForFailurePolicies(options, want, have) {
+    const retryEndpoints = backend.allEndpoints(want).filter((e) => {
+        return backend.isEventTriggered(e) && e.eventTrigger.retry;
+    });
+    if (retryEndpoints.length === 0) {
+        return;
+    }
+    const newRetryEndpoints = retryEndpoints.filter((endpoint) => {
+        var _a;
+        const existing = (_a = have.endpoints[endpoint.region]) === null || _a === void 0 ? void 0 : _a[endpoint.id];
+        return !(existing && backend.isEventTriggered(existing) && existing.eventTrigger.retry);
+    });
+    if (newRetryEndpoints.length === 0) {
+        return;
+    }
+    const warnMessage = "The following functions will newly be retried in case of failure: " +
+        clc.bold(newRetryEndpoints.sort(backend.compareFunctions).map(functionsDeployHelper_1.getFunctionLabel).join(", ")) +
+        ". " +
+        "Retried executions are billed as any other execution, and functions are retried repeatedly until they either su...
+function createFirebaseEndpoints = function createFirebaseEndpoints(emulator) {
+    const firebaseStorageAPI = (0, express_1.Router)();
+    const { storageLayer, uploadService } = emulator;
+    if (process.env.STORAGE_EMULATOR_DEBUG) {
+        firebaseStorageAPI.use((req, res, next) => {
+            console.log("--------------INCOMING FIREBASE REQUEST--------------");
+            console.log(`${req.method.toUpperCase()} ${req.path}`);
+            console.log("-- query:");
+            console.log(JSON.stringify(req.query, undefined, 2));
+            console.log("-- headers:");
+            console.log(JSON.stringify(req.headers, undefined, 2));
+            console.log("-- body:");
+            if (req.body instanceof Buffer) {
+                console.log(`Buffer of ${req.body.length}`);
+            }
+            else if (req.body) {
+                console.log(req.body);
+            }
+            else {
+                console.log("Empty body (could be stream)");
+            }
+            const resJson = res.json.bind(r...
+function getUnemulatedAPIs = async function getUnemulatedAPIs(projectId, instances) {
+    var _a;
+    const unemulatedAPIs = {};
+    for (const i of instances) {
+        const extensionSpec = await planner.getExtensionSpec(i);
+        for (const api of (_a = extensionSpec.apis) !== null && _a !== void 0 ? _a : []) {
+            if (!EMULATED_APIS.includes(api.apiName)) {
+                if (unemulatedAPIs[api.apiName]) {
+                    unemulatedAPIs[api.apiName].instanceIds.push(i.instanceId);
+                }
+                else {
+                    const enabled = !constants_1.Constants.isDemoProject(projectId) &&
+                        (await (0, ensureApiEnabled_1.check)(projectId, api.apiName, "extensions", true));
+                    unemulatedAPIs[api.apiName] = {
+                        apiName: api.apiName,
+                        instanceIds: [i.instanceId],
+                        enabled,
+                    };
+                }
+            }
+        }
+    }
+    return Object.values(unemul...
+function getFunctionsConfig = async function getFunctionsConfig(projectId) {
+    var _a, _b;
+    try {
+        return await functionsConfig.materializeAll(projectId);
+    }
+    catch (err) {
+        logger_1.logger.debug(err);
+        let errorCode = (_b = (_a = err === null || err === void 0 ? void 0 : err.context) === null || _a === void 0 ? void 0 : _a.response) === null || _b === void 0 ? void 0 : _b.statusCode;
+        if (!errorCode) {
+            logger_1.logger.debug("Got unexpected error from Runtime Config; it has no status code:", err);
+            errorCode = 500;
+        }
+        if (errorCode === 500 || errorCode === 503) {
+            throw new error_1.FirebaseError("Cloud Runtime Config is currently experiencing issues, " +
+                "which is preventing your functions from being deployed. " +
+                "Please wait a few minutes and then try to deploy your functions again." +
+                "\nRun `firebase deploy --except functions` if you want to continue deploying the rest of yo...
+function functionResourceToEmulatedTriggerDefintion = function functionResourceToEmulatedTriggerDefintion(resource, systemParams = {}) {
+    const resourceType = resource.type;
+    if (resource.type === types_2.FUNCTIONS_RESOURCE_TYPE) {
+        const etd = {
+            name: resource.name,
+            entryPoint: resource.name,
+            platform: "gcfv1",
+        };
+        proto.convertIfPresent(etd, systemParams, "regions", SUPPORTED_SYSTEM_PARAMS[types_2.FUNCTIONS_RESOURCE_TYPE].regions, (str) => [str]);
+        proto.convertIfPresent(etd, systemParams, "timeoutSeconds", SUPPORTED_SYSTEM_PARAMS[types_2.FUNCTIONS_RESOURCE_TYPE].timeoutSeconds, (d) => +d);
+        proto.convertIfPresent(etd, systemParams, "availableMemoryMb", SUPPORTED_SYSTEM_PARAMS[types_2.FUNCTIONS_RESOURCE_TYPE].availableMemoryMb, (d) => +d);
+        proto.convertIfPresent(etd, systemParams, "labels", SUPPORTED_SYSTEM_PARAMS[types_2.FUNCTIONS_RESOURCE_TYPE].labels, (str) => {
+            const ret = {};
+            for (const [key, value] of str.split(",").map...
+function logPostAppCreationInformation = function logPostAppCreationInformation(appMetadata, appPlatform) {
+    logger_1.logger.info("");
+    logger_1.logger.info(`🎉🎉🎉 Your Firebase ${appPlatform} App is ready! 🎉🎉🎉`);
+    logger_1.logger.info("");
+    logger_1.logger.info("App information:");
+    logger_1.logger.info(`  - App ID: ${appMetadata.appId}`);
+    if (appMetadata.displayName) {
+        logger_1.logger.info(`  - Display name: ${appMetadata.displayName}`);
+    }
+    if (appPlatform === apps_1.AppPlatform.IOS) {
+        const iosAppMetadata = appMetadata;
+        logger_1.logger.info(`  - Bundle ID: ${iosAppMetadata.bundleId}`);
+        if (iosAppMetadata.appStoreId) {
+            logger_1.logger.info(`  - App Store ID: ${iosAppMetadata.appStoreId}`);
+        }
+    }
+    else if (appPlatform === apps_1.AppPlatform.ANDROID) {
+        logger_1.logger.info(`  - Package name: ${appMetadata.packageName}`);
+    }
+    logger_1.logger.info("");
+    logger_1.logger.info("You can run this command to print out your new a...
+const registerTriggerHandler = (req, res) => {
+            const projectId = req.params.project_id;
+            const triggerName = req.params.trigger_name;
+            if (!projectId || !triggerName) {
+                const error = "Missing project ID or trigger name.";
+                this.logger.log("ERROR", error);
+                res.status(400).send({ error });
+                return;
+            }
+            const bodyString = req.rawBody.toString();
+            const substituted = bodyString.replaceAll("${PROJECT_ID}", projectId);
+            const body = JSON.parse(substituted);
+            const eventTrigger = body.eventTrigger;
+            if (!eventTrigger) {
+                const error = `Missing event trigger for ${triggerName}.`;
+                this.logger.log("ERROR", error);
+                res.status(400).send({ error });
+                return;
+            }
+            const key = `${eventTrigger.eventType}-${eventTrigger.channel}`;
+            this.logger.logLabeled...
+function doSetup = async function doSetup(setup) {
+    var _a, _b;
+    const projectId = (_b = (_a = setup === null || setup === void 0 ? void 0 : setup.rcfile) === null || _a === void 0 ? void 0 : _a.projects) === null || _b === void 0 ? void 0 : _b.default;
+    setup.frameworks = {};
+    utils.logBullet("First we need a few details to create your service.");
+    await (0, prompt_1.promptOnce)({
+        name: "serviceName",
+        type: "input",
+        default: "acme-inc-web",
+        message: "Create a name for your service [1-30 characters]",
+    }, setup.frameworks);
+    await (0, prompt_1.promptOnce)({
+        name: "region",
+        type: "list",
+        default: constants_1.DEFAULT_REGION,
+        message: "Please select a region " +
+            `(${clc.yellow("info")}: Your region determines where your backend is located):\n`,
+        choices: constants_1.ALLOWED_REGIONS,
+    }, setup.frameworks);
+    utils.logSuccess(`Region set to ${setup.frameworks.region}.`);
+    logger_1.logger.info(clc...
+exports.command = new command_1.Command("appdistribution:distribute <release-binary-file>")
+    .description("upload a release binary")
+    .option("--app <app_id>", "the app id of your Firebase app")
+    .option("--release-notes <string>", "release notes to include")
+    .option("--release-notes-file <file>", "path to file with release notes")
+    .option("--testers <string>", "a comma separated list of tester emails to distribute to")
+    .option("--testers-file <file>", "path to file with a comma separated list of tester emails to distribute to")
+    .option("--groups <string>", "a comma separated list of group aliases to distribute to")
+    .option("--groups-file <file>", "path to file with a comma separated list of group aliases to distribute to")
+    .before(requireAuth_1.requireAuth)
+    .action(async (file, options) => {
+    const appName = (0, options_parser_util_1.getAppName)(options);
+    const distribution = new distribution_1.Distribution(file);
+    const releaseNotes =...
+function displayWarningsForDeploy = async function displayWarningsForDeploy(instancesToCreate) {
+    const uploadedExtensionInstances = instancesToCreate.filter((i) => i.ref);
+    for (const i of uploadedExtensionInstances) {
+        await (0, planner_1.getExtensionVersion)(i);
+    }
+    const unpublishedExtensions = uploadedExtensionInstances.filter((i) => { var _a, _b; return ((_b = (_a = i.extensionVersion) === null || _a === void 0 ? void 0 : _a.listing) === null || _b === void 0 ? void 0 : _b.state) !== "APPROVED"; });
+    if (unpublishedExtensions.length) {
+        const humanReadableList = unpublishedExtensions.map(toListEntry).join("\n");
+        utils.logLabeledBullet(extensionsHelper_1.logPrefix, (0, marked_1.marked)(`The following extension versions have not been published to the Firebase Extensions Hub:\n${humanReadableList}\n.` +
+            "Unpublished extensions have not been reviewed by " +
+            "Firebase. Please make sure you trust the extension publisher before installing this extension.", { ...
+function validateKey = function validateKey(key) {
+    if (RESERVED_KEYS.includes(key)) {
+        throw new KeyValidationError(key, `Key ${key} is reserved for internal use.`);
+    }
+    if (!/^[A-Z_][A-Z0-9_]*$/.test(key)) {
+        throw new KeyValidationError(key, `Key ${key} must start with an uppercase ASCII letter or underscore` +
+            ", and then consist of uppercase ASCII letters, digits, and underscores.");
+    }
+    if (RESERVED_PREFIXES.some((prefix) => key.startsWith(prefix))) {
+        throw new KeyValidationError(key, `Key ${key} starts with a reserved prefix (${RESERVED_PREFIXES.join(" ")})`);
+    }
+}
+(0, projects_1.listFirebaseProjects)().then((projects) => {
+            const results = {};
+            return (0, prompt_1.prompt)(results, [
+                {
+                    type: "list",
+                    name: "project",
+                    message: "Which project do you want to add?",
+                    choices: projects.map((p) => p.projectId).sort(),
+                },
+                {
+                    type: "input",
+                    name: "alias",
+                    message: "What alias do you want to use for this project? (e.g. staging)",
+                    validate: (input) => {
+                        return input && input.length > 0;
+                    },
+                },
+            ]).then(() => {
+                options.rc.addProjectAlias(results.alias, results.project);
+                utils.makeActiveProject(options.projectRoot, results.alias);
+                logger_1.logger.info();
+                logger_1.logger.info("Created alias", clc.bold(...
+function buildCloudMonitoringLink = async function buildCloudMonitoringLink(args) {
+    const pageState = {
+        xyChart: {
+            dataSets: [
+                {
+                    timeSeriesFilter: {
+                        filter: `metric.type="firebaseextensions.googleapis.com/extension/version/active_instances"` +
+                            ` resource.type="firebaseextensions.googleapis.com/ExtensionVersion"` +
+                            ` resource.label.extension="${args.extensionName}"`,
+                        minAlignmentPeriod: "86400s",
+                        aggregations: [
+                            {
+                                perSeriesAligner: "ALIGN_MEAN",
+                                crossSeriesReducer: "REDUCE_MAX",
+                                alignmentPeriod: "86400s",
+                                groupByFields: ['resource.label."extension"', 'resource.label."version"'],
+                            },
+                            {
+                                crossSeries...
+function resolveDeveloperNodeModule = async function resolveDeveloperNodeModule(name) {
+    const pkg = requirePackageJson();
+    if (!pkg) {
+        new types_1.EmulatorLog("SYSTEM", "missing-package-json", "").log();
+        throw new Error("Could not find package.json");
+    }
+    const dependencies = pkg.dependencies;
+    const devDependencies = pkg.devDependencies;
+    const isInPackageJSON = dependencies[name] || devDependencies[name];
+    if (!isInPackageJSON) {
+        return { declared: false, installed: false };
+    }
+    const resolveResult = await requireResolveAsync(name, { paths: [process.cwd()] }).catch(noOp);
+    if (!resolveResult) {
+        return { declared: true, installed: false };
+    }
+    const modPackageJSON = require(path.join((0, functionsEmulatorShared_1.findModuleRoot)(name, resolveResult), "package.json"));
+    const moduleResolution = {
+        declared: true,
+        installed: true,
+        version: modPackageJSON.version,
+        resolution: resolveResult,
+    };
+    logDebug(`Resolved ...
+_tmp_3.timeSeriesFilter = {
+                        filter: `metric.type="firebaseextensions.googleapis.com/extension/version/active_instances"` +
+                            ` resource.type="firebaseextensions.googleapis.com/ExtensionVersion"` +
+                            ` resource.label.extension="${args.extensionName}"`,
+                        minAlignmentPeriod: "86400s",
+                        aggregations: [
+                            {
+                                perSeriesAligner: "ALIGN_MEAN",
+                                crossSeriesReducer: "REDUCE_MAX",
+                                alignmentPeriod: "86400s",
+                                groupByFields: ['resource.label."extension"', 'resource.label."version"'],
+                            },
+                            {
+                                crossSeriesReducer: "REDUCE_NONE",
+                                alignmentPeriod: "60s",
+                                groupByFields: [],
+                            },
+         ...
+function selectProjectFromList = async function selectProjectFromList(projects = []) {
+    const choices = projects
+        .filter((p) => !!p)
+        .map((p) => {
+        return {
+            name: p.projectId + (p.displayName ? ` (${p.displayName})` : ""),
+            value: p.projectId,
+        };
+    })
+        .sort((a, b) => a.name.localeCompare(b.name));
+    if (choices.length >= 25) {
+        utils.logBullet(`Don't want to scroll through all your projects? If you know your project ID, ` +
+            `you can initialize it directly using ${clc.bold("firebase init --project <project_id>")}.\n`);
+    }
+    const projectId = await (0, prompt_1.promptOnce)({
+        type: "list",
+        name: "id",
+        message: "Select a default Firebase project for this directory:",
+        choices,
+    });
+    const project = projects.find((p) => p.projectId === projectId);
+    if (!project) {
+        throw new error_1.FirebaseError("Unexpected error. Project does not exist");
+    }
+    return project;
+}
+function printIamErrors = function printIamErrors(results) {
+    const iamFailures = results.filter((r) => r.error instanceof DeploymentError && r.error.op === "set invoker");
+    if (!iamFailures.length) {
+        return;
+    }
+    logger_1.logger.info("");
+    logger_1.logger.info("Unable to set the invoker for the IAM policy on the following functions:" +
+        iamFailures.map((result) => `\n\t${(0, functionsDeployHelper_1.getFunctionLabel)(result.endpoint)}`).join(""));
+    logger_1.logger.info("");
+    logger_1.logger.info("Some common causes of this:");
+    logger_1.logger.info("");
+    logger_1.logger.info("- You may not have the roles/functions.admin IAM role. Note that " +
+        "roles/functions.developer does not allow you to change IAM policies.");
+    logger_1.logger.info("");
+    logger_1.logger.info("- An organization policy that restricts Network Access on your project.");
+    const hadImplicitMakePublic = iamFailures.find((r) => backend.isHttpsTriggered(r.endpoint) && !r.endpoint.httpsTri...
+function configureInstance = async function configureInstance(args) {
+    var _a;
+    const reqBody = {
+        projectId: args.projectId,
+        instanceId: args.instanceId,
+        updateMask: "config.params",
+        validateOnly: (_a = args.validateOnly) !== null && _a !== void 0 ? _a : false,
+        data: {
+            config: {
+                params: args.params,
+            },
+        },
+    };
+    if (args.canEmitEvents) {
+        if (args.allowedEventTypes === undefined || args.eventarcChannel === undefined) {
+            throw new error_1.FirebaseError(`This instance is configured to emit events, but either allowed event types or eventarc channel is undefined.`);
+        }
+        reqBody.data.config.allowedEventTypes = args.allowedEventTypes;
+        reqBody.data.config.eventarcChannel = args.eventarcChannel;
+    }
+    reqBody.updateMask += ",config.allowed_event_types,config.eventarc_channel";
+    if (args.systemParams) {
+        reqBody.data.config.systemParams = args.systemParams;
+        reqBo...
+function jobFromEndpoint = function jobFromEndpoint(endpoint, location, projectNumber) {
+    const job = {};
+    job.name = jobNameForEndpoint(endpoint, location);
+    if (endpoint.platform === "gcfv1") {
+        job.timeZone = endpoint.scheduleTrigger.timeZone || DEFAULT_TIME_ZONE_V1;
+        job.pubsubTarget = {
+            topicName: topicNameForEndpoint(endpoint),
+            attributes: {
+                scheduled: "true",
+            },
+        };
+    }
+    else if (endpoint.platform === "gcfv2") {
+        job.timeZone = endpoint.scheduleTrigger.timeZone || DEFAULT_TIME_ZONE_V2;
+        job.httpTarget = {
+            uri: endpoint.uri,
+            httpMethod: "POST",
+            oidcToken: {
+                serviceAccountEmail: (0, checkIam_1.getDefaultComputeServiceAgent)(projectNumber),
+            },
+        };
+    }
+    else {
+        (0, functional_1.assertExhaustive)(endpoint.platform);
+    }
+    if (!endpoint.scheduleTrigger.schedule) {
+        throw new error_1.FirebaseError("Cannot create a sch...
+function substituteParams = function substituteParams(original, params) {
+    const startingString = JSON.stringify(original);
+    const applySubstitution = (str, paramVal, paramKey) => {
+        const exp1 = new RegExp("\\$\\{" + paramKey + "\\}", "g");
+        const exp2 = new RegExp("\\$\\{param:" + paramKey + "\\}", "g");
+        const regexes = [exp1, exp2];
+        const substituteRegexMatches = (unsubstituted, regex) => {
+            return unsubstituted.replace(regex, paramVal);
+        };
+        return regexes.reduce(substituteRegexMatches, str);
+    };
+    const s = Object.entries(params).reduce((str, [key, val]) => applySubstitution(str, val, key), startingString);
+    return JSON.parse(s);
+}

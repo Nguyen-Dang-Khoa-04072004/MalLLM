@@ -1,0 +1,1 @@
+GitHub = package/lib/plugin/github/GitHub.js::program:GitHub:<init>

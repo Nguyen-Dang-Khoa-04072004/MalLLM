@@ -1,0 +1,1 @@
+let trees: RangeTreeWithParent[] | undefined = startToTrees.get(child.start)

@@ -1,0 +1,4 @@
+setIfDefined(argt, 'x-dead-letter-routing-key',
+               options.deadLetterRoutingKey)
+var clientProperties = Object.create(CLIENT_PROPERTIES)
+setIfDefined(argt, 'x-max-length', options.maxLength)

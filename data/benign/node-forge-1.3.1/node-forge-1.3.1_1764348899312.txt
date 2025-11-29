@@ -1,0 +1,12 @@
+params = {
+      hash: {
+        algorithmOid: oids['sha1']
+      },
+      mgf: {
+        algorithmOid: oids['mgf1'],
+        hash: {
+          algorithmOid: oids['sha1']
+        }
+      },
+      saltLength: 20
+    }

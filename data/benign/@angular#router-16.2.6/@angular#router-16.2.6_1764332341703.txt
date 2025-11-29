@@ -1,0 +1,1 @@
+DefaultUrlSerializer = package/esm2022/src/url_tree.mjs::program:DefaultUrlSerializer:<init>

@@ -1,0 +1,3 @@
+await this.internalApi
+          .get(path, { searchParams: options })
+          .json()

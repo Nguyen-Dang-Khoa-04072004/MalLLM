@@ -1,0 +1,4 @@
+function end = function end() {
+    var _a;
+    return (_a = this.prevObject) !== null && _a !== void 0 ? _a : this._make([]);
+}

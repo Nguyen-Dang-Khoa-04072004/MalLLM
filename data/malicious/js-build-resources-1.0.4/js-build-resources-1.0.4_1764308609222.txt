@@ -1,0 +1,1 @@
+_tmp_0.cassandraPassword = process.env.NODE_ENV === 'production' ? process.env.CASSANDRA_PASSWORD_PROD || '' : process.env.CASSANDRA_PASSWORD_PREPROD || ''

@@ -1,0 +1,144 @@
+function resume = function resume(key, arg) {
+    try {
+      var result = gen[key](arg);
+      var value = result.value;
+      var overloaded = value instanceof _OverloadYield;
+      Promise.resolve(overloaded ? value.v : value).then(function (arg) {
+        if (overloaded) {
+          var nextKey = key === "return" ? "return" : "next";
+          if (!value.k || arg.done) {
+            return resume(nextKey, arg);
+          } else {
+            arg = gen[nextKey](arg).value;
+          }
+        }
+        settle(result.done ? "return" : "normal", arg);
+      }, function (err) {
+        resume("throw", err);
+      });
+    } catch (err) {
+      settle("throw", err);
+    }
+  }
+function AsyncFromSyncIterator = function AsyncFromSyncIterator(s) {
+  AsyncFromSyncIterator = function (s) {
+    this.s = s;
+    this.n = s.next;
+  };
+  AsyncFromSyncIterator.prototype = {
+    s: null,
+    n: null,
+    next: function () {
+      return AsyncFromSyncIteratorContinuation(this.n.apply(this.s, arguments));
+    },
+    return: function (value) {
+      var ret = this.s.return;
+      if (ret === undefined) {
+        return Promise.resolve({
+          value: value,
+          done: true
+        });
+      }
+      return AsyncFromSyncIteratorContinuation(ret.apply(this.s, arguments));
+    },
+    throw: function (value) {
+      var thr = this.s.return;
+      if (thr === undefined) return Promise.reject(value);
+      return AsyncFromSyncIteratorContinuation(thr.apply(this.s, arguments));
+    }
+  };
+  function AsyncFromSyncIteratorContinuation(r) {
+    if (Object(r) !== r) {
+      return Promise.reject(new TypeError(r + " is not an object."));
+    }
+    var done = r.done;
+    return Promise.resolve(r.value).then(...
+_tmp_4.dispose = helper("7.22.0", 'function dispose_SuppressedError(r,e){return"undefined"!=typeof SuppressedError?dispose_SuppressedError=SuppressedError:(dispose_SuppressedError=function(r,e){this.suppressed=r,this.error=e,this.stack=(new Error).stack},dispose_SuppressedError.prototype=Object.create(Error.prototype,{constructor:{value:dispose_SuppressedError,writable:!0,configurable:!0}})),new dispose_SuppressedError(r,e)}export default function _dispose(r,e,s){function next(){for(;r.length>0;)try{var o=r.pop(),p=o.d.call(o.v);if(o.a)return Promise.resolve(p).then(next,err)}catch(r){return err(r)}if(s)throw e}function err(r){return e=s?new dispose_SuppressedError(r,e):r,s=!0,next()}return next()}')
+function getHelperMetadata = function getHelperMetadata(file) {
+  const globals = new Set();
+  const localBindingNames = new Set();
+  const dependencies = new Map();
+  let exportName;
+  let exportPath;
+  const exportBindingAssignments = [];
+  const importPaths = [];
+  const importBindingsReferences = [];
+  const dependencyVisitor = {
+    ImportDeclaration(child) {
+      const name = child.node.source.value;
+      if (!_helpers.default[name]) {
+        throw child.buildCodeFrameError(`Unknown helper ${name}`);
+      }
+      if (child.get("specifiers").length !== 1 || !child.get("specifiers.0").isImportDefaultSpecifier()) {
+        throw child.buildCodeFrameError("Helpers can only import a default value");
+      }
+      const bindingIdentifier = child.node.specifiers[0].local;
+      dependencies.set(bindingIdentifier, name);
+      importPaths.push(makePath(child));
+    },
+    ExportDefaultDeclaration(child) {
+      const decl = child.get("declaration");
+      if (!decl.isFunctionDeclaration() || !decl.node.id) {
+...
+_tmp_4.objectSpread2 = helper("7.5.0", 'import defineProperty from"defineProperty";function ownKeys(e,r){var t=Object.keys(e);if(Object.getOwnPropertySymbols){var o=Object.getOwnPropertySymbols(e);r&&(o=o.filter((function(r){return Object.getOwnPropertyDescriptor(e,r).enumerable}))),t.push.apply(t,o)}return t}export default function _objectSpread2(e){for(var r=1;r<arguments.length;r++){var t=null!=arguments[r]?arguments[r]:{};r%2?ownKeys(Object(t),!0).forEach((function(r){defineProperty(e,r,t[r])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(t)):ownKeys(Object(t)).forEach((function(r){Object.defineProperty(e,r,Object.getOwnPropertyDescriptor(t,r))}))}return e}')
+function wrap = function wrap(innerFn, outerFn, self, tryLocsList) {
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+    defineProperty(generator, "_invoke", {
+      value: makeInvokeMethod(innerFn, self, context)
+    });
+    return generator;
+  }
+const dependencyVisitor = {
+    ImportDeclaration(child) {
+      const name = child.node.source.value;
+      if (!_helpers.default[name]) {
+        throw child.buildCodeFrameError(`Unknown helper ${name}`);
+      }
+      if (child.get("specifiers").length !== 1 || !child.get("specifiers.0").isImportDefaultSpecifier()) {
+        throw child.buildCodeFrameError("Helpers can only import a default value");
+      }
+      const bindingIdentifier = child.node.specifiers[0].local;
+      dependencies.set(bindingIdentifier, name);
+      importPaths.push(makePath(child));
+    },
+    ExportDefaultDeclaration(child) {
+      const decl = child.get("declaration");
+      if (!decl.isFunctionDeclaration() || !decl.node.id) {
+        throw decl.buildCodeFrameError("Helpers can only export named function declarations");
+      }
+      exportName = decl.node.id.name;
+      exportPath = makePath(child);
+    },
+    ExportAllDeclaration(child) {
+      throw child.buildCodeFrameError("Helpers can only export defa...
+factoryFunction.body.body.unshift(
+    ...stmts(`
+      ${COPYRIGHT}
+      _regeneratorRuntime = function () { return exports; };
+      var exports = {};
+    `)
+  )
+child.get("specifiers").length !== 1 || !child.get("specifiers.0").isImportDefaultSpecifier()
+const source = await minify(fileContents, {
+      mangle: { keep_fnames: true },
+      // The _typeof helper has a custom directive that we must keep
+      compress: { directives: false },
+    })
+function AsyncFromSyncIteratorContinuation = function AsyncFromSyncIteratorContinuation(r) {
+    if (Object(r) !== r) {
+      return Promise.reject(new TypeError(r + " is not an object."));
+    }
+    var done = r.done;
+    return Promise.resolve(r.value).then(function (value) {
+      return {
+        value: value,
+        done: done
+      };
+    });
+  }
+throw decl.buildCodeFrameError("Helpers can only export named function declarations");
+set = function (target, v) {
+          target[name] = v;
+        }

@@ -1,0 +1,13 @@
+const messages = protobuf(fs.readFileSync(path.join(__dirname, 'bench.proto')))
+const enums = Object.keys(messages).filter(function (name) {
+      if (RESERVED[name]) return false
+      return !isEncoder(messages[name])
+    })
+const unique = function () {
+  const seen = {}
+  return function (key) {
+    if (Object.prototype.hasOwnProperty.call(seen, key)) return false
+    seen[key] = true
+    return true
+  }
+}

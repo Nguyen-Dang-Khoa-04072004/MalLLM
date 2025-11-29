@@ -1,0 +1,5 @@
+options = common.mixin(
+    {},
+    app.options['resourceful'],
+    app.config.get('resourceful') || app.config.get('database') || {}
+  )

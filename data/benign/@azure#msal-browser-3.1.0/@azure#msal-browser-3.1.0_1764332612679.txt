@@ -1,0 +1,6 @@
+encodeURIComponent(
+        base64Encode(input)
+            .replace(/=/g, "")
+            .replace(/\+/g, "-")
+            .replace(/\//g, "_")
+    )

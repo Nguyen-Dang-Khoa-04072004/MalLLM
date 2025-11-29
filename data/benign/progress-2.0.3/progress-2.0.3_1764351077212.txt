@@ -1,0 +1,10 @@
+availableSpace && process.platform === 'win32'
+availableSpace = availableSpace - 1
+var width = Math.min(this.width, availableSpace)
+completeLength = Math.round(width * ratio)
+complete = Array(Math.max(0, completeLength + 1)).join(this.chars.complete)
+complete = complete.slice(0, -1) + this.chars.head
+str = str.replace(':bar', complete + incomplete)
+_iterator_0 = <operator>.iterator(this.tokens)
+this.lastDraw !== str
+(_tmp_19 = this.stream).write

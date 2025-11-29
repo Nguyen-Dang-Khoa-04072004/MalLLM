@@ -1,0 +1,106 @@
+new ApolloLink(function (operation) {
+        var chosenURI = selectURI(operation, uri);
+        var context = operation.getContext();
+        var clientAwarenessHeaders = {};
+        if (context.clientAwareness) {
+            var _a = context.clientAwareness, name_1 = _a.name, version = _a.version;
+            if (name_1) {
+                clientAwarenessHeaders['apollographql-client-name'] = name_1;
+            }
+            if (version) {
+                clientAwarenessHeaders['apollographql-client-version'] = version;
+            }
+        }
+        var contextHeaders = __assign({}, clientAwarenessHeaders, context.headers);
+        var contextConfig = {
+            http: context.http,
+            options: context.fetchOptions,
+            credentials: context.credentials,
+            headers: contextHeaders,
+        };
+        var _b = selectHttpOptionsAndBody(operation, fallbackHttpConfig, linkConfig, contextConfig), options = _b.options, body = _b.body;
+        var controller;...
+new apollo_link_1.ApolloLink(function (operation) {
+        var chosenURI = apollo_link_http_common_1.selectURI(operation, uri);
+        var context = operation.getContext();
+        var clientAwarenessHeaders = {};
+        if (context.clientAwareness) {
+            var _a = context.clientAwareness, name_1 = _a.name, version = _a.version;
+            if (name_1) {
+                clientAwarenessHeaders['apollographql-client-name'] = name_1;
+            }
+            if (version) {
+                clientAwarenessHeaders['apollographql-client-version'] = version;
+            }
+        }
+        var contextHeaders = tslib_1.__assign({}, clientAwarenessHeaders, context.headers);
+        var contextConfig = {
+            http: context.http,
+            options: context.fetchOptions,
+            credentials: context.credentials,
+            headers: contextHeaders,
+        };
+        var _b = apollo_link_http_common_1.selectHttpOptionsAndBody(operation, apollo_link_http_common_1.fallbackH...
+new apolloLink.ApolloLink(function (operation) {
+          var chosenURI = apolloLinkHttpCommon.selectURI(operation, uri);
+          var context = operation.getContext();
+          var clientAwarenessHeaders = {};
+          if (context.clientAwareness) {
+              var _a = context.clientAwareness, name_1 = _a.name, version = _a.version;
+              if (name_1) {
+                  clientAwarenessHeaders['apollographql-client-name'] = name_1;
+              }
+              if (version) {
+                  clientAwarenessHeaders['apollographql-client-version'] = version;
+              }
+          }
+          var contextHeaders = tslib_1.__assign({}, clientAwarenessHeaders, context.headers);
+          var contextConfig = {
+              http: context.http,
+              options: context.fetchOptions,
+              credentials: context.credentials,
+              headers: contextHeaders,
+          };
+          var _b = apolloLinkHttpCommon.selectHttpOptionsAndBody(operation, apolloLi...
+var chosenURI = apolloLinkHttpCommon.selectURI(operation, uri)
+var _a = context.clientAwareness
+var _a = context.clientAwareness
+clientAwarenessHeaders['apollographql-client-name'] = name_1
+clientAwarenessHeaders['apollographql-client-name'] = name_1
+clientAwarenessHeaders['apollographql-client-version'] = version
+clientAwarenessHeaders['apollographql-client-version'] = version
+clientAwarenessHeaders['apollographql-client-version'] = version
+var contextHeaders = __assign({}, clientAwarenessHeaders, context.headers)
+var contextConfig = {
+            http: context.http,
+            options: context.fetchOptions,
+            credentials: context.credentials,
+            headers: contextHeaders,
+        }
+var contextConfig = {
+            http: context.http,
+            options: context.fetchOptions,
+            credentials: context.credentials,
+            headers: contextHeaders,
+        }
+var contextConfig = {
+              http: context.http,
+              options: context.fetchOptions,
+              credentials: context.credentials,
+              headers: contextHeaders,
+          }
+_tmp_11.credentials = context.credentials
+_tmp_13.credentials = context.credentials
+var _b = selectHttpOptionsAndBody(operation, fallbackHttpConfig, linkConfig, contextConfig)
+var _b = apollo_link_http_common_1.selectHttpOptionsAndBody(operation, apollo_link_http_common_1.fallbackHttpConfig, linkConfig, contextConfig)
+var _b = apolloLinkHttpCommon.selectHttpOptionsAndBody(operation, apolloLinkHttpCommon.fallbackHttpConfig, linkConfig, contextConfig)
+var _d = rewriteURIForGET(chosenURI, body)
+var _d = rewriteURIForGET(chosenURI, body)
+var _d = rewriteURIForGET(chosenURI, body)
+apollo_link_1.fromError(parseError)
+apolloLink.fromError(parseError)
+options.body = serializeFetchParameter(body, 'Payload')
+fromError(parseError)
+controller.abort()
+controller.abort()
+controller.abort()

@@ -1,0 +1,6 @@
+this.#child.stdout.on('data', (buffer) => {
+            for (const line of buffer.toString('utf8').split('\n')) {
+                if (line)
+                    workerLogger.debug(`(stdout) ${line}`);
+            }
+        })

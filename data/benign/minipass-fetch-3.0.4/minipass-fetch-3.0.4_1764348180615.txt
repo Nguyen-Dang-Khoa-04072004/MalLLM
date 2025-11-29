@@ -1,0 +1,63 @@
+_tmp_17.parsedURL = parsedURL
+req.once('socket', socket => {
+        reqTimeout = setTimeout(() => {
+          reject(new FetchError(`network timeout at: ${
+            request.url}`, 'request-timeout'))
+          finalize()
+        }, request.timeout)
+      })
+req.on('error', er => {
+      // if a 'response' event is emitted before the 'error' event, then by the
+      // time this handler is run it's too late to reject the Promise for the
+      // response. instead, we forward the error event to the response stream
+      // so that the error will surface to the user when they try to consume
+      // the body. this is done as a side effect of aborting the request except
+      // for in windows, where we must forward the event manually, otherwise
+      // there is no longer a ref'd socket attached to the request and the
+      // stream never ends so the event loop runs out of work and the process
+      // exits without warning.
+      // coverage skipped here due to the difficulty in testing
+      // istanbul ignore next
+      if (req.res) {
+        req.res.emit('error', er)
+      }
+      reject(new FetchError(`request to ${request.url} failed, reason: ${
+        er.message}`, 'system', er))
+      finalize()
+    })
+!(upstream instanceof MinipassSized)
+req.on('response', res => {
+      clearTimeout(reqTimeout)
+
+      const headers = createHeadersLenient(res.headers)
+
+      // HTTP fetch step 5
+      if (fetch.isRedirect(res.statusCode)) {
+        // HTTP fetch step 5.2
+        const location = headers.get('Location')
+
+        // HTTP fetch step 5.3
+        let locationURL = null
+        try {
+          locationURL = location === null ? null : new URL(location, request.url).toString()
+        } catch {
+          // error here can only be invalid URL in Location: header
+          // do not throw when options.redirect == manual
+          // let the user extract the errorneous redirect URL
+          if (request.redirect !== 'manual') {
+            /* eslint-disable-next-line max-len */
+            reject(new FetchError(`uri requested responds with an invalid redirect URL: ${location}`, 'invalid-redirect'))
+            finalize()
+            return
+          }
+        }
+
+        // HTTP fetch step 5.5
+        if (request.redirect === '...
+stream.emit('error', new FetchError(
+        `Response timeout while trying to fetch ${
+          this.url} (over ${this.timeout}ms)`, 'body-timeout'))
+const headers = createHeadersLenient(res.headers)
+res.once('end', () =>
+        signal && signal.removeEventListener('abort', abortAndFinalize))
+res.on('error', /* istanbul ignore next */ er => body.emit('error', er))

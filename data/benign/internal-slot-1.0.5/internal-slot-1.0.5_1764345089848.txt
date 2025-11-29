@@ -1,0 +1,1 @@
+var slots = channel.get(O)

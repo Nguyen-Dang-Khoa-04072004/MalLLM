@@ -1,0 +1,7 @@
+const elements = paramPath.get("elements")
+replaceRestElement(parentPath, elements[i], container)
+parentPath.ensureBlock()
+parentPath.get("body").unshiftContainer("body", declar)
+const declaration = path.get("declaration")
+!declaration.isVariableDeclaration()
+const hasRest = declaration.get("declarations").some(path => hasObjectPatternRestElement(path.get("id")))

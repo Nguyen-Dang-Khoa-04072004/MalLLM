@@ -1,0 +1,10 @@
+fetch(_.formatUrl(options), {
+    method: 'GET',
+    headers: headers
+  })
+  .then(function(resp) {
+    _handleResponse(resp, callback);
+  })
+  .catch(function(err) {
+    callback(err);
+  })

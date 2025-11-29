@@ -1,0 +1,23 @@
+var onAgentResponse = function(res) {
+
+                    var data = '', err = false;
+
+                    res.on('data', function (chunk) {
+                        data += chunk;
+                    });
+                    res.on('error', function (error) {
+                        err = 'Failed to get mail content';
+                        if (error && typeof(error.stack) != 'undefined' ) {
+                            err += error.stack;
+                        } else if ( typeof(error) == 'string' ) {
+                            err += '\n' + error;
+                        }
+                    });
+                    res.on('end', function () {
+                        if (/^\{/.test(data) ) {
+                            try {
+                                data = JSON.parse(data);
+                                if (typeof(data.error) != 'undefined') {
+                                    err = JSON.clone(data);
+                                    data = null;
+                      ...

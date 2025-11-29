@@ -1,0 +1,1 @@
+readRanges(type.reserved || (type.reserved = []), true)

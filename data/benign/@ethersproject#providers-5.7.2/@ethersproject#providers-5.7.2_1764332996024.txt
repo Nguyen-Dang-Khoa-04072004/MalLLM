@@ -1,0 +1,1635 @@
+const request = {
+            method: method,
+            params: params,
+            id: (_nextId++),
+            jsonrpc: "2.0"
+        }
+this.emit("debug", {
+                action: "request",
+                fetcher,
+                request: deepCopy(request),
+                provider: this
+            })
+function getTransactionPostData = function getTransactionPostData(transaction) {
+    const result = {};
+    for (let key in transaction) {
+        if (transaction[key] == null) {
+            continue;
+        }
+        let value = transaction[key];
+        if (key === "type" && value === 0) {
+            continue;
+        }
+        // Quantity-types require no leading zero, unless 0
+        if ({ type: true, gasLimit: true, gasPrice: true, maxFeePerGs: true, maxPriorityFeePerGas: true, nonce: true, value: true }[key]) {
+            value = hexValue(hexlify(value));
+        }
+        else if (key === "accessList") {
+            value = "[" + accessListify(value).map((set) => {
+                return `{address:"${set.address}",storageKeys:["${set.storageKeys.join('","')}"]}`;
+            }).join(",") + "]";
+        }
+        else {
+            value = hexlify(value);
+        }
+        result[key] = value;
+    }
+    return result;
+}
+var PocketProvider = /** @class */ (function (_super) {
+    __extends(PocketProvider, _super);
+    function PocketProvider() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    PocketProvider.getApiKey = function (apiKey) {
+        var apiKeyObj = {
+            applicationId: null,
+            loadBalancer: true,
+            applicationSecretKey: null
+        };
+        // Parse applicationId and applicationSecretKey
+        if (apiKey == null) {
+            apiKeyObj.applicationId = defaultApplicationId;
+        }
+        else if (typeof (apiKey) === "string") {
+            apiKeyObj.applicationId = apiKey;
+        }
+        else if (apiKey.applicationSecretKey != null) {
+            apiKeyObj.applicationId = apiKey.applicationId;
+            apiKeyObj.applicationSecretKey = apiKey.applicationSecretKey;
+        }
+        else if (apiKey.applicationId) {
+            apiKeyObj.applicationId = apiKey.applicationId;
+        }
+        else {
+            logg...
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7...
+var InfuraWebSocketProvider = /** @class */ (function (_super) {
+    __extends(InfuraWebSocketProvider, _super);
+    function InfuraWebSocketProvider(network, apiKey) {
+        var _this = this;
+        var provider = new InfuraProvider(network, apiKey);
+        var connection = provider.connection;
+        if (connection.password) {
+            logger.throwError("INFURA WebSocket project secrets unsupported", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                operation: "InfuraProvider.getWebSocketProvider()"
+            });
+        }
+        var url = connection.url.replace(/^http/i, "ws").replace("/v3/", "/ws/v3/");
+        _this = _super.call(this, url, network) || this;
+        (0, properties_1.defineReadOnly)(_this, "apiKey", provider.projectId);
+        (0, properties_1.defineReadOnly)(_this, "projectId", provider.projectId);
+        (0, properties_1.defineReadOnly)(_this, "projectSecret", provider.projectSecret);
+        return _this;
+    }
+    InfuraWebSocketProvid...
+function buildWeb3LegacyFetcher = function buildWeb3LegacyFetcher(provider: ExternalProvider, sendFunc: Web3LegacySend) : JsonRpcFetchFunc {
+    const fetcher = "Web3LegacyFetcher";
+
+    return function(method: string, params: Array<any>): Promise<any> {
+        const request = {
+            method: method,
+            params: params,
+            id: (_nextId++),
+            jsonrpc: "2.0"
+        };
+
+        return new Promise((resolve, reject) => {
+            this.emit("debug", {
+                action: "request",
+                fetcher,
+                request: deepCopy(request),
+                provider: this
+            });
+
+            sendFunc(request, (error, response) => {
+
+                if (error) {
+                    this.emit("debug", {
+                        action: "response",
+                        fetcher,
+                        error,
+                        request,
+                        provider: this
+                    });
+
+                    return reject(error);
+                }
+
+ ...
+function step = function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t &...
+var AlchemyWebSocketProvider = /** @class */ (function (_super) {
+    __extends(AlchemyWebSocketProvider, _super);
+    function AlchemyWebSocketProvider(network, apiKey) {
+        var _this = this;
+        var provider = new AlchemyProvider(network, apiKey);
+        var url = provider.connection.url.replace(/^http/i, "ws")
+            .replace(".alchemyapi.", ".ws.alchemyapi.");
+        _this = _super.call(this, url, provider.network) || this;
+        (0, properties_1.defineReadOnly)(_this, "apiKey", provider.apiKey);
+        return _this;
+    }
+    AlchemyWebSocketProvider.prototype.isCommunityResource = function () {
+        return (this.apiKey === defaultApiKey);
+    };
+    return AlchemyWebSocketProvider;
+}(websocket_provider_1.WebSocketProvider))
+__awaiter(this, void 0, void 0, function* () {
+            let network = this.network;
+            if (network == null) {
+                network = yield _super.detectNetwork.call(this);
+                if (!network) {
+                    logger.throwError("no network detected", Logger.errors.UNKNOWN_ERROR, {});
+                }
+                // If still not set, set it
+                if (this._network == null) {
+                    // A static network does not support "any"
+                    defineReadOnly(this, "_network", network);
+                    this.emit("network", network, null);
+                }
+            }
+            return network;
+        })
+function AlchemyWebSocketProvider = function AlchemyWebSocketProvider(network, apiKey) {
+        var _this = this;
+        var provider = new AlchemyProvider(network, apiKey);
+        var url = provider.connection.url.replace(/^http/i, "ws")
+            .replace(".alchemyapi.", ".ws.alchemyapi.");
+        _this = _super.call(this, url, provider.network) || this;
+        (0, properties_1.defineReadOnly)(_this, "apiKey", provider.apiKey);
+        return _this;
+    }
+logger.throwError("INFURA WebSocket project secrets unsupported", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                operation: "InfuraProvider.getWebSocketProvider()"
+            })
+new Promise(function (resolve, reject) {
+            _this.emit("debug", {
+                action: "request",
+                fetcher: fetcher,
+                request: (0, properties_1.deepCopy)(request),
+                provider: _this
+            });
+            sendFunc(request, function (error, response) {
+                if (error) {
+                    _this.emit("debug", {
+                        action: "response",
+                        fetcher: fetcher,
+                        error: error,
+                        request: request,
+                        provider: _this
+                    });
+                    return reject(error);
+                }
+                _this.emit("debug", {
+                    action: "response",
+                    fetcher: fetcher,
+                    request: request,
+                    response: response,
+                    provider: _this
+                });
+                if (response.error) {
+                    var error_1 = n...
+_this.emit("debug", {
+                action: "request",
+                fetcher: fetcher,
+                request: (0, properties_1.deepCopy)(request),
+                provider: _this
+            })
+fetchJson(this.connection, JSON.stringify(request)).then((result) => {
+                    this.emit("debug", {
+                        action: "response",
+                        request: request,
+                        response: result,
+                        provider: this
+                    });
+                    // For each result, feed it to the correct Promise, depending
+                    // on whether it was a success or error
+                    batch.forEach((inflightRequest, index) => {
+                        const payload = result[index];
+                        if (payload.error) {
+                            const error = new Error(payload.error.message);
+                            error.code = payload.error.code;
+                            error.data = payload.error.data;
+                            inflightRequest.reject(error);
+                        }
+                        else {
+                            inflightRequest.resolve(payload.result);
+     ...
+const connection = {
+            allowGzip: true,
+            url: ("https:/\/" + getHost(network.name) + apiKey),
+            throttleCallback: (attempt, url) => {
+                if (apiKey.apiKey === defaultApiKey) {
+                    showThrottleMessage();
+                }
+                return Promise.resolve(true);
+            }
+        }
+logger.throwError("WebSocketProvider does not support 'any' network yet", Logger.errors.UNSUPPORTED_OPERATION, {
+                operation: "network:any"
+            })
+this._pendingBatchAggregator = setTimeout(() => {
+
+                // Get teh current batch and clear it, so new requests
+                // go into the next batch
+                const batch = this._pendingBatch;
+                this._pendingBatch = null;
+                this._pendingBatchAggregator = null;
+
+                // Get the request as an array of requests
+                const request = batch.map((inflight) => inflight.request);
+
+                this.emit("debug", {
+                    action: "requestBatch",
+                    request: deepCopy(request),
+                    provider: this
+                });
+
+                return fetchJson(this.connection, JSON.stringify(request)).then((result) => {
+                    this.emit("debug", {
+                        action: "response",
+                        request: request,
+                        response: result,
+                        provider: this
+                    });
+
+                    // For each result,...
+function serializeTopics = function serializeTopics(topics: Array<string | Array<string>>): string {
+    // Remove trailing null AND-topics; they are redundant
+    topics = topics.slice();
+    while (topics.length > 0 && topics[topics.length - 1] == null) { topics.pop(); }
+
+    return topics.map((topic) => {
+        if (Array.isArray(topic)) {
+
+            // Only track unique OR-topics
+            const unique: { [ topic: string ]: boolean } = { }
+            topic.forEach((topic) => {
+                unique[checkTopic(topic)] = true;
+            });
+
+            // The order of OR-topics does not matter
+            const sorted = Object.keys(unique);
+            sorted.sort();
+
+            return sorted.join("|");
+
+        } else {
+            return checkTopic(topic);
+        }
+    }).join("&");
+}
+var AnkrProvider = /** @class */ (function (_super) {
+    __extends(AnkrProvider, _super);
+    function AnkrProvider() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    AnkrProvider.prototype.isCommunityResource = function () {
+        return (this.apiKey === defaultApiKey);
+    };
+    AnkrProvider.getApiKey = function (apiKey) {
+        if (apiKey == null) {
+            return defaultApiKey;
+        }
+        return apiKey;
+    };
+    AnkrProvider.getUrl = function (network, apiKey) {
+        if (apiKey == null) {
+            apiKey = defaultApiKey;
+        }
+        var connection = {
+            allowGzip: true,
+            url: ("https:/\/" + getHost(network.name) + apiKey),
+            throttleCallback: function (attempt, url) {
+                if (apiKey.apiKey === defaultApiKey) {
+                    (0, formatter_1.showThrottleMessage)();
+                }
+                return Promise.resolve(true);
+            }
+        };
+        if (apiKey...
+_this.emit("debug", {
+                        action: "response",
+                        fetcher: fetcher,
+                        error: error,
+                        request: request,
+                        provider: _this
+                    })
+batch.forEach((inflightRequest, index) => {
+                        const payload = result[index];
+                        if (payload.error) {
+                            const error = new Error(payload.error.message);
+                            error.code = payload.error.code;
+                            error.data = payload.error.data;
+                            inflightRequest.reject(error);
+                        }
+                        else {
+                            inflightRequest.resolve(payload.result);
+                        }
+                    })
+function getDefaultProvider = function getDefaultProvider(network?: Networkish, options?: any): BaseProvider {
+    if (network == null) { network = "homestead"; }
+
+    // If passed a URL, figure out the right type of provider based on the scheme
+    if (typeof(network) === "string") {
+        // @TODO: Add support for IpcProvider; maybe if it ends in ".ipc"?
+
+        // Handle http and ws (and their secure variants)
+        const match = network.match(/^(ws|http)s?:/i);
+        if (match) {
+            switch (match[1].toLowerCase()) {
+                case "http": case "https":
+                    return new JsonRpcProvider(network);
+                case "ws": case "wss":
+                    return new WebSocketProvider(network);
+                default:
+                    logger.throwArgumentError("unsupported URL scheme", "network", network);
+            }
+        }
+    }
+
+    const n = getNetwork(network);
+    if (!n || !n._defaultProvider) {
+        logger.throwError("unsupported getDefaultProvider network"...
+var AlchemyProvider = /** @class */ (function (_super) {
+    __extends(AlchemyProvider, _super);
+    function AlchemyProvider() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    AlchemyProvider.getWebSocketProvider = function (network, apiKey) {
+        return new AlchemyWebSocketProvider(network, apiKey);
+    };
+    AlchemyProvider.getApiKey = function (apiKey) {
+        if (apiKey == null) {
+            return defaultApiKey;
+        }
+        if (apiKey && typeof (apiKey) !== "string") {
+            logger.throwArgumentError("invalid apiKey", "apiKey", apiKey);
+        }
+        return apiKey;
+    };
+    AlchemyProvider.getUrl = function (network, apiKey) {
+        var host = null;
+        switch (network.name) {
+            case "homestead":
+                host = "eth-mainnet.alchemyapi.io/v2/";
+                break;
+            case "goerli":
+                host = "eth-goerli.g.alchemy.com/v2/";
+                break;
+            case "matic":
+ ...
+new Promise(function (resolve, reject) {
+            var response = Buffer.alloc(0);
+            var stream = (0, net_1.connect)(_this.path);
+            stream.on("data", function (data) {
+                response = Buffer.concat([response, data]);
+            });
+            stream.on("end", function () {
+                try {
+                    resolve(JSON.parse(response.toString()).result);
+                    // @TODO: Better pull apart the error
+                    stream.destroy();
+                }
+                catch (error) {
+                    reject(error);
+                    stream.destroy();
+                }
+            });
+            stream.on("error", function (error) {
+                reject(error);
+                stream.destroy();
+            });
+            stream.write(payload);
+            stream.end();
+        })
+var InfuraProvider = /** @class */ (function (_super) {
+    __extends(InfuraProvider, _super);
+    function InfuraProvider() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    InfuraProvider.getWebSocketProvider = function (network, apiKey) {
+        return new InfuraWebSocketProvider(network, apiKey);
+    };
+    InfuraProvider.getApiKey = function (apiKey) {
+        var apiKeyObj = {
+            apiKey: defaultProjectId,
+            projectId: defaultProjectId,
+            projectSecret: null
+        };
+        if (apiKey == null) {
+            return apiKeyObj;
+        }
+        if (typeof (apiKey) === "string") {
+            apiKeyObj.projectId = apiKey;
+        }
+        else if (apiKey.projectSecret != null) {
+            logger.assertArgument((typeof (apiKey.projectId) === "string"), "projectSecret requires a projectId", "projectId", apiKey.projectId);
+            logger.assertArgument((typeof (apiKey.projectSecret) === "string"), "invalid project...
+function getDefaultProvider = function getDefaultProvider(network, options) {
+    if (network == null) {
+        network = "homestead";
+    }
+    // If passed a URL, figure out the right type of provider based on the scheme
+    if (typeof (network) === "string") {
+        // @TODO: Add support for IpcProvider; maybe if it ends in ".ipc"?
+        // Handle http and ws (and their secure variants)
+        var match = network.match(/^(ws|http)s?:/i);
+        if (match) {
+            switch (match[1].toLowerCase()) {
+                case "http":
+                case "https":
+                    return new json_rpc_provider_1.JsonRpcProvider(network);
+                case "ws":
+                case "wss":
+                    return new websocket_provider_1.WebSocketProvider(network);
+                default:
+                    logger.throwArgumentError("unsupported URL scheme", "network", network);
+            }
+        }
+    }
+    var n = (0, networks_1.getNetwork)(network);
+    if (!n || !n._defaultProvider) {
+    ...
+function checkError = function checkError(method, error, params) {
+    const transaction = params.transaction || params.signedTransaction;
+    // Undo the "convenience" some nodes are attempting to prevent backwards
+    // incompatibility; maybe for v6 consider forwarding reverts as errors
+    if (method === "call") {
+        const result = spelunk(error, true);
+        if (result) {
+            return result.data;
+        }
+        // Nothing descriptive..
+        logger.throwError("missing revert data in call exception; Transaction reverted without a reason string", Logger.errors.CALL_EXCEPTION, {
+            data: "0x", transaction, error
+        });
+    }
+    if (method === "estimateGas") {
+        // Try to find something, with a preference on SERVER_ERROR body
+        let result = spelunk(error.body, false);
+        if (result == null) {
+            result = spelunk(error, false);
+        }
+        // Found "reverted", this is a CALL_EXCEPTION
+        if (result) {
+            logger.throwError("ca...
+function checkError = function checkError(method: string, error: any, params: any): any {
+
+    const transaction = params.transaction || params.signedTransaction;
+
+    // Undo the "convenience" some nodes are attempting to prevent backwards
+    // incompatibility; maybe for v6 consider forwarding reverts as errors
+    if (method === "call") {
+        const result = spelunk(error, true);
+        if (result) { return result.data; }
+
+        // Nothing descriptive..
+        logger.throwError("missing revert data in call exception; Transaction reverted without a reason string", Logger.errors.CALL_EXCEPTION, {
+            data: "0x", transaction, error
+        });
+    }
+
+    if (method === "estimateGas") {
+        // Try to find something, with a preference on SERVER_ERROR body
+        let result = spelunk(error.body, false);
+        if (result == null) { result = spelunk(error, false); }
+
+        // Found "reverted", this is a CALL_EXCEPTION
+        if (result) {
+            logger.throwError("cannot estimat...
+AnkrProvider.getUrl = function (network, apiKey) {
+        if (apiKey == null) {
+            apiKey = defaultApiKey;
+        }
+        var connection = {
+            allowGzip: true,
+            url: ("https:/\/" + getHost(network.name) + apiKey),
+            throttleCallback: function (attempt, url) {
+                if (apiKey.apiKey === defaultApiKey) {
+                    (0, formatter_1.showThrottleMessage)();
+                }
+                return Promise.resolve(true);
+            }
+        };
+        if (apiKey.projectSecret != null) {
+            connection.user = "";
+            connection.password = apiKey.projectSecret;
+        }
+        return connection;
+    }
+fetchJson(this.connection, JSON.stringify(request)).then((result) => {
+                    this.emit("debug", {
+                        action: "response",
+                        request: request,
+                        response: result,
+                        provider: this
+                    });
+
+                    // For each result, feed it to the correct Promise, depending
+                    // on whether it was a success or error
+                    batch.forEach((inflightRequest, index) => {
+                        const payload = result[index];
+                        if (payload.error) {
+                            const error = new Error(payload.error.message);
+                            (<any>error).code = payload.error.code;
+                            (<any>error).data = payload.error.data;
+                            inflightRequest.reject(error);
+                        } else {
+                            inflightRequest.resolve(payload.result);
+              ...
+this.emit("debug", {
+                        action: "response",
+                        request: request,
+                        response: result,
+                        provider: this
+                    })
+var CloudflareProvider = /** @class */ (function (_super) {
+    __extends(CloudflareProvider, _super);
+    function CloudflareProvider() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CloudflareProvider.getApiKey = function (apiKey) {
+        if (apiKey != null) {
+            logger.throwArgumentError("apiKey not supported for cloudflare", "apiKey", apiKey);
+        }
+        return null;
+    };
+    CloudflareProvider.getUrl = function (network, apiKey) {
+        var host = null;
+        switch (network.name) {
+            case "homestead":
+                host = "https://cloudflare-eth.com/";
+                break;
+            default:
+                logger.throwArgumentError("unsupported network", "network", arguments[0]);
+        }
+        return host;
+    };
+    CloudflareProvider.prototype.perform = function (method, params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var block;
+            return __generator(thi...
+function getJsonResult = function getJsonResult(result: { jsonrpc: string, result?: any, error?: { code?: number, data?: any, message?: string} } ): any {
+    // This response indicates we are being throttled
+    if (result && (<any>result).status == 0 && (<any>result).message == "NOTOK" && (result.result || "").toLowerCase().indexOf("rate limit") >= 0) {
+        const error: any = new Error("throttled response");
+        error.result = JSON.stringify(result);
+        error.throttleRetry = true;
+        throw error;
+    }
+
+    if (result.jsonrpc != "2.0") {
+        // @TODO: not any
+        const error: any = new Error("invalid response");
+        error.result = JSON.stringify(result);
+        throw error;
+    }
+
+    if (result.error) {
+        // @TODO: not any
+        const error: any = new Error(result.error.message || "unknown error");
+        if (result.error.code) { error.code = result.error.code; }
+        if (result.error.data) { error.data = result.error.data; }
+        throw error;
+    }
+
+    retu...
+_this.emit("debug", {
+                        action: "response",
+                        request: request,
+                        response: result,
+                        provider: _this
+                    })
+function getJsonResult = function getJsonResult(result) {
+    // This response indicates we are being throttled
+    if (result && result.status == 0 && result.message == "NOTOK" && (result.result || "").toLowerCase().indexOf("rate limit") >= 0) {
+        const error = new Error("throttled response");
+        error.result = JSON.stringify(result);
+        error.throttleRetry = true;
+        throw error;
+    }
+    if (result.jsonrpc != "2.0") {
+        // @TODO: not any
+        const error = new Error("invalid response");
+        error.result = JSON.stringify(result);
+        throw error;
+    }
+    if (result.error) {
+        // @TODO: not any
+        const error = new Error(result.error.message || "unknown error");
+        if (result.error.code) {
+            error.code = result.error.code;
+        }
+        if (result.error.data) {
+            error.data = result.error.data;
+        }
+        throw error;
+    }
+    return result.result;
+}
+function deserializeTopics = function deserializeTopics(data) {
+    if (data === "") {
+        return [];
+    }
+    return data.split(/&/g).map((topic) => {
+        if (topic === "") {
+            return [];
+        }
+        const comps = topic.split("|").map((topic) => {
+            return ((topic === "null") ? null : topic);
+        });
+        return ((comps.length === 1) ? comps[0] : comps);
+    });
+}
+formats.receiptLog = {
+            transactionIndex: number,
+            blockNumber: number,
+            transactionHash: hash,
+            address: address,
+            topics: Formatter.arrayOf(hash),
+            data: data,
+            logIndex: number,
+            blockHash: hash,
+        }
+function getTransactionPostData = function getTransactionPostData(transaction) {
+    var result = {};
+    for (var key in transaction) {
+        if (transaction[key] == null) {
+            continue;
+        }
+        var value = transaction[key];
+        if (key === "type" && value === 0) {
+            continue;
+        }
+        // Quantity-types require no leading zero, unless 0
+        if ({ type: true, gasLimit: true, gasPrice: true, maxFeePerGs: true, maxPriorityFeePerGas: true, nonce: true, value: true }[key]) {
+            value = (0, bytes_1.hexValue)((0, bytes_1.hexlify)(value));
+        }
+        else if (key === "accessList") {
+            value = "[" + (0, transactions_1.accessListify)(value).map(function (set) {
+                return "{address:\"" + set.address + "\",storageKeys:[\"" + set.storageKeys.join('","') + "\"]}";
+            }).join(",") + "]";
+        }
+        else {
+            value = (0, bytes_1.hexlify)(value);
+        }
+        result[key] = value;
+    }
+    return result;
+}
+this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request,
+                response,
+                provider: this
+            })
+batch.forEach((inflightRequest, index) => {
+                        const payload = result[index];
+                        if (payload.error) {
+                            const error = new Error(payload.error.message);
+                            (<any>error).code = payload.error.code;
+                            (<any>error).data = payload.error.data;
+                            inflightRequest.reject(error);
+                        } else {
+                            inflightRequest.resolve(payload.result);
+                        }
+                    })
+function checkNetworks = function checkNetworks(networks) {
+    var result = null;
+    for (var i = 0; i < networks.length; i++) {
+        var network = networks[i];
+        // Null! We do not know our network; bail.
+        if (network == null) {
+            return null;
+        }
+        if (result) {
+            // Make sure the network matches the previous networks
+            if (!(result.name === network.name && result.chainId === network.chainId &&
+                ((result.ensAddress === network.ensAddress) || (result.ensAddress == null && network.ensAddress == null)))) {
+                logger.throwArgumentError("provider mismatch", "networks", networks);
+            }
+        }
+        else {
+            result = network;
+        }
+    }
+    return result;
+}
+function buildEip1193Fetcher = function buildEip1193Fetcher(provider) {
+    return function (method, params) {
+        var _this = this;
+        if (params == null) {
+            params = [];
+        }
+        var request = { method: method, params: params };
+        this.emit("debug", {
+            action: "request",
+            fetcher: "Eip1193Fetcher",
+            request: (0, properties_1.deepCopy)(request),
+            provider: this
+        });
+        return provider.request(request).then(function (response) {
+            _this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request: request,
+                response: response,
+                provider: _this
+            });
+            return response;
+        }, function (error) {
+            _this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request: request,
+                error: error,
+                provider: _this
+     ...
+logger.throwError("unsupported network", Logger.errors.INVALID_ARGUMENT, {
+                    argument: "network",
+                    value: network
+                })
+formats.receipt = {
+            to: Formatter.allowNull(this.address, null),
+            from: Formatter.allowNull(this.address, null),
+            contractAddress: Formatter.allowNull(address, null),
+            transactionIndex: number,
+            // should be allowNull(hash), but broken-EIP-658 support is handled in receipt
+            root: Formatter.allowNull(hex),
+            gasUsed: bigNumber,
+            logsBloom: Formatter.allowNull(data),
+            blockHash: hash,
+            transactionHash: hash,
+            logs: Formatter.arrayOf(this.receiptLog.bind(this)),
+            blockNumber: number,
+            confirmations: Formatter.allowNull(number, null),
+            cumulativeGasUsed: bigNumber,
+            effectiveGasPrice: Formatter.allowNull(bigNumber),
+            status: Formatter.allowNull(number),
+            type: type
+        }
+this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request,
+                error,
+                provider: this
+            })
+StaticJsonRpcProvider.prototype.detectNetwork = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var network;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        network = this.network;
+                        if (!(network == null)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, _super.prototype.detectNetwork.call(this)];
+                    case 1:
+                        network = _a.sent();
+                        if (!network) {
+                            logger.throwError("no network detected", logger_1.Logger.errors.UNKNOWN_ERROR, {});
+                        }
+                        // If still not set, set it
+                        if (this._network == null) {
+                            // A static network does not support "any"
+                            (0, properties_1.defineReadOnly)(this, "_network", network);
+      ...
+__awaiter(this, void 0, void 0, function () {
+            var network;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        network = this.network;
+                        if (!(network == null)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, _super.prototype.detectNetwork.call(this)];
+                    case 1:
+                        network = _a.sent();
+                        if (!network) {
+                            logger.throwError("no network detected", logger_1.Logger.errors.UNKNOWN_ERROR, {});
+                        }
+                        // If still not set, set it
+                        if (this._network == null) {
+                            // A static network does not support "any"
+                            (0, properties_1.defineReadOnly)(this, "_network", network);
+                            this.emit("network", network, null);
+                  ...
+function checkTopic = function checkTopic(topic) {
+    if (topic == null) {
+        return "null";
+    }
+    if ((0, bytes_1.hexDataLength)(topic) !== 32) {
+        logger.throwArgumentError("invalid topic", "topic", topic);
+    }
+    return topic.toLowerCase();
+}
+var WebSocketProvider = /** @class */ (function (_super) {
+    __extends(WebSocketProvider, _super);
+    function WebSocketProvider(url, network) {
+        var _this = this;
+        // This will be added in the future; please open an issue to expedite
+        if (network === "any") {
+            logger.throwError("WebSocketProvider does not support 'any' network yet", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                operation: "network:any"
+            });
+        }
+        if (typeof (url) === "string") {
+            _this = _super.call(this, url, network) || this;
+        }
+        else {
+            _this = _super.call(this, "_websocket", network) || this;
+        }
+        _this._pollingInterval = -1;
+        _this._wsReady = false;
+        if (typeof (url) === "string") {
+            (0, properties_1.defineReadOnly)(_this, "_websocket", new ws_1.WebSocket(_this.connection.url));
+        }
+        else {
+            (0, properties_1.defineReadOnly)(_this, "_websocket"...
+value = "[" + (0, transactions_1.accessListify)(value).map(function (set) {
+                return "{address:\"" + set.address + "\",storageKeys:[\"" + set.storageKeys.join('","') + "\"]}";
+            }).join(",") + "]"
+function WebSocketProvider = function WebSocketProvider(url, network) {
+        var _this = this;
+        // This will be added in the future; please open an issue to expedite
+        if (network === "any") {
+            logger.throwError("WebSocketProvider does not support 'any' network yet", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                operation: "network:any"
+            });
+        }
+        if (typeof (url) === "string") {
+            _this = _super.call(this, url, network) || this;
+        }
+        else {
+            _this = _super.call(this, "_websocket", network) || this;
+        }
+        _this._pollingInterval = -1;
+        _this._wsReady = false;
+        if (typeof (url) === "string") {
+            (0, properties_1.defineReadOnly)(_this, "_websocket", new ws_1.WebSocket(_this.connection.url));
+        }
+        else {
+            (0, properties_1.defineReadOnly)(_this, "_websocket", url);
+        }
+        (0, properties_1.defineReadOnly)(_this, "_requests", {});
+        (0, prope...
+n._defaultProvider({
+        FallbackProvider: fallback_provider_1.FallbackProvider,
+        AlchemyProvider: alchemy_provider_1.AlchemyProvider,
+        AnkrProvider: ankr_provider_1.AnkrProvider,
+        CloudflareProvider: cloudflare_provider_1.CloudflareProvider,
+        EtherscanProvider: etherscan_provider_1.EtherscanProvider,
+        InfuraProvider: infura_provider_1.InfuraProvider,
+        JsonRpcProvider: json_rpc_provider_1.JsonRpcProvider,
+        NodesmithProvider: nodesmith_provider_1.NodesmithProvider,
+        PocketProvider: pocket_provider_1.PocketProvider,
+        Web3Provider: web3_provider_1.Web3Provider,
+        IpcProvider: ipc_provider_1.IpcProvider,
+    }, options)
+function buildEip1193Fetcher = function buildEip1193Fetcher(provider: ExternalProvider): JsonRpcFetchFunc {
+    return function(method: string, params: Array<any>): Promise<any> {
+        if (params == null) { params = [ ]; }
+
+        const request = { method, params };
+
+        this.emit("debug", {
+            action: "request",
+            fetcher: "Eip1193Fetcher",
+            request: deepCopy(request),
+            provider: this
+        });
+
+        return provider.request(request).then((response) => {
+            this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request,
+                response,
+                provider: this
+            });
+
+            return response;
+
+        }, (error) => {
+            this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request,
+                error,
+                provider: this
+            });
+
+            throw error;
+        });
+    }
+}
+provider.request(request).then(function (response) {
+            _this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request: request,
+                response: response,
+                provider: _this
+            });
+            return response;
+        }, function (error) {
+            _this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request: request,
+                error: error,
+                provider: _this
+            });
+            throw error;
+        })
+_this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request: request,
+                response: response,
+                provider: _this
+            })
+function serializeTopics = function serializeTopics(topics) {
+    // Remove trailing null AND-topics; they are redundant
+    topics = topics.slice();
+    while (topics.length > 0 && topics[topics.length - 1] == null) {
+        topics.pop();
+    }
+    return topics.map(function (topic) {
+        if (Array.isArray(topic)) {
+            // Only track unique OR-topics
+            var unique_1 = {};
+            topic.forEach(function (topic) {
+                unique_1[checkTopic(topic)] = true;
+            });
+            // The order of OR-topics does not matter
+            var sorted = Object.keys(unique_1);
+            sorted.sort();
+            return sorted.join("|");
+        }
+        else {
+            return checkTopic(topic);
+        }
+    }).join("&");
+}
+function checkLogTag = function checkLogTag(blockTag: string): number | "latest" {
+    if (blockTag === "pending") { throw new Error("pending not supported"); }
+    if (blockTag === "latest") { return blockTag; }
+
+    return parseInt(blockTag.substring(2), 16);
+}
+this.emit("debug", {
+            action: "request",
+            fetcher: "Eip1193Fetcher",
+            request: deepCopy(request),
+            provider: this
+        })
+PocketProvider.prototype.isCommunityResource = function () {
+        return (this.applicationId === defaultApplicationId);
+    }
+formats.block = {
+            hash: Formatter.allowNull(hash),
+            parentHash: hash,
+            number: number,
+            timestamp: number,
+            nonce: Formatter.allowNull(hex),
+            difficulty: this.difficulty.bind(this),
+            gasLimit: bigNumber,
+            gasUsed: bigNumber,
+            miner: Formatter.allowNull(address),
+            extraData: data,
+            transactions: Formatter.allowNull(Formatter.arrayOf(hash)),
+            baseFeePerGas: Formatter.allowNull(bigNumber)
+        }
+_this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request: request,
+                error: error,
+                provider: _this
+            })
+function stall = function stall(duration) {
+    let cancel = null;
+    let timer = null;
+    let promise = (new Promise((resolve) => {
+        cancel = function () {
+            if (timer) {
+                clearTimeout(timer);
+                timer = null;
+            }
+            resolve();
+        };
+        timer = setTimeout(cancel, duration);
+    }));
+    const wait = (func) => {
+        promise = promise.then(func);
+        return promise;
+    };
+    function getPromise() {
+        return promise;
+    }
+    return { cancel, getPromise, wait };
+}
+function checkError = function checkError(method: string, error: any, transaction: any): any {
+    // Undo the "convenience" some nodes are attempting to prevent backwards
+    // incompatibility; maybe for v6 consider forwarding reverts as errors
+    if (method === "call" && error.code === Logger.errors.SERVER_ERROR) {
+        const e = error.error;
+
+        // Etherscan keeps changing their string
+        if (e && (e.message.match(/reverted/i) || e.message.match(/VM execution error/i))) {
+            // Etherscan prefixes the data like "Reverted 0x1234"
+            let data = e.data;
+            if (data) { data = "0x" + data.replace(/^.*0x/i, ""); }
+
+            if (isHexString(data)) { return data; }
+
+            logger.throwError("missing revert data in call exception", Logger.errors.CALL_EXCEPTION, {
+                error, data: "0x"
+            });
+        }
+    }
+
+    // Get the message from any nested error structure
+    let message = error.message;
+    if (error.code === Logger.errors.SERVER_ERR...
+this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request,
+                response,
+                provider: this
+            })
+function checkError = function checkError(method, error, params) {
+    var transaction = params.transaction || params.signedTransaction;
+    // Undo the "convenience" some nodes are attempting to prevent backwards
+    // incompatibility; maybe for v6 consider forwarding reverts as errors
+    if (method === "call") {
+        var result = spelunk(error, true);
+        if (result) {
+            return result.data;
+        }
+        // Nothing descriptive..
+        logger.throwError("missing revert data in call exception; Transaction reverted without a reason string", logger_1.Logger.errors.CALL_EXCEPTION, {
+            data: "0x",
+            transaction: transaction,
+            error: error
+        });
+    }
+    if (method === "estimateGas") {
+        // Try to find something, with a preference on SERVER_ERROR body
+        var result = spelunk(error.body, false);
+        if (result == null) {
+            result = spelunk(error, false);
+        }
+        // Found "reverted", this is a CALL_EXCEPTION
+      ...
+formats.receiptLog = {
+            transactionIndex: number,
+            blockNumber: number,
+            transactionHash: hash,
+            address: address,
+            topics: Formatter.arrayOf(hash),
+            data: data,
+            logIndex: number,
+            blockHash: hash,
+        }
+logger.throwError("not implemented; sub-classes must override getUrl", Logger.errors.NOT_IMPLEMENTED, {
+            operation: "getUrl"
+        })
+var UrlJsonRpcProvider = /** @class */ (function (_super) {
+    __extends(UrlJsonRpcProvider, _super);
+    function UrlJsonRpcProvider(network, apiKey) {
+        var _newTarget = this.constructor;
+        var _this = this;
+        logger.checkAbstract(_newTarget, UrlJsonRpcProvider);
+        // Normalize the Network and API Key
+        network = (0, properties_1.getStatic)(_newTarget, "getNetwork")(network);
+        apiKey = (0, properties_1.getStatic)(_newTarget, "getApiKey")(apiKey);
+        var connection = (0, properties_1.getStatic)(_newTarget, "getUrl")(network, apiKey);
+        _this = _super.call(this, connection, network) || this;
+        if (typeof (apiKey) === "string") {
+            (0, properties_1.defineReadOnly)(_this, "apiKey", apiKey);
+        }
+        else if (apiKey != null) {
+            Object.keys(apiKey).forEach(function (key) {
+                (0, properties_1.defineReadOnly)(_this, key, apiKey[key]);
+            });
+        }
+        return _this;
+    }
+    Url...
+function Web3Provider = function Web3Provider(provider, network) {
+        var _this = this;
+        if (provider == null) {
+            logger.throwArgumentError("missing provider", "provider", provider);
+        }
+        var path = null;
+        var jsonRpcFetchFunc = null;
+        var subprovider = null;
+        if (typeof (provider) === "function") {
+            path = "unknown:";
+            jsonRpcFetchFunc = provider;
+        }
+        else {
+            path = provider.host || provider.path || "";
+            if (!path && provider.isMetaMask) {
+                path = "metamask";
+            }
+            subprovider = provider;
+            if (provider.request) {
+                if (path === "") {
+                    path = "eip-1193:";
+                }
+                jsonRpcFetchFunc = buildEip1193Fetcher(provider);
+            }
+            else if (provider.sendAsync) {
+                jsonRpcFetchFunc = buildWeb3LegacyFetcher(provider, provider.sendAsync.bind(provider));
+            }
+      ...
+logger.throwError("missing revert data in call exception; Transaction reverted without a reason string", logger_1.Logger.errors.CALL_EXCEPTION, {
+            data: "0x",
+            transaction: transaction,
+            error: error
+        })
+formats.receipt = {
+            to: Formatter.allowNull(this.address, null),
+            from: Formatter.allowNull(this.address, null),
+            contractAddress: Formatter.allowNull(address, null),
+            transactionIndex: number,
+            // should be allowNull(hash), but broken-EIP-658 support is handled in receipt
+            root: Formatter.allowNull(hex),
+            gasUsed: bigNumber,
+            logsBloom: Formatter.allowNull(data),// @TODO: should this be data?
+            blockHash: hash,
+            transactionHash: hash,
+            logs: Formatter.arrayOf(this.receiptLog.bind(this)),
+            blockNumber: number,
+            confirmations: Formatter.allowNull(number, null),
+            cumulativeGasUsed: bigNumber,
+            effectiveGasPrice: Formatter.allowNull(bigNumber),
+            status: Formatter.allowNull(number),
+            type: type
+        }
+formats.filter = {
+            fromBlock: Formatter.allowNull(blockTag, undefined),
+            toBlock: Formatter.allowNull(blockTag, undefined),
+            blockHash: Formatter.allowNull(hash, undefined),
+            address: Formatter.allowNull(address, undefined),
+            topics: Formatter.allowNull(this.topics.bind(this), undefined),
+        }
+logger.throwError("legacy pre-eip-155 transactions not supported", Logger.errors.UNSUPPORTED_OPERATION, {
+            error, method, transaction
+        })
+formats.filterLog = {
+            blockNumber: Formatter.allowNull(number),
+            blockHash: Formatter.allowNull(hash),
+            transactionIndex: number,
+            removed: Formatter.allowNull(this.boolean.bind(this)),
+            address: address,
+            data: Formatter.allowFalsish(data, "0x"),
+            topics: Formatter.arrayOf(hash),
+            transactionHash: hash,
+            logIndex: number,
+        }
+this.emit("debug", {
+                        action: "response",
+                        request: JSON.parse(request.payload),
+                        response: result.result,
+                        provider: this
+                    })
+formats.filterLog = {
+            blockNumber: Formatter.allowNull(number),
+            blockHash: Formatter.allowNull(hash),
+            transactionIndex: number,
+            removed: Formatter.allowNull(this.boolean.bind(this)),
+            address: address,
+            data: Formatter.allowFalsish(data, "0x"),
+            topics: Formatter.arrayOf(hash),
+            transactionHash: hash,
+            logIndex: number,
+        }
+Object.keys(apiKey).forEach(function (key) {
+                (0, properties_1.defineReadOnly)(_this, key, apiKey[key]);
+            })
+logger.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", logger_1.Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
+                reason: result.message,
+                method: method,
+                transaction: transaction,
+                error: error
+            })
+"{" + keys.map(function (key) {
+            var v = value[key];
+            if (typeof (v) === "function") {
+                v = "[function]";
+            }
+            else {
+                v = serialize(v);
+            }
+            return JSON.stringify(key) + ":" + v;
+        }).join(",") + "}"
+function stall = function stall(duration: number): Staller {
+    let cancel: () => void = null;
+
+    let timer: NodeJS.Timer = null;
+    let promise = <Promise<void>>(new Promise((resolve) => {
+        cancel = function() {
+            if (timer) {
+                clearTimeout(timer);
+                timer = null;
+            }
+            resolve();
+        }
+        timer = setTimeout(cancel, duration);
+    }));
+
+    const wait = (func: () => void) => {
+        promise = promise.then(func);
+        return promise;
+    }
+
+    function getPromise(): Promise<void> {
+        return promise;
+    }
+
+    return { cancel, getPromise, wait };
+}
+logger.throwError("cannot reset events block on WebSocketProvider", Logger.errors.UNSUPPORTED_OPERATION, {
+            operation: "resetEventBlock"
+        })
+this.emit("debug", {
+                        action: "response",
+                        error: error,
+                        request: JSON.parse(request.payload),
+                        provider: this
+                    })
+logger.throwError("cannot set polling interval on WebSocketProvider", Logger.errors.UNSUPPORTED_OPERATION, {
+            operation: "setPollingInterval"
+        })
+_this.emit("debug", {
+                        action: "response",
+                        error: error,
+                        request: JSON.parse(request.payload),
+                        provider: _this
+                    })
+logger.throwError("insufficient funds for intrinsic transaction cost", logger_1.Logger.errors.INSUFFICIENT_FUNDS, {
+            error: error,
+            method: method,
+            transaction: transaction
+        })
+this.emit("debug", {
+                                action: "request",
+                                rid: rid,
+                                backend: exposeDebugConfig(config, now()),
+                                request: { method: method, params: deepCopy(params) },
+                                provider: this
+                            })
+__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        provider = this.provider;
+                        return [4 /*yield*/, this.getAddress()];
+                    case 1:
+                        address = _a.sent();
+                        return [2 /*return*/, provider.send("personal_unlockAccount", [address.toLowerCase(), password, null])];
+                }
+            })
+__awaiter(this, void 0, void 0, function () {
+            var result, error_2, hexBytes, address;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (coinType == null) {
+                            coinType = 60;
+                        }
+                        if (!(coinType === 60)) return [3 /*break*/, 4];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this._fetch("0x3b3b57de")];
+                    case 2:
+                        result = _a.sent();
+                        // No address
+                        if (result === "0x" || result === constants_1.HashZero) {
+                            return [2 /*return*/, null];
+                        }
+                        return [2 /*return*/, this.provider.formatter.callAddress(result)];
+                    case 3:
+       ...
+const result = fetchJson(this.connection, JSON.stringify(request), getResult).then((result) => {
+            this.emit("debug", {
+                action: "response",
+                request: request,
+                response: result,
+                provider: this
+            });
+            return result;
+        }, (error) => {
+            this.emit("debug", {
+                action: "response",
+                error: error,
+                request: request,
+                provider: this
+            });
+            throw error;
+        })
+FallbackProvider.prototype.detectNetwork = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var networks;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, Promise.all(this.providerConfigs.map(function (c) { return c.provider.getNetwork(); }))];
+                    case 1:
+                        networks = _a.sent();
+                        return [2 /*return*/, checkNetworks(networks)];
+                }
+            });
+        });
+    }
+_tmp_102.push(this._fetch("0x3b3b57de"))
+this.emit("debug", {
+                            action: "request",
+                            rid: rid,
+                            backend: exposeDebugConfig(config, null),
+                            request: { method: method, params: deepCopy(params) },
+                            provider: this
+                        })
+__awaiter(this, void 0, void 0, function () {
+            var params, result;
+            var _a;
+            var _this = this;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = {
+                            action: "txlist"
+                        };
+                        return [4 /*yield*/, this.resolveName(addressOrName)];
+                    case 1:
+                        params = (_a.address = (_b.sent()),
+                            _a.startblock = ((startBlock == null) ? 0 : startBlock),
+                            _a.endblock = ((endBlock == null) ? 99999999 : endBlock),
+                            _a.sort = "asc",
+                            _a);
+                        return [4 /*yield*/, this.fetch("account", params)];
+                    case 2:
+                        result = _b.sent();
+                        return [2 /*return*/, result.map(function (tx) {
+           ...
+array.forEach(function(value) {
+                result.push(format(value));
+            })
+UncheckedJsonRpcSigner.prototype.sendTransaction = function (transaction) {
+        var _this = this;
+        return this.sendUncheckedTransaction(transaction).then(function (hash) {
+            return {
+                hash: hash,
+                nonce: null,
+                gasLimit: null,
+                gasPrice: null,
+                data: null,
+                value: null,
+                chainId: null,
+                confirmations: 0,
+                from: null,
+                wait: function (confirmations) { return _this.provider.waitForTransaction(hash, confirmations); }
+            };
+        });
+    }
+error.code === Logger.errors.CALL_EXCEPTION
+let metadataUrl = _parseString(yield this.provider.call(tx), 0)
+_tmp_127.push(result.map(function (tx) {
+                                ["contractAddress", "to"].forEach(function (key) {
+                                    if (tx[key] == "") {
+                                        delete tx[key];
+                                    }
+                                });
+                                if (tx.creates == null && tx.contractAddress != null) {
+                                    tx.creates = tx.contractAddress;
+                                }
+                                var item = _this.formatter.transactionResponse(tx);
+                                if (tx.timeStamp) {
+                                    item.timestamp = parseInt(tx.timeStamp);
+                                }
+                                return item;
+                            }))
+this.emit("debug", {
+            action: "request",
+            request: deepCopy(request),
+            provider: this
+        })
+configs.forEach(c => {
+                            if (c.staller) {
+                                c.staller.cancel();
+                            }
+                            c.cancelled = true;
+                        })
+const result = fetchJson(this.connection, JSON.stringify(request), getResult).then((result) => {
+            this.emit("debug", {
+                action: "response",
+                request: request,
+                response: result,
+                provider: this
+            });
+
+            return result;
+
+        }, (error) => {
+            this.emit("debug", {
+                action: "response",
+                error: error,
+                request: request,
+                provider: this
+            });
+
+            throw error;
+        })
+this.emit("debug", {
+                action: "response",
+                request: request,
+                response: result,
+                provider: this
+            })
+const errors = configs.reduce((accum, c) => {
+                    if (!c.done || c.error == null) {
+                        return accum;
+                    }
+                    const code = (c.error).code;
+                    if (ForwardErrors.indexOf(code) >= 0) {
+                        if (!accum[code]) {
+                            accum[code] = { error: c.error, weight: 0 };
+                        }
+                        accum[code].weight += c.weight;
+                    }
+                    return accum;
+                }, ({}))
+_tmp_91.linkage = linkage
+__generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0:
+                                        t0 = now();
+                                        inflightWeight = configs.filter(function (c) { return (c.runner && ((t0 - c.start) < c.stallTimeout)); })
+                                            .reduce(function (accum, c) { return (accum + c.weight); }, 0);
+                                        _loop_2 = function () {
+                                            var config = configs[i++];
+                                            var rid = nextRid++;
+                                            config.start = now();
+                                            config.staller = stall(config.stallTimeout);
+                                            config.staller.wait(function () { config.staller = null; });
+                                            config.runner = getRunner(config, currentBlockNumber, met...
+linkage.push({ type: "data", content: avatar })
+this.emit("debug", {
+                action: "response",
+                error: error,
+                request: request,
+                provider: this
+            })
+_loop_2 = function () {
+                                            var config = configs[i++];
+                                            var rid = nextRid++;
+                                            config.start = now();
+                                            config.staller = stall(config.stallTimeout);
+                                            config.staller.wait(function () { config.staller = null; });
+                                            config.runner = getRunner(config, currentBlockNumber, method, params).then(function (result) {
+                                                config.done = true;
+                                                config.result = result;
+                                                if (_this.listenerCount("debug")) {
+                                                    _this.emit("debug", {
+                                                        action: "request",
+                                                        rid: rid,...
+__awaiter(this, void 0, void 0, function* () {
+            // keccak256("contenthash()")
+            const hexBytes = yield this._fetchBytes("0xbc1c58d1");
+            // No contenthash
+            if (hexBytes == null || hexBytes === "0x") {
+                return null;
+            }
+            // IPFS (CID: 1, Type: DAG-PB)
+            const ipfs = hexBytes.match(/^0xe3010170(([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f]*))$/);
+            if (ipfs) {
+                const length = parseInt(ipfs[3], 16);
+                if (ipfs[4].length === length * 2) {
+                    return "ipfs:/\/" + Base58.encode("0x" + ipfs[1]);
+                }
+            }
+            // IPNS (CID: 1, Type: libp2p-key)
+            const ipns = hexBytes.match(/^0xe5010172(([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f]*))$/);
+            if (ipns) {
+                const length = parseInt(ipns[3], 16);
+                if (ipns[4].length === length * 2) {
+                    return "ipns:/\/" + Base...
+var request = {
+            method: method,
+            params: params,
+            id: (this._nextId++),
+            jsonrpc: "2.0"
+        }
+this.emit("debug", {
+            action: "request",
+            request: (0, properties_1.deepCopy)(request),
+            provider: this
+        })
+_tmp_148.request = (0, properties_1.deepCopy)(request)
+var result = (0, web_1.fetchJson)(this.connection, JSON.stringify(request), getResult).then(function (result) {
+            _this.emit("debug", {
+                action: "response",
+                request: request,
+                response: result,
+                provider: _this
+            });
+            return result;
+        }, function (error) {
+            _this.emit("debug", {
+                action: "response",
+                error: error,
+                request: request,
+                provider: _this
+            });
+            throw error;
+        })
+ForwardProperties.forEach(function (name) {
+                                                if (e[name] == null) {
+                                                    return;
+                                                }
+                                                props[name] = e[name];
+                                            })
+_tmp_47.results = configs.map((c) => exposeDebugConfig(c))
+_tmp_152.response = result
+const swarm = hexBytes.match(/^0xe40101fa011b20([0-9a-f]*)$/)
+const pendingFilter: Promise<number> = this.send("eth_newPendingTransactionFilter", [])
+_this.emit("debug", {
+                action: "response",
+                error: error,
+                request: request,
+                provider: _this
+            })
+(_tmp_110 = pendingFilter.then(function(filterId) {
+            function poll() {
+                self.send("eth_getFilterChanges", [ filterId ]).then(function(hashes: Array<string>) {
+                    if (self._pendingFilter != pendingFilter) { return null; }
+
+                    let seq = Promise.resolve();
+                    hashes.forEach(function(hash) {
+                        // @TODO: This should be garbage collected at some point... How? When?
+                        self._emitted["t:" + hash.toLowerCase()] = "pending";
+                        seq = seq.then(function() {
+                            return self.getTransaction(hash).then(function(tx) {
+                                self.emit("pending", tx);
+                                return null;
+                            });
+                        });
+                    });
+
+                    return seq.then(function() {
+                        return timer(1000);
+                    });
+                }).then(function...).catch
+function poll = function poll() {
+                self.send("eth_getFilterChanges", [ filterId ]).then(function(hashes: Array<string>) {
+                    if (self._pendingFilter != pendingFilter) { return null; }
+
+                    let seq = Promise.resolve();
+                    hashes.forEach(function(hash) {
+                        // @TODO: This should be garbage collected at some point... How? When?
+                        self._emitted["t:" + hash.toLowerCase()] = "pending";
+                        seq = seq.then(function() {
+                            return self.getTransaction(hash).then(function(tx) {
+                                self.emit("pending", tx);
+                                return null;
+                            });
+                        });
+                    });
+
+                    return seq.then(function() {
+                        return timer(1000);
+                    });
+                }).then(function() {
+                    if (self._pendingFilter != ...

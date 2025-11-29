@@ -1,0 +1,266 @@
+programPath.get("body").forEach(child => {
+    if (child.isImportDeclaration()) {
+      const data = getData(child.node.source);
+      if (!data.loc) data.loc = child.node.loc;
+      child.get("specifiers").forEach(spec => {
+        if (spec.isImportDefaultSpecifier()) {
+          const localName = spec.get("local").node.name;
+          data.imports.set(localName, "default");
+          const reexport = localData.get(localName);
+          if (reexport) {
+            localData.delete(localName);
+            reexport.names.forEach(name => {
+              data.reexports.set(name, "default");
+            });
+            data.referenced = true;
+          }
+        } else if (spec.isImportNamespaceSpecifier()) {
+          const localName = spec.get("local").node.name;
+          data.importsNamespace.add(localName);
+          const reexport = localData.get(localName);
+          if (reexport) {
+            localData.delete(localName);
+            reexport.names.forEach(name => {
+            ...
+child.isImportDeclaration()
+child.get("specifiers").forEach(spec => {
+        if (spec.isImportDefaultSpecifier()) {
+          const localName = spec.get("local").node.name;
+          data.imports.set(localName, "default");
+          const reexport = localData.get(localName);
+          if (reexport) {
+            localData.delete(localName);
+            reexport.names.forEach(name => {
+              data.reexports.set(name, "default");
+            });
+            data.referenced = true;
+          }
+        } else if (spec.isImportNamespaceSpecifier()) {
+          const localName = spec.get("local").node.name;
+          data.importsNamespace.add(localName);
+          const reexport = localData.get(localName);
+          if (reexport) {
+            localData.delete(localName);
+            reexport.names.forEach(name => {
+              data.reexportNamespace.add(name);
+            });
+            data.referenced = true;
+          }
+        } else if (spec.isImportSpecifier()) {
+          const importName = getExpo...
+const exportNames = exported.get(localName) || []
+const localName = spec.get("local").node.name
+currentScope = currentScope.parent
+function buildNamespaceInitStatements = function buildNamespaceInitStatements(metadata, sourceMetadata, constantReexports = false) {
+  const statements = [];
+  const srcNamespaceId = identifier(sourceMetadata.name);
+  for (const localName of sourceMetadata.importsNamespace) {
+    if (localName === sourceMetadata.name) continue;
+    statements.push(_core.template.statement`var NAME = SOURCE;`({
+      NAME: localName,
+      SOURCE: cloneNode(srcNamespaceId)
+    }));
+  }
+  const srcNamespace = sourceMetadata.lazy ? callExpression(srcNamespaceId, []) : srcNamespaceId;
+  if (constantReexports) {
+    statements.push(...buildReexportsFromMeta(metadata, sourceMetadata, true));
+  }
+  for (const exportName of sourceMetadata.reexportNamespace) {
+    statements.push((sourceMetadata.lazy ? _core.template.statement`
+            Object.defineProperty(EXPORTS, "NAME", {
+              enumerable: true,
+              get: function() {
+                return NAMESPACE;
+              }
+            });
+          ` : _core.template.statement`E...
+const srcNamespace = sourceMetadata.lazy ? callExpression(srcNamespaceId, []) : srcNamespaceId
+const importName = getExportSpecifierName(spec.get("imported"), stringSpecifiers)
+const buildImportThrow = localName => {
+  return _core.template.expression.ast`
+    (function() {
+      throw new Error('"' + '${localName}' + '" is read-only.');
+    })()
+  `;
+}
+_core.template.expression.ast`
+    (function() {
+      throw new Error('"' + '${localName}' + '" is read-only.');
+    })()
+  `
+_iterator_1 = <operator>.iterator(sourceMetadata.reexportNamespace)
+child.isExportAllDeclaration()
+child.isExportNamedDeclaration() && child.node.source
+child.get("specifiers").forEach(spec => {
+        assertExportSpecifier(spec);
+        const importName = getExportSpecifierName(spec.get("local"), stringSpecifiers);
+        const exportName = getExportSpecifierName(spec.get("exported"), stringSpecifiers);
+        data.reexports.set(exportName, importName);
+        data.referenced = true;
+        if (exportName === "__esModule") {
+          throw spec.get("exported").buildCodeFrameError('Illegal export "__esModule".');
+        }
+      })
+_tmp_56.constantComputed = _core.template.statement`EXPORTS["EXPORT_NAME"] = NAMESPACE_IMPORT;`
+_tmp_56.spec = _core.template.statement`
+    Object.defineProperty(EXPORTS, "EXPORT_NAME", {
+      enumerable: true,
+      get: function() {
+        return NAMESPACE_IMPORT;
+      },
+    });
+    `
+const exportName = getExportSpecifierName(spec.get("exported"), stringSpecifiers)
+throw spec.get("exported").buildCodeFrameError('Illegal export "__esModule".');
+programPath.get("body").forEach(child => {
+    let kind;
+    if (child.isImportDeclaration()) {
+      kind = "import";
+    } else {
+      if (child.isExportDefaultDeclaration()) {
+        child = child.get("declaration");
+      }
+      if (child.isExportNamedDeclaration()) {
+        if (child.node.declaration) {
+          child = child.get("declaration");
+        } else if (initializeReexports && child.node.source && child.get("source").isStringLiteral()) {
+          child.get("specifiers").forEach(spec => {
+            assertExportSpecifier(spec);
+            bindingKindLookup.set(spec.get("local").node.name, "block");
+          });
+          return;
+        }
+      }
+      if (child.isFunctionDeclaration()) {
+        kind = "hoisted";
+      } else if (child.isClassDeclaration()) {
+        kind = "block";
+      } else if (child.isVariableDeclaration({
+        kind: "var"
+      })) {
+        kind = "var";
+      } else if (child.isVariableDeclaration()) {
+        kind = "block";
+    ...
+_core.template.statement`
+        Object.keys(NAMESPACE).forEach(function(key) {
+          if (key === "default" || key === "__esModule") return;
+          VERIFY_NAME_LIST;
+          if (key in EXPORTS && EXPORTS[key] === NAMESPACE[key]) return;
+
+          Object.defineProperty(EXPORTS, key, {
+            enumerable: true,
+            get: function() {
+              return NAMESPACE[key];
+            },
+          });
+        });
+    `
+child.isExportDefaultDeclaration()
+child = child.get("declaration")
+child.isExportNamedDeclaration()
+child = child.get("declaration")
+initializeReexports && child.node.source && child.get("source").isStringLiteral()
+child.get("specifiers").forEach(spec => {
+            assertExportSpecifier(spec);
+            bindingKindLookup.set(spec.get("local").node.name, "block");
+          })
+assertExportSpecifier(spec)
+bindingKindLookup.set(spec.get("local").node.name, "block")
+_tmp_27.NAMESPACE = namespace
+_tmp_27.EXPORTS = metadata.exportName
+_tmp_27.VERIFY_NAME_LIST = metadata.exportNameListName ? (0, _core.template)`
+            if (Object.prototype.hasOwnProperty.call(EXPORTS_LIST, key)) return;
+          `({
+      EXPORTS_LIST: metadata.exportNameListName
+    }) : null
+const ids = left.getOuterBindingIdentifiers()
+const programScopeIds = Object.keys(ids).filter(localName => scope.getBinding(localName) === path.scope.getBinding(localName))
+const getLocalMetadata = idPath => {
+    const localName = idPath.node.name;
+    let metadata = localMetadata.get(localName);
+    if (!metadata) {
+      const kind = bindingKindLookup.get(localName);
+      if (kind === undefined) {
+        throw idPath.buildCodeFrameError(`Exporting local "${localName}", which is not declared.`);
+      }
+      metadata = {
+        names: [],
+        kind
+      };
+      localMetadata.set(localName, metadata);
+    }
+    return metadata;
+  }
+programScopeIds.forEach(localName => {
+          const exportedNames = exported.get(localName) || [];
+          if (exportedNames.length > 0) {
+            items.push(buildBindingExportAssignmentExpression(this.metadata, exportedNames, identifier(localName), path.scope));
+          }
+        })
+throw idPath.buildCodeFrameError(`Exporting local "${localName}", which is not declared.`);
+programPath.get("body").forEach(child => {
+    if (child.isExportNamedDeclaration() && (initializeReexports || !child.node.source)) {
+      if (child.node.declaration) {
+        const declaration = child.get("declaration");
+        const ids = declaration.getOuterBindingIdentifierPaths();
+        Object.keys(ids).forEach(name => {
+          if (name === "__esModule") {
+            throw declaration.buildCodeFrameError('Illegal export "__esModule".');
+          }
+          getLocalMetadata(ids[name]).names.push(name);
+        });
+      } else {
+        child.get("specifiers").forEach(spec => {
+          const local = spec.get("local");
+          const exported = spec.get("exported");
+          const localMetadata = getLocalMetadata(local);
+          const exportName = getExportSpecifierName(exported, stringSpecifiers);
+          if (exportName === "__esModule") {
+            throw exported.buildCodeFrameError('Illegal export "__esModule".');
+          }
+          localMetadata.names....
+child.isExportNamedDeclaration() && (initializeReexports || !child.node.source)
+const declaration = child.get("declaration")
+child.get("specifiers").forEach(spec => {
+          const local = spec.get("local");
+          const exported = spec.get("exported");
+          const localMetadata = getLocalMetadata(local);
+          const exportName = getExportSpecifierName(exported, stringSpecifiers);
+          if (exportName === "__esModule") {
+            throw exported.buildCodeFrameError('Illegal export "__esModule".');
+          }
+          localMetadata.names.push(exportName);
+        })
+const local = spec.get("local")
+const exported = spec.get("exported")
+const loopBodyScope = path.get("body").scope
+_iterator_4 = <operator>.iterator(Object.keys(getOuterBindingIdentifiers(left)))
+declaration.isFunctionDeclaration() || declaration.isClassDeclaration()
+(_tmp_49 = getLocalMetadata(declaration.get("id")).names).push
+programPath.get("body").forEach(child => {
+    if (child.isImportDeclaration()) {
+      child.remove();
+    } else if (child.isExportNamedDeclaration()) {
+      if (child.node.declaration) {
+        child.node.declaration._blockHoist = child.node._blockHoist;
+        child.replaceWith(child.node.declaration);
+      } else {
+        child.remove();
+      }
+    } else if (child.isExportDefaultDeclaration()) {
+      const declaration = child.get("declaration");
+      if (declaration.isFunctionDeclaration() || declaration.isClassDeclaration()) {
+        declaration._blockHoist = child.node._blockHoist;
+        child.replaceWith(declaration);
+      } else {
+        throw declaration.buildCodeFrameError("Unexpected default expression export.");
+      }
+    } else if (child.isExportAllDeclaration()) {
+      child.remove();
+    }
+  })
+const newLoopId = scope.generateUidIdentifierBasedOnNode(left)
+scope.registerDeclaration(path.get("left"))
+child.isExportDefaultDeclaration()
+const declaration = child.get("declaration")

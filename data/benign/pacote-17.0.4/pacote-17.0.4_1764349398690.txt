@@ -1,0 +1,21 @@
+this[_readPackageJson](this.resolved + '/package.json')
+      .then(mani => this.package = {
+        ...mani,
+        _integrity: this.integrity && String(this.integrity),
+        _resolved: this.resolved,
+        _from: this.from,
+      })
+this[_resolvedFromRepo](hosted.https && hosted.https())
+      .catch(er => {
+        // Throw early since we know pathspec errors will fail again if retried
+        if (er instanceof git.errors.GitPathspecError) {
+          throw er
+        }
+        const ssh = hosted.sshurl && hosted.sshurl()
+        // no fallthrough if we can't fall through or have https auth
+        if (!ssh || hosted.auth) {
+          throw er
+        }
+        return this[_resolvedFromRepo](ssh)
+      })
+this.packumentCache.delete(this.packumentUrl)

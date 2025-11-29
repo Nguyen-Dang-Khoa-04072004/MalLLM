@@ -1,0 +1,18 @@
+Proxy.configBase = function( base ) {
+        if ( this.base ) return;
+        this.base = ( base || '' ).replace( /\/$/, '' );
+        var self = this;
+        // load interfaces definition.
+        IO( {
+            url: this.base + '/$interfaces',
+            async: false,
+            type: 'get',
+            dataType: 'json',
+            success: function( interfaces ) {
+                self.config( interfaces );
+            },
+            error: function( err ) {
+                throw err;
+            }
+        } );
+    }

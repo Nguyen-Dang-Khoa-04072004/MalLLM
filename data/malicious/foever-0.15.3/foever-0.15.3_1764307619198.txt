@@ -1,0 +1,16 @@
+options.logFile = forever.logFilePath(options.logFile || forever.config.get('logFile') || options.uid + '.log')
+options.pidFile = forever.pidFilePath(options.pidFile || forever.config.get('pidFile') || options.uid + '.pid')
+conf.split('\n').forEach(function (line) {
+    forever.log.data(line);
+  })
+errFD = fs.openSync(options.logFile, 'a')
+monitor = spawn(process.execPath, [monitorPath, script], {
+    stdio: ['ipc', outFD, errFD],
+    detached: true
+  })
+_tmp_62.stdio = ['ipc', outFD, errFD]
+monitor.on('exit', function (code) {
+    console.error('Monitor died unexpectedly with exit code %d', code);
+  })
+forever.log.info('Setting forever config: ' + key.grey)
+monitor.send(JSON.stringify(options))

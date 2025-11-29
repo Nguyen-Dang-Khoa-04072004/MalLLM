@@ -1,0 +1,98 @@
+function constructInfoFromConstruct = function constructInfoFromConstruct(construct) {
+    const jsiiRuntimeInfo = Object.getPrototypeOf(construct).constructor[JSII_RUNTIME_SYMBOL];
+    if (typeof jsiiRuntimeInfo === 'object'
+        && jsiiRuntimeInfo !== null
+        && typeof jsiiRuntimeInfo.fqn === 'string'
+        && typeof jsiiRuntimeInfo.version === 'string') {
+        return { fqn: jsiiRuntimeInfo.fqn, version: jsiiRuntimeInfo.version };
+    }
+    else if (jsiiRuntimeInfo) {
+        // There is something defined, but doesn't match our expectations. Fail fast and hard.
+        throw new Error(`malformed jsii runtime info for construct: '${construct.node.path}'`);
+    }
+    return undefined;
+}
+const resource = new cfn_resource_1.CfnResource(this, 'Default', {
+                type: 'AWS::CDK::Metadata',
+                properties: {
+                    Analytics: lazy_1.Lazy.string({ produce: () => formatAnalytics(runtime_info_1.constructInfoFromStack(scope)) }),
+                },
+            })
+function captureStackTrace = function captureStackTrace(below = captureStackTrace, limit = Number.MAX_SAFE_INTEGER) {
+    if (!debug_1.debugModeEnabled()) {
+        return ['stack traces disabled'];
+    }
+    const object = {};
+    const previousLimit = Error.stackTraceLimit;
+    try {
+        Error.stackTraceLimit = limit;
+        Error.captureStackTrace(object, below);
+    }
+    finally {
+        Error.stackTraceLimit = previousLimit;
+    }
+    if (!object.stack) {
+        return [];
+    }
+    return object.stack.split('\n').slice(1).map(s => s.replace(/^\s*at\s+/, ''));
+}
+function cfnJsonStringifyHandler = function cfnJsonStringifyHandler(event) {
+    return {
+        Data: {
+            Value: JSON.stringify(event.ResourceProperties.Value),
+        },
+    };
+}
+(function (CustomResourceProviderRuntime) {
+    /**
+     * Node.js 12.x
+     *
+     * @deprecated Use {@link NODEJS_14_X}
+     */
+    CustomResourceProviderRuntime["NODEJS_12"] = "deprecated_nodejs12.x";
+    /**
+     * Node.js 12.x
+     */
+    CustomResourceProviderRuntime["NODEJS_12_X"] = "nodejs12.x";
+    /**
+     * Node.js 14.x
+     */
+    CustomResourceProviderRuntime["NODEJS_14_X"] = "nodejs14.x";
+    /**
+     * Node.js 16.x
+     */
+    CustomResourceProviderRuntime["NODEJS_16_X"] = "nodejs16.x";
+})(CustomResourceProviderRuntime = exports.CustomResourceProviderRuntime || (exports.CustomResourceProviderRuntime = {}))
+function makeUniqueId = function makeUniqueId(components) {
+    components = components.filter(x => x !== HIDDEN_ID);
+    if (components.length === 0) {
+        throw new Error('Unable to calculate a unique id for an empty set of components');
+    }
+    // Lazy require in order to break a module dependency cycle
+    const unresolvedTokens = components.filter(c => encoding_1.unresolved(c));
+    if (unresolvedTokens.length > 0) {
+        throw new Error(`ID components may not include unresolved tokens: ${unresolvedTokens.join(',')}`);
+    }
+    // top-level resources will simply use the `name` as-is in order to support
+    // transparent migration of cloudformation templates to the CDK without the
+    // need to rename all resources.
+    if (components.length === 1) {
+        // we filter out non-alpha characters but that is actually a bad idea
+        // because it could create conflicts ("A-B" and "AB" will render the same
+        // logical ID). sadly, changing it in the 1.x version line is impossible
+   ...
+print("@aws-cdk/core.SynthesisOptions#validateOnSynthesis", "use `app.synth()` or `stage.synth()` instead")
+const allConstructInfos = constructsInStack(stack)
+        .map(construct => constructInfoFromConstruct(construct))
+        .filter(isDefined)
+        .filter(info => ALLOWED_FQN_PREFIXES.find(prefix => info.fqn.startsWith(prefix)))
+function cfnCustomResourcePropsToCloudFormation = function cfnCustomResourcePropsToCloudFormation(properties) {
+    if (!cdk.canInspect(properties)) {
+        return properties;
+    }
+    CfnCustomResourcePropsValidator(properties).assertSuccess();
+    return {
+        ServiceToken: cdk.stringToCloudFormation(properties.serviceToken),
+    };
+}
+<operator>.formatString("Two objects have been assigned the same Logical ID: '", this.reverse[newId], "' and '", oldId, "' are now both named '", newId, "'.")

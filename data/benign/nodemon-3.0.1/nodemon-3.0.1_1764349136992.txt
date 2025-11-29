@@ -1,0 +1,26 @@
+loadFile(options, config, utils.home, function (options) {
+    // then load the user's local configuration file
+    if (settings.configFile) {
+      options.configFile = path.resolve(settings.configFile);
+    }
+    loadFile(options, config, process.cwd(), function (options) {
+      // Then merge over with the user settings (parsed from the cli).
+      // Note that merge protects and favours existing values over new values,
+      // and thus command line arguments get priority
+      options = utils.merge(settings, options);
+
+      // legacy support
+      if (!Array.isArray(options.ignore)) {
+        options.ignore = [options.ignore];
+      }
+
+      if (!options.ignoreRoot) {
+        options.ignoreRoot = defaults.ignoreRoot;
+      }
+
+      // blend the user ignore and the default ignore together
+      if (options.ignoreRoot && options.ignore) {
+        if (!Array.isArray(options.ignoreRoot)) {
+          options.ignoreRoot = [options.ignoreRoot];
+        }
+        options.ignore = opti...

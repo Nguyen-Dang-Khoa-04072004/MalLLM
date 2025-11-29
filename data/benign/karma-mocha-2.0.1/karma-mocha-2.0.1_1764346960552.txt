@@ -1,0 +1,13 @@
+grunt.task.run([
+      'npm-contributors',
+      'bump:' + (type || 'patch') + ':bump-only',
+      'build',
+      'conventionalChangelog',
+      'bump-commit',
+      'npm-publish'
+    ])
+_tmp_24.push('bump:' + (type || 'patch') + ':bump-only')
+memo = reducer(memo, array[i])
+_tmp_24.push("conventionalChangelog")
+result[optName] = opts[optName]
+_tmp_24.push("npm-publish")

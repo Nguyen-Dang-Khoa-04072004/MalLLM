@@ -1,0 +1,36 @@
+module.exports.tasks = {
+    combine: function(options, config, logger){
+        var p = new Promise();
+        _logger = logger;
+        if (loader === null) {
+            config.loader.base.logger = _logger;
+            loader = new jxLoader(config.loader.base);
+            loader.addEvent('loadRepoDone', function(){
+               runCombine(options, p); 
+            });
+            loader.addRepository(config.loader.repos);
+        } else {
+            runCombine(options, p); 
+        }
+        return p;
+        
+    },
+    
+    createDeps: function(options, config, logger){
+        var p = new Promise();
+        _logger = logger;
+        if (loader === null) {
+            _logger.info("no loader object found... creating.");
+            config.loader.base.logger = _logger;
+            loader = new jxLoader(config.loader.base);
+            loader.addEvent('loadRepoDone', function(){
+               fs.writeFileSync(options.target + '/deps.json',JSON.stringify(loader.getRepoArray()...
+util.pump(oldFile,newFile, function(err){
+               logger.info("File " + options.from + " copied to " + options.to);
+               p.resolve(true);
+           })
+new Builder(config, config.logfilePath).build(options.target).then(function(){
+            p.resolve(true);
+        })
+var final = original.replace(pattern, opt.value)
+fs.writeFileSync(opt.file, final, 'utf-8')

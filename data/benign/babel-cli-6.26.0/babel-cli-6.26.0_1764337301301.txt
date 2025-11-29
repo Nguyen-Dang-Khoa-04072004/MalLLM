@@ -1,0 +1,15 @@
+map.addMapping({
+            generated: {
+              line: mapping.generatedLine + offset,
+              column: mapping.generatedColumn
+            },
+            source: mapping.source,
+            original: mapping.source == null ? null : {
+              line: mapping.originalLine,
+              column: mapping.originalColumn
+            }
+          })
+_tmp_5.generated = {
+              line: mapping.generatedLine + offset,
+              column: mapping.generatedColumn
+            }

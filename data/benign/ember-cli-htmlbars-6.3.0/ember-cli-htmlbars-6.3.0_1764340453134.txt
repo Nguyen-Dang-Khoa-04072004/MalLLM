@@ -1,0 +1,13 @@
+let parallelBabelInfo = {
+    requireFile: require.resolve('./require-from-worker'),
+    buildUsing: 'build',
+    params: {
+      templateCompilerPath,
+      isProduction,
+      projectConfig,
+      parallelConfigs: pluginInfo.parallelConfigs,
+      requiresModuleApiPolyfill,
+    },
+  }
+_tmp_1.requireFile = require.resolve('./require-from-worker')
+let htmlbarsOptions = this._addon.htmlbarsOptions()

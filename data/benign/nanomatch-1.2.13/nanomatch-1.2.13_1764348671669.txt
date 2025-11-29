@@ -1,0 +1,3 @@
+var key = utils.createKey(type + '=' + pattern, options)
+cache.has(type, key)
+cache.get(type, key)

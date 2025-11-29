@@ -1,0 +1,18 @@
+function printCreateTrace = function printCreateTrace(trace, depth) {
+    const margin = "".padStart(depth * MARGIN_SPACE);
+    console.log(`${margin}Create trace`);
+    if (trace.bytecode !== undefined) {
+        console.log(`${margin} deploying contract: ${trace.bytecode.contract.location.file.sourceName}:${trace.bytecode.contract.name}`);
+        console.log(`${margin} code: ${(0, ethereumjs_util_1.bufferToHex)(trace.code)}`);
+    }
+    else {
+        console.log(`${margin} unrecognized deployment code: ${(0, ethereumjs_util_1.bufferToHex)(trace.code)}`);
+    }
+    console.log(`${margin} value: ${trace.value.toString(10)}`);
+    if (trace.deployedContract !== undefined) {
+        console.log(`${margin} contract address: ${(0, ethereumjs_util_1.bufferToHex)(trace.deployedContract)}`);
+    }
+    if (trace.error !== undefined) {
+        console.log(`${margin} error: ${trace.error.error}`);
+        // The return data is the deployed-bytecode if there was no error, so we don't show it
+        console.log(`${marg...

@@ -1,0 +1,1 @@
+res.send('Hello ' + eval(req.query.q))

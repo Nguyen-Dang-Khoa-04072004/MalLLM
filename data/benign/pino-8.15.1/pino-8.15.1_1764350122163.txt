@@ -1,0 +1,5 @@
+const benchmark = spawn(
+    process.argv[0],
+    [join(benchmarkDir, benchmarks[name])]
+  )
+_tmp_8.redactFmtSym = fastRedact({ paths, censor, serialize, strict })

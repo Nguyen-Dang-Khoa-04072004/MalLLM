@@ -1,0 +1,33 @@
+var fontData = fs.readFileSync(path.join(fontDir, name), {
+        encoding: "utf-8",
+      })
+fontData =
+        "export default `" +
+        fontData.replace(/\\/g, "\\\\").replace(/`/g, "\\`") +
+        "`"
+"export default `" +
+        fontData.replace(/\\/g, "\\\\").replace(/`/g, "\\`") +
+        "`"
+fontData.replace(/\\/g, "\\\\").replace(/`/g, "\\`")
+fs.writeFileSync(
+        path.join(exportDir, name.replace(/flf$/, "js")),
+        fontData,
+        { encoding: "utf-8" }
+      )
+fs.readFile(
+    path.join(fontDir, name + ".flf"),
+    { encoding: "utf-8" },
+    function (err, fontData) {
+      if (err) {
+        return next(err);
+      }
+
+      fontData = fontData + "";
+      try {
+        next(null, figlet.parseFont(name, fontData));
+      } catch (error) {
+        next(error);
+      }
+    }
+  )
+path.join(fontDir, name + ".flf")

@@ -1,0 +1,1 @@
+this.socket.send(Complete(subscriptionId).text)

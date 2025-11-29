@@ -1,0 +1,4 @@
+response.send(400, {
+        code: 400,
+        message: 'Must provide appId query parameter if filtering by settingName',
+      })

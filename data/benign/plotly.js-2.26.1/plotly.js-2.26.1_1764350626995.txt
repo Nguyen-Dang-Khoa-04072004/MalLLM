@@ -1,0 +1,475 @@
+function hoverPoints = function hoverPoints(pointData, xval, yval) {
+    var cd = pointData.cd;
+    var trace = cd[0].trace;
+    var xa = pointData.xa;
+    var ya = pointData.ya;
+    var subplot = pointData.subplot;
+    var clusteredPointsIds = [];
+    var layer = LAYER_PREFIX + trace.uid + '-circle';
+    var hasCluster = trace.cluster && trace.cluster.enabled;
+
+    if(hasCluster) {
+        var elems = subplot.map.queryRenderedFeatures(null, {layers: [layer]});
+        clusteredPointsIds = elems.map(function(elem) {return elem.id;});
+    }
+
+    // compute winding number about [-180, 180] globe
+    var winding = (xval >= 0) ?
+        Math.floor((xval + 180) / 360) :
+        Math.ceil((xval - 180) / 360);
+
+    // shift longitude to [-180, 180] to determine closest point
+    var lonShift = winding * 360;
+    var xval2 = xval - lonShift;
+
+    function distFn(d) {
+        var lonlat = d.lonlat;
+        if(lonlat[0] === BADNUM) return Infinity;
+        if(hasCluster && clusteredPointsIds.indexOf(d.i + 1) === -1...
+function performPlot = function performPlot(parcatsModels, graphDiv, layout, svg) {
+    var isStatic = graphDiv._context.staticPlot;
+
+    var viewModels = parcatsModels.map(createParcatsViewModel.bind(0, graphDiv, layout));
+
+    // Get (potentially empty) parcatslayer selection with bound data to single element array
+    var layerSelection = svg.selectAll('g.parcatslayer').data([null]);
+
+    // Initialize single parcatslayer group if it doesn't exist
+    layerSelection.enter()
+        .append('g')
+        .attr('class', 'parcatslayer')
+        .style('pointer-events', isStatic ? 'none' : 'all');
+
+    // Bind data to children of layerSelection and get reference to traceSelection
+    var traceSelection = layerSelection
+        .selectAll('g.trace.parcats')
+        .data(viewModels, key);
+
+    // Initialize group for each trace/dimensions
+    var traceEnter = traceSelection.enter()
+        .append('g')
+        .attr('class', 'trace parcats');
+
+    // Update properties for each trace
+    traceSelection
+      ...
+function Scene2D = function Scene2D(options, fullLayout) {
+    this.container = options.container;
+    this.graphDiv = options.graphDiv;
+    this.pixelRatio = options.plotGlPixelRatio || window.devicePixelRatio;
+    this.id = options.id;
+    this.staticPlot = !!options.staticPlot;
+    this.scrollZoom = this.graphDiv._context._scrollZoom.cartesian;
+
+    this.fullData = null;
+    this.updateRefs(fullLayout);
+
+    this.makeFramework();
+    if(this.stopped) return;
+
+    // update options
+    this.glplotOptions = createOptions(this);
+    this.glplotOptions.merge(fullLayout);
+
+    // create the plot
+    this.glplot = createPlot2D(this.glplotOptions);
+
+    // create camera
+    this.camera = createCamera(this);
+
+    // trace set
+    this.traces = {};
+
+    // create axes spikes
+    this.spikes = createSpikes(this.glplot);
+
+    this.selectBox = createSelectBox(this.glplot, {
+        innerFill: false,
+        outerFill: true
+    });
+
+    // last button state
+    this.lastButtonState = 0;
+
+    // last pick result...
+function calcGeoJSON = function calcGeoJSON(calcTrace, fullLayout) {
+    var trace = calcTrace[0].trace;
+    var geoLayout = fullLayout[trace.geo];
+    var geo = geoLayout._subplot;
+    var locationmode = trace.locationmode;
+    var len = trace._length;
+
+    var features = locationmode === 'geojson-id' ?
+        geoUtils.extractTraceFeature(calcTrace) :
+        getTopojsonFeatures(trace, geo.topojson);
+
+    var lonArray = [];
+    var latArray = [];
+
+    for(var i = 0; i < len; i++) {
+        var calcPt = calcTrace[i];
+        var feature = locationmode === 'geojson-id' ?
+            calcPt.fOut :
+            geoUtils.locationToFeature(locationmode, calcPt.loc, features);
+
+        if(feature) {
+            calcPt.geojson = feature;
+            calcPt.ct = feature.properties.ct;
+            calcPt._polygons = geoUtils.feature2polygons(feature);
+
+            var bboxFeature = geoUtils.computeBbox(feature);
+            lonArray.push(bboxFeature[0], bboxFeature[2]);
+            latArray.push(bboxFeature[1], bb...
+function dimensionDefaults = function dimensionDefaults(dimensionIn, dimensionOut, parentOut, opts) {
+    function coerce(attr, dflt) {
+        return Lib.coerce(dimensionIn, dimensionOut, attributes.dimensions, attr, dflt);
+    }
+
+    var values = coerce('values');
+    var visible = coerce('visible');
+    if(!(values && values.length)) {
+        visible = dimensionOut.visible = false;
+    }
+
+    if(visible) {
+        coerce('label');
+        coerce('tickvals');
+        coerce('ticktext');
+        coerce('tickformat');
+        var range = coerce('range');
+
+        dimensionOut._ax = {
+            _id: 'y',
+            type: 'linear',
+            showexponent: 'all',
+            exponentformat: 'B',
+            range: range
+        };
+
+        Axes.setConvert(dimensionOut._ax, opts.layout);
+
+        coerce('multiselect');
+        var constraintRange = coerce('constraintrange');
+        if(constraintRange) {
+            dimensionOut.constraintrange = axisBrush.cleanRanges(constraintRange, dimensionOut);
+        }...
+exports.get = function() {
+    var traces = {};
+
+    Registry.allTypes.forEach(function(type) {
+        traces[type] = getTraceAttributes(type);
+    });
+
+    var transforms = {};
+
+    Object.keys(Registry.transformsRegistry).forEach(function(type) {
+        transforms[type] = getTransformAttributes(type);
+    });
+
+    return {
+        defs: {
+            valObjects: valObjectMeta,
+            metaKeys: UNDERSCORE_ATTRS.concat(['description', 'role', 'editType', 'impliedEdits']),
+            editType: {
+                traces: editTypes.traces,
+                layout: editTypes.layout
+            },
+            impliedEdits: {
+                description: [
+                    'Sometimes when an attribute is changed, other attributes',
+                    'must be altered as well in order to achieve the intended',
+                    'result. For example, when `range` is specified, it is',
+                    'important to set `autorange` to `false` or the new `range`',
+             ...
+_tmp_10.description = [
+            'Defines the map layers that are rendered by default below the trace layers defined in `data`,',
+            'which are themselves by default rendered below the layers defined in `layout.mapbox.layers`.',
+            '',
+            'These layers can be defined either explicitly as a Mapbox Style object which can contain multiple',
+            'layer definitions that load data from any public or private Tile Map Service (TMS or XYZ) or Web Map Service (WMS)',
+            'or implicitly by using one of the built-in style objects which use WMSes which do not require any',
+            'access tokens, or by using a default Mapbox style or custom Mapbox style URL, both of',
+            'which require a Mapbox access token',
+            '',
+            'Note that Mapbox access token can be set in the `accesstoken` attribute',
+            'or in the `mapboxAccessToken` config option.',
+            '',
+            'Mapbox Style objects are of the form described in the Mapbox G...
+function constructValueGridline = function constructValueGridline(value) {
+        var i, j, j0, tj, pxy, i0, ti, xy, dxydi0, dxydi1, dxydj0, dxydj1;
+        var xpoints = [];
+        var ypoints = [];
+        var ret = {};
+        // Search for the fractional grid index giving this line:
+        if(axisLetter === 'b') {
+            // For the position we use just the i-j coordinates:
+            j = trace.b2j(value);
+
+            // The derivatives for catmull-rom splines are discontinuous across cell
+            // boundaries though, so we need to provide both the cell and the position
+            // within the cell separately:
+            j0 = Math.floor(Math.max(0, Math.min(nb - 2, j)));
+            tj = j - j0;
+
+            ret.length = nb;
+            ret.crossLength = na;
+
+            ret.xy = function(i) {
+                return trace.evalxy([], i, j);
+            };
+
+            ret.dxy = function(i0, ti) {
+                return trace.dxydi([], i0, j0, ti, tj);
+            };
+
+            for(i = 0; i < na...
+var filterChanged = function(i, initialDimIndex, newRanges) {
+        // Have updated `constraintrange` data on `gd.data` and raise `Plotly.restyle` event
+        // without having to incur heavy UI blocking due to an actual `Plotly.restyle` call
+
+        var dim = initialDims[i][initialDimIndex];
+        var newConstraints = newRanges.map(function(r) { return r.slice(); });
+
+        // Store constraint range in preGUI
+        // This one doesn't work if it's stored in pieces in _storeDirectGUIEdit
+        // because it's an array of variable dimensionality. So store the whole
+        // thing at once manually.
+        var aStr = 'dimensions[' + initialDimIndex + '].constraintrange';
+        var preGUI = fullLayout._tracePreGUI[gd._fullData[fullIndices[i]]._fullInput.uid];
+        if(preGUI[aStr] === undefined) {
+            var initialVal = dim.constraintrange;
+            preGUI[aStr] = initialVal || null;
+        }
+
+        var fullDimension = gd._fullData[fullIndices[i]].dimensions[...
+function makeDragBox = function makeDragBox(gd, plotinfo, x, y, w, h, ns, ew) {
+    // mouseDown stores ms of first mousedown event in the last
+    // `gd._context.doubleClickDelay` ms on the drag bars
+    // numClicks stores how many mousedowns have been seen
+    // within `gd._context.doubleClickDelay` so we can check for click or doubleclick events
+    // dragged stores whether a drag has occurred, so we don't have to
+    // redraw unnecessarily, ie if no move bigger than MINDRAG or MINZOOM px
+    var zoomlayer = gd._fullLayout._zoomlayer;
+    var isMainDrag = (ns + ew === 'nsew');
+    var singleEnd = (ns + ew).length === 1;
+
+    // main subplot x and y (i.e. found in plotinfo - the main ones)
+    var xa0, ya0;
+    // {ax._id: ax} hash objects
+    var xaHash, yaHash;
+    // xaHash/yaHash values (arrays)
+    var xaxes, yaxes;
+    // main axis offsets
+    var xs, ys;
+    // main axis lengths
+    var pw, ph;
+    // contains keys 'xaHash', 'yaHash', 'xaxes', and 'yaxes'
+    // which are the x/y {ax._id: ax...
+function handleLayerDefaults = function handleLayerDefaults(layerIn, layerOut) {
+    function coerce(attr, dflt) {
+        return Lib.coerce(layerIn, layerOut, layoutAttributes.layers, attr, dflt);
+    }
+
+    var visible = coerce('visible');
+    if(visible) {
+        var sourceType = coerce('sourcetype');
+        var mustBeRasterLayer = sourceType === 'raster' || sourceType === 'image';
+
+        coerce('source');
+        coerce('sourceattribution');
+
+        if(sourceType === 'vector') {
+            coerce('sourcelayer');
+        }
+
+        if(sourceType === 'image') {
+            coerce('coordinates');
+        }
+
+        var typeDflt;
+        if(mustBeRasterLayer) typeDflt = 'raster';
+
+        var type = coerce('type', typeDflt);
+
+        if(mustBeRasterLayer && type !== 'raster') {
+            type = layerOut.type = 'raster';
+            Lib.log('Source types *raster* and *image* must drawn *raster* layer type.');
+        }
+
+        coerce('below');
+        coerce('color');
+        coerce('opacity');
+        co...
+_tmp_10.description = [
+            'Sets the filter operation.',
+
+            '*=* keeps items equal to `value`',
+            '*!=* keeps items not equal to `value`',
+
+            '*<* keeps items less than `value`',
+            '*<=* keeps items less than or equal to `value`',
+
+            '*>* keeps items greater than `value`',
+            '*>=* keeps items greater than or equal to `value`',
+
+            '*[]* keeps items inside `value[0]` to `value[1]` including both bounds',
+            '*()* keeps items inside `value[0]` to `value[1]` excluding both bounds',
+            '*[)* keeps items inside `value[0]` to `value[1]` including `value[0]` but excluding `value[1]',
+            '*(]* keeps items inside `value[0]` to `value[1]` excluding `value[0]` but including `value[1]',
+
+            '*][* keeps items outside `value[0]` to `value[1]` and equal to both bounds',
+            '*)(* keeps items outside `value[0]` to `value[1]`',
+            '*](* keeps items outside `value[0]` to `value[1]` and equal t...
+function supplyDefaults = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
+    function coerce(attr, dflt) {
+        return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
+    }
+
+    var labels = coerce('labels');
+    var values = coerce('values');
+
+    var res = handleLabelsAndValues(labels, values);
+    var len = res.len;
+    traceOut._hasLabels = res.hasLabels;
+    traceOut._hasValues = res.hasValues;
+
+    if(!traceOut._hasLabels &&
+        traceOut._hasValues
+    ) {
+        coerce('label0');
+        coerce('dlabel');
+    }
+
+    if(!len) {
+        traceOut.visible = false;
+        return;
+    }
+    traceOut._length = len;
+
+    handleMarkerDefaults(traceIn, traceOut, layout, coerce, true);
+
+    coerce('scalegroup');
+    // TODO: hole needs to be coerced to the same value within a scaleegroup
+
+    var textData = coerce('text');
+    var textTemplate = coerce('texttemplate');
+    var textInfo;
+    if(!textTemplate) textInfo = coerce('textinfo', Array.isArray(textData) ? 'text+percent...
+_tmp_1.hovermode = {
+        valType: 'enumerated',
+        values: ['x', 'y', 'closest', false, 'x unified', 'y unified'],
+        dflt: 'closest',
+        editType: 'modebar',
+        description: [
+            'Determines the mode of hover interactions.',
+            'If *closest*, a single hoverlabel will appear',
+            'for the *closest* point within the `hoverdistance`.',
+            'If *x* (or *y*), multiple hoverlabels will appear for multiple points',
+            'at the *closest* x- (or y-) coordinate within the `hoverdistance`,',
+            'with the caveat that no more than one hoverlabel will appear per trace.',
+            'If *x unified* (or *y unified*), a single hoverlabel will appear',
+            'multiple points at the closest x- (or y-) coordinate within the `hoverdistance`',
+            'with the caveat that no more than one hoverlabel will appear per trace.',
+            'In this mode, spikelines are enabled by default perpendicular to the specified axis.',
+            '...
+_tmp_30.impliedEdits = {
+                description: [
+                    'Sometimes when an attribute is changed, other attributes',
+                    'must be altered as well in order to achieve the intended',
+                    'result. For example, when `range` is specified, it is',
+                    'important to set `autorange` to `false` or the new `range`',
+                    'value would be lost in the redraw. `impliedEdits` is the',
+                    'mechanism to do this: `impliedEdits: {autorange: false}`.',
+                    'Each key is a relative paths to the attribute string to',
+                    'change, using *^* to ascend into the parent container,',
+                    'for example `range[0]` has `impliedEdits: {*^autorange*: false}`.',
+                    'A value of `undefined` means that the attribute will not be',
+                    'changed, but its previous value should be recorded in case',
+                    'we want to reverse this change later. For example, `...
+function handleAxisDefaults = function handleAxisDefaults(traceIn, traceOut, layout, coerce) {
+    var dimensions = traceOut.dimensions;
+    var dimLength = dimensions.length;
+    var showUpper = traceOut.showupperhalf;
+    var showLower = traceOut.showlowerhalf;
+    var showDiag = traceOut.diagonal.visible;
+    var i, j;
+
+    var xAxesDflt = new Array(dimLength);
+    var yAxesDflt = new Array(dimLength);
+
+    for(i = 0; i < dimLength; i++) {
+        var suffix = i ? i + 1 : '';
+        xAxesDflt[i] = 'x' + suffix;
+        yAxesDflt[i] = 'y' + suffix;
+    }
+
+    var xaxes = coerce('xaxes', xAxesDflt);
+    var yaxes = coerce('yaxes', yAxesDflt);
+
+    // build list of [x,y] axis corresponding to each dimensions[i],
+    // very useful for passing options to regl-splom
+    var diag = traceOut._diag = new Array(dimLength);
+
+    // lookup for 'drawn' x|y axes, to avoid costly indexOf downstream
+    traceOut._xaxes = {};
+    traceOut._yaxes = {};
+
+    // list of 'drawn' x|y axes, use to generate list of subplots
+    va...
+_tmp_17.description = [
+            'Specifies the type of normalization used for this histogram trace.',
+
+            'If **, the span of each bar corresponds to the number of',
+            'occurrences (i.e. the number of data points lying inside the bins).',
+
+            'If *percent* / *probability*, the span of each bar corresponds to',
+            'the percentage / fraction of occurrences with respect to the total',
+            'number of sample points',
+            '(here, the sum of all bin HEIGHTS equals 100% / 1).',
+
+            'If *density*, the span of each bar corresponds to the number of',
+            'occurrences in a bin divided by the size of the bin interval',
+            '(here, the sum of all bin AREAS equals the',
+            'total number of sample points).',
+
+            'If *probability density*, the area of each bar corresponds to the',
+            'probability that an event will fall into the corresponding bin',
+            '(here, the sum of all bin AREAS equals 1).'
+        ]...
+function zoomScoped = function zoomScoped(geo, projection) {
+    var zoom = initZoom(geo, projection);
+
+    function handleZoomstart() {
+        d3.select(this).style(zoomstartStyle);
+    }
+
+    function handleZoom() {
+        projection
+            .scale(d3.event.scale)
+            .translate(d3.event.translate);
+        geo.render(true);
+
+        var center = projection.invert(geo.midPt);
+        geo.graphDiv.emit('plotly_relayouting', {
+            'geo.projection.scale': projection.scale() / geo.fitScale,
+            'geo.center.lon': center[0],
+            'geo.center.lat': center[1]
+        });
+    }
+
+    function syncCb(set) {
+        var center = projection.invert(geo.midPt);
+
+        set('center.lon', center[0]);
+        set('center.lat', center[1]);
+    }
+
+    function handleZoomend() {
+        d3.select(this).style(zoomendStyle);
+        sync(geo, projection, syncCb);
+    }
+
+    zoom
+        .on('zoomstart', handleZoomstart)
+        .on('zoom', handleZoom)
+        .on('zoomend', handleZoomend...

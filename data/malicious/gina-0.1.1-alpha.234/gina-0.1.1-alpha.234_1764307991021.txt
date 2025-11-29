@@ -1,0 +1,90 @@
+conf[bundle][env].publicPath && fs.existsSync(conf[bundle][env].publicPath)
+this.decode = function(byte_pointer) {
+    var bite = byte_pointer.get();
+    if (bite === EOF_byte) {
+      if (eucjp_first === 0x00 && eucjp_second === 0x00) {
+        return EOF_code_point;
+      }
+      eucjp_first = 0x00;
+      eucjp_second = 0x00;
+      return decoderError(fatal);
+    }
+    byte_pointer.offset(1);
+
+    var lead, code_point;
+    if (eucjp_second !== 0x00) {
+      lead = eucjp_second;
+      eucjp_second = 0x00;
+      code_point = null;
+      if (inRange(lead, 0xA1, 0xFE) && inRange(bite, 0xA1, 0xFE)) {
+        code_point = indexCodePointFor((lead - 0xA1) * 94 + bite - 0xA1,
+                                       indexes['jis0212']);
+      }
+      if (!inRange(bite, 0xA1, 0xFE)) {
+        byte_pointer.offset(-1);
+      }
+      if (code_point === null) {
+        return decoderError(fatal);
+      }
+      return code_point;
+    }
+    if (eucjp_first === 0x8E && inRange(bite, 0xA1, 0xDF)) {
+      eucjp_first = 0x00;
+      return 0xFF61 + bite - 0xA1;
+    }
+    if (eu...
+throw new Error('Path `'+ name+'` not found. Check the spelling or add a new one using setPath("'+name+'", "\/your\/new\/pathname")')
+lStat = fs.lstatSync(_(conf[bundle][env].publicPath +'/'+ dirsOrFiles[d], true))
+files['templates'][section] = merge(files['templates'][section], defaultViews[section])
+noneDefaultJs[t] = merge(url, noneDefaultJs[t])
+noneDefaultJs   = (files['templates'][section].javascripts) ? JSON.clone(files['templates'][section].javascripts) : []
+noneDefaultCss  = (files['templates'][section].stylesheets) ? JSON.clone(files['templates'][section].stylesheets) : []
+Array.isArray(noneDefaultJs) && noneDefaultJs.length > 0
+header  = completeHeaders(header, request, response)
+typeof(url) == 'string'
+noneDefaultJs[t] = merge(url, noneDefaultJs[t])
+target = target.replace(new RegExp(keys[k], 'g'), fieldObj[local.keys[keys[k]]])
+response.setHeader('content-length', fs.statSync(filename).size)
+self['setErrorLabels'] = function (errorLabels) {
+        if ( typeof(errorLabels) != 'undefined') {
+            local.errorLabels = merge(errorLabels, local.errorLabels)
+        }
+    }
+var error = new ApiError('Controller::redirect(...) exceptions: `inheritedData` reached 2000 chars limit', 424)
+!(_result_15 = _iterator_15.next()).done
+( typeof(module) !== 'undefined' ) && module.exports
+noneDefaultCss[t] = merge(url, noneDefaultCss[t])
+noneDefaultJs = merge.setKeyComparison('url')(files['templates']._common.javascripts, noneDefaultJs, true)
+noneDefaultJs   = merge.setKeyComparison('url')(defaultViews._common.javascripts, noneDefaultJs)
+noneDefaultCss = merge.setKeyComparison('url')(files['templates']._common.stylesheets, noneDefaultCss, true)
+noneDefaultCss  = merge.setKeyComparison('url')(defaultViews._common.stylesheets, noneDefaultCss)
+files['templates'][section][ref] = merge(files['templates'][section][ref], files['templates']._common[ref])
+let allFilesCollection = new Collection(files['templates'][section][excludedStr.replace(/Excluded$/, '')])
+let xhrOptions = {
+                            url: url,
+                            method: method,
+                            isSynchrone: isSynchrone,
+                            headers : {
+                                // to upload, use `multipart/form-data` for `enctype`
+                                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                                // cross domain is enabled by default, but you need to setup `Access-Control-Allow-Origin`
+                                'X-Requested-With': 'XMLHttpRequest' // in case of cross domain origin
+                            }
+                        }
+!Array.isArray(excluded) && !/^(\*|\*\*|all)$/i.test(files['templates'][section][excludedStr])
+output_byte_stream.emit(0x1B, 0x28, 0x42)
+this.getBundleStatus = function(req, res, next) {
+        var conf = self.getConfig();
+        self.renderJSON({
+            status: 200,
+            isAlive: true,
+            message: 'I am alive !',
+            // bundle: conf.bundle,
+            // project: conf.projectName
+        });
+    }
+currentCollection = new Collection(excluded)
+var response = { isAlive: false }
+currentCollectionRaw[e].url != excludedUrl[t]
+currentCollection = currentCollection.delete({ 'url': excludedUrl }, 'url')
+/^image/i.test(self.conf[self.appName][self.env].server.coreConfiguration.mime[ext.substr(1)])

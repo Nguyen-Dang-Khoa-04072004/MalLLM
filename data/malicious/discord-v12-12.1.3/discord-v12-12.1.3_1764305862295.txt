@@ -1,0 +1,1 @@
+throw new TypeError('The count must be a number.');

@@ -1,0 +1,57 @@
+this.resetTimeout = this.client.setTimeout(() => {
+            this.remaining = this.limit;
+            this.globalLimit = false;
+            this.handle();
+            this.resetTimeout = null;
+          }, Number(res.headers["retry-after"]) + this.client.options.restTimeOffset)
+this.client.rest.methods.getGateway().then(res => {
+      const protocolVersion = Constants.DefaultOptions.ws.version;
+      const gateway = `${res.url}/?v=${protocolVersion}&encoding=${WebSocketConnection.ENCODING}`;
+      this.client.emit(Constants.Events.DEBUG, `Using gateway ${gateway}`);
+      this.client.ws.connect(gateway);
+      this.client.ws.connection.once('error', reject);
+      this.client.ws.connection.once('close', event => {
+        if (event.code === 4004) reject(new Error(Constants.Errors.BAD_LOGIN));
+        if (event.code === 4010) reject(new Error(Constants.Errors.INVALID_SHARD));
+        if (event.code === 4011) reject(new Error(Constants.Errors.SHARDING_REQUIRED));
+      });
+      this.client.once(Constants.Events.READY, () => {
+        resolve(token);
+        this.client.clearTimeout(timeout);
+      });
+    }, reject)
+<operator>.formatString("", res.url, "/?v=", protocolVersion, "&encoding=", WebSocketConnection.ENCODING, "")
+new Promise((resolve, reject) => {
+      if (!channel.joinable) {
+        if (channel.full) {
+          throw new Error('You do not have permission to join this voice channel; it is full.');
+        } else {
+          throw new Error('You do not have permission to join this voice channel.');
+        }
+      }
+
+      let connection = this.connections.get(channel.guild.id);
+
+      if (connection) {
+        if (connection.channel.id !== channel.id) {
+          this.connections.get(channel.guild.id).updateChannel(channel);
+        }
+        resolve(connection);
+        return;
+      } else {
+        connection = new VoiceConnection(this, channel);
+        this.connections.set(channel.guild.id, connection);
+      }
+
+      connection.once('failed', reason => {
+        this.connections.delete(channel.guild.id);
+        reject(reason);
+      });
+
+      connection.once('authenticated', () => {
+        connection.once('ready', () => resolve(connection));
+        connection.once('error', rejec...
+this.client.once(Constants.Events.READY, () => {
+        resolve(token);
+        this.client.clearTimeout(timeout);
+      })

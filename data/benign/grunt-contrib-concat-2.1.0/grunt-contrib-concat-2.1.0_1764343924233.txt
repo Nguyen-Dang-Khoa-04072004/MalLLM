@@ -1,0 +1,60 @@
+(_tmp_9 = f.src.filter(function(filepath) {
+        // Warn on and remove invalid source files (if nonull was set).
+        if (!grunt.file.exists(filepath)) {
+          grunt.log.warn('Source file "' + filepath + '" not found.');
+          return false;
+        }
+        return true;
+      }).map(function(filepath, i) {
+        if (grunt.file.isDir(filepath)) {
+          return;
+        }
+        // Read file source.
+        var src = grunt.file.read(filepath);
+        // Process files as templates if requested.
+        if (typeof options.process === 'function') {
+          src = options.process(src, filepath);
+        } else if (options.process) {
+          src = grunt.template.process(src, options.process);
+        }
+        // Strip banners if requested.
+        if (options.stripBanners) {
+          src = comment.stripBanner(src, options.stripBanners);
+        }
+        // Add the lines of this file to our map.
+        if (sourceMapHelper) {
+          src = sourceMapHelper.addlines(src, f...).join
+function(filepath, i) {
+        if (grunt.file.isDir(filepath)) {
+          return;
+        }
+        // Read file source.
+        var src = grunt.file.read(filepath);
+        // Process files as templates if requested.
+        if (typeof options.process === 'function') {
+          src = options.process(src, filepath);
+        } else if (options.process) {
+          src = grunt.template.process(src, options.process);
+        }
+        // Strip banners if requested.
+        if (options.stripBanners) {
+          src = comment.stripBanner(src, options.stripBanners);
+        }
+        // Add the lines of this file to our map.
+        if (sourceMapHelper) {
+          src = sourceMapHelper.addlines(src, filepath);
+          if (i < f.src.length - 1) {
+            sourceMapHelper.add(options.separator);
+          }
+        }
+        return src;
+      }
+(_tmp_14 = grunt.file).isDir
+var src = grunt.file.read(filepath)
+src = options.process(src, filepath)
+src = comment.stripBanner(src, options.stripBanners)
+src = sourceMapHelper.addlines(src, filepath)
+return src
+src += sourceMapHelper.url()
+grunt.file.write(f.dest, src)
+grunt.verbose.write('File ' + chalk.cyan(f.dest) + ' created.')

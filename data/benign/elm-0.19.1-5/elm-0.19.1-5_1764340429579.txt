@@ -1,0 +1,2 @@
+var situation = process.platform + '_' + process.arch
+process.exit(1)

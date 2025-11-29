@@ -1,0 +1,1 @@
+patch_insertAdjacentElement(Element.prototype, Native.Element_insertAdjacentElement)

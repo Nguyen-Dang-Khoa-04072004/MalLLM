@@ -1,0 +1,3 @@
+var overriddenPropertyDescriptors = ObjectsOverriddenPropertyDescriptors.get(this)
+overriddenPropertyDescriptors && overriddenPropertyDescriptors.get(key) !== void 0
+throw new Error("Can't make property " + JSON.stringify(key) + " observable on " + this + " because object is not extensible");

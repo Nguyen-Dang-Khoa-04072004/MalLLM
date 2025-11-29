@@ -1,0 +1,24 @@
+const getContext2D = jest.fn(function getContext2d(type) {
+    if (type === '2d') {
+      /**
+       * Contexts must be idempotent. Once they are generated, they should be returned when
+       * getContext() is called on the same canvas object multiple times.
+       */
+      if (generatedContexts.has(this)) return generatedContexts.get(this);
+      const ctx = new CanvasRenderingContext2D(this);
+      generatedContexts.set(this, ctx);
+      return ctx;
+    }
+    try {
+      if (!this.dataset.internalRequireTest) require('canvas');
+    } catch (_unused) {
+      return null;
+    }
+    return getContext2D.internal.call(this, type);
+  })
+borrowedFromCanvas.forEach(key => {
+      this[key] = jest.fn(_CanvasRenderingContext2D.default.prototype[key].bind(this));
+    })
+throw new RangeError('Source length must be a positive multiple of 4.');
+(_tmp_35 = this._drawCalls).slice
+throw new RangeError('The height is zero or not a number.');

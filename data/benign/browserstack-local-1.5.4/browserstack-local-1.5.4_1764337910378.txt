@@ -1,0 +1,35 @@
+options.ca = fs.readFileSync(useCaCertificate)
+https.get(options, function (response) {
+  response.pipe(fileStream);
+  response.on('error', function(err) {
+    console.error('Got Error in binary download response', err);
+  });
+  fileStream.on('error', function (err) {
+    console.error('Got Error while downloading binary file', err);
+  });
+  fileStream.on('close', function () {
+    console.log('Done');
+  });
+}).on('error', function(err) {
+  console.error('Got Error in binary downloading request', err);
+})
+this.pid && running(this.pid) && this.isProcessRunning
+https.get(options, function (response) {
+      response.pipe(fileStream);
+      response.on('error', function(err) {
+        console.error('Got Error in binary download response', err);
+        that.retryBinaryDownload(conf, destParentDir, callback, retries, binaryPath);
+      });
+      fileStream.on('error', function (err) {
+        console.error('Got Error while downloading binary file', err);
+        that.retryBinaryDownload(conf, destParentDir, callback, retries, binaryPath);
+      });
+      fileStream.on('close', function () {
+        fs.chmod(binaryPath, '0755', function() {
+          callback(binaryPath);
+        });
+      });
+    }).on('error', function(err) {
+      console.error('Got Error in binary downloading request', err);
+      that.retryBinaryDownload(conf, destParentDir, callback, retries, binaryPath);
+    })

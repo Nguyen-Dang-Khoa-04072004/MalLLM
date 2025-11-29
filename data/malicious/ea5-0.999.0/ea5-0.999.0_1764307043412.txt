@@ -1,0 +1,4 @@
+type = this.get('Content-Type')
+debug('no routes defined on app')
+this.set('Content-Type', setCharset(type, 'utf-8'))
+var generateETag = !this.get('ETag') && typeof etagFn === 'function'

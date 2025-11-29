@@ -1,0 +1,1690 @@
+WebInspector.CPUProfileDataModel.prototype = {
+    /**
+     * @param {!ProfilerAgent.CPUProfile} profile
+     */
+    _calculateTimes: function(profile)
+    {
+        function totalHitCount(node) {
+            var result = node.hitCount;
+            for (var i = 0; i < node.children.length; i++)
+                result += totalHitCount(node.children[i]);
+            return result;
+        }
+        profile.totalHitCount = totalHitCount(profile.head);
+
+        var duration = this.profileEndTime - this.profileStartTime;
+        var samplingInterval = duration / profile.totalHitCount;
+        this.samplingInterval = samplingInterval;
+
+        function calculateTimesForNode(node) {
+            node.selfTime = node.hitCount * samplingInterval;
+            var totalHitCount = node.hitCount;
+            for (var i = 0; i < node.children.length; i++)
+                totalHitCount += calculateTimesForNode(node.children[i]);
+            node.totalTime = totalHitCount * samplingInterval;
+       ...
+WebInspector.DebuggerWorkspaceBinding.prototype = {
+    /**
+     * @param {!WebInspector.Target} target
+     */
+    targetAdded: function(target)
+    {
+        this._targetToData.set(target, new WebInspector.DebuggerWorkspaceBinding.TargetData(target, this));
+    },
+
+    /**
+     * @param {!WebInspector.Target} target
+     */
+    targetRemoved: function(target)
+    {
+        var targetData = this._targetToData.get(target);
+        targetData._dispose();
+        this._targetToData.remove(target);
+    },
+
+    /**
+     * @param {!WebInspector.Event} event
+     */
+    _uiSourceCodeRemoved: function(event)
+    {
+        var uiSourceCode = /** @type {!WebInspector.UISourceCode} */ (event.data);
+        var targetDatas = this._targetToData.valuesArray();
+        for (var i = 0; i < targetDatas.length; ++i)
+            targetDatas[i]._uiSourceCodeRemoved(uiSourceCode);
+    },
+
+    /**
+     * @param {!WebInspector.Event} event
+     */
+    _projectRemoved: function(event)
+    {
+        var pr...
+WebInspector.ApplicationCacheItemsView = function(model, frameId)
+{
+    WebInspector.VBox.call(this);
+
+    this._model = model;
+
+    this.element.classList.add("storage-view");
+    this.element.classList.add("table");
+
+    // FIXME: Needs better tooltip. (Localized)
+    this.deleteButton = new WebInspector.StatusBarButton(WebInspector.UIString("Delete"), "delete-status-bar-item");
+    this.deleteButton.setVisible(false);
+    this.deleteButton.addEventListener("click", this._deleteButtonClicked, this);
+
+    this.connectivityIcon = createElement("div");
+    this.connectivityMessage = createElement("span");
+    this.connectivityMessage.className = "storage-application-cache-connectivity";
+    this.connectivityMessage.textContent = "";
+
+    this.divider = new WebInspector.StatusBarSeparator();
+
+    this.statusIcon = createElement("div");
+    this.statusMessage = createElement("span");
+    this.statusMessage.className = "storage-application-cache-status";
+    this.statusMessage.textConte...
+WebInspector.TopDownProfileDataGridTree.prototype = {
+    /**
+     * @param {!WebInspector.ProfileDataGridNode} profileDataGridNode
+     */
+    focus: function(profileDataGridNode)
+    {
+        if (!profileDataGridNode)
+            return;
+
+        this.save();
+        profileDataGridNode.savePosition();
+
+        this.children = [profileDataGridNode];
+        this.totalTime = profileDataGridNode.totalTime;
+    },
+
+    /**
+     * @param {!WebInspector.ProfileDataGridNode} profileDataGridNode
+     */
+    exclude: function(profileDataGridNode)
+    {
+        if (!profileDataGridNode)
+            return;
+
+        this.save();
+
+        WebInspector.TopDownProfileDataGridNode._excludeRecursively(this, profileDataGridNode.callUID);
+
+        if (this.lastComparator)
+            this.sort(this.lastComparator, true);
+    },
+
+    restore: function()
+    {
+        if (!this._savedChildren)
+            return;
+
+        this.children[0].restorePosition();
+
+        WebInspector.ProfileDataGridTree...
+function loadScriptsPromise = function loadScriptsPromise(scriptNames)
+{
+    /** @type {!Array.<!Promise.<string>>} */
+    var promises = [];
+    /** @type {!Array.<string>} */
+    var urls = [];
+    var sources = new Array(scriptNames.length);
+    var scriptToEval = 0;
+    for (var i = 0; i < scriptNames.length; ++i) {
+        var scriptName = scriptNames[i];
+        var sourceURL = self._importScriptPathPrefix + scriptName;
+        var schemaIndex = sourceURL.indexOf("://") + 3;
+        sourceURL = sourceURL.substring(0, schemaIndex) + normalizePath(sourceURL.substring(schemaIndex));
+        if (_loadedScripts[sourceURL])
+            continue;
+        urls.push(sourceURL);
+        promises.push(loadResourcePromise(sourceURL).then(scriptSourceLoaded.bind(null, i), scriptSourceLoaded.bind(null, i, undefined)));
+    }
+    return Promise.all(promises).then(undefined);
+
+    /**
+     * @param {number} scriptNumber
+     * @param {string=} scriptSource
+     */
+    function scriptSourceLoaded(scriptNumber, scriptSource...
+CodeMirror.defineExtension("uncomment", function(from, to, options) {
+    if (!options) options = noOptions;
+    var self = this, mode = self.getModeAt(from);
+    var end = Math.min(to.ch != 0 || to.line == from.line ? to.line : to.line - 1, self.lastLine()), start = Math.min(from.line, end);
+
+    // Try finding line comments
+    var lineString = options.lineComment || mode.lineComment, lines = [];
+    var pad = options.padding == null ? " " : options.padding, didSomething;
+    lineComment: {
+      if (!lineString) break lineComment;
+      for (var i = start; i <= end; ++i) {
+        var line = self.getLine(i);
+        var found = line.indexOf(lineString);
+        if (found > -1 && !/comment/.test(self.getTokenTypeAt(Pos(i, found + 1)))) found = -1;
+        if (found == -1 && (i != end || i == start) && nonWS.test(line)) break lineComment;
+        if (found > -1 && nonWS.test(line.slice(0, found))) break lineComment;
+        lines.push(line);
+      }
+      self.operation(function() ...
+['commands', 'events', 'types'].forEach(function(section) {
+    // TODO(3y3): types are unique for protocol, not for domain.
+    // We need to register types cache and search in it for conflicts.
+    var uniqueName = section == 'types' ? 'id' : 'name',
+        origSection = origDomain[section],
+        toMergeSection = toMergeDomain[section];
+
+    if (!toMergeSection || !toMergeSection.length)
+      return;
+
+    if (!origSection || !origSection.length) {
+      origDomain[section] = toMergeSection;
+      return;
+    }
+
+    state.section = section;
+    state.uname = uniqueName;
+
+    mergeByName(
+      origSection,
+      toMergeSection,
+      uniqueName,
+      this._onItemConflict.bind(this, state));
+  }, this)
+WebInspector.ProjectStore.prototype = {
+    /**
+     * @param {!WebInspector.FileDescriptor} fileDescriptor
+     */
+    addFile: function(fileDescriptor)
+    {
+        this._project._addFile(fileDescriptor);
+    },
+
+    /**
+     * @param {string} path
+     */
+    removeFile: function(path)
+    {
+        this._project._removeFile(path);
+    },
+
+    /**
+     * @return {!WebInspector.Project}
+     */
+    project: function()
+    {
+        return this._project;
+    }
+}
+WebInspector.AuditCategoryImpl.prototype = {
+    /**
+     * @override
+     * @return {string}
+     */
+    get id()
+    {
+        // this._id value is injected at construction time.
+        return this._id;
+    },
+
+    /**
+     * @override
+     * @return {string}
+     */
+    get displayName()
+    {
+        return this._displayName;
+    },
+
+    /**
+     * @param {!WebInspector.AuditRule} rule
+     * @param {!WebInspector.AuditRule.Severity} severity
+     */
+    addRule: function(rule, severity)
+    {
+        rule.severity = severity;
+        this._rules.push(rule);
+    },
+
+    /**
+     * @override
+     * @param {!WebInspector.Target} target
+     * @param {!Array.<!WebInspector.NetworkRequest>} requests
+     * @param {function(!WebInspector.AuditRuleResult)} ruleResultCallback
+     * @param {function()} categoryDoneCallback
+     * @param {!WebInspector.Progress} progress
+     */
+    run: function(target, requests, ruleResultCallback, categoryDoneCallback, progress)
+    {
+        this._...
+WebInspector.UISourceCodeFrame.Infobar.prototype = {
+    _onResize: function()
+    {
+        if (this._uiSourceCodeFrame)
+            this._uiSourceCodeFrame.doResize();
+    },
+
+    _onToggleDetails: function()
+    {
+        this._toggled = !this._toggled;
+        this._updateToggleElement();
+        this._onResize();
+    },
+
+    _onClose: function()
+    {
+        this.dispose();
+    },
+
+    _updateToggleElement: function()
+    {
+        this._toggleElement.textContent = this._toggled ? WebInspector.UIString("less") : WebInspector.UIString("more");
+        this._detailsContainer.classList.toggle("hidden", !this._toggled);
+    },
+
+    /**
+     * @param {!WebInspector.UISourceCodeFrame} uiSourceCodeFrame
+     */
+    _attached: function(uiSourceCodeFrame)
+    {
+        this._uiSourceCodeFrame = uiSourceCodeFrame;
+    },
+
+    /**
+     * @param {string=} message
+     * @return {!Element}
+     */
+    createDetailsRowMessage: function(message)
+    {
+        var infobarDetailsRow = this._de...
+function userAgentSelected = function userAgentSelected()
+    {
+        var value = userAgentSelectElement.options[userAgentSelectElement.selectedIndex].value;
+        if (value !== customOverride.value) {
+            userAgentSetting.removeChangeListener(settingChanged);
+            userAgentSetting.set(value);
+            userAgentSetting.addChangeListener(settingChanged);
+            otherUserAgentElement.value = value;
+            otherUserAgentElement.title = value;
+            otherUserAgentElement.readOnly = true;
+        } else {
+            otherUserAgentElement.readOnly = false;
+            otherUserAgentElement.focus();
+        }
+    }
+WebInspector.DeferredTempFile.prototype = {
+    /**
+     * @param {!Array.<string>} strings
+     */
+    write: function(strings)
+    {
+        if (!this._chunks)
+            return;
+        if (this._finishCallback)
+            throw new Error("No writes are allowed after close.");
+        this._chunks.push.apply(this._chunks, strings);
+        if (this._tempFile && !this._isWriting)
+            this._writeNextChunk();
+    },
+
+    /**
+     * @param {function(?WebInspector.TempFile)} callback
+     */
+    finishWriting: function(callback)
+    {
+        this._finishCallback = callback;
+        if (this._finishedWriting)
+            callback(this._tempFile);
+        else if (!this._isWriting && !this._chunks.length)
+            this._notifyFinished();
+    },
+
+    /**
+     * @param {*} e
+     */
+    _failedToCreateTempFile: function(e)
+    {
+        WebInspector.console.error("Failed to create temp file " + e.code + " : " + e.message);
+        this._chunks = null;
+        this._notifyFin...
+function iterate = function iterate(node) {
+    async.waterfall([
+      fs.readdir.bind(fs, node),
+      function(paths, cb) {
+        async.each(paths, function(child, cb) {
+          var apath = path.join(node, child);
+          var rpath = relative(apath);
+
+          fs.realpath(apath, realpaths, function(err, realpath) {
+            if (err) { return cb(err); }
+            if (cache[realpath] || excluded(rpath)) return cb();
+            cache[realpath] = true;
+
+            fs.stat(realpath, function(error, pstat) {
+              if (error) return cb(error);
+
+              if (pstat.isDirectory()) folders.push(realpath);
+              if (pstat.isFile() && included(rpath)) list.push(realpath);
+              cb();
+            });
+          });
+        }, cb);
+      }
+    ], iterator);
+  }
+async.waterfall([
+      fs.readdir.bind(fs, node),
+      function(paths, cb) {
+        async.each(paths, function(child, cb) {
+          var apath = path.join(node, child);
+          var rpath = relative(apath);
+
+          fs.realpath(apath, realpaths, function(err, realpath) {
+            if (err) { return cb(err); }
+            if (cache[realpath] || excluded(rpath)) return cb();
+            cache[realpath] = true;
+
+            fs.stat(realpath, function(error, pstat) {
+              if (error) return cb(error);
+
+              if (pstat.isDirectory()) folders.push(realpath);
+              if (pstat.isFile() && included(rpath)) list.push(realpath);
+              cb();
+            });
+          });
+        }, cb);
+      }
+    ], iterator)
+function searchInContent = function searchInContent(path, callback)
+        {
+            var queriesToRun = searchConfig.queries().slice();
+            searchNextQuery.call(this);
+
+            /**
+             * @this {WebInspector.ContentProviderBasedProjectDelegate}
+             */
+            function searchNextQuery()
+            {
+                if (!queriesToRun.length) {
+                    callback(true);
+                    return;
+                }
+                var query = queriesToRun.shift();
+                this._contentProviders[path].searchInContent(query, !searchConfig.ignoreCase(), searchConfig.isRegex(), contentCallback.bind(this));
+            }
+
+            /**
+             * @param {!Array.<!WebInspector.ContentProvider.SearchMatch>} searchMatches
+             * @this {WebInspector.ContentProviderBasedProjectDelegate}
+             */
+            function contentCallback(searchMatches)
+            {
+                if (!searchMatches.length) {
+                    callback(false);
+    ...
+WebInspector.ParsedURL.splitLineAndColumn = function(string)
+{
+    var lineColumnRegEx = /:(\d+)(:(\d+))?$/;
+    var lineColumnMatch = lineColumnRegEx.exec(string);
+    var lineNumber;
+    var columnNumber;
+    if (!lineColumnMatch)
+        return null;
+
+    lineNumber = parseInt(lineColumnMatch[1], 10);
+    // Immediately convert line and column to 0-based numbers.
+    lineNumber = isNaN(lineNumber) ? undefined : lineNumber - 1;
+    if (typeof(lineColumnMatch[3]) === "string") {
+        columnNumber = parseInt(lineColumnMatch[3], 10);
+        columnNumber = isNaN(columnNumber) ? undefined : columnNumber - 1;
+    }
+
+    return { url: string.substring(0, string.length - lineColumnMatch[0].length), lineNumber: lineNumber, columnNumber: columnNumber};
+}
+WebInspector.HeapSnapshotLoaderProxy.prototype = {
+    /**
+     * @param {string} chunk
+     * @param {function(!WebInspector.OutputStream)=} callback
+     */
+    write: function(chunk, callback)
+    {
+        this.callMethod(callback, "write", chunk);
+    },
+
+    /**
+     * @param {function()=} callback
+     */
+    close: function(callback)
+    {
+        /**
+         * @this {WebInspector.HeapSnapshotLoaderProxy}
+         */
+        function buildSnapshot()
+        {
+            if (callback)
+                callback();
+            var showHiddenData = WebInspector.settings.showAdvancedHeapSnapshotProperties.get();
+            this.callFactoryMethod(updateStaticData.bind(this), "buildSnapshot", WebInspector.HeapSnapshotProxy, showHiddenData);
+        }
+
+        /**
+         * @param {!WebInspector.HeapSnapshotProxy} snapshotProxy
+         * @this {WebInspector.HeapSnapshotLoaderProxy}
+         */
+        function updateStaticData(snapshotProxy)
+        {
+            this.dispose();...
+TreeOutline.prototype._forgetChildrenRecursive = function(parentElement)
+{
+    var child = parentElement.children[0];
+    while (child) {
+        this._forgetTreeElement(child);
+        child = child.traverseNextTreeElement(false, parentElement, true);
+    }
+}
+WebInspector.CSSWorkspaceBinding.HeaderInfo.prototype = {
+    /**
+     * @param {!WebInspector.LiveLocation} location
+     */
+    _addLocation: function(location)
+    {
+        this._locations.add(location);
+        location.update();
+    },
+
+    /**
+     * @param {!WebInspector.LiveLocation} location
+     */
+    _removeLocation: function(location)
+    {
+        this._locations.remove(location);
+    },
+
+    _updateLocations: function()
+    {
+        var items = this._locations.valuesArray();
+        for (var i = 0; i < items.length; ++i)
+            items[i].update();
+    },
+
+    /**
+     * @param {number} lineNumber
+     * @param {number=} columnNumber
+     * @return {?WebInspector.UILocation}
+     */
+    _rawLocationToUILocation: function(lineNumber, columnNumber)
+    {
+        var uiLocation = null;
+        var rawLocation = new WebInspector.CSSLocation(this._header.target(), this._header.id, this._header.resourceURL(), lineNumber, columnNumber);
+        for (var i = this._source...
+function tokenLexer = function tokenLexer(stream, state) {
+    var style = state.tokenize(stream, state);
+    var current = stream.current();
+
+    // Handle "." connected identifiers
+    if (current === ".") {
+      style = state.tokenize(stream, state);
+      current = stream.current();
+      if (/^\.[\w$]+$/.test(current)) {
+        return "variable";
+      } else {
+        return ERRORCLASS;
+      }
+    }
+
+    // Handle scope changes.
+    if (current === "return") {
+      state.dedent += 1;
+    }
+    if (((current === "->" || current === "=>") &&
+         !state.lambda &&
+         !stream.peek())
+        || style === "indent") {
+      indent(stream, state);
+    }
+    var delimiter_index = "[({".indexOf(current);
+    if (delimiter_index !== -1) {
+      indent(stream, state, "])}".slice(delimiter_index, delimiter_index+1));
+    }
+    if (indentKeywords.exec(current)){
+      indent(stream, state);
+    }
+    if (current == "then"){
+      dedent(stream, state);
+    }
+
+
+    if (style === "dedent") {
+      i...
+function handleHttpResponse = function handleHttpResponse(wasHandled, response) {
+    var request = response.req;
+    request.__inspector_timing__.receiveHeadersEnd();
+
+    // NOTE: If there is no other `response` listeners
+    // handling of `response` event changes program behavior
+    // Without our listener all data will be dumped, but we pause data by our listener.
+    // Most simple solution here to `resume` data stream, instead of dump it,
+    // otherwise we'll never get a data.
+    if (!wasHandled && EventEmitter.listenerCount(request, 'response') === 0)
+      response.resume();
+
+    var requestId = request.__inspector_ID__,
+      responseInfo = constructResponseInfo(response),
+      dataLength = 0;
+
+    debug.emitEvent('Network.responseReceived', responseInfo);
+
+    var push = response.push;
+
+    response.push = function(chunk) {
+      if (chunk) {
+        dataLength += chunk.length;
+
+        debug.emitEvent('Network._dataReceived', {
+          requestId: requestId,
+          data: chunk + ''
+        }...
+test.showPanel("sources").then(function() {
+            test._waitUntilScriptsAreParsed(["debugger_test_page.html"],
+                function() {
+                    test.releaseControl();
+                });
+        })
+WebInspector.ShortcutsScreen.ElementsPanelShortcuts = {
+    NavigateUp: [
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.Up)
+    ],
+
+    NavigateDown: [
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.Down)
+    ],
+
+    Expand: [
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.Right)
+    ],
+
+    Collapse: [
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.Left)
+    ],
+
+    EditAttribute: [
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.Enter)
+    ],
+
+    HideElement: [
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.H)
+    ],
+
+    ToggleEditAsHTML: [
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.F2)
+    ],
+
+    NextProperty: [
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortc...
+WebInspector.TextEditorPositionHandle.prototype = {
+    /**
+     * @return {?{lineNumber: number, columnNumber: number}}
+     */
+    resolve: function() { },
+
+    /**
+     * @param {!WebInspector.TextEditorPositionHandle} positionHandle
+     * @return {boolean}
+     */
+    equal: function(positionHandle) { }
+}
+WebInspector.BottomUpAllocationNode.prototype = {
+    /**
+     * @param {!WebInspector.TopDownAllocationNode} traceNode
+     * @return {!WebInspector.BottomUpAllocationNode}
+     */
+    addCaller: function(traceNode)
+    {
+        var functionInfo = traceNode.functionInfo;
+        var result;
+        for (var i = 0; i < this._callers.length; i++) {
+            var caller = this._callers[i];
+            if (caller.functionInfo === functionInfo) {
+                result = caller;
+                break;
+            }
+        }
+        if (!result) {
+            result = new WebInspector.BottomUpAllocationNode(functionInfo);
+            this._callers.push(result);
+        }
+        return result;
+    },
+
+    /**
+     * @return {!Array.<!WebInspector.BottomUpAllocationNode>}
+     */
+    callers: function()
+    {
+        return this._callers;
+    },
+
+    /**
+     * @return {boolean}
+     */
+    hasCallers: function()
+    {
+        return this._callers.length > 0;
+    }
+}
+WebInspector.TargetManager.prototype = {
+    suspendAllTargets: function()
+    {
+        console.assert(!this._allTargetsSuspended);
+        if (this._allTargetsSuspended)
+            return;
+        this._allTargetsSuspended = true;
+        this._targets.forEach(function(target)
+        {
+            target.suspend();
+        });
+        this.dispatchEventToListeners(WebInspector.TargetManager.Events.SuspendStateChanged);
+    },
+
+    resumeAllTargets: function()
+    {
+        console.assert(this._allTargetsSuspended);
+        if (!this._allTargetsSuspended)
+            return;
+        this._allTargetsSuspended = false;
+        this._targets.forEach(function(target)
+        {
+            target.resume();
+        });
+        this.dispatchEventToListeners(WebInspector.TargetManager.Events.SuspendStateChanged);
+    },
+
+    /**
+     * @return {boolean}
+     */
+    allTargetsSuspended: function()
+    {
+        return this._allTargetsSuspended;
+    },
+
+    /**
+     * @return {string}
+    ...
+_tmp_18.list-style-type = { values: [
+        "none", "inline", "disc", "circle", "square", "decimal", "decimal-leading-zero", "arabic-indic", "binary", "bengali",
+        "cambodian", "khmer", "devanagari", "gujarati", "gurmukhi", "kannada", "lower-hexadecimal", "lao", "malayalam",
+        "mongolian", "myanmar", "octal", "oriya", "persian", "urdu", "telugu", "tibetan", "thai", "upper-hexadecimal",
+        "lower-roman", "upper-roman", "lower-greek", "lower-alpha", "lower-latin", "upper-alpha", "upper-latin", "afar",
+        "ethiopic-halehame-aa-et", "ethiopic-halehame-aa-er", "amharic", "ethiopic-halehame-am-et", "amharic-abegede",
+        "ethiopic-abegede-am-et", "cjk-earthly-branch", "cjk-heavenly-stem", "ethiopic", "ethiopic-halehame-gez",
+        "ethiopic-abegede", "ethiopic-abegede-gez", "hangul-consonant", "hangul", "lower-norwegian", "oromo",
+        "ethiopic-halehame-om-et", "sidama", "ethiopic-halehame-sid-et", "somali", "ethiopic-halehame-so-et", "tigre",
+        "ethiopic-halehame-tig", "tig...
+function callback = function callback(error, databaseWithObjectStores)
+        {
+            if (error) {
+                console.error("IndexedDBAgent error: " + error);
+                return;
+            }
+
+            if (!this._databaseNamesBySecurityOrigin[databaseId.securityOrigin])
+                return;
+            var databaseModel = new WebInspector.IndexedDBModel.Database(databaseId, databaseWithObjectStores.version, databaseWithObjectStores.intVersion);
+            this._databases.set(databaseId, databaseModel);
+            for (var i = 0; i < databaseWithObjectStores.objectStores.length; ++i) {
+                var objectStore = databaseWithObjectStores.objectStores[i];
+                var objectStoreIDBKeyPath = WebInspector.IndexedDBModel.idbKeyPathFromKeyPath(objectStore.keyPath);
+                var objectStoreModel = new WebInspector.IndexedDBModel.ObjectStore(objectStore.name, objectStoreIDBKeyPath, objectStore.autoIncrement);
+                for (var j = 0; j < objectStore.indexes....
+CodeMirror.prototype = {
+    /** @type {!Doc} */
+    doc: null,
+    addKeyMap: function(map) { },
+    addLineClass: function(handle, where, cls) { },
+    /** @param {?Object=} options */
+    addLineWidget: function(handle, node, options) { },
+    /**
+     * @param {string|!Object} spec
+     * @param {!Object=} options
+     */
+    addOverlay: function(spec, options) { },
+    addWidget: function(pos, node, scroll, vert, horiz) { },
+    charCoords: function(pos, mode) { },
+    clearGutter: function(gutterID) { },
+    clearHistory: function() { },
+    clipPos: function(pos) { },
+    /** @param {string=} mode */
+    coordsChar: function(coords, mode) { },
+    /** @param {string=} mode */
+    cursorCoords: function(start, mode) { },
+    defaultCharWidth: function() { },
+    defaultTextHeight: function() { },
+    deleteH: function(dir, unit) { },
+    /**
+     * @param {*=} to
+     * @param {*=} op
+     */
+    eachLine: function(from, to, op) { },
+    execCommand: function(cmd) { },
+    ext...
+WebInspector._modifiedFloatNumber = function(number, event)
+{
+    var direction = WebInspector._valueModificationDirection(event);
+    if (!direction)
+        return number;
+
+    var arrowKeyOrMouseWheelEvent = (event.keyIdentifier === "Up" || event.keyIdentifier === "Down" || event.type === "mousewheel");
+
+    // Jump by 10 when shift is down or jump by 0.1 when Alt/Option is down.
+    // Also jump by 10 for page up and down, or by 100 if shift is held with a page key.
+    var changeAmount = 1;
+    if (event.shiftKey && !arrowKeyOrMouseWheelEvent)
+        changeAmount = 100;
+    else if (event.shiftKey || !arrowKeyOrMouseWheelEvent)
+        changeAmount = 10;
+    else if (event.altKey)
+        changeAmount = 0.1;
+
+    if (direction === "Down")
+        changeAmount *= -1;
+
+    // Make the new number and constrain it to a precision of 6, this matches numbers the engine returns.
+    // Use the Number constructor to forget the fixed precision, so 1.100000 will print as 1.1.
+    var res...
+WebInspector.DocumentationView.ContextMenuProvider.prototype = {
+    /**
+     * @param {!Event} event
+     * @param {!WebInspector.ContextMenu} contextMenu
+     * @param {!Object} target
+     */
+    appendApplicableItems: function(event, contextMenu, target)
+    {
+        if (!(target instanceof WebInspector.CodeMirrorTextEditor))
+            return;
+        WebInspector.DocumentationCatalog.instance().startLoadingIfNeeded();
+        if (WebInspector.DocumentationCatalog.instance().isLoading()) {
+            var itemName = WebInspector.useLowerCaseMenuTitles() ? "Loading documentation..." : "Loading Documentation...";
+            contextMenu.appendItem(itemName, function() {}, true);
+            return;
+        }
+        var textEditor = /** @type {!WebInspector.CodeMirrorTextEditor} */ (target);
+        var descriptors = this._determineDescriptors(textEditor);
+        if (!descriptors.length)
+            return;
+        if (descriptors.length === 1) {
+            var formatString =...
+this._panelToolbar.appendStatusBarItem(this._createSettingCheckbox(WebInspector.UIString("Causes"),
+                                                                      this._captureCausesSetting,
+                                                                      WebInspector.UIString("Capture causes (e.g., stack traces) for timeline events. (Has performance overhead)")))
+function didReceiveTraceLog = function didReceiveTraceLog(traceLog)
+        {
+            this._enableWaitIcon(false);
+            if (!traceLog)
+                return;
+            var callNodes = [];
+            var calls = traceLog.calls;
+            var index = traceLog.startOffset;
+            for (var i = 0, n = calls.length; i < n; ++i)
+                callNodes.push(this._createCallNode(index++, calls[i]));
+            var contexts = traceLog.contexts;
+            for (var i = 0, n = contexts.length; i < n; ++i) {
+                var contextId = contexts[i].resourceId || "";
+                var description = contexts[i].description || "";
+                if (this._replayContexts[contextId])
+                    continue;
+                this._replayContexts[contextId] = true;
+                this._replayContextSelector.createOption(description, WebInspector.UIString("Show screenshot of this context's canvas."), contextId);
+            }
+            this._appendCallNodes(callNodes);
+            if (traceLo...
+TestSuite.prototype.testNoScriptDuplicatesOnPanelSwitch = function()
+{
+    var test = this;
+
+    // There should be two scripts: one for the main page and another
+    // one which is source of console API(see
+    // InjectedScript._ensureCommandLineAPIInstalled).
+    var expectedScriptsCount = 2;
+    var parsedScripts = [];
+
+    function switchToElementsTab() {
+        test.showPanel("elements").then(function() {
+            setTimeout(switchToScriptsTab, 0);
+        });
+    }
+
+    function switchToScriptsTab() {
+        test.showPanel("sources").then(function() {
+            setTimeout(checkScriptsPanel, 0);
+        });
+    }
+
+    function checkScriptsPanel() {
+        test.assertTrue(test._scriptsAreParsed(["debugger_test_page.html"]), "Some scripts are missing.");
+        checkNoDuplicates();
+        test.releaseControl();
+    }
+
+    function checkNoDuplicates() {
+        var uiSourceCodes = test.nonAnonymousUISourceCodes_();
+        for (var i = 0; i < uiSourceCodes.length; i++)...
+_tmp_33.push({title: "Sony Xperia Sola, U", width: 480, height: 854, deviceScaleFactor: 1, userAgent: "Mozilla/5.0 (Linux; U; Android 2.3; en-us; SonyEricssonST25i Build/6.0.B.1.564) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1", touch: true, mobile: true})
+function moveToNextIfNeeded = function moveToNextIfNeeded(wasChange) {
+            if (!moveDirection)
+                return;
+
+            if (moveDirection === "forward") {
+                var firstEditableColumn = this._nextEditableColumn(-1);
+                if (currentEditingNode.isCreationNode && cellIndex === firstEditableColumn && !wasChange)
+                    return;
+
+                var nextEditableColumn = this._nextEditableColumn(cellIndex);
+                if (nextEditableColumn !== -1)
+                    return this._startEditingColumnOfDataGridNode(currentEditingNode, nextEditableColumn);
+
+                var nextDataGridNode = currentEditingNode.traverseNextNode(true, null, true);
+                if (nextDataGridNode)
+                    return this._startEditingColumnOfDataGridNode(nextDataGridNode, firstEditableColumn);
+                if (currentEditingNode.isCreationNode && wasChange) {
+                    this.addCreationNode(false);
+                    return this._startEditingColumnOfDa...
+WebInspector.OverridesUI._tablets = [
+    {title: "Amazon Kindle Fire HDX 7″", width: 1920, height: 1200, deviceScaleFactor: 2, userAgent: "Mozilla/5.0 (Linux; U; en-us; KFTHWI Build/JDQ39) AppleWebKit/535.19 (KHTML, like Gecko) Silk/3.13 Safari/535.19 Silk-Accelerated=true", touch: true, mobile: true},
+    {title: "Amazon Kindle Fire HDX 8.9″", width: 2560, height: 1600, deviceScaleFactor: 2, userAgent: "Mozilla/5.0 (Linux; U; en-us; KFAPWI Build/JDQ39) AppleWebKit/535.19 (KHTML, like Gecko) Silk/3.13 Safari/535.19 Silk-Accelerated=true", touch: true, mobile: true},
+    {title: "Amazon Kindle Fire (First Generation)", width: 1024, height: 600, deviceScaleFactor: 1, userAgent: "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us; Silk/1.0.141.16-Gen4_11004310) AppleWebkit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 Silk-Accelerated=true", touch: true, mobile: true},
+    {title: "Apple iPad 1 / 2 / iPad Mini", width: 1024, height: 768, deviceScaleFactor: 1, userAgent: "M...
+function childrenRetrieved = function childrenRetrieved(itemsRange)
+        {
+            var itemIndex = 0;
+            var itemPosition = itemsRange.startPosition;
+            var items = itemsRange.items;
+            var insertionIndex = 0;
+
+            if (!this._retrievedChildrenRanges.length) {
+                if (itemsRange.startPosition > 0) {
+                    this._retrievedChildrenRanges.push({from: 0, to: 0});
+                    insertShowMoreButton.call(this, 0, itemsRange.startPosition, insertionIndex++);
+                }
+                this._retrievedChildrenRanges.push({from: itemsRange.startPosition, to: itemsRange.endPosition});
+                for (var i = 0, l = items.length; i < l; ++i)
+                    insertRetrievedChild.call(this, items[i], insertionIndex++);
+                if (itemsRange.endPosition < itemsRange.totalLength)
+                    insertShowMoreButton.call(this, itemsRange.endPosition, itemsRange.totalLength, insertionIndex++);
+            } else {
+              ...
+_tmp_65.push({title: "Apple iPad 1 / 2 / iPad Mini", width: 1024, height: 768, deviceScaleFactor: 1, userAgent: "Mozilla/5.0 (iPad; CPU OS 4_3_5 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8L1 Safari/6533.18.5", touch: true, mobile: true})
+function contentLoaded = function contentLoaded(error, content, contentEncoded)
+        {
+            if (error || content === null) {
+                replyWithContent.call(this, null, false);
+                return;
+            }
+            replyWithContent.call(this, content, contentEncoded);
+        }
+function showOptionHelp = function showOptionHelp(option) {
+  var info = definitions[option];
+
+  if (info) {
+    var optionLine = '--' + option;
+    if (info.alias) {
+      var aliases = [].concat(info.alias);
+      optionLine += ', ' + aliases.map(function(alias) {
+        var prefix = alias.length == 1 ? '-' : '--';
+        return prefix + alias;
+      }).join(', ');
+    }
+    console.log(color('green', optionLine));
+    console.log('  ' + info.description);
+    if (info.default !== undefined) {
+      console.log('  Default: ' + color('yellow', JSON.stringify(info.default)));
+    }
+    if (info.usage) {
+      var formattedUsage = formatUsage(info.usage);
+      console.log('  Usage:' + formattedUsage);
+    }
+    console.log();
+  } else {
+    console.error('Description for %s not found', option);
+  }
+}
+WebInspector.IDBDataGridNode.prototype = {
+    /**
+     * @return {!Element}
+     */
+    createCell: function(columnIdentifier)
+    {
+        var cell = WebInspector.DataGridNode.prototype.createCell.call(this, columnIdentifier);
+        var value = this.data[columnIdentifier];
+
+        switch (columnIdentifier) {
+        case "value":
+        case "key":
+        case "primaryKey":
+            cell.removeChildren();
+            this._formatValue(cell, value);
+            break;
+        default:
+        }
+
+        return cell;
+    },
+
+    _formatValue: function(cell, value)
+    {
+        var type = value.subtype || value.type;
+        var contents = cell.createChild("div", "source-code console-formatted-" + type);
+
+        switch (type) {
+        case "object":
+        case "array":
+            var section = new WebInspector.ObjectPropertiesSection(value, value.description)
+            section.editable = false;
+            section.skipProto = true;
+            contents.appendChild(se...
+function processToken = function processToken(tokenValue, tokenType, tokenStart, tokenEnd) {
+            if (!tokenType)
+                return;
+            var oldType = tokenType;
+            tokenType = tokenType.split(" ").keySet();
+            if (!tokenType["tag"])
+                return;
+            if (tokenType["bracket"] && (tokenValue === "<" || tokenValue === "</")) {
+                accumulatedTokenValue = tokenValue;
+                accumulatedTokenStart = tokenStart;
+                return;
+            }
+            accumulatedTokenValue = accumulatedTokenValue + tokenValue.toLowerCase();
+            if (accumulatedTokenValue === "<script") {
+                scriptOpened = true;
+            } else if (scriptOpened && tokenValue === ">") {
+                scriptOpened = false;
+                this._scriptStarted(tokenEnd);
+            } else if (accumulatedTokenValue === "</script") {
+                this._scriptEnded(accumulatedTokenStart);
+            } else if (accumulatedTokenValue === "<...
+var settingNames = {
+            "FileSystemViewSidebarWidth": "fileSystemViewSplitViewState",
+            "canvasProfileViewReplaySplitLocation": "canvasProfileViewReplaySplitViewState",
+            "canvasProfileViewSplitLocation": "canvasProfileViewSplitViewState",
+            "elementsSidebarWidth": "elementsPanelSplitViewState",
+            "StylesPaneSplitRatio": "stylesPaneSplitViewState",
+            "heapSnapshotRetainersViewSize": "heapSnapshotSplitViewState",
+            "InspectorView.splitView": "InspectorView.splitViewState",
+            "InspectorView.screencastSplitView": "InspectorView.screencastSplitViewState",
+            "Inspector.drawerSplitView": "Inspector.drawerSplitViewState",
+            "layerDetailsSplitView": "layerDetailsSplitViewState",
+            "networkSidebarWidth": "networkPanelSplitViewState",
+            "sourcesSidebarWidth": "sourcesPanelSplitViewState",
+            "scriptsPanelNavigatorSidebarWidth": "sourcesPanelNavigatorSplitViewState",
+    ...
+def(["x-shader/x-vertex", "x-shader/x-fragment"], {
+    name: "clike",
+    keywords: words("float int bool void " +
+                    "vec2 vec3 vec4 ivec2 ivec3 ivec4 bvec2 bvec3 bvec4 " +
+                    "mat2 mat3 mat4 " +
+                    "sampler1D sampler2D sampler3D samplerCube " +
+                    "sampler1DShadow sampler2DShadow" +
+                    "const attribute uniform varying " +
+                    "break continue discard return " +
+                    "for while do if else struct " +
+                    "in out inout"),
+    blockKeywords: words("for while do if else struct"),
+    builtin: words("radians degrees sin cos tan asin acos atan " +
+                    "pow exp log exp2 sqrt inversesqrt " +
+                    "abs sign floor ceil fract mod min max clamp mix step smootstep " +
+                    "length distance dot cross normalize ftransform faceforward " +
+                    "reflect refract matrixCompMult " +
+                    "lessThan...
+WebInspector.TempFile._clearTempStorage = function(fulfill, reject)
+{
+    /**
+     * @param {!Event} event
+     */
+    function handleError(event)
+    {
+        WebInspector.console.error(WebInspector.UIString("Failed to clear temp storage: %s", event.data));
+        reject(event.data);
+    }
+
+    /**
+     * @param {!Event} event
+     */
+    function handleMessage(event)
+    {
+        if (event.data.type === "tempStorageCleared") {
+            if (event.data.error)
+                WebInspector.console.error(event.data.error);
+            else
+                fulfill(undefined);
+            return;
+        }
+        reject(event.data);
+    }
+
+    try {
+        var worker = new WorkerRuntime.Worker("temp_storage_shared_worker", "TempStorageCleaner");
+        worker.onerror = handleError;
+        worker.port.onmessage = handleMessage;
+        worker.port.onerror = handleError;
+    } catch (e) {
+        if (e.name === "URLMismatchError")
+            console.log("Shared worker wasn't sta...
+function didPushNodeByPathToFrontend = function didPushNodeByPathToFrontend(path, nodeId)
+        {
+            var node = nodeId ? target.domModel.nodeForId(nodeId) : null;
+            if (!node)
+                return;
+
+            var breakpoints = pathToBreakpoints[path];
+            for (var i = 0; i < breakpoints.length; ++i)
+                this._setBreakpoint(node, breakpoints[i].type, breakpoints[i].enabled);
+        }
+WebInspector.CPUProfileFlameChart = function(dataProvider)
+{
+    WebInspector.VBox.call(this);
+    this.element.id = "cpu-flame-chart";
+
+    this._overviewPane = new WebInspector.CPUProfileFlameChart.OverviewPane(dataProvider);
+    this._overviewPane.show(this.element);
+
+    this._mainPane = new WebInspector.FlameChart(dataProvider, this._overviewPane, true);
+    this._mainPane.show(this.element);
+    this._mainPane.addEventListener(WebInspector.FlameChart.Events.EntrySelected, this._onEntrySelected, this);
+    this._overviewPane.addEventListener(WebInspector.OverviewGrid.Events.WindowChanged, this._onWindowChanged, this);
+    this._dataProvider = dataProvider;
+    this._searchResults = [];
+}
+function read_string = function read_string() {
+                return with_eof_error("Unterminated string constant", function(){
+                        var quote = next(), ret = "";
+                        for (;;) {
+                                var ch = next(true);
+                                if (ch == "\\") ch = read_escaped_char();
+                                else if (ch == quote) break;
+                                ret += ch;
+                        }
+                        return token("string", ret);
+                });
+        }
+WebInspector.CPUProfileFlameChart.prototype = {
+    focus: function()
+    {
+        this._mainPane.focus();
+    },
+
+    /**
+     * @param {!WebInspector.Event} event
+     */
+    _onWindowChanged: function(event)
+    {
+        var windowLeft = event.data.windowTimeLeft;
+        var windowRight = event.data.windowTimeRight;
+        this._mainPane.setWindowTimes(windowLeft, windowRight);
+    },
+
+    /**
+     * @param {number} timeLeft
+     * @param {number} timeRight
+     */
+    selectRange: function(timeLeft, timeRight)
+    {
+        this._overviewPane._selectRange(timeLeft, timeRight);
+    },
+
+    /**
+     * @param {!WebInspector.Event} event
+     */
+    _onEntrySelected: function(event)
+    {
+        this.dispatchEventToListeners(WebInspector.FlameChart.Events.EntrySelected, event.data);
+    },
+
+    update: function()
+    {
+        this._overviewPane.update();
+        this._mainPane.update();
+    },
+
+    /**
+     * @param {!WebInspector.SearchableView.SearchConfig} searchConfig
+    ...
+TestSuite.prototype.testPauseWhenScriptIsRunning = function()
+{
+    this.showPanel("sources").then(function() {
+        this.evaluateInConsole_(
+            'setTimeout("handleClick()", 0)',
+            didEvaluateInConsole.bind(this));
+    }.bind(this));
+
+    function didEvaluateInConsole(resultText) {
+        this.assertTrue(!isNaN(resultText), "Failed to get timer id: " + resultText);
+        // Wait for some time to make sure that inspected page is running the
+        // infinite loop.
+        setTimeout(testScriptPause.bind(this), 300);
+    }
+
+    function testScriptPause() {
+        // The script should be in infinite loop. Click "Pause" button to
+        // pause it and wait for the result.
+        WebInspector.panels.sources._pauseButton.element.click();
+
+        this._waitForScriptPause(this.releaseControl.bind(this));
+    }
+
+    this.takeControl();
+}
+function innerCallback = function innerCallback(formattedContent, formatterMapping)
+        {
+            var scripts = this._scriptsForUISourceCode(uiSourceCode);
+            var name;
+            if (uiSourceCode.contentType() === WebInspector.resourceTypes.Document)
+                name = uiSourceCode.displayName();
+            else
+                name = uiSourceCode.name() || (scripts.length ? scripts[0].scriptId : "");
+
+            formattedPath = this._projectDelegate._addFormatted(name, uiSourceCode.url, uiSourceCode.contentType(), formattedContent);
+            var formattedUISourceCode = /** @type {!WebInspector.UISourceCode} */ (this._workspace.uiSourceCode(this._projectId, formattedPath));
+            var formatData = new WebInspector.FormatterScriptMapping.FormatData(uiSourceCode.project().id(), uiSourceCode.path(), formatterMapping, scripts);
+            this._formatData.set(formattedUISourceCode, formatData);
+            var path = uiSourceCode.project().id() + ":" + uiSourceCode.path();
+    ...
+_tmp_35.atoms = words("true false " +
+                "gl_FragColor gl_SecondaryColor gl_Normal gl_Vertex " +
+                "gl_MultiTexCoord0 gl_MultiTexCoord1 gl_MultiTexCoord2 gl_MultiTexCoord3 " +
+                "gl_MultiTexCoord4 gl_MultiTexCoord5 gl_MultiTexCoord6 gl_MultiTexCoord7 " +
+                "gl_FogCoord " +
+                "gl_Position gl_PointSize gl_ClipVertex " +
+                "gl_FrontColor gl_BackColor gl_FrontSecondaryColor gl_BackSecondaryColor " +
+                "gl_TexCoord gl_FogFragCoord " +
+                "gl_FragCoord gl_FrontFacing " +
+                "gl_FragColor gl_FragData gl_FragDepth " +
+                "gl_ModelViewMatrix gl_ProjectionMatrix gl_ModelViewProjectionMatrix " +
+                "gl_TextureMatrix gl_NormalMatrix gl_ModelViewMatrixInverse " +
+                "gl_ProjectionMatrixInverse gl_ModelViewProjectionMatrixInverse " +
+                "gl_TexureMatrixTranspose gl_ModelViewMatrixInverseTranspose " +
+                "gl_ProjectionMatrixInve...
+function defineDeprecatedProperty = function defineDeprecatedProperty(object, className, oldName, newName)
+{
+    var warningGiven = false;
+    function getter()
+    {
+        if (!warningGiven) {
+            console.warn(className + "." + oldName + " is deprecated. Use " + className + "." + newName + " instead");
+            warningGiven = true;
+        }
+        return object[newName];
+    }
+    object.__defineGetter__(oldName, getter);
+}
+WebInspector.FileSystemModel.Entry.prototype = {
+    /**
+     * @type {!WebInspector.FileSystemModel}
+     */
+    get fileSystemModel()
+    {
+        return this._fileSystemModel;
+    },
+
+    /**
+     * @type {!WebInspector.FileSystemModel.FileSystem}
+     */
+    get fileSystem()
+    {
+        return this._fileSystem;
+    },
+
+    /**
+     * @type {string}
+     */
+    get url()
+    {
+        return this._url;
+    },
+
+    /**
+     * @type {string}
+     */
+    get name()
+    {
+        return this._name;
+    },
+
+    /**
+     * @type {boolean}
+     */
+    get isDirectory()
+    {
+        return this._isDirectory;
+    },
+
+    /**
+     * @param {function(number, !FileSystemAgent.Metadata)} callback
+     */
+    requestMetadata: function(callback)
+    {
+        this.fileSystemModel.requestMetadata(this, callback);
+    },
+
+    /**
+     * @param {function(number)} callback
+     */
+    deleteEntry: function(callback)
+    {
+        this.fileSystemModel.deleteEntry(this, callback);
+    }
+}
+WebInspector.SnippetScriptMapping.prototype = {
+    /**
+     * @param {!WebInspector.UISourceCode} uiSourceCode
+     */
+    _releaseSnippetScript: function(uiSourceCode)
+    {
+        var script = this._scriptForUISourceCode.get(uiSourceCode);
+        if (!script)
+            return;
+
+        delete this._uiSourceCodeForScriptId[script.scriptId];
+        this._scriptForUISourceCode.remove(uiSourceCode);
+        this._evaluationIndexForUISourceCode.remove(uiSourceCode);
+    },
+
+    /**
+     +* @param {number} evaluationIndex
+     * @param {!WebInspector.UISourceCode} uiSourceCode
+     */
+    _setEvaluationIndex: function(evaluationIndex, uiSourceCode)
+    {
+        this._evaluationIndexForUISourceCode.set(uiSourceCode, evaluationIndex);
+    },
+
+    /**
+     * @param {!WebInspector.UISourceCode} uiSourceCode
+     * @return {number|undefined}
+     */
+    evaluationIndex: function(uiSourceCode)
+    {
+        return this._evaluationIndexForUISourceCode.get(uiSourceCode);
+    },
+
+    /**
+...
+function innerCallback = function innerCallback(files)
+        {
+            /**
+             * @param {string} fullPath
+             * @this {WebInspector.FileSystemWorkspaceBinding.FileSystem}
+             */
+            function trimAndNormalizeFileSystemPath(fullPath)
+            {
+                var trimmedPath = fullPath.substr(this._fileSystem.path().length + 1);
+                if (WebInspector.isWin())
+                    trimmedPath = trimmedPath.replace(/\\/g, "/");
+                return trimmedPath;
+            }
+
+            files = files.map(trimAndNormalizeFileSystemPath.bind(this));
+            progress.worked(1);
+            callback(files);
+        }
+WebInspector.WorkspaceSettingsTab.prototype = {
+    wasShown: function()
+    {
+        WebInspector.SettingsTab.prototype.wasShown.call(this);
+        this._reset();
+    },
+
+    _reset: function()
+    {
+        this._resetFileSystems();
+    },
+
+    _resetFileSystems: function()
+    {
+        this._fileSystemsListContainer.removeChildren();
+        var fileSystemPaths = WebInspector.isolatedFileSystemManager.mapping().fileSystemPaths();
+        delete this._fileSystemsList;
+
+        if (!fileSystemPaths.length) {
+            var noFileSystemsMessageElement = this._fileSystemsListContainer.createChild("div", "no-file-systems-message");
+            noFileSystemsMessageElement.textContent = WebInspector.UIString("You have no file systems added.");
+            return;
+        }
+
+        this._fileSystemsList = new WebInspector.SettingsList([{ id: "path" }], this._renderFileSystem.bind(this));
+        this._fileSystemsList.element.classList.add("file-systems-list");
+        this._fileSyst...
+WebInspector.AnimationsSidebarPane.GlobalAnimationControls.prototype = {
+    /**
+     * @param {number} playbackRate
+     */
+    _createPlaybackRateButton: function(playbackRate)
+    {
+        var button = new WebInspector.StatusBarTextButton(WebInspector.UIString("Set all animations playback rate to " + playbackRate + "x"), "playback-rate-button", playbackRate + "x");
+        button.playbackRate = playbackRate;
+        button.addEventListener("click", this._playbackRateHandler.bind(this, playbackRate), this);
+        this._playbackRateButtons.push(button);
+        this.appendStatusBarItem(button);
+    },
+
+    reset: function()
+    {
+        this._paused = false;
+        this._playbackRate = 1.0;
+        this._updateControls();
+    },
+
+    _updateControls: function()
+    {
+        this._updatePauseButton();
+        for (var i = 0; i < this._playbackRateButtons.length; i++)
+            this._playbackRateButtons[i].setToggled(this._playbackRateButtons[i].playbackRate === this._playbac...
+WebInspector.HeapSnapshotView.StatisticsPerspective.prototype = {
+    /**
+     * @override
+     * @param {!WebInspector.HeapSnapshotView} heapSnapshotView
+     */
+    activate: function(heapSnapshotView)
+    {
+        heapSnapshotView._statisticsView.show(heapSnapshotView._searchableView.element);
+    },
+
+    /**
+     * @override
+     * @param {!WebInspector.HeapSnapshotView} heapSnapshotView
+     * @return {?WebInspector.DataGrid}
+     */
+    masterGrid: function(heapSnapshotView)
+    {
+        return null;
+    },
+
+   __proto__: WebInspector.HeapSnapshotView.Perspective.prototype
+}
+_tmp_68.AddSelectionToWatch = [
+        WebInspector.KeyboardShortcut.makeDescriptor("a", WebInspector.KeyboardShortcut.Modifiers.Shift | WebInspector.KeyboardShortcut.Modifiers.Ctrl)
+    ]
+WebInspector.ShortcutsScreen.LayersPanelShortcuts = {
+    ResetView: [
+        WebInspector.KeyboardShortcut.makeDescriptor("0")
+    ],
+
+    PanMode: [
+        WebInspector.KeyboardShortcut.makeDescriptor("x")
+    ],
+
+    RotateMode: [
+        WebInspector.KeyboardShortcut.makeDescriptor("v")
+    ],
+
+    TogglePanRotate: [
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.Shift)
+    ],
+
+    ZoomIn: [
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.Plus, WebInspector.KeyboardShortcut.Modifiers.Shift),
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.NumpadPlus)
+    ],
+
+    ZoomOut: [
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.Minus, WebInspector.KeyboardShortcut.Modifiers.Shift),
+        WebInspector.KeyboardShortcut.makeDescriptor(WebInspector.KeyboardShortcut.Keys.NumpadMinus)
+    ],
+
+    Up: [
+        WebInspector.Keyboar...
+var valueKeywords_ = [
+    "above", "absolute", "activeborder", "activecaption", "afar",
+    "after-white-space", "ahead", "alias", "all", "all-scroll", "alternate",
+    "always", "amharic", "amharic-abegede", "antialiased", "appworkspace",
+    "arabic-indic", "armenian", "asterisks", "auto", "avoid", "avoid-column", "avoid-page",
+    "avoid-region", "background", "backwards", "baseline", "below", "bidi-override", "binary",
+    "bengali", "blink", "block", "block-axis", "bold", "bolder", "border", "border-box",
+    "both", "bottom", "break", "break-all", "break-word", "button", "button-bevel",
+    "buttonface", "buttonhighlight", "buttonshadow", "buttontext", "cambodian",
+    "capitalize", "caps-lock-indicator", "caption", "captiontext", "caret",
+    "cell", "center", "checkbox", "circle", "cjk-earthly-branch",
+    "cjk-heavenly-stem", "cjk-ideographic", "clear", "clip", "close-quote",
+    "col-resize", "collapse", "column", "compact", "condensed", "contain", "content",
+    "content-box...
+WebInspector.PaintProfilerView.categories = function()
+{
+    if (WebInspector.PaintProfilerView._categories)
+        return WebInspector.PaintProfilerView._categories;
+    WebInspector.PaintProfilerView._categories = {
+        shapes: new WebInspector.PaintProfilerCategory("shapes", WebInspector.UIString("Shapes"), "rgb(255, 161, 129)"),
+        bitmap: new WebInspector.PaintProfilerCategory("bitmap", WebInspector.UIString("Bitmap"), "rgb(136, 196, 255)"),
+        text: new WebInspector.PaintProfilerCategory("text", WebInspector.UIString("Text"), "rgb(180, 255, 137)"),
+        misc: new WebInspector.PaintProfilerCategory("misc", WebInspector.UIString("Misc"), "rgb(206, 160, 255)")
+    };
+    return WebInspector.PaintProfilerView._categories;
+}
+TestSuite.prototype.testNetworkTiming = function()
+{
+    var test = this;
+
+    function finishResource(resource, finishTime)
+    {
+        // Setting relaxed expectations to reduce flakiness.
+        // Server sends headers after 100ms, then sends data during another 100ms.
+        // We expect these times to be measured at least as 70ms.
+        test.assertTrue(resource.timing.receiveHeadersEnd - resource.timing.connectStart >= 70,
+                        "Time between receiveHeadersEnd and connectStart should be >=70ms, but was " +
+                        "receiveHeadersEnd=" + resource.timing.receiveHeadersEnd + ", connectStart=" + resource.timing.connectStart + ".");
+        test.assertTrue(resource.responseReceivedTime - resource.startTime >= 0.07,
+                "Time between responseReceivedTime and startTime should be >=0.07s, but was " +
+                "responseReceivedTime=" + resource.responseReceivedTime + ", startTime=" + resource.startTime + ".");
+        test.assert...
+WebInspector.PaintProfilerView._categories = {
+        shapes: new WebInspector.PaintProfilerCategory("shapes", WebInspector.UIString("Shapes"), "rgb(255, 161, 129)"),
+        bitmap: new WebInspector.PaintProfilerCategory("bitmap", WebInspector.UIString("Bitmap"), "rgb(136, 196, 255)"),
+        text: new WebInspector.PaintProfilerCategory("text", WebInspector.UIString("Text"), "rgb(180, 255, 137)"),
+        misc: new WebInspector.PaintProfilerCategory("misc", WebInspector.UIString("Misc"), "rgb(206, 160, 255)")
+    }
+function onInvokeGetterClick = function onInvokeGetterClick(result, wasThrown)
+        {
+            if (!result)
+                return;
+            rootElement.removeChildren();
+            if (wasThrown) {
+                var element = rootElement.createChild("span", "error-message");
+                element.textContent = WebInspector.UIString("<exception>");
+                element.title = /** @type {string} */ (result.description);
+            } else if (isArrayEntry) {
+                rootElement.appendChild(this._formatAsArrayEntry(result));
+            } else {
+                // Make a PropertyPreview from the RemoteObject similar to the backend logic.
+                const maxLength = 100;
+                var type = result.type;
+                var subtype = result.subtype;
+                var description = "";
+                if (type !== "function" && result.description) {
+                    if (type === "string" || subtype === "regexp")
+                        description = result.description.trimMi...
+function updateLineBackground = function updateLineBackground(lineView) {
+    var cls = lineView.bgClass ? lineView.bgClass + " " + (lineView.line.bgClass || "") : lineView.line.bgClass;
+    if (cls) cls += " CodeMirror-linebackground";
+    if (lineView.background) {
+      if (cls) lineView.background.className = cls;
+      else { lineView.background.parentNode.removeChild(lineView.background); lineView.background = null; }
+    } else if (cls) {
+      var wrap = ensureLineWrapped(lineView);
+      lineView.background = wrap.insertBefore(elt("div", null, cls), wrap.firstChild);
+    }
+  }
+WebInspector.StatusBarStatesSettingButton.prototype = {
+    /**
+     * @param {!WebInspector.Event} e
+     */
+    _onClick: function(e)
+    {
+        this.toggleState(e.target.state());
+    },
+
+    /**
+     * @param {string} state
+     */
+    toggleState: function(state)
+    {
+        if (this._currentState === state)
+            return;
+
+        if (this._currentState)
+            this._lastStateSetting.set(this._currentState);
+        this._currentState = state;
+        this._currentStateSetting.set(this._currentState);
+
+        if (this._stateChangedCallback)
+            this._stateChangedCallback(state);
+
+        var defaultState = this._defaultState();
+        this.setState(defaultState);
+        this.setTitle(this._buttons[this._states.indexOf(defaultState)].title());
+    },
+
+    /**
+     * @return {string}
+     */
+    _defaultState: function()
+    {
+        var lastState = this._lastStateSetting.get();
+        if (lastState && this._states.indexOf(lastState) >= 0 && lastState...
+newState = new WebInspector.BreakpointManager.Breakpoint.State(uiSourceCode.url, null, lineNumber, columnNumber, condition)
+WebInspector.removeSearchResultsHighlight = function(element)
+{
+    var highlightBits = element.querySelectorAll(".highlighted-search-result");
+    for (var i = 0; i < highlightBits.length; ++i) {
+        var span = highlightBits[i];
+        span.parentElement.replaceChild(createTextNode(span.textContent), span);
+    }
+}
+var rawLocation = WebInspector.debuggerWorkspaceBinding.uiLocationToRawLocation(executionContext.target(), this._uiSourceCode, lineNumber, 0)
+this._registerSubscriptionHandler(eventTopic,
+            eventTarget.addEventListener.bind(eventTarget, frontendEventType, handler, this),
+            eventTarget.removeEventListener.bind(eventTarget, frontendEventType, handler, this))
+WebInspector.TimelineCalculator.prototype = {
+    /**
+     * @return {number}
+     */
+    paddingLeft: function()
+    {
+        return this._paddingLeft;
+    },
+
+    /**
+     * @param {number} time
+     * @return {number}
+     */
+    computePosition: function(time)
+    {
+        return (time - this._minimumBoundary) / this.boundarySpan() * this._workingArea + this._paddingLeft;
+    },
+
+    /**
+     * @param {!WebInspector.TimelinePresentationModel.Record} record
+     * @return {!{start: number, end: number, cpuWidth: number}}
+     */
+    computeBarGraphPercentages: function(record)
+    {
+        var start = (record.startTime() - this._minimumBoundary) / this.boundarySpan() * 100;
+        var end = (record.startTime() + record.selfTime() - this._minimumBoundary) / this.boundarySpan() * 100;
+        var cpuWidth = (record.endTime() - record.startTime()) / this.boundarySpan() * 100;
+        return {start: start, end: end, cpuWidth: cpuWidth};
+    },
+
+    /**
+     * @param {!WebInspecto...
+record.endTime() < this._windowStartTime ||
+                record.startTime() > this._windowEndTime
+WebInspector.HeapSnapshotInstanceNode = function(dataGrid, snapshot, node, isDeletedNode)
+{
+    WebInspector.HeapSnapshotGenericObjectNode.call(this, dataGrid, node);
+    this._baseSnapshotOrSnapshot = snapshot;
+    this._isDeletedNode = isDeletedNode;
+    this.updateHasChildren();
+
+    var data = this.data;
+    data["count"] = "";
+    data["countDelta"] = "";
+    data["sizeDelta"] = "";
+    if (this._isDeletedNode) {
+        data["addedCount"] = "";
+        data["addedSize"] = "";
+        data["removedCount"] = "\u2022";
+        data["removedSize"] = Number.withThousandsSeparator(this._shallowSize);
+    } else {
+        data["addedCount"] = "\u2022";
+        data["addedSize"] = Number.withThousandsSeparator(this._shallowSize);
+        data["removedCount"] = "";
+        data["removedSize"] = "";
+    }
+}
+function aggregatesForDiffReceived = function aggregatesForDiffReceived(aggregatesForDiff)
+        {
+            this.snapshot.calculateSnapshotDiff(this.baseSnapshot.uid, aggregatesForDiff, didCalculateSnapshotDiff.bind(this));
+
+            /**
+             * @this {WebInspector.HeapSnapshotDiffDataGrid}
+             */
+            function didCalculateSnapshotDiff(diffByClassName)
+            {
+                for (var className in diffByClassName) {
+                    var diff = diffByClassName[className];
+                    this.appendNode(this.rootNode(), new WebInspector.HeapSnapshotDiffNode(this, className, diff));
+                }
+                this.sortingChanged();
+            }
+        }
+element && !element.root && !(skipUnrevealed ? (element.revealed() ? element.nextSibling : null) : element.nextSibling) && element.parent !== stayWithin
+function compare = function compare(treeElement1, treeElement2)
+        {
+            var typeWeight1 = typeWeight(treeElement1);
+            var typeWeight2 = typeWeight(treeElement2);
+
+            var result;
+            if (typeWeight1 > typeWeight2)
+                result = 1;
+            else if (typeWeight1 < typeWeight2)
+                result = -1;
+            else {
+                var title1 = treeElement1.displayName || treeElement1.titleText;
+                var title2 = treeElement2.displayName || treeElement2.titleText;
+                result = title1.localeCompare(title2);
+            }
+            return result;
+        }
+function maybe_conditional = function maybe_conditional() {
+                var expr = expr_ops();
+                if (is("operator", "?")) {
+                        next();
+                        var yes = expression(false);
+                        expect(":");
+                        return as("conditional", expr, yes, expression(false));
+                }
+                return expr;
+        }
+WebInspector.UpgradeFileSystemDropTarget.prototype = {
+    _onDragEnter: function (event)
+    {
+        if (event.dataTransfer.types.indexOf(WebInspector.UpgradeFileSystemDropTarget.dragAndDropFilesType) === -1)
+            return;
+        event.consume(true);
+    },
+
+    _onDragOver: function (event)
+    {
+        if (event.dataTransfer.types.indexOf(WebInspector.UpgradeFileSystemDropTarget.dragAndDropFilesType) === -1)
+            return;
+        event.dataTransfer.dropEffect = "copy";
+        event.consume(true);
+        if (this._dragMaskElement)
+            return;
+        this._dragMaskElement = this._element.createChild("div", "fill drag-mask");
+        this._dragMaskElement.createChild("div", "fill drag-mask-inner").textContent = WebInspector.UIString("Drop workspace folder here");
+        this._dragMaskElement.addEventListener("drop", this._onDrop.bind(this), true);
+        this._dragMaskElement.addEventListener("dragleave", this._onDragLeave.bind(this), true);
+    },
+
+    ...
+other._type === WebInspector.Layers3DView.Selection.Type.Tile
+            && this.layer.id() === other.layer.id() && this.traceEvent === other.traceEvent

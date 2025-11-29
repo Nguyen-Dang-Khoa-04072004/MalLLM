@@ -1,0 +1,8 @@
+(db.db || db).get(
+        encodePrefix(prefix, key, opts),
+        opts,
+        function (err, value) {
+          if(err) cb(err)
+          else    cb(null, codec.decodeValue(value, opts))
+        }
+      )

@@ -1,0 +1,11 @@
+this.db.get(key, options, function (err, value) {
+    if (err) {
+      if ((/notfound/i).test(err) || err.notFound) {
+        err = new NotFoundError('Key not found in database [' + key + ']', err)
+      } else {
+        err = new ReadError(err)
+      }
+      return callback(err)
+    }
+    callback(null, value)
+  })

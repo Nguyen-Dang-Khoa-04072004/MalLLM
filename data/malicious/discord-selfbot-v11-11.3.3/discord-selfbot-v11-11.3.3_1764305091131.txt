@@ -1,0 +1,93 @@
+let data = secretbox.methods.open(msg.slice(12), nonce, this.voiceConnection.authentication.secretKey.key)
+this.client.rest.methods.updateCurrentUser({ password: newPassword }, oldPassword)
+_tmp_15.nickname = <operator>.formatString("", base, "/members/@me/nick")
+_tmp_18.id = this.client.resolver.resolveUserID(accessTokenOrID)
+const promise = new Promise((resolve, reject) => {
+      const listener = message => {
+        if (!message || message._eval !== script) return;
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        if (!message._error) resolve(message._result); else reject(Util.makeError(message._error));
+      };
+      this.process.on('message', listener);
+
+      this.send({ _eval: script }).catch(err => {
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        reject(err);
+      });
+    })
+new Permissions(this.permissions).has(
+      permission, typeof checkAdmin !== 'undefined' ? checkAdmin : !explicit
+    )
+Promise.all(options.files.map(file =>
+        this.client.resolver.resolveFile(file.attachment).then(resource => {
+          file.file = resource;
+          return file;
+        })
+      )).then(files => this.client.rest.methods.sendMessage(this, content, options, files))
+this.rest.makeRequest('post', Endpoints.Message(message).ack, true, { token: this._ackToken }).then(res => {
+      if (res.token) this._ackToken = res.token;
+      return message;
+    })
+_tmp_16.messages = {
+        toString: () => `${base}/messages`,
+        bulkDelete: `${base}/messages/bulk-delete`,
+      }
+data.member && this.guild && this.author && !this.guild.members.has(this.author.id)
+this.emit('sessionDescription', packet.d.mode, new SecretKey(packet.d.secret_key))
+transcoder.once('error', e => {
+      if (this.listenerCount('error') > 0) this.emit('error', e);
+      /**
+       * Emitted whenever the VoiceBroadcast has any warnings.
+       * @event VoiceBroadcast#warn
+       * @param {string|Error} warning The warning that was raised
+       */
+      else this.emit('warn', e);
+    })
+<operator>.formatString("", base, "/messages/", messageID, "")
+this.authenticateFailed('Token not provided from voice server packet.')
+this.rest.makeRequest('post', Endpoints.Channel(channel).messages.bulkDelete, true, {
+      messages: messages,
+    }).then(() =>
+      this.client.actions.MessageDeleteBulk.handle({
+        channel_id: channel.id,
+        ids: messages,
+      }).messages
+    )
+new Promise(resolve => {
+      let status = this.localPresence.status || this.presence.status;
+      let game = this.localPresence.game;
+      let afk = this.localPresence.afk || this.presence.afk;
+
+      if (!game && this.presence.game) {
+        game = {
+          name: this.presence.game.name,
+          type: this.presence.game.type,
+          url: this.presence.game.url,
+        };
+      }
+
+      if (data.status) {
+        if (typeof data.status !== 'string') throw new TypeError('Status must be a string');
+        if (this.bot) {
+          status = data.status;
+        } else {
+          this.settings.update(Constants.UserSettingsMap.status, data.status);
+          status = 'invisible';
+        }
+      }
+
+      if (data.game) {
+        game = data.game;
+        game.type = game.url && typeof game.type === 'undefined' ? 1 : game.type || 0;
+        if (typeof game.type === 'string') {
+          game.type = Constants.ActivityTypes.indexOf(game.type.toUpperCase());
+        }
+      }...
+this.client.actions.MessageDeleteBulk.handle({
+        channel_id: channel.id,
+        ids: messages,
+      }).messages
+this.client.channels.find(c => c.type === 'dm' && c.recipient.id === this.id)
+options.maxID = long.fromNumber(options.before.getTime() - 14200704e5).shiftLeft(22).toString()

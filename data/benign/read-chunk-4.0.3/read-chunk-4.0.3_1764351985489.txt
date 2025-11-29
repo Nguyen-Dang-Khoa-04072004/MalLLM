@@ -1,0 +1,6 @@
+const fileDescriptor = fs.openSync(filePath, 'r')
+const bytesRead = fs.readSync(fileDescriptor, buffer, {
+			length,
+			position: startPosition,
+		})
+fs.closeSync(fileDescriptor)

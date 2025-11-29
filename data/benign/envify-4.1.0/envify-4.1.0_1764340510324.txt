@@ -1,0 +1,3 @@
+rootEnv = rootEnv || process.env || {}
+source = transform(source, [argv, rootEnv])
+this.emit('error', err)

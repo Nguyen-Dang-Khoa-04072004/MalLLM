@@ -1,0 +1,1 @@
+parameterBuilder.addGrantType(GrantType.REFRESH_TOKEN_GRANT)

@@ -1,0 +1,2 @@
+const deduplicated = other._posts.get(key).
+      filter(p => sourcePosts.indexOf(p) === -1)

@@ -1,0 +1,12 @@
+bodyArray.push (require ('fs').readFileSync (file))
+bodyArray.push (new Buffer (footer))
+body = Buffer.concat (bodyArray)
+requestoptions.headers['Content-Length'] = body.length
+_iterator_4 = <operator>.iterator(requestoptions.headers)
+request = https.request (requestoptions, requestResponse)
+request.setTimeout (parseInt (o.timeout, 10), function () {
+      var err = new Error ('request timed out');
+      err.code = 'TIMEOUT';
+      finalCallback (err);
+      request.abort ();
+    })

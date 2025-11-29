@@ -1,0 +1,3 @@
+validPath = exists ? fs.realpathSync(value) : pathUtil.resolve(value)
+mkdirParents(pathUtil.dirname(validPath))
+fs.closeSync(fs.openSync(validPath, 'w'))

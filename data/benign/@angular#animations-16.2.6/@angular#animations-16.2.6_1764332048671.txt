@@ -1,0 +1,8 @@
+const postEntry = allPostStyleElements.get(element)
+!postEntry
+new AnimationTimelineBuilderVisitor().buildKeyframes(driver, rootElement, ast, enterClassName, leaveClassName, startingStyles, finalStyles, options, subInstructions, errors)
+AnimationTimelineBuilderVisitor = package/fesm2022/browser.mjs::program:AnimationTimelineBuilderVisitor:<init>
+const postEntry = allPostStyleElements.get(element)
+!postEntry
+allPreStyleElements.set(element, postEntry)
+allPostStyleElements.delete(element)

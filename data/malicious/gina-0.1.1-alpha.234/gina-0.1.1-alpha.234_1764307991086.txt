@@ -1,0 +1,16 @@
+var removeRunningProc = function(pid) {
+        var runningProcsPath = _(GINA_HOMEDIR + '/procs.json', true)
+            , runningProcsPathObj = new _(runningProcsPath)
+            , runningProcs = {}
+        ;
+        if ( runningProcsPathObj.existsSync() ) {
+            runningProcs = requireJSON(runningProcsPath);
+            for (let name in runningProcs) {
+                if (runningProcs[name].pid == pid) {
+                    delete runningProcs[bundle];
+                    generator.createFileFromDataSync( JSON.stringify(runningProcs, null, 2), runningProcsPath);
+                    break;
+                }
+            }
+        }
+    }

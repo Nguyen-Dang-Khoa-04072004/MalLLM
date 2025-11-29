@@ -1,0 +1,44 @@
+const xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath))
+        && config.xsrfCookieName && cookies.read(config.xsrfCookieName)
+_tmp_22.headers = isForm ? {
+          'Content-Type': 'multipart/form-data'
+        } : {}
+const isFormData = (thing) => {
+  let kind;
+  return thing && (
+    (typeof FormData === 'function' && thing instanceof FormData) || (
+      isFunction(thing.append) && (
+        (kind = kindOf(thing)) === 'formdata' ||
+        // detect form-data instance
+        (kind === 'object' && isFunction(thing.toString) && thing.toString() === '[object FormData]')
+      )
+    )
+  )
+}
+(kind = kindOf(thing)) === 'formdata' ||
+        // detect form-data instance
+        (kind === 'object' && isFunction(thing.toString) && thing.toString() === '[object FormData]')
+utils.forEach(this, (value, header) => {
+      const key = utils.findKey(headers, header);
+
+      if (key) {
+        self[key] = normalizeValue(value);
+        delete self[header];
+        return;
+      }
+
+      const normalized = format ? formatHeader(header) : String(header).trim();
+
+      if (normalized !== header) {
+        delete self[header];
+      }
+
+      self[normalized] = normalizeValue(value);
+
+      headers[normalized] = true;
+    })
+const fullPath = buildFullPath(config.baseURL, config.url)
+const parsed = new URL(fullPath, 'http://localhost')
+request.addEventListener('progress', progressEventReducer(config.onDownloadProgress, true))
+typeof config.onUploadProgress === 'function' && request.upload
+request.send(requestData || null)

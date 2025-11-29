@@ -1,0 +1,34 @@
+connect(self.options, (err, connection) => {
+      self.connectingConnections--;
+
+      if (err) {
+        if (self.logger.isDebug()) {
+          self.logger.debug(`connection attempt failed with error [${JSON.stringify(err)}]`);
+        }
+
+        self.retriesLeft = self.retriesLeft - 1;
+        if (self.retriesLeft <= 0) {
+          self.destroy();
+          self.emit(
+            'reconnectFailed',
+            new MongoNetworkError(
+              f(
+                'failed to reconnect after %s attempts with interval %s ms',
+                self.options.reconnectTries,
+                self.options.reconnectInterval
+              )
+            )
+          );
+        } else {
+          self.reconnectId = setTimeout(attemptReconnect(self), self.options.reconnectInterval);
+        }
+
+        return;
+      }
+
+      if (self.state === DESTROYED || self.state === DESTROYING) {
+        return connection.destroy();
+      }
+
+      self.reconnectId = null;
+      handlers.forEach(event => co...

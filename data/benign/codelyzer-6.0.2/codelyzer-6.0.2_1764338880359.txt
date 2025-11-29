@@ -1,0 +1,128 @@
+attributes.some(function (attribute) {
+            if (el.name === 'a' && attribute.name === 'routerLink') {
+                return true;
+            }
+            if (baseAttr.name !== attribute.name) {
+                return false;
+            }
+            if (baseAttr.value && baseAttr.value !== getLiteralValue_1.getLiteralValue(getAttributeValue_1.getAttributeValue(el, baseAttr.name))) {
+                return false;
+            }
+            return true;
+        })
+var BasicCssAstVisitor = (function (_super) {
+    __extends(BasicCssAstVisitor, _super);
+    function BasicCssAstVisitor(sourceFile, _originalOptions, context, style, templateStart) {
+        var _this = _super.call(this, sourceFile, _originalOptions, style.style, templateStart) || this;
+        _this._originalOptions = _originalOptions;
+        _this.context = context;
+        _this.templateStart = templateStart;
+        return _this;
+    }
+    BasicCssAstVisitor.prototype.visitCssValue = function (ast, context) { };
+    BasicCssAstVisitor.prototype.visitCssInlineRule = function (ast, context) { };
+    BasicCssAstVisitor.prototype.visitCssAtRulePredicate = function (ast, context) { };
+    BasicCssAstVisitor.prototype.visitCssKeyframeRule = function (ast, context) {
+        ast.block.visit(this, context);
+    };
+    BasicCssAstVisitor.prototype.visitCssKeyframeDefinition = function (ast, context) {
+        ast.block.visit(this, context);
+    };
+    BasicCssAstVisitor.prototype.visitCssM...
+(function (CssLexerMode) {
+    CssLexerMode[CssLexerMode["ALL"] = 0] = "ALL";
+    CssLexerMode[CssLexerMode["ALL_TRACK_WS"] = 1] = "ALL_TRACK_WS";
+    CssLexerMode[CssLexerMode["SELECTOR"] = 2] = "SELECTOR";
+    CssLexerMode[CssLexerMode["PSEUDO_SELECTOR"] = 3] = "PSEUDO_SELECTOR";
+    CssLexerMode[CssLexerMode["PSEUDO_SELECTOR_WITH_ARGUMENTS"] = 4] = "PSEUDO_SELECTOR_WITH_ARGUMENTS";
+    CssLexerMode[CssLexerMode["ATTRIBUTE_SELECTOR"] = 5] = "ATTRIBUTE_SELECTOR";
+    CssLexerMode[CssLexerMode["AT_RULE_QUERY"] = 6] = "AT_RULE_QUERY";
+    CssLexerMode[CssLexerMode["MEDIA_QUERY"] = 7] = "MEDIA_QUERY";
+    CssLexerMode[CssLexerMode["BLOCK"] = 8] = "BLOCK";
+    CssLexerMode[CssLexerMode["KEYFRAME_BLOCK"] = 9] = "KEYFRAME_BLOCK";
+    CssLexerMode[CssLexerMode["STYLE_BLOCK"] = 10] = "STYLE_BLOCK";
+    CssLexerMode[CssLexerMode["STYLE_VALUE"] = 11] = "STYLE_VALUE";
+    CssLexerMode[CssLexerMode["STYLE_VALUE_FUNCTION"] = 12] = "STYLE_VALUE_FUNCTION";
+    CssLexerMode[CssLexerMode["STYLE_CAL...
+var getExpressionDisplacement = function (binding) {
+    var attrLen = 0;
+    var valLen = 0;
+    var totalLength = 0;
+    var result = 0;
+    if (binding instanceof ast.BoundEventAst ||
+        binding instanceof ast.BoundElementPropertyAst ||
+        binding instanceof ast.BoundDirectivePropertyAst) {
+        var subBindingLen = 0;
+        if (binding instanceof ast.BoundElementPropertyAst) {
+            switch (binding.type) {
+                case 4:
+                    subBindingLen = 'animate'.length + 1;
+                    break;
+                case 1:
+                    subBindingLen = 'attr'.length + 1;
+                    break;
+                case 2:
+                    subBindingLen = 'class'.length + 1;
+                    break;
+                case 3:
+                    subBindingLen = 'style'.length + 1;
+                    break;
+            }
+        }
+        if (!(binding instanceof ast.BoundDirectivePropertyAst)) {
+            attrLen = binding.name.length + 4 +...
+var Rule = (function (_super) {
+    __extends(Rule, _super);
+    function Rule() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Rule.prototype.apply = function (sourceFile) {
+        var walker = new Walker(sourceFile, this.getOptions());
+        return this.applyWithWalker(walker);
+    };
+    Rule.metadata = {
+        description: 'Component selector must be declared.',
+        options: null,
+        optionsDescription: 'Not configurable.',
+        rationale: 'Omit the component selector makes debugging difficult.',
+        ruleName: 'use-component-selector',
+        type: 'maintainability',
+        typescriptOnly: true,
+    };
+    Rule.FAILURE_STRING = 'The selector of the component "%s" is mandatory';
+    return Rule;
+}(rules_1.AbstractRule))
+var TemplateVisitorCtrl = (function (_super) {
+    __extends(TemplateVisitorCtrl, _super);
+    function TemplateVisitorCtrl() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    TemplateVisitorCtrl.prototype.visitElement = function (ast, context) {
+        this.validateElement(ast);
+        _super.prototype.visitElement.call(this, ast, context);
+    };
+    TemplateVisitorCtrl.prototype.validateElement = function (element) {
+        if (element.name === 'th') {
+            return;
+        }
+        var hasScopeInput = element.inputs.some(function (input) { return input.name === 'scope'; });
+        var hasScopeAttr = element.attrs.some(function (attr) { return attr.name === 'scope'; });
+        if (hasScopeInput || hasScopeAttr) {
+            var _a = element.sourceSpan, endOffset = _a.end.offset, startOffset = _a.start.offset;
+            this.addFailureFromStartToEnd(startOffset, endOffset, Rule.FAILURE_MESSAGE);
+        }
+    };
+    return TemplateVisi...
+var Rule = (function (_super) {
+    __extends(Rule, _super);
+    function Rule(options) {
+        return _super.call(this, {
+            errorMessage: Rule.FAILURE_STRING,
+            propertyName: METADATA_PROPERTY_NAME,
+        }, options) || this;
+    }
+    Rule.metadata = {
+        description: "Disallows usage of the `" + METADATA_PROPERTY_NAME + "` metadata property.",
+        options: null,
+        optionsDescription: 'Not configurable.',
+        rationale: utils_1.dedent(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n      If you ever need to rename the property associated\n      with @", ",\n      @", ", @", "\n      or @", ",\n      you can modify it in a single place.\n    "], ["\n      If you ever need to rename the property associated\n      with @", ",\n      @", ", @", "\n      or @", ",\n      you can modify it in a single place.\n    "])), utils_2.AngularInnerClassDecorators.ContentChild, utils_2.AngularInnerClassDecorators.ContentChildren, utils_2.Ang...

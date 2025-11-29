@@ -1,0 +1,317 @@
+function readBooleanType = function readBooleanType(type) {
+  if (!ts5.isLiteralTypeNode(type)) {
+    return null;
+  }
+  switch (type.literal.kind) {
+    case ts5.SyntaxKind.TrueKeyword:
+      return true;
+    case ts5.SyntaxKind.FalseKeyword:
+      return false;
+    default:
+      return null;
+  }
+}
+!symbolMap.has(identifier.text)
+<operator>.formatString("The '", identifier.text, "' identifier doesn't belong to the provided import declaration.")
+symbolMap.get(identifier.text) === AssumeEager
+symbolMap.set(identifier.text, this.lookupIdentifiersInSourceFile(identifier.text, importDecl))
+const identifiers = symbolMap.get(identifier.text)
+this.indexTrait(childRef, seenTypesWithReexports)
+const childMeta = (_c = (_b = this.metaReader.getDirectiveMetadata(childRef)) != null ? _b : this.metaReader.getPipeMetadata(childRef)) != null ? _c : this.metaReader.getNgModuleMetadata(childRef)
+this.updateWith(this.typeToExportingModules, childRef.node, ref.node)
+this.updateWith(seenTypesWithReexports, ref.node, childRef.node)
+_iterator_46 = <operator>.iterator(this.readers)
+_iterator_34 = <operator>.iterator(seenTypesWithReexports.get(childRef.node))
+this.updateWith(this.typeToExportingModules, reexported, ref.node)
+this.updateWith(seenTypesWithReexports, ref.node, reexported)
+_iterator_35 = <operator>.iterator(this.typeToExportingModules.get(directiveOrPipe))
+(_tmp_461 = this.ngModuleAuthoritativeReference).has
+<operator>.formatString("Expected '", str, "' to contain '_'")
+(_tmp_509 = this.externalStyleToComponentsMap.get(path)).add
+this.componentToStylesMap.get(component).add(styleResource)
+const file = this.files.get(path)
+!file.has(identifier)
+TcbInliningRequirement2[TcbInliningRequirement2["ShouldInlineForGenericBounds"] = 1] = "ShouldInlineForGenericBounds"
+const handler = this.handlersByName.get(priorTrait.handler.name)
+let trait = Trait.pending(handler, priorTrait.detected)
+const symbol = this.makeSymbolForTrait(handler, record.node, priorTrait.analysis)
+trait = trait.toAnalyzed(priorTrait.analysis, priorTrait.analysisDiagnostics, symbol)
+trait.analysis !== null && trait.handler.register !== void 0
+addParseSpanInfo(initializer, this.element.startSourceSpan || this.element.sourceSpan)
+this.classes.set(record.node, record)
+const sf = record.node.getSourceFile()
+(_tmp_710 = this.fileToClasses).has
+this.fileToClasses.set(sf, /* @__PURE__ */ new Set())
+this.fileToClasses.get(sf).add(record.node)
+const result = handler.detect(clazz, decorators)
+addParseSpanInfo(initializer, this.variable.valueSpan)
+addParseSpanInfo(variable.declarationList.declarations[0], this.variable.sourceSpan)
+(_tmp_759 = this.scope).addStatement
+record = {
+          node: clazz,
+          traits: [trait],
+          metaDiagnostics: null,
+          hasPrimaryHandler: isPrimaryHandler,
+          hasWeakHandlers: isWeakHandler
+        }
+var TcbTemplateContextOp = class extends TcbOp {
+  constructor(tcb, scope) {
+    super();
+    this.tcb = tcb;
+    this.scope = scope;
+    this.optional = true;
+  }
+  execute() {
+    const ctx = this.tcb.allocateId();
+    const type = ts23.factory.createKeywordTypeNode(ts23.SyntaxKind.AnyKeyword);
+    this.scope.addStatement(tsDeclareVariable(ctx, type));
+    return ctx;
+  }
+}
+this.classes.set(clazz, record)
+const sf = clazz.getSourceFile()
+(_tmp_720 = this.fileToClasses).has
+this.fileToClasses.set(sf, /* @__PURE__ */ new Set())
+this.scope.addStatement(tsDeclareVariable(ctx, type))
+let initializer = this.target instanceof TmplAstTemplate2 || this.target instanceof TmplAstElement3 ? this.scope.resolve(this.target) : this.scope.resolve(this.host, this.target)
+this.target instanceof TmplAstElement3 && !this.tcb.env.config.checkTypeOfDomReferences || !this.tcb.env.config.checkTypeOfNonDomReferences
+const classes = this.fileToClasses.get(sf)
+this.optional = true
+this.scope.addStatement(tsCreateVariable(id, NULL_AS_ANY))
+!isNamedClassDeclaration(clazz)
+var TcbDirectiveCtorOp = class extends TcbOp {
+  constructor(tcb, scope, node, dir) {
+    super();
+    this.tcb = tcb;
+    this.scope = scope;
+    this.node = node;
+    this.dir = dir;
+  }
+  get optional() {
+    return true;
+  }
+  execute() {
+    const id = this.tcb.allocateId();
+    addExpressionIdentifier(id, ExpressionIdentifier.DIRECTIVE);
+    addParseSpanInfo(id, this.node.startSourceSpan || this.node.sourceSpan);
+    const genericInputs = /* @__PURE__ */ new Map();
+    const boundAttrs = getBoundAttributes(this.dir, this.node);
+    for (const attr of boundAttrs) {
+      if (!this.tcb.env.config.checkTypeOfAttributes && attr.attribute instanceof TmplAstTextAttribute2) {
+        continue;
+      }
+      for (const { fieldName } of attr.inputs) {
+        if (genericInputs.has(fieldName)) {
+          continue;
+        }
+        const expression = translateInput(attr.attribute, this.tcb, this.scope);
+        genericInputs.set(fieldName, { type: "binding", field: fieldName, expression, s...
+const transformer = new DtsTransformer(context, reflector, refEmitter, importRewriter, importPrefix)
+const expr = widenBinding(tcbExpression(binding.value, this.tcb, this.scope), this.tcb)
+const transforms = transformRegistry.getAllTransforms(fileOrBundle)
+const propertyName = (_a = ATTR_TO_PROP.get(binding.name)) != null ? _a : binding.name
+const prop = ts23.factory.createElementAccessExpression(elId, ts23.factory.createStringLiteral(propertyName))
+const stmt = ts23.factory.createBinaryExpression(prop, ts23.SyntaxKind.EqualsToken, wrapForDiagnostics(expr))
+addParseSpanInfo(stmt, binding.sourceSpan)
+newStatements.push(...this._before.get(stmt))
+parent === null && tcb.env.config.enableTemplateTypeChecker
+scope.opQueue.push(new TcbComponentContextCompletionOp(scope))
+newStatements.push(...this._after.get(stmt))
+ts19.addSyntheticLeadingComment(
+          property,
+          ts19.SyntaxKind.MultiLineCommentTrivia,
+          "* @nocollapse ",
+          false
+        )
+dirMap.has(directive)
+ts19.SyntaxKind.MultiLineCommentTrivia
+const queriesFromDecorator = extractQueriesFromDecorator(directive.get("queries"), reflector, evaluator, isCore)
+const args = ast.args.map((arg) => this.translate(arg))
+let methodAccess = ts23.factory.createPropertyAccessExpression(pipe, "transform")
+addParseSpanInfo(methodAccess, ast.nameSpan)
+throw createValueHasWrongTypeError(expr, resolved, `selector must be a string`);
+const host = extractHostBindings(decoratedElements, evaluator, coreModule, directive)
+const providers = directive.has("providers") ? new WrappedNodeExpr4(annotateForClosureCompiler ? wrapFunctionExpressionsInParens(directive.get("providers")) : directive.get("providers")) : null
+ast.receiver.receiver instanceof ImplicitReceiver4 && !(ast.receiver.receiver instanceof ThisReceiver) && ast.receiver.name === "$any" && ast.args.length === 1
+const expr = this.translate(ast.args[0])
+addParseSpanInfo(method, ast.receiver.nameSpan)
+const args = ast.args.map((arg) => this.translate(arg))
+directive.has("signals")
+const binding = this.tcb.boundTarget.getExpressionTarget(ast)
+const rawHostDirectives = directive.get("hostDirectives") || null
+inliningRequirement === TcbInliningRequirement.ShouldInlineForGenericBounds && this.inlining === InliningMode.Error
+shimData.file.addTypeCheckBlock(ref, meta, shimData.domSchemaChecker, shimData.oobRecorder, TcbGenericContextBehavior.FallbackToAny)
+const inputsArray = evaluator.evaluate(inputsField)
+!Array.isArray(inputsArray)
+throw createValueHasWrongTypeError(inputsField, inputsArray, `Failed to resolve @Directive.inputs to an array`);
+(_tmp_1035 = this.typeCtorPending).add
+(_tmp_1036 = this.opMap).has
+(_tmp_1040 = this.opMap).has
+const name = value.get("name")
+const alias = value.get("alias")
+const importManager = new ImportManager(new NoopImportRewriter(), "_i")
+ops.forEach((op, idx) => {
+      const text = op.execute(importManager, sf, this.refEmitter, printer);
+      code += "\n\n" + text + textParts[idx + 1];
+    })
+const text = op.execute(importManager, sf, this.refEmitter, printer)
+resolved.map((value) => {
+    const hostReference = value instanceof Map ? value.get("directive") : value;
+    if (!(hostReference instanceof Reference)) {
+      throw createValueHasWrongTypeError(rawHostDirectives, hostReference, "Host directive must be a reference");
+    }
+    if (!isNamedClassDeclaration(hostReference.node)) {
+      throw createValueHasWrongTypeError(rawHostDirectives, hostReference, "Host directive reference must be a class");
+    }
+    const meta = {
+      directive: hostReference,
+      isForwardReference: hostReference.synthetic,
+      inputs: parseHostDirectivesMapping("inputs", value, hostReference.node, rawHostDirectives),
+      outputs: parseHostDirectivesMapping("outputs", value, hostReference.node, rawHostDirectives)
+    };
+    return meta;
+  })
+const hostReference = value instanceof Map ? value.get("directive") : value
+char === LF_CHAR || char === LINE_SEP_CHAR || char === PARAGRAPH_CHAR
+throw createValueHasWrongTypeError(rawHostDirectives, hostReference, "Host directive must be a reference");
+!isNamedClassDeclaration(hostReference.node)
+throw createValueHasWrongTypeError(rawHostDirectives, hostReference, "Host directive reference must be a class");
+const meta = {
+      directive: hostReference,
+      isForwardReference: hostReference.synthetic,
+      inputs: parseHostDirectivesMapping("inputs", value, hostReference.node, rawHostDirectives),
+      outputs: parseHostDirectivesMapping("outputs", value, hostReference.node, rawHostDirectives)
+    }
+_tmp_258.inputs = parseHostDirectivesMapping("inputs", value, hostReference.node, rawHostDirectives)
+_tmp_258.outputs = parseHostDirectivesMapping("outputs", value, hostReference.node, rawHostDirectives)
+return pivotIdx
+const resolved = this.evaluator.evaluate(importExpr, moduleResolvers)
+(_tmp_1172 = shimRecord.templates).has
+data = shimRecord.templates.get(templateId)
+this.perf.inPhase(PerfPhase.TtcDiagnostics, () => {
+      const sf = component.getSourceFile();
+      const sfPath = absoluteFromSourceFile(sf);
+      const shimPath = TypeCheckShimGenerator.shimFor(sfPath);
+      const fileRecord = this.getFileData(sfPath);
+      if (!fileRecord.shimData.has(shimPath)) {
+        return [];
+      }
+      const templateId = fileRecord.sourceManager.getTemplateId(component);
+      const shimRecord = fileRecord.shimData.get(shimPath);
+      const typeCheckProgram = this.programDriver.getProgram();
+      const diagnostics = [];
+      if (shimRecord.hasInlines) {
+        const inlineSf = getSourceFileOrError(typeCheckProgram, sfPath);
+        diagnostics.push(...typeCheckProgram.getSemanticDiagnostics(inlineSf).map((diag) => convertDiagnostic(diag, fileRecord.sourceManager)));
+      }
+      const shimSf = getSourceFileOrError(typeCheckProgram, shimPath);
+      diagnostics.push(...typeCheckProgram.getSemanticDiagnostics(shimSf).map((diag) => convertDiagno...
+const sfPath = absoluteFromSourceFile(sf)
+const mayExportProviders = this.exportedProviderStatusResolver.mayExportProviders(dirMeta.ref, (importRef) => {
+            if (symbol !== null && this.semanticDepGraphUpdater !== null) {
+              const importSymbol = this.semanticDepGraphUpdater.getSymbol(importRef.node);
+              symbol.addTransitiveImportFromStandaloneComponent(importSymbol);
+            }
+          })
+symbol !== null && this.semanticDepGraphUpdater !== null
+const importSymbol = this.semanticDepGraphUpdater.getSymbol(importRef.node)
+const shimRecord = fileRecord.shimData.get(shimPath)
+_iterator_82 = <operator>.iterator(shimRecord.templates.values())
+data.injectorImports.push(new WrappedNodeExpr6(topLevelImport.expression))
+diagnostics.filter((diag) => diag !== null && diag.templateId === templateId)
+entry instanceof SyntheticValue && isResolvedModuleWithProviders(entry)
+entry instanceof Map && entry.has("ngModule")
+this.perf.inPhase(PerfPhase.TcbUpdateProgram, () => {
+      if (updates.size > 0) {
+        this.perf.eventCount(PerfEvent.UpdateTypeCheckProgram);
+      }
+      this.programDriver.updateFiles(updates, UpdateMode.Incremental);
+      this.priorBuild.recordSuccessfulTypeCheck(this.state);
+      this.perf.memory(PerfCheckpoint.TtcUpdateProgram);
+    })
+Array.isArray(entry)
+const recursiveResult = this.resolveTypeList(expr, entry, className, arrayName, absoluteIndex)
+absoluteIndex += recursiveResult.references.length
+entry instanceof Reference
+!this.isClassDeclarationReference(entry)
+throw createValueHasWrongTypeError(entry.node, entry, `Value at position ${absoluteIndex} in the NgModule.${arrayName} of ${className} is not a class`);
+_tmp_1241.sourceManager = new TemplateSourceManager()
+throw createValueHasWrongTypeError(expr, entry, `Value at position ${absoluteIndex} in the NgModule.${arrayName} of ${className} is not a reference`);
+_tmp_1350.code = ErrorCode.NULLISH_COALESCING_NOT_NULLABLE
+_tmp_1350.name = ExtendedTemplateDiagnosticName.NULLISH_COALESCING_NOT_NULLABLE
+const animationsValue = this.evaluator.evaluate(animationExpression, animationTriggerResolver)
+collectAnimationNames(animationsValue, animationTriggerNames)
+const viewProviders = component.get("viewProviders")
+viewProvidersRequiringFactory = resolveProvidersRequiringFactory(viewProviders, this.reflector, this.evaluator)
+wrappedViewProviders = new WrappedNodeExpr7(this.annotateForClosureCompiler ? wrapFunctionExpressionsInParens(viewProviders) : viewProviders)
+providersRequiringFactory = resolveProvidersRequiringFactory(component.get("providers"), this.reflector, this.evaluator)
+let rawImports = (_b = component.get("imports")) != null ? _b : null
+typeLeft.flags & (ts28.TypeFlags.Any | ts28.TypeFlags.Unknown)
+diagnostics.push(makeDiagnostic(ErrorCode.COMPONENT_NOT_STANDALONE, component.get("imports"), `'imports' is only valid on a component that is standalone.`, [makeRelatedInformation(node.name, `Did you forget to add 'standalone: true' to this @Component?`)]))
+this.compilationMode !== CompilationMode.LOCAL && rawImports
+const expr = rawImports
+const importResolvers = combineResolvers([
+        createModuleWithProvidersResolver(this.reflector, this.isCore),
+        forwardRefResolver
+      ])
+const templateMapping = ctx.templateTypeChecker.getTemplateMappingAtTcbLocation(symbol.tcbLocation)
+_tmp_1003.push(forwardRefResolver)
+const imported = this.evaluator.evaluate(expr, importResolvers)
+const advice = node instanceof SafePropertyRead5 ? `the '?.' operator can be replaced with the '.' operator` : `the '?.' operator can be safely removed`
+diagnostics.push(makeDiagnostic(ErrorCode.COMPONENT_NOT_STANDALONE, component.get("schemas"), `'schemas' is only valid on a component that is standalone.`))
+var TmplAstBoundAttribute3 = require("@angular/compiler").TmplAstBoundAttribute
+(_tmp_1006 = this.preanalyzeTemplateCache).has
+const preanalyzed = this.preanalyzeTemplateCache.get(node)
+!(node instanceof TmplAstBoundAttribute3)
+const templateDecl = parseTemplateDeclaration(node, decorator, component, containingFile, this.evaluator, this.depTracker, this.resourceLoader, this.defaultPreserveWhitespaces)
+template = extractTemplate(node, templateDecl, this.evaluator, this.depTracker, this.resourceLoader, {
+        enableI18nLegacyMessageIdFormat: this.enableI18nLegacyMessageIdFormat,
+        i18nNormalizeLineEndingsInICUs: this.i18nNormalizeLineEndingsInICUs,
+        usePoisonedData: this.usePoisonedData,
+        enabledBlockTypes: this.enabledBlockTypes
+      })
+_tmp_1009.enableI18nLegacyMessageIdFormat = this.enableI18nLegacyMessageIdFormat
+const templateResource = template.declaration.isInline ? { path: null, expression: component.get("template") } : {
+      path: absoluteFrom(template.declaration.resolvedTemplateUrl),
+      expression: template.sourceMapping.node
+    }
+_tmp_1011.path = absoluteFrom(template.declaration.resolvedTemplateUrl)
+const styleResources = extractStyleResources(this.resourceLoader, component, containingFile)
+const styleUrls = [
+      ...extractComponentStyleUrls(this.evaluator, component),
+      ..._extractTemplateStyleUrls(template)
+    ]
+var TextAttributeNotBindingSpec = class extends TemplateCheckWithVisitor {
+  constructor() {
+    super(...arguments);
+    this.code = ErrorCode.TEXT_ATTRIBUTE_NOT_BINDING;
+  }
+  visitNode(ctx, component, node) {
+    if (!(node instanceof TmplAstTextAttribute4))
+      return [];
+    const name = node.name;
+    if (!name.startsWith("attr.") && !name.startsWith("style.") && !name.startsWith("class.")) {
+      return [];
+    }
+    let errorString;
+    if (name.startsWith("attr.")) {
+      const staticAttr = name.replace("attr.", "");
+      errorString = `Static attributes should be written without the 'attr.' prefix.`;
+      if (node.value) {
+        errorString += ` For example, ${staticAttr}="${node.value}".`;
+      }
+    } else {
+      const expectedKey = `[${name}]`;
+      const expectedValue = node.value === "true" || node.value === "false" ? node.value : `'${node.value}'`;
+      errorString = "Attribute, style, and class bindings should be enclosed with square braces.";
+      if (node...
+_tmp_1012.push(..._extractTemplateStyleUrls(template))
+this.code = ErrorCode.TEXT_ATTRIBUTE_NOT_BINDING
+const resourceUrl = this.resourceLoader.resolve(styleUrl.url, containingFile)
+const resourceStr = this.resourceLoader.load(resourceUrl)
+this.depTracker.addResourceDependency(node.getSourceFile(), absoluteFrom(resourceUrl))
+const selectorError = checkCustomElementSelectorForErrors(metadata.selector)
+<operator>.formatString(" For example, '", expectedKey, "="", expectedValue, ""'.")
+diagnostics.push(makeDiagnostic(ErrorCode.COMPONENT_INVALID_SHADOW_DOM_SELECTOR, component.get("selector"), selectorError))
+_tmp_1367.code = ErrorCode.TEXT_ATTRIBUTE_NOT_BINDING
+_tmp_1367.name = ExtendedTemplateDiagnosticName.TEXT_ATTRIBUTE_NOT_BINDING

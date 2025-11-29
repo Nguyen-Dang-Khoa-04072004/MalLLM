@@ -1,0 +1,25 @@
+this.client.request('VerifySoftwareToken', {
+        Session: this.Session,
+        UserCode: totpCode,
+        FriendlyDeviceName: friendlyDeviceName
+      }, function (err, data) {
+        if (err) {
+          return callback.onFailure(err);
+        }
+        _this21.Session = data.Session;
+        var challengeResponses = {};
+        challengeResponses.USERNAME = _this21.username;
+        var jsonReq = {
+          ChallengeName: 'MFA_SETUP',
+          ClientId: _this21.pool.getClientId(),
+          ChallengeResponses: challengeResponses,
+          Session: _this21.Session
+        };
+        if (_this21.getUserContextData()) {
+          jsonReq.UserContextData = _this21.getUserContextData();
+        }
+        _this21.client.request('RespondToAuthChallenge', jsonReq, function (errRespond, dataRespond) {
+          if (errRespond) {
+            return callback.onFailure(errRespond);
+          }
+          _this21.signInUserSession = _this21.getCognitoUserSession(dataRespond.Authentica...

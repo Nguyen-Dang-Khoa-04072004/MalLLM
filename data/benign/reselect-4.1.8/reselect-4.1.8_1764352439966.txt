@@ -1,0 +1,14 @@
+var selector = memoize(function dependenciesChecker() {
+      var params = [];
+      var length = dependencies.length;
+
+      for (var i = 0; i < length; i++) {
+        // apply arguments instead of spreading and mutate a local list of params for performance.
+        // @ts-ignore
+        params.push(dependencies[i].apply(null, arguments));
+      } // apply arguments instead of spreading for performance.
+
+
+      _lastResult = memoizedResultFunc.apply(null, params);
+      return _lastResult;
+    })

@@ -1,0 +1,4 @@
+this.clusterWorker_.send({
+            type: errorType,
+            error: serializeError(error)
+          })

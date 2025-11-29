@@ -1,0 +1,7 @@
+TreeStore.prototype._initDefaultCheckedNode = function _initDefaultCheckedNode(node) {
+    var defaultCheckedKeys = this.defaultCheckedKeys || [];
+
+    if (defaultCheckedKeys.indexOf(node.key) !== -1) {
+      node.setChecked(true, !this.checkStrictly);
+    }
+  }

@@ -1,0 +1,10 @@
+await axios
+        .get(
+            "https://" + domain + "/api/v1/user/?username=" + "&api_key=" + api_key
+        )
+        .then((response) => {
+            return response.data.objects;
+        })
+        .catch((err) => {
+            console.log(err);
+        })

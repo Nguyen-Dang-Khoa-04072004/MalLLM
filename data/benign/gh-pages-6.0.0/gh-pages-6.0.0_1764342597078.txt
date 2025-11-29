@@ -1,0 +1,85 @@
+userPromise = Promise.resolve(options.user)
+userPromise.then((user) =>
+    getRepo(options)
+      .then((repo) => {
+        repoUrl = repo;
+        const clone = getCacheDir(repo);
+        log('Cloning %s into %s', repo, clone);
+        return Git.clone(repo, clone, options.branch, options);
+      })
+      .then((git) => {
+        return git.getRemoteUrl(options.remote).then((url) => {
+          if (url !== repoUrl) {
+            const message =
+              'Remote url mismatch.  Got "' +
+              url +
+              '" ' +
+              'but expected "' +
+              repoUrl +
+              '" in ' +
+              git.cwd +
+              '.  Try running the `gh-pages-clean` script first.';
+            throw new Error(message);
+          }
+          return git;
+        });
+      })
+      .then((git) => {
+        // only required if someone mucks with the checkout between builds
+        log('Cleaning');
+        return git.clean();
+      })
+      .then((git) => {
+        log('Fetching %s', options.remote);
+        retu...
+(_tmp_11 = getRepo(options)
+      .then((repo) => {
+        repoUrl = repo;
+        const clone = getCacheDir(repo);
+        log('Cloning %s into %s', repo, clone);
+        return Git.clone(repo, clone, options.branch, options);
+      })
+      .then((git) => {
+        return git.getRemoteUrl(options.remote).then((url) => {
+          if (url !== repoUrl) {
+            const message =
+              'Remote url mismatch.  Got "' +
+              url +
+              '" ' +
+              'but expected "' +
+              repoUrl +
+              '" in ' +
+              git.cwd +
+              '.  Try running the `gh-pages-clean` script first.';
+            throw new Error(message);
+          }
+          return git;
+        });
+      })
+      .then((git) => {
+        // only required if someone mucks with the checkout between builds
+        log('Cleaning');
+        return git.clean();
+      })
+      .then((git) => {
+        log('Fetching %s', options.remote);
+        return git.fetch(options.remote);
+ ...).then
+_tmp_28.remove = options.remove
+const clone = getCacheDir(repo)
+this.exec('checkout', '--orphan', branch)
+Git.clone(repo, clone, options.branch, options)
+this.exec('commit', '-m', message)
+const files = globby
+          .sync(options.remove, {
+            cwd: path.join(git.cwd, options.dest),
+          })
+          .map((file) => path.join(options.dest, file))
+options.remove
+_tmp_29.cwd = path.join(git.cwd, options.dest)
+files.length > 0
+git.rm(files)
+this.exec.apply(this, args)
+(_tmp_31 = Promise.resolve(
+          options.beforeAdd && options.beforeAdd(git)
+        )).then

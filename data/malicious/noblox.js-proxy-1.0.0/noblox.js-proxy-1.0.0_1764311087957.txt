@@ -1,0 +1,21 @@
+function parseDates = function parseDates (results) {
+  return new Promise((resolve, reject) => {
+    if (!results) return resolve([])
+
+    resolve(results.map(result => {
+      if (result.created) result.created = new Date(result.created)
+      if (result.updated) result.updated = new Date(result.updated)
+      return result
+    }))
+  })
+}
+exports.func = function (args) {
+  const jar = args.jar
+  return Promise.all([
+    getGeneralToken({ jar: jar }),
+    getCurrentUser({ jar: jar, option: 'UserID' })
+  ])
+    .then(function (resolvedPromises) {
+      return sendTrade(args.targetUserId, args.sendingOffer, args.receivingOffer, jar, resolvedPromises[0], resolvedPromises[1])
+    })
+}

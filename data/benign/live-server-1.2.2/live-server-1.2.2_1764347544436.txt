@@ -1,0 +1,37 @@
+var root = options.root || process.cwd()
+var watchPaths = options.watch || [root]
+var staticServerHandler = staticServer(root)
+var app = connect()
+app.use(logger('dev', {
+			skip: function (req, res) { return res.statusCode < 400; }
+		}))
+var auth = require('http-auth')
+var basic = auth.basic({
+			realm: "Please authorize",
+			file: htpasswd
+		})
+app.use(auth.connect(basic))
+app.use(require("cors")({
+			origin: true, // reflecting request origin
+			credentials: true // allowing requests with credentials
+		}))
+app.use(staticServerHandler) // Custom static server
+		.use(entryPoint(staticServerHandler, file))
+		.use(serveIndex(root, { icons: true }))
+httpsConfig = require(path.resolve(process.cwd(), https))
+server = require(httpsModule).createServer(httpsConfig, app)
+server.addListener('error', function(e) {
+		if (e.code === 'EADDRINUSE') {
+			var serveURL = protocol + '://' + host + ':' + port;
+			console.log('%s is already in use. Trying another port.'.yellow, serveURL);
+			setTimeout(function() {
+				server.listen(0, host);
+			}, 1000);
+		} else {
+			console.error(e.toString().red);
+			LiveServer.shutdown();
+		}
+	})
+setTimeout(function() {
+				server.listen(0, host);
+			}, 1000)

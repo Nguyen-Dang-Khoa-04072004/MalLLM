@@ -1,0 +1,122 @@
+actions[id] = (input, context) => {
+          let schema = action.outputSchema;
+          // FIXME: see https://github.com/BigstickCarpet/json-schema-ref-parser/issues/40
+          if (this.id === 'google_gmail' && id === 'send') {
+            schema = JSON.parse(JSON.stringify(schema));
+            schema.definitions.MessagePart = {};
+          }
+          return jsf(schema);
+        }
+Project.prototype.aggregateActions = function () {
+  var _this2 = this;
+
+  for (var integID in this.integrations) {
+    var loc = this.integrations[integID];
+    this.integrations[integID] = require(nodepath.join(this.directory, loc));
+  }
+
+  for (var actionID in this.actions) {
+    this.actions[actionID] = Action.fromName(this.actions[actionID], this.directory, this.integrations);
+    this.actions[actionID].id = actionID;
+  }
+
+  var resolveAction = function resolveAction(action) {
+    if (typeof action === 'string') {
+      action = _this2.actions[action] = Action.fromName(action, _this2.directory, _this2.integrations, _this2.actions);
+    } else if (Array.isArray(action)) {
+      action = Action.fromList(action, _this2.directory, _this2.integrations, _this2.actions);
+    }
+    if (!(action instanceof Action)) {
+      action = new Action(action);
+    }
+    return action;
+  };
+
+  var resolveTriggerAction = function resolveTriggerAction(trigger, type, name) {
+    if (!trigger) return...
+var _loop = function _loop(id) {
+      if (actions[id] instanceof Function) {
+        var action = actions[id].action;
+        actions[id] = function (input, context) {
+          var schema = action.outputSchema;
+          // FIXME: see https://github.com/BigstickCarpet/json-schema-ref-parser/issues/40
+          if (_this2.id === 'google_gmail' && id === 'send') {
+            schema = JSON.parse(JSON.stringify(schema));
+            schema.definitions.MessagePart = {};
+          }
+          return jsf(schema);
+        };
+        actions[id].action = action;
+      } else {
+        mockActions(actions[id]);
+      }
+    }
+let resolveTriggerAction = (trigger, type, name) => {
+    if (!trigger) return;
+    if (!trigger.action) throw new Error(`No action specified for ${type} with ID ${name}`);
+    trigger.action = resolveAction(trigger.action);
+    if (trigger.monitor) {
+      resolveTriggerAction(trigger.monitor, type + ' monitor', name);
+    }
+    if (trigger.errorHandler) {
+      resolveTriggerAction(trigger.errorHandler, type + ' errorHandler', name);
+    }
+    if (trigger.authorizers) {
+      for (let authID in trigger.authorizers) {
+        resolveTriggerAction(trigger.authorizers[authID], type + ' authorizer', name + ' ' + authID);
+      }
+    }
+  }
+var startOAuthServer = function startOAuthServer(project, integration, secDef, accountToEdit, clientAccount, port) {
+  port = port || DEFAULT_OAUTH_PORT;
+  var redirectURI = clientAccount.redirect_uri || 'http://localhost:' + port;
+  return new Promise(function (resolve, reject) {
+    var server = http.createServer(function (req, res) {
+      var urlObj = urlParser.parse(req.url);
+      if (urlObj.pathname !== '/') {
+        res.writeHead(404);
+        res.end();
+        return;
+      }
+      var search = urlParser.parse(req.url).search || '?';
+      search = search.substring(1);
+      search = querystring.parse(search);
+      if (search.code) {
+        request.post({
+          url: secDef.tokenUrl,
+          form: {
+            code: search.code,
+            client_id: clientAccount.client_id,
+            client_secret: clientAccount.client_secret,
+            redirect_uri: redirectURI,
+            grant_type: 'authorization_code'
+          },
+          json: true
+        }, function (...
+(_tmp_21 = http.createServer((req, res) => {
+      let urlObj = urlParser.parse(req.url);
+      if (urlObj.pathname !== '/') {
+        res.writeHead(404);
+        res.end();
+        return;
+      }
+      let search = urlParser.parse(req.url).search || '?';
+      search = search.substring(1);
+      search = querystring.parse(search);
+      if (search.code) {
+        request.post({
+          url: secDef.tokenUrl,
+          form: {
+            code: search.code,
+            client_id: clientAccount.client_id,
+            client_secret: clientAccount.client_secret,
+            redirect_uri: redirectURI,
+            grant_type: 'authorization_code',
+          },
+          json: true,
+        }, (err, resp, body) => {
+          if (err) return reject(err);
+          if (resp.statusCode >= 300) return reject(resp.statusCode);
+          let newURL = '/?saved=true#access_token=' + encodeURIComponent(body.access_token);
+          newURL += '&refresh_token=' + encodeURIComponent(body.refresh_token);
+    ...).listen

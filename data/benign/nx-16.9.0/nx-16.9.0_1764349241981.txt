@@ -1,0 +1,210 @@
+function generateMarkdown = async function generateMarkdown(commits, releaseVersion, githubRequestConfig) {
+    const typeGroups = groupBy(commits, 'type');
+    const markdown = [];
+    const breakingChanges = [];
+    const commitTypes = {
+        feat: { title: '🚀 Features' },
+        perf: { title: '🔥 Performance' },
+        fix: { title: '🩹 Fixes' },
+        refactor: { title: '💅 Refactors' },
+        docs: { title: '📖 Documentation' },
+        build: { title: '📦 Build' },
+        types: { title: '🌊 Types' },
+        chore: { title: '🏡 Chore' },
+        examples: { title: '🏀 Examples' },
+        test: { title: '✅ Tests' },
+        style: { title: '🎨 Styles' },
+        ci: { title: '🤖 CI' },
+    };
+    // Version Title
+    markdown.push('', `## ${releaseVersion}`, '');
+    for (const type of Object.keys(commitTypes)) {
+        const group = typeGroups[type];
+        if (!group || group.length === 0) {
+            continue;
+        }
+        markdown.push('', '### ' + commitTypes[type].title, '');
+...
+function coerceType = function coerceType(prop, value) {
+    if (!prop)
+        return value;
+    if (typeof value !== 'string' && value !== undefined)
+        return value;
+    if (prop.oneOf) {
+        for (let i = 0; i < prop.oneOf.length; ++i) {
+            const coerced = coerceType(prop.oneOf[i], value);
+            if (coerced !== value) {
+                return coerced;
+            }
+        }
+        return value;
+    }
+    else if (Array.isArray(prop.type)) {
+        for (let i = 0; i < prop.type.length; ++i) {
+            const coerced = coerceType({ type: prop.type[i] }, value);
+            if (coerced !== value) {
+                return coerced;
+            }
+        }
+        return value;
+    }
+    else if (normalizedPrimitiveType(prop.type) == 'boolean' &&
+        isConvertibleToBoolean(value)) {
+        return value === true || value == 'true';
+    }
+    else if (normalizedPrimitiveType(prop.type) == 'number' &&
+        isConvertibleToNumber(value)) {
+        return Number(value);
+    }
+...
+function withDeps = function withDeps(original, subsetNodes) {
+    const res = { nodes: {}, dependencies: {} };
+    const visitedNodes = [];
+    const visitedEdges = [];
+    Object.values(subsetNodes).forEach(recurNodes);
+    Object.values(subsetNodes).forEach(recurEdges);
+    return res;
+    // ---------------------------------------------------------------------------
+    function recurNodes(node) {
+        if (visitedNodes.indexOf(node.name) > -1)
+            return;
+        res.nodes[node.name] = node;
+        if (!res.dependencies[node.name]) {
+            res.dependencies[node.name] = [];
+        }
+        visitedNodes.push(node.name);
+        original.dependencies[node.name].forEach((n) => {
+            if (original.nodes[n.target]) {
+                recurNodes(original.nodes[n.target]);
+            }
+        });
+    }
+    function recurEdges(node) {
+        if (visitedEdges.indexOf(node.name) > -1)
+            return;
+        visitedEdges.push(node.name);
+        const ds = original.dependencie...
+keysArray.forEach((key) => {
+                // we don't need to keep duplicates, we can just track the keys
+                const existingNode = nodes.get(packageName)?.get(version);
+                if (existingNode) {
+                    keyMap.set(key, existingNode);
+                    return;
+                }
+                const node = {
+                    type: 'npm',
+                    name: version
+                        ? `npm:${packageName}@${version}`
+                        : `npm:${packageName}`,
+                    data: {
+                        version,
+                        packageName,
+                        hash: snapshot.integrity ||
+                            snapshot.checksum ||
+                            (0, file_hasher_1.hashArray)([packageName, version]),
+                    },
+                };
+                keyMap.set(key, node);
+                // use actual version so we can detect it later based on npm package's version
+                con...
+const renderDependentTargets = (renderDivider = true) => {
+        if (totalDependentTasksNotFromInitiatingProject <= 0) {
+            return;
+        }
+        const max = cli_spinners_1.dots.frames.length - 1;
+        const curr = dependentTargetsCurrentFrame;
+        dependentTargetsCurrentFrame = curr >= max ? 0 : curr + 1;
+        const linesToRender = [''];
+        const remainingDependentTasksNotFromInitiatingProject = totalDependentTasksNotFromInitiatingProject - totalCompletedTasks;
+        switch (state) {
+            case 'EXECUTING_DEPENDENT_TARGETS':
+                if (totalFailedTasks === 0) {
+                    linesToRender.push(`   ${output_1.output.colors.cyan(cli_spinners_1.dots.frames[dependentTargetsCurrentFrame])}    ${output_1.output.dim(`Nx is waiting on ${remainingDependentTasksNotFromInitiatingProject} dependent project tasks before running tasks from`)} ${initiatingProject}${output_1.output.dim('...')}`);
+                    if (totalSuccessfulTasks > 0) {
+   ...
+function codeFrameColumns = function codeFrameColumns(rawLines, loc, opts = {}) {
+    const defs = getDefs(chalk);
+    const lines = rawLines.split(NEWLINE);
+    const { start, end, markerLines } = getMarkerLines(loc, lines, opts);
+    const numberMaxWidth = String(end).length;
+    const highlightedLines = opts.highlight ? opts.highlight(rawLines) : rawLines;
+    let frame = highlightedLines
+        .split(NEWLINE)
+        .slice(start, end)
+        .map((line, index) => {
+        const number = start + 1 + index;
+        const paddedNumber = ` ${number}`.slice(-numberMaxWidth);
+        const gutter = ` ${paddedNumber} | `;
+        const hasMarker = markerLines[number];
+        if (hasMarker) {
+            let markerLine = '';
+            if (Array.isArray(hasMarker)) {
+                const markerSpacing = line
+                    .slice(0, Math.max(hasMarker[0] - 1, 0))
+                    .replace(/[^\t]/g, ' ');
+                const numberOfMarkers = hasMarker[1] || 1;
+                markerLine = [
+     ...
+function withAffectedOptions = function withAffectedOptions(yargs) {
+    return withExcludeOption(yargs)
+        .parserConfiguration({
+        'strip-dashed': true,
+        'unknown-options-as-args': true,
+        'populate--': true,
+    })
+        .option('files', {
+        describe: 'Change the way Nx is calculating the affected command by providing directly changed files, list of files delimited by commas or spaces',
+        type: 'string',
+        requiresArg: true,
+        coerce: parseCSV,
+    })
+        .option('uncommitted', {
+        describe: 'Uncommitted changes',
+        type: 'boolean',
+    })
+        .option('untracked', {
+        describe: 'Untracked changes',
+        type: 'boolean',
+    })
+        .option('base', {
+        describe: 'Base of the current branch (usually main)',
+        type: 'string',
+        requiresArg: true,
+    })
+        .option('head', {
+        describe: 'Latest commit of the current branch (usually HEAD)',
+        type: 'string',
+        requiresArg: true,
+    })
+        ...
+(_tmp_27 = withExcludeOption(yargs)
+        .parserConfiguration({
+        'strip-dashed': true,
+        'unknown-options-as-args': true,
+        'populate--': true,
+    })
+        .option('files', {
+        describe: 'Change the way Nx is calculating the affected command by providing directly changed files, list of files delimited by commas or spaces',
+        type: 'string',
+        requiresArg: true,
+        coerce: parseCSV,
+    })
+        .option('uncommitted', {
+        describe: 'Uncommitted changes',
+        type: 'boolean',
+    })
+        .option('untracked', {
+        describe: 'Untracked changes',
+        type: 'boolean',
+    })
+        .option('base', {
+        describe: 'Base of the current branch (usually main)',
+        type: 'string',
+        requiresArg: true,
+    })
+        .option('head', {
+        describe: 'Latest commit of the current branch (usually HEAD)',
+        type: 'string',
+        requiresArg: true,
+    })
+        .group(['base'], 'Run command using --base=[SHA1]...).conflicts

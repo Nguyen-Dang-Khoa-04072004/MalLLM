@@ -1,0 +1,12 @@
+process.send(
+                  JSON.stringify({
+                    id: job.id,
+                    error: error,
+                    module:
+                      module &&
+                      freeze('Module', null, module, {
+                        id: module.identifier(),
+                        compilation,
+                      }),
+                  }),
+                )

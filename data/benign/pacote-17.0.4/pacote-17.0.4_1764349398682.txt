@@ -1,0 +1,3 @@
+this.replaceRegistryHost !== 'never'
+      && (this.replaceRegistryHost === 'always'
+      || this.replaceRegistryHost === resolvedURL.host)

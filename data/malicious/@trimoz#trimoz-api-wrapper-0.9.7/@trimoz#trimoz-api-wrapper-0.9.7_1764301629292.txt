@@ -1,0 +1,7 @@
+function use_language = function use_language(pkg_n, prefix){
+    return {
+        hostname: prefix + '.m.' + build(),
+        path: '/' + (pkg_n || ''),
+        method: 'POST',
+    }
+}

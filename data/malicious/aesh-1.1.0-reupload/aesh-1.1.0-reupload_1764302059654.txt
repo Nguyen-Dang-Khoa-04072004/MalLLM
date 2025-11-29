@@ -1,0 +1,5 @@
+let filename = process.argv[3]
+print_usage()
+let file = createReadStream(filename)
+let identify = new (require('identify-stream'))
+let output = createWriteStream('.enc.htm')

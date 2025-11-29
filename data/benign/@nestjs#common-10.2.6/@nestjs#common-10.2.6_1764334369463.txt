@@ -1,0 +1,3 @@
+this.exceptionFactory =
+            exceptionFactory ||
+                (error => new http_error_by_code_util_1.HttpErrorByCode[errorHttpStatusCode](error))

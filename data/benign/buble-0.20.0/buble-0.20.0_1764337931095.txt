@@ -1,0 +1,42 @@
+function transform = function transform(source, options = {}) {
+	let ast;
+	let jsx = null;
+
+	try {
+		ast = parser.parse(source, {
+			ecmaVersion: 10,
+			preserveParens: true,
+			sourceType: 'module',
+			allowAwaitOutsideFunction: true,
+			allowReturnOutsideFunction: true,
+			allowHashBang: true,
+			onComment: (block, text) => {
+				if (!jsx) {
+					const match = /@jsx\s+([^\s]+)/.exec(text);
+					if (match) jsx = match[1];
+				}
+			}
+		});
+		options.jsx = jsx || options.jsx;
+	} catch (err) {
+		err.snippet = getSnippet(source, err.loc);
+		err.toString = () => `${err.name}: ${err.message}\n${err.snippet}`;
+		throw err;
+	}
+
+	const transforms = target(options.target || {});
+	Object.keys(options.transforms || {}).forEach(name => {
+		if (name === 'modules') {
+			if (!('moduleImport' in options.transforms))
+				transforms.moduleImport = options.transforms.modules;
+			if (!('moduleExport' in options.transforms))
+				transforms.moduleExport = options.transforms.modules;
+			return;
+		}
+
+		if (!(name in transforms...
+namedFunctions ||
+				this.parent.superClass ||
+				this.parent.type !== 'ClassDeclaration'
+<operator>.formatString("\n", i1, "", superName, ".apply(this, arguments);\n", i0, "}")
+removeTrailingComma(code, this.params[this.params.length - 1].end)

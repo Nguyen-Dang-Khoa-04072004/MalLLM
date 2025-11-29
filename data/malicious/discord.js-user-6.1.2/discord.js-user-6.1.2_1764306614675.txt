@@ -1,0 +1,1 @@
+this.guild.client.removeListener(Events.GUILD_MEMBERS_CHUNK, handler)

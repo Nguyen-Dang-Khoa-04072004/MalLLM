@@ -1,0 +1,145 @@
+var submit = function () {
+
+        var $form = null, _id = null, $target = null;
+
+        if ( typeof(this.getAttribute) != 'undefined' ) {
+            _id = this.getAttribute('id');
+            $target = this;
+        } else if ( typeof(this.target) != 'undefined' && this.target != null && typeof(this.target.getAttribute) != 'undefined' ) {
+            _id = this.target.getAttribute('id');
+            $target = this.target
+        }
+
+        if ( typeof(instance.$forms[_id]) == 'undefined') {
+            throw new Error('[ FormValidator::submit() ] not `$form` binded. Use `FormValidator::getFormById(id)` or `FormValidator::validateFormById(id)` first ')
+        }
+
+        triggerEvent(gina, $target, 'submit');
+
+        return this;
+    }
+err.message = '`GenericN1QLError::bulkInsert`\n'+ err.message
+e.emit('error', error, request, response, next)
+self[el]['is'] = function(condition, errorMessage, errorStack) {
+            var isValid     = false;
+            var alias       = ( typeof(window) != 'undefined' && typeof(window._currentValidatorAlias) != 'undefined' ) ? window._currentValidatorAlias : 'is';
+            if ( typeof(window) != 'undefined'  && window._currentValidatorAlias)
+                delete window._currentValidatorAlias;
+
+            var errors      = self[this['name']]['errors'] || {};
+            local.data[this.name] = self[this.name].value;
+
+            if (
+                typeof(errors['isRequired']) == 'undefined'
+                && this.value == ''
+                && !/^false$/i.test(this.value)
+                && this.value != 0
+                ||
+                !errors['isRequired']
+                && this.value == ''
+                && !/^false$/i.test(this.value)
+                && this.value != 0
+            ) {
+                isValid = true;
+            } else if (!errors['isRequired'] && type...
+/\/$/.test(matched) ? replacement.variable+ '/' : replacement.variable
+typeof(settings.server) != 'undefined'
+                            && typeof(settings.server.scheme) != 'undefined'
+var req = browser.request(altOpt, function(res) {
+
+            res.setEncoding('utf8');
+
+            // upgrade response headers to handler
+            if ( typeof(res.headers['access-control-allow-credentials']) != 'undefined' )
+                local.options.withCredentials = res.headers['access-control-allow-credentials'];
+
+
+            var data = '', err = false;
+
+            res.on('data', function onData (chunk) {
+                data += chunk;
+            });
+
+            res.on('end', function onEnd(err) {
+
+
+                // exceptions filter
+                if ( typeof(data) == 'string' && /^Unknown ALPN Protocol/.test(data) ) {
+                    err = {
+                        status: 500,
+                        error: new Error(data)
+                    };
+
+                    if ( typeof(callback) != 'undefined' ) {
+                        callback(err)
+                    } else {
+                        self.emit('query#complete', err)
+                    }
+
+          ...
+req.on('error', function onError(err) {
+
+
+            if (
+                typeof(err.code) != 'undefined' && /ECONNREFUSED|ECONNRESET/.test(err.code)
+                || typeof(err.cause) != 'undefined' && typeof(err.cause.code) != 'undefined' &&  /ECONNREFUSED|ECONNRESET/.test(err.cause.code)
+            ) {
+
+                var port = getContext('gina').ports[options.protocol][options.scheme.replace(/\:/, '')][ options.port ];//err.port || err.cause.port
+                if ( typeof(port) != 'undefined' ) {
+                    err.accessPoint = port;
+                    err.message = '`Controller::query()` could not connect to [ ' + err.accessPoint + ' ] using port '+options.port+'.\n';
+                }
+            }
+
+
+            console.error(err.stack||err.message);
+            // you can get here if :
+            //  - you are trying to query using: `enctype="multipart/form-data"`
+            //  -
+            if ( typeof(callback) != 'undefined' ) {
+
+                callback(...
+err.message = '`Controller::query()` could not connect to [ ' + err.accessPoint + ' ] using port '+options.port+'.\n'
+console.error(err.stack||err.message)
+var error = {
+                    status    : 500,
+                    error     : err.stack || err.message
+                }
+_tmp_279.error = err.stack || err.message
+rulesFromPath(obj, keys, val, originalRuleObj, field, i, len)
+var req = client.request( headers, sessionOptions )
+req.setEncoding('utf8')
+req.on('data', function onQueryDataChunk(chunk) {
+                data += chunk;
+            })
+req.on('error', function onQueryError(error) {
+
+                if (
+                    typeof(error.cause) != 'undefined' && typeof(error.cause.code) != 'undefined' && /ECONNREFUSED|ECONNRESET/.test(error.cause.code)
+                    || /ECONNREFUSED|ECONNRESET/.test(error.code)
+                ) {
+
+                    var port = getContext('gina').ports[options.protocol][options.scheme.replace(/\:/, '')][ options.port ];
+                    if ( typeof(port) != 'undefined' ) {
+                        error.accessPoint = port;
+                        error.message = 'Could not connect to [ ' + error.accessPoint + ' ].\n' + error.message;
+                    }
+                }
+
+
+                console.error(error.stack||error.message);
+                // you can get here if :
+                //  - you are trying to query using: `enctype="multipart/form-data"`
+                //  - server responded with an error
+                if ( typeof(callback) != 'undefined' ) {
+         ...
+error.message = 'Could not connect to [ ' + error.accessPoint + ' ].\n' + error.message
+console.error(error.stack||error.message)
+error = {
+                        status    : 500,
+                        error     : error.stack ||error.message
+                    }
+_tmp_299.error = error.stack ||error.message
+methods.indexOf(method) > -1 && typeof(req.query) != 'undefined' && req.query.count() == 0
+                            || methods.indexOf(method) > -1 && typeof(req.query) == 'undefined' && typeof(req.params) != 'undefined' && req.params.count() > 1

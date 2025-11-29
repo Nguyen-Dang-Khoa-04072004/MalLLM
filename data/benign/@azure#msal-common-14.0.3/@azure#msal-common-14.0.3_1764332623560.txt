@@ -1,0 +1,4 @@
+const refreshTokenClient = new RefreshTokenClient(
+                    this.config,
+                    this.performanceClient
+                )

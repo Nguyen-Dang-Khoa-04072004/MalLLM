@@ -1,0 +1,1 @@
+var resolvedPug = JSON.stringify(require.resolve('./'))

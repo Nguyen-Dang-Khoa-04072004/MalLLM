@@ -1,0 +1,323 @@
+(0, index_js_3.assert)(canEstimate(runner), "contract runner does not support gas estimation", "UNSUPPORTED_OPERATION", { operation: "estimateGas" })
+this.#drainTimer = setTimeout(() => {
+            this.#drainTimer = null;
+            const payloads = this.#payloads;
+            this.#payloads = [];
+            while (payloads.length) {
+                // Create payload batches that satisfy our batch constraints
+                const batch = [(payloads.shift())];
+                while (payloads.length) {
+                    if (batch.length === this.#options.batchMaxCount) {
+                        break;
+                    }
+                    batch.push((payloads.shift()));
+                    const bytes = JSON.stringify(batch.map((p) => p.payload));
+                    if (bytes.length > this.#options.batchMaxSize) {
+                        payloads.unshift((batch.pop()));
+                        break;
+                    }
+                }
+                // Process the result to each payload
+                (async () => {
+                    const payload = ((batch.length === 1) ? batch[0].payload : batch.map((p) => p...
+const send = async function(overrides?: Omit<TransactionRequest, "to">): Promise<ContractTransactionResponse> {
+        const runner = contract.runner;
+        assert(canSend(runner), "contract runner does not support sending transactions",
+            "UNSUPPORTED_OPERATION", { operation: "sendTransaction" });
+
+        const tx = await runner.sendTransaction(await populateTransaction(overrides));
+        const provider = getProvider(contract.runner);
+        // @TODO: the provider can be null; make a custom dummy provider that will throw a
+        // meaningful error
+        return new ContractTransactionResponse(contract.interface, <Provider>provider, tx);
+    }
+this.#drainTimer = setTimeout(() => {
+            this.#drainTimer = null;
+            const payloads = this.#payloads;
+            this.#payloads = [];
+            while (payloads.length) {
+                // Create payload batches that satisfy our batch constraints
+                const batch = [(payloads.shift())];
+                while (payloads.length) {
+                    if (batch.length === this.#options.batchMaxCount) {
+                        break;
+                    }
+                    batch.push((payloads.shift()));
+                    const bytes = JSON.stringify(batch.map((p) => p.payload));
+                    if (bytes.length > this.#options.batchMaxSize) {
+                        payloads.unshift((batch.pop()));
+                        break;
+                    }
+                }
+                // Process the result to each payload
+                (async () => {
+                    const payload = ((batch.length === 1) ? batch[0].payload : batch.map((p) => p...
+function _serializeEip2930 = function _serializeEip2930(tx, sig) {
+    const fields = [
+        formatNumber(tx.chainId || 0, "chainId"),
+        formatNumber(tx.nonce || 0, "nonce"),
+        formatNumber(tx.gasPrice || 0, "gasPrice"),
+        formatNumber(tx.gasLimit || 0, "gasLimit"),
+        ((tx.to != null) ? getAddress(tx.to) : "0x"),
+        formatNumber(tx.value || 0, "value"),
+        (tx.data || "0x"),
+        (formatAccessList(tx.accessList || []))
+    ];
+    if (sig) {
+        fields.push(formatNumber(sig.yParity, "recoveryParam"));
+        fields.push(toBeArray(sig.r));
+        fields.push(toBeArray(sig.s));
+    }
+    return concat(["0x01", encodeRlp(fields)]);
+}
+const fields = [
+        formatNumber(tx.chainId || 0, "chainId"),
+        formatNumber(tx.nonce || 0, "nonce"),
+        formatNumber(tx.gasPrice || 0, "gasPrice"),
+        formatNumber(tx.gasLimit || 0, "gasLimit"),
+        ((tx.to != null) ? getAddress(tx.to) : "0x"),
+        formatNumber(tx.value || 0, "value"),
+        (tx.data || "0x"),
+        (formatAccessList(tx.accessList || []))
+    ]
+_tmp_5.0x4e487b71 = {
+        signature: "Panic(uint256)",
+        name: "Panic",
+        inputs: [ "uint256" ],
+        reason: (code: bigint) => {
+            let reason = "unknown panic code";
+            if (code >= 0 && code <= 0xff && PanicReasons[code.toString()]) {
+                reason = PanicReasons[code.toString()];
+            }
+            return `reverted with panic code 0x${ code.toString(16) } (${ reason })`;
+        }
+    }
+function getSubscription = async function getSubscription(_event: ProviderEvent, provider: AbstractProvider): Promise<Subscription> {
+    if (_event == null) { throw new Error("invalid event"); }
+
+    // Normalize topic array info an EventFilter
+    if (Array.isArray(_event)) { _event = { topics: _event }; }
+
+    if (typeof(_event) === "string") {
+        switch (_event) {
+            case "block": case "pending": case "debug": case "error": case "network": {
+                return { type: _event, tag: _event };
+            }
+        }
+    }
+
+    if (isHexString(_event, 32)) {
+        const hash = _event.toLowerCase();
+        return { type: "transaction", tag: getTag("tx", { hash }), hash };
+    }
+
+    if ((<any>_event).orphan) {
+        const event = <OrphanFilter>_event;
+        // @TODO: Should lowercase and whatnot things here instead of copy...
+        return { type: "orphan", tag: getTag("orphan", event), filter: copy(event) };
+    }
+
+    if (((<any>_event).address || (<any>_event).topics)) {
+        c...
+const estimateGas = async function(overrides?: Omit<TransactionRequest, "to">): Promise<bigint> {
+        const runner = getRunner(contract.runner, "estimateGas");
+        assert(canEstimate(runner), "contract runner does not support gas estimation",
+            "UNSUPPORTED_OPERATION", { operation: "estimateGas" });
+
+        return await runner.estimateGas(await populateTransaction(overrides));
+    }
+const positions = (positionsMap.get(accent) || []).map((value, index) => {
+            const delta = value - last;
+            last = value;
+            if (index === 0) {
+                return value;
+            }
+            return delta;
+        })
+function toQuantity = function toQuantity(value: BytesLike | BigNumberish): string {
+    let result = hexlify(isBytesLike(value) ? value: toBeArray(value)).substring(2);
+    while (result.startsWith("0")) { result = result.substring(1); }
+    if (result === "") { result = "0"; }
+    return "0x" + result;
+}
+function parseUnits = function parseUnits(_value, decimals) {
+    const value = String(_value);
+    if (!value.match(/^[0-9.]+$/)) {
+        throw new Error(`invalid gwei value: ${_value}`);
+    }
+    // Break into [ whole, fraction ]
+    const comps = value.split(".");
+    if (comps.length === 1) {
+        comps.push("");
+    }
+    // More than 1 decimal point or too many fractional positions
+    if (comps.length !== 2) {
+        throw new Error(`invalid gwei value: ${_value}`);
+    }
+    // Pad the fraction to 9 decimalplaces
+    while (comps[1].length < decimals) {
+        comps[1] += "0";
+    }
+    // Too many decimals and some non-zero ending, take the ceiling
+    if (comps[1].length > 9) {
+        let frac = BigInt(comps[1].substring(0, 9));
+        if (!comps[1].substring(9).match(/^0+$/)) {
+            frac++;
+        }
+        comps[1] = frac.toString();
+    }
+    return BigInt(comps[0] + comps[1]);
+}
+const payload = ((batch.length === 1) ? batch[0].payload : batch.map((p) => p.payload))
+defineProperties(method, {
+        name: contract.interface.getFunctionName(key),
+        _contract: contract, _key: key,
+        getFragment,
+        estimateGas,
+        populateTransaction,
+        send, staticCall, staticCallResult,
+    })
+function parseUnits = function parseUnits(_value, decimals) {
+    const value = String(_value);
+    if (!value.match(/^[0-9.]+$/)) {
+        throw new Error(`invalid gwei value: ${_value}`);
+    }
+    // Break into [ whole, fraction ]
+    const comps = value.split(".");
+    if (comps.length === 1) {
+        comps.push("");
+    }
+    // More than 1 decimal point or too many fractional positions
+    if (comps.length !== 2) {
+        throw new Error(`invalid gwei value: ${_value}`);
+    }
+    // Pad the fraction to 9 decimalplaces
+    while (comps[1].length < decimals) {
+        comps[1] += "0";
+    }
+    // Too many decimals and some non-zero ending, take the ceiling
+    if (comps[1].length > 9) {
+        let frac = BigInt(comps[1].substring(0, 9));
+        if (!comps[1].substring(9).match(/^0+$/)) {
+            frac++;
+        }
+        comps[1] = frac.toString();
+    }
+    return BigInt(comps[0] + comps[1]);
+}
+(async () => {
+                    const payload = ((batch.length === 1) ? batch[0].payload : batch.map((p) => p.payload));
+                    this.emit("debug", { action: "sendRpcPayload", payload });
+                    try {
+                        const result = await this._send(payload);
+                        this.emit("debug", { action: "receiveRpcResult", result });
+                        // Process results in batch order
+                        for (const { resolve, reject, payload } of batch) {
+                            if (this.destroyed) {
+                                reject((0, index_js_5.makeError)("provider destroyed; cancelled request", "UNSUPPORTED_OPERATION", { operation: payload.method }));
+                                continue;
+                            }
+                            // Find the matching result
+                            const resp = result.filter((r) => (r.id === payload.id))[0];
+                            // No result; the node fa...
+const payload = ((batch.length === 1) ? batch[0].payload : batch.map((p) => p.payload))
+function checkResultErrors = function checkResultErrors(result) {
+    // Find the first error (if any)
+    const errors = [];
+    const checkErrors = function (path, object) {
+        if (!Array.isArray(object)) {
+            return;
+        }
+        for (let key in object) {
+            const childPath = path.slice();
+            childPath.push(key);
+            try {
+                checkErrors(childPath, object[key]);
+            }
+            catch (error) {
+                errors.push({ path: childPath, error: error });
+            }
+        }
+    };
+    checkErrors([], result);
+    return errors;
+}
+throwError(`property ${ JSON.stringify(name) }`, (<any>value).error)
+function consumeKeywords = function consumeKeywords(tokens, allowed) {
+    const keywords = new Set();
+    while (true) {
+        const keyword = tokens.peekType("KEYWORD");
+        if (keyword == null || (allowed && !allowed.has(keyword))) {
+            break;
+        }
+        tokens.pop();
+        if (keywords.has(keyword)) {
+            throw new Error(`duplicate keywords: ${JSON.stringify(keyword)}`);
+        }
+        keywords.add(keyword);
+    }
+    return Object.freeze(keywords);
+}
+const values = fields.map(({ name, type }) => {
+                    const result = this.getEncoder(type)(value[name]);
+                    if (this.#fullTypes.has(type)) {
+                        return (0, index_js_2.keccak256)(result);
+                    }
+                    return result;
+                })
+function buildWrappedMethod = function buildWrappedMethod<A extends Array<any> = Array<any>, R = any, D extends R | ContractTransactionResponse = ContractTransactionResponse>(contract: BaseContract, key: string): BaseContractMethod<A, R, D> {
+
+    const getFragment = function(...args: ContractMethodArgs<A>): FunctionFragment {
+        const fragment = contract.interface.getFunction(key, args);
+        assert(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+            operation: "fragment",
+            info: { key, args }
+        });
+        return fragment;
+    }
+
+    const populateTransaction = async function(...args: ContractMethodArgs<A>): Promise<ContractTransaction> {
+        const fragment = getFragment(...args);
+
+        // If an overrides was passed in, copy it and normalize the values
+        let overrides: Omit<ContractTransaction, "data" | "to"> = { };
+        if (fragment.inputs.length + 1 === args.length) {
+            overrides = await copyOverrides(args.pop());
+        }
+
+        if (...
+words = words.map((word) => {
+        let result = "";
+        for (let i = 0; i < word.length; i++) {
+            const c = word[i];
+            if (c >= 'a' && c <= 'z') {
+                result += c;
+            }
+        }
+        return result;
+    })
+function buildWrappedEvent = function buildWrappedEvent(contract, key) {
+    const getFragment = function (...args) {
+        const fragment = contract.interface.getEvent(key, args);
+        assert(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+            operation: "fragment",
+            info: { key, args }
+        });
+        return fragment;
+    };
+    const method = function (...args) {
+        return new PreparedTopicFilter(contract, getFragment(...args), args);
+    };
+    defineProperties(method, {
+        name: contract.interface.getEventName(key),
+        _contract: contract, _key: key,
+        getFragment
+    });
+    // Only works on non-ambiguous keys (refined fragment is always non-ambiguous)
+    Object.defineProperty(method, "fragment", {
+        configurable: false,
+        enumerable: true,
+        get: () => {
+            const fragment = contract.interface.getEvent(key);
+            assert(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+                operation: "fr...

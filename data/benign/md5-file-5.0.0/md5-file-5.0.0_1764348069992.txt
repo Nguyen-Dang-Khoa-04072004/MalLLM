@@ -1,0 +1,3 @@
+console.log(md5File.sync(process.argv[2]))
+bytesRead = fs.readSync(fd, buffer, 0, BUFFER_SIZE)
+fs.closeSync(fd)

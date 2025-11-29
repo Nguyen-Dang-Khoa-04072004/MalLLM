@@ -1,0 +1,144 @@
+function authFor = async function authFor(endpoint, { clientAssertionPayload } = {}) {
+  const authMethod = this[`${endpoint}_endpoint_auth_method`];
+  switch (authMethod) {
+    case 'self_signed_tls_client_auth':
+    case 'tls_client_auth':
+    case 'none':
+      return { form: { client_id: this.client_id } };
+    case 'client_secret_post':
+      if (typeof this.client_secret !== 'string') {
+        throw new TypeError(
+          'client_secret_post client authentication method requires a client_secret',
+        );
+      }
+      return { form: { client_id: this.client_id, client_secret: this.client_secret } };
+    case 'private_key_jwt':
+    case 'client_secret_jwt': {
+      const timestamp = now();
+      const audience = [
+        ...new Set([this.issuer.issuer, this.issuer.token_endpoint].filter(Boolean)),
+      ];
+
+      const assertion = await clientAssertion.call(this, endpoint, {
+        iat: timestamp,
+        exp: timestamp + 60,
+        jti: random(),
+        iss: this.client_id,
+        sub...
+this[<operator>.formatString("", endpoint, "_endpoint_auth_method")]
+algs = algs.concat(['RSA-OAEP', 'RSA-OAEP-256', 'RSA-OAEP-384', 'RSA-OAEP-512', 'RSA1_5'])
+throw new TypeError('authentication requires session support');
+Object.entries(authParams).forEach(([key, value]) => {
+    if (value === null || value === undefined) {
+      delete authParams[key];
+    } else if (key === 'claims' && typeof value === 'object') {
+      authParams[key] = JSON.stringify(value);
+    } else if (key === 'resource' && Array.isArray(value)) {
+      authParams[key] = value;
+    } else if (typeof value !== 'string') {
+      authParams[key] = String(value);
+    }
+  })
+userOptions = pick(
+      optsFn.call(this, url, defaultsDeep({}, opts, DEFAULT_HTTP_OPTIONS)),
+      ...allowed,
+    )
+optsFn.call(this, url, defaultsDeep({}, opts, DEFAULT_HTTP_OPTIONS))
+module.exports = class KeyStore {
+  #keys;
+
+  constructor(i, keys) {
+    if (i !== internal) throw new Error('invalid constructor call');
+    this.#keys = keys;
+  }
+
+  toJWKS() {
+    return {
+      keys: this.map(({ jwk: { d, p, q, dp, dq, qi, ...jwk } }) => jwk),
+    };
+  }
+
+  all({ alg, kid, use } = {}) {
+    if (!use || !alg) {
+      throw new Error();
+    }
+
+    const kty = getKtyFromAlg(alg);
+
+    const search = { alg, use };
+    return this.filter((key) => {
+      let candidate = true;
+
+      if (candidate && kty !== undefined && key.jwk.kty !== kty) {
+        candidate = false;
+      }
+
+      if (candidate && kid !== undefined && key.jwk.kid !== kid) {
+        candidate = false;
+      }
+
+      if (candidate && use !== undefined && key.jwk.use !== undefined && key.jwk.use !== use) {
+        candidate = false;
+      }
+
+      if (candidate && key.jwk.alg && key.jwk.alg !== alg) {
+        candidate = false;
+      } else if (!key.algorithms.has(alg)) {
+        candidate = false;
+ ...
+_tmp_12.printf = [
+        "multiple matching keys found in issuer's jwks_uri for key parameters %j, kid must be provided in this case",
+        def,
+      ]
+_tmp_28.client_assertion_type = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
+function checkBasicSupport = function checkBasicSupport(client, properties) {
+  try {
+    const supported = client.issuer.token_endpoint_auth_methods_supported;
+    if (!supported.includes(properties.token_endpoint_auth_method)) {
+      if (supported.includes('client_secret_post')) {
+        properties.token_endpoint_auth_method = 'client_secret_post';
+      }
+    }
+  } catch (err) {}
+}
+const req = (url.protocol === 'https:' ? https.request : http.request)(url.href, opts)
+(_tmp_25 = (async () => {
+    if (json) {
+      send(req, JSON.stringify(json), 'application/json');
+    } else if (form) {
+      send(req, querystring.stringify(form), 'application/x-www-form-urlencoded');
+    } else if (body) {
+      send(req, body);
+    } else {
+      send(req);
+    }
+
+    [response] = await Promise.race([once(req, 'response'), once(req, 'timeout')]);
+
+    // timeout reached
+    if (!response) {
+      req.destroy();
+      throw new RPError(`outgoing request timed out after ${opts.timeout}ms`);
+    }
+
+    const parts = [];
+
+    for await (const part of response) {
+      parts.push(part);
+    }
+
+    if (parts.length) {
+      switch (responseType) {
+        case 'json': {
+          Object.defineProperty(response, 'body', {
+            get() {
+              let value = Buffer.concat(parts);
+              try {
+                value = JSON.parse(value);
+              } catch (err) {
+                Object.defineProperty(err, 'response', { value: response });
+                thro...).finally
+candidate && kid !== undefined && key.jwk.kid !== kid
+send(req, querystring.stringify(form), 'application/x-www-form-urlencoded')
+candidate && use !== undefined && key.jwk.use !== undefined && key.jwk.use !== use
+const value = Buffer.from(encoded).toString('base64')

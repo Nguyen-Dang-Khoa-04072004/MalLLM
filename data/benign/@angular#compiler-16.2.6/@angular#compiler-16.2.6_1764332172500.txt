@@ -1,0 +1,18 @@
+Object.keys(props).forEach(key => {
+            const prop = props[key];
+            if (prop instanceof t.Text) {
+                bound[key] = o.literal(prop.value);
+            }
+            else {
+                const value = prop.value.visit(this._valueConverter);
+                this.allocateBindingSlots(value);
+                if (value instanceof Interpolation) {
+                    const { strings, expressions } = value;
+                    const { id, bindings } = this.i18n;
+                    const label = assembleI18nBoundString(strings, bindings.size, id);
+                    this.i18nAppendBindings(expressions);
+                    bound[key] = o.literal(label);
+                }
+            }
+        })
+const kind = BINDING_KINDS.get(type)

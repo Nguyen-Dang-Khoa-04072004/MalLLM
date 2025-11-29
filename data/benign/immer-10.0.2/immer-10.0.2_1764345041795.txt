@@ -1,0 +1,46 @@
+patches.forEach(patch => {
+			const {path, op} = patch
+
+			let base: any = draft
+			for (let i = 0; i < path.length - 1; i++) {
+				const parentType = getArchtype(base)
+				let p = path[i]
+				if (typeof p !== "string" && typeof p !== "number") {
+					p = "" + p
+				}
+
+				// See #738, avoid prototype pollution
+				if (
+					(parentType === ArchType.Object || parentType === ArchType.Array) &&
+					(p === "__proto__" || p === "constructor")
+				)
+					die(errorOffset + 3)
+				if (typeof base === "function" && p === "prototype")
+					die(errorOffset + 3)
+				base = get(base, p)
+				if (typeof base !== "object") die(errorOffset + 2, path.join("/"))
+			}
+
+			const type = getArchtype(base)
+			const value = deepClonePatchValue(patch.value) // used to clone patch to ensure original patch is not modified, see #411
+			const key = path[path.length - 1]
+			switch (op) {
+				case REPLACE:
+					switch (type) {
+						case ArchType.Map:
+							return base.set(key, value)
+						/* istanbul ignore n...
+const parentType = getArchtype(base)
+process.env.NODE_ENV !== "production" &&
+		prop !== "length" &&
+		isNaN(parseInt(prop as any))
+typeof base === "function" && p === "prototype"
+isNaN(parseInt(prop as any))
+base = get(base, p)
+die(errorOffset + 2, path.join("/"))
+const state: SetState = this[DRAFT_STATE]
+const value = deepClonePatchValue(patch.value)
+base[key] = value
+const desc = Object.getOwnPropertyDescriptor(proto, prop)
+result = iterator.next()
+markChanged(state.parent_)

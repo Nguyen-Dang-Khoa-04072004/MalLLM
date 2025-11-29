@@ -1,0 +1,10 @@
+Object.defineProperty(nested, '$__get', {
+            enumerable: false,
+            configurable: true,
+            writable: false,
+            value: function() {
+              return _this.get(path, null, {
+                virtuals: this && this.schema && this.schema.options && this.schema.options.toObject && this.schema.options.toObject.virtuals || null
+              });
+            }
+          })

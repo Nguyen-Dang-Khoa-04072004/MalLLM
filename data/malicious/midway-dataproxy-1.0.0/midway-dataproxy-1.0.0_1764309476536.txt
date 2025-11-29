@@ -1,0 +1,15 @@
+app.get( '/getMycart', function( req, res ) {
+    var cookie = req.headers.cookie;
+    console.log( 'request cookie:\n', cookie );
+    var cart = DataProxy.create( 'Cart.*' );
+    cart.getMyCart()
+        .withCookie( cookie )
+        .done( function( data , setCookies ) {
+            console.log( 'response cookie:\n', setCookies );
+            res.setHeader( 'Set-Cookie', setCookies );
+            res.send( data );
+        }, function( err ) {
+            console.log( err );
+            res.send( 500, err );
+        } );
+} )

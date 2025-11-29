@@ -1,0 +1,1 @@
+const isEdited = lodash.get(config.context, this.getIsEditedKeyByName(config.name))

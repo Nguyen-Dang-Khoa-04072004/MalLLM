@@ -1,0 +1,61 @@
+const replacements = dataKeys.map(
+      (key: DataKey): AnyBulkWriteOperation<DataKey> => ({
+        updateOne: {
+          filter: { _id: key._id },
+          update: {
+            $set: {
+              masterKey: key.masterKey,
+              keyMaterial: key.keyMaterial
+            },
+            $currentDate: {
+              updateDate: true
+            }
+          }
+        }
+      })
+    )
+_tmp_31.updateOne = {
+          filter: { _id: key._id },
+          update: {
+            $set: {
+              masterKey: key.masterKey,
+              keyMaterial: key.keyMaterial
+            },
+            $currentDate: {
+              updateDate: true
+            }
+          }
+        }
+function executeCommands = function executeCommands(bulkOperation, options, callback) {
+    if (bulkOperation.s.batches.length === 0) {
+        return callback(undefined, new BulkWriteResult(bulkOperation.s.bulkResult));
+    }
+    const batch = bulkOperation.s.batches.shift();
+    function resultHandler(err, result) {
+        // Error is a driver related error not a bulk op error, return early
+        if (err && 'message' in err && !(err instanceof error_1.MongoWriteConcernError)) {
+            return callback(new MongoBulkWriteError(err, new BulkWriteResult(bulkOperation.s.bulkResult)));
+        }
+        if (err instanceof error_1.MongoWriteConcernError) {
+            return handleMongoWriteConcernError(batch, bulkOperation.s.bulkResult, err, callback);
+        }
+        // Merge the results together
+        mergeBatchResults(batch, bulkOperation.s.bulkResult, err, result);
+        const writeResult = new BulkWriteResult(bulkOperation.s.bulkResult);
+        if (bulkOperation.handleWriteError(callback, write...
+new WaitQueueTimeoutError(
+            this.loadBalanced
+              ? this.waitQueueErrorMetrics()
+              : 'Timed out while checking out a connection from connection pool',
+            this.address
+          )
+exports.ChangeStreamInvalidateDocument = ChangeStreamInvalidateDocument
+conn.command(
+          ns,
+          cmd,
+          finalOptions,
+          makeOperationHandler(this, conn, cmd, finalOptions, (error, response) => {
+            this.decrementOperationCount();
+            cb(error, response);
+          })
+        )

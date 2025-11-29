@@ -1,0 +1,29 @@
+this.parent.acquire(this, (err, connection, config) => {
+        if (err) return callback(err)
+
+        this._acquiredConnection = connection
+        this._acquiredConnection.on('rollbackTransaction', this._abort)
+        this._acquiredConfig = config
+
+        connection.beginTransaction(err => {
+          if (err) err = new TransactionError(err)
+
+          debug('transaction(%d): begun', IDS.get(this))
+
+          callback(err)
+        }, this.name, this.isolationLevel)
+      })
+this.config = this.constructor.parseConnectionString(config)
+this.config.validateConnection = 'validateConnection' in this.config ? this.config.validateConnection : true
+this._acquiredConnection.rollbackTransaction(err => {
+        if (err) err = new TransactionError(err)
+
+        this._acquiredConnection.removeListener('rollbackTransaction', this._abort)
+        this.parent.release(this._acquiredConnection)
+        this._acquiredConnection = null
+        this._acquiredConfig = null
+
+        if (!err) debug('transaction(%d): rolled back', IDS.get(this))
+
+        callback(err)
+      })

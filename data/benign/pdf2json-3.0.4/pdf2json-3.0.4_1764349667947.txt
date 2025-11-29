@@ -1,0 +1,2 @@
+var contentStreamPromise = pdfManager.ensure(this, 'getContentStream',
+                                                   [])

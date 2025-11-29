@@ -1,0 +1,6 @@
+function addChartsModulesToModule = function addChartsModulesToModule(options) {
+    return (host) => tslib_1.__awaiter(this, void 0, void 0, function* () {
+        const modulePath = (yield (0, schematics_2.findModuleFromOptions)(host, options));
+        (0, schematics_2.addModuleImportToModule)(host, modulePath, 'NgChartsModule', 'ng2-charts');
+    });
+}

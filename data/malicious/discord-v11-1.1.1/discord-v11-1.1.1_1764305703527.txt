@@ -1,0 +1,105 @@
+this.voiceConnection.sockets.ws.sendPacket({
+        op: Constants.VoiceOPCodes.SELECT_PROTOCOL,
+        d: {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        },
+      })
+_tmp_12.d = {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        }
+this.player.on('error', e => {
+      /**
+       * Warning info from the connection.
+       * @event VoiceConnection#warn
+       * @param {string|Error} warning The warning
+       */
+      this.emit('warn', e);
+    })
+_tmp_13.data = {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          }
+dispatcher.once('end', () => this.unregisterDispatcher(dispatcher))
+dispatcher.on('volumeChange', (o, n) => {
+        this.unregisterDispatcher(dispatcher, o);
+        if (!this._dispatchers.has(n)) {
+          this._dispatchers.set(n, new Set());
+          this._encoders.set(n, OpusEncoders.fetch());
+        }
+        this._dispatchers.get(n).add(dispatcher);
+      })
+this.client.emit(RATE_LIMIT, {
+                limit: this.requestLimit,
+                timeDifference: this.timeDifference,
+                path: item.request.path,
+                method: item.request.method,
+              })
+throw new RangeError('RichEmbed descriptions may not exceed 2048 characters.');
+const permissions = new Permissions(roles.map(role => role.permissions))
+throw new TypeError('The count must be a number.');
+transcoder.on('error', e => {
+      this.destroyCurrentStream();
+      if (this.listenerCount('error') > 0) this.emit('error', e);
+      this.emit('warn', `prism transcoder error - ${e}`);
+    })
+function parseLocalPacket = function parseLocalPacket(message) {
+  try {
+    const packet = Buffer.from(message);
+    let address = '';
+    for (let i = 4; i < packet.indexOf(0, i); i++) address += String.fromCharCode(packet[i]);
+    const port = parseInt(packet.readUIntLE(packet.length - 2, 2).toString(10), 10);
+    return { address, port };
+  } catch (error) {
+    return { error };
+  }
+}
+this.rest.makeRequest('post', Endpoints.Channel(channel).messages.bulkDelete, true, {
+      messages: messages,
+    }).then(() =>
+      this.client.actions.MessageDeleteBulk.handle({
+        channel_id: channel.id,
+        ids: messages,
+      }).messages
+    )
+new Promise(resolve => {
+      let status = this.localPresence.status || this.presence.status;
+      let game = this.localPresence.game;
+      let afk = this.localPresence.afk || this.presence.afk;
+
+      if (!game && this.presence.game) {
+        game = {
+          name: this.presence.game.name,
+          type: this.presence.game.type,
+          url: this.presence.game.url,
+        };
+      }
+
+      if (data.status) {
+        if (typeof data.status !== 'string') throw new TypeError('Status must be a string');
+        if (this.bot) {
+          status = data.status;
+        } else {
+          this.settings.update(Constants.UserSettingsMap.status, data.status);
+          status = 'invisible';
+        }
+      }
+
+      if (data.game) {
+        game = data.game;
+        game.type = game.url && typeof game.type === 'undefined' ? 1 : game.type || 0;
+        if (typeof game.type === 'string') {
+          game.type = Constants.ActivityTypes.indexOf(game.type.toUpperCase());
+        }
+      }...
+this.client.channels.find(c => c.type === 'dm' && c.recipient.id === this.id)

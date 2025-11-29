@@ -1,0 +1,7 @@
+_tmp_62.rtcpFeedback = [
+                { type: 'nack' },
+                { type: 'nack', parameter: 'pli' },
+                { type: 'ccm', parameter: 'fir' },
+                { type: 'goog-remb' },
+                { type: 'transport-cc' }
+            ]

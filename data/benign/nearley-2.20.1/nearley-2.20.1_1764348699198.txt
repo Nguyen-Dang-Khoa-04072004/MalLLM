@@ -1,0 +1,17 @@
+_tmp_7.js = {
+        match: /\{\%(?:[^%]|\%[^}])*\%\}/,
+        value: x => x.slice(2, -2),
+        lineBreaks: true,
+    }
+output.write(Unparse(grammar, opts.start ? opts.start : grammar.ParserStart, (opts.depth === -1) ? null : parseInt(opts.depth)))
+input
+    .pipe(new StreamWrapper(parser))
+    .on('finish', function() {
+        parser.feed('\n');
+        var c = Compile(
+            parser.results[0],
+            Object.assign({version: version}, opts)
+        );
+        if (!opts.quiet) lint(c, {'out': process.stderr, 'version': version});
+        output.write(generate(c, opts.export));
+    })

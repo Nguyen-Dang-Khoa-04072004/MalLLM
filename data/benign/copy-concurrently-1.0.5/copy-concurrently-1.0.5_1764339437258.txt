@@ -1,0 +1,44 @@
+readlink(from).then(function (fromDest) {
+    var absoluteDest = path.resolve(path.dirname(from), fromDest)
+    // Treat absolute paths that are inside the tree we're
+    // copying as relative. This necessary to properly support junctions
+    // on windows (which are always absolute) but is also DWIM with symlinks.
+    var relativeDest = path.relative(opts.top, absoluteDest)
+    var linkFrom = relativeDest.substr(0, 2) === '..' ? fromDest : path.relative(path.dirname(from), absoluteDest)
+    if (opts.isWindows) {
+      return stat(absoluteDest).catch(function () { return null }).then(function (destStat) {
+        var isDir = destStat && destStat.isDirectory()
+        var type = isDir ? 'dir' : 'file'
+        return symlink(linkFrom, to, type).catch(function (err) {
+          if (type === 'dir') {
+            return symlink(linkFrom, to, 'junction')
+          } else {
+            return Promise.reject(err)
+          }
+        })
+      })
+    } else {
+      return symlink(linkFrom, t...
+var absoluteDest = path.resolve(path.dirname(from), fromDest)
+var relativeDest = path.relative(opts.top, absoluteDest)
+var linkFrom = relativeDest.substr(0, 2) === '..' ? fromDest : path.relative(path.dirname(from), absoluteDest)
+stat(absoluteDest).catch(function () { return null }).then(function (destStat) {
+        var isDir = destStat && destStat.isDirectory()
+        var type = isDir ? 'dir' : 'file'
+        return symlink(linkFrom, to, type).catch(function (err) {
+          if (type === 'dir') {
+            return symlink(linkFrom, to, 'junction')
+          } else {
+            return Promise.reject(err)
+          }
+        })
+      })
+symlink(linkFrom, to, type).catch(function (err) {
+          if (type === 'dir') {
+            return symlink(linkFrom, to, 'junction')
+          } else {
+            return Promise.reject(err)
+          }
+        })
+symlink(linkFrom, to, 'junction')
+symlink(linkFrom, to)

@@ -1,0 +1,5 @@
+_tmp_117.push(localPipeTransport.connect({
+                            ip: remotePipeTransport.tuple.localIp,
+                            port: remotePipeTransport.tuple.localPort,
+                            srtpParameters: remotePipeTransport.srtpParameters
+                        }))

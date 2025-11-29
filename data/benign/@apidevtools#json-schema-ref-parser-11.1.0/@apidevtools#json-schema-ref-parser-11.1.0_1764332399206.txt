@@ -1,0 +1,2 @@
+const $refPath = url.resolve(shouldResolveOnCwd ? url.cwd() : path, $ref.$ref)
+const cache = dereferencedCache.get($refPath)

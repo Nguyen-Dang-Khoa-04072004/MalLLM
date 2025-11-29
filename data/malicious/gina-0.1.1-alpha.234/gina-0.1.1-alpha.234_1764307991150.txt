@@ -1,0 +1,19 @@
+getModelEntity = function(bundle, model, entityClassName, conn) {
+        if ( typeof(entityClassName) != 'undefined' ) {
+            var cacheless   = (process.env.NODE_ENV_IS_DEV == 'false') ? false : true;
+            try {
+                var shortName = entityClassName.substr(0, 1).toLowerCase() + entityClassName.substr(1);
+
+                if (!self.entities) {
+                    if (!ModelUtil.instance) {
+                        ModelUtil.instance = getContext('modelUtil')
+                    }
+                    self.entities           = ModelUtil.instance.entities;
+                    self.entitiesCollection = ModelUtil.instance.entitiesCollection;
+                    self.models             = ModelUtil.instance.models;
+
+                    if (typeof(self.models) == 'function' ) {
+                        self.models                 = {};
+                        self.models[bundle]         = {};
+                        self.models[bundle][model]  = {}
+                    ...

@@ -1,0 +1,1 @@
+searchParams.nam ? <operator>.formatString("&nam=", searchParams.nam, "") : ""

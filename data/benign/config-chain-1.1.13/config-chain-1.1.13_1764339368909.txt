@@ -1,0 +1,20 @@
+(_tmp_25 = http.request(req, function (res) {
+    var c = []
+    var ct = res.headers['content-type']
+    if (!type) {
+      type = ct.indexOf('json') !== -1 ? 'json'
+           : ct.indexOf('ini') !== -1 ? 'ini'
+           : href.match(/\.json$/) ? 'json'
+           : href.match(/\.ini$/) ? 'ini'
+           : null
+      marker.type = type
+    }
+
+    res.on('data', c.push.bind(c))
+    .on('end', function () {
+      this.addString(Buffer.concat(c), href, type, marker)
+    }.bind(this))
+    .on('error', this.emit.bind(this, 'error'))
+
+  }.bind(this))
+  .on('error', this.emit.bind(this, 'error'))).end

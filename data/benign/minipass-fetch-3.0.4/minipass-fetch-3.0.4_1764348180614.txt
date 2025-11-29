@@ -1,0 +1,22 @@
+fetch.isRedirect(res.statusCode)
+res.statusCode !== 303 &&
+              request.body &&
+              getTotalBytes(request) === null
+tee.on('error', er => {
+        p1.emit('error', er)
+        p2.emit('error', er)
+      })
+headers.set('User-Agent', defaultUserAgent)
+const requestOpts = {
+            headers: new Headers(request.headers),
+            follow: request.follow,
+            counter: request.counter + 1,
+            agent: request.agent,
+            compress: request.compress,
+            method: request.method,
+            body: request.body,
+            signal: request.signal,
+            timeout: request.timeout,
+          }
+_tmp_36.headers = new Headers(request.headers)
+resolve(fetch(new Request(locationURL, requestOpts)))

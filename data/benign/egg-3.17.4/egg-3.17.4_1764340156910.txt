@@ -1,0 +1,1 @@
+this.console.info('[egg:core] App root: %s', this.baseDir)

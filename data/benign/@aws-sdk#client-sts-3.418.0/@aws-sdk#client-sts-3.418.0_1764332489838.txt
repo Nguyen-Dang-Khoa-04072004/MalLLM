@@ -1,0 +1,11 @@
+const handlerExecutionContext = {
+            logger,
+            clientName,
+            commandName,
+            inputFilterSensitiveLog: (_) => _,
+            outputFilterSensitiveLog: GetFederationTokenResponseFilterSensitiveLog,
+            [SMITHY_CONTEXT_KEY]: {
+                service: "AWSSecurityTokenServiceV20110615",
+                operation: "GetFederationToken",
+            },
+        }

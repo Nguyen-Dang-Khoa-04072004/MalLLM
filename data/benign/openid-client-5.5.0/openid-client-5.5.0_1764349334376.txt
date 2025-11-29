@@ -1,0 +1,1 @@
+candidate && kid !== undefined && key.jwk.kid !== kid

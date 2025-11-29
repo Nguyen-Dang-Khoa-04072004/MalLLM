@@ -1,0 +1,11 @@
+function createEmptyState = function createEmptyState(urlTree, rootComponent) {
+    const snapshot = createEmptyStateSnapshot(urlTree, rootComponent);
+    const emptyUrl = new BehaviorSubject([new UrlSegment('', {})]);
+    const emptyParams = new BehaviorSubject({});
+    const emptyData = new BehaviorSubject({});
+    const emptyQueryParams = new BehaviorSubject({});
+    const fragment = new BehaviorSubject('');
+    const activated = new ActivatedRoute(emptyUrl, emptyParams, emptyQueryParams, fragment, emptyData, PRIMARY_OUTLET, rootComponent, snapshot.root);
+    activated.snapshot = snapshot.root;
+    return new RouterState(new TreeNode(activated, []), snapshot);
+}

@@ -1,0 +1,26 @@
+function useWebSocket = function useWebSocket(socketUrl, options) {
+  if (options === void 0) {
+    options = {};
+  }
+  var _a = options.reconnectLimit,
+    reconnectLimit = _a === void 0 ? 3 : _a,
+    _b = options.reconnectInterval,
+    reconnectInterval = _b === void 0 ? 3 * 1000 : _b,
+    _c = options.manual,
+    manual = _c === void 0 ? false : _c,
+    onOpen = options.onOpen,
+    onClose = options.onClose,
+    onMessage = options.onMessage,
+    onError = options.onError,
+    protocols = options.protocols;
+  var onOpenRef = (0, _useLatest["default"])(onOpen);
+  var onCloseRef = (0, _useLatest["default"])(onClose);
+  var onMessageRef = (0, _useLatest["default"])(onMessage);
+  var onErrorRef = (0, _useLatest["default"])(onError);
+  var reconnectTimesRef = (0, _react.useRef)(0);
+  var reconnectTimerRef = (0, _react.useRef)();
+  var websocketRef = (0, _react.useRef)();
+  var _d = (0, _tslib.__read)((0, _react.useState)(), 2),
+    latestMessage = _d[0],
+    setLatestMessage = _d[1];
+  var _e = (0, _tslib.__...

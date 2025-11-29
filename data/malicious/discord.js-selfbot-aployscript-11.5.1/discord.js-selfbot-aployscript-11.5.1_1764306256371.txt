@@ -1,0 +1,9 @@
+<operator>.formatString("Error when sending ", type, " response to master process: ", err.message, "")
+this.emit('error', new Error('Tried to send join packet, but the WebSocket is not open.'))
+Permissions.prototype.hasPermission = util.deprecate(Permissions.prototype.hasPermission,
+  'EvaluatedPermissions#hasPermission is deprecated, use Permissions#has instead')
+Object.defineProperty(Permissions.prototype, 'member', {
+  get: util
+    .deprecate(Object.getOwnPropertyDescriptor(Permissions.prototype, 'member').get,
+      'EvaluatedPermissions#member is deprecated'),
+})

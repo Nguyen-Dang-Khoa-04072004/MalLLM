@@ -1,0 +1,13 @@
+function create_sub_account = function create_sub_account(name, cloud_name, custom_attributes, enabled, base_account, options = {}, callback) {
+  let params = {
+    cloud_name: cloud_name,
+    name,
+    custom_attributes: custom_attributes,
+    enabled,
+    base_sub_account_id: base_account
+  };
+
+  options.content_type = "json";
+  let uri = ['sub_accounts'];
+  return call_account_api('POST', uri, params, callback, options);
+}

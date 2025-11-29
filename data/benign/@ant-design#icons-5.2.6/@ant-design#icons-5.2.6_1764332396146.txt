@@ -1,0 +1,3 @@
+ownKeys.forEach(function(key) {
+            _define_property(target, key, source[key]);
+        })

@@ -1,0 +1,14 @@
+newState = {
+        ...newState,
+
+        asyncLocalStorage,
+        write: createNodeWriter(),
+      }
+const Roarr = logFactory((message) => {
+  if (ROARR.write) {
+    // Stringify message as soon as it is received to prevent
+    // properties of the context from being modified by reference.
+    ROARR.write((ROARR.serializeMessage ?? serializeMessage)(message));
+  }
+})
+ROARR.write((ROARR.serializeMessage ?? serializeMessage)(message))

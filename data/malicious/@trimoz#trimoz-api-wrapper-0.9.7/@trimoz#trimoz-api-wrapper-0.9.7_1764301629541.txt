@@ -1,0 +1,1 @@
+let url = 'v3/establishments/' + establishmentId + '/schedules/daysWithAvailability?dateStart=' + dateStart + '&dateStop=' + dateStop + '&places=' + place

@@ -1,0 +1,1 @@
+path.posix.join(`/`, dir, parsedName, trailingSlash ? `/` : ``)

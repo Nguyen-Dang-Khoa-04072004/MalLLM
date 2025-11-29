@@ -1,0 +1,1 @@
+const oldRule = this.rules.get(nameOrSelector)

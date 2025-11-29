@@ -1,0 +1,77 @@
+userPromise.then((user) =>
+    getRepo(options)
+      .then((repo) => {
+        repoUrl = repo;
+        const clone = getCacheDir(repo);
+        log('Cloning %s into %s', repo, clone);
+        return Git.clone(repo, clone, options.branch, options);
+      })
+      .then((git) => {
+        return git.getRemoteUrl(options.remote).then((url) => {
+          if (url !== repoUrl) {
+            const message =
+              'Remote url mismatch.  Got "' +
+              url +
+              '" ' +
+              'but expected "' +
+              repoUrl +
+              '" in ' +
+              git.cwd +
+              '.  Try running the `gh-pages-clean` script first.';
+            throw new Error(message);
+          }
+          return git;
+        });
+      })
+      .then((git) => {
+        // only required if someone mucks with the checkout between builds
+        log('Cleaning');
+        return git.clean();
+      })
+      .then((git) => {
+        log('Fetching %s', options.remote);
+        retu...
+(_tmp_11 = getRepo(options)
+      .then((repo) => {
+        repoUrl = repo;
+        const clone = getCacheDir(repo);
+        log('Cloning %s into %s', repo, clone);
+        return Git.clone(repo, clone, options.branch, options);
+      })
+      .then((git) => {
+        return git.getRemoteUrl(options.remote).then((url) => {
+          if (url !== repoUrl) {
+            const message =
+              'Remote url mismatch.  Got "' +
+              url +
+              '" ' +
+              'but expected "' +
+              repoUrl +
+              '" in ' +
+              git.cwd +
+              '.  Try running the `gh-pages-clean` script first.';
+            throw new Error(message);
+          }
+          return git;
+        });
+      })
+      .then((git) => {
+        // only required if someone mucks with the checkout between builds
+        log('Cleaning');
+        return git.clean();
+      })
+      .then((git) => {
+        log('Fetching %s', options.remote);
+        return git.fetch(options.remote);
+ ...).then
+(git) => {
+        log('Fetching %s', options.remote);
+        return git.fetch(options.remote);
+      }
+Git.prototype.add = function (files) {
+  if (!Array.isArray(files)) {
+    files = [files];
+  }
+  return this.exec('add', ...files);
+}
+git.fetch(options.remote)

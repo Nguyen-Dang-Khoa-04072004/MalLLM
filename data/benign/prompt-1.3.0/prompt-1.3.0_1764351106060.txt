@@ -1,0 +1,29 @@
+prompt.get(properties, function (err, results) {
+    if (err) {
+      return callback(err);
+    }
+    else if (!results) {
+      return callback(null, obj);
+    }
+
+    function putNested (obj, path, value) {
+      var last = obj, key;
+
+      while (path.length > 1) {
+        key = path.shift();
+        if (!last[key]) {
+          last[key] = {};
+        }
+
+        last = last[key];
+      }
+
+      last[path.shift()] = value;
+    }
+
+    Object.keys(results).forEach(function (key) {
+      putNested(obj, key.split('.'), results[key]);
+    });
+
+    callback(null, obj);
+  })

@@ -1,0 +1,3 @@
+parserManager.get(res).parse(data, clientEmitterWrapper(client), function(parsedData){
+            callback(parsedData,res);
+        })

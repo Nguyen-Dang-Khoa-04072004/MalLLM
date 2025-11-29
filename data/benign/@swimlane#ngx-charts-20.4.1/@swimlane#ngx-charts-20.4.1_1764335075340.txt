@@ -1,0 +1,3 @@
+_tmp_69.maxYAxisTickLength = [{
+                type: Input
+            }]

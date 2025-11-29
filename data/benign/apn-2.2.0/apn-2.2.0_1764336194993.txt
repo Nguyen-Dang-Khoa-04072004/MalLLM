@@ -1,0 +1,5 @@
+Notification.prototype.apsPayload = function() {
+  var aps = this.aps;
+
+  return Object.keys(aps).find( key => aps[key] !== undefined ) ? aps : undefined;
+}

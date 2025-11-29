@@ -1,0 +1,12 @@
+function onData = function onData(data, removeListener) {
+      if (data.toString().match(options.waitForMessage)) {
+        removeListener();
+        log.debug('[chimp][' + options.prefix + ']', 'started successfully');
+        return callback();
+      }
+      if (data.toString().match(options.errorMessage)) {
+        log.error('[chimp][' + options.prefix + ']', 'failed to start');
+        log.error(data.toString());
+        callback(data.toString());
+      }
+    }

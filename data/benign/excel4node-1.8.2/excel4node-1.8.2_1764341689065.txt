@@ -1,0 +1,24 @@
+var _addPrintOptions = function _addPrintOptions(promiseObj) {
+  // §18.3.1.70 printOptions (Print Options)
+  return new Promise(function (resolve, reject) {
+    var addPrintOptions = false;
+    var o = promiseObj.ws.opts.printOptions;
+    Object.keys(o).forEach(function (k) {
+      if (o[k] !== null) {
+        addPrintOptions = true;
+      }
+    });
+    if (addPrintOptions) {
+      var poEle = promiseObj.xml.ele('printOptions');
+      o.centerHorizontal === true ? poEle.att('horizontalCentered', 1) : null;
+      o.centerVertical === true ? poEle.att('verticalCentered', 1) : null;
+      o.printHeadings === true ? poEle.att('headings', 1) : null;
+      if (o.printGridLines === true) {
+        poEle.att('gridLines', 1);
+        poEle.att('gridLinesSet', 1);
+      }
+      poEle.up();
+    }
+    resolve(promiseObj);
+  });
+}

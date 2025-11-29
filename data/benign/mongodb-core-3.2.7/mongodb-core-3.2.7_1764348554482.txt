@@ -1,0 +1,10 @@
+var isCursorDeadButNotkilled = function(self, callback) {
+  // Cursor is dead but not marked killed, return null
+  if (self.cursorState.dead && !self.cursorState.killed) {
+    self.cursorState.killed = true;
+    setCursorNotified(self, callback);
+    return true;
+  }
+
+  return false;
+}

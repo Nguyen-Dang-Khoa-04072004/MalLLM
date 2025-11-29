@@ -1,0 +1,1 @@
+this.request('file_properties/templates/add_for_team', arg, 'team', 'api', 'rpc', 'files.team_metadata.write')

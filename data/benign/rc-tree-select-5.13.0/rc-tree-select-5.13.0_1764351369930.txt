@@ -1,0 +1,644 @@
+var TreeSelect = /*#__PURE__*/React.forwardRef(function (props, ref) {
+  var id = props.id,
+    _props$prefixCls = props.prefixCls,
+    prefixCls = _props$prefixCls === void 0 ? 'rc-tree-select' : _props$prefixCls,
+    value = props.value,
+    defaultValue = props.defaultValue,
+    onChange = props.onChange,
+    onSelect = props.onSelect,
+    onDeselect = props.onDeselect,
+    searchValue = props.searchValue,
+    inputValue = props.inputValue,
+    onSearch = props.onSearch,
+    _props$autoClearSearc = props.autoClearSearchValue,
+    autoClearSearchValue = _props$autoClearSearc === void 0 ? true : _props$autoClearSearc,
+    filterTreeNode = props.filterTreeNode,
+    _props$treeNodeFilter = props.treeNodeFilterProp,
+    treeNodeFilterProp = _props$treeNodeFilter === void 0 ? 'value' : _props$treeNodeFilter,
+    showCheckedStrategy = props.showCheckedStrategy,
+    treeNodeLabelProp = props.treeNodeLabelProp,
+    multiple = props.multiple,
+    treeCheckable = props.treeCheckable,
+    treeCh...
+var TreeSelect = /*#__PURE__*/React.forwardRef(function (props, ref) {
+  var id = props.id,
+    _props$prefixCls = props.prefixCls,
+    prefixCls = _props$prefixCls === void 0 ? 'rc-tree-select' : _props$prefixCls,
+    value = props.value,
+    defaultValue = props.defaultValue,
+    onChange = props.onChange,
+    onSelect = props.onSelect,
+    onDeselect = props.onDeselect,
+    searchValue = props.searchValue,
+    inputValue = props.inputValue,
+    onSearch = props.onSearch,
+    _props$autoClearSearc = props.autoClearSearchValue,
+    autoClearSearchValue = _props$autoClearSearc === void 0 ? true : _props$autoClearSearc,
+    filterTreeNode = props.filterTreeNode,
+    _props$treeNodeFilter = props.treeNodeFilterProp,
+    treeNodeFilterProp = _props$treeNodeFilter === void 0 ? 'value' : _props$treeNodeFilter,
+    showCheckedStrategy = props.showCheckedStrategy,
+    treeNodeLabelProp = props.treeNodeLabelProp,
+    multiple = props.multiple,
+    treeCheckable = props.treeCheckable,
+    treeCh...
+var included = checkedValues.includes(value)
+list.map(function (option, index) {
+        var pos = "".concat(level, "-").concat(index);
+        var value = option[fieldNames.value];
+        var included = checkedValues.includes(value);
+        var children = dig(option[fieldNames.children] || [], pos, included);
+        var node = /*#__PURE__*/React.createElement(_TreeNode.default, option, children.map(function (child) {
+          return child.node;
+        }));
+
+        // Link with trigger node
+        if (triggerValue === value) {
+          triggerNode = node;
+        }
+        if (included) {
+          var checkedNode = {
+            pos: pos,
+            node: node,
+            children: children
+          };
+          if (!parentIncluded) {
+            nodeList.push(checkedNode);
+          }
+          return checkedNode;
+        }
+        return null;
+      }).filter(function (node) {
+        return node;
+      })
+var mergedExpandedKeys = React.useMemo(function () {
+    if (treeExpandedKeys) {
+      return _toConsumableArray(treeExpandedKeys);
+    }
+    return searchValue ? searchExpandedKeys : expandedKeys;
+  }, [expandedKeys, searchExpandedKeys, treeExpandedKeys, searchValue])
+var setSearchExpandedKeys = _React$useState6[1]
+var convert2LabelValues = React.useCallback(function (draftValues) {
+    var values = toLabeledValues(draftValues);
+    return values.map(function (item) {
+      var rawLabel = item.label;
+      var rawValue = item.value,
+        rawHalfChecked = item.halfChecked;
+      var rawDisabled;
+      var entity = valueEntities.get(rawValue);
+
+      // Fill missing label & status
+      if (entity) {
+        var _rawLabel;
+        rawLabel = (_rawLabel = rawLabel) !== null && _rawLabel !== void 0 ? _rawLabel : getLabel(entity.node);
+        rawDisabled = entity.node.disabled;
+      } else if (rawLabel === undefined) {
+        // We try to find in current `labelInValue` value
+        var labelInValueItem = toLabeledValues(internalValue).find(function (labeledItem) {
+          return labeledItem.value === rawValue;
+        });
+        rawLabel = labelInValueItem.label;
+      }
+      return {
+        label: rawLabel,
+        value: rawValue,
+        halfChecked: rawHalfChecked,
+        disabled: raw...
+values.map(function (item) {
+      var rawLabel = item.label;
+      var rawValue = item.value,
+        rawHalfChecked = item.halfChecked;
+      var rawDisabled;
+      var entity = valueEntities.get(rawValue);
+
+      // Fill missing label & status
+      if (entity) {
+        var _rawLabel;
+        rawLabel = (_rawLabel = rawLabel) !== null && _rawLabel !== void 0 ? _rawLabel : getLabel(entity.node);
+        rawDisabled = entity.node.disabled;
+      } else if (rawLabel === undefined) {
+        // We try to find in current `labelInValue` value
+        var labelInValueItem = toLabeledValues(internalValue).find(function (labeledItem) {
+          return labeledItem.value === rawValue;
+        });
+        rawLabel = labelInValueItem.label;
+      }
+      return {
+        label: rawLabel,
+        value: rawValue,
+        halfChecked: rawHalfChecked,
+        disabled: rawDisabled
+      };
+    })
+var entity = valueEntities.get(rawValue)
+var convert2LabelValues = React.useCallback(function (draftValues) {
+    var values = toLabeledValues(draftValues);
+    return values.map(function (item) {
+      var rawLabel = item.label;
+      var rawValue = item.value,
+        rawHalfChecked = item.halfChecked;
+      var rawDisabled;
+      var entity = valueEntities.get(rawValue);
+
+      // Fill missing label & status
+      if (entity) {
+        var _rawLabel;
+        rawLabel = (_rawLabel = rawLabel) !== null && _rawLabel !== void 0 ? _rawLabel : getLabel(entity.node);
+        rawDisabled = entity.node.disabled;
+      } else if (rawLabel === undefined) {
+        // We try to find in current `labelInValue` value
+        var labelInValueItem = toLabeledValues(internalValue).find(function (labeledItem) {
+          return labeledItem.value === rawValue;
+        });
+        rawLabel = labelInValueItem.label;
+      }
+      return {
+        label: rawLabel,
+        value: rawValue,
+        halfChecked: rawHalfChecked,
+        disabled: raw...
+values.map(function (item) {
+      var rawLabel = item.label;
+      var rawValue = item.value,
+        rawHalfChecked = item.halfChecked;
+      var rawDisabled;
+      var entity = valueEntities.get(rawValue);
+
+      // Fill missing label & status
+      if (entity) {
+        var _rawLabel;
+        rawLabel = (_rawLabel = rawLabel) !== null && _rawLabel !== void 0 ? _rawLabel : getLabel(entity.node);
+        rawDisabled = entity.node.disabled;
+      } else if (rawLabel === undefined) {
+        // We try to find in current `labelInValue` value
+        var labelInValueItem = toLabeledValues(internalValue).find(function (labeledItem) {
+          return labeledItem.value === rawValue;
+        });
+        rawLabel = labelInValueItem.label;
+      }
+      return {
+        label: rawLabel,
+        value: rawValue,
+        halfChecked: rawHalfChecked,
+        disabled: rawDisabled
+      };
+    })
+React.createElement("div", {
+      role: "listbox",
+      className: "".concat(prefixCls, "-empty"),
+      onMouseDown: onListMouseDown
+    }, notFoundContent)
+var labelInValueItem = toLabeledValues(internalValue).find(function (labeledItem) {
+          return labeledItem.value === rawValue;
+        })
+rawLabel = (_rawLabel = rawLabel) !== null && _rawLabel !== void 0 ? _rawLabel : getLabel(entity.node)
+React.createElement(Tree, _extends({
+    ref: treeRef,
+    focusable: false,
+    prefixCls: "".concat(prefixCls, "-tree"),
+    treeData: memoTreeData,
+    height: listHeight,
+    itemHeight: listItemHeight,
+    virtual: virtual !== false && dropdownMatchSelectWidth !== false,
+    multiple: multiple,
+    icon: treeIcon,
+    showIcon: showTreeIcon,
+    switcherIcon: switcherIcon,
+    showLine: treeLine,
+    loadData: searchValue ? null : loadData,
+    motion: treeMotion,
+    activeKey: activeKey
+    // We handle keys by out instead tree self
+    ,
+    checkable: checkable,
+    checkStrictly: true,
+    checkedKeys: mergedCheckedKeys,
+    selectedKeys: !checkable ? checkedKeys : [],
+    defaultExpandAll: treeDefaultExpandAll
+  }, treeProps, {
+    // Proxy event out
+    onActiveChange: setActiveKey,
+    onSelect: onInternalSelect,
+    onCheck: onInternalSelect,
+    onExpand: onInternalExpand,
+    onLoad: onTreeLoad,
+    filterTreeNode: filterTreeNode,
+    expandAction: treeExpandAction
+ ...
+_tmp_26.style = HIDDEN_STYLE
+var rawMixedLabeledValues = React.useMemo(function () {
+    return toLabeledValues(internalValue);
+  }, [toLabeledValues, internalValue])
+var _React$useMemo = React.useMemo(function () {
+      var fullCheckValues = [];
+      var halfCheckValues = [];
+      rawMixedLabeledValues.forEach(function (item) {
+        if (item.halfChecked) {
+          halfCheckValues.push(item);
+        } else {
+          fullCheckValues.push(item);
+        }
+      });
+      return [fullCheckValues, halfCheckValues];
+    }, [rawMixedLabeledValues])
+var rawMixedLabeledValues = React.useMemo(function () {
+    return toLabeledValues(internalValue);
+  }, [toLabeledValues, internalValue])
+var _React$useMemo = React.useMemo(function () {
+      var fullCheckValues = [];
+      var halfCheckValues = [];
+      rawMixedLabeledValues.forEach(function (item) {
+        if (item.halfChecked) {
+          halfCheckValues.push(item);
+        } else {
+          fullCheckValues.push(item);
+        }
+      });
+      return [fullCheckValues, halfCheckValues];
+    }, [rawMixedLabeledValues])
+_tmp_23.onActiveChange = setActiveKey
+rawMixedLabeledValues.forEach(function (item) {
+        if (item.halfChecked) {
+          halfCheckValues.push(item);
+        } else {
+          fullCheckValues.push(item);
+        }
+      })
+var rawLabeledValues = _React$useMemo2[0]
+var RefOptionList = /*#__PURE__*/React.forwardRef(OptionList)
+var _React$useMemo2 = (0, _slicedToArray2.default)(_React$useMemo, 2)
+var rawLabeledValues = _React$useMemo2[0]
+var _useCheckedKeys = useCheckedKeys(rawLabeledValues, rawHalfLabeledValues, treeConduction, keyEntities)
+var _useCheckedKeys2 = _slicedToArray(_useCheckedKeys, 2)
+var rawValues = React.useMemo(function () {
+    return rawLabeledValues.map(function (item) {
+      return item.value;
+    });
+  }, [rawLabeledValues])
+var displayValues = React.useMemo(function () {
+    // Collect keys which need to show
+    var displayKeys = formatStrategyValues(rawCheckedValues, mergedShowCheckedStrategy, keyEntities, mergedFieldNames);
+
+    // Convert to value and filled with label
+    var values = displayKeys.map(function (key) {
+      var _keyEntities$key$node, _keyEntities$key, _keyEntities$key$node2;
+      return (_keyEntities$key$node = (_keyEntities$key = keyEntities[key]) === null || _keyEntities$key === void 0 ? void 0 : (_keyEntities$key$node2 = _keyEntities$key.node) === null || _keyEntities$key$node2 === void 0 ? void 0 : _keyEntities$key$node2[mergedFieldNames.value]) !== null && _keyEntities$key$node !== void 0 ? _keyEntities$key$node : key;
+    });
+
+    // Back fill with origin label
+    var labeledValues = values.map(function (val) {
+      var targetItem = rawLabeledValues.find(function (item) {
+        return item.value === val;
+      });
+      return {
+        value: val,
+        label: targetItem ...
+var _useCheckedKeys = (0, _useCheckedKeys3.default)(rawLabeledValues, rawHalfLabeledValues, treeConduction, keyEntities)
+var _useCheckedKeys2 = (0, _slicedToArray2.default)(_useCheckedKeys, 2)
+var values = displayKeys.map(function (key) {
+      var _keyEntities$key$node, _keyEntities$key, _keyEntities$key$node2;
+      return (_keyEntities$key$node = (_keyEntities$key = keyEntities[key]) === null || _keyEntities$key === void 0 ? void 0 : (_keyEntities$key$node2 = _keyEntities$key.node) === null || _keyEntities$key$node2 === void 0 ? void 0 : _keyEntities$key$node2[mergedFieldNames.value]) !== null && _keyEntities$key$node !== void 0 ? _keyEntities$key$node : key;
+    })
+var displayValues = React.useMemo(function () {
+    // Collect keys which need to show
+    var displayKeys = (0, _strategyUtil.formatStrategyValues)(rawCheckedValues, mergedShowCheckedStrategy, keyEntities, mergedFieldNames);
+
+    // Convert to value and filled with label
+    var values = displayKeys.map(function (key) {
+      var _keyEntities$key$node, _keyEntities$key, _keyEntities$key$node2;
+      return (_keyEntities$key$node = (_keyEntities$key = keyEntities[key]) === null || _keyEntities$key === void 0 ? void 0 : (_keyEntities$key$node2 = _keyEntities$key.node) === null || _keyEntities$key$node2 === void 0 ? void 0 : _keyEntities$key$node2[mergedFieldNames.value]) !== null && _keyEntities$key$node !== void 0 ? _keyEntities$key$node : key;
+    });
+
+    // Back fill with origin label
+    var labeledValues = values.map(function (val) {
+      var targetItem = rawLabeledValues.find(function (item) {
+        return item.value === val;
+      });
+      return {
+        value: val,
+       ...
+!mergedMultiple && firstVal && (0, _valueUtil.isNil)(firstVal.value) && (0, _valueUtil.isNil)(firstVal.label)
+var _useCache = useCache(displayValues)
+var _useCache2 = _slicedToArray(_useCache, 1)
+var triggerChange = useRefFunc(function (newRawValues, extra, source) {
+    var labeledValues = convert2LabelValues(newRawValues);
+    setInternalValue(labeledValues);
+
+    // Clean up if needed
+    if (autoClearSearchValue) {
+      setSearchValue('');
+    }
+
+    // Generate rest parameters is costly, so only do it when necessary
+    if (onChange) {
+      var eventValues = newRawValues;
+      if (treeConduction) {
+        var formattedKeyList = formatStrategyValues(newRawValues, mergedShowCheckedStrategy, keyEntities, mergedFieldNames);
+        eventValues = formattedKeyList.map(function (key) {
+          var entity = valueEntities.get(key);
+          return entity ? entity.node[mergedFieldNames.value] : key;
+        });
+      }
+      var _ref = extra || {
+          triggerValue: undefined,
+          selected: undefined
+        },
+        triggerValue = _ref.triggerValue,
+        selected = _ref.selected;
+      var returnRawValues = eventValues;
+
+      // We need fill half check back
+  ...
+_tmp_27.push(mergedShowCheckedStrategy)
+var _useCache = (0, _useCache3.default)(displayValues)
+var _useCache2 = (0, _slicedToArray2.default)(_useCache, 1)
+var triggerChange = (0, _useRefFunc.default)(function (newRawValues, extra, source) {
+    var labeledValues = convert2LabelValues(newRawValues);
+    setInternalValue(labeledValues);
+
+    // Clean up if needed
+    if (autoClearSearchValue) {
+      setSearchValue('');
+    }
+
+    // Generate rest parameters is costly, so only do it when necessary
+    if (onChange) {
+      var eventValues = newRawValues;
+      if (treeConduction) {
+        var formattedKeyList = (0, _strategyUtil.formatStrategyValues)(newRawValues, mergedShowCheckedStrategy, keyEntities, mergedFieldNames);
+        eventValues = formattedKeyList.map(function (key) {
+          var entity = valueEntities.get(key);
+          return entity ? entity.node[mergedFieldNames.value] : key;
+        });
+      }
+      var _ref = extra || {
+          triggerValue: undefined,
+          selected: undefined
+        },
+        triggerValue = _ref.triggerValue,
+        selected = _ref.selected;
+      var returnRawValues = eventValues;
+
+      /...
+var onOptionSelect = React.useCallback(function (selectedKey, _ref2) {
+    var _node$mergedFieldName;
+    var selected = _ref2.selected,
+      source = _ref2.source;
+    var entity = keyEntities[selectedKey];
+    var node = entity === null || entity === void 0 ? void 0 : entity.node;
+    var selectedValue = (_node$mergedFieldName = node === null || node === void 0 ? void 0 : node[mergedFieldNames.value]) !== null && _node$mergedFieldName !== void 0 ? _node$mergedFieldName : selectedKey;
+
+    // Never be falsy but keep it safe
+    if (!mergedMultiple) {
+      // Single mode always set value
+      triggerChange([selectedValue], {
+        selected: true,
+        triggerValue: selectedValue
+      }, 'option');
+    } else {
+      var newRawValues = selected ? [].concat(_toConsumableArray(rawValues), [selectedValue]) : rawCheckedValues.filter(function (v) {
+        return v !== selectedValue;
+      });
+
+      // Add keys if tree conduction
+      if (treeConduction) {
+        // Should keep mi...
+var onOptionSelect = React.useCallback(function (selectedKey, _ref2) {
+    var _node$mergedFieldName;
+    var selected = _ref2.selected,
+      source = _ref2.source;
+    var entity = keyEntities[selectedKey];
+    var node = entity === null || entity === void 0 ? void 0 : entity.node;
+    var selectedValue = (_node$mergedFieldName = node === null || node === void 0 ? void 0 : node[mergedFieldNames.value]) !== null && _node$mergedFieldName !== void 0 ? _node$mergedFieldName : selectedKey;
+
+    // Never be falsy but keep it safe
+    if (!mergedMultiple) {
+      // Single mode always set value
+      triggerChange([selectedValue], {
+        selected: true,
+        triggerValue: selectedValue
+      }, 'option');
+    } else {
+      var newRawValues = selected ? [].concat((0, _toConsumableArray2.default)(rawValues), [selectedValue]) : rawCheckedValues.filter(function (v) {
+        return v !== selectedValue;
+      });
+
+      // Add keys if tree conduction
+      if (treeConduction) {
+        // ...
+_tmp_32.push(rawHalfCheckedValues)
+_tmp_38.push(rawHalfCheckedValues)
+var treeSelectContext = React.useMemo(function () {
+    return {
+      virtual: virtual,
+      dropdownMatchSelectWidth: dropdownMatchSelectWidth,
+      listHeight: listHeight,
+      listItemHeight: listItemHeight,
+      treeData: filteredTreeData,
+      fieldNames: mergedFieldNames,
+      onSelect: onOptionSelect,
+      treeExpandAction: treeExpandAction
+    };
+  }, [virtual, dropdownMatchSelectWidth, listHeight, listItemHeight, filteredTreeData, mergedFieldNames, onOptionSelect, treeExpandAction])
+var treeSelectContext = React.useMemo(function () {
+    return {
+      virtual: virtual,
+      dropdownMatchSelectWidth: dropdownMatchSelectWidth,
+      listHeight: listHeight,
+      listItemHeight: listItemHeight,
+      treeData: filteredTreeData,
+      fieldNames: mergedFieldNames,
+      onSelect: onOptionSelect,
+      treeExpandAction: treeExpandAction
+    };
+  }, [virtual, dropdownMatchSelectWidth, listHeight, listItemHeight, filteredTreeData, mergedFieldNames, onOptionSelect, treeExpandAction])
+_tmp_39.push(dropdownMatchSelectWidth)
+var legacyContext = React.useMemo(function () {
+    return {
+      checkable: mergedCheckable,
+      loadData: loadData,
+      treeLoadedKeys: treeLoadedKeys,
+      onTreeLoad: onTreeLoad,
+      checkedKeys: rawCheckedValues,
+      halfCheckedKeys: rawHalfCheckedValues,
+      treeDefaultExpandAll: treeDefaultExpandAll,
+      treeExpandedKeys: treeExpandedKeys,
+      treeDefaultExpandedKeys: treeDefaultExpandedKeys,
+      onTreeExpand: onTreeExpand,
+      treeIcon: treeIcon,
+      treeMotion: treeMotion,
+      showTreeIcon: showTreeIcon,
+      switcherIcon: switcherIcon,
+      treeLine: treeLine,
+      treeNodeFilterProp: treeNodeFilterProp,
+      keyEntities: keyEntities
+    };
+  }, [mergedCheckable, loadData, treeLoadedKeys, onTreeLoad, rawCheckedValues, rawHalfCheckedValues, treeDefaultExpandAll, treeExpandedKeys, treeDefaultExpandedKeys, onTreeExpand, treeIcon, treeMotion, showTreeIcon, switcherIcon, treeLine, treeNodeFilterProp, keyEntities])
+_tmp_40.checkedKeys = rawCheckedValues
+var legacyContext = React.useMemo(function () {
+    return {
+      checkable: mergedCheckable,
+      loadData: loadData,
+      treeLoadedKeys: treeLoadedKeys,
+      onTreeLoad: onTreeLoad,
+      checkedKeys: rawCheckedValues,
+      halfCheckedKeys: rawHalfCheckedValues,
+      treeDefaultExpandAll: treeDefaultExpandAll,
+      treeExpandedKeys: treeExpandedKeys,
+      treeDefaultExpandedKeys: treeDefaultExpandedKeys,
+      onTreeExpand: onTreeExpand,
+      treeIcon: treeIcon,
+      treeMotion: treeMotion,
+      showTreeIcon: showTreeIcon,
+      switcherIcon: switcherIcon,
+      treeLine: treeLine,
+      treeNodeFilterProp: treeNodeFilterProp,
+      keyEntities: keyEntities
+    };
+  }, [mergedCheckable, loadData, treeLoadedKeys, onTreeLoad, rawCheckedValues, rawHalfCheckedValues, treeDefaultExpandAll, treeExpandedKeys, treeDefaultExpandedKeys, onTreeExpand, treeIcon, treeMotion, showTreeIcon, switcherIcon, treeLine, treeNodeFilterProp, keyEntities])
+React.createElement(TreeSelectContext.Provider, {
+    value: treeSelectContext
+  }, /*#__PURE__*/React.createElement(LegacyContext.Provider, {
+    value: legacyContext
+  }, /*#__PURE__*/React.createElement(BaseSelect, _extends({
+    ref: ref
+  }, restProps, {
+    // >>> MISC
+    id: mergedId,
+    prefixCls: prefixCls,
+    mode: mergedMultiple ? 'multiple' : undefined
+    // >>> Display Value
+    ,
+    displayValues: cachedDisplayValues,
+    onDisplayValuesChange: onDisplayValuesChange
+    // >>> Search
+    ,
+    searchValue: mergedSearchValue,
+    onSearch: onInternalSearch
+    // >>> Options
+    ,
+    OptionList: OptionList,
+    emptyOptions: !mergedTreeData.length,
+    onDropdownVisibleChange: onInternalDropdownVisibleChange,
+    dropdownMatchSelectWidth: dropdownMatchSelectWidth
+  }))))
+React.createElement(LegacyContext.Provider, {
+    value: legacyContext
+  }, /*#__PURE__*/React.createElement(BaseSelect, _extends({
+    ref: ref
+  }, restProps, {
+    // >>> MISC
+    id: mergedId,
+    prefixCls: prefixCls,
+    mode: mergedMultiple ? 'multiple' : undefined
+    // >>> Display Value
+    ,
+    displayValues: cachedDisplayValues,
+    onDisplayValuesChange: onDisplayValuesChange
+    // >>> Search
+    ,
+    searchValue: mergedSearchValue,
+    onSearch: onInternalSearch
+    // >>> Options
+    ,
+    OptionList: OptionList,
+    emptyOptions: !mergedTreeData.length,
+    onDropdownVisibleChange: onInternalDropdownVisibleChange,
+    dropdownMatchSelectWidth: dropdownMatchSelectWidth
+  })))
+_tmp_46.treeNodeFilterProp = treeNodeFilterProp
+React.createElement(BaseSelect, _extends({
+    ref: ref
+  }, restProps, {
+    // >>> MISC
+    id: mergedId,
+    prefixCls: prefixCls,
+    mode: mergedMultiple ? 'multiple' : undefined
+    // >>> Display Value
+    ,
+    displayValues: cachedDisplayValues,
+    onDisplayValuesChange: onDisplayValuesChange
+    // >>> Search
+    ,
+    searchValue: mergedSearchValue,
+    onSearch: onInternalSearch
+    // >>> Options
+    ,
+    OptionList: OptionList,
+    emptyOptions: !mergedTreeData.length,
+    onDropdownVisibleChange: onInternalDropdownVisibleChange,
+    dropdownMatchSelectWidth: dropdownMatchSelectWidth
+  }))
+React.createElement(_TreeSelectContext.default.Provider, {
+    value: treeSelectContext
+  }, /*#__PURE__*/React.createElement(_LegacyContext.default.Provider, {
+    value: legacyContext
+  }, /*#__PURE__*/React.createElement(_rcSelect.BaseSelect, (0, _extends2.default)({
+    ref: ref
+  }, restProps, {
+    // >>> MISC
+    id: mergedId,
+    prefixCls: prefixCls,
+    mode: mergedMultiple ? 'multiple' : undefined
+    // >>> Display Value
+    ,
+    displayValues: cachedDisplayValues,
+    onDisplayValuesChange: onDisplayValuesChange
+    // >>> Search
+    ,
+    searchValue: mergedSearchValue,
+    onSearch: onInternalSearch
+    // >>> Options
+    ,
+    OptionList: _OptionList.default,
+    emptyOptions: !mergedTreeData.length,
+    onDropdownVisibleChange: onInternalDropdownVisibleChange,
+    dropdownMatchSelectWidth: dropdownMatchSelectWidth
+  }))))
+React.createElement(_LegacyContext.default.Provider, {
+    value: legacyContext
+  }, /*#__PURE__*/React.createElement(_rcSelect.BaseSelect, (0, _extends2.default)({
+    ref: ref
+  }, restProps, {
+    // >>> MISC
+    id: mergedId,
+    prefixCls: prefixCls,
+    mode: mergedMultiple ? 'multiple' : undefined
+    // >>> Display Value
+    ,
+    displayValues: cachedDisplayValues,
+    onDisplayValuesChange: onDisplayValuesChange
+    // >>> Search
+    ,
+    searchValue: mergedSearchValue,
+    onSearch: onInternalSearch
+    // >>> Options
+    ,
+    OptionList: _OptionList.default,
+    emptyOptions: !mergedTreeData.length,
+    onDropdownVisibleChange: onInternalDropdownVisibleChange,
+    dropdownMatchSelectWidth: dropdownMatchSelectWidth
+  })))
+_tmp_49.value = legacyContext
+React.createElement(_rcSelect.BaseSelect, (0, _extends2.default)({
+    ref: ref
+  }, restProps, {
+    // >>> MISC
+    id: mergedId,
+    prefixCls: prefixCls,
+    mode: mergedMultiple ? 'multiple' : undefined
+    // >>> Display Value
+    ,
+    displayValues: cachedDisplayValues,
+    onDisplayValuesChange: onDisplayValuesChange
+    // >>> Search
+    ,
+    searchValue: mergedSearchValue,
+    onSearch: onInternalSearch
+    // >>> Options
+    ,
+    OptionList: _OptionList.default,
+    emptyOptions: !mergedTreeData.length,
+    onDropdownVisibleChange: onInternalDropdownVisibleChange,
+    dropdownMatchSelectWidth: dropdownMatchSelectWidth
+  }))

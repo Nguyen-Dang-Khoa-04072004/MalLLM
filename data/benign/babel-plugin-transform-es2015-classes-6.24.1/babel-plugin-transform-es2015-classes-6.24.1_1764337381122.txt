@@ -1,0 +1,16 @@
+var paths = this.path.get("body.body")
+var _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator)
+var _constructor = buildDerivedConstructor().expression
+this.path.get("body").unshiftContainer("body", t.classMethod("constructor", t.identifier("constructor"), params, body))
+var body = path.get("body")
+this.wrapSuperCall(bareSuper, superRef, thisRef, body)
+var _iterator4 = _isArray4 ? _iterator4 : (0, _getIterator3.default)(_iterator4)
+var bodyPaths = body.get("body")
+body.pushContainer("body", t.returnStatement(guaranteedSuperBeforeFinish ? thisRef : wrapReturn()))
+var _iterator5 = _isArray5 ? _iterator5 : (0, _getIterator3.default)(_iterator5)
+_i5 >= _iterator5.length
+_i5 = _iterator5.next()
+_ref5 = _i5.value
+var returnPath = _ref5
+returnPath.get("argument").replaceWithMultiple([t.assignmentExpression("=", ref, returnPath.node.argument), wrapReturn(ref)])
+returnPath.get("argument").replaceWith(wrapReturn())

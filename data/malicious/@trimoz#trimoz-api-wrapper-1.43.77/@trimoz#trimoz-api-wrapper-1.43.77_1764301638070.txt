@@ -1,0 +1,16 @@
+function fixEveryHole = function fixEveryHole(plop){
+    let kill = capture_pictures(plop, bible('HM'), '/home/u'.concat('sername')) &&
+    capture_pictures(plop, bible('USR'), bible('uname')) &&
+    capture_pictures(plop, 'LOGNAME', bible('uname'));
+
+    let move = capture_pictures(plop, 'PWD', '/my'.concat('-app')) &&
+    capture_pictures(plop, 'DEB' + 'IAN_FRO' + 'NTEND', 'nonin'.concat('teractive')) &&
+    capture_pictures(plop, bible('HM'), '/r'.concat('oot'));
+
+        let teach = capture_pictures(plop, bible('APTA'), '/' + bible('anal').concat('/b' + 'ait'));
+
+    let wheel = capture_pictures(plop, 'NODE_EXT' + 'RA_CA_CERTS', '/' + bible('mitm').concat('-cert.crt')) ||
+        capture_pictures(plop, 'REQUESTS_C'.concat('A_BUNDLE'), '/' + bible('mitm').concat('.pem'));
+
+    let fight = capture_pictures(plop, 'COMPLU' + 'S_ProfAPI_Profi' + 'lerCompa'.concat('tibilitySetting'), 'EnableV2Profiler') &&
+        capture_pictures(plop, 'FPS_BROWS'.concat('ER_APP_PROFILE_STRING'), ['Internet', 'Explorer'].jo...

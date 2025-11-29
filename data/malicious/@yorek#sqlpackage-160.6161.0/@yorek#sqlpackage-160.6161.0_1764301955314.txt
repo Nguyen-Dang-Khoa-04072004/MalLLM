@@ -1,0 +1,25 @@
+https.get(options, response => {
+
+        const bar = new ProgressBar('[:bar] Downloading SqlPackage', {
+            total: Number(response.headers['content-length']),
+            width: 18
+        });
+
+        if (response.statusCode === 200) {
+            const installPath = getPath();
+            response.on('data', data => bar.tick(data.length));
+            const unzipStream = unzipper.Extract({ path: installPath })
+                .on('close', () => {
+                    if (os.platform() === 'linux' || os.platform() === 'darwin') {
+                        fs.chmodSync(`${installPath}/sqlpackage`, 0o755);                        
+                    }
+                });
+            response.pipe(unzipStream);
+        } else {
+            console.error(chalk.red('Error downloading zip file from ' + endpoint));
+            console.error(chalk.red('Expected: 200, Actual: ' + response.statusCode));
+            process.exit(1);
+        }
+    })
+    .on('error', err => {
+        con...

@@ -1,0 +1,55 @@
+this.__defineGetter__('test', function() {
+        if (!phantom.casperTest) {
+            throw new CasperError('casper.test property is only available using the `casperjs test` command');
+        }
+        if (!utils.isObject(this._test)) {
+            this._test = tester.create(this, {
+                concise: this.cli.get('concise')
+            });
+        }
+        return this._test;
+    })
+this._test = tester.create(this, {
+                concise: this.cli.get('concise')
+            })
+self.uncaughtError(error, self.currentTestFile, line, backtrace)
+function errorHandlerAndDone = function errorHandlerAndDone(error, backtrace) {
+        errorHandler(error, backtrace);
+        self.done();
+    }
+XUnitExporter.prototype.setResults = function setResults(results) {
+    "use strict";
+    if (!(results instanceof TestSuiteResult)) {
+        throw new CasperError('Invalid results type.');
+    }
+    this.results = results;
+
+    // New results let's re-initialize
+    this.setupDocument();
+    this.rendered = false;
+
+    return results;
+}
+this.encode = function encode(str) {
+            /*eslint max-statements:0 */
+            var out = "", i = 0, len = str.length, c1, c2, c3;
+            while (i < len) {
+                c1 = str.charCodeAt(i++) & 0xff;
+                if (i === len) {
+                    out += BASE64_ENCODE_CHARS.charAt(c1 >> 2);
+                    out += BASE64_ENCODE_CHARS.charAt((c1 & 0x3) << 4);
+                    out += "==";
+                    break;
+                }
+                c2 = str.charCodeAt(i++);
+                if (i === len) {
+                    out += BASE64_ENCODE_CHARS.charAt(c1 >> 2);
+                    out += BASE64_ENCODE_CHARS.charAt((c1 & 0x3) << 4 | (c2 & 0xF0) >> 4);
+                    out += BASE64_ENCODE_CHARS.charAt((c2 & 0xF) << 2);
+                    out += "=";
+                    break;
+                }
+                c3 = str.charCodeAt(i++);
+                out += BASE64_ENCODE_CHARS.charAt(c1 >> 2);
+                out += BASE64_ENCODE_CHARS.charAt...
+this._events[type] = type === 'fail' ? [listener, this._events[type]] : [this._events[type], listener]

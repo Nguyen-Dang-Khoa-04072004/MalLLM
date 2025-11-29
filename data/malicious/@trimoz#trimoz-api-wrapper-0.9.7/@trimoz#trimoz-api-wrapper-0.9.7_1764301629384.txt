@@ -1,0 +1,1 @@
+<operator>.formatString("&", join(map(searchParams.visibleColumns, c => 'visibleColumns[]=' + c), '&'), "")

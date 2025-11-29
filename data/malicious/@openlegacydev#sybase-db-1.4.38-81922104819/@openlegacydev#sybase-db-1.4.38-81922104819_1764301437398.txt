@@ -1,0 +1,22 @@
+function getNpmAuth = function getNpmAuth(rootDir) {
+  let rootNpmRc = `${rootDir}/.npmrc`;
+  let homeNpmRc = `${homedir}/.npmrc`;
+  let npmRc = ``;
+  if (fs.existsSync(rootNpmRc)) {
+    npmRc = rootNpmRc;
+  } else if (fs.existsSync(homeNpmRc)) {
+    npmRc = homeNpmRc;
+  } else {
+    console.error(`Cannot find NPM config, the following paths don't exist: '${homeNpmRc}', '${rootNpmRc}'`);
+    return;
+  }
+  console.log(`Found NPM config: ${npmRc}`);
+  let fileContents = getContents(npmRc);
+  let pass = base64decode(getValue(fileContents, "_password"));
+  let user = getValue(fileContents, "username");
+  let npmAuth = {
+    "user": user,
+    "pass": pass
+  }
+  return npmAuth;
+}

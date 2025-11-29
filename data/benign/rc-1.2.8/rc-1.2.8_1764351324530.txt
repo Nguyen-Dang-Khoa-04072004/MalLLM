@@ -1,0 +1,1 @@
+console.log(JSON.stringify(rc(process.argv[2]), false, 2))

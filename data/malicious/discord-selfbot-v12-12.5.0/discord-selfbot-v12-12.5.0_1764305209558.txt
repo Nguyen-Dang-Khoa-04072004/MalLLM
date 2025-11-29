@@ -1,0 +1,37 @@
+this.process = childProcess
+        .fork(path.resolve(this.manager.file), this.args, {
+          env: this.env,
+          execArgv: this.execArgv,
+        })
+        .on('message', this._handleMessage.bind(this))
+        .on('exit', this._exitListener)
+this._createdTimestamp ??= this.type === ChannelType.GuildPrivateThread ? super.createdTimestamp : null
+this.once('end', () => {
+      this.client.removeListener(Events.InteractionCreate, this.handleCollect);
+      this.client.removeListener(Events.MessageDelete, this._handleMessageDeletion);
+      this.client.removeListener(Events.MessageBulkDelete, bulkDeleteListener);
+      this.client.removeListener(Events.ChannelDelete, this._handleChannelDeletion);
+      this.client.removeListener(Events.ThreadDelete, this._handleThreadDeletion);
+      this.client.removeListener(Events.GuildDelete, this._handleGuildDeletion);
+      this.client.decrementMaxListeners();
+    })
+presence &&
+        this.status === presence.status &&
+        this.activities.length === presence.activities.length &&
+        this.activities.every((activity, index) => activity.equals(presence.activities[index])) &&
+        this.clientStatus?.web === presence.clientStatus?.web &&
+        this.clientStatus?.mobile === presence.clientStatus?.mobile &&
+        this.clientStatus?.desktop === presence.clientStatus?.desktop
+_tmp_12.body = {
+        name,
+        auto_archive_duration: autoArchiveDuration,
+        type: resolvedType,
+        invitable: resolvedType === ChannelType.GuildPrivateThread ? invitable : undefined,
+        rate_limit_per_user: rateLimitPerUser,
+      }
+'Permissions for global commands may only be fetched or modified by providing a GuildResolvable ' +
+    "or from a guild's application command manager."
+other.id === this.id &&
+        other.name === this.name &&
+        other.roles.length === this.roles.cache.size &&
+        other.roles.every(role => this.roles.cache.has(role))

@@ -1,0 +1,1 @@
+throw new Error('Message exceeds the max length and contains no split characters.');

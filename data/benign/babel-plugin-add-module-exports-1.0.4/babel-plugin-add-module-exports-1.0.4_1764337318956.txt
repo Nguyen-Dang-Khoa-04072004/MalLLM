@@ -1,0 +1,24 @@
+var _path$get = path.get('arguments')
+var _path$get2 = _slicedToArray(_path$get, 2)
+var identifier = _path$get2[0]
+var prop = _path$get2[1]
+var objectName = identifier.get('name').node
+var propertyName = prop.get('value').node
+this.getRootPath().get('body').forEach(function (path) {
+        if (path.isVariableDeclaration()) {
+          _this.findExports(path.get('declarations.0'), 'init');
+        } else if (path.isExpressionStatement() && path.get('expression').isAssignmentExpression()) {
+          _this.findExports(path);
+        } else {
+          _this.findExportsInCallExpression(path);
+        }
+      })
+path.isVariableDeclaration()
+_this.findExports(path.get('declarations.0'), 'init')
+path.isExpressionStatement() && path.get('expression').isAssignmentExpression()
+var _path$get3 = path.get('arguments')
+var _path$get4 = _slicedToArray(_path$get3, 2)
+var identifier = _path$get4[0]
+var prop = _path$get4[1]
+var objectName = identifier.get('name').node
+var propertyName = prop.get('value').node

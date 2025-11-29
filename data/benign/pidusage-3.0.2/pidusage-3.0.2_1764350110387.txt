@@ -1,0 +1,19 @@
+const childrens = options.childrens ? stat.cutime + stat.cstime : 0
+hst === undefined
+const total = (kerneltime + usertime - hst.ctime) / 1000
+hst === undefined
+const seconds = uptime - hst.uptime
+history.set(pid, { ctime: usertime + kerneltime, uptime: uptime }, options.maxage)
+const seconds = Math.abs(hst.elapsed !== undefined ? etime - hst.elapsed : etime)
+const cpu = seconds > 0 ? (total / seconds) * 100 : 0
+statistics[pid] = {
+        cpu: cpu,
+        memory: memory,
+        ppid: ppid,
+        pid: pid,
+        ctime: ctime,
+        elapsed: etime,
+        timestamp: date
+      }
+_tmp_11.timestamp = date
+history.set(pid, statistics[pid], options.maxage)

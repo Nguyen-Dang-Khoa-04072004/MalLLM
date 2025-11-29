@@ -1,0 +1,435 @@
+_tmp_0.releasedLabels = isNil(releasedLabels) ? [
+          `released<%= nextRelease.channel ? \` on @\${nextRelease.channel}\` : "" %>`,
+        ] : releasedLabels === false ? false : castArray(releasedLabels)
+const release = {
+    owner,
+    repo,
+    tag_name: gitTag,
+    target_commitish: branch.name,
+    name,
+    body: notes,
+    prerelease: isPrerelease(branch),
+  }
+const body = failComment
+      ? template(failComment)({ branch, errors })
+      : getFailComment(branch, errors)
+await octokit.request("GET /repos/{owner}/{repo}/releases/tags/{tag}", {
+      owner,
+      repo,
+      tag: gitTag,
+    })
+_tmp_3.details = <operator>.formatString("The [failTitle option](", linkify(
+      "README.md#failtitle",
+    ), ") if defined, must be a non empty \`String\`.
+
+Your configuration for the \`failTitle\` option is \`", stringify(
+      failTitle,
+    ), "\`.")
+logger.log("Found existing semantic-release issue #%d.", srIssue.number)
+function verify = async function verify(pluginConfig, context, { Octokit }) {
+  const {
+    env,
+    options: { repositoryUrl },
+    logger,
+  } = context;
+  const { githubToken, githubUrl, githubApiPathPrefix, proxy, ...options } =
+    resolveConfig(pluginConfig, context);
+
+  const errors = Object.entries({ ...options, proxy }).reduce(
+    (errors, [option, value]) =>
+      !isNil(value) && !VALIDATORS[option](value)
+        ? [
+            ...errors,
+            getError(`EINVALID${option.toUpperCase()}`, { [option]: value }),
+          ]
+        : errors,
+    [],
+  );
+
+  if (githubUrl) {
+    logger.log(
+      "Verify GitHub authentication (%s)",
+      urlJoin(githubUrl, githubApiPathPrefix),
+    );
+  } else {
+    logger.log("Verify GitHub authentication");
+  }
+
+  const { repo, owner } = parseGithubUrl(repositoryUrl);
+  if (!owner || !repo) {
+    errors.push(getError("EINVALIDGITHUBURL"));
+  } else if (
+    githubToken &&
+    !errors.find(({ code }) => code === "EINVALIDPROXY")
+  ) {
+    const octo...
+function publish = async function publish(
+  pluginConfig,
+  context,
+  { Octokit = SemanticReleaseOctokit } = {},
+) {
+  if (!verified) {
+    await verifyGitHub(pluginConfig, context, { Octokit });
+    verified = true;
+  }
+
+  return publishGitHub(pluginConfig, context, { Octokit });
+}
+await octokit.request(
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+        comment,
+      )
+const baseUrl =
+    "githubUrl" in options && options.githubUrl
+      ? urljoin(options.githubUrl, options.githubApiPathPrefix)
+      : undefined
+_tmp_4.details = <operator>.formatString("The [failComment option](", linkify(
+      "README.md#failcomment",
+    ), ") if defined, must be a non empty \`String\`.
+
+Your configuration for the \`failComment\` option is \`", stringify(
+      failComment,
+    ), "\`.")
+const agent = options.proxy
+    ? baseUrl && new URL(baseUrl).protocol.replace(":", "") === "http"
+      ? // Some `proxy.headers` need to be passed as second arguments since version 6 or 7
+        // For simplicity, we just pass the same proxy object twice. It works 🤷🏻
+        new HttpProxyAgent(options.proxy, options.proxy)
+      : new HttpsProxyAgent(options.proxy, options.proxy)
+    : undefined
+baseUrl && new URL(baseUrl).protocol.replace(":", "") === "http" ? new HttpProxyAgent(options.proxy, options.proxy) : new HttpsProxyAgent(options.proxy, options.proxy)
+new HttpProxyAgent(options.proxy, options.proxy)
+await octokit.request("GET /search/issues", { q }).data.items
+debug("create issue: %O", newIssue)
+_tmp_14 = await octokit.request("POST /repos/{owner}/{repo}/issues", newIssue)
+function EINVALIDLABELS = function EINVALIDLABELS({ labels }) {
+  return {
+    message: "Invalid `labels` option.",
+    details: `The [labels option](${linkify(
+      "README.md#options",
+    )}) if defined, must be an \`Array\` of non empty \`String\`.
+
+Your configuration for the \`labels\` option is \`${stringify(labels)}\`.`,
+  };
+}
+_tmp_16 = await octokit.request(
+    "PATCH /repos/{owner}/{repo}/releases/{release_id}",
+    { ...release, release_id: releaseId },
+  )
+const prs = await pFilter(
+      uniqueSearchQueriesResults,
+      async ({ number }) => {
+        const commits = await octokit.paginate(
+          "GET /repos/{owner}/{repo}/pulls/{pull_number}/commits",
+          {
+            owner,
+            repo,
+            pull_number: number,
+          },
+        );
+        const matchingCommit = commits.find(({ sha }) => shas.includes(sha));
+        if (matchingCommit) return matchingCommit;
+
+        const { data: pullRequest } = await octokit.request(
+          "GET /repos/{owner}/{repo}/pulls/{pull_number}",
+          {
+            owner,
+            repo,
+            pull_number: number,
+          },
+        );
+        return shas.includes(pullRequest.merge_commit_sha);
+      },
+    )
+logger.log("Published GitHub release: %s", url)
+logger.log("Verify GitHub authentication")
+function success = async function success(
+  pluginConfig,
+  context,
+  { Octokit = SemanticReleaseOctokit } = {},
+) {
+  if (!verified) {
+    await verifyGitHub(pluginConfig, context, { Octokit });
+    verified = true;
+  }
+
+  await successGitHub(pluginConfig, context, { Octokit });
+}
+_tmp_9 = parseGithubUrl(repositoryUrl)
+Octokit = _tmp_15.Octokit === void 0 ? SemanticReleaseOctokit : _tmp_15.Octokit
+const matchingCommit = commits.find(({ sha }) => shas.includes(sha))
+const octokit = new Octokit(
+      toOctokitOptions({ githubToken, githubUrl, githubApiPathPrefix, proxy }),
+    )
+_tmp_15 = await octokit.request(
+          "GET /repos/{owner}/{repo}/pulls/{pull_number}",
+          {
+            owner,
+            repo,
+            pull_number: number,
+          },
+        )
+function fail = async function fail(
+  pluginConfig,
+  context,
+  { Octokit = SemanticReleaseOctokit } = {},
+) {
+  if (!verified) {
+    await verifyGitHub(pluginConfig, context, { Octokit });
+    verified = true;
+  }
+
+  await failGitHub(pluginConfig, context, { Octokit });
+}
+_tmp_14.owner = owner
+globbedAssets.map(async (asset) => {
+      const filePath = isPlainObject(asset) ? asset.path : asset;
+      let file;
+
+      try {
+        file = await stat(resolve(cwd, filePath));
+      } catch {
+        logger.error(
+          "The asset %s cannot be read, and will be ignored.",
+          filePath,
+        );
+        return;
+      }
+
+      if (!file || !file.isFile()) {
+        logger.error(
+          "The asset %s is not a file, and will be ignored.",
+          filePath,
+        );
+        return;
+      }
+
+      const fileName = template(asset.name || basename(filePath))(context);
+      const upload = {
+        method: "POST",
+        url: uploadUrl,
+        data: await readFile(resolve(cwd, filePath)),
+        name: fileName,
+        headers: {
+          "content-type": mime.getType(extname(fileName)) || "text/plain",
+          "content-length": file.size,
+        },
+      };
+
+      debug("file path: %o", filePath);
+      debug("file name: %o", fileName);
+
+      if (isPlainObj...
+await verifyGitHub(pluginConfig, context, { Octokit })
+prs.map((pr) => pr.number)
+const issues = [
+      ...prs.map((pr) => pr.body),
+      ...commits.map((commit) => commit.message),
+    ].reduce(
+      (issues, message) =>
+        message
+          ? issues.concat(
+              parser(message)
+                .actions.close.filter(
+                  (action) =>
+                    isNil(action.slug) || action.slug === `${owner}/${repo}`,
+                )
+                .map((action) => ({
+                  number: Number.parseInt(action.issue, 10),
+                })),
+            )
+          : issues,
+      [],
+    )
+function EINVALIDADDRELEASES = function EINVALIDADDRELEASES({ addReleases }) {
+  return {
+    message: "Invalid `addReleases` option.",
+    details: `The [addReleases option](${linkify(
+      "README.md#options",
+    )}) if defined, must be one of \`false|top|bottom\`.
+
+Your configuration for the \`addReleases\` option is \`${stringify(
+      addReleases,
+    )}\`.`,
+  };
+}
+logger.error(
+          "The asset %s is not a file, and will be ignored.",
+          filePath,
+        )
+_tmp_8.details = <operator>.formatString("The [addReleases option](", linkify(
+      "README.md#options",
+    ), ") if defined, must be one of \`false|top|bottom\`.
+
+Your configuration for the \`addReleases\` option is \`", stringify(
+      addReleases,
+    ), "\`.")
+message ? issues.concat(
+              parser(message)
+                .actions.close.filter(
+                  (action) =>
+                    isNil(action.slug) || action.slug === `${owner}/${repo}`,
+                )
+                .map((action) => ({
+                  number: Number.parseInt(action.issue, 10),
+                })),
+            ) : issues
+issues.concat(
+              parser(message)
+                .actions.close.filter(
+                  (action) =>
+                    isNil(action.slug) || action.slug === `${owner}/${repo}`,
+                )
+                .map((action) => ({
+                  number: Number.parseInt(action.issue, 10),
+                })),
+            )
+debug("found issues via comments: %O", issues)
+uniqBy([...prs, ...issues], "number").map(async (issue) => {
+        const body = successComment
+          ? template(successComment)({ ...context, issue })
+          : getSuccessComment(issue, releaseInfos, nextRelease);
+        try {
+          const comment = { owner, repo, issue_number: issue.number, body };
+          debug("create comment: %O", comment);
+          const {
+            data: { html_url: url },
+          } = await octokit.request(
+            "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+            comment,
+          );
+          logger.log("Added comment to issue #%d: %s", issue.number, url);
+
+          if (releasedLabels) {
+            const labels = releasedLabels.map((label) =>
+              template(label)(context),
+            );
+            await octokit.request(
+              "POST /repos/{owner}/{repo}/issues/{issue_number}/labels",
+              {
+                owner,
+                repo,
+                issue_number: issue.number,
+    ...
+const body = successComment
+          ? template(successComment)({ ...context, issue })
+          : getSuccessComment(issue, releaseInfos, nextRelease)
+errors.push(getError("ENOGHTOKEN", { owner, repo }))
+getSuccessComment(issue, releaseInfos, nextRelease)
+const comment = { owner, repo, issue_number: issue.number, body }
+_tmp_10.message = "The git repository URL is not a valid GitHub URL."
+await octokit.request(
+            "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+            comment,
+          )
+comment
+function EINVALIDPROXY = function EINVALIDPROXY({ proxy }) {
+  return {
+    message: "Invalid `proxy` option.",
+    details: `The [proxy option](${linkify(
+      "README.md#proxy",
+    )}) must be a \`String\`  or an \`Objects\` with a \`host\` and a \`port\` property.
+
+Your configuration for the \`proxy\` option is \`${stringify(proxy)}\`.`,
+  };
+}
+await octokit.request(
+              "POST /repos/{owner}/{repo}/issues/{issue_number}/labels",
+              {
+                owner,
+                repo,
+                issue_number: issue.number,
+                data: labels,
+              },
+            )
+{
+                owner,
+                repo,
+                issue_number: issue.number,
+                data: labels,
+              }
+function EMISSINGREPO = function EMISSINGREPO({ owner, repo }) {
+  return {
+    message: `The repository ${owner}/${repo} doesn't exist.`,
+    details: `The **semantic-release** \`repositoryUrl\` option must refer to your GitHub repository. The repository must be accessible with the [GitHub API](https://developer.github.com/v3).
+
+By default the \`repositoryUrl\` option is retrieved from the \`repository\` property of your \`package.json\` or the [git origin url](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes) of the repository cloned by your CI environment.
+
+If you are using [GitHub Enterprise](https://enterprise.github.com) please make sure to configure the \`githubUrl\` and \`githubApiPathPrefix\` [options](${linkify(
+      "README.md#options",
+    )}).`,
+  };
+}
+const srIssues = await findSRIssues(octokit, failTitle, owner, repo)
+function ENOGHTOKEN = function ENOGHTOKEN({ owner, repo }) {
+  return {
+    message: "No GitHub token specified.",
+    details: `A [GitHub personal token](${linkify(
+      "README.md#github-authentication",
+    )}) must be created and set in the \`GH_TOKEN\` or \`GITHUB_TOKEN\` environment variable on your CI environment.
+
+Please make sure to create a [GitHub personal token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line) and to set it in the \`GH_TOKEN\` or \`GITHUB_TOKEN\` environment variable on your CI environment. The token must allow to push to the repository ${owner}/${repo}.`,
+  };
+}
+srIssues.map(async (issue) => {
+        debug("close issue: %O", issue);
+        try {
+          const updateIssue = {
+            owner,
+            repo,
+            issue_number: issue.number,
+            state: "closed",
+          };
+          debug("closing issue: %O", updateIssue);
+          const {
+            data: { html_url: url },
+          } = await octokit.request(
+            "PATCH /repos/{owner}/{repo}/issues/{issue_number}",
+            updateIssue,
+          );
+          logger.log("Closed issue #%d: %s.", issue.number, url);
+        } catch (error) {
+          errors.push(error);
+          logger.error("Failed to close the issue #%d.", issue.number);
+          // Don't throw right away and continue to close other issues
+        }
+      })
+debug("close issue: %O", issue)
+const updateIssue = {
+            owner,
+            repo,
+            issue_number: issue.number,
+            state: "closed",
+          }
+_tmp_28.issue_number = issue.number
+debug("closing issue: %O", updateIssue)
+await octokit.request(
+            "PATCH /repos/{owner}/{repo}/issues/{issue_number}",
+            updateIssue,
+          )
+updateIssue
+!isNil(ghRelease)
+const additionalReleases = getReleaseLinks(releases)
+!isEmpty(additionalReleases) && !isNil(ghRelaseId)
+const newBody =
+          addReleases === "top"
+            ? additionalReleases.concat("\n---\n", nextRelease.notes)
+            : nextRelease.notes.concat("\n---\n", additionalReleases)
+addReleases === "top" ? additionalReleases.concat("\n---\n", nextRelease.notes) : nextRelease.notes.concat("\n---\n", additionalReleases)
+nextRelease.notes.concat("\n---\n", additionalReleases)
+await octokit.request(
+          "PATCH /repos/{owner}/{repo}/releases/{release_id}",
+          {
+            owner,
+            repo,
+            release_id: ghRelaseId,
+            body: newBody,
+          },
+        )
+{
+            owner,
+            repo,
+            release_id: ghRelaseId,
+            body: newBody,
+          }
+_tmp_32.body = newBody

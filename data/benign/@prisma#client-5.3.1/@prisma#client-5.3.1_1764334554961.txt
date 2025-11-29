@@ -1,0 +1,44 @@
+function yu = function yu(e){let t=/^ID="?([^"\n]*)"?$/im,r=/^ID_LIKE="?([^"\n]*)"?$/im,n=t.exec(e),i=n&&n[1]&&n[1].toLowerCase()||"",o=r.exec(e),s=o&&o[1]&&o[1].toLowerCase()||"",a=ot({id:i,idLike:s}).with({id:"alpine"},({id:l})=>({targetDistro:"musl",familyDistro:l,originalDistro:l})).with({id:"raspbian"},({id:l})=>({targetDistro:"arm",familyDistro:"debian",originalDistro:l})).with({id:"nixos"},({id:l})=>({targetDistro:"nixos",originalDistro:l,familyDistro:"nixos"})).with({id:"debian"},{id:"ubuntu"},({id:l})=>({targetDistro:"debian",familyDistro:"debian",originalDistro:l})).with({id:"rhel"},{id:"centos"},{id:"fedora"},({id:l})=>({targetDistro:"rhel",familyDistro:"rhel",originalDistro:l})).when(({idLike:l})=>l.includes("debian")||l.includes("ubuntu"),({id:l})=>({targetDistro:"debian",familyDistro:"debian",originalDistro:l})).when(({idLike:l})=>i==="arch"||l.includes("arch"),({id:l})=>({targetDistro:"debian",familyDistro:"arch",originalDistro:l})).when(({idLike:l})=>l.includes("centos")||l.includ...
+function parse = function parse(str) {
+      str = String(str);
+      if (str.length > 100) {
+        return;
+      }
+      var match = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
+        str
+      );
+      if (!match) {
+        return;
+      }
+      var n = parseFloat(match[1]);
+      var type = (match[2] || "ms").toLowerCase();
+      switch (type) {
+        case "years":
+        case "year":
+        case "yrs":
+        case "yr":
+        case "y":
+          return n * y;
+        case "weeks":
+        case "week":
+        case "w":
+          return n * w;
+        case "days":
+        case "day":
+        case "d":
+          return n * d;
+        case "hours":
+        case "hour":
+        case "hrs":
+        case "hr":
+        case "h":
+          return n * h;
+        case "minutes":
+        case "minute":
+        case "mins":
+        case "min":
+        case "m":
+          return n * m;
+        case "seconds...
+function WD = function WD(e){let A=/^ID="?([^"\n]*)"?$/im,t=/^ID_LIKE="?([^"\n]*)"?$/im,r=A.exec(e),n=r&&r[1]&&r[1].toLowerCase()||"",i=t.exec(e),s=i&&i[1]&&i[1].toLowerCase()||"",o=fo({id:n,idLike:s}).with({id:"alpine"},({id:a})=>({targetDistro:"musl",familyDistro:a,originalDistro:a})).with({id:"raspbian"},({id:a})=>({targetDistro:"arm",familyDistro:"debian",originalDistro:a})).with({id:"nixos"},({id:a})=>({targetDistro:"nixos",originalDistro:a,familyDistro:"nixos"})).with({id:"debian"},{id:"ubuntu"},({id:a})=>({targetDistro:"debian",familyDistro:"debian",originalDistro:a})).with({id:"rhel"},{id:"centos"},{id:"fedora"},({id:a})=>({targetDistro:"rhel",familyDistro:"rhel",originalDistro:a})).when(({idLike:a})=>a.includes("debian")||a.includes("ubuntu"),({id:a})=>({targetDistro:"debian",familyDistro:"debian",originalDistro:a})).when(({idLike:a})=>n==="arch"||a.includes("arch"),({id:a})=>({targetDistro:"debian",familyDistro:"arch",originalDistro:a})).when(({idLike:a})=>a.includes("centos")||a.includ...
+new Promise(async(t,r)=>{if(await new Promise(n=>process.nextTick(n)),this.stopPromise&&await this.stopPromise,this.engineEndpoint){try{this.connection.open(this.engineEndpoint),await(0,xw.default)(()=>this.connection.get("/status"),{retries:10})}catch(n){return r(n)}return t()}try{(this.child?.connected||this.child&&!this.child?.killed)&&AA("There is a child that still runs and we want to start again"),this.lastError=void 0,qs("startin & resettin"),this.globalKillSignalReceived=void 0,AA({cwd:this.cwd});let n=await Fl("binary",this.config),i=this.allowTriggerPanic?["--debug"]:[],s=["--enable-raw-queries","--enable-metrics","--enable-open-telemetry",...this.flags,...i];s.push("--port","0"),s.push("--engine-protocol","json"),AA({flags:s});let o=this.getEngineEnvVars();if(this.child=(0,Sw.spawn)(n,s,{env:o,cwd:this.cwd,windowsHide:!0,stdio:["ignore","pipe","pipe"]}),Ji(this.child.stderr).on("data",a=>{let c=String(a);AA("stderr",c);try{let g=JSON.parse(c);if(typeof g.is_panic<"u"&&(AA...

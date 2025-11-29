@@ -1,0 +1,15 @@
+var SQ=C((vJ,FQ)=>{"use strict";var rn=process.platform==="win32"||process.env.OSTYPE==="cygwin"||process.env.OSTYPE==="msys",wQ=require("path"),CD=rn?";":":",RQ=yQ(),DQ=e=>Object.assign(new Error(`not found: ${e}`),{code:"ENOENT"}),bQ=(e,A)=>{let t=A.colon||CD,r=e.match(/\//)||rn&&e.match(/\\/)?[""]:[...rn?[process.cwd()]:[],...(A.path||process.env.PATH||"").split(t)],n=rn?A.pathExt||process.env.PATHEXT||".EXE;.CMD;.BAT;.COM":"",i=rn?n.split(t):[""];return rn&&e.indexOf(".")!==-1&&i[0]!==""&&i.unshift(""),{pathEnv:r,pathExt:i,pathExtExe:n}},kQ=(e,A,t)=>{typeof A=="function"&&(t=A,A={}),A||(A={});let{pathEnv:r,pathExt:n,pathExtExe:i}=bQ(e,A),s=[],o=c=>new Promise((g,l)=>{if(c===r.length)return A.all&&s.length?g(s):l(DQ(e));let u=r[c],E=/^".*"$/.test(u)?u.slice(1,-1):u,h=wQ.join(E,e),Q=!E&&/^\.[\\\/]/.test(e)?e.slice(0,2)+h:h;g(a(Q,c,0))}),a=(c,g,l)=>new Promise((u,E)=>{if(l===n.length)return u(o(g+1));let h=n[l];RQ(c+h,{pathExt:i},(Q,f)=>{if(!Q&&f)if(A.all)s.push(c+h);else return u(c+h)...
+function Mk = function Mk(e,A,t){let r=e?.dotenvResult.parsed,n=!pd(e?.path,A);if(r&&A&&n&&Po.default.existsSync(A)){let i=Zg.default.parse(Po.default.readFileSync(A)),s=[];for(let o in i)r[o]===i[o]&&s.push(o);if(s.length>0){let o=Cn.default.relative(process.cwd(),e.path),a=Cn.default.relative(process.cwd(),A);if(t==="error"){let c=`There is a conflict between env var${s.length>1?"s":""} in ${tA(o)} and ${tA(a)}
+Conflicting env vars:
+${s.map(g=>`  ${Ze(g)}`).join(`
+`)}
+
+We suggest to move the contents of ${tA(a)} to ${tA(o)} to consolidate your env vars.
+`;throw new Error(c)}else if(t==="warn"){let c=`Conflict for env var${s.length>1?"s":""} ${s.map(g=>Ze(g)).join(", ")} in ${tA(o)} and ${tA(a)}
+Env vars from ${tA(a)} overwrite the ones from ${tA(o)}
+      `;console.warn(`${ot("warn(prisma)")} ${c}`)}}}}
+const env = parsed.options.env || process.env
+const cwd = process.cwd()
+const shouldSwitchCwd = hasCustomCwd && process.chdir !== void 0 && !process.chdir.disabled
+process.chdir(parsed.options.cwd)
+process.chdir(cwd)

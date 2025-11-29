@@ -1,0 +1,4 @@
+content = Util.escapeMarkdown(
+            this.client.resolver.resolveString(content),
+            true
+          )

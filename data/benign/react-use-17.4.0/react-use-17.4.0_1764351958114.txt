@@ -1,0 +1,29 @@
+var startScratching = function (docX, docY) {
+            if (!refScratching.current)
+                return;
+            var _a = el.getBoundingClientRect(), left = _a.left, top = _a.top;
+            var elX = left + window.scrollX;
+            var elY = top + window.scrollY;
+            var x = docX - elX;
+            var y = docY - elY;
+            var time = Date.now();
+            var newState = {
+                isScratching: true,
+                start: time,
+                end: time,
+                docX: docX,
+                docY: docY,
+                x: x,
+                y: y,
+                dx: 0,
+                dy: 0,
+                elH: el.offsetHeight,
+                elW: el.offsetWidth,
+                elX: elX,
+                elY: elY,
+            };
+            refState.current = newState;
+            (paramsRef.current.onScratchStart || util_1.noop)(newState);
+            setState(newState);
+            util_1.on(window, 'mousemove', onMouseMove);
+            ...

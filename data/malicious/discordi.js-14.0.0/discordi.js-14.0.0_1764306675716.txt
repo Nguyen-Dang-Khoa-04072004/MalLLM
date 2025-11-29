@@ -1,0 +1,9 @@
+dispatcher.on('volumeChange', (o, n) => {
+        this.unregisterDispatcher(dispatcher, o);
+        if (!this._dispatchers.has(n)) {
+          this._dispatchers.set(n, new Set());
+          this._encoders.set(n, OpusEncoders.fetch());
+        }
+        this._dispatchers.get(n).add(dispatcher);
+      })
+MessageEmbedThumbnail = package\src\structures\MessageEmbed.js::program:MessageEmbedThumbnail:<init>

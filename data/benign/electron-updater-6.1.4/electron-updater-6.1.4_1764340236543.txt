@@ -1,0 +1,6 @@
+this.doInstall({
+                installerPath,
+                isSilent,
+                isForceRunAfter,
+                isAdminRightsRequired: downloadedFileInfo.isAdminRightsRequired,
+            })

@@ -1,0 +1,5 @@
+var mustRetry = await Promise.resolve(this.retryStrategy(err, response, body, _cloneOptions(this.options)))
+_.isObject(mustRetry) && _.has(mustRetry, 'mustRetry')
+_.isObject(mustRetry.options)
+this.options = mustRetry.options
+this._timeout = setTimeout(this._tryUntilFail.bind(this), this.delayStrategy.call(this, err, response, body))

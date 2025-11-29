@@ -1,0 +1,275 @@
+this.auth.checkAndRefreshAccessToken()
+      .then(() => {
+        const fetchOptions = {
+          method: 'POST',
+          body: (body) ? JSON.stringify(body) : null,
+          headers: {},
+        };
+
+        if (body) {
+          fetchOptions.headers['Content-Type'] = 'application/json';
+        }
+
+        this.setAuthHeaders(auth, fetchOptions);
+        this.setCommonHeaders(fetchOptions);
+
+        return fetchOptions;
+      })
+      .then((fetchOptions) => this.fetch(
+        baseApiUrl(host, this.domain, this.domainDelimiter) + path,
+        fetchOptions,
+      ))
+      .then((res) => parseResponse(res))
+this.auth.checkAndRefreshAccessToken().then(function () {
+        var fetchOptions = {
+          method: 'POST',
+          body: body ? JSON.stringify(body) : null,
+          headers: {}
+        };
+
+        if (body) {
+          fetchOptions.headers['Content-Type'] = 'application/json';
+        }
+
+        _this.setAuthHeaders(auth, fetchOptions);
+
+        _this.setCommonHeaders(fetchOptions);
+
+        return fetchOptions;
+      }).then(function (fetchOptions) {
+        return _this.fetch(baseApiUrl(host, _this.domain, _this.domainDelimiter) + path, fetchOptions);
+      }).then(function (res) {
+        return parseResponse(res);
+      })
+this.auth.checkAndRefreshAccessToken().then(function () {
+        var fetchOptions = {
+          method: 'POST',
+          body: body ? JSON.stringify(body) : null,
+          headers: {}
+        };
+
+        if (body) {
+          fetchOptions.headers['Content-Type'] = 'application/json';
+        }
+
+        _this.setAuthHeaders(auth, fetchOptions);
+
+        _this.setCommonHeaders(fetchOptions);
+
+        return fetchOptions;
+      }).then(function (fetchOptions) {
+        return _this.fetch((0, _utils.baseApiUrl)(host, _this.domain, _this.domainDelimiter) + path, fetchOptions);
+      }).then(function (res) {
+        return (0, _response.parseResponse)(res);
+      })
+var fetchOptions = {
+          method: 'POST',
+          body: body ? JSON.stringify(body) : null,
+          headers: {}
+        }
+_tmp_8.push({
+    key: "getAccessToken",
+    value: function getAccessToken() {
+      return this.accessToken;
+    }
+    /**
+       * Set the client id, which is used to help gain an access token.
+       * @arg {String} clientId - Your apps client id
+       * @returns {undefined}
+       */
+
+  })
+_tmp_14.body = body ? JSON.stringify(body) : null
+_tmp_7.push({
+    key: "setClientId",
+    value: function setClientId(clientId) {
+      this.clientId = clientId;
+    }
+    /**
+       * Get the client id
+       * @returns {String} Client id
+       */
+
+  })
+this.request('file_properties/properties/add', arg, 'user', 'api', 'rpc', 'files.metadata.write')
+this.auth.checkAndRefreshAccessToken()
+      .then(() => {
+        const fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Dropbox-API-Arg': httpHeaderSafeJson(args),
+          },
+        };
+
+        this.setAuthHeaders(auth, fetchOptions);
+        this.setCommonHeaders(fetchOptions);
+
+        return fetchOptions;
+      })
+      .then((fetchOptions) => this.fetch(
+        baseApiUrl(host, this.domain, this.domainDelimiter) + path,
+        fetchOptions,
+      ))
+      .then((res) => parseDownloadResponse(res))
+this.auth.checkAndRefreshAccessToken().then(function () {
+        var fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Dropbox-API-Arg': httpHeaderSafeJson(args)
+          }
+        };
+
+        _this2.setAuthHeaders(auth, fetchOptions);
+
+        _this2.setCommonHeaders(fetchOptions);
+
+        return fetchOptions;
+      }).then(function (fetchOptions) {
+        return _this2.fetch(baseApiUrl(host, _this2.domain, _this2.domainDelimiter) + path, fetchOptions);
+      }).then(function (res) {
+        return parseDownloadResponse(res);
+      })
+var fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Dropbox-API-Arg': httpHeaderSafeJson(args)
+          }
+        }
+_this.fetch((0, _utils.baseApiUrl)(host, _this.domain, _this.domainDelimiter) + path, fetchOptions)
+_tmp_8.push({
+    key: "getClientId",
+    value: function getClientId() {
+      return this.clientId;
+    }
+    /**
+       * Set the client secret
+       * @arg {String} clientSecret - Your app's client secret
+       * @returns {undefined}
+       */
+
+  })
+baseApiUrl(host, this.domain, this.domainDelimiter) + path
+_tmp_7.push({
+    key: "setClientSecret",
+    value: function setClientSecret(clientSecret) {
+      this.clientSecret = clientSecret;
+    }
+    /**
+       * Get the client secret
+       * @returns {String} Client secret
+       */
+
+  })
+this.auth.checkAndRefreshAccessToken().then(function () {
+        var fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Dropbox-API-Arg': (0, _utils.httpHeaderSafeJson)(args)
+          }
+        };
+
+        _this2.setAuthHeaders(auth, fetchOptions);
+
+        _this2.setCommonHeaders(fetchOptions);
+
+        return fetchOptions;
+      }).then(function (fetchOptions) {
+        return _this2.fetch((0, _utils.baseApiUrl)(host, _this2.domain, _this2.domainDelimiter) + path, fetchOptions);
+      }).then(function (res) {
+        return (0, _response.parseDownloadResponse)(res);
+      })
+var fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Dropbox-API-Arg': (0, _utils.httpHeaderSafeJson)(args)
+          }
+        }
+routes.filePropertiesPropertiesRemove = function (arg) {
+  return this.request('file_properties/properties/remove', arg, 'user', 'api', 'rpc', 'files.metadata.write');
+}
+this.auth.checkAndRefreshAccessToken()
+      .then(() => {
+        const { contents } = args;
+        delete args.contents;
+
+        const fetchOptions = {
+          body: contents,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/octet-stream',
+            'Dropbox-API-Arg': httpHeaderSafeJson(args),
+          },
+        };
+
+        this.setAuthHeaders(auth, fetchOptions);
+        this.setCommonHeaders(fetchOptions);
+
+        return fetchOptions;
+      })
+      .then((fetchOptions) => this.fetch(
+        baseApiUrl(host, this.domain, this.domainDelimiter) + path,
+        fetchOptions,
+      ))
+      .then((res) => parseResponse(res))
+this.auth.checkAndRefreshAccessToken().then(function () {
+        var contents = args.contents;
+        delete args.contents;
+        var fetchOptions = {
+          body: contents,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/octet-stream',
+            'Dropbox-API-Arg': httpHeaderSafeJson(args)
+          }
+        };
+
+        _this3.setAuthHeaders(auth, fetchOptions);
+
+        _this3.setCommonHeaders(fetchOptions);
+
+        return fetchOptions;
+      }).then(function (fetchOptions) {
+        return _this3.fetch(baseApiUrl(host, _this3.domain, _this3.domainDelimiter) + path, fetchOptions);
+      }).then(function (res) {
+        return parseResponse(res);
+      })
+_tmp_22.Content-Type = "application/octet-stream"
+routes.filePropertiesPropertiesSearch = function (arg) {
+  return this.request('file_properties/properties/search', arg, 'user', 'api', 'rpc', 'files.metadata.read');
+}
+this.fetch(
+        baseApiUrl(host, this.domain, this.domainDelimiter) + path,
+        fetchOptions,
+      )
+this.auth.checkAndRefreshAccessToken().then(function () {
+        var contents = args.contents;
+        delete args.contents;
+        var fetchOptions = {
+          body: contents,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/octet-stream',
+            'Dropbox-API-Arg': (0, _utils.httpHeaderSafeJson)(args)
+          }
+        };
+
+        _this3.setAuthHeaders(auth, fetchOptions);
+
+        _this3.setCommonHeaders(fetchOptions);
+
+        return fetchOptions;
+      }).then(function (fetchOptions) {
+        return _this3.fetch((0, _utils.baseApiUrl)(host, _this3.domain, _this3.domainDelimiter) + path, fetchOptions);
+      }).then(function (res) {
+        return (0, _response.parseResponse)(res);
+      })
+this.request('file_properties/properties/search', arg, 'user', 'api', 'rpc', 'files.metadata.read')
+routes.filePropertiesPropertiesSearch = function (arg) {
+  return this.request('file_properties/properties/search', arg, 'user', 'api', 'rpc', 'files.metadata.read');
+}
+_tmp_28.headers = {
+            'Content-Type': 'application/octet-stream',
+            'Dropbox-API-Arg': (0, _utils.httpHeaderSafeJson)(args)
+          }
+this.accessTokenExpiresAt
+_this3.fetch((0, _utils.baseApiUrl)(host, _this3.domain, _this3.domainDelimiter) + path, fetchOptions)

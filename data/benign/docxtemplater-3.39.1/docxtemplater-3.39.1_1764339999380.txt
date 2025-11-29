@@ -1,0 +1,30 @@
+function _getIdentifiers = function _getIdentifiers(x) {
+  if (x.expression) {
+    return _getIdentifiers(x.expression);
+  }
+  if (x.body) {
+    return x.body.reduce(function (result, y) {
+      return result.concat(_getIdentifiers(y));
+    }, []);
+  }
+  if (x.type === "CallExpression") {
+    if (x.arguments) {
+      return x.arguments.reduce(function (result, y) {
+        return result.concat(_getIdentifiers(y));
+      }, []);
+    }
+  }
+  if (x.ast) {
+    return _getIdentifiers(x.ast);
+  }
+  if (x.left) {
+    return _getIdentifiers(x.left).concat(_getIdentifiers(x.right));
+  }
+  if (x.type === "Identifier") {
+    return [x.name];
+  }
+  if (x.type === "MemberExpression") {
+    return _getIdentifiers(x.object);
+  }
+  return [];
+}

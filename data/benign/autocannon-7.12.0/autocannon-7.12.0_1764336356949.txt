@@ -1,0 +1,28 @@
+const worker = new Worker(path.resolve(__dirname, './worker.js'), { workerData: { opts: workerOpts } })
+worker.on('message', (msg) => {
+        const { cmd, data, error } = msg
+
+        if (cmd === 'RESULT') {
+          results.push(data)
+
+          if (results.length === workers.length) {
+            handleFinish()
+          }
+        } else if (cmd === 'UPDATE_HIST') {
+          const { name, value } = data
+          histData[name].push(value)
+
+          if (histData[name].length === workers.length) {
+            const total = histData[name].reduce((acc, v) => acc + v, 0)
+            histData[name].length = 0
+            histograms[name].recordValue(total)
+          }
+        } else if (cmd === 'RESET_HIST') {
+          const { name } = data
+          histograms[name].reset()
+        } else if (cmd === 'ERROR') {
+          tracker.emit('error', error)
+        }
+      })
+url.requests = opts.harRequests.get(url.origin) || opts.requests
+this.currentRequest.headers = this.headers

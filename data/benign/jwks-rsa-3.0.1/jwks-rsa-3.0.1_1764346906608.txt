@@ -1,0 +1,90 @@
+await new Promise((resolve, reject) => {
+    limiter.removeTokens(1, async (err, remaining) => {
+      if (err) {
+        reject(err);
+      }
+
+      logger('Requests to the JWKS endpoint available for the next minute:', remaining);
+      if (remaining < 0) {
+        logger('Too many requests to the JWKS endpoint');
+        reject(new JwksRateLimitError('Too many requests to the JWKS endpoint'));
+      } else {
+        try {
+          const key = await getSigningKey(kid);
+          resolve(key);
+        } catch (error) {
+          reject(error);
+        }
+      }
+    });
+  })
+module.exports.passportJwtSecret = function (options) {
+  if (options === null || options === undefined) {
+    throw new ArgumentError('An options object must be provided when initializing passportJwtSecret');
+  }
+
+  if (!options.jwksUri) {
+    throw new ArgumentError('No JWKS provided. Please provide a jwksUri');
+  }
+
+  const client = new JwksClient(options);
+  const onError = options.handleSigningKeyError || handleSigningKeyError;
+
+  return function secretProvider(req, rawJwtToken, cb) {
+    let decoded;
+    try {
+      decoded = {
+        payload: jose.decodeJwt(rawJwtToken),
+        header: jose.decodeProtectedHeader(rawJwtToken)
+      };
+    } catch (err) {
+      decoded = null;
+    }
+
+    if (!decoded || !supportedAlg.includes(decoded.header.alg)) {
+      return cb(null, null);
+    }
+
+    client.getSigningKey(decoded.header.kid)
+      .then(key => {
+        cb(null, key.publicKey || key.rsaPublicKey);
+      }).catch(err => {
+        onError(err, (newError) => cb(newError, null...
+throw new ArgumentError('An options object must be provided when initializing expressJwtSecret');
+const onError = options.handleSigningKeyError || handleSigningKeyError
+throw new ArgumentError('No JWKS provided. Please provide a jwksUri');
+const expressJwt7Provider = async (req, token) => {
+    if (!token) { return; }
+    const header = token.header;
+    if (!header || !supportedAlg.includes(header.alg)) {
+      return;
+    }
+    try {
+      const key = await client.getSigningKey(header.kid);
+      return key.publicKey || key.rsaPublicKey;
+    } catch (err) {
+      return new Promise((resolve, reject) => {
+        onError(err, (newError) => {
+          if (!newError) { return resolve(); }
+          reject(newError);
+        });
+      });
+    }
+  }
+const httpRequest = httpRequestLib.request(requestOptions, (res) => {
+      let rawData = '';
+      res.setEncoding('utf8');
+      res.on('data', (chunk) => { rawData += chunk; });
+      res.on('end', () => {
+        if (res.statusCode < 200 || res.statusCode >= 300) {
+          const errorMsg = res.body && (res.body.message || res.body) || res.statusMessage || `Http Error ${res.statusCode}`;
+          reject({ errorMsg });
+        } else {
+          try {
+            resolve(rawData && JSON.parse(rawData));
+          } catch (error) {
+            reject(error);
+          }
+        }
+      });
+    })

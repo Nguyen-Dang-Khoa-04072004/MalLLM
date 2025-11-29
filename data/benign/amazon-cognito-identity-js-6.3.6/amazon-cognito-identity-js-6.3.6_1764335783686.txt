@@ -1,0 +1,19 @@
+_proto.getUserContextData = function getUserContextData(username) {
+    if (typeof AmazonCognitoAdvancedSecurityData === 'undefined') {
+      return undefined;
+    }
+    /* eslint-disable */
+    var amazonCognitoAdvancedSecurityDataConst = AmazonCognitoAdvancedSecurityData;
+    /* eslint-enable */
+
+    if (this.advancedSecurityDataCollectionFlag) {
+      var advancedSecurityData = amazonCognitoAdvancedSecurityDataConst.getData(username, this.userPoolId, this.clientId);
+      if (advancedSecurityData) {
+        var userContextData = {
+          EncodedData: advancedSecurityData
+        };
+        return userContextData;
+      }
+    }
+    return {};
+  }

@@ -1,0 +1,33 @@
+var UncontrolledAlert = /*#__PURE__*/function (_Component) {
+  _inherits(UncontrolledAlert, _Component);
+  var _super = _createSuper(UncontrolledAlert);
+  function UncontrolledAlert(props) {
+    var _this;
+    _classCallCheck(this, UncontrolledAlert);
+    _this = _super.call(this, props);
+    _this.state = {
+      isOpen: true
+    };
+    _this.toggle = _this.toggle.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(UncontrolledAlert, [{
+    key: "toggle",
+    value: function toggle() {
+      this.setState(function (prevState) {
+        return {
+          isOpen: !prevState.isOpen
+        };
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(Alert, _extends({
+        isOpen: this.state.isOpen,
+        toggle: this.toggle
+      }, this.props));
+    }
+  }]);
+  return UncontrolledAlert;
+}(Component)

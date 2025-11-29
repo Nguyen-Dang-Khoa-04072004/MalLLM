@@ -1,0 +1,21 @@
+selectorList.children.forEach((selector, item, list) => {
+        let shouldRemove = false;
+
+        walk(selector, function(node) {
+            // ignore nodes in nested selectors
+            if (this.selector === null || this.selector === selectorList) {
+                switch (node.type) {
+                    case 'SelectorList':
+                        // TODO: remove toLowerCase when pseudo selectors will be normalized
+                        // ignore selectors inside :not()
+                        if (this.function === null || this.function.name.toLowerCase() !== 'not') {
+                            if (cleanUnused(node, usageData)) {
+                                shouldRemove = true;
+                            }
+                        }
+                        break;
+
+                    case 'ClassSelector':
+                        if (usageData.whitelist !== null &&
+                            usageData.whitelist.classes !== null &&
+                            !hasOwnP...

@@ -1,0 +1,20 @@
+const local = opt.local_https
+        ? tls.connect({ host: localHost, port: localPort, ...getLocalCertOpts() })
+        : net.connect({ host: localHost, port: localPort })
+tls.connect({ host: localHost, port: localPort, ...getLocalCertOpts() })
+net.connect({ host: localHost, port: localPort })
+local.once('error', err => {
+        debug('local error %s', err.message);
+        local.end();
+
+        remote.removeListener('close', remoteClose);
+
+        if (err.code !== 'ECONNREFUSED') {
+          return remote.end();
+        }
+
+        // retrying connection to local server
+        setTimeout(connLocal, 1000);
+      })
+console.log(new Date().toString(), info.method, info.path)
+setTimeout(connLocal, 1000)

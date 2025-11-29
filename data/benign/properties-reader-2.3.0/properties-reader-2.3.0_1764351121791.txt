@@ -1,0 +1,7 @@
+value = Path.resolve(basePath, value)
+this.set(key, value)
+var directoryPath = /dir$/.test(key) ? value : Path.dirname(value)
+(_tmp_27 = statSync(directoryPath)).isDirectory
+app.set(key, this.get(key))
+(_tmp_30 = /^browser\./).test
+app.locals[key.substr(8)] = this.get(key)

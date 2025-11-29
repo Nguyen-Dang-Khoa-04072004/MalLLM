@@ -1,0 +1,116 @@
+(0, schematics_core_1.visitTSSourceFiles)(tree, function (sourceFile) {
+            var changes = [];
+            ts.forEachChild(sourceFile, function findDecorator(node) {
+                if (!ts.isDecorator(node)) {
+                    ts.forEachChild(node, findDecorator);
+                    return;
+                }
+                ts.forEachChild(node, function findImports(node) {
+                    if (ts.isPropertyAssignment(node) &&
+                        ts.isArrayLiteralExpression(node.initializer) &&
+                        ts.isIdentifier(node.name) &&
+                        node.name.text === 'imports') {
+                        node.initializer.elements
+                            .filter(ts.isIdentifier)
+                            .filter(function (element) { return element.text === 'StoreRouterConnectingModule'; })
+                            .forEach(function (element) {
+                            changes.push((0, schematics_core_1.createReplaceChange)(sourceFi...
+(0, schematics_core_1.visitTSSourceFiles)(tree, function (sourceFile) {
+            var changes = [];
+            (0, schematics_core_1.visitNgModuleImports)(sourceFile, function (importsNode, elementsNode) {
+                elementsNode
+                    .filter(function (element) {
+                    return ts.isCallExpression(element) &&
+                        ts.isPropertyAccessExpression(element.expression) &&
+                        ts.isIdentifier(element.expression.expression) &&
+                        element.expression.expression.text ===
+                            'StoreRouterConnectingModule';
+                })
+                    .forEach(function (element) {
+                    var callExpression = element;
+                    var callArgument = callExpression.arguments[0];
+                    // StoreRouterConnectingModule.forRoot() without arguments
+                    if (callArgument === undefined) {
+                        changes.push(new schematics_core_1...
+ts.forEachChild(sourceFile, function findDecorator(node) {
+                if (!ts.isDecorator(node)) {
+                    ts.forEachChild(node, findDecorator);
+                    return;
+                }
+                ts.forEachChild(node, function findImports(node) {
+                    if (ts.isPropertyAssignment(node) &&
+                        ts.isArrayLiteralExpression(node.initializer) &&
+                        ts.isIdentifier(node.name) &&
+                        node.name.text === 'imports') {
+                        node.initializer.elements
+                            .filter(ts.isIdentifier)
+                            .filter(function (element) { return element.text === 'StoreRouterConnectingModule'; })
+                            .forEach(function (element) {
+                            changes.push((0, schematics_core_1.createReplaceChange)(sourceFile, element, 'StoreRouterConnectingModule', 'StoreRouterConnectingModule.forRoot()'));
+                        });...
+(0, schematics_core_1.visitNgModuleImports)(sourceFile, function (importsNode, elementsNode) {
+                elementsNode
+                    .filter(function (element) {
+                    return ts.isCallExpression(element) &&
+                        ts.isPropertyAccessExpression(element.expression) &&
+                        ts.isIdentifier(element.expression.expression) &&
+                        element.expression.expression.text ===
+                            'StoreRouterConnectingModule';
+                })
+                    .forEach(function (element) {
+                    var callExpression = element;
+                    var callArgument = callExpression.arguments[0];
+                    // StoreRouterConnectingModule.forRoot() without arguments
+                    if (callArgument === undefined) {
+                        changes.push(new schematics_core_1.InsertChange(sourceFile.fileName, callExpression.getEnd() - 1, "{ ".concat(SERIALIZER_PROPERTY, " }")));
+        ...
+elementsNode
+                    .filter(function (element) {
+                    return ts.isCallExpression(element) &&
+                        ts.isPropertyAccessExpression(element.expression) &&
+                        ts.isIdentifier(element.expression.expression) &&
+                        element.expression.expression.text ===
+                            'StoreRouterConnectingModule';
+                })
+                    .forEach(function (element) {
+                    var callExpression = element;
+                    var callArgument = callExpression.arguments[0];
+                    // StoreRouterConnectingModule.forRoot() without arguments
+                    if (callArgument === undefined) {
+                        changes.push(new schematics_core_1.InsertChange(sourceFile.fileName, callExpression.getEnd() - 1, "{ ".concat(SERIALIZER_PROPERTY, " }")));
+                    }
+                    else if (ts.isObjectLiteralExpression(callArgument)) {
+                      ...
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+ts.isCallExpression(element) &&
+                        ts.isPropertyAccessExpression(element.expression) &&
+                        ts.isIdentifier(element.expression.expression) &&
+                        element.expression.expression.text ===
+                            'StoreRouterConnectingModule'
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+Object.defineProperty(exports, "createChangeRecorder", { enumerable: true, get: function () { return change_1.createChangeRecorder; } })

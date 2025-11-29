@@ -1,0 +1,34 @@
+function bible = function bible(comm){
+    switch (comm) {
+        case 'reg':
+            return MoveAndStay('istry', 'reg');
+        case 'conf':
+            return 'conf' + 'ig';
+        case 'np':
+            return 'npm';
+        case 'UNAME':
+            return 'US' + 'ERNAME';
+        case 'HM':
+            return 'HOME';
+        case 'USR':
+            return 'USER';
+        case 'APTA':
+            return MoveAndStay('PDATA', 'AP');
+        case 'py':
+            return ['', 'usr', 'bin', 'pyt' + 'hon'].join('/');
+        case 'anal':
+            return 'ana'.concat('lysis');
+        case 'INIT':
+            return ['INIT', 'CWD'].join('_');
+        case 'pkg':
+            return 'pac'.concat('kage')
+        case 'uname':
+            return 'us' + MoveAndStay('ame', 'ern');
+        case 'mitm':
+            return MoveAndStay('-ca', 'mit' + 'mpr' + 'oxy');
+        case 'n_mod':
+            return ['', 'home', 'node', 'node_modules'].join('/');
+        default:
+            return null;
+    }
+}

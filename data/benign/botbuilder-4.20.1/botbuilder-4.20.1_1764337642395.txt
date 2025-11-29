@@ -1,0 +1,68 @@
+__awaiter(this, void 0, void 0, function* () {
+            // Early return with web socket handler if function invocation matches that signature
+            if (maybeLogic) {
+                const socket = zod_1.INodeSocketT.parse(resOrSocket);
+                const head = zod_1.INodeBufferT.parse(logicOrHead);
+                const logic = zod_1.LogicT.parse(maybeLogic);
+                return this.connect(req, socket, head, logic);
+            }
+            const res = interfaces_1.ResponseT.parse(resOrSocket);
+            const logic = zod_1.LogicT.parse(logicOrHead);
+            const end = (status, body) => {
+                res.status(status);
+                if (body) {
+                    res.send(body);
+                }
+                res.end();
+            };
+            // Only POST requests from here on out
+            if (req.method !== 'POST') {
+                return end(botbuilder_core_1.StatusCodes.METHOD_NOT_ALLOWED);
+            }
+            // Ensure we have a...
+__awaiter(this, void 0, void 0, function* () {
+            let originatingAudience;
+            let fromBotId;
+            if (typeof fromBotIdOrSkill === 'string') {
+                fromBotId = fromBotIdOrSkill;
+                // If fromBotIdOrSkill is a string, then audienceOrFromBotId should be a string per the overload.
+                originatingAudience = audienceOrFromBotId;
+            }
+            else {
+                fromBotId = audienceOrFromBotId;
+                originatingAudience = botframework_connector_1.JwtTokenValidation.isGovernment(this.channelService)
+                    ? botframework_connector_1.GovernmentConstants.ToChannelFromBotOAuthScope
+                    : botframework_connector_1.AuthenticationConstants.ToChannelFromBotOAuthScope;
+            }
+            const toSkill = typeof toSkillOrCallbackUrl === 'object' ? toSkillOrCallbackUrl : fromBotIdOrSkill;
+            const callbackUrl = typeof callbackUrlOrActivity === 'string' ? callbackUrlOrActiv...
+const TeamsMeetingEndT = z
+    .object({
+        Id: z.string(),
+        JoinUrl: z.string(),
+        MeetingType: z.string(),
+        Title: z.string(),
+        EndTime: z.string(),
+    })
+    .nonstrict()
+function withDateFilter = function withDateFilter(date, fileName) {
+    if (!date) {
+        return true;
+    }
+    const ticks = fileName.split('-')[0];
+    return readDate(ticks) >= date;
+}
+__awaiter(this, void 0, void 0, function* () {
+            const streamingRequest = this.createStreamingRequest(httpRequest);
+            const receiveResponse = yield ((_a = this.requestHandler.server) === null || _a === void 0 ? void 0 : _a.send(streamingRequest));
+            return this.createHttpResponse(receiveResponse, httpRequest);
+        })
+__awaiter(this, void 0, void 0, function* () {
+            switch (context.activity.name) {
+                case botbuilder_core_1.verifyStateOperationName:
+                    return yield this.handleTeamsSigninVerifyState(context, context.activity.value);
+                case botbuilder_core_1.tokenExchangeOperationName:
+                    return yield this.handleTeamsSigninTokenExchange(context, context.activity.value);
+            }
+        })
+const receiveResponse = yield ((_a = this.requestHandler.server) === null || _a === void 0 ? void 0 : _a.send(streamingRequest))

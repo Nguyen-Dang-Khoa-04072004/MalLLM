@@ -1,0 +1,1 @@
+this.cacheStore.get(url)?.status === STATUS.LOADED

@@ -1,0 +1,62 @@
+function Buffer = function Buffer (subject, encoding) {
+  var self = this
+  if (!(self instanceof Buffer)) return new Buffer(subject, encoding)
+
+  var type = typeof subject
+  var length
+
+  if (type === 'number') {
+    length = +subject
+  } else if (type === 'string') {
+    length = Buffer.byteLength(subject, encoding)
+  } else if (type === 'object' && subject !== null) {
+    // assume object is array-like
+    if (subject.type === 'Buffer' && isArray(subject.data)) subject = subject.data
+    length = +subject.length
+  } else {
+    throw new TypeError('must start with number, buffer, array or string')
+  }
+
+  if (length > kMaxLength) {
+    throw new RangeError('Attempt to allocate Buffer larger than maximum size: 0x' +
+      kMaxLength.toString(16) + ' bytes')
+  }
+
+  if (length < 0) length = 0
+  else length >>>= 0 // coerce to uint32
+
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Preferred: Return an augmented `Uint8Array` instance for best performance
+    self = Buffer._augment(new Uint8Array(length)) // ...
+new Buffer(subject, encoding)
+length = Buffer.byteLength(subject, encoding)
+length > kMaxLength
+length < 0
+length >>>= 0
+self = Buffer._augment(new Uint8Array(length))
+Buffer.TYPED_ARRAY_SUPPORT && typeof subject.byteLength === 'number'
+Buffer.isBuffer(subject)
+self[i] = ((subject[i] % 256) + 256) % 256
+self.write(subject, 0, encoding)
+return self
+Buffer.prototype.readFloatLE = function readFloatLE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+  return ieee754.read(this, offset, true, 23, 4)
+}
+ReactUpdates.batchedUpdates(runEventInBatch, event)
+Buffer.prototype.readFloatBE = function readFloatBE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+  return ieee754.read(this, offset, false, 23, 4)
+}
+ieee754.read(this, offset, false, 23, 4)
+function startWatchingForChangeEventIE8 = function startWatchingForChangeEventIE8(target, targetID) {
+  activeElement = target;
+  activeElementID = targetID;
+  activeElement.attachEvent('onchange', manualDispatchChangeEvent);
+}
+ieee754.read(this, offset, true, 52, 8)
+Buffer.prototype.readDoubleBE = function readDoubleBE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 8, this.length)
+  return ieee754.read(this, offset, false, 52, 8)
+}
+ieee754.read(this, offset, false, 52, 8)

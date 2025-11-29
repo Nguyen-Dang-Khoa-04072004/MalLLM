@@ -1,0 +1,13 @@
+this.socket = this.createSocket
+    ? this.createSocket({ port, host }, firstAction)
+    : createConnection(port, host, firstAction)
+createConnection(port, host, firstAction)
+this.socket.on("connect", this.reemit("connect"))
+this.socket.on("timeout", this.reemit("timeout"))
+this.pipeline = combine(this.socket, this.resParser)
+this.pipeline.on("data", data => {
+    this.emit("data", data);
+    dbgResponse(data.text);
+    this.parseResponse(data);
+  })
+this.emit("data", data)

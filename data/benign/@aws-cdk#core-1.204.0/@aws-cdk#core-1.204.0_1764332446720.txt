@@ -1,0 +1,56 @@
+function removeDupes = function removeDupes(path) {
+    const ret = new Array();
+    for (const component of path) {
+        if (ret.length === 0 || !ret[ret.length - 1].endsWith(component)) {
+            ret.push(component);
+        }
+    }
+    return ret;
+}
+const asset = stack.synthesizer.addFileAsset({
+            fileName: assetFileName,
+            sourceHash: staging.assetHash,
+            packaging: assets_1.FileAssetPackaging.ZIP_DIRECTORY,
+        })
+function extractProviderError = function extractProviderError(value) {
+    if (typeof value === 'object' && value !== null) {
+        return value[cxapi.PROVIDER_ERROR_KEY];
+    }
+    return undefined;
+}
+function defaultSendHttpRequest = async function defaultSendHttpRequest(options, responseBody) {
+    return new Promise((resolve, reject) => {
+        try {
+            const request = https.request(options, _ => resolve());
+            request.on('error', reject);
+            request.write(responseBody);
+            request.end();
+        }
+        catch (e) {
+            reject(e);
+        }
+    });
+}
+const handler = new cfn_resource_1.CfnResource(this, 'Handler', {
+            type: 'AWS::Lambda::Function',
+            properties: {
+                Code: {
+                    S3Bucket: asset.bucketName,
+                    S3Key: asset.objectKey,
+                },
+                Timeout: timeout.toSeconds(),
+                MemorySize: memory.toMebibytes(),
+                Handler: `${ENTRYPOINT_FILENAME}.handler`,
+                Role: role.getAtt('Arn'),
+                Runtime: customResourceProviderRuntimeToString(props.runtime),
+                Environment: this.renderEnvironmentVariables(props.environment),
+                Description: props.description ?? undefined,
+            },
+        })
+const dockerArgs = [
+            'build', '-t', tag,
+            ...(options.file ? ['-f', path_1.join(path, options.file)] : []),
+            ...(options.platform ? ['--platform', options.platform] : []),
+            ...flatten(Object.entries(buildArgs).map(([k, v]) => ['--build-arg', `${k}=${v}`])),
+            path,
+        ]

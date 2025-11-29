@@ -1,0 +1,33 @@
+selectors.every((selector) => {
+    if (simpleSelectorRe.test(selector)) {
+      return true;
+    }
+    if (compatibilityCache && compatibilityCache.has(selector)) {
+      return compatibilityCache.get(selector);
+    }
+    let compatible = true;
+    selectorParser((ast) => {
+      ast.walk((node) => {
+        const { type, value } = node;
+        if (type === 'pseudo') {
+          const entry =
+            pseudoElements[/** @type {keyof pseudoElements} */ (value)];
+          if (!entry && noVendor(value)) {
+            compatible = false;
+          }
+          if (entry && compatible) {
+            compatible = isSupportedCached(entry, browsers);
+          }
+        }
+        if (type === 'combinator') {
+          if (value.includes('~')) {
+            compatible = isSupportedCached(cssSel3, browsers);
+          }
+          if (value.includes('>') || value.includes('+')) {
+            compatible = isSupportedCached(cssSel2, browsers);
+          }
+        }
+        if (type === 'att...
+simpleSelectorRe.test(selector)
+compatibilityCache && compatibilityCache.has(selector)
+compatibilityCache.get(selector)

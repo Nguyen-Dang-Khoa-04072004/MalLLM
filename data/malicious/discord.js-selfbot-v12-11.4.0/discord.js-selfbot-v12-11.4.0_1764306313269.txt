@@ -1,0 +1,22 @@
+new Promise((resolve, reject) => {
+      if (!token || typeof token !== 'string') throw new Error(Constants.Errors.INVALID_TOKEN);
+      token = token.replace(/^Bot\s*/i, '');
+      this.client.manager.connectToWebSocket(token, resolve, reject);
+    }).catch(e => {
+      this.client.destroy();
+      return Promise.reject(e);
+    })
+this.register(Constants.WSEvents.MESSAGE_REACTION_ADD, require('./handlers/MessageReactionAdd'))
+new Promise((resolve, reject) => {
+      const listener = message => {
+        if (!message || message._sFetchProp !== prop) return;
+        process.removeListener('message', listener);
+        if (!message._error) resolve(message._result); else reject(Util.makeError(message._error));
+      };
+      process.on('message', listener);
+
+      this.send({ _sFetchProp: prop }).catch(err => {
+        process.removeListener('message', listener);
+        reject(err);
+      });
+    })

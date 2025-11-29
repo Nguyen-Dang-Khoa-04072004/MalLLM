@@ -1,0 +1,33 @@
+function useNetwork = function useNetwork() {
+  var _a = __read(useState(function () {
+      return __assign({
+        since: undefined,
+        online: navigator === null || navigator === void 0 ? void 0 : navigator.onLine
+      }, getConnectionProperty());
+    }), 2),
+    state = _a[0],
+    setState = _a[1];
+  useEffect(function () {
+    var onOnline = function () {
+      setState(function (prevState) {
+        return __assign(__assign({}, prevState), {
+          online: true,
+          since: new Date()
+        });
+      });
+    };
+    var onOffline = function () {
+      setState(function (prevState) {
+        return __assign(__assign({}, prevState), {
+          online: false,
+          since: new Date()
+        });
+      });
+    };
+    var onConnectionChange = function () {
+      setState(function (prevState) {
+        return __assign(__assign({}, prevState), getConnectionProperty());
+      });
+    };
+    window.addEventListener(NetworkEventType.ONLINE, onOnline);
+    window.addEventListener(NetworkE...

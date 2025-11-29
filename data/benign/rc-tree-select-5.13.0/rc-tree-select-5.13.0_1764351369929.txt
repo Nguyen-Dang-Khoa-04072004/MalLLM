@@ -1,0 +1,546 @@
+var _default = function _default(rawLabeledValues, rawHalfCheckedValues, treeConduction, keyEntities) {
+  return React.useMemo(function () {
+    var checkedKeys = rawLabeledValues.map(function (_ref) {
+      var value = _ref.value;
+      return value;
+    });
+    var halfCheckedKeys = rawHalfCheckedValues.map(function (_ref2) {
+      var value = _ref2.value;
+      return value;
+    });
+    var missingValues = checkedKeys.filter(function (key) {
+      return !keyEntities[key];
+    });
+    if (treeConduction) {
+      var _conductCheck = (0, _conductUtil.conductCheck)(checkedKeys, true, keyEntities);
+      checkedKeys = _conductCheck.checkedKeys;
+      halfCheckedKeys = _conductCheck.halfCheckedKeys;
+    }
+    return [
+    // Checked keys should fill with missing keys which should de-duplicated
+    Array.from(new Set([].concat((0, _toConsumableArray2.default)(missingValues), (0, _toConsumableArray2.default)(checkedKeys)))),
+    // Half checked keys
+    halfCheckedKeys];
+  }, [rawLabeledVal...
+var _default = function _default(treeData, fieldNames) {
+  return React.useMemo(function () {
+    var collection = (0, _treeUtil.convertDataToEntities)(treeData, {
+      fieldNames: fieldNames,
+      initWrapper: function initWrapper(wrapper) {
+        return (0, _objectSpread2.default)((0, _objectSpread2.default)({}, wrapper), {}, {
+          valueEntities: new Map()
+        });
+      },
+      processEntity: function processEntity(entity, wrapper) {
+        var val = entity.node[fieldNames.value];
+
+        // Check if exist same value
+        if (process.env.NODE_ENV !== 'production') {
+          var key = entity.node.key;
+          (0, _warning.default)(!(0, _valueUtil.isNil)(val), 'TreeNode `value` is invalidate: undefined');
+          (0, _warning.default)(!wrapper.valueEntities.has(val), "Same `value` exist in the tree: ".concat(val));
+          (0, _warning.default)(!key || String(key) === String(val), "`key` or `value` with TreeNode must be the same or you can remove one of them....
+React.useMemo(function () {
+    var collection = (0, _treeUtil.convertDataToEntities)(treeData, {
+      fieldNames: fieldNames,
+      initWrapper: function initWrapper(wrapper) {
+        return (0, _objectSpread2.default)((0, _objectSpread2.default)({}, wrapper), {}, {
+          valueEntities: new Map()
+        });
+      },
+      processEntity: function processEntity(entity, wrapper) {
+        var val = entity.node[fieldNames.value];
+
+        // Check if exist same value
+        if (process.env.NODE_ENV !== 'production') {
+          var key = entity.node.key;
+          (0, _warning.default)(!(0, _valueUtil.isNil)(val), 'TreeNode `value` is invalidate: undefined');
+          (0, _warning.default)(!wrapper.valueEntities.has(val), "Same `value` exist in the tree: ".concat(val));
+          (0, _warning.default)(!key || String(key) === String(val), "`key` or `value` with TreeNode must be the same or you can remove one of them. key: ".concat(key, ", value: ").concat(val, "."));
+        }
+...
+React.useMemo(function () {
+    if (!searchValue || filterTreeNode === false) {
+      return treeData;
+    }
+    var filterOptionFunc;
+    if (typeof filterTreeNode === 'function') {
+      filterOptionFunc = filterTreeNode;
+    } else {
+      var upperStr = searchValue.toUpperCase();
+      filterOptionFunc = function filterOptionFunc(_, dataNode) {
+        var value = dataNode[treeNodeFilterProp];
+        return String(value).toUpperCase().includes(upperStr);
+      };
+    }
+    function dig(list) {
+      var keepAll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      return list.reduce(function (total, dataNode) {
+        var children = dataNode[fieldChildren];
+        var match = keepAll || filterOptionFunc(searchValue, (0, _legacyUtil.fillLegacyProps)(dataNode));
+        var childList = dig(children || [], match);
+        if (match || childList.length) {
+          total.push((0, _objectSpread3.default)((0, _objectSpread3.default)({}, dataNode), {}, (...
+function _interopRequireWildcard = function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+var OptionList = function OptionList(_, ref) {
+  var _useBaseProps = useBaseProps(),
+    prefixCls = _useBaseProps.prefixCls,
+    multiple = _useBaseProps.multiple,
+    searchValue = _useBaseProps.searchValue,
+    toggleOpen = _useBaseProps.toggleOpen,
+    open = _useBaseProps.open,
+    notFoundContent = _useBaseProps.notFoundContent;
+  var _React$useContext = React.useContext(TreeSelectContext),
+    virtual = _React$useContext.virtual,
+    listHeight = _React$useContext.listHeight,
+    listItemHeight = _React$useContext.listItemHeight,
+    treeData = _React$useContext.treeData,
+    fieldNames = _React$useContext.fieldNames,
+    onSelect = _React$useContext.onSelect,
+    dropdownMatchSelectWidth = _React$useContext.dropdownMatchSelectWidth,
+    treeExpandAction = _React$useContext.treeExpandAction;
+  var _React$useContext2 = React.useContext(LegacyContext),
+    checkable = _React$useContext2.checkable,
+    checkedKeys = _React$useContext2.checkedKeys,
+    halfCheckedKeys = _React$useCon...
+function dig = function dig(list) {
+      var keepAll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      return list.reduce(function (total, dataNode) {
+        var children = dataNode[fieldChildren];
+        var match = keepAll || filterOptionFunc(searchValue, fillLegacyProps(dataNode));
+        var childList = dig(children || [], match);
+        if (match || childList.length) {
+          total.push(_objectSpread(_objectSpread({}, dataNode), {}, _defineProperty({
+            isLeaf: undefined
+          }, fieldChildren, childList)));
+        }
+        return total;
+      }, []);
+    }
+list.reduce(function (total, dataNode) {
+        var children = dataNode[fieldChildren];
+        var match = keepAll || filterOptionFunc(searchValue, fillLegacyProps(dataNode));
+        var childList = dig(children || [], match);
+        if (match || childList.length) {
+          total.push(_objectSpread(_objectSpread({}, dataNode), {}, _defineProperty({
+            isLeaf: undefined
+          }, fieldChildren, childList)));
+        }
+        return total;
+      }, [])
+function dig = function dig(list) {
+    list.forEach(function (item) {
+      var children = item[fieldNames.children];
+      if (children) {
+        keys.push(item[fieldNames.value]);
+        dig(children);
+      }
+    });
+  }
+function isCheckDisabled = function isCheckDisabled(node) {
+  return !node || node.disabled || node.disableCheckbox || node.checkable === false;
+}
+nodeList.forEach(function (node) {
+    var parentKey = node[pId];
+    var parent = keyNodes[parentKey];
+
+    // Fill parent
+    if (parent) {
+      parent.children = parent.children || [];
+      parent.children.push(node);
+    }
+
+    // Fill root tree node
+    if (parentKey === rootPId || !parent && rootPId === null) {
+      rootNodeList.push(node);
+    }
+  })
+var OptionList = function OptionList(_, ref) {
+  var _useBaseProps = (0, _rcSelect.useBaseProps)(),
+    prefixCls = _useBaseProps.prefixCls,
+    multiple = _useBaseProps.multiple,
+    searchValue = _useBaseProps.searchValue,
+    toggleOpen = _useBaseProps.toggleOpen,
+    open = _useBaseProps.open,
+    notFoundContent = _useBaseProps.notFoundContent;
+  var _React$useContext = React.useContext(_TreeSelectContext.default),
+    virtual = _React$useContext.virtual,
+    listHeight = _React$useContext.listHeight,
+    listItemHeight = _React$useContext.listItemHeight,
+    treeData = _React$useContext.treeData,
+    fieldNames = _React$useContext.fieldNames,
+    onSelect = _React$useContext.onSelect,
+    dropdownMatchSelectWidth = _React$useContext.dropdownMatchSelectWidth,
+    treeExpandAction = _React$useContext.treeExpandAction;
+  var _React$useContext2 = React.useContext(_LegacyContext.default),
+    checkable = _React$useContext2.checkable,
+    checkedKeys = _React$useContext2.checkedKeys,
+  ...
+var convert2LabelValues = React.useCallback(function (draftValues) {
+    var values = toLabeledValues(draftValues);
+    return values.map(function (item) {
+      var rawLabel = item.label;
+      var rawValue = item.value,
+        rawHalfChecked = item.halfChecked;
+      var rawDisabled;
+      var entity = valueEntities.get(rawValue);
+
+      // Fill missing label & status
+      if (entity) {
+        var _rawLabel;
+        rawLabel = (_rawLabel = rawLabel) !== null && _rawLabel !== void 0 ? _rawLabel : getLabel(entity.node);
+        rawDisabled = entity.node.disabled;
+      } else if (rawLabel === undefined) {
+        // We try to find in current `labelInValue` value
+        var labelInValueItem = toLabeledValues(internalValue).find(function (labeledItem) {
+          return labeledItem.value === rawValue;
+        });
+        rawLabel = labelInValueItem.label;
+      }
+      return {
+        label: rawLabel,
+        value: rawValue,
+        halfChecked: rawHalfChecked,
+        disabled: raw...
+var values = toLabeledValues(draftValues)
+values.map(function (item) {
+      var rawLabel = item.label;
+      var rawValue = item.value,
+        rawHalfChecked = item.halfChecked;
+      var rawDisabled;
+      var entity = valueEntities.get(rawValue);
+
+      // Fill missing label & status
+      if (entity) {
+        var _rawLabel;
+        rawLabel = (_rawLabel = rawLabel) !== null && _rawLabel !== void 0 ? _rawLabel : getLabel(entity.node);
+        rawDisabled = entity.node.disabled;
+      } else if (rawLabel === undefined) {
+        // We try to find in current `labelInValue` value
+        var labelInValueItem = toLabeledValues(internalValue).find(function (labeledItem) {
+          return labeledItem.value === rawValue;
+        });
+        rawLabel = labelInValueItem.label;
+      }
+      return {
+        label: rawLabel,
+        value: rawValue,
+        halfChecked: rawHalfChecked,
+        disabled: rawDisabled
+      };
+    })
+_tmp_16.className = "".concat(prefixCls, "-empty")
+var entity = valueEntities.get(rawValue)
+var convert2LabelValues = React.useCallback(function (draftValues) {
+    var values = toLabeledValues(draftValues);
+    return values.map(function (item) {
+      var rawLabel = item.label;
+      var rawValue = item.value,
+        rawHalfChecked = item.halfChecked;
+      var rawDisabled;
+      var entity = valueEntities.get(rawValue);
+
+      // Fill missing label & status
+      if (entity) {
+        var _rawLabel;
+        rawLabel = (_rawLabel = rawLabel) !== null && _rawLabel !== void 0 ? _rawLabel : getLabel(entity.node);
+        rawDisabled = entity.node.disabled;
+      } else if (rawLabel === undefined) {
+        // We try to find in current `labelInValue` value
+        var labelInValueItem = toLabeledValues(internalValue).find(function (labeledItem) {
+          return labeledItem.value === rawValue;
+        });
+        rawLabel = labelInValueItem.label;
+      }
+      return {
+        label: rawLabel,
+        value: rawValue,
+        halfChecked: rawHalfChecked,
+        disabled: raw...
+var values = toLabeledValues(draftValues)
+values.map(function (item) {
+      var rawLabel = item.label;
+      var rawValue = item.value,
+        rawHalfChecked = item.halfChecked;
+      var rawDisabled;
+      var entity = valueEntities.get(rawValue);
+
+      // Fill missing label & status
+      if (entity) {
+        var _rawLabel;
+        rawLabel = (_rawLabel = rawLabel) !== null && _rawLabel !== void 0 ? _rawLabel : getLabel(entity.node);
+        rawDisabled = entity.node.disabled;
+      } else if (rawLabel === undefined) {
+        // We try to find in current `labelInValue` value
+        var labelInValueItem = toLabeledValues(internalValue).find(function (labeledItem) {
+          return labeledItem.value === rawValue;
+        });
+        rawLabel = labelInValueItem.label;
+      }
+      return {
+        label: rawLabel,
+        value: rawValue,
+        halfChecked: rawHalfChecked,
+        disabled: rawDisabled
+      };
+    })
+React.createElement("div", {
+      role: "listbox",
+      className: "".concat(prefixCls, "-empty"),
+      onMouseDown: onListMouseDown
+    }, notFoundContent)
+rawDisabled = entity.node.disabled
+var labelInValueItem = toLabeledValues(internalValue).find(function (labeledItem) {
+          return labeledItem.value === rawValue;
+        })
+rawLabel = (_rawLabel = rawLabel) !== null && _rawLabel !== void 0 ? _rawLabel : getLabel(entity.node)
+React.createElement(Tree, _extends({
+    ref: treeRef,
+    focusable: false,
+    prefixCls: "".concat(prefixCls, "-tree"),
+    treeData: memoTreeData,
+    height: listHeight,
+    itemHeight: listItemHeight,
+    virtual: virtual !== false && dropdownMatchSelectWidth !== false,
+    multiple: multiple,
+    icon: treeIcon,
+    showIcon: showTreeIcon,
+    switcherIcon: switcherIcon,
+    showLine: treeLine,
+    loadData: searchValue ? null : loadData,
+    motion: treeMotion,
+    activeKey: activeKey
+    // We handle keys by out instead tree self
+    ,
+    checkable: checkable,
+    checkStrictly: true,
+    checkedKeys: mergedCheckedKeys,
+    selectedKeys: !checkable ? checkedKeys : [],
+    defaultExpandAll: treeDefaultExpandAll
+  }, treeProps, {
+    // Proxy event out
+    onActiveChange: setActiveKey,
+    onSelect: onInternalSelect,
+    onCheck: onInternalSelect,
+    onExpand: onInternalExpand,
+    onLoad: onTreeLoad,
+    filterTreeNode: filterTreeNode,
+    expandAction: treeExpandAction
+ ...
+_tmp_26.style = HIDDEN_STYLE
+var rawMixedLabeledValues = React.useMemo(function () {
+    return toLabeledValues(internalValue);
+  }, [toLabeledValues, internalValue])
+var _React$useMemo = React.useMemo(function () {
+      var fullCheckValues = [];
+      var halfCheckValues = [];
+      rawMixedLabeledValues.forEach(function (item) {
+        if (item.halfChecked) {
+          halfCheckValues.push(item);
+        } else {
+          fullCheckValues.push(item);
+        }
+      });
+      return [fullCheckValues, halfCheckValues];
+    }, [rawMixedLabeledValues])
+var rawMixedLabeledValues = React.useMemo(function () {
+    return toLabeledValues(internalValue);
+  }, [toLabeledValues, internalValue])
+var _React$useMemo = React.useMemo(function () {
+      var fullCheckValues = [];
+      var halfCheckValues = [];
+      rawMixedLabeledValues.forEach(function (item) {
+        if (item.halfChecked) {
+          halfCheckValues.push(item);
+        } else {
+          fullCheckValues.push(item);
+        }
+      });
+      return [fullCheckValues, halfCheckValues];
+    }, [rawMixedLabeledValues])
+_tmp_23.onActiveChange = setActiveKey
+rawMixedLabeledValues.forEach(function (item) {
+        if (item.halfChecked) {
+          halfCheckValues.push(item);
+        } else {
+          fullCheckValues.push(item);
+        }
+      })
+var rawLabeledValues = _React$useMemo2[0]
+var RefOptionList = /*#__PURE__*/React.forwardRef(OptionList)
+var _React$useMemo2 = (0, _slicedToArray2.default)(_React$useMemo, 2)
+var rawLabeledValues = _React$useMemo2[0]
+var _useCheckedKeys = useCheckedKeys(rawLabeledValues, rawHalfLabeledValues, treeConduction, keyEntities)
+var _useCheckedKeys2 = _slicedToArray(_useCheckedKeys, 2)
+var rawValues = React.useMemo(function () {
+    return rawLabeledValues.map(function (item) {
+      return item.value;
+    });
+  }, [rawLabeledValues])
+var displayValues = React.useMemo(function () {
+    // Collect keys which need to show
+    var displayKeys = formatStrategyValues(rawCheckedValues, mergedShowCheckedStrategy, keyEntities, mergedFieldNames);
+
+    // Convert to value and filled with label
+    var values = displayKeys.map(function (key) {
+      var _keyEntities$key$node, _keyEntities$key, _keyEntities$key$node2;
+      return (_keyEntities$key$node = (_keyEntities$key = keyEntities[key]) === null || _keyEntities$key === void 0 ? void 0 : (_keyEntities$key$node2 = _keyEntities$key.node) === null || _keyEntities$key$node2 === void 0 ? void 0 : _keyEntities$key$node2[mergedFieldNames.value]) !== null && _keyEntities$key$node !== void 0 ? _keyEntities$key$node : key;
+    });
+
+    // Back fill with origin label
+    var labeledValues = values.map(function (val) {
+      var targetItem = rawLabeledValues.find(function (item) {
+        return item.value === val;
+      });
+      return {
+        value: val,
+        label: targetItem ...
+var _useCheckedKeys = (0, _useCheckedKeys3.default)(rawLabeledValues, rawHalfLabeledValues, treeConduction, keyEntities)
+var _useCheckedKeys2 = (0, _slicedToArray2.default)(_useCheckedKeys, 2)
+var values = displayKeys.map(function (key) {
+      var _keyEntities$key$node, _keyEntities$key, _keyEntities$key$node2;
+      return (_keyEntities$key$node = (_keyEntities$key = keyEntities[key]) === null || _keyEntities$key === void 0 ? void 0 : (_keyEntities$key$node2 = _keyEntities$key.node) === null || _keyEntities$key$node2 === void 0 ? void 0 : _keyEntities$key$node2[mergedFieldNames.value]) !== null && _keyEntities$key$node !== void 0 ? _keyEntities$key$node : key;
+    })
+var displayValues = React.useMemo(function () {
+    // Collect keys which need to show
+    var displayKeys = (0, _strategyUtil.formatStrategyValues)(rawCheckedValues, mergedShowCheckedStrategy, keyEntities, mergedFieldNames);
+
+    // Convert to value and filled with label
+    var values = displayKeys.map(function (key) {
+      var _keyEntities$key$node, _keyEntities$key, _keyEntities$key$node2;
+      return (_keyEntities$key$node = (_keyEntities$key = keyEntities[key]) === null || _keyEntities$key === void 0 ? void 0 : (_keyEntities$key$node2 = _keyEntities$key.node) === null || _keyEntities$key$node2 === void 0 ? void 0 : _keyEntities$key$node2[mergedFieldNames.value]) !== null && _keyEntities$key$node !== void 0 ? _keyEntities$key$node : key;
+    });
+
+    // Back fill with origin label
+    var labeledValues = values.map(function (val) {
+      var targetItem = rawLabeledValues.find(function (item) {
+        return item.value === val;
+      });
+      return {
+        value: val,
+       ...
+!mergedMultiple && firstVal && (0, _valueUtil.isNil)(firstVal.value) && (0, _valueUtil.isNil)(firstVal.label)
+var _useCache = useCache(displayValues)
+var _useCache2 = _slicedToArray(_useCache, 1)
+var triggerChange = useRefFunc(function (newRawValues, extra, source) {
+    var labeledValues = convert2LabelValues(newRawValues);
+    setInternalValue(labeledValues);
+
+    // Clean up if needed
+    if (autoClearSearchValue) {
+      setSearchValue('');
+    }
+
+    // Generate rest parameters is costly, so only do it when necessary
+    if (onChange) {
+      var eventValues = newRawValues;
+      if (treeConduction) {
+        var formattedKeyList = formatStrategyValues(newRawValues, mergedShowCheckedStrategy, keyEntities, mergedFieldNames);
+        eventValues = formattedKeyList.map(function (key) {
+          var entity = valueEntities.get(key);
+          return entity ? entity.node[mergedFieldNames.value] : key;
+        });
+      }
+      var _ref = extra || {
+          triggerValue: undefined,
+          selected: undefined
+        },
+        triggerValue = _ref.triggerValue,
+        selected = _ref.selected;
+      var returnRawValues = eventValues;
+
+      // We need fill half check back
+  ...
+_tmp_27.push(mergedShowCheckedStrategy)
+var _useCache = (0, _useCache3.default)(displayValues)
+var _useCache2 = (0, _slicedToArray2.default)(_useCache, 1)
+var triggerChange = (0, _useRefFunc.default)(function (newRawValues, extra, source) {
+    var labeledValues = convert2LabelValues(newRawValues);
+    setInternalValue(labeledValues);
+
+    // Clean up if needed
+    if (autoClearSearchValue) {
+      setSearchValue('');
+    }
+
+    // Generate rest parameters is costly, so only do it when necessary
+    if (onChange) {
+      var eventValues = newRawValues;
+      if (treeConduction) {
+        var formattedKeyList = (0, _strategyUtil.formatStrategyValues)(newRawValues, mergedShowCheckedStrategy, keyEntities, mergedFieldNames);
+        eventValues = formattedKeyList.map(function (key) {
+          var entity = valueEntities.get(key);
+          return entity ? entity.node[mergedFieldNames.value] : key;
+        });
+      }
+      var _ref = extra || {
+          triggerValue: undefined,
+          selected: undefined
+        },
+        triggerValue = _ref.triggerValue,
+        selected = _ref.selected;
+      var returnRawValues = eventValues;
+
+      /...
+var formattedKeyList = formatStrategyValues(newRawValues, mergedShowCheckedStrategy, keyEntities, mergedFieldNames)
+eventValues = formattedKeyList.map(function (key) {
+          var entity = valueEntities.get(key);
+          return entity ? entity.node[mergedFieldNames.value] : key;
+        })
+var entity = valueEntities.get(key)
+var formattedKeyList = (0, _strategyUtil.formatStrategyValues)(newRawValues, mergedShowCheckedStrategy, keyEntities, mergedFieldNames)
+eventValues = formattedKeyList.map(function (key) {
+          var entity = valueEntities.get(key);
+          return entity ? entity.node[mergedFieldNames.value] : key;
+        })
+var entity = valueEntities.get(key)
+var newRawValues = selected ? [].concat(_toConsumableArray(rawValues), [selectedValue]) : rawCheckedValues.filter(function (v) {
+        return v !== selectedValue;
+      })
+v !== selectedValue
+var _splitRawValues = splitRawValues(newRawValues)
+var newRawValues = selected ? [].concat((0, _toConsumableArray2.default)(rawValues), [selectedValue]) : rawCheckedValues.filter(function (v) {
+        return v !== selectedValue;
+      })
+var keyList = existRawValues.map(function (val) {
+          return valueEntities.get(val).key;
+        })
+valueEntities.get(val).key
+var _splitRawValues = splitRawValues(newRawValues)
+var existRawValues = _splitRawValues.existRawValues
+var keyList = existRawValues.map(function (val) {
+          return valueEntities.get(val).key;
+        })
+var _conductCheck2 = conductCheck(keyList, {
+            checked: false,
+            halfCheckedKeys: rawHalfCheckedValues
+          }, keyEntities)
+_tmp_29.halfCheckedKeys = rawHalfCheckedValues
+keyEntities
+checkedKeys = _conductCheck2.checkedKeys
+newRawValues = [].concat(_toConsumableArray(missingRawValues), _toConsumableArray(checkedKeys.map(function (key) {
+          return keyEntities[key].node[mergedFieldNames.value];
+        })))
+var _conductCheck2 = (0, _conductUtil.conductCheck)(keyList, {
+            checked: false,
+            halfCheckedKeys: rawHalfCheckedValues
+          }, keyEntities)
+_tmp_35.halfCheckedKeys = rawHalfCheckedValues
+triggerChange(newRawValues, {
+        selected: selected,
+        triggerValue: selectedValue
+      }, source || 'option')
+checkedKeys = _conductCheck2.checkedKeys
+newRawValues = [].concat((0, _toConsumableArray2.default)(missingRawValues), (0, _toConsumableArray2.default)(checkedKeys.map(function (key) {
+          return keyEntities[key].node[mergedFieldNames.value];
+        })))
+onSelect === null || onSelect === void 0 ? void 0 : onSelect(selectedValue, fillLegacyProps(node))
+triggerChange(newRawValues, {
+        selected: selected,
+        triggerValue: selectedValue
+      }, source || 'option')
+_tmp_32.push(rawHalfCheckedValues)
+onSelect === null || onSelect === void 0 ? void 0 : onSelect(selectedValue, (0, _legacyUtil.fillLegacyProps)(node))
+_tmp_38.push(rawHalfCheckedValues)
+_tmp_41.push(treeDefaultExpandedKeys)
+_tmp_47.push(treeDefaultExpandedKeys)

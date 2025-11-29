@@ -1,0 +1,60 @@
+function injectStyle = function injectStyle(style, method) {
+            method = method || function (element) {
+                targetDocument.head.appendChild(element);
+            };
+
+            var styleElement = targetDocument.createElement("style");
+            styleElement.innerHTML = style;
+            styleElement.id = styleId;
+            method(styleElement);
+            return styleElement;
+        }
+method = method || function (element) {
+                targetDocument.head.appendChild(element);
+            }
+var eventListenerHandler    = listenerHandlerMaker(idHandler)
+reporter.warn("An element that is positioned static has style." + property + "=" + value + " which is ignored due to the static positioning. The element will need to be positioned relative, so the style." + property + " will be set to 0. Element: ", element)
+var desiredStrategy = getOption(options, "strategy", "object")
+function removeEvent = function removeEvent(el, name, cb) {
+        if (el.removeEventListener) {
+            el.removeEventListener(name, cb);
+        } else if(el.detachEvent) {
+            el.detachEvent("on" + name, cb);
+        } else {
+            return reporter.error("[scroll] Don't know how to remove event listeners.");
+        }
+    }
+function getStyle = function getStyle() {
+            // Some browsers only force layouts when actually reading the style properties of the style object, so make sure that they are all read here,
+            // so that the user of the function can be sure that it will perform the layout here, instead of later (important for batching).
+            var elementStyle            = window.getComputedStyle(element);
+            var style                   = {};
+            style.position              = elementStyle.position;
+            style.width                 = element.offsetWidth;
+            style.height                = element.offsetHeight;
+            style.top                   = elementStyle.top;
+            style.right                 = elementStyle.right;
+            style.bottom                = elementStyle.bottom;
+            style.left                  = elementStyle.left;
+            style.widthCSS              = elementStyle.width;
+            style.heightCSS             = elementStyle.hei...
+!stateHandler.getState(element)
+stateHandler.initState(element)
+var elementStyle            = window.getComputedStyle(element)
+style.width                 = element.offsetWidth
+debug && reporter.log("Attaching listener to element", id, element)
+style.left                  = elementStyle.left
+debug && reporter.log(id, "Making detectable...")
+detectionStrategy.makeDetectable({ debug: debug, important: importantCssRules }, element, function onElementDetectable(element) {
+                    debug && reporter.log(id, "onElementDetectable");
+
+                    if (stateHandler.getState(element)) {
+                        elementUtils.markAsDetectable(element);
+                        elementUtils.markBusy(element, false);
+                        detectionStrategy.addListener(element, onResizeCallback);
+                        addListener(callOnAdd, element, listener);
+
+                        // Since the element size might have changed since the call to "listenTo", we need to check for this change,
+                        // so that a resize event may be emitted.
+                        // Having the startSize object is optional (since it does not make sense in some cases such as unrendered elements), so check for its existance before.
+                        // Also, check the state existance before since the element ma...

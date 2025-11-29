@@ -1,0 +1,13 @@
+this.messageHandler.send('Cleanup', null,
+        function endCleanup() {
+          for (var i = 0, ii = this.pageCache.length; i < ii; i++) {
+            var page = this.pageCache[i];
+            if (page) {
+              page.destroy();
+            }
+          }
+          this.commonObjs.clear();
+//MQZ Dec.03.2013 disable FontLoader
+//          FontLoader.clear();
+        }.bind(this)
+      )

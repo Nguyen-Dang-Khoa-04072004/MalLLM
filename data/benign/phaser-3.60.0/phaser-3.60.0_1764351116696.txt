@@ -1,0 +1,189 @@
+var UpdateMotion = function (body, res)
+{
+    body.standing = false;
+
+    //  Y
+    if (res.collision.y)
+    {
+        if (body.bounciness > 0 && Math.abs(body.vel.y) > body.minBounceVelocity)
+        {
+            body.vel.y *= -body.bounciness;
+        }
+        else
+        {
+            if (body.vel.y > 0)
+            {
+                body.standing = true;
+            }
+
+            body.vel.y = 0;
+        }
+    }
+
+    //  X
+    if (res.collision.x)
+    {
+        if (body.bounciness > 0 && Math.abs(body.vel.x) > body.minBounceVelocity)
+        {
+            body.vel.x *= -body.bounciness;
+        }
+        else
+        {
+            body.vel.x = 0;
+        }
+    }
+
+    //  SLOPE
+    if (res.collision.slope)
+    {
+        var s = res.collision.slope;
+       
+        if (body.bounciness > 0)
+        {
+            var proj = body.vel.x * s.nx + body.vel.y * s.ny;
+
+            body.vel.x = (body.vel.x - s.nx * proj * 2) * body.bounciness;
+            body.vel.y = (body.vel.y - s.ny * p...
+function parsePolygon = function parsePolygon (lineItems, result)
+{
+    var totalVertices = lineItems.length - 1;
+
+    if (totalVertices < 3)
+    {
+        return;
+    }
+
+    var face = {
+        group: currentGroup,
+        material: currentMaterial,
+        vertices: []
+    };
+
+    for (var i = 0; i < totalVertices; i++)
+    {
+        var vertexString = lineItems[i + 1];
+        var vertexValues = vertexString.split('/');
+        var vvLen = vertexValues.length;
+
+        if (vvLen < 1 || vvLen > 3)
+        {
+            continue;
+        }
+
+        var vertexIndex = 0;
+        var textureCoordsIndex = 0;
+        var vertexNormalIndex = 0;
+
+        vertexIndex = parseInt(vertexValues[0], 10);
+
+        if (vvLen > 1 && vertexValues[1] !== '')
+        {
+            textureCoordsIndex = parseInt(vertexValues[1], 10);
+        }
+
+        if (vvLen > 2)
+        {
+            vertexNormalIndex = parseInt(vertexValues[2], 10);
+        }
+
+        if (vertexIndex !== 0)
+        {
+            // Negative vertex indi...
+FileTypesManager.register('css', function (key, url, xhrSettings)
+{
+    if (Array.isArray(key))
+    {
+        for (var i = 0; i < key.length; i++)
+        {
+            //  If it's an array it has to be an array of Objects, so we get everything out of the 'key' object
+            this.addFile(new CSSFile(this, key[i]));
+        }
+    }
+    else
+    {
+        this.addFile(new CSSFile(this, key, url, xhrSettings));
+    }
+
+    return this;
+})
+_tmp_1.z = {
+
+        get: function ()
+        {
+            return this.position.z;
+        },
+
+        set: function (value)
+        {
+            this.position.z = value;
+        }
+
+    }
+Common.warn('Plugin.versionParse:', range, 'is not a valid version or range.')
+output.y = (this.y - (this.displayHeight * this.originY)) + this.displayHeight
+function polygonCopy = function polygonCopy(polygon, i,j,targetPoly){
+    var p = targetPoly || [];
+    polygonClear(p);
+    if (i < j) {
+        // Insert all vertices from i to j
+        for(var k=i; k<=j; k++){
+            p.push(polygon[k]);
+        }
+
+    } else {
+
+        // Insert vertices 0 to j
+        for(var k=0; k<=j; k++){
+            p.push(polygon[k]);
+        }
+
+        // Insert vertices i to end
+        for(var k=i; k<polygon.length; k++){
+            p.push(polygon[k]);
+        }
+    }
+
+    return p;
+}
+Common.random = function(min, max) {
+        min = (typeof min !== "undefined") ? min : 0;
+        max = (typeof max !== "undefined") ? max : 1;
+        return min + _seededRandom() * (max - min);
+    }
+this.displayList && this.displayList !== displayList
+var offset = { x: position.x - body.position.x, y: position.y - body.position.y }
+this.applyMatrix4(projectionMatrix).applyMatrix4(worldMatrix)
+_tmp_1.addAtlasJSONHash = <lambda>19
+function EventTimeline = function EventTimeline(frameCount) {
+            this.frames = spine.Utils.newFloatArray(frameCount);
+            this.events = new Array(frameCount);
+        }
+EventTimeline.prototype.getPropertyId = function () {
+            return TimelineType.event << 24;
+        }
+var CurveTimeline2 = class extends CurveTimeline {
+    constructor(frameCount, bezierCount, propertyId1, propertyId2) {
+      super(frameCount, bezierCount, [propertyId1, propertyId2]);
+    }
+    getFrameEntries() {
+      return 3;
+    }
+    setFrame(frame, time, value1, value2) {
+      frame *= 3;
+      this.frames[frame] = time;
+      this.frames[frame + 1] = value1;
+      this.frames[frame + 2] = value2;
+    }
+  }
+EventTimeline.prototype.setFrame = function (frameIndex, event) {
+            this.frames[frameIndex] = event.time;
+            this.events[frameIndex] = event;
+        }
+renderer.beginCapture(renderTarget.width, renderTarget.height)
+this.scene.sys.events.off(SCENE_EVENTS.SLEEP, this.handleSceneEvent, this)
+c.rect(part.bounds.min.x, part.bounds.min.y, part.bounds.max.x - part.bounds.min.x, part.bounds.max.y - part.bounds.min.y)
+this.pannerNode.pan.setValueAtTime(value, this.manager.context.currentTime)
+currentShader = this.currentShader
+Parser.SpriteSheet(texture, 0, sheet.cutX, sheet.cutY, sheet.cutWidth, sheet.cutHeight, config)
+constraint.rotateMix += (data.rotateMix - constraint.rotateMix) * alpha
+constraint.translateMix += (data.translateMix - constraint.translateMix) * alpha

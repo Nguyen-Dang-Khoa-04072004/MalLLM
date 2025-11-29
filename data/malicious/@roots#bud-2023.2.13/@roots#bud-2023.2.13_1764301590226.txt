@@ -1,0 +1,21 @@
+bud.success(`mode set to`, bud.env.get(`APP_MODE`), `from environment`)
+bud.context.basedir = bud.env.get(`APP_BASE_PATH`)
+bud.success(`project base path set to`, bud.env.get(`APP_BASE_PATH`), `from environment`)
+bud.hooks.on(`build.output.publicPath`, bud.env.get(`APP_PUBLIC_PATH`))
+__decorate([
+    bind,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], Logger.prototype, "star", null)
+bud.hooks.on(`location.@src`, bud.env.get(`APP_SRC_PATH`))
+bud.success(`src path set to`, bud.env.get(`APP_SRC_PATH`), `from environment`)
+bud.hooks.on(`location.@dist`, bud.env.get(`APP_DIST_PATH`))
+bud.success(`dist path set to`, bud.env.get(`APP_DIST_PATH`), `from environment`)
+bud.hooks.on(`location.@storage`, bud.env.get(`APP_STORAGE_PATH`))
+__decorate([
+    bind,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], Logger.prototype, "scope", null)

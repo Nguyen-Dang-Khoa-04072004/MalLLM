@@ -1,0 +1,10 @@
+const args = [
+	'-copy',
+	'none',
+	'-optimize',
+	'-outfile',
+	fileURLToPath(new URL('../test/fixtures/test-optimized.jpg', import.meta.url)),
+	fileURLToPath(new URL('../test/fixtures/test.jpg', import.meta.url)),
+]
+spawn(jpegtran, input, {stdio: 'inherit'})
+	.on('exit', process.exit)

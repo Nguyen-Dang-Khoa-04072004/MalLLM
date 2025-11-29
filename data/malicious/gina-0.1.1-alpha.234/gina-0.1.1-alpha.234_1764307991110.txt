@@ -1,0 +1,232 @@
+module.exports = function(session, bundle){
+
+    /**
+     * Express's session Store.
+     */
+
+    var Store = session.Store;
+
+    /**
+     * Initialize CouchbaseStore with the given `options`.
+     *
+     * @param {Object} options
+     *      {
+     *          host: 127.0.0.1:8091 (default) -- Can be one or more address:ports, separated by semi-colon, or an array
+     *          username: '',   -- Should be same as bucket name, if provided
+     *          password: '',
+     *          bucket: 'default' (default)
+     *          cachefile: ''
+     *          ttl: 86400,
+     *          prefix: 'sess',
+     *          operationTimeout:2000,
+                connectionTimeout:2000,
+     *      }
+     * @api public
+     */
+
+    function CouchbaseStore(options) {
+        var self = this;
+
+        options = options || {};
+        Store.call(this, options);
+        this.prefix = null == options.prefix
+            ? 'sess:'
+            : options.prefix;
+
+        var connectOptions = {};
+    ...
+var generate = function(opt) {
+
+        var filename    = null
+            , dir       = __dirname
+        ;
+
+        filename = (opt.filename) ? opt.filename : _(dir +'/resources/'+ opt.target +'.csv', true);
+
+        var region      = (opt.region) ? opt.region : 'en';
+        var mappingFile = _(dir+ '/resources/'+ opt.target +'.mapping.json', true);
+        var content     = null;
+        try {
+            rec.mapping = requireJSON(mappingFile);
+        } catch (err) {
+            throw err
+        }
+
+        try {
+            rec.mapping = requireJSON(mappingFile);
+        } catch (err) {
+            throw err
+        }
+
+        if ( opt.region != 'en' ) {
+            rec.mapping[ 'official_name_' + opt.region ] = JSON.clone(rec.mapping["official_name_en"]);
+            // remove default
+            delete rec.mapping["official_name_en"];
+            console.debug('region set to ', opt.region);
+        }
+
+        cleanMapping();
+
+        try {
+
+            content = fs.readFileSync(...
+function ServerEngineClass = function ServerEngineClass(options) {
+
+    console.debug('[ ENGINE ] Isaac says hello !');
+
+    // TOTO - See if it would be interesting to add it to Helper::Path & to extend it to also readdirSync, returning the directory content
+    var readSync = function(filename) {
+        var fileObj = new _(filename, true);
+        if ( fileObj.isSymlinkSync() ) {
+            filename = fileObj.getSymlinkSourceSync()
+        }
+
+        return fs.readFileSync(filename).toString()
+    }
+
+    // openssl req -x509 -newkey rsa:2048 -nodes -sha256 -subj "/CN=localhost" -keyout localhost-privkey.pem -out localhost-cert.pem
+    var credentials = {};
+    if ( /https/.test(options.scheme) ) {
+        try {
+            credentials = {
+                key: readSync(options.credentials.privateKey),
+                cert: readSync(options.credentials.certificate)
+            };
+        } catch(err) {
+            console.emerg('You are trying to start a secured server (https) wihtout suficient credentials: c...
+var removeEnv = function(projects, target) {
+        var err = null, env = local.env;
+        // default `dev env` cannot be removed
+        if(env === projects[self.projectName]['dev_env']|| env === projects[self.projectName]['def_env']) {
+            if (env === projects[self.projectName]['def_env']) {
+                err = new Error('Environment [ '+env+' ] is set as "default environment"')
+            } else {
+                err = new Error('Environment [ '+env+' ] is linked as "development environment"')
+            }
+
+            return end(err);
+        }
+
+        projects[self.projectName]['envs'].splice(projects[self.projectName]['envs'].indexOf(env), 1);
+        lib.generator.createFileFromDataSync(
+            projects,
+            target
+        );
+        // clean ports & reverse ports registered for the project
+        var portsPath = _(GINA_HOMEDIR + '/ports.json')
+            , portsReversePath = _(GINA_HOMEDIR + '/ports.reverse.json')
+            , ports = require(port...
+var setup = function(namespace) {
+        if ( typeof(namespace) == 'undefined' || namespace == '') {
+            console.error('[ MODEL ][ '+ namespace +' ] MODEL:ERR:1 EEMPTY: Model namespace',  __stack);
+        }
+
+        var model, namespace = namespace.split(/\//g);
+        _connector = namespace[1];//Has to be writtien the same for the connetors.json decalration or for the model folder
+        var bundle = namespace[0];
+        namespace.shift();
+        //Capitalize - Normalize
+        if (namespace.length > 1) {
+            //            for (var i; i<namespace.length; ++i) {
+            //                namespace[i] = namespace[i].substring(0, 1).toUpperCase() + namespace[i].substring(1);
+            //            }
+
+            model = namespace.join(".");
+        } else {
+            //Dir name.
+            model = namespace[0];
+        }
+
+
+        console.debug('[ MODEL ][ ' + model +' ] Bundle: '+ bundle);
+        //console.debug('[ MODEL ][ ' + model +' ] Model: '+ model...
+var checkArchAgainstNodeModules = function(opt, cb) {
+
+        var currentArch         = GINA_ARCH
+            , currentPlatform   = GINA_PLATFORM
+            , projectObj        = self.projects[ self.projectName ]
+            , packagePathObj    = new _(projectObj.path +'/package.json', true)
+            , packagePath       = packagePathObj.toString()
+        ;
+
+        if ( !packagePathObj.existsSync() ) {
+            terminal.warn('[checkArchAgainstNodeModules] File`'+packagePath +'` not found');
+            return cb(false);
+        }
+
+        var gnaPath    =  _(projectObj.path +'/.gna', true);
+        var gnaPathObj  =  new _(gnaPath, true);
+        if ( ! gnaPathObj.existsSync() ) {
+            gnaPathObj.mkdirSync()
+        }
+
+        var isNodeModulesReinstallNeeded = false;
+        var nodeModulesPathObj = new _(projectObj.path +'/node_modules', true);
+
+
+        var projectArchFileObj = new _(gnaPath +'/arch', true);
+        var projectArchFile = projectArchFileObj.toString();...
+var onConnect = function onConnect(cb){
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ] couchbase is alive !!');
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ][ ' + dbString.connector +' ] now connected...');
+
+            self.instance.reconnected  = self.instance.connected   = true;
+            var options = local.options;
+
+            // updating context
+            var ctx = getContext()
+                , bundle = ctx.bundle
+                , env = ctx.env
+                , conf = ctx['gina'].config.envConf[bundle][env]
+                , name = dbString.database
+                //Reload models.
+                , modelsPath = _(conf.modelsPath)
+            ;
+            // will send heartbeat every 4 minutes if keepAlive == `true`
+            self.ping(options.pingInterval, cb, function onPing(cb){
+
+                local.bundle = bundle;
+                local.env = env;
+
+                if ( typeof(cb) != 'undefined' ) { // this portition is not workin...
+var init = function(options) {
+
+        self.projectName    = options.projectName;
+        //Starting app.
+        self.appName        = options.bundle;
+        self.env            = options.env;
+        self.version        = options.version;
+        local.router        = new Router(self.env);
+
+        //True => multiple bundles sharing the same server (port).
+        self.isStandalone   = options.isStandalone;
+        self.bundles        = options.bundles;
+        self.executionPath  = options.executionPath;
+
+
+        if (!self.isStandalone) {
+            //Only load the related conf / env.
+            self.conf[self.appName] = {};
+            self.conf[self.appName][self.env] = options.conf[self.appName][self.env];
+            self.conf[self.appName][self.env].bundlesPath = options.conf[self.appName][self.env].bundlesPath;
+            self.conf[self.appName][self.env].modelsPath =  options.conf[self.appName][self.env].modelsPath;
+            self.conf[self.appName][self.env].execution...
+var produce = function(entityName, i){
+                        console.debug("producing ", files[i]);
+
+                        lib.config.get('gina', 'project.json', function(err, config){
+                            //if (err) logger.error('gina', 'MODEL:ERR:2', 'EEMPTY: EntitySuper' + err, __stack);
+                            if (err) console.error(err.stack||err.message);
+
+                            var filename = config.paths.gina + '/model/entityFactory.js';
+
+                            //TODO - Factory class
+                            //var Factory = new Factory({source: , target: ).onComplete();
+                            console.debug("LOADING ", filename);
+                            //Getting source.
+                            loadFile(filename, entityName, function(err, source){
+                                console.log("got source ", err, source);
+
+                                try {
+                                    if (entityName != "undefiend") {
+              ...

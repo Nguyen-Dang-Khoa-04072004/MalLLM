@@ -1,0 +1,381 @@
+function resolveSRVRecord = async function resolveSRVRecord(options: MongoOptions): Promise<HostAddress[]> {
+  if (typeof options.srvHost !== 'string') {
+    throw new MongoAPIError('Option "srvHost" must not be empty');
+  }
+
+  if (options.srvHost.split('.').length < 3) {
+    // TODO(NODE-3484): Replace with MongoConnectionStringError
+    throw new MongoAPIError('URI must include hostname, domain name, and tld');
+  }
+
+  // Resolve the SRV record and use the result as the list of hosts to connect to.
+  const lookupAddress = options.srvHost;
+  const addresses = await dns.promises.resolveSrv(
+    `_${options.srvServiceName}._tcp.${lookupAddress}`
+  );
+
+  if (addresses.length === 0) {
+    throw new MongoAPIError('No addresses found at host');
+  }
+
+  for (const { name } of addresses) {
+    if (!matchesParentDomain(name, lookupAddress)) {
+      throw new MongoAPIError('Server record does not share hostname with parent URI');
+    }
+  }
+
+  const hostAddresses = addresses.map(r => HostAddress.fromString(`${r.name}:${r....
+function pluckBSONSerializeOptions = function pluckBSONSerializeOptions(options: BSONSerializeOptions): BSONSerializeOptions {
+  const {
+    fieldsAsRaw,
+    useBigInt64,
+    promoteValues,
+    promoteBuffers,
+    promoteLongs,
+    serializeFunctions,
+    ignoreUndefined,
+    bsonRegExp,
+    raw,
+    enableUtf8Validation
+  } = options;
+  return {
+    fieldsAsRaw,
+    useBigInt64,
+    promoteValues,
+    promoteBuffers,
+    promoteLongs,
+    serializeFunctions,
+    ignoreUndefined,
+    bsonRegExp,
+    raw,
+    enableUtf8Validation
+  };
+}
+function hostMatchesWildcards = function hostMatchesWildcards(host: string, wildcards: string[]): boolean {
+  for (const wildcard of wildcards) {
+    if (
+      host === wildcard ||
+      (wildcard.startsWith('*.') && host?.endsWith(wildcard.substring(2, wildcard.length))) ||
+      (wildcard.startsWith('*/') && host?.endsWith(wildcard.substring(2, wildcard.length)))
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+function executeScram = async function executeScram(cryptoMethod, authContext) {
+    const { connection, credentials } = authContext;
+    if (!credentials) {
+        throw new error_1.MongoMissingCredentialsError('AuthContext must provide credentials.');
+    }
+    if (!authContext.nonce) {
+        throw new error_1.MongoInvalidArgumentError('AuthContext must contain a valid nonce property');
+    }
+    const nonce = authContext.nonce;
+    const db = credentials.source;
+    const saslStartCmd = makeFirstMessage(cryptoMethod, credentials, nonce);
+    const response = await connection.commandAsync((0, utils_1.ns)(`${db}.$cmd`), saslStartCmd, undefined);
+    await continueScramConversation(cryptoMethod, response, authContext);
+}
+executeOperation(
+      this.client,
+      new AggregateOperation(this.namespace, this[kPipeline], {
+        ...this[kOptions], // NOTE: order matters here, we may need to refine this
+        ...this.cursorOptions,
+        explain: verbosity ?? true
+      })
+    )
+this.s = {
+            // the id of this topology
+            id: topologyId,
+            // passed in options
+            options,
+            // initial seedlist of servers to connect to
+            seedlist,
+            // initial state
+            state: common_1.STATE_CLOSED,
+            // the topology description
+            description: new topology_description_1.TopologyDescription(topologyType, serverDescriptions, options.replicaSet, undefined, undefined, undefined, options),
+            serverSelectionTimeoutMS: options.serverSelectionTimeoutMS,
+            heartbeatFrequencyMS: options.heartbeatFrequencyMS,
+            minHeartbeatFrequencyMS: options.minHeartbeatFrequencyMS,
+            // a map of server instances to normalized addresses
+            servers: new Map(),
+            credentials: options?.credentials,
+            clusterTime: undefined,
+            // timer management
+            connectionTimers: new Set(),
+            detectShardedTopology: ev => this.d...
+function checkSupportedServer = function checkSupportedServer(hello: Document, options: ConnectionOptions) {
+  const maxWireVersion = Number(hello.maxWireVersion);
+  const minWireVersion = Number(hello.minWireVersion);
+  const serverVersionHighEnough =
+    !Number.isNaN(maxWireVersion) && maxWireVersion >= MIN_SUPPORTED_WIRE_VERSION;
+  const serverVersionLowEnough =
+    !Number.isNaN(minWireVersion) && minWireVersion <= MAX_SUPPORTED_WIRE_VERSION;
+
+  if (serverVersionHighEnough) {
+    if (serverVersionLowEnough) {
+      return null;
+    }
+
+    const message = `Server at ${options.hostAddress} reports minimum wire version ${JSON.stringify(
+      hello.minWireVersion
+    )}, but this version of the Node.js Driver requires at most ${MAX_SUPPORTED_WIRE_VERSION} (MongoDB ${MAX_SUPPORTED_SERVER_VERSION})`;
+    return new MongoCompatibilityError(message);
+  }
+
+  const message = `Server at ${options.hostAddress} reports maximum wire version ${
+    JSON.stringify(hello.maxWireVersion) ?? 0
+  }, but this version of the Node...
+function continueScramConversation = async function continueScramConversation(cryptoMethod, response, authContext) {
+    const connection = authContext.connection;
+    const credentials = authContext.credentials;
+    if (!credentials) {
+        throw new error_1.MongoMissingCredentialsError('AuthContext must provide credentials.');
+    }
+    if (!authContext.nonce) {
+        throw new error_1.MongoInvalidArgumentError('Unable to continue SCRAM without valid nonce');
+    }
+    const nonce = authContext.nonce;
+    const db = credentials.source;
+    const username = cleanUsername(credentials.username);
+    const password = credentials.password;
+    const processedPassword = cryptoMethod === 'sha256' ? (0, saslprep_1.saslprep)(password) : passwordDigest(username, password);
+    const payload = Buffer.isBuffer(response.payload)
+        ? new bson_1.Binary(response.payload)
+        : response.payload;
+    const dict = parsePayload(payload);
+    const iterations = parseInt(dict.i, 10);
+    if (iterations && iterations < 4096)...
+function stringsToMap = function stringsToMap(t: string[]): SortForCmd {
+  const sortEntries: SortPairForCmd[] = t.map(key => [`${key}`, 1]);
+  return new Map(sortEntries);
+}
+this[kMonitorId] = new MonitorInterval(monitorServer(this), {
+            heartbeatFrequencyMS: heartbeatFrequencyMS,
+            minHeartbeatFrequencyMS: minHeartbeatFrequencyMS,
+            immediate: true
+        })
+this.indexes = indexes.map(userIndex => {
+            // Ensure the key is a Map to preserve index key ordering
+            const key = userIndex.key instanceof Map ? userIndex.key : new Map(Object.entries(userIndex.key));
+            const name = userIndex.name != null ? userIndex.name : Array.from(key).flat().join('_');
+            const validIndexOptions = Object.fromEntries(Object.entries({ ...userIndex }).filter(([optionName]) => VALID_INDEX_OPTIONS.has(optionName)));
+            return {
+                ...validIndexOptions,
+                name,
+                key
+            };
+        })
+function performInitialHandshake = async function performInitialHandshake(
+  conn: Connection,
+  options: ConnectionOptions
+): Promise<void> {
+  const credentials = options.credentials;
+
+  if (credentials) {
+    if (
+      !(credentials.mechanism === AuthMechanism.MONGODB_DEFAULT) &&
+      !AUTH_PROVIDERS.get(credentials.mechanism)
+    ) {
+      throw new MongoInvalidArgumentError(`AuthMechanism '${credentials.mechanism}' not supported`);
+    }
+  }
+
+  const authContext = new AuthContext(conn, credentials, options);
+  conn.authContext = authContext;
+
+  const handshakeDoc = await prepareHandshakeDocument(authContext);
+
+  // @ts-expect-error: TODO(NODE-5141): The options need to be filtered properly, Connection options differ from Command options
+  const handshakeOptions: CommandOptions = { ...options };
+  if (typeof options.connectTimeoutMS === 'number') {
+    // The handshake technically is a monitoring check, so its socket timeout should be connectTimeoutMS
+    handshakeOptions.socketTimeoutMS = options.connectTimeou...
+function normalizeHintField = function normalizeHintField(hint?: Hint): Hint | undefined {
+  let finalHint = undefined;
+
+  if (typeof hint === 'string') {
+    finalHint = hint;
+  } else if (Array.isArray(hint)) {
+    finalHint = {};
+
+    hint.forEach(param => {
+      finalHint[param] = 1;
+    });
+  } else if (hint != null && typeof hint === 'object') {
+    finalHint = {} as Document;
+    for (const name in hint) {
+      finalHint[name] = hint[name];
+    }
+  }
+
+  return finalHint;
+}
+throw new error_1.MongoInvalidArgumentError(`Currently only a PROVIDER_NAME in ${ALLOWED_PROVIDER_NAMES.join(',')} is supported for mechanism '${this.mechanism}'.`);
+function retryOperation = async function retryOperation(operation, originalError, { session, topology, selector }) {
+    const isWriteOperation = operation.hasAspect(operation_1.Aspect.WRITE_OPERATION);
+    const isReadOperation = operation.hasAspect(operation_1.Aspect.READ_OPERATION);
+    if (isWriteOperation && originalError.code === MMAPv1_RETRY_WRITES_ERROR_CODE) {
+        throw new error_1.MongoServerError({
+            message: MMAPv1_RETRY_WRITES_ERROR_MESSAGE,
+            errmsg: MMAPv1_RETRY_WRITES_ERROR_MESSAGE,
+            originalError
+        });
+    }
+    if (isWriteOperation && !(0, error_1.isRetryableWriteError)(originalError)) {
+        throw originalError;
+    }
+    if (isReadOperation && !(0, error_1.isRetryableReadError)(originalError)) {
+        throw originalError;
+    }
+    if (originalError instanceof error_1.MongoNetworkError &&
+        session.isPinned &&
+        !session.inTransaction() &&
+        operation.hasAspect(operation_1.Aspect.CURSOR_CREATING)) {
+        // If we have a cu...
+(0, compression_1.decompress)(compressorID, compressedBuffer).then(messageBody => {
+        if (messageBody.length !== messageHeader.length) {
+            return callback(new error_1.MongoDecompressionError('Message body and message header must be the same length'));
+        }
+        // If we are a monitoring connection message stream and
+        // there is more in the buffer that can be read, skip processing since we
+        // want the last hello command response that is in the buffer.
+        if (monitorHasAnotherHello()) {
+            return processIncomingData(stream, callback);
+        }
+        stream.emit('message', new ResponseType(message, messageHeader, messageBody));
+        if (buffer.length >= 4) {
+            return processIncomingData(stream, callback);
+        }
+        return callback();
+    }, error => {
+        return callback(error);
+    })
+servers.reduce((result: ServerDescription[], server: ServerDescription) => {
+      const stalenessMS =
+        sMax.lastWriteDate - server.lastWriteDate + topologyDescription.heartbeatFrequencyMS;
+
+      const staleness = stalenessMS / 1000;
+      const maxStalenessSeconds = readPreference.maxStalenessSeconds ?? 0;
+      if (staleness <= maxStalenessSeconds) {
+        result.push(server);
+      }
+
+      return result;
+    }, [])
+function processIncomingData = function processIncomingData(stream: MessageStream, callback: Callback<Buffer>): void {
+  const buffer = stream[kBuffer];
+  const sizeOfMessage = buffer.getInt32();
+
+  if (sizeOfMessage == null) {
+    return callback();
+  }
+
+  if (sizeOfMessage < 0) {
+    return callback(new MongoParseError(`Invalid message size: ${sizeOfMessage}`));
+  }
+
+  if (sizeOfMessage > stream.maxBsonMessageSize) {
+    return callback(
+      new MongoParseError(
+        `Invalid message size: ${sizeOfMessage}, max allowed: ${stream.maxBsonMessageSize}`
+      )
+    );
+  }
+
+  if (sizeOfMessage > buffer.length) {
+    return callback();
+  }
+
+  const message = buffer.read(sizeOfMessage);
+  const messageHeader: MessageHeader = {
+    length: message.readInt32LE(0),
+    requestId: message.readInt32LE(4),
+    responseTo: message.readInt32LE(8),
+    opCode: message.readInt32LE(12)
+  };
+
+  const monitorHasAnotherHello = () => {
+    if (stream.isMonitoringConnection) {
+      // Can we read the next message size?
+      co...
+function checkServer = function checkServer(monitor, callback) {
+    let start = (0, utils_1.now)();
+    monitor.emit(server_1.Server.SERVER_HEARTBEAT_STARTED, new events_1.ServerHeartbeatStartedEvent(monitor.address));
+    function failureHandler(err) {
+        monitor[kConnection]?.destroy({ force: true });
+        monitor[kConnection] = undefined;
+        monitor.emit(server_1.Server.SERVER_HEARTBEAT_FAILED, new events_1.ServerHeartbeatFailedEvent(monitor.address, (0, utils_1.calculateDurationInMs)(start), err));
+        const error = !(err instanceof error_1.MongoError)
+            ? new error_1.MongoError(error_1.MongoError.buildErrorMessage(err), { cause: err })
+            : err;
+        error.addErrorLabel(error_1.MongoErrorLabel.ResetPool);
+        if (error instanceof error_1.MongoNetworkTimeoutError) {
+            error.addErrorLabel(error_1.MongoErrorLabel.InterruptInUseConnections);
+        }
+        monitor.emit('resetServer', error);
+        callback(err);
+    }
+    const connection = monit...
+function fetchAzureKMSToken = async function fetchAzureKMSToken(
+  options: AzureKMSRequestOptions = {}
+): Promise<AzureTokenCacheEntry> {
+  const { headers, url } = prepareRequest(options);
+  const response = await get(url, { headers }).catch(error => {
+    if (error instanceof MongoCryptKMSRequestNetworkTimeoutError) {
+      throw new MongoCryptAzureKMSRequestError(`[Azure KMS] ${error.message}`);
+    }
+    throw error;
+  });
+  return parseResponse(response);
+}
+function defaultLogTransform = function defaultLogTransform(logObject, maxDocumentLength = exports.DEFAULT_MAX_DOCUMENT_LENGTH) {
+    let log = Object.create(null);
+    switch (logObject.name) {
+        case constants_1.COMMAND_STARTED:
+            log = attachCommandFields(log, logObject);
+            log.message = 'Command started';
+            log.command = stringifyWithMaxLen(logObject.command, maxDocumentLength);
+            log.databaseName = logObject.databaseName;
+            return log;
+        case constants_1.COMMAND_SUCCEEDED:
+            log = attachCommandFields(log, logObject);
+            log.message = 'Command succeeded';
+            log.durationMS = logObject.duration;
+            log.reply = stringifyWithMaxLen(logObject.reply, maxDocumentLength);
+            return log;
+        case constants_1.COMMAND_FAILED:
+            log = attachCommandFields(log, logObject);
+            log.message = 'Command failed';
+            log.durationMS = logObject.duration;
+            log.failure = logObject.fa...
+function makeIndexSpec = function makeIndexSpec(
+  indexSpec: IndexSpecification,
+  options?: CreateIndexesOptions
+): IndexDescription {
+  const key: Map<string, IndexDirection> = new Map();
+
+  const indexSpecs =
+    !Array.isArray(indexSpec) || isSingleIndexTuple(indexSpec) ? [indexSpec] : indexSpec;
+
+  // Iterate through array and handle different types
+  for (const spec of indexSpecs) {
+    if (typeof spec === 'string') {
+      key.set(spec, 1);
+    } else if (Array.isArray(spec)) {
+      key.set(spec[0], spec[1] ?? 1);
+    } else if (spec instanceof Map) {
+      for (const [property, value] of spec) {
+        key.set(property, value);
+      }
+    } else if (isObject(spec)) {
+      for (const [property, value] of Object.entries(spec)) {
+        key.set(property, value);
+      }
+    }
+  }
+
+  return { ...options, key };
+}

@@ -1,0 +1,19 @@
+this.env = Object.assign({}, process.env, {
+      SHARD_ID: this.id,
+      SHARD_COUNT: this.manager.totalShards,
+      CLIENT_TOKEN: this.manager.token,
+    })
+throw new Error('You do not have permission to join this voice channel; it is full.');
+new Promise((resolve, reject) => {
+      const listener = message => {
+        if (!message || message._sFetchProp !== prop) return;
+        process.removeListener('message', listener);
+        if (!message._error) resolve(message._result); else reject(Util.makeError(message._error));
+      };
+      process.on('message', listener);
+
+      this.send({ _sFetchProp: prop }).catch(err => {
+        process.removeListener('message', listener);
+        reject(err);
+      });
+    })

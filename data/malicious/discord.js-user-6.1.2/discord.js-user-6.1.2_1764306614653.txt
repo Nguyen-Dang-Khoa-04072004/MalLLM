@@ -1,0 +1,6 @@
+const message = this.client.actions.MessageDelete.handle({
+          channel_id: this.id,
+          id: messageIDs[0],
+        }).message
+color = (color[0] << 16) + (color[1] << 8) + color[2]
+(_tmp_28 = this.client).listenerCount

@@ -1,0 +1,11 @@
+request(url, args, function (err, content) {
+    if (err) {
+      return callback(err);
+    }
+    content = content || {};
+    var result = {
+      count: content.count || 0,
+      users: content.items || []
+    };
+    callback(null, result);
+  })

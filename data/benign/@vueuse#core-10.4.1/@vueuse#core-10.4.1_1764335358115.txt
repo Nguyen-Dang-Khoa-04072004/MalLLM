@@ -1,0 +1,1 @@
+window = _tmp_874.window === void 0 ? defaultWindow : _tmp_874.window

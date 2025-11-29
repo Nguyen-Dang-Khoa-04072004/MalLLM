@@ -1,0 +1,183 @@
+const downloadDestination = path.join(downloadDir, `cypress-${process.pid}.zip`)
+const verifyDownloadedFile = (filename, expectedSize, expectedChecksum) => {
+  if (expectedSize && expectedChecksum) {
+    debug('verifying checksum and file size');
+    return Promise.join(util.getFileChecksum(filename), util.getFileSize(filename), (checksum, filesize) => {
+      if (checksum === expectedChecksum && filesize === expectedSize) {
+        debug('downloaded file has the expected checksum and size ✅');
+        return;
+      }
+      debug('raising error: checksum or file size mismatch');
+      const text = stripIndent`
+          Corrupted download
+
+          Expected downloaded file to have checksum: ${expectedChecksum}
+          Computed checksum: ${checksum}
+
+          Expected downloaded file to have size: ${expectedSize}
+          Computed size: ${filesize}
+        `;
+      debug(text);
+      throw new Error(text);
+    });
+  }
+  if (expectedChecksum) {
+    debug('only checking expected file checksum %d', expectedChecksum);
+    return util.getFileChecksum(filename).then(che...
+const descriptions = {
+  autoCancelAfterFailures: 'overrides the project-level Cloud configuration to set the failed test threshold for auto cancellation or to disable auto cancellation when recording to the Cloud',
+  browser: 'runs Cypress in the browser with the given name. if a filesystem path is supplied, Cypress will attempt to use the browser at that path.',
+  cacheClear: 'delete all cached binaries',
+  cachePrune: 'deletes all cached binaries except for the version currently in use',
+  cacheList: 'list cached binary versions',
+  cachePath: 'print the path to the binary cache',
+  cacheSize: 'Used with the list command to show the sizes of the cached folders',
+  ciBuildId: 'the unique identifier for a run on your CI provider. typically a "BUILD_ID" env var. this value is automatically detected for most CI providers',
+  component: 'runs component tests',
+  config: 'sets configuration values. separate multiple values with a comma. overrides any value in cypress.config.{js,ts,mjs,cjs}.'...
+const tasks = new Listr([{
+    options: {
+      title: util.titleize('Downloading Cypress')
+    },
+    task: (ctx, task) => {
+      // as our download progresses indicate the status
+      progress.onProgress = progessify(task, 'Downloading Cypress');
+      return download.start({
+        version,
+        downloadDestination,
+        progress
+      }).then(redirectVersion => {
+        if (redirectVersion) version = redirectVersion;
+        debug(`finished downloading file: ${downloadDestination}`);
+      }).then(() => {
+        // save the download destination for unzipping
+        util.setTaskTitle(task, util.titleize(chalk.green('Downloaded Cypress')), rendererOptions.renderer);
+      });
+    }
+  }, unzipTask({
+    progress,
+    zipFilePath: downloadDestination,
+    installDir,
+    rendererOptions
+  }), {
+    options: {
+      title: util.titleize('Finishing Installation')
+    },
+    task: (ctx, task) => {
+      const cleanup = () => {
+        debug('removing zip file %s', downloadDestina...
+_tmp_20.solution = stripIndent`\n
+    We expected the binary to be installed here: ${chalk.cyan(executable)}
+
+    Reasons it may be missing:
+
+    - You're caching 'node_modules' but are not caching this path: ${util.getCacheDir()}
+    - You ran 'npm install' at an earlier build step but did not persist: ${util.getCacheDir()}
+
+    Properly caching the binary will fix this error and avoid downloading and unzipping Cypress.
+
+    Alternatively, you can run 'cypress install' to download the binary again.
+
+    ${chalk.blue('https://on.cypress.io/not-installed-ci-error')}
+  `
+const parseRealPlatformBinaryFolderAsync = binaryPath => {
+  return fs.realpathAsync(binaryPath).then(realPath => {
+    debug('CYPRESS_RUN_BINARY has realpath:', realPath);
+    if (!realPath.toString().endsWith(getPlatformExecutable())) {
+      return false;
+    }
+    if (os.platform() === 'darwin') {
+      return path.resolve(realPath, '..', '..', '..');
+    }
+    return path.resolve(realPath, '..');
+  });
+}
+Promise.resolve(util.exec(executable, args, stdioOptions)).catch(onSmokeTestError(smokeTestCommand, linuxWithDisplayEnv)).then(result => {
+      // TODO: when execa > 1.1 is released
+      // change this to `result.all` for both stderr and stdout
+      // use lodash to be robust during tests against null result or missing stdout
+      const smokeTestStdout = _.get(result, 'stdout', '');
+      debug('smoke test stdout "%s"', smokeTestStdout);
+      if (!util.stdoutLineMatches(String(random), smokeTestStdout)) {
+        debug('Smoke test failed because could not find %d in:', random, result);
+        const smokeTestStderr = _.get(result, 'stderr', '');
+        const errorText = smokeTestStderr || smokeTestStdout;
+        return throwFormErrorText(errors.smokeTestFailure(smokeTestCommand, false))(errorText);
+      }
+    })
+sp.stdout.on('data', data => {
+            if (inflatingRe.test(data)) {
+              return tick();
+            }
+          })
+fs.statAsync(executable).then(stat => {
+      const lastAccessedTime = _.get(stat, 'atime');
+      if (!lastAccessedTime) {
+        // the test runner has never been opened
+        // or could be a test simulating missing timestamp
+        return binary;
+      }
+      const accessed = dayjs(lastAccessedTime).fromNow();
+      binary.accessed = accessed;
+      return binary;
+    }, e => {
+      // could not find the binary or gets its stats
+      return binary;
+    })
+const spawn = (overrides = {}) => {
+      return new Promise((resolve, reject) => {
+        _.defaults(overrides, {
+          onStderrData: false,
+          electronLogging: false
+        });
+        const {
+          onStderrData,
+          electronLogging
+        } = overrides;
+        const envOverrides = util.getEnvOverrides(options);
+        const electronArgs = [];
+        const node11WindowsFix = isPlatform('win32');
+        let startScriptPath;
+        if (options.dev) {
+          executable = 'node';
+          // if we're in dev then reset
+          // the launch cmd to be 'npm run dev'
+          startScriptPath = path.resolve(__dirname, '..', '..', '..', 'scripts', 'start.js'), debug('in dev mode the args became %o', args);
+        }
+        if (!options.dev && verify.needsSandbox()) {
+          electronArgs.push('--no-sandbox');
+        }
+
+        // strip dev out of child process options
+        /**
+         * @type {import('child_process').ForkOptions}
+         */
+        let...
+new Promise((resolve, reject) => {
+        _.defaults(overrides, {
+          onStderrData: false,
+          electronLogging: false
+        });
+        const {
+          onStderrData,
+          electronLogging
+        } = overrides;
+        const envOverrides = util.getEnvOverrides(options);
+        const electronArgs = [];
+        const node11WindowsFix = isPlatform('win32');
+        let startScriptPath;
+        if (options.dev) {
+          executable = 'node';
+          // if we're in dev then reset
+          // the launch cmd to be 'npm run dev'
+          startScriptPath = path.resolve(__dirname, '..', '..', '..', 'scripts', 'start.js'), debug('in dev mode the args became %o', args);
+        }
+        if (!options.dev && verify.needsSandbox()) {
+          electronArgs.push('--no-sandbox');
+        }
+
+        // strip dev out of child process options
+        /**
+         * @type {import('child_process').ForkOptions}
+         */
+        let stdioOptions = _.pick(options, 'env', 'det...

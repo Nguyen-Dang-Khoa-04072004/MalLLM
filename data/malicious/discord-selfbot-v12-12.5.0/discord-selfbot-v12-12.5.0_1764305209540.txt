@@ -1,0 +1,61 @@
+MessageContextMenuCommandInteraction = package\src\structures\MessageContextMenuCommandInteraction.js::program:MessageContextMenuCommandInteraction:<init>
+function toSnakeCase = function toSnakeCase(obj) {
+  if (typeof obj !== 'object' || !obj) return obj;
+  if (obj instanceof Date) return obj;
+  if (Array.isArray(obj)) return obj.map(toSnakeCase);
+  return Object.fromEntries(Object.entries(obj).map(([key, value]) => [snakeCase(key), toSnakeCase(value)]));
+}
+SelectMenuOptionBuilder = package\src\structures\SelectMenuOptionBuilder.js::program:SelectMenuOptionBuilder:<init>
+ApplicationCommandPermissionsManager = package\src\managers\ApplicationCommandPermissionsManager.js::program:ApplicationCommandPermissionsManager:<init>
+function makeDiscordjsError = function makeDiscordjsError(Base) {
+  return class DiscordjsError extends Base {
+    constructor(code, ...args) {
+      super(message(code, args));
+      this.code = code;
+      Error.captureStackTrace?.(this, DiscordjsError);
+    }
+
+    get name() {
+      return `${super.name} [${this.code}]`;
+    }
+  };
+}
+const Targets = {
+  All: 'All',
+  Guild: 'Guild',
+  GuildScheduledEvent: 'GuildScheduledEvent',
+  Channel: 'Channel',
+  User: 'User',
+  Role: 'Role',
+  Invite: 'Invite',
+  Webhook: 'Webhook',
+  Emoji: 'Emoji',
+  Message: 'Message',
+  Integration: 'Integration',
+  StageInstance: 'StageInstance',
+  Sticker: 'Sticker',
+  Thread: 'Thread',
+  ApplicationCommand: 'ApplicationCommand',
+  Unknown: 'Unknown',
+}
+const BeforeReadyWhitelist = [
+  GatewayDispatchEvents.Ready,
+  GatewayDispatchEvents.Resumed,
+  GatewayDispatchEvents.GuildCreate,
+  GatewayDispatchEvents.GuildDelete,
+  GatewayDispatchEvents.GuildMembersChunk,
+  GatewayDispatchEvents.GuildMemberAdd,
+  GatewayDispatchEvents.GuildMemberRemove,
+]
+_tmp_5.options = options?.map(({ emoji, ...option }) => ({
+          ...option,
+          emoji: emoji && typeof emoji === 'string' ? resolvePartialEmoji(emoji) : emoji,
+        }))
+new Promise((resolve, reject) => {
+      const collector = this.createMessageComponentCollector(_options);
+      collector.once('end', (interactions, reason) => {
+        const interaction = interactions.first();
+        if (interaction) resolve(interaction);
+        else reject(new Error(ErrorCodes.InteractionCollectorError, reason));
+      });
+    })

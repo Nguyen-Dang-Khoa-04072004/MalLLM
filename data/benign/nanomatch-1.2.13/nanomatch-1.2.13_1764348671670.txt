@@ -1,0 +1,188 @@
+(_tmp_10 = nanomatch.compiler
+
+    /**
+     * Negation / escaping
+     */
+
+    .set('not', function(node) {
+      var prev = this.prev();
+      if (this.options.nonegate === true || prev.type !== 'bos') {
+        return this.emit('\\' + node.val, node);
+      }
+      return this.emit(node.val, node);
+    })
+    .set('escape', function(node) {
+      if (this.options.unescape && /^[-\w_.]/.test(node.val)) {
+        return this.emit(node.val, node);
+      }
+      return this.emit('\\' + node.val, node);
+    })
+    .set('quoted', function(node) {
+      return this.emit(node.val, node);
+    })
+
+    /**
+     * Regex
+     */
+
+    .set('dollar', function(node) {
+      if (node.parent.type === 'bracket') {
+        return this.emit(node.val, node);
+      }
+      return this.emit('\\' + node.val, node);
+    })
+
+    /**
+     * Dot: "."
+     */
+
+    .set('dot', function(node) {
+      if (node.dotfiles === true) this.dotfiles = true;
+      return this.emit('\\' + node.val, node);
+    })
+
+    /**
+     * Slas...).set
+utils.arrayify = function(val) {
+  if (typeof val === 'string') return [val];
+  return val ? (Array.isArray(val) ? val : [val]) : [];
+}
+val ? Array.isArray(val) ? val : [val] : __ecma.Array.factory()
+val = open + negated + inner + close
+matches = nanomatch.not(matches, options.ignore, options)
+function(node) {
+      var val = (/^\W/.test(node.val) ? '\\' : '') + node.val;
+      return this.emit(val, node);
+    }
+var val = (/^\W/.test(node.val) ? '\\' : '') + node.val
+utils.escapeRegex = function(str) {
+  return str.replace(/[-[\]{}()^$|*+?.\\/\s]/g, '\\$&');
+}
+function(node) {
+      var prev = this.prev();
+      // don't use "slash" variable so that we always avoid
+      // matching backslashes and slashes with a qmark
+      var val = '[^.\\\\/]';
+      if (this.options.dot || (prev.type !== 'bos' && prev.type !== 'slash')) {
+        val = '[^\\\\/]';
+      }
+
+      if (node.parsed.slice(-1) === '(') {
+        var ch = node.rest.charAt(0);
+        if (ch === '!' || ch === '=' || ch === ':') {
+          return this.emit(node.val, node);
+        }
+      }
+
+      if (node.val.length > 1) {
+        val += '{' + node.val.length + '}';
+      }
+      return this.emit(val, node);
+    }
+var prev = this.prev()
+var type = opts.noglobstar !== true ? 'globstar' : 'star'
+this.emit(val, node)
+this.state.globstar = true
+this.emit(node.val, node)
+!this.output || (/[?*+]/.test(ch) && node.parent.type !== 'bracket')
+this.emit('\\+', node)
+this.emit('+\\+?', node)
+this.emit('+', node)
+!m
+!this.output
+utils.isWindows() ? fp.replace(/^[a-z]:[\\/]+?/i, '/') : fp
+var before = this.prev(2)
+var next = this.next()
+nanomatch(list[i], patterns, options).length === 1
+utils.stripPrefix = function(str) {
+  if (str.charAt(0) === '.' && (str.charAt(1) === '/' || str.charAt(1) === '\\')) {
+    return str.slice(2);
+  }
+  return str;
+}
+this.output += '\\b'
+val = this.options.dot !== true
+          ? '(?:(?!(?:[' + slash() + ']|^)\\.).)*?'
+          : '(?:(?!(?:[' + slash() + ']|^)(?:\\.{1,2})($|[' + slash() + ']))(?!\\.{2}).)*?'
+'(?:(?!(?:[' + slash() + ']|^)(?:\\.{1,2})($|[' + slash() + ']))(?!\\.{2}).)*?'
+utils.isSlash = function(str) {
+  return str === '/' || str === '\\/' || str === '\\' || str === '\\\\';
+}
+val = '(' + val + ')'
+options && options.contains ? utils.containsPattern(pattern, options) : utils.equalsPattern(pattern, options)
+!m
+pos({
+        type: 'square',
+        val: m[1]
+      })
+utils._equals = function(filepath, unixPath, pattern) {
+  return pattern === filepath || pattern === unixPath;
+}
+this.output === '' && this.options.contains !== true
+this.output = '(?![' + slash() + '])'
+var str = next && next.type === 'bracket' ? star() : '*?'
+nanomatch.any = function(str, patterns, options) {
+  if (typeof str !== 'string') {
+    throw new TypeError('expected a string: "' + util.inspect(str) + '"');
+  }
+
+  if (utils.isEmptyString(str) || utils.isEmptyString(patterns)) {
+    return false;
+  }
+
+  if (typeof patterns === 'string') {
+    patterns = [patterns];
+  }
+
+  for (var i = 0; i < patterns.length; i++) {
+    if (nanomatch.isMatch(str, patterns[i], options)) {
+      return true;
+    }
+  }
+  return false;
+}
+var prefix = !this.dotfiles && type !== 'text' && type !== 'escape'
+        ? (this.options.dot ? '(?!(?:^|[' + slash() + '])\\.{1,2}(?:$|[' + slash() + ']))' : '(?!\\.)')
+        : ''
+this.options.dot ? '(?!(?:^|[' + slash() + '])\\.{1,2}(?:$|[' + slash() + ']))' : "(?!\.)"
+var esc = this.input.slice(0, 2)
+prefix += '(?!(\\.{2}|\\.[' + slash() + ']))(?=.)'
+var output = prefix + star()
+output = '(' + output + ')'
+this.emit(output, node)
+var contains = utils._contains(filepath, unixify(filepath), pattern)
+contains === true || options.nocase !== true
+function(node) {
+      var prev = this.prev();
+      var val = node.val;
+
+      this.output = '(?:\\.[' + slash() + '](?=.))?' + this.output;
+      if (this.state.metachar && prev.type !== 'qmark' && prev.type !== 'slash') {
+        val += (this.options.contains ? '[' + slash() + ']?' : '(?:[' + slash() + ']|$)');
+      }
+
+      return this.emit(val, node);
+    }
+this.isInside('bracket')
+this.output = '(?:\\.[' + slash() + '](?=.))?' + this.output
+nanomatch.all = function(str, patterns, options) {
+  if (typeof str !== 'string') {
+    throw new TypeError('expected a string: "' + util.inspect(str) + '"');
+  }
+
+  if (typeof patterns === 'string') {
+    patterns = [patterns];
+  }
+
+  for (var i = 0; i < patterns.length; i++) {
+    if (!nanomatch.isMatch(str, patterns[i], options)) {
+      return false;
+    }
+  }
+  return true;
+}
+utils.matchBasename = function(re) {
+  return function(filepath) {
+    return re.test(filepath) || re.test(path.basename(filepath));
+  };
+}

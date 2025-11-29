@@ -1,0 +1,19 @@
+function ɵɵprojection = function ɵɵprojection(nodeIndex, selectorIndex = 0, attrs) {
+    const lView = getLView();
+    const tView = getTView();
+    const tProjectionNode = getOrCreateTNode(tView, HEADER_OFFSET + nodeIndex, 16 /* TNodeType.Projection */, null, attrs || null);
+    // We can't use viewData[HOST_NODE] because projection nodes can be nested in embedded views.
+    if (tProjectionNode.projection === null)
+        tProjectionNode.projection = selectorIndex;
+    // `<ng-content>` has no content
+    setCurrentTNodeAsNotParent();
+    const hydrationInfo = lView[HYDRATION];
+    const isNodeCreationMode = !hydrationInfo || isInSkipHydrationBlock();
+    if (isNodeCreationMode &&
+        (tProjectionNode.flags & 32 /* TNodeFlags.isDetached */) !== 32 /* TNodeFlags.isDetached */) {
+        // re-distribution of projectable nodes is stored on a component's view level
+        applyProjection(tView, lView, tProjectionNode);
+    }
+}
+resolveComponentResources(url => Promise.resolve(resourceLoader.get(url)))
+        .then(() => moduleFactory)

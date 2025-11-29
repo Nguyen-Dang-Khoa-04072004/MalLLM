@@ -1,0 +1,10 @@
+function nodeResolvePath = function nodeResolvePath(modulePath, basedir, extensions) {
+  try {
+    return _resolve.default.sync(modulePath, {
+      basedir,
+      extensions
+    });
+  } catch (e) {
+    return null;
+  }
+}

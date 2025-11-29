@@ -1,0 +1,227 @@
+_tmp_0.userinfo = {
+      url: "https://api.github.com/user",
+      async request({ client, tokens }) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const profile = await client.userinfo(tokens.access_token!)
+
+        if (!profile.email) {
+          // If the user does not have a public email, get another via the GitHub API
+          // See https://docs.github.com/en/rest/users/emails#list-public-email-addresses-for-the-authenticated-user
+          const res = await fetch("https://api.github.com/user/emails", {
+            headers: { Authorization: `token ${tokens.access_token}` },
+          })
+
+          if (res.ok) {
+            const emails: GithubEmail[] = await res.json()
+            profile.email = (emails.find((e) => e.primary) ?? emails[0]).email
+          }
+        }
+
+        return profile
+      },
+    }
+function setLogger = function setLogger(
+  newLogger: Partial<LoggerInstance> = {},
+  debug?: boolean
+) {
+  // Turn off debug logging if `debug` isn't set to `true`
+  if (!debug) _logger.debug = () => {}
+
+  if (newLogger.error) _logger.error = newLogger.error
+  if (newLogger.warn) _logger.warn = newLogger.warn
+  if (newLogger.debug) _logger.debug = newLogger.debug
+}
+secureCookie = _tmp_12.secureCookie === void 0 ? process.env.NEXTAUTH_URL?.startsWith("https://") ??
+      !!process.env.VERCEL : _tmp_12.secureCookie
+_tmp_89.baseUrlServer = (0, _parseUrl.default)((_ref = (_process$env$NEXTAUTH2 = process.env.NEXTAUTH_URL_INTERNAL) !== null && _process$env$NEXTAUTH2 !== void 0 ? _process$env$NEXTAUTH2 : process.env.NEXTAUTH_URL) !== null && _ref !== void 0 ? _ref : process.env.VERCEL_URL).origin
+var OAuthCallbackError = function (_UnknownError) {
+  (0, _inherits2.default)(OAuthCallbackError, _UnknownError);
+
+  var _super2 = _createSuper(OAuthCallbackError);
+
+  function OAuthCallbackError() {
+    var _this2;
+
+    (0, _classCallCheck2.default)(this, OAuthCallbackError);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this2 = _super2.call.apply(_super2, [this].concat(args));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this2), "name", "OAuthCallbackError");
+    return _this2;
+  }
+
+  return (0, _createClass2.default)(OAuthCallbackError);
+}(UnknownError)
+clientLogger[level] = function (code, metadata) {
+        _logger[level](code, metadata);
+
+        if (level === "error") {
+          metadata = formatError(metadata);
+        }
+
+        ;
+        metadata.client = true;
+        var url = "".concat(basePath, "/_log");
+        var body = new URLSearchParams(_objectSpread({
+          level: level,
+          code: code
+        }, metadata));
+
+        if (navigator.sendBeacon) {
+          return navigator.sendBeacon(url, body);
+        }
+
+        return fetch(url, {
+          method: "POST",
+          body: body,
+          keepalive: true
+        });
+      }
+_tmp_6.req = {
+      body,
+      query,
+      cookies: Object.fromEntries(
+        cookies()
+          .getAll()
+          .map((c) => [c.name, c.value])
+      ),
+      headers: Object.fromEntries(headers() as Headers),
+      method: req.method,
+      action: nextauth?.[0] as AuthAction,
+      providerId: nextauth?.[1],
+      error: query.error ?? nextauth?.[1],
+    }
+_getSession2 = (0, _asyncToGenerator2.default)(_regenerator.default.mark(function _callee3(params) {
+    var _params$broadcast;
+
+    var session;
+    return _regenerator.default.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return (0, _utils.fetchData)("session", __NEXTAUTH, logger, params);
+
+          case 2:
+            session = _context3.sent;
+
+            if ((_params$broadcast = params === null || params === void 0 ? void 0 : params.broadcast) !== null && _params$broadcast !== void 0 ? _params$broadcast : true) {
+              broadcast.post({
+                event: "session",
+                data: {
+                  trigger: "getSession"
+                }
+              });
+            }
+
+            return _context3.abrupt("return", session);
+
+          case 5:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+...
+_regenerator.default.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return (0, _utils.fetchData)("session", __NEXTAUTH, logger, params);
+
+          case 2:
+            session = _context3.sent;
+
+            if ((_params$broadcast = params === null || params === void 0 ? void 0 : params.broadcast) !== null && _params$broadcast !== void 0 ? _params$broadcast : true) {
+              broadcast.post({
+                event: "session",
+                data: {
+                  trigger: "getSession"
+                }
+              });
+            }
+
+            return _context3.abrupt("return", session);
+
+          case 5:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3)
+await ((_events$signIn = events.signIn) === null || _events$signIn === void 0 ? void 0 : _events$signIn.call(events, {
+          user,
+          account,
+          profile,
+          isNewUser
+        }))
+broadcast.post({
+                event: "session",
+                data: {
+                  trigger: "getSession"
+                }
+              })
+_signOut = (0, _asyncToGenerator2.default)(_regenerator.default.mark(function _callee7(options) {
+    var _options$redirect;
+
+    var _ref6, _ref6$callbackUrl, callbackUrl, baseUrl, fetchOptions, res, data, _data$url2, url;
+
+    return _regenerator.default.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _ref6 = options !== null && options !== void 0 ? options : {}, _ref6$callbackUrl = _ref6.callbackUrl, callbackUrl = _ref6$callbackUrl === void 0 ? window.location.href : _ref6$callbackUrl;
+            baseUrl = (0, _utils.apiBaseUrl)(__NEXTAUTH);
+            _context7.t0 = {
+              "Content-Type": "application/x-www-form-urlencoded"
+            };
+            _context7.t1 = URLSearchParams;
+            _context7.next = 6;
+            return getCsrfToken();
+
+          case 6:
+            _context7.t2 = _context7.sent;
+            _context7.t3 = callbackUrl;
+            _context7.t4 = {
+     ...
+_regenerator.default.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _ref6 = options !== null && options !== void 0 ? options : {}, _ref6$callbackUrl = _ref6.callbackUrl, callbackUrl = _ref6$callbackUrl === void 0 ? window.location.href : _ref6$callbackUrl;
+            baseUrl = (0, _utils.apiBaseUrl)(__NEXTAUTH);
+            _context7.t0 = {
+              "Content-Type": "application/x-www-form-urlencoded"
+            };
+            _context7.t1 = URLSearchParams;
+            _context7.next = 6;
+            return getCsrfToken();
+
+          case 6:
+            _context7.t2 = _context7.sent;
+            _context7.t3 = callbackUrl;
+            _context7.t4 = {
+              csrfToken: _context7.t2,
+              callbackUrl: _context7.t3,
+              json: true
+            };
+            _context7.t5 = new _context7.t1(_context7.t4);
+            fetchOptions = {
+              method: "post",
+   ...
+baseUrl = (0, _utils.apiBaseUrl)(__NEXTAUTH)
+const account = {
+      providerAccountId: user.id,
+      type: "credentials",
+      provider: provider.id
+    }
+broadcast.post({
+              event: "session",
+              data: {
+                trigger: "signout"
+              }
+            })

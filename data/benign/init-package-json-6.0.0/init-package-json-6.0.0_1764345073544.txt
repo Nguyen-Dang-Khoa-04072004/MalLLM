@@ -1,0 +1,1 @@
+deps[dir] = config.get('save-exact') ? p.version : config.get('save-prefix') + p.version

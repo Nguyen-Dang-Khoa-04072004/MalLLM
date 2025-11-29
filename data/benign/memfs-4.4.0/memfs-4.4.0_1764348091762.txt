@@ -1,0 +1,5 @@
+filename = resolve(filename, cwd)
+const dir = dirname(filename)
+this.mkdirpBase(dir, 511 /* MODE.DIR */)
+this.writeFileSync(filename, data)
+this.mkdirpBase(filename, 511 /* MODE.DIR */)

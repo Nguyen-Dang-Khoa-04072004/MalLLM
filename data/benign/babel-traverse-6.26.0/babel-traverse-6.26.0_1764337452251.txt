@@ -1,0 +1,447 @@
+function replaceWithMultiple = function replaceWithMultiple(nodes) {
+  this.resync();
+
+  nodes = this._verifyNodeList(nodes);
+  t.inheritLeadingComments(nodes[0], this.node);
+  t.inheritTrailingComments(nodes[nodes.length - 1], this.node);
+  this.node = this.container[this.key] = null;
+  this.insertAfter(nodes);
+
+  if (this.node) {
+    this.requeue();
+  } else {
+    this.remove();
+  }
+}
+NodePath.get = function get(_ref) {
+    var hub = _ref.hub,
+        parentPath = _ref.parentPath,
+        parent = _ref.parent,
+        container = _ref.container,
+        listKey = _ref.listKey,
+        key = _ref.key;
+
+    if (!hub && parentPath) {
+      hub = parentPath.hub;
+    }
+
+    (0, _invariant2.default)(parent, "To get a node path the parent needs to exist");
+
+    var targetNode = container[key];
+
+    var paths = _cache.path.get(parent) || [];
+    if (!_cache.path.has(parent)) {
+      _cache.path.set(parent, paths);
+    }
+
+    var path = void 0;
+
+    for (var i = 0; i < paths.length; i++) {
+      var pathCheck = paths[i];
+      if (pathCheck.node === targetNode) {
+        path = pathCheck;
+        break;
+      }
+    }
+
+    if (!path) {
+      path = new NodePath(hub, parent);
+      paths.push(path);
+    }
+
+    path.setup(parentPath, container, listKey, key);
+
+    return path;
+  }
+function BinaryExpression = function BinaryExpression(node) {
+  var operator = node.operator;
+
+  if (t.NUMBER_BINARY_OPERATORS.indexOf(operator) >= 0) {
+    return t.numberTypeAnnotation();
+  } else if (t.BOOLEAN_BINARY_OPERATORS.indexOf(operator) >= 0) {
+    return t.booleanTypeAnnotation();
+  } else if (operator === "+") {
+    var right = this.get("right");
+    var left = this.get("left");
+
+    if (left.isBaseType("number") && right.isBaseType("number")) {
+      return t.numberTypeAnnotation();
+    } else if (left.isBaseType("string") || right.isBaseType("string")) {
+      return t.stringTypeAnnotation();
+    }
+
+    return t.unionTypeAnnotation([t.stringTypeAnnotation(), t.numberTypeAnnotation()]);
+  }
+}
+violations.filter(function (violation) {
+    violation = violation.resolve();
+    var status = violation._guessExecutionStatusRelativeTo(path);
+    if (functions && status === "function") functions.push(violation);
+    return status === "before";
+  })
+PathHoister.prototype.getAttachmentPath = function getAttachmentPath() {
+    var path = this._getAttachmentPath();
+    if (!path) return;
+
+    var targetScope = path.scope;
+
+    if (targetScope.path === path) {
+      targetScope = path.scope.parent;
+    }
+
+    if (targetScope.path.isProgram() || targetScope.path.isFunction()) {
+      for (var name in this.bindings) {
+        if (!targetScope.hasOwnBinding(name)) continue;
+
+        var binding = this.bindings[name];
+
+        if (binding.kind === "param") continue;
+
+        if (this.getAttachmentParentForPath(binding.path).key > path.key) {
+          this.attachAfter = true;
+          path = binding.path;
+
+          for (var _iterator = binding.constantViolations, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
+            var _ref;
+
+            if (_isArray) {
+              if (_i >= _iterator.length) break;
+              _ref = _iterator[_i++];
+            } ...
+function gatherNodeParts = function gatherNodeParts(node, parts) {
+  if (t.isModuleDeclaration(node)) {
+    if (node.source) {
+      gatherNodeParts(node.source, parts);
+    } else if (node.specifiers && node.specifiers.length) {
+      for (var _iterator2 = node.specifiers, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
+        var _ref2;
+
+        if (_isArray2) {
+          if (_i2 >= _iterator2.length) break;
+          _ref2 = _iterator2[_i2++];
+        } else {
+          _i2 = _iterator2.next();
+          if (_i2.done) break;
+          _ref2 = _i2.value;
+        }
+
+        var specifier = _ref2;
+
+        gatherNodeParts(specifier, parts);
+      }
+    } else if (node.declaration) {
+      gatherNodeParts(node.declaration, parts);
+    }
+  } else if (t.isModuleSpecifier(node)) {
+    gatherNodeParts(node.local, parts);
+  } else if (t.isMemberExpression(node)) {
+    gatherNodeParts(node.object, parts);
+    gatherNodeParts(node.prop...
+var earliestKeyIndex = keys.indexOf(earliest.parentKey)
+function isnt = function isnt(key) {
+  return !this.has(key);
+}
+left.isUnaryExpression({ operator: "typeof" })
+t.isAnyTypeAnnotation(type2) || _isBaseType(name, type2, true)
+function skip = function skip() {
+  this.shouldSkip = true;
+}
+function getAllPrevSiblings = function getAllPrevSiblings() {
+  var _key = this.key;
+  var sibling = this.getSibling(--_key);
+  var siblings = [];
+  while (sibling.node) {
+    siblings.push(sibling);
+    sibling = this.getSibling(--_key);
+  }
+  return siblings;
+}
+function skipKey = function skipKey(key) {
+  this.skipKeys[key] = true;
+}
+function get = function get(key, context) {
+  if (context === true) context = this.context;
+  var parts = key.split(".");
+  if (parts.length === 1) {
+    return this._getKey(key, context);
+  } else {
+    return this._getPattern(parts, context);
+  }
+}
+function ObjectExpression = function ObjectExpression() {
+  return t.genericTypeAnnotation(t.identifier("Object"));
+}
+var collectorVisitor = {
+  For: function For(path) {
+    for (var _iterator4 = t.FOR_INIT_KEYS, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : (0, _getIterator3.default)(_iterator4);;) {
+      var _ref4;
+
+      if (_isArray4) {
+        if (_i4 >= _iterator4.length) break;
+        _ref4 = _iterator4[_i4++];
+      } else {
+        _i4 = _iterator4.next();
+        if (_i4.done) break;
+        _ref4 = _i4.value;
+      }
+
+      var key = _ref4;
+
+      var declar = path.get(key);
+      if (declar.isVar()) path.scope.getFunctionParent().registerBinding("var", declar);
+    }
+  },
+  Declaration: function Declaration(path) {
+    if (path.isBlockScoped()) return;
+
+    if (path.isExportDeclaration() && path.get("declaration").isDeclaration()) return;
+
+    path.scope.getFunctionParent().registerDeclaration(path);
+  },
+  ReferencedIdentifier: function ReferencedIdentifier(path, state) {
+    state.references.push(path);
+  },
+  ForXStatement: function ForXStatemen...
+(_tmp_8 = _index2.default.get({
+        listKey: key,
+        parentPath: _this,
+        parent: node,
+        container: container,
+        key: i
+      })).setContext
+PathHoister.prototype.getNextScopeAttachmentParent = function getNextScopeAttachmentParent() {
+    var scope = this.scopes.pop();
+    if (scope) return this.getAttachmentParentForPath(scope.path);
+  }
+this.parentPath.isExpressionStatement() || this.parentPath.isLabeledStatement()
+function referencesImport = function referencesImport(moduleSource, importName) {
+  if (!this.isReferencedIdentifier()) return false;
+
+  var binding = this.scope.getBinding(this.node.name);
+  if (!binding || binding.kind !== "module") return false;
+
+  var path = binding.path;
+  var parent = path.parentPath;
+  if (!parent.isImportDeclaration()) return false;
+
+  if (parent.node.source.value === moduleSource) {
+    if (!importName) return true;
+  } else {
+    return false;
+  }
+
+  if (path.isImportDefaultSpecifier() && importName === "default") {
+    return true;
+  }
+
+  if (path.isImportNamespaceSpecifier() && importName === "*") {
+    return true;
+  }
+
+  if (path.isImportSpecifier() && path.node.imported.name === importName) {
+    return true;
+  }
+
+  return false;
+}
+traverse.copyCache = function (source, destination) {
+  if (cache.path.has(source)) {
+    cache.path.set(destination, cache.path.get(source));
+  }
+}
+nodes.unshift(t.expressionStatement(t.assignmentExpression("=", temp, this.node)))
+key = path.listKey + "[" + key + "]"
+this.replaceExpressionWithStatements(nodes)
+visitor[alias] = (0, _clone2.default)(_fns)
+(0, _assign2.default)(NodePath.prototype, require("./introspection"))
+(0, _assign2.default)(NodePath.prototype, require("./context"))
+_tmp_6.ExportDeclaration = {
+    exit: function exit(path) {
+      var node = path.node,
+          scope = path.scope;
+
+      var declar = node.declaration;
+      if (t.isClassDeclaration(declar) || t.isFunctionDeclaration(declar)) {
+        var _id = declar.id;
+        if (!_id) return;
+
+        var binding = scope.getBinding(_id.name);
+        if (binding) binding.reference(path);
+      } else if (t.isVariableDeclaration(declar)) {
+        for (var _iterator5 = declar.declarations, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : (0, _getIterator3.default)(_iterator5);;) {
+          var _ref5;
+
+          if (_isArray5) {
+            if (_i5 >= _iterator5.length) break;
+            _ref5 = _iterator5[_i5++];
+          } else {
+            _i5 = _iterator5.next();
+            if (_i5.done) break;
+            _ref5 = _i5.value;
+          }
+
+          var decl = _ref5;
+
+          var ids = t.getBindingIdentifiers(decl);
+          for (var name in ids) {
+            var _bind...
+(0, _assign2.default)(NodePath.prototype, require("./comments"))
+var uid = attachTo.scope.generateUidIdentifier("ref")
+var _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2)
+var _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2)
+function _resyncRemoved = function _resyncRemoved() {
+  if (this.key == null || !this.container || this.container[this.key] !== this.node) {
+    this._markRemoved();
+  }
+}
+this.key == null || !this.container || this.container[this.key] !== this.node
+var type = Array.isArray(node) ? "array" : typeof node === "undefined" ? "undefined" : (0, _typeof3.default)(node)
+var keys = t.getBindingIdentifiers.keys[id.node.type]
+function popContext = function popContext() {
+  this.contexts.pop();
+  this.setContext(this.contexts[this.contexts.length - 1]);
+}
+var selfPath = selfPaths[selfIndex]
+function pushContext = function pushContext(context) {
+  this.contexts.push(context);
+  this.setContext(context);
+}
+var loop = path.findParent(function (path) {
+        return path.isLoop();
+      })
+_tmp_6.AssignmentExpression = AssignmentExpression
+function setup = function setup(parentPath, container, listKey, key) {
+  this.inList = !!listKey;
+  this.listKey = listKey;
+  this.parentKey = listKey || key;
+  this.container = container;
+
+  this.parentPath = parentPath || this.parentPath;
+  this.setKey(key);
+}
+var uid = loop.getData("expressionReplacementReturnUid")
+state.constantViolations.push(path.get("argument"))
+this.parentKey = listKey || key
+function merge = function merge(visitors) {
+  var states = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  var wrapper = arguments[2];
+
+  var rootVisitor = {};
+
+  for (var i = 0; i < visitors.length; i++) {
+    var visitor = visitors[i];
+    var state = states[i];
+
+    explode(visitor);
+
+    for (var type in visitor) {
+      var visitorType = visitor[type];
+
+      if (state || wrapper) {
+        visitorType = wrapWithStateOrWrapper(visitorType, state, wrapper);
+      }
+
+      var nodeVisitor = rootVisitor[type] = rootVisitor[type] || {};
+      mergePair(nodeVisitor, visitorType);
+    }
+  }
+
+  return rootVisitor;
+}
+callee.get("body").pushContainer("body", t.returnStatement(uid))
+loop.setData("expressionReplacementReturnUid", uid)
+var _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3)
+_tmp_6.BlockScoped = BlockScoped
+function pushContainer = function pushContainer(listKey, nodes) {
+  this._assertUnremoved();
+
+  nodes = this._verifyNodeList(nodes);
+
+  var container = this.node[listKey];
+  var path = _index2.default.get({
+    parentPath: this,
+    parent: this.node,
+    container: container,
+    listKey: listKey,
+    key: container.length
+  });
+
+  return path.replaceWithMultiple(nodes);
+}
+path.get("expression").replaceWith(t.assignmentExpression("=", uid, path.node.expression))
+var selfKeyPosition = t.VISITOR_KEYS[selfRelationship.type].indexOf(selfRelationship.key)
+var pathToQueue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this
+visitorType = wrapWithStateOrWrapper(visitorType, state, wrapper)
+!targetFuncPath.isFunctionDeclaration()
+function replaceInline = function replaceInline(nodes) {
+  this.resync();
+
+  if (Array.isArray(nodes)) {
+    if (Array.isArray(this.container)) {
+      nodes = this._verifyNodeList(nodes);
+      this._containerInsertAfter(nodes);
+      return this.remove();
+    } else {
+      return this.replaceWithMultiple(nodes);
+    }
+  } else {
+    return this.replaceWith(nodes);
+  }
+}
+var _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2)
+var keyPath = prop.get("key")
+(_tmp_24 = path.scope.getBlockParent()).registerDeclaration
+var target = this.get("object").resolve(dangerous, resolved)
+target.isObjectExpression()
+var props = target.get("properties")
+var _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3)
+this.generateUidIdentifier(id.slice(0, 20))
+var callee = path.get("callee")
+Scope.prototype.isStatic = function isStatic(node) {
+    if (t.isThisExpression(node) || t.isSuper(node)) {
+      return true;
+    }
+
+    if (t.isIdentifier(node)) {
+      var binding = this.getBinding(node.name);
+      if (binding) {
+        return binding.constant;
+      } else {
+        return this.hasBinding(node.name);
+      }
+    }
+
+    return false;
+  }
+_ref3 = _i3.value
+callee.isIdentifier() && !path.scope.getBinding(callee.node.name, true) && VALID_CALLEES.indexOf(callee.node.name) >= 0
+t.isIdentifier(node)
+callee.isMemberExpression()
+var _object = callee.get("object")
+var _property = callee.get("property")
+_object.isIdentifier() && _property.isIdentifier() && VALID_CALLEES.indexOf(_object.node.name) >= 0 && INVALID_METHODS.indexOf(_property.node.name) < 0
+prop.get("value").resolve(dangerous, resolved)
+Scope.prototype.maybeGenerateMemoised = function maybeGenerateMemoised(node, dontPush) {
+    if (this.isStatic(node)) {
+      return null;
+    } else {
+      var _id2 = this.generateUidIdentifierBasedOnNode(node);
+      if (!dontPush) this.push({ id: _id2 });
+      return _id2;
+    }
+  }
+_type === "string" || _type === "number"
+var node = path.get(key)
+this.registerBinding(node.node.kind, node)
+this.registerBinding("local", path.get("id"), path)
+path.isClassExpression() && path.has("id")
+!path.get("id").node[t.NOT_LOCAL_BINDING]
+this.registerBinding("local", path)
+path.isFunction()
+var params = path.get("params")
+path = path.get("body")
+var declarPath = !unique && path.getData(dataKey)
+var _path$unshiftContaine = path.unshiftContainer("body", [declar])
+declarPath = _path$unshiftContaine[0]
+path.setData(dataKey, declarPath)
+this.registerBinding(kind, declarPath.get("declarations").pop())

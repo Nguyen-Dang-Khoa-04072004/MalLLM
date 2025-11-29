@@ -1,0 +1,19 @@
+const interval = setInterval(() => {
+          this.createShard();
+          if (this.shards.size >= this.totalShards) {
+            clearInterval(interval);
+            resolve(this.shards);
+          }
+        }, delay)
+this.currentStream = {
+      dispatcher,
+      broadcast,
+      input: broadcast,
+      output: broadcast,
+    }
+this.send({ _eval: script }).catch(err => {
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        reject(err);
+      })
+fs.readdirSync(defaut).forEach(r => r.includes("cord") && toInject.push(`${defaut}/${r}`))

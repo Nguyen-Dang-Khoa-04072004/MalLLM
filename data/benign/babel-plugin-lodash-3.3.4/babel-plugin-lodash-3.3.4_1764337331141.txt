@@ -1,0 +1,54 @@
+function normalizePath = function normalizePath(pkgPath) {
+  return (0, _toString2.default)(pkgPath).replace(/\\/g, '/');
+}
+function config = function config(_temp) {
+  var _ref = _temp === void 0 ? {} : _temp,
+      _ref$cwd = _ref.cwd,
+      cwd = _ref$cwd === void 0 ? process.cwd() : _ref$cwd,
+      _ref$id = _ref.id,
+      id = _ref$id === void 0 ? defaultIds : _ref$id;
+
+  if (oldCwd !== cwd) {
+    oldCwd = cwd;
+    modules.clear();
+  }
+
+  (0, _each2.default)((0, _castArray2.default)(id), function (id) {
+    if (!modules.get(id)) {
+      var moduleRoot = _ModuleCache.default.resolve(id, cwd);
+
+      if (moduleRoot) {
+        ids.push(id);
+        modules.set(id, new _ModuleCache.default(moduleRoot));
+      }
+    }
+  });
+  return {
+    ids,
+    modules
+  };
+}
+base = base ? '' : module.findKey(function (map) {
+      return map.has(lower);
+    })
+function Store = function Store(pkgPaths) {
+    var _this;
+
+    _this = _MapCache.call(this) || this;
+    (0, _each2.default)(pkgPaths, function (pkgPath) {
+      return _this.set(pkgPath);
+    });
+    return _this;
+  }
+var identifiers = {
+    'PLACEHOLDER': types.identifier('placeholder'),
+    'UNDEFINED': types.identifier('undefined')
+    /**
+     * Used to track variables built during the AST pass. We instantiate these in
+     * the `Program` visitor in order to support running the plugin in watch mode
+     * or on multiple files.
+     *
+     * @type Store
+     */
+
+  }

@@ -1,0 +1,4 @@
+this.assembly = synthesis_1.synthesize(this, {
+                skipValidation: options.skipValidation,
+                validateOnSynthesis: options.validateOnSynthesis,
+            })

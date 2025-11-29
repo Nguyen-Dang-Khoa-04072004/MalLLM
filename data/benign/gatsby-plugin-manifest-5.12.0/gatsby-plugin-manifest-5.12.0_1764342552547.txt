@@ -1,0 +1,15 @@
+const iconDigest = (0, _gatsbyCoreUtils.createContentDigest)(fs.readFileSync(icon))
+manifest.icons = await processIconSet(manifest.icons)
+manifest.icons = manifest.icons.map(icon => {
+    return {
+      ...icon,
+      src: (0, _gatsbyCoreUtils.slash)(path.join(basePath, icon.src))
+    };
+  })
+return {
+      ...icon,
+      src: (0, _gatsbyCoreUtils.slash)(path.join(basePath, icon.src))
+    }
+...icon
+_tmp_30.src = (0, _gatsbyCoreUtils.slash)(path.join(basePath, icon.src))
+fs.writeFileSync(path.join(`public`, `manifest${suffix}.webmanifest`), JSON.stringify(manifest))

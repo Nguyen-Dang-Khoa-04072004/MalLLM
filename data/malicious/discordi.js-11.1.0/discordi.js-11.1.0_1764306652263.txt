@@ -1,0 +1,14 @@
+this.resetTimeout = this.client.setTimeout(() => {
+            this.remaining = this.limit;
+            this.globalLimit = false;
+            this.handle();
+            this.resetTimeout = null;
+          }, Number(res.headers['retry-after']) + this.client.options.restTimeOffset)
+this.register(Constants.WSEvents.PRESENCE_UPDATE, require('./handlers/PresenceUpdate'))
+new Promise((resolve, reject) => {
+      const sent = process.send(message, err => {
+        if (err) reject(err); else resolve();
+      });
+      if (!sent) throw new Error('Failed to send message to master process.');
+    })
+this.permissionOverwrites.set(overwrite.id, new PermissionOverwrites(this, overwrite))

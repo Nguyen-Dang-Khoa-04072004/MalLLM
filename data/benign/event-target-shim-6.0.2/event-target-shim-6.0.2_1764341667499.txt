@@ -1,0 +1,1 @@
+const retv = internalDataMap$1.get(event)

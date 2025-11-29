@@ -1,0 +1,6 @@
+_tmp_0.FST_ERR_CTP_BODY_TOO_LARGE = createError(
+    'FST_ERR_CTP_BODY_TOO_LARGE',
+    'Request body is too large',
+    413,
+    RangeError
+  )

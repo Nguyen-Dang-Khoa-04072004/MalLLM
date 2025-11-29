@@ -1,0 +1,289 @@
+LRUCacheWithDelete.prototype.set = function(key, value) {
+
+  var pointer = this.items[key];
+
+  // The key already exists, we just need to update the value and splay on top
+  if (typeof pointer !== 'undefined') {
+    this.splayOnTop(pointer);
+    this.V[pointer] = value;
+
+    return;
+  }
+
+  // The cache is not yet full
+  if (this.size < this.capacity) {
+    if (this.deletedSize > 0) {
+      // If there is a "hole" in the pointer list, reuse it
+      pointer = this.deleted[--this.deletedSize];
+    }
+    else {
+      // otherwise append to the pointer list
+      pointer = this.size;
+    }
+    this.size++;
+  }
+
+  // Cache is full, we need to drop the last value
+  else {
+    pointer = this.tail;
+    this.tail = this.backward[pointer];
+    delete this.items[this.K[pointer]];
+  }
+
+  // Storing key & value
+  this.items[key] = pointer;
+  this.K[pointer] = key;
+  this.V[pointer] = value;
+
+  // Moving the item at the front of the list
+  this.forward[pointer] = this.head;
+  this.backward[this.h...
+function BloomFilter = function BloomFilter(capacityOrOptions) {
+  var options = {};
+
+  if (!capacityOrOptions)
+    throw new Error('mnemonist/BloomFilter.constructor: a BloomFilter must be created with a capacity.');
+
+  if (typeof capacityOrOptions === 'object')
+    options = capacityOrOptions;
+  else
+    options.capacity = capacityOrOptions;
+
+  // Handling capacity
+  if (typeof options.capacity !== 'number' || options.capacity <= 0)
+    throw new Error('mnemonist/BloomFilter.constructor: `capacity` option should be a positive integer.');
+
+  this.capacity = options.capacity;
+
+  // Handling error rate
+  this.errorRate = options.errorRate || DEFAULTS.errorRate;
+
+  if (typeof this.errorRate !== 'number' || options.errorRate <= 0)
+    throw new Error('mnemonist/BloomFilter.constructor: `errorRate` option should be a positive float.');
+
+  this.clear();
+}
+function inplaceQuickSortIndices = function inplaceQuickSortIndices(array, indices, lo, hi) {
+  var p, i, l, r, t, swap;
+
+  LOS[0] = lo;
+  HIS[0] = hi;
+  i = 0;
+
+  while (i >= 0) {
+    l = LOS[i];
+    r = HIS[i] - 1;
+
+    if (l < r) {
+      t = indices[l];
+      p = array[t];
+
+      while (l < r) {
+        while (array[indices[r]] >= p && l < r)
+          r--;
+
+        if (l < r)
+          indices[l++] = indices[r];
+
+        while (array[indices[l]] <= p && l < r)
+          l++;
+
+        if (l < r)
+          indices[r--] = indices[l];
+      }
+
+      indices[l] = t;
+      LOS[i + 1] = l + 1;
+      HIS[i + 1] = HIS[i];
+      HIS[i++] = l;
+
+      if (HIS[i] - LOS[i] > HIS[i - 1] - LOS[i - 1]) {
+        swap = LOS[i];
+        LOS[i] = LOS[i - 1];
+        LOS[i - 1] = swap;
+
+        swap = HIS[i];
+        HIS[i] = HIS[i - 1];
+        HIS[i - 1] = swap;
+      }
+    }
+    else {
+      i--;
+    }
+  }
+
+  return indices;
+}
+function createSuggestionItem = function createSuggestionItem(term, distance, count) {
+  return {
+    term: term || '',
+    distance: distance || 0,
+    count: count || 0
+  };
+}
+function compare = function compare(string, lookup, m, n) {
+  return (
+    (string[m] - string[n]) ||
+    (m % 3 === 2 ?
+      (string[m + 1] - string[n + 1]) || (lookup[m + 2] - lookup[n + 2]) :
+      (lookup[m + 1] - lookup[n + 1]))
+  );
+}
+CircularBuffer.prototype.unshift = function(item) {
+  var index = this.start - 1;
+
+  if (this.start === 0)
+    index = this.capacity - 1;
+
+  this.items[index] = item;
+
+  // Overwriting
+  if (this.size === this.capacity) {
+
+    this.start = index;
+
+    return this.size;
+  }
+
+  this.start = index;
+
+  return ++this.size;
+}
+DefaultMap.prototype.set = function(key, value) {
+  this.items.set(key, value);
+  this.size = this.items.size;
+
+  return this;
+}
+MultiMap.prototype.remove = function(key, value) {
+  var container = this.items.get(key),
+      wasDeleted,
+      index;
+
+  if (!container)
+    return false;
+
+  if (this.Container === Set) {
+    wasDeleted = container.delete(value);
+
+    if (wasDeleted)
+      this.size--;
+
+    if (container.size === 0) {
+      this.items.delete(key);
+      this.dimension--;
+    }
+
+    return wasDeleted;
+  }
+  else {
+    index = container.indexOf(value);
+
+    if (index === -1)
+      return false;
+
+    this.size--;
+
+    if (container.length === 1) {
+      this.items.delete(key);
+      this.dimension--;
+
+      return true;
+    }
+
+    container.splice(index, 1);
+
+    return true;
+  }
+}
+function pop = function pop(compare, heap) {
+  var lastItem = heap.pop();
+
+  if (heap.length !== 0) {
+    var item = heap[0];
+    heap[0] = lastItem;
+    siftUp(compare, heap, 0);
+
+    return item;
+  }
+
+  return lastItem;
+}
+SparseMap.prototype.delete = function(member) {
+  var index = this.sparse[member];
+
+  if (index >= this.size || this.dense[index] !== member)
+    return false;
+
+  index = this.dense[this.size - 1];
+  this.dense[this.sparse[member]] = index;
+  this.sparse[index] = this.sparse[member];
+  this.size--;
+
+  return true;
+}
+FixedStack.prototype.toArray = function() {
+  var array = new this.ArrayClass(this.size),
+      l = this.size - 1,
+      i = this.size;
+
+  while (i--)
+    array[i] = this.items[l - i];
+
+  return array;
+}
+function unionUniqueArrays = function unionUniqueArrays(a, b) {
+
+  // One of the arrays is empty
+  if (a.length === 0)
+    return b.slice();
+  if (b.length === 0)
+    return a.slice();
+
+  // Finding min array
+  var tmp;
+
+  if (a[0] > b[0]) {
+    tmp = a;
+    a = b;
+    b = tmp;
+  }
+
+  // If array have non overlapping ranges, we can just concatenate them
+  var aEnd = a[a.length - 1],
+      bStart = b[0];
+
+  if (aEnd < bStart) {
+    if (typed.isTypedArray(a))
+      return typed.concat(a, b);
+    return a.concat(b);
+  }
+
+  // Initializing target
+  var array = new a.constructor();
+
+  // Iterating until we overlap
+  var i, l, v;
+
+  for (i = 0, l = a.length; i < l; i++) {
+    v = a[i];
+
+    if (v < bStart)
+      array.push(v);
+    else
+      break;
+  }
+
+  // Handling overlap
+  var aPointer = i,
+      aLength = a.length,
+      bPointer = 0,
+      bLength = b.length,
+      aHead,
+      bHead;
+
+  while (aPointer < aLength && bPointer < bLength) {
+    aHead = a[aPointer];
+    bHead = b[bPointer];
+
+    if (aHead <= bHead)...

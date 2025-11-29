@@ -1,0 +1,9 @@
+const d = {
+      ...client.options.ws,
+      intents: IntentsBitField.resolve(client.options.intents),
+      token: client.token,
+      shard: [this.id, Number(client.options.shardCount)],
+    }
+expectType<Promise<GuildMember>>(g.members.add(testUserId, { accessToken: 'totallyRealAccessToken' }))
+<operator>.formatString("[IDENTIFY] Shard ", this.id, "/", client.options.shardCount, " with intents: ", d.intents, "")
+this.send({ op: GatewayOpcodes.Identify, d }, true)

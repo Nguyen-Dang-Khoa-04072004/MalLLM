@@ -1,0 +1,378 @@
+var urls = fs.readFileSync(__dirname + '/ansi-art.list', 'utf8').trim().split('\n')
+function ScrollableBox = function ScrollableBox(options) {
+  var self = this;
+
+  if (!(this instanceof Node)) {
+    return new ScrollableBox(options);
+  }
+
+  options = options || {};
+
+  Box.call(this, options);
+
+  if (options.scrollable === false) {
+    return this;
+  }
+
+  this.scrollable = true;
+  this.childOffset = 0;
+  this.childBase = 0;
+  this.baseLimit = options.baseLimit || Infinity;
+  this.alwaysScroll = options.alwaysScroll;
+
+  this.scrollbar = options.scrollbar;
+  if (this.scrollbar) {
+    this.scrollbar.ch = this.scrollbar.ch || ' ';
+    this.style.scrollbar = this.style.scrollbar || this.scrollbar.style;
+    if (!this.style.scrollbar) {
+      this.style.scrollbar = {};
+      this.style.scrollbar.fg = this.scrollbar.fg;
+      this.style.scrollbar.bg = this.scrollbar.bg;
+      this.style.scrollbar.bold = this.scrollbar.bold;
+      this.style.scrollbar.underline = this.scrollbar.underline;
+      this.style.scrollbar.inverse = this.scrollbar.inverse;
+      this.style.scrollbar.invisible = this.scrol...
+function FileManager = function FileManager(options) {
+  var self = this;
+
+  if (!(this instanceof Node)) {
+    return new FileManager(options);
+  }
+
+  options = options || {};
+  options.parseTags = true;
+  // options.label = ' {blue-fg}%path{/blue-fg} ';
+
+  List.call(this, options);
+
+  this.cwd = options.cwd || process.cwd();
+  this.file = this.cwd;
+  this.value = this.cwd;
+
+  if (options.label && ~options.label.indexOf('%path')) {
+    this._label.setContent(options.label.replace('%path', this.cwd));
+  }
+
+  this.on('select', function(item) {
+    var value = item.content.replace(/\{[^{}]+\}/g, '').replace(/@$/, '')
+      , file = path.resolve(self.cwd, value);
+
+    return fs.stat(file, function(err, stat) {
+      if (err) {
+        return self.emit('error', err, file);
+      }
+      self.file = file;
+      self.value = file;
+      if (stat.isDirectory()) {
+        self.emit('cd', file, self.cwd);
+        self.cwd = file;
+        if (options.label && ~options.label.indexOf('%path')) {
+          self._label...
+this.learnEncoding('cp437', this.extendASCII([
+       0xC7,   0xFC,   0xE9,   0xE2,   0xE4,   0xE0,   0xE5,   0xE7,
+       0xEA,   0xEB,   0xE8,   0xEF,   0xEE,   0xEC,   0xC4,   0xC5,
+       0xC9,   0xE6,   0xC6,   0xF4,   0xF6,   0xF2,   0xFB,   0xF9,
+       0xFF,   0xD6,   0xDC,   0xA2,   0xA3,   0xA5,  0x20A7, 0x192,
+       0xE1,   0xED,   0xF3,   0xFA,   0xF1,   0xD1,   0xAA,   0xBA,
+       0xBF,  0x2310,  0xAC,   0xBD,   0xBC,   0xA1,   0xAB,   0xBB,
+      0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x2561, 0x2562, 0x2556,
+      0x2555, 0x2563, 0x2551, 0x2557, 0x255D, 0x255C, 0x255B, 0x2510,
+      0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x255E, 0x255F,
+      0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x2567,
+      0x2568, 0x2564, 0x2565, 0x2559, 0x2558, 0x2552, 0x2553, 0x256B,
+      0x256A, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+      0x3B1,  0x3B2,  0x393,  0x3C0,  0x3A3,  0x3C3,  0x3BC,  0x3C4,
+      0x3A6,  0x398,  0x3A9,  0x3B4,  0x221E, 0...
+this.on('keypress', function(ch, key) {
+      if (key.name === 'left'
+          || (options.vi && key.name === 'h')
+          || (key.shift && key.name === 'tab')) {
+        self.moveLeft();
+        self.screen.render();
+        // Stop propagation if we're in a form.
+        if (key.name === 'tab') return false;
+        return;
+      }
+      if (key.name === 'right'
+          || (options.vi && key.name === 'l')
+          || key.name === 'tab') {
+        self.moveRight();
+        self.screen.render();
+        // Stop propagation if we're in a form.
+        if (key.name === 'tab') return false;
+        return;
+      }
+      if (key.name === 'enter'
+          || (options.vi && key.name === 'k' && !key.shift)) {
+        self.emit('action', self.items[self.selected], self.selected);
+        self.emit('select', self.items[self.selected], self.selected);
+        var item = self.items[self.selected];
+        if (item._.cmd.callback) {
+          item._.cmd.callback();
+        }
+        self...
+ps.on('exit', function(code) {
+    if (!callback) return;
+    if (code !== 0) return callback(new Error('Exit Code: ' + code));
+    return callback(null, code === 0);
+  })
+list.on('select', function(el, selected) {
+  if (list._.rendering) return;
+
+  var name = el.getText();
+  var url = map[name];
+
+  status.setContent(url);
+
+  list._.rendering = true;
+  loader.load('Loading...');
+
+  request({
+    uri: url,
+    encoding: null
+  }, function(err, res, body) {
+    list._.rendering = false;
+    loader.stop();
+
+    if (err) {
+      return msg.error(err.message);
+    }
+
+    if (!body) {
+      return msg.error('No body.');
+    }
+
+    return cp437ToUtf8(body, function(err, body) {
+      if (err) {
+        return msg.error(err.message);
+      }
+
+      if (process.argv[2] === '--debug') {
+        var filename = name.replace(/\//g, '.') + '.ans';
+        fs.writeFileSync(__dirname + '/' + filename, body);
+      }
+
+      // Remove text:
+      body = body.replace('Downloaded From P-80 International Information Systems 304-744-2253', '');
+
+      // Remove MCI codes:
+      body = body.replace(/%[A-Z0-9]{2}/g, '');
+
+      // ^A (SOH) seems to need to produce CRLF in so...
+request({
+    uri: url,
+    encoding: null
+  }, function(err, res, body) {
+    list._.rendering = false;
+    loader.stop();
+
+    if (err) {
+      return msg.error(err.message);
+    }
+
+    if (!body) {
+      return msg.error('No body.');
+    }
+
+    return cp437ToUtf8(body, function(err, body) {
+      if (err) {
+        return msg.error(err.message);
+      }
+
+      if (process.argv[2] === '--debug') {
+        var filename = name.replace(/\//g, '.') + '.ans';
+        fs.writeFileSync(__dirname + '/' + filename, body);
+      }
+
+      // Remove text:
+      body = body.replace('Downloaded From P-80 International Information Systems 304-744-2253', '');
+
+      // Remove MCI codes:
+      body = body.replace(/%[A-Z0-9]{2}/g, '');
+
+      // ^A (SOH) seems to need to produce CRLF in some cases??
+      // body = body.replace(/\x01/g, '\r\n');
+
+      // Reset and write the art:
+      art.term.reset();
+      art.term.write(body);
+      art.term.cursorHidden = true;
+
+      screen.render();
+
+      i...
+helpers.__defineGetter__('Screen', function() {
+  if (!helpers._screen) {
+    helpers._screen = require('./widgets/screen');
+  }
+  return helpers._screen;
+})
+this.on('newListener', function fn(type) {
+    // type = type.split(' ').slice(1).join(' ');
+    if (type === 'mouse'
+      || type === 'click'
+      || type === 'mouseover'
+      || type === 'mouseout'
+      || type === 'mousedown'
+      || type === 'mouseup'
+      || type === 'mousewheel'
+      || type === 'wheeldown'
+      || type === 'wheelup'
+      || type === 'mousemove') {
+      self.screen._listenMouse(self);
+    } else if (type === 'keypress' || type.indexOf('key ') === 0) {
+      self.screen._listenKeys(self);
+    }
+  })
+ListTable.prototype.render = function() {
+  var self = this;
+
+  var coords = this._render();
+  if (!coords) return;
+
+  this._calculateMaxes();
+
+  if (!this._maxes) return coords;
+
+  var lines = this.screen.lines
+    , xi = coords.xi
+    , yi = coords.yi
+    , rx
+    , ry
+    , i;
+
+  var battr = this.sattr(this.style.border);
+
+  var height = coords.yl - coords.yi - this.ibottom;
+
+  if (!this.border || this.options.noCellBorders) return coords;
+
+  // Draw border with correct angles.
+  ry = 0;
+  for (i = 0; i < height + 1; i++) {
+    if (!lines[yi + ry]) break;
+    rx = 0;
+    self._maxes.slice(0, -1).forEach(function(max) {
+      rx += max;
+      if (!lines[yi + ry][xi + rx + 1]) return;
+      // center
+      if (ry === 0) {
+        // top
+        rx++;
+        lines[yi + ry][xi + rx][0] = battr;
+        lines[yi + ry][xi + rx][1] = '\u252c'; // '┬'
+        // XXX If we alter iheight and itop for no borders - nothing should be written here
+        if (!self.border.top) {
+          lin...
+Program.prototype.setupDump = function() {
+  var self = this
+    , write = this.output.write
+    , decoder = new StringDecoder('utf8');
+
+  function stringify(data) {
+    return caret(data
+      .replace(/\r/g, '\\r')
+      .replace(/\n/g, '\\n')
+      .replace(/\t/g, '\\t'))
+      .replace(/[^ -~]/g, function(ch) {
+        if (ch.charCodeAt(0) > 0xff) return ch;
+        ch = ch.charCodeAt(0).toString(16);
+        if (ch.length > 2) {
+          if (ch.length < 4) ch = '0' + ch;
+          return '\\u' + ch;
+        }
+        if (ch.length < 2) ch = '0' + ch;
+        return '\\x' + ch;
+      });
+  }
+
+  function caret(data) {
+    return data.replace(/[\0\x80\x1b-\x1f\x7f\x01-\x1a]/g, function(ch) {
+      switch (ch) {
+        case '\0':
+        case '\200':
+          ch = '@';
+          break;
+        case '\x1b':
+          ch = '[';
+          break;
+        case '\x1c':
+          ch = '\\';
+          break;
+        case '\x1d':
+          ch = ']';
+          break;
+        case '\x1e':
+...
+Node.prototype.destroy = function() {
+  this.detach();
+  this.forDescendants(function(el) {
+    el.free();
+    el.destroyed = true;
+    el.emit('destroy');
+  }, this);
+}
+this.getPixelRatio(function(err, ratio) {
+    if (err) {
+      reset();
+      if (!callback) return;
+      return callback(err);
+    }
+
+    return self.renderImage(img, ratio, function(err, success) {
+      if (err) {
+        reset();
+        if (!callback) return;
+        return callback(err);
+      }
+
+      if (self.shrink || self.options.autofit) {
+        delete self.shrink;
+        delete self.options.shrink;
+        self.options.autofit = true;
+        return self.imageSize(function(err, size) {
+          if (err) {
+            reset();
+            if (!callback) return;
+            return callback(err);
+          }
+
+          if (self._lastSize
+              && ratio.tw === self._lastSize.tw
+              && ratio.th === self._lastSize.th
+              && size.width === self._lastSize.width
+              && size.height === self._lastSize.height
+              && self.aleft === self._lastSize.aleft
+              && self.atop === self._lastSize.atop) {
+            reset();
+     ...
+this.learnEncoding('koi8-u', this.extendASCII([
+      0x2500, 0x2502, 0x250C, 0x2510, 0x2514, 0x2518, 0x251C, 0x2524,
+      0x252C, 0x2534, 0x253C, 0x2580, 0x2584, 0x2588, 0x258C, 0x2590,
+      0x2591, 0x2592, 0x2593, 0x2320, 0x25A0, 0x2219, 0x221A, 0x2248,
+      0x2264, 0x2265,  0xA0,  0x2321,  0xB0,   0xB2,   0xB7,   0xF7,
+      0x2550, 0x2551, 0x2552, 0x451,  0x454,  0x2554, 0x456,  0x457,
+      0x2557, 0x2558, 0x2559, 0x255A, 0x255B, 0x491,  0x255D, 0x255E,
+      0x255F, 0x2560, 0x2561, 0x401,  0x404,  0x2563, 0x406,  0x407,
+      0x2566, 0x2567, 0x2568, 0x2569, 0x256A, 0x490,  0x256C,  0xA9,
+      0x44E,  0x430,  0x431,  0x446,  0x434,  0x435,  0x444,  0x433,
+      0x445,  0x438,  0x439,  0x43A,  0x43B,  0x43C,  0x43D,  0x043E,
+      0x43F,  0x44F,  0x440,  0x441,  0x442,  0x443,  0x436,  0x432,
+      0x44C,  0x44B,  0x437,  0x448,  0x44D,  0x449,  0x447,  0x44A,
+      0x42E,  0x410,  0x411,  0x426,  0x414,  0x415,  0x424,  0x413,
+      0x425,  0x418,  0x419,  0x41A,  0x41B,  0...
+Element.prototype.__defineGetter__('visible', function() {
+  var el = this;
+  do {
+    if (el.detached) return false;
+    if (el.hidden) return false;
+    // if (!el.lpos) return false;
+    // if (el.position.width === 0 || el.position.height === 0) return false;
+  } while (el = el.parent);
+  return true;
+})
+v = ('return ' + JSON.stringify(str) + ';')
+          .replace(/\x1b/g, '\\x1b')
+          .replace(/\r/g, '\\r')
+          .replace(/\n/g, '\\n')
+button === 1 ? "middle" : button === 2 ? "right" : "unknown"

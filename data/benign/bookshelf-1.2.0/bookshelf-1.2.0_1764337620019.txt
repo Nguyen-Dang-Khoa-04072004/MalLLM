@@ -1,0 +1,87 @@
+_tmp_27._handler = Promise.method(function(method, ids, options) {
+    const pending = [];
+    if (ids == null) {
+      if (method === 'insert') return Promise.resolve(this);
+      if (method === 'delete') pending.push(this._processPivot(method, null, options));
+    }
+    if (!Array.isArray(ids)) ids = ids ? [ids] : [];
+    _.each(ids, (id) => pending.push(this._processPivot(method, id, options)));
+    return Promise.all(pending).return(this);
+  })
+const updatedAtKey = timestampKeys[1]
+_tmp_27._processPivot = Promise.method(function(method, item) {
+    const relatedData = this.relatedData,
+      args = Array.prototype.slice.call(arguments),
+      fks = {},
+      data = {};
+
+    fks[relatedData.key('foreignKey')] = relatedData.parentFk;
+
+    if (_.isObject(item)) {
+      if (item instanceof ModelBase) {
+        fks[relatedData.key('otherKey')] = item.id;
+      } else if (method !== 'update') {
+        _.extend(data, item);
+      }
+    } else if (item) {
+      fks[relatedData.key('otherKey')] = item;
+    }
+
+    args.push(_.extend(data, fks), fks);
+
+    if (this.relatedData.throughTarget) {
+      return this._processModelPivot.apply(this, args);
+    }
+
+    return this._processPlainPivot.apply(this, args);
+  })
+const relatedData = this.relatedData
+fks[relatedData.key('foreignKey')] = relatedData.parentFk
+args.push(_.extend(data, fks), fks)
+this._processModelPivot.apply(this, args)
+_tmp_27._processPlainPivot = Promise.method(function(method, item, options, data) {
+    const relatedData = this.relatedData;
+
+    // Grab the `knex` query builder for the current model, and
+    // check if we have any additional constraints for the query.
+    const builder = this._builder(relatedData.joinTable());
+    if (options && options.query) {
+      Helpers.query.call(null, {_knex: builder}, [options.query]);
+    }
+
+    if (options) {
+      if (options.transacting) builder.transacting(options.transacting);
+      if (options.debug) builder.debug();
+    }
+
+    const collection = this;
+    if (method === 'delete') {
+      return builder
+        .where(data)
+        .del()
+        .then(function() {
+          if (!item) return collection.reset();
+          const model = collection.get(data[relatedData.key('otherKey')]);
+          if (model) {
+            collection.remove(model);
+          }
+        });
+    }
+    if (method === 'update') {
+      return builder
+        .where(data)
+        .update(item)
+     ...
+const relatedData = this.relatedData
+const builder = this._builder(relatedData.joinTable())
+ModelBase.prototype.previous = function(attribute) {
+  return this._previousAttributes[attribute];
+}
+this.triggerThen('creating', this, data, options).then(function() {
+      return builder.insert(data).then(function() {
+        collection.add(item);
+      });
+    })
+builder.insert(data).then(function() {
+        collection.add(item);
+      })

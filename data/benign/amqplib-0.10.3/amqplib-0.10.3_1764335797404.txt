@@ -1,0 +1,11 @@
+this.accept = function(f) {
+    if (f.id === defs.ChannelCloseOk) {
+      if (k) k();
+      var s = stackCapture('ChannelCloseOk frame received');
+      this.toClosed(s);
+    }
+    else if (f.id === defs.ChannelClose) {
+      send(defs.ChannelCloseOk, {});
+    }
+    // else ignore frame
+  }

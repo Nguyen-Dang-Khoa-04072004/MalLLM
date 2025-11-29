@@ -1,0 +1,12 @@
+command = process.platform === 'win32' ? 'chromedriver.exe' : 'chromedriver'
+(async function install() {
+  const cdnUrl = (process.env.npm_config_chromedriver_cdnurl || process.env.CHROMEDRIVER_CDNURL || 'https://googlechromelabs.github.io').replace(/\/+$/, '');
+  const legacyCdnUrl = (process.env.npm_config_chromedriver_legacy_cdnurl || process.env.CHROMEDRIVER_LEGACY_CDNURL || 'https://chromedriver.storage.googleapis.com').replace(/\/+$/, '');
+  let chromedriverVersion = process.env.npm_config_chromedriver_version || process.env.CHROMEDRIVER_VERSION || helper.version;
+  const detectChromedriverVersion = (process.env.npm_config_detect_chromedriver_version || process.env.DETECT_CHROMEDRIVER_VERSION) === 'true';
+  try {
+    if (detectChromedriverVersion) {
+      const includeChromium = (process.env.npm_config_include_chromium || process.env.INCLUDE_CHROMIUM) === 'true';
+      // Refer http://chromedriver.chromium.org/downloads/version-selection
+      const chromeVersion = await getChromeVersion(includeChromium);
+      console.log("Your Chrome version is " + c...

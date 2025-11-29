@@ -1,0 +1,1 @@
+meta.link = _.resolve(_.get(this.xmlbase[0], '#'), meta.link)

@@ -1,0 +1,18 @@
+var onError = function (err, next) {
+            delete self.instance.reconnecting;
+            self.instance.reconnected = self.instance.connected = false;
+            console.error('[ CONNECTOR ][ ' + local.bundle +' ] couchbase could not be reached !!\n'+ ( err.stack || err.message || err ) );
+
+            // reconnecting
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ][ ' + dbString.database +' ] trying to reconnect in a few secs...');
+            self.instance.reconnecting = true;
+
+            setTimeout( function onRetry(){
+                if ( typeof(next) != 'undefined' ) {
+                    self.connect(dbString, next)
+                } else {
+                    self.connect(dbString)
+                }
+            }, 5000)
+
+        }

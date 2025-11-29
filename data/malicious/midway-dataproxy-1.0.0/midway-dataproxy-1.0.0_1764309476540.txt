@@ -1,0 +1,23 @@
+reqObj.proxy.request( reqObj.params, function( data, setcookie ) {
+                    // fill data for callback
+                    args[ k ] = data;
+
+                    // concat setcookie for cookie rewriting
+                    setcookies = setcookies.concat( setcookie );
+                    args.push( setcookies );
+
+                    try {
+                        // push the set-cookies as the last parameter for the callback function.
+                        --cnt || callback.apply( self, args.push( setcookies ) && args );
+                    } catch ( e ) {
+                        errCallback = errCallback || self._errCallback;
+                        if ( typeof errCallback === 'function' ) {
+                            errCallback( e );
+                        } else {
+                            logger.error( e );
+                        }
+                    }
+
+                }, function( err ) {
+                    errCallback = errCallback || self._errCallback;
+     ...

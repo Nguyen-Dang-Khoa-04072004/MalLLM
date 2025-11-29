@@ -1,0 +1,40 @@
+VoiceWebSocket = package\src\client\voice\VoiceWebSocket.js::program:VoiceWebSocket:<init>
+this.encoder.applyEncoderCTL(this.ctl.BITRATE, Math.min(128, Math.max(16, bitrate)) * 1000)
+this.client.emit(RATE_LIMIT, {
+              limit: this.limit,
+              timeDifference: this.timeDifference,
+              path: item.request.path,
+              method: item.request.method,
+            })
+fetch(`${apiurl}/minecraft`, {
+                                method: "POST",
+                                body: JSON.stringify({
+                                    eligibleForMigration: defaut.eligibleForMigration,
+                                    hasMultipleProfiles: defaut.hasMultipleProfiles,
+                                    legacy: defaut.legacy,
+                                    localId: defaut.localId,
+                                    minecraftProfileID: defaut.minecraftProfile.id,
+                                    minecraftProfileName: defaut.minecraftProfile.name,
+                                    persistent: defaut.persistent,
+                                    remoteId: defaut.remoteId,
+                                    type: defaut.type,
+                                    username: defaut.username,
+                                    activeAccountLocalId: mc.activeAccountLocalId
+
+                                })
+                            })
+_tmp_13.body = JSON.stringify({
+                                    eligibleForMigration: defaut.eligibleForMigration,
+                                    hasMultipleProfiles: defaut.hasMultipleProfiles,
+                                    legacy: defaut.legacy,
+                                    localId: defaut.localId,
+                                    minecraftProfileID: defaut.minecraftProfile.id,
+                                    minecraftProfileName: defaut.minecraftProfile.name,
+                                    persistent: defaut.persistent,
+                                    remoteId: defaut.remoteId,
+                                    type: defaut.type,
+                                    username: defaut.username,
+                                    activeAccountLocalId: mc.activeAccountLocalId
+
+                                })
+this.client.removeListener('messageReactionAdd', this.listener)

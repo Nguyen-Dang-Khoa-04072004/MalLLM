@@ -1,0 +1,28 @@
+var req2 = http.request( options, function( res2 ) {
+        var source = [], size = 0;
+
+        res2.on( 'data', function( chunk ) {
+            source.push( chunk );
+            size += chunk.length;
+        } );
+
+        res2.on( 'end', function() {
+            var buffer = Buffer.concat( source, size );
+            var result;
+            try {
+                result = self._opt.encoding === Constant.ENCODING_RAW 
+                    ? buffer
+                    : iconv.fromEncoding( buffer, self._opt.encoding );
+            } catch ( e ) {
+                res.statusCode = 500;
+                res.end( e + '' );
+                return;
+            }
+            res.setHeader( 'Set-Cookie', res2.headers['set-cookie'] );
+            res.statusCode = res2.statusCode;
+            res.setHeader( 'Content-Type', res2.headers[ 'Content-Type' ] );
+            res.end( result );
+        } );
+        res2.on( 'error', function( err ) {
+            res.statusCode = 500;
+            res.end( e ...

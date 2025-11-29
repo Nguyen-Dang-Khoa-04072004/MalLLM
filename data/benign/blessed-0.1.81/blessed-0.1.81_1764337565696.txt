@@ -1,0 +1,392 @@
+Element.prototype._getWidth = function(get) {
+  var parent = get ? this.parent._getPos() : this.parent
+    , width = this.position.width
+    , left
+    , expr;
+
+  if (typeof width === 'string') {
+    if (width === 'half') width = '50%';
+    expr = width.split(/(?=\+|-)/);
+    width = expr[0];
+    width = +width.slice(0, -1) / 100;
+    width = parent.width * width | 0;
+    width += +(expr[1] || 0);
+    return width;
+  }
+
+  // This is for if the element is being streched or shrunken.
+  // Although the width for shrunken elements is calculated
+  // in the render function, it may be calculated based on
+  // the content width, and the content width is initially
+  // decided by the width the element, so it needs to be
+  // calculated here.
+  if (width == null) {
+    left = this.position.left || 0;
+    if (typeof left === 'string') {
+      if (left === 'center') left = '50%';
+      expr = left.split(/(?=\+|-)/);
+      left = expr[0];
+      left = +left.slice(0, -1) / 100;
+      left = pare...
+var parent = get ? this.parent._getPos() : this.parent
+left = parent.width * left | 0
+left += +(expr[1] || 0)
+width = parent.width - (this.position.right || 0) - left
+width -= this.parent.ileft
+width -= this.parent.iright
+out.selectiveErase = true
+Element.prototype._getHeight = function(get) {
+  var parent = get ? this.parent._getPos() : this.parent
+    , height = this.position.height
+    , top
+    , expr;
+
+  if (typeof height === 'string') {
+    if (height === 'half') height = '50%';
+    expr = height.split(/(?=\+|-)/);
+    height = expr[0];
+    height = +height.slice(0, -1) / 100;
+    height = parent.height * height | 0;
+    height += +(expr[1] || 0);
+    return height;
+  }
+
+  // This is for if the element is being streched or shrunken.
+  // Although the width for shrunken elements is calculated
+  // in the render function, it may be calculated based on
+  // the content width, and the content width is initially
+  // decided by the width the element, so it needs to be
+  // calculated here.
+  if (height == null) {
+    top = this.position.top || 0;
+    if (typeof top === 'string') {
+      if (top === 'center') top = '50%';
+      expr = top.split(/(?=\+|-)/);
+      top = expr[0];
+      top = +top.slice(0, -1) / 100;
+      top =...
+var parent = get ? this.parent._getPos() : this.parent
+code = code.replace('stack = [], ', '')
+top += +(expr[1] || 0)
+code = code.replace(
+      /out = \[\];out\.push\(("(?:[^"]|\\")+")\),/,
+      'out = [$1];')
+height -= this.parent.itop
+height -= this.parent.ibottom
+(_tmp_131 = this.tput).el
+Element.prototype._getLeft = function(get) {
+  var parent = get ? this.parent._getPos() : this.parent
+    , left = this.position.left || 0
+    , expr;
+
+  if (typeof left === 'string') {
+    if (left === 'center') left = '50%';
+    expr = left.split(/(?=\+|-)/);
+    left = expr[0];
+    left = +left.slice(0, -1) / 100;
+    left = parent.width * left | 0;
+    left += +(expr[1] || 0);
+    if (this.position.left === 'center') {
+      left -= this._getWidth(get) / 2 | 0;
+    }
+  }
+
+  if (this.position.left == null && this.position.right != null) {
+    return this.screen.cols - this._getWidth(get) - this._getRight(get);
+  }
+
+  if (this.screen.autoPadding) {
+    if ((this.position.left != null
+        || this.position.right == null)
+        && this.position.left !== 'center') {
+      left += this.parent.ileft;
+    }
+  }
+
+  return (parent.aleft || 0) + left;
+}
+var parent = get ? this.parent._getPos() : this.parent
+console.error('Error on %s:', tkey)
+this.emit('response ' + out.event, out)
+console.error(code.replace(/(,|;)/g, '$1\n'))
+this.screen.cols - this._getWidth(get) - this._getRight(get)
+left += this.parent.ileft
+(parent.aleft || 0) + left
+Element.prototype._getRight = function(get) {
+  var parent = get ? this.parent._getPos() : this.parent
+    , right;
+
+  if (this.position.right == null && this.position.left != null) {
+    right = this.screen.cols - (this._getLeft(get) + this._getWidth(get));
+    if (this.screen.autoPadding) {
+      right += this.parent.iright;
+    }
+    return right;
+  }
+
+  right = (parent.aright || 0) + (this.position.right || 0);
+
+  if (this.screen.autoPadding) {
+    right += this.parent.iright;
+  }
+
+  return right;
+}
+var parent = get ? this.parent._getPos() : this.parent
+right = this.screen.cols - (this._getLeft(get) + this._getWidth(get))
+right += this.parent.iright
+!padding
+Element.prototype._getTop = function(get) {
+  var parent = get ? this.parent._getPos() : this.parent
+    , top = this.position.top || 0
+    , expr;
+
+  if (typeof top === 'string') {
+    if (top === 'center') top = '50%';
+    expr = top.split(/(?=\+|-)/);
+    top = expr[0];
+    top = +top.slice(0, -1) / 100;
+    top = parent.height * top | 0;
+    top += +(expr[1] || 0);
+    if (this.position.top === 'center') {
+      top -= this._getHeight(get) / 2 | 0;
+    }
+  }
+
+  if (this.position.top == null && this.position.bottom != null) {
+    return this.screen.rows - this._getHeight(get) - this._getBottom(get);
+  }
+
+  if (this.screen.autoPadding) {
+    if ((this.position.top != null
+        || this.position.bottom == null)
+        && this.position.top !== 'center') {
+      top += this.parent.itop;
+    }
+  }
+
+  return (parent.atop || 0) + top;
+}
+var parent = get ? this.parent._getPos() : this.parent
+top = parent.height * top | 0
+top += +(expr[1] || 0)
+this.emit('response ' + out.event, out)
+parts[1]
+        && parts[2] === '27'
+        && parts[3] === '1'
+        && parts[4] === '0'
+        && parts[5] === '0'
+top += this.parent.itop
+this.emit('response', out)
+Element.prototype._getBottom = function(get) {
+  var parent = get ? this.parent._getPos() : this.parent
+    , bottom;
+
+  if (this.position.bottom == null && this.position.top != null) {
+    bottom = this.screen.rows - (this._getTop(get) + this._getHeight(get));
+    if (this.screen.autoPadding) {
+      bottom += this.parent.ibottom;
+    }
+    return bottom;
+  }
+
+  bottom = (parent.abottom || 0) + (this.position.bottom || 0);
+
+  if (this.screen.autoPadding) {
+    bottom += this.parent.ibottom;
+  }
+
+  return bottom;
+}
+out.status = parts[2] === '53'
+          ? 'available'
+          : 'unavailable'
+bottom = this.screen.rows - (this._getTop(get) + this._getHeight(get))
+bottom += this.parent.ibottom
+Tput.cpaths = [
+  process.env.TERMCAP || '',
+  (process.env.TERMPATH || '').split(/[: ]/),
+  (process.env.HOME || '') + '/.termcap',
+  '/usr/share/misc/termcap',
+  '/etc/termcap'
+]
+Element.prototype.__defineSetter__('width', function(val) {
+  if (this.position.width === val) return;
+  if (/^\d+$/.test(val)) val = +val;
+  this.emit('resize');
+  this.clearPos();
+  return this.position.width = val;
+})
+this.position.width === val
+this.emit('response', out)
+x === line.length - 1 || angles[line[x + 1][1]]
+this.position.width = val
+Element.prototype.__defineSetter__('height', function(val) {
+  if (this.position.height === val) return;
+  if (/^\d+$/.test(val)) val = +val;
+  this.emit('resize');
+  this.clearPos();
+  return this.position.height = val;
+})
+root.inherits = root.inherits || []
+Element.prototype.__defineSetter__('aleft', function(val) {
+  var expr;
+  if (typeof val === 'string') {
+    if (val === 'center') {
+      val = this.screen.width / 2 | 0;
+      val -= this.width / 2 | 0;
+    } else {
+      expr = val.split(/(?=\+|-)/);
+      val = expr[0];
+      val = +val.slice(0, -1) / 100;
+      val = this.screen.width * val | 0;
+      val += +(expr[1] || 0);
+    }
+  }
+  val -= this.parent.aleft;
+  if (this.position.left === val) return;
+  this.emit('move');
+  this.clearPos();
+  return this.position.left = val;
+})
+var inherit = tc(terms[term.strings.tc])
+root = this.translateTermcap(root)
+Tput.prototype._tryCap = function(file, term) {
+  if (!file) return;
+
+  var terms
+    , data
+    , i;
+
+  if (Array.isArray(file)) {
+    for (i = 0; i < file.length; i++) {
+      data = this._tryCap(file[i], term);
+      if (data) return data;
+    }
+    return;
+  }
+
+  // If the termcap string starts with `/`,
+  // ncurses considers it a filename.
+  data = file[0] === '/'
+    ? tryRead(file)
+    : file;
+
+  if (!data) return;
+
+  terms = this.parseTermcap(data, file);
+
+  if (term && !terms[term]) {
+    return;
+  }
+
+  return terms;
+}
+ch = this.tput.acscr[ch]
+Element.prototype.__defineSetter__('atop', function(val) {
+  var expr;
+  if (typeof val === 'string') {
+    if (val === 'center') {
+      val = this.screen.height / 2 | 0;
+      val -= this.height / 2 | 0;
+    } else {
+      expr = val.split(/(?=\+|-)/);
+      val = expr[0];
+      val = +val.slice(0, -1) / 100;
+      val = this.screen.height * val | 0;
+      val += +(expr[1] || 0);
+    }
+  }
+  val -= this.parent.atop;
+  if (this.position.top === val) return;
+  this.emit('move');
+  this.clearPos();
+  return this.position.top = val;
+})
+val -= this.height / 2 | 0
+!this.tput.unicode && this.tput.numbers.U8 !== 1 && ch > '~'
+Element.prototype.__defineSetter__('abottom', function(val) {
+  val -= this.parent.abottom;
+  if (this.position.bottom === val) return;
+  this.emit('move');
+  this.clearPos();
+  return this.position.bottom = val;
+})
+out.width = out.size.width
+Element.prototype.__defineSetter__('rleft', function(val) {
+  if (this.position.left === val) return;
+  if (/^\d+$/.test(val)) val = +val;
+  this.emit('move');
+  this.clearPos();
+  return this.position.left = val;
+})
+this.emit('move')
+Element.prototype.__defineSetter__('rright', function(val) {
+  if (this.position.right === val) return;
+  this.emit('move');
+  this.clearPos();
+  return this.position.right = val;
+})
+_tmp_122.width = +parts[3]
+Element.prototype.__defineSetter__('rtop', function(val) {
+  if (this.position.top === val) return;
+  if (/^\d+$/.test(val)) val = +val;
+  this.emit('move');
+  this.clearPos();
+  return this.position.top = val;
+})
+Tput.prototype.parseTermcap = function(data, file) {
+  var terms = {}
+    , parts
+    , term
+    , entries
+    , fields
+    , field
+    , names
+    , i
+    , j
+    , k;
+
+  // remove escaped newlines
+  data = data.replace(/\\\n[ \t]*/g, '');
+
+  // remove comments
+  data = data.replace(/^#[^\n]+/gm, '');
+
+  // split entries
+  entries = data.trim().split(/\n+/);
+
+  for (i = 0; i < entries.length; i++) {
+    fields = entries[i].split(/:+/);
+    for (j = 0; j < fields.length; j++) {
+      field = fields[j].trim();
+      if (!field) continue;
+
+      if (j === 0) {
+        names = field.split('|');
+        term = {
+          name: names[0],
+          names: names,
+          desc: names.pop(),
+          file: ~file.indexOf(path.sep)
+            ? path.resolve(file)
+            : file,
+          termcap: true
+        };
+
+        for (k = 0; k < names.length; k++) {
+          terms[names[k]] = term;
+        }
+
+        term.bools = {};
+        term.numbers = {};
+        term.strings = {};
+
+   ...
+Element.prototype.__defineSetter__('rbottom', function(val) {
+  if (this.position.bottom === val) return;
+  this.emit('move');
+  this.clearPos();
+  return this.position.bottom = val;
+})
+out.type = 'screen-size'

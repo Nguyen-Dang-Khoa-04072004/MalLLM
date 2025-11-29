@@ -1,0 +1,1 @@
+result[k] = dur.get(k) + this.get(k)

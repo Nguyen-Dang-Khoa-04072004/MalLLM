@@ -1,0 +1,87 @@
+function message = function message (jar, token, senderId, recipient, subject, body, replyMessageId, includePreviousMessage) {
+  return new Promise((resolve, reject) => {
+    const httpOpt = {
+      url: '//privatemessages.roblox.com/v1/messages/send',
+      options: {
+        method: 'POST',
+        jar: jar,
+        headers: {
+          'X-CSRF-TOKEN': token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: senderId,
+          recipientId: recipient,
+          subject,
+          body,
+          replyMessageId,
+          includePreviousMessage
+        }),
+        resolveWithFullResponse: true
+      }
+    }
+    return http(httpOpt)
+      .then(function (res) {
+        if (res.statusCode === 200) {
+          resolve(JSON.parse(res.body))
+        } else {
+          const body = JSON.parse(res.body) || {}
+          if (body.errors && body.errors.length > 0) {
+            const errors = body.errors.map((e) => {
+              return e.message
+        ...
+function getPlayerThumbnail = function getPlayerThumbnail (userIds, size, format = 'png', isCircular = false, cropType = 'body', retryCount = settings.maxRetries) {
+  // Validate userIds
+  if (Array.isArray(userIds)) {
+    if (userIds.some(isNaN)) {
+      throw new Error('userIds must be a number or an array of numbers')
+    }
+    userIds = [...new Set(userIds)] // get rid of duplicates, endpoint response does this anyway
+    if (userIds.length > 100) {
+      throw new Error(`too many userIds provided (${userIds.length}); maximum 100`)
+    }
+  } else {
+    if (isNaN(userIds)) {
+      throw new Error('userId is not a number')
+    }
+    userIds = [userIds]
+  }
+
+  // Validate cropType
+  cropType = cropType.toLowerCase()
+  if (!Object.keys(eligibleSizes).includes(cropType)) {
+    throw new Error(`Invalid cropping type provided: ${cropType} | Use: ${Object.keys(eligibleSizes).join(', ')}`)
+  }
+  const { sizes, endpoint } = eligibleSizes[cropType]
+
+  // Validate size
+  size = size || sizes[sizes.length - 1]
+  if (type...
+function configureRobux = function configureRobux (args) {
+  const httpOpt = {
+    url: '//itemconfiguration.roblox.com/v1/assets/' + args.id + '/release',
+    options: {
+      method: 'POST',
+      jar: args.jar,
+      headers: {
+        'X-CSRF-TOKEN': args.token
+      },
+      json: {
+        saleStatus: args.sellForRobux ? 'OnSale' : 'OffSale',
+        priceConfiguration: {
+          priceInRobux: args.sellForRobux || 0
+        }
+      }
+    }
+  }
+  return http(httpOpt).then(function (json) {
+    if (!json.errors) {
+      return configure(args.jar, args.token, args.id, args.name, args.description, args.enableComments, args.sellForRobux, args.genreSelection, args.sellForRobux)
+    } else {
+      throw new Error(json.errors[0].message)
+    }
+  })
+}
+notifications.on('error', function (err) {
+        onMessage.emit('error', err)
+      })

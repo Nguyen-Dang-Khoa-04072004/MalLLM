@@ -1,0 +1,124 @@
+lines.forEach(function(line) {
+        if (!line || line.length === 0) return;
+
+        if (raw)
+          return type === 'err' ? process.stderr.write(util.format(line) + '\n') : process.stdout.write(util.format(line) + '\n');
+
+        if (timestamp)
+          process.stdout.write(chalk['dim'](chalk.grey(dayjs().format(timestamp) + ' ')));
+
+        var name = packet.process.pm_id + '|' + packet.process.name;
+
+        if (name.length > min_padding)
+          min_padding = name.length + 1
+
+        if (type === 'out')
+          process.stdout.write(chalk.green(pad(' '.repeat(min_padding), name)  + ' | '));
+        else if (type === 'err')
+          process.stdout.write(chalk.red(pad(' '.repeat(min_padding), name)  + ' | '));
+        else if (!raw && (id === 'all' || id === 'PM2'))
+          process.stdout.write(chalk.blue(pad(' '.repeat(min_padding), 'PM2') + ' | '));
+        if (highlight)
+          process.stdout.write(util.format(line).replace(highlight, chalk.bgBlackBright(highlig...
+function generateDockerfile = function generateDockerfile(docker_filepath, main_file, opts) {
+  return new Promise(function(resolve, reject) {
+    var tpl_file = path.join(cst.TEMPLATE_FOLDER, cst.DOCKERFILE_NODEJS);
+    var template = fs.readFileSync(tpl_file, {encoding: 'utf8'});
+    var CMD;
+
+    template = parseAndSwitch(template, main_file, opts);
+
+    fs.writeFile(docker_filepath, template, function(err) {
+      if (err) return reject(err);
+      resolve({
+        Dockerfile_path : docker_filepath,
+        Dockerfile : template,
+        CMD : CMD
+      });
+    });
+  });
+}
+Common.prepareAppConf = function(opts, app) {
+  /**
+   * Minimum validation
+   */
+  if (!app.script)
+    return new Error('No script path - aborting');
+
+  var cwd = null;
+
+  if (app.cwd) {
+    cwd = path.resolve(app.cwd);
+    process.env.PWD = app.cwd;
+  }
+
+  if (!app.node_args) {
+    app.node_args = [];
+  }
+
+  if (app.port && app.env) {
+    app.env.PORT = app.port;
+  }
+
+  // CWD option resolving
+  cwd && (cwd[0] != '/') && (cwd = path.resolve(process.cwd(), cwd));
+  cwd = cwd || opts.cwd;
+
+  // Full path script resolution
+  app.pm_exec_path = path.resolve(cwd, app.script);
+
+  // If script does not exist after resolution
+  if (!fs.existsSync(app.pm_exec_path)) {
+    var ckd;
+    // Try resolve command available in $PATH
+    if ((ckd = which(app.script))) {
+      if (typeof(ckd) !== 'string')
+        ckd = ckd.toString();
+      app.pm_exec_path = ckd;
+    }
+    else
+      // Throw critical error
+      return new Error(`Script not found: ${app.pm_exec_path}`);
+  }
+
+  /**
+   * Auto det...
+fs.writeFile(package_file, JSON.stringify(package_json, null, 2), function(err, data) {
+      if (err) return cb(err);
+
+      Common.printOut(cst.PREFIX_MSG_MOD + 'Publishing module - %s@%s',
+                      package_json.name,
+                      package_json.version);
+
+      sexec('npm publish', function(code) {
+        Common.printOut(cst.PREFIX_MSG_MOD + 'Module - %s@%s successfully published',
+                        package_json.name,
+                        package_json.version);
+
+        Common.printOut(cst.PREFIX_MSG_MOD + 'Pushing module on Git');
+        sexec('git add . ; git commit -m "' + package_json.version + '"; git push origin master', function(code) {
+
+          Common.printOut(cst.PREFIX_MSG_MOD + 'Installable with pm2 install %s', package_json.name);
+          return cb(null, package_json);
+        });
+      });
+    })
+KMDaemon.ping(this._conf, function(err, result) {
+      if (!err && result === true) {
+        fs.readFile(conf.INTERACTION_CONF, (err, _conf) => {
+          if (!err) {
+            try {
+              that.gl_interact_infos = JSON.parse(_conf.toString())
+            } catch(e) {
+              var json5 = require('./tools/json5.js')
+              try {
+                that.gl_interact_infos = json5.parse(_conf.toString())
+              } catch(e) {
+                console.error(e)
+                that.gl_interact_infos = null
+              }
+            }
+          }
+        })
+      }
+    })

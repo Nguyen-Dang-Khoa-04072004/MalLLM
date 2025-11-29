@@ -1,0 +1,39 @@
+var platform = process.platform
+process.exit(1)
+cp.spawn(
+    process.platform === 'win32' ? 'node-gyp.cmd' : 'node-gyp',
+    ['rebuild'].concat(args),
+    {
+      stdio: 'inherit',
+    }
+  ).on('exit', function (err) {
+    if (err) {
+      if (err === 127) {
+        console.error(
+          'node-gyp not found! Please upgrade your install of npm! You need at least 1.1.5 (I think) ' +
+            'and preferably 1.1.30.'
+        );
+      } else {
+        console.error('Build failed');
+      }
+      return process.exit(err);
+    }
+    afterBuild();
+  })
+process.platform === 'win32' ? "node-gyp.cmd" : "node-gyp"
+function (err) {
+    if (err) {
+      if (err === 127) {
+        console.error(
+          'node-gyp not found! Please upgrade your install of npm! You need at least 1.1.5 (I think) ' +
+            'and preferably 1.1.30.'
+        );
+      } else {
+        console.error('Build failed');
+      }
+      return process.exit(err);
+    }
+    afterBuild();
+  }
+err === 127
+process.exit(err)

@@ -1,0 +1,3 @@
+_tmp_0.headers = {
+                authorization: `bearer ${this.apiKey}`,
+            }

@@ -1,0 +1,2 @@
+debugLog('Unset GIT_LITERAL_PATHSPECS (was `%s`)', process.env.GIT_LITERAL_PATHSPECS)
+<operator>.formatString("", chalk.redBright(command), " ", chalk.dim(`[${tag}]`), "")

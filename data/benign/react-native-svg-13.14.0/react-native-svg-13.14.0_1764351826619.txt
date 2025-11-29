@@ -1,0 +1,9 @@
+const current = priority.get(name)
+current === undefined || current < important
+const camel = (0, _xml.camelCase)(name)
+const current = priority.get(name)
+console.warn('Warning: Syntax error when trying to select \n\n' + selectorStr + '\n\n, skipped. Error details: ' + selectError)
+priority.set(name, important)
+input.charCodeAt(peg$currPos) === 41
+current === undefined || current < important
+priority.set(name, important as boolean)

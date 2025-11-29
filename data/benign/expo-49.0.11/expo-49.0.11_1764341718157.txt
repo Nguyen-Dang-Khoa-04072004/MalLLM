@@ -1,0 +1,13 @@
+const packagerSourcemap = JSON.parse(fs.readFileSync(packagerSourcemapPath, 'utf8'))
+isMatchedInFile(
+    gradlePath,
+    /^\s*apply from: (new File|file)\(\["node", "--print", "require\.resolve\('expo\/package.json'\)"\]\.execute\(null, rootDir\)\.text\.trim\(\), "\.\.\/scripts\/autolinking\.gradle"\);?\s*$/m
+  )
+packagerSourcemap.x_facebook_offsets != null ||
+    compilerSourcemap.x_facebook_offsets != null
+console.log(
+    absolute
+      ? path.resolve(entry)
+      : path.relative(fs.realpathSync(projectRoot), fs.realpathSync(entry))
+  )
+const composedMapJSON = JSON.stringify(composeSourceMaps([packagerSourcemap, compilerSourcemap]))

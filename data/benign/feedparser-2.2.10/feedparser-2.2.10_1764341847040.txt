@@ -1,0 +1,10 @@
+n['#'] = _.resolve(baseurl, n['#'])
+n['#'] += this.xhtml['#'].trim()
+!(_result_0 = _iterator_0.next()).done
+delete n[key]
+'#' in n
+(_tmp_47 = n['#']).trim
+Object.keys(n).length === 1
+n = n['#']
+_.assign(this.meta, this.handleMeta(n, this.meta['#type'], this.options))
+this.emit('meta', this.meta)

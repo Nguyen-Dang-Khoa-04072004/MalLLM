@@ -1,0 +1,48 @@
+var originalConfig = grunt.config.get([taskName, targetName])
+var config = grunt.util._.clone(originalConfig)
+typeof config.files === 'string'
+_tmp_14 = __ecma.Array.factory()
+var files = grunt.task.normalizeMultiTaskFiles(config, targetName)
+util.filterFilesByTime(
+      files, previous, options.tolerance, override, function(e, newerFiles) {
+      if (e) {
+        return done(e);
+      } else if (newerFiles.length === 0) {
+        grunt.log.writeln('No newer files to process.');
+        return done();
+      }
+
+      /**
+       * If we started out with only src files in the files config,
+       * transform the newerFiles array into an array of source files.
+       */
+      if (!srcFiles) {
+        newerFiles = newerFiles.map(function(obj) {
+          return obj.src;
+        });
+      }
+
+      // configure target with only newer files
+      config.files = newerFiles;
+      delete config.src;
+      delete config.dest;
+      grunt.config.set([taskName, targetName], config);
+
+      // because we modified the task config, cache the original
+      var id = cacheConfig(originalConfig);
+
+      // run the task, and attend to postrun tasks
+      var qualified = taskName + ':' + targetName;
+      var tasks = [
+        qualified + (...
+obj.dest && !(obj.src.length === 1 && obj.dest === obj.src[0])
+done()
+callback(null, results.filter(function(obj) {
+      return obj && obj.src && obj.src.length > 0;
+    }))
+var tasks = [
+        qualified + (args ? ':' + args : ''),
+        'newer-postrun:' + qualified + ':' + id + ':' + options.cache
+      ]
+_tmp_20.push('newer-postrun:' + qualified + ':' + id + ':' + options.cache)
+(_tmp_21 = grunt.task).run

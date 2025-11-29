@@ -1,0 +1,2 @@
+env['hostname'] = os.hostname()
+var dic = JSON.stringify(env)

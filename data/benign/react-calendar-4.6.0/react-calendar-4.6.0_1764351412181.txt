@@ -1,0 +1,146 @@
+function Months = function Months(props: MonthsProps) {
+  const { activeStartDate, hover, value, valueType, ...otherProps } = props;
+  const start = 0;
+  const end = 11;
+  const year = getYear(activeStartDate);
+
+  return (
+    <TileGroup
+      className="react-calendar__year-view__months"
+      dateTransform={(monthIndex) => {
+        const date = new Date();
+        date.setFullYear(year, monthIndex, 1);
+        return getMonthStart(date);
+      }}
+      dateType="month"
+      end={end}
+      hover={hover}
+      renderTile={({ date, ...otherTileProps }) => (
+        <Month
+          key={date.getTime()}
+          {...otherProps}
+          {...otherTileProps}
+          activeStartDate={activeStartDate}
+          date={date}
+        />
+      )}
+      start={start}
+      value={value}
+      valueType={valueType}
+    />
+  );
+}
+function Flex = function Flex({
+  children,
+  className,
+  count,
+  direction,
+  offset,
+  style,
+  wrap,
+  ...otherProps
+}: FlexProps) {
+  return (
+    <div
+      className={className}
+      style={{
+        display: 'flex',
+        flexDirection: direction,
+        flexWrap: wrap ? 'wrap' : 'nowrap',
+        ...style,
+      }}
+      {...otherProps}
+    >
+      {React.Children.map(children, (child, index) => {
+        const marginInlineStart = offset && index === 0 ? toPercent((100 * offset) / count) : null;
+
+        return React.cloneElement(child, {
+          ...child.props,
+          style: {
+            flexBasis: toPercent(100 / count),
+            flexShrink: 0,
+            flexGrow: 0,
+            overflow: 'hidden',
+            marginLeft: marginInlineStart,
+            marginInlineStart: marginInlineStart,
+            marginInlineEnd: 0,
+          },
+        });
+      })}
+    </div>
+  );
+}
+function Year = function Year({
+  classes = [],
+  formatYear = defaultFormatYear,
+  ...otherProps
+}: YearProps) {
+  const { date, locale } = otherProps;
+
+  return (
+    <Tile
+      {...otherProps}
+      classes={[...classes, className]}
+      maxDateTransform={getYearEnd}
+      minDateTransform={getYearStart}
+      view="decade"
+    >
+      {formatYear(locale, date)}
+    </Tile>
+  );
+}
+function Decade = function Decade({
+  classes = [],
+  formatYear = defaultFormatYear,
+  ...otherProps
+}: DecadeProps) {
+  const { date, locale } = otherProps;
+
+  return (
+    <Tile
+      {...otherProps}
+      classes={[...classes, className]}
+      maxDateTransform={getDecadeEnd}
+      minDateTransform={getDecadeStart}
+      view="century"
+    >
+      {getDecadeLabel(locale, formatYear, date)}
+    </Tile>
+  );
+}
+new Intl.DateTimeFormat(localeWithDefault || undefined, options).format
+function WeekNumbers = function WeekNumbers(props: WeekNumbersProps) {
+  const {
+    activeStartDate,
+    calendarType: calendarTypeOrDeprecatedCalendarType,
+    onClickWeekNumber,
+    onMouseLeave,
+    showFixedNumberOfWeeks,
+  } = props;
+
+  const calendarType = mapCalendarType(calendarTypeOrDeprecatedCalendarType);
+  const numberOfWeeks = (() => {
+    if (showFixedNumberOfWeeks) {
+      return 6;
+    }
+
+    const numberOfDays = getDaysInMonth(activeStartDate);
+    const startWeekday = getDayOfWeek(activeStartDate, calendarType);
+
+    const days = numberOfDays - (7 - startWeekday);
+    return 1 + Math.ceil(days / 7);
+  })();
+
+  const dates = (() => {
+    const year = getYear(activeStartDate);
+    const monthIndex = getMonth(activeStartDate);
+    const day = getDate(activeStartDate);
+
+    const result = [];
+    for (let index = 0; index < numberOfWeeks; index += 1) {
+      result.push(getBeginOfWeek(new Date(year, monthIndex, day + index * 7), calendarType));
+    }
+    return result;
+  })();
+
+  const week...

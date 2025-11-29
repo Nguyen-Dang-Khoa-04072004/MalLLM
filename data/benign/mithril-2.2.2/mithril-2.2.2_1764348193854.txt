@@ -1,0 +1,74 @@
+var stylekeys = [
+			["left", function (c) { return c % 3 ? c + "px" : c }],
+			["top", function (c) { return c % 2 ? c + "px" : c }],
+			["margin", function (c) { return get(multivalue, c).replace("1px", c+"px") }],
+			["padding", function (c) { return get(multivalue, c) }],
+			["position", function (c) { return c%5 ? c%2 ? "absolute" : "relative" : null }],
+			["display", function (c) { return c%10 ? c%2 ? "block" : "inline" : "none" }],
+			["color", function (c) { return ("rgba(" + (c%255) + ", " + (255 - c%255) + ", " + (50+c%150) + ", " + (c%50/50) + ")") }],
+			["border", function (c) { return c%5 ? (c%10) + "px " + (c%2?"solid":"dotted") + " " + stylekeys[6][1](c) : "" }]
+		]
+_tmp_69.push(["margin", function (c) { return get(multivalue, c).replace("1px", c+"px") }])
+_tmp_69.push(["padding", function (c) { return get(multivalue, c) }])
+_tmp_69.push(["position", function (c) { return c%5 ? c%2 ? "absolute" : "relative" : null }])
+_tmp_69.push(["display", function (c) { return c%10 ? c%2 ? "block" : "inline" : "none" }])
+_tmp_69.push(["color", function (c) { return ("rgba(" + (c%255) + ", " + (255 - c%255) + ", " + (50+c%150) + ", " + (c%50/50) + ")") }])
+_tmp_69.push(["border", function (c) { return c%5 ? (c%10) + "px " + (c%2?"solid":"dotted") + " " + stylekeys[6][1](c) : "" }])
+conf = get(stylekeys, ++counter)
+style[conf[0]] = conf[1](counter)
+removeNodes(parent, old, oldStart, oldEnd + 1)
+function createFragment = function createFragment(parent, vnode3, hooks, ns, nextSibling) {
+		var fragment = $doc.createDocumentFragment()
+		if (vnode3.children != null) {
+			var children2 = vnode3.children
+			createNodes(fragment, children2, 0, children2.length, hooks, null, ns)
+		}
+		vnode3.dom = fragment.firstChild
+		vnode3.domSize = fragment.childNodes.length
+		insertNode(parent, fragment, nextSibling)
+	}
+m("div.booga",
+						{
+							class: get(classes, index),
+							"data-index": index,
+							title: index.toString(36)
+						},
+						m("input.dooga", {type: "checkbox", checked: index % 3 === 0}),
+						m("input", {value: "test " + Math.floor(index / 4), disabled: index % 10 ? null : true}),
+						m("div", {class: get(classes, index * 11)},
+							m("p", {style: get(styles, index)}, "p1"),
+							m("p", {style: get(styles, index + 1)}, "p2"),
+							m("p", {style: get(styles, index * 2)}, "p3"),
+							m("p.zooga", {style: get(styles, index * 3 + 1), className: get(classes, index * 7)}, "p4")
+						)
+					)
+createNode(parent, v, hooks, ns, nextSibling)
+createNodes(fragment, children2, 0, children2.length, hooks, null, ns)
+_tmp_81.title = index.toString(36)
+m("input.dooga", {type: "checkbox", checked: index % 3 === 0})
+m("input", {value: "test " + Math.floor(index / 4), disabled: index % 10 ? null : true})
+function createElement = function createElement(parent, vnode3, hooks, ns, nextSibling) {
+		var tag = vnode3.tag
+		var attrs2 = vnode3.attrs
+		var is = attrs2 && attrs2.is
+		ns = getNameSpace(vnode3) || ns
+		var element = ns ?
+			is ? $doc.createElementNS(ns, tag, {is: is}) : $doc.createElementNS(ns, tag) :
+			is ? $doc.createElement(tag, {is: is}) : $doc.createElement(tag)
+		vnode3.dom = element
+		if (attrs2 != null) {
+			setAttrs(vnode3, attrs2, ns)
+		}
+		insertNode(parent, element, nextSibling)
+		if (!maybeSetContentEditable(vnode3)) {
+			if (vnode3.children != null) {
+				var children2 = vnode3.children
+				createNodes(element, children2, 0, children2.length, hooks, null, ns)
+				if (vnode3.tag === "select" && attrs2 != null) setLateSelectAttrs(vnode3, attrs2)
+			}
+		}
+	}
+m("p", {style: get(styles, index)}, "p1")
+m("p", {style: get(styles, index + 1)}, "p2")
+m("p", {style: get(styles, index * 2)}, "p3")
+m("p.zooga", {style: get(styles, index * 3 + 1), className: get(classes, index * 7)}, "p4")

@@ -1,0 +1,45 @@
+new Promise((resolve, reject) => {
+        const buffers = [];
+        resource.once('error', reject);
+        resource.on('data', data => buffers.push(data));
+        resource.once('end', () => resolve(Buffer.concat(buffers)));
+      })
+const listener = message => {
+        if (!message || message._sFetchProp !== prop) return;
+        parent.removeListener('message', listener);
+        if (!message._error) resolve(message._result);
+        else reject(Util.makeError(message._error));
+      }
+text
+        .split('```')
+        .map((subString, index, array) => {
+          if (index % 2 && index !== array.length - 1) return subString;
+          return Util.escapeMarkdown(subString, {
+            inlineCode,
+            bold,
+            italic,
+            underline,
+            strikethrough,
+            spoiler,
+            inlineCodeContent,
+          });
+        })
+        .join(codeBlock ? '\\`\\`\\`' : '```')
+this.guild.client.api
+      .guilds(this.guild.id)
+      .roles.post({ data, reason })
+      .then(r => {
+        const { role } = this.client.actions.GuildRoleCreate.handle({
+          guild_id: this.guild.id,
+          role: r,
+        });
+        if (data.position) return role.setPosition(data.position, reason);
+        return role;
+      })
+_iterator_2 = <operator>.iterator(crosspostedChannels)
+_tmp_15.d = {
+        server_id: this.connection.channel.guild.id,
+        user_id: this.client.user.id,
+        token: this.connection.authentication.token,
+        session_id: this.connection.authentication.sessionID,
+      }

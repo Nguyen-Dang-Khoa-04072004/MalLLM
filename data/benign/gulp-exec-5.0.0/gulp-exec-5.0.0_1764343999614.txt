@@ -1,0 +1,19 @@
+opt.env = process.env
+exec(cmd, opt, function (err, stdout, stderr) {
+			file.exec = {
+				err: err,
+				stdout: stdout.trim(),
+				stderr: stderr.trim()
+			};
+			if (opt.pipeStdout) {
+				file.exec.contents = file.contents;
+				file.contents = Buffer.from(stdout, opt.encoding); // FRAGILE: if it wasn't a buffer it is now
+			}
+			if (err && !opt.continueOnError) {
+				that.emit('error', new PluginError(PLUGIN_NAME, err));
+			}
+			that.push(file);
+			cb();
+		})
+err && !opt.continueOnError
+that.emit('error', new PluginError(PLUGIN_NAME, err))

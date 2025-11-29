@@ -1,0 +1,183 @@
+var cleanPIDs = function() {
+        var f = 0
+            , path = _(GINA_RUNDIR)// jshint ignore:line
+            , files = null
+        ;
+
+        if ( fs.existsSync( path ) ) {
+            try {
+
+                files = fs.readdirSync( path );
+
+            } catch (err) {
+                return end(err, 'crit')
+            }
+
+
+            for (;f < files.length; ++f) {
+
+                // skip all but framework pid files
+                if ( files[f] != process.title +'.pid' ) {
+                    continue;
+                }
+
+                let filePid = null;
+                try {
+                    filePid = fs.readFileSync(_(path +'/'+ files[f], true)).toString().trim();// jshint ignore:line
+                } catch(fileErr) {
+                    fs.unlinkSync(_(path +'/'+ files[f], true));// jshint ignore:line
+                    continue;
+                }
+                // remove old framework pid files
+                if (filePid && filePid != self.pid) {
+                 ...
+function CouchbaseStore = function CouchbaseStore(options) {
+        var self = this;
+
+        options = options || {};
+        Store.call(this, options);
+        this.prefix = null == options.prefix
+            ? 'sess:'
+            : options.prefix;
+
+        var connectOptions = {};
+        if (options.hasOwnProperty("host")) {
+            connectOptions.host = options.host;
+        } else if (options.hasOwnProperty("hosts")) {
+            connectOptions.host = options.hosts;
+        }
+
+        if (options.hasOwnProperty("username")) {
+            connectOptions.username = options.username;
+        }
+
+        if (options.hasOwnProperty("password")) {
+            connectOptions.password = options.password;
+        }
+
+        if (options.hasOwnProperty("bucket")) {
+            connectOptions.bucket = options.bucket;
+        }
+
+        if (options.hasOwnProperty("cachefile")) {
+            connectOptions.cachefile = options.cachefile;
+        }
+
+        if (options.hasOwnProperty("connectionTimeout")) {
+     ...
+var processSrc = function(method, src, target, zipInstance, options, cb) {
+
+            if ( !fs.existsSync(src) ) {
+                self.emit('archiver-'+ method +'#complete', new Error('file not found `'+ src +'`'));
+
+                return;
+            }
+
+            stats = fs.statSync(src);
+
+            var isBatchProcessing = ( typeof(cb) != 'undefined' ) ? true : false;
+
+            if ( stats.isFile() ) { // single file compression
+
+
+                var input   = null;
+                var output  = null;
+
+                if ( isBatchProcessing ) {
+                    input   = src;
+                    output  = target
+                } else {
+                    // targeted filename
+                    if ( typeof(options.name) != 'undefined' && options.name != 'default') {
+                        target += options.name;
+                    } else {
+                        target += src.substr(src.lastIndexOf('/')+1);
+                    }
+
+                    input   = fs.creat...
+getEnvVar = function(key) {
+        if (
+            typeof(process['gina']) != 'undefined' &&
+            typeof(process['gina'][key]) != 'undefined' &&
+            process['gina'][key] != ''
+            ) {
+            return process['gina'][key]
+        }
+        return undefined
+    }
+saveProjectFile( function doneSavingProject(err, content) {
+
+                        if ( err ) {
+                            rollback(err);
+                            return;
+                        }
+
+                        if (rewrite) {
+                            delete content.bundles[local.bundle]
+                        }
+                        createBundle()
+                    })
+self.checkArch = function(done) {
+
+        var currentArch = process.arch;
+        var currentPlatform = process.platform;
+        // ignored for framework:set
+        var mainConfig = require( self.opt.homedir + '/main.json' );
+        var defaultMainConfig = requireJSON( getPath('gina').root + '/resources/home/main.json' );
+        //has registered arch ?
+        var arch        = getEnvVar('GINA_ARCH') || mainConfig['def_arch'][self.release] || null; // arch by default
+        if ( typeof(mainConfig.archs) == 'undefined' ) {
+            mainConfig.archs = {};
+            mainConfig.archs[self.release] = defaultMainConfig.archs['{release}'];
+            mainConfig['def_arch'] = {}
+            mainConfig['def_arch'][self.release] = currentArch;
+            isUpdateNeeded = true;
+        }
+        if ( mainConfig.archs[self.release].indexOf(arch) < 0 ) {
+            console.error('Arch [ ' + arch + ' ] not registered. Gina is not support your architecture `'+ process.arch +'` at thi...
+!local.options.isRenderingCustomError
+                && typeof(data.page.data.status) != 'undefined'
+                && !/^2/.test(data.page.data.status)
+                && typeof(data.page.data.error) != 'undefined'
+typeof(EntitySuper[callerName].instance._relations[entityName]) == 'undefined'
+var queryFromBackend = async function(options, request, response, next) {
+        var Config = require(_(GINA_FRAMEWORK_DIR +'/core/config.js', true));
+        var config      = new Config().getInstance();
+
+        var opt     = null
+            //appConf.proxy.<bundle>;
+            , rule  = null
+            , bundle = null
+            , currentBundle = getContext('bundle')
+        ;
+        // trying to retrieve proxy conf
+        if ( /\@/.test(options.url) ) {
+            var attr = options.url.split(/@/);
+            rule = attr[0];
+            bundle = attr[1];
+            var proxyConf = getConfig( currentBundle, 'app' ).proxy;
+            try {
+                if (config.bundle !== bundle) { // ignore if same bundle
+                    // getting proxy conf when available
+                    opt = getConfig( currentBundle, 'app' ).proxy[bundle];
+                }
+            } catch (proxyError) {
+                throw new Error('Could not retrieve `proxy` configuration for bund...
+(_tmp_43 = replaceable
+                        .replace(/\"\{(\w+)\}\"/g, function(s, key) {
+                            if ( /^(true|false|null)$/i.test(dictionary[key]) ) {
+                                return (/^(true|false|null)$/i.test(dictionary[key])) ? dictionary[key] : s
+                            }
+                            // When "{single}" and not "{sigle}/something"
+                            if ( /^\"\{(\w+)\}\"$/i.test(s) && !dictionary[key]) {
+                                //return ('"'+ dictionary[key] +'"' || s);
+                                return '"'+ (dictionary[key] || s.replace(/\"/g, '')) +'"';
+                            }
+                            return '"'+ (dictionary[key] || s) +'"';
+                        })
+                        .replace(/\{(\w+)\}/g, function(s, key) {
+                            return dictionary[key] || s;
+                        })
+                        // OS Environment Variables
+                        .replace(/\"\~\/\"...).replace
+lib.generator.createFileFromDataSync(settings, settingsPath)

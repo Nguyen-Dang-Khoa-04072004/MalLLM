@@ -1,0 +1,10 @@
+request.get(url, function (err, resp, body) {
+      if (err) return callback(err);
+      resp.headers['content-type'] = resp.headers['content-type'] || '';
+      if (resp.headers['content-type'].indexOf('yaml') !== -1) {
+        body = YAML.parse(body);
+      } else {
+        body = JSON.parse(body);
+      }
+      finish(body);
+    })

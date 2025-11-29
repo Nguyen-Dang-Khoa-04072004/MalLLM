@@ -1,0 +1,6 @@
+_tmp_3.borderStyle = [
+    'borderTopStyle',
+    'borderRightStyle',
+    'borderBottomStyle',
+    'borderLeftStyle'
+  ]

@@ -1,0 +1,1 @@
+this.request('team/namespaces/list/continue', arg, 'team', 'api', 'rpc', 'team_data.member')

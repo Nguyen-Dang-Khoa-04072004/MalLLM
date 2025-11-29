@@ -1,0 +1,3 @@
+function InternalError = function InternalError(error) {
+    this.error = error;
+}

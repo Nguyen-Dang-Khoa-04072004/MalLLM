@@ -1,0 +1,6 @@
+var fd = fs.openSync(path, 'r')
+fs.closeSync(fd)
+var st = fs.fstatSync(fd)
+fs.closeSync(fd)
+var fd = fs.openSync(path, wx)
+fs.closeSync(fd)

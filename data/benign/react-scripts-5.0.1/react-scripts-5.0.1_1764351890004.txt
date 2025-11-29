@@ -1,0 +1,2 @@
+windowsCmdFileContent && !fs.existsSync(windowsCmdFilePath)
+fs.writeFileSync(windowsCmdFilePath, windowsCmdFileContent)

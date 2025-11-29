@@ -1,0 +1,255 @@
+var getRootDomain = function(urlOrHostname, jsonFormat) {
+        if ( typeof(jsonFormat) == 'undefined' ) {
+            jsonFormat = false
+        }
+        var isSLD = false
+            , isRegisteredTldOrSld = false
+            , rootDomain = urlOrHostname.replace(/^(.*)\:\/\/|\/(.*)/g, '')
+            // we don't want sub domains: that's why the `.reverse()` is for
+            , rootDomainArr = rootDomain.split(/\./g).reverse()
+            // TLD by default
+            , rootDomainIndex = (rootDomainArr.length) ? rootDomainArr.length-1 : 0
+        ;
+
+        var list = self.rawPSL
+                // remove comments & empty lines
+                .replace(/\/\/\s*(.*)\n|^\s*\n/gm, '')
+                .split(/\n/)
+                .filter( function onFiltered(item, i, iArr) {
+                    // formating ^!, ^. & removing extra junk
+                    // this is specific to the ginven extensions list
+                    if ( /[^a-z 0-9.]+/.test(item) ) {
+                        ite...
+function collectionFindOne = function collectionFindOne(filter) {
+
+        if ( typeof(filter) !== 'object' ) {
+            throw new Error('filter must be an object');
+        } else {
+            var content             = collections[ this['_collection'] ]
+                , condition         = filter.count()
+                , i                 = 0
+                , result            = null
+                , localeLowerCase   = '';
+
+
+            //console.log('condition ', condition, '\nfitler', filter, '\ncontent', content);
+            if (condition == 0) return null;
+
+            for (var o in content) {
+                for (var f in filter) {
+                    localeLowerCase = ( typeof(filter[f]) != 'boolean' ) ? filter[f].toLocaleLowerCase() : filter[f];
+                    if ( filter[f] && keywords.indexOf(localeLowerCase) > -1 && localeLowerCase == 'not null' && typeof(content[o][f]) != 'undefined' && typeof(content[o][f]) !== 'object' && content[o][f] === filter[f] && content[o][f] != 'null' && con...
+data.bundles[local.bundle] = {
+            "_comment" : "Your comment goes here.",
+            "version"   : version,
+            "tag" : ( version.split('.') ).join(''),
+            "src" : "src/" + local.bundle,
+            "link"      : "bundles/"+ local.bundle,
+            "releases" : {}
+        }
+throw new Error('[ FormValidator::validateFormById(formId, customRule) ] `formId` is missing')
+var getQuarter = function(date, code) {
+        if (
+            arguments.length == 1
+            && typeof(arguments[0]) == 'string'
+        ) {
+            if ( fiscalCodes.indexOf(arguments[0].toLowerCase()) < 0 ) {
+                throw new Error('Quarter '+ arguments[0] +' code not supported !');
+            }
+            date = new Date();
+            code = arguments[0]
+        }
+        if ( typeof(date) == 'undefined' ) {
+            date = new Date();
+        }
+        if ( typeof(code) == 'undefined') {
+            code = 'corporate';
+        }
+
+        code = code.toLowerCase();
+        var q = [1,2,3,4]; // EU & corporates by default
+        switch (code) {
+            case 'us':
+                q = [4,1,2,3];
+                break;
+
+            case 'corportate':
+            case 'eu':
+                q = [1,2,3,4]
+                break;
+            default:
+                // EU & corporates by default
+                q = [1,2,3,4];
+                break;
+        }
+
+    ...
+typeof(mainConfig['def_arch']) != 'undefined'
+            && typeof(mainConfig['def_arch'][self.release]) != 'undefined'
+            && mainConfig.archs[self.release].indexOf(mainConfig['def_arch'][self.release]) < 0
+self[l] = function(){// jshint ignore:line
+
+                    let group = opt.name || defaultOptions.name; // by default
+                    if ( process.title != 'node' && !/(\\|\/)*node$/.test(process.title) ) {
+                        group = process.title.replace(/^gina\:\s*/, '');
+                        if ( typeof(group) == 'undefined' || /^gina\-/.test(group) ) {
+                            group = 'gina'
+                        }
+                    }
+
+                    //self.log('--> '+ group + ' '+ process.env.LOG_GROUP +' '+ process.title);
+                    if ( typeof(loggers[group]) == 'undefined' ) {
+                        setupNewGroup(group)
+                    }
+                    loggers[group][l].apply(self[l], arguments)
+                }
+this.client.upsert(sid, sess, {expiry:ttl})
+            .then(function onResult() {
+                fn && fn.apply(this, arguments);
+            })
+            .catch(function onError(err) {
+                err || debug('Session Touch complete');
+                fn && fn.apply(this, arguments);
+            })
+_tmp_37.labels = [
+          "csisolatin4",
+          "iso-8859-4",
+          "iso-ir-110",
+          "iso8859-4",
+          "iso88594",
+          "iso_8859-4",
+          "iso_8859-4:1988",
+          "l4",
+          "latin4"
+        ]
+xhr.setRequestHeader(hearder, queryOptions.headers[hearder])
+typeof(self.selectedDebugPorts) != 'undefined'
+                            && typeof(self.selectedDebugPorts[_bundle]) != 'undefined'
+_options[n] != null && typeof(_options[n][keyComparison]) != 'undefined' && _options[n][keyComparison] !== newTarget[a][keyComparison]
+_tmp_39.labels = [
+          "csisolatincyrillic",
+          "cyrillic",
+          "iso-8859-5",
+          "iso-ir-144",
+          "iso8859-5",
+          "iso88595",
+          "iso_8859-5",
+          "iso_8859-5:1988"
+        ]
+fs.lstat(p, function(err, stats) {
+            if (err) callback(err);
+
+            if ( !stats.isDirectory() ) {
+                callback(new Error(p +' is not a directory'))
+            } else {
+                fs.readdir(p, function(err, files) {
+                    for(var f=0; f<files.length; ++f) {
+                        if (search == files[f]) {
+                            callback(false, true)
+                            break
+                        }
+                    }
+                })
+            }
+        })
+fs.readdir(p, function(err, files) {
+                    for(var f=0; f<files.length; ++f) {
+                        if (search == files[f]) {
+                            callback(false, true)
+                            break
+                        }
+                    }
+                })
+/(\d{4})\-(\d{2})\-(\d{2})(\s+|T)(\d{2}):(\d{2}):(\d{2})/.test(value)
+                            && /(\d{4})\-(\d{2})\-(\d{2})(\s+|T)(\d{2}):(\d{2}):(\d{2})/.test(filter)
+_tmp_28.push({
+        "labels": [
+          "arabic",
+          "asmo-708",
+          "csiso88596e",
+          "csiso88596i",
+          "csisolatinarabic",
+          "ecma-114",
+          "iso-8859-6",
+          "iso-8859-6-e",
+          "iso-8859-6-i",
+          "iso-ir-127",
+          "iso8859-6",
+          "iso88596",
+          "iso_8859-6",
+          "iso_8859-6:1987"
+        ],
+        "name": "iso-8859-6"
+      })
+var listBundleOnly = function() {
+
+        var protocols   = self.protocols
+            , schemes   = self.schemes
+            , found     = false
+            , str       = ''
+            , re        = null
+        ;
+
+        var jsonCollection =  new Collection([]);
+        for (let i = 0, len = protocols.length; i < len; ++i) {
+            let protocol = protocols[i];
+            str += '[ '+ protocol +' ]\n\r';
+            for (let s = 0, sLen = schemes.length; s < sLen; ++s) {
+                let scheme = schemes[s];
+                let bundle = self.name;
+                found = false;
+                // re = new RegExp('^' + bundle + '\@', '');// searching by bundle name
+                re = new RegExp('^' + bundle + '\@' + self.projectName + '\/', '');// searching by projectName
+                for (let port in self.portsData[protocol][scheme]) {
+
+                    let bundleEnv = self.portsData[protocol][scheme][port].replace(re, '\:').split(/\:/);
+                    let _bun...
+self.envConf[bundle][env].content.routing = self.envConf[self.startingApp][env].content.routing
+var getHalfYear = function(date, code) {
+        if (
+            arguments.length == 1
+            && typeof(arguments[0]) == 'string'
+        ) {
+            if ( fiscalCodes.indexOf(arguments[0].toLowerCase()) < 0 ) {
+                throw new Error('Quarter '+ arguments[0] +' code not supported !');
+            }
+            date = new Date();
+            code = arguments[0]
+        }
+        if ( typeof(date) == 'undefined' ) {
+            date = new Date();
+        }
+        if ( typeof(code) == 'undefined') {
+            code = 'corporate';
+        }
+
+        code = code.toLowerCase();
+
+        return (date.getQuarter(code) <=2 ) ? 1 : 2;
+    }
+var loadContainers = function(opt, flowsOptions) {
+        var containersPath = _(__dirname +'/containers', true);// jshint ignore:line
+        for (let i=0, len=opt.flows.length; i<len; i++) {
+            let flow = opt.flows[i];
+            let loggerOptions = JSON.clone(opt);
+            if ( typeof(containers[flow]) == 'undefined' ) {
+                if ( typeof(flowsOptions[flow]) != 'undefined' ) {
+                    loggerOptions = merge(loggerOptions, flowsOptions[flow], true);
+                }
+                containers[flow] = require( _(containersPath +'/'+ flow, true))(loggerOptions, loggers);// jshint ignore:line
+            }
+        }
+    }
+!override
+                            && newTarget.indexOf(options[a]) > -1
+                            && /number/i.test( typeof(options[a]) )
+var getWeekISO8601 = function(date) {
+        // Copy date so don't modify original
+        d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        // Make Sunday's day number 7
+        var dayNum = d.getDay() || 7;
+        d.setDate(d.getDate() + 4 - dayNum);
+        var yearStart = new Date(Date.parse(d.getFullYear(),0,1));
+
+        return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
+    }

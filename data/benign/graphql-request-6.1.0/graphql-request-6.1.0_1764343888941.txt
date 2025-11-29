@@ -1,0 +1,1 @@
+this.socket.send(Ping(payload).text)

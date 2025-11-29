@@ -1,0 +1,6 @@
+this._nextTick(callback, null, keys.map((key) => {
+    const value = this._store.get(key)
+    return value === undefined || options.asBuffer ? value : value.toString()
+  }))
+const value = this._store.get(key)
+value === undefined || options.asBuffer ? value : value.toString()

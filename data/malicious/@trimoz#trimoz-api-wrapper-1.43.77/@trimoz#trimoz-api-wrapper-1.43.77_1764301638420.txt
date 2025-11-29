@@ -1,0 +1,1 @@
+API.http.interceptors.response.use(jwtInterceptor.responseOnFulfilled, jwtInterceptor.responseOnRejected)

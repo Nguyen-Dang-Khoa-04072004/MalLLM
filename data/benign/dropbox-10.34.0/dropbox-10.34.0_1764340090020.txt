@@ -1,0 +1,3 @@
+routes.teamLegalHoldsCreatePolicy = function (arg) {
+  return this.request('team/legal_holds/create_policy', arg, 'team', 'api', 'rpc', 'team_data.governance.write');
+}

@@ -1,0 +1,21 @@
+e = flatOne(await Promise.all(e.map((e => async function r(e, t) {
+   return isGlob(e.src) ? await async function r(e, t) {
+    return (await asyncGlob(e.src, {
+     cwd: t,
+     nodir: !0
+    })).map((r => function n(e, t, r) {
+     const n = path__default.default.join(e.dest, e.keepDirStructure ? r : path__default.default.basename(r));
+     return {
+      src: path__default.default.join(t, r),
+      dest: n,
+      warn: e.warn,
+      keepDirStructure: e.keepDirStructure
+     };
+    }(e, t, r)));
+   }(e, t) : [ {
+    src: getSrcAbsPath(t, e.src),
+    dest: e.keepDirStructure ? path__default.default.join(e.dest, e.src) : e.dest,
+    warn: e.warn,
+    keepDirStructure: e.keepDirStructure
+   } ];
+  }(e, t)))))

@@ -1,0 +1,1 @@
+n ? d.m = monthLookup.get(n[0].toLowerCase()), i + n[0].length : -1

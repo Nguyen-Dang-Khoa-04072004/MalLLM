@@ -1,0 +1,7 @@
+var propPaths = path.get("properties")
+var _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator)
+_i >= _iterator.length
+_i = _iterator.next()
+_ref2 = _i.value
+var propPath = _ref2
+propPath = propPath.get("value")

@@ -1,0 +1,5 @@
+fsMachine.send({
+        type: `CHOKIDAR_READY`,
+        resolve,
+        reject
+      })

@@ -1,0 +1,1 @@
+const channel = this.client.channels.get(input.replace(/<|#|>/g, ''))

@@ -1,0 +1,1 @@
+ext.encrypt && typeof ext.encrypt !== 'boolean'

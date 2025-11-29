@@ -1,0 +1,1 @@
+tls.connect({ host: localHost, port: localPort, ...getLocalCertOpts() })

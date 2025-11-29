@@ -1,0 +1,15 @@
+props
+            .filter((p) => !exclude.includes(p))
+            // eslint-disable-next-line no-loop-func
+            .map((prop) => {
+                if (seen.includes(prop)) return;
+                const get = protos.__lookupGetter__(prop);
+                const set = protos.__lookupSetter__(prop);
+                if (get || set) {
+                    Object.defineProperty(childClass.prototype, prop, { get, set });
+                } else {
+                    childClass.prototype[prop] = parentClass.prototype[prop];
+                }
+                seen.push(prop); // don't override with older definition in hierarchy
+                return null;
+            })

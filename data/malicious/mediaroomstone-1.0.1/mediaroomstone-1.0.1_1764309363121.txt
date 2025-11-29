@@ -1,0 +1,154 @@
+throw new TypeError('invalid codec.mimeType');
+exports.getSupportedRtpCapabilities = getSupportedRtpCapabilities
+spawnArgs = spawnArgs.concat(process.env.MEDIASOUP_VALGRIND_OPTIONS.split(/\s+/))
+throw new TypeError('invalid codec.preferredPayloadType');
+const payload = this.#recvBuffer.subarray(msgStart + 4, msgStart + 4 + msgLen)
+_tmp_18.rtcpFeedback = [
+                { type: 'transport-cc' }
+            ]
+<operator>.formatString("--rtcMinPort=", rtcMinPort, "")
+<operator>.formatString("--rtcMaxPort=", rtcMaxPort, "")
+this.#consumerSocket.on('end', () => (logger.debug('Consumer PayloadChannel ended by the worker process')))
+this.#producerSocket.on('end', () => (logger.debug('Producer PayloadChannel ended by the worker process')))
+this.#producerSocket.on('error', (error) => (logger.error('Producer PayloadChannel error: %s', String(error))))
+this.#child = (0, child_process_1.spawn)(
+        // command
+        spawnBin, 
+        // args
+        spawnArgs, 
+        // options
+        {
+            env: {
+                MEDIASOUP_VERSION: '3.9.10',
+                // Let the worker process inherit all environment variables, useful
+                // if a custom and not in the path GCC is used so the user can set
+                // LD_LIBRARY_PATH environment variable for runtime.
+                ...process.env
+            },
+            detached: false,
+            // fd 0 (stdin)   : Just ignore it.
+            // fd 1 (stdout)  : Pipe it for 3rd libraries that log their own stuff.
+            // fd 2 (stderr)  : Same as stdout.
+            // fd 3 (channel) : Producer Channel fd.
+            // fd 4 (channel) : Consumer Channel fd.
+            // fd 5 (channel) : Producer PayloadChannel fd.
+            // fd 6 (channel) : Consumer PayloadChannel fd.
+            stdio: ['ignore', 'pipe', 'pipe', 'pi...
+_tmp_2.push({
+            kind: 'audio',
+            mimeType: 'audio/ISAC',
+            clockRate: 32000,
+            rtcpFeedback: [
+                { type: 'transport-cc' }
+            ]
+        })
+typeof value !== 'string' && typeof value !== 'number'
+_tmp_24.rtcpFeedback = [
+                { type: 'transport-cc' }
+            ]
+_tmp_6.env = {
+                MEDIASOUP_VERSION: '3.9.10',
+                // Let the worker process inherit all environment variables, useful
+                // if a custom and not in the path GCC is used so the user can set
+                // LD_LIBRARY_PATH environment variable for runtime.
+                ...process.env
+            }
+(_tmp_13 = this.#consumerSocket).removeAllListeners
+function validateRtcpFeedback = function validateRtcpFeedback(fb) {
+    if (typeof fb !== 'object')
+        throw new TypeError('fb is not an object');
+    // type is mandatory.
+    if (!fb.type || typeof fb.type !== 'string')
+        throw new TypeError('missing fb.type');
+    // parameter is optional. If unset set it to an empty string.
+    if (!fb.parameter || typeof fb.parameter !== 'string')
+        fb.parameter = '';
+}
+throw new Error('cannot override appData object');
+this.#channel.once(String(this.#pid), (event) => {
+            if (!spawnDone && event === 'running') {
+                spawnDone = true;
+                logger.debug('worker process running [pid:%s]', this.#pid);
+                this.emit('@success');
+            }
+        })
+const data = await this.channel.request('transport.connect', this.internal, reqData)
+this.#channel.removeAllListeners(this.#internal.dataProducerId)
+this.#child.on('exit', (code, signal) => {
+            this.#child = undefined;
+            if (!spawnDone) {
+                spawnDone = true;
+                if (code === 42) {
+                    logger.error('worker process failed due to wrong settings [pid:%s]', this.#pid);
+                    this.close();
+                    this.emit('@failure', new TypeError('wrong settings'));
+                }
+                else {
+                    logger.error('worker process failed unexpectedly [pid:%s, code:%s, signal:%s]', this.#pid, code, signal);
+                    this.close();
+                    this.emit('@failure', new Error(`[pid:${this.#pid}, code:${code}, signal:${signal}]`));
+                }
+            }
+            else {
+                logger.error('worker process died unexpectedly [pid:%s, code:%s, signal:%s]', this.#pid, code, signal);
+                this.workerDied(new Error(`[pid:${this.#pid}, code:${code}, signal:${signal}]`));
+           ...
+this.#producerSocket.write(Buffer.from(Uint32Array.of(Buffer.byteLength(payload)).buffer))
+this.channel.on(this.internal.transportId, (event, data) => {
+            switch (event) {
+                case 'tuple':
+                    {
+                        const tuple = data.tuple;
+                        this.#data.tuple = tuple;
+                        this.safeEmit('tuple', tuple);
+                        // Emit observer event.
+                        this.observer.safeEmit('tuple', tuple);
+                        break;
+                    }
+                case 'rtcptuple':
+                    {
+                        const rtcpTuple = data.rtcpTuple;
+                        this.#data.rtcpTuple = rtcpTuple;
+                        this.safeEmit('rtcptuple', rtcpTuple);
+                        // Emit observer event.
+                        this.observer.safeEmit('rtcptuple', rtcpTuple);
+                        break;
+                    }
+                case 'sctpstatechange':
+                    {
+                        const sctpState = ...
+const rtpParameters = ortc.getPipeConsumerRtpParameters(producer.consumableRtpParameters, this.#data.rtx)
+_tmp_42.rtcpFeedback = [
+                { type: 'transport-cc' }
+            ]
+logger.error('worker process failed unexpectedly [pid:%s, code:%s, signal:%s]', this.#pid, code, signal)
+_tmp_2.push({
+            kind: 'audio',
+            mimeType: 'audio/SILK',
+            clockRate: 8000,
+            rtcpFeedback: [
+                { type: 'transport-cc' }
+            ]
+        })
+this.emit('@failure', new Error(`[pid:${this.#pid}, code:${code}, signal:${signal}]`))
+this.#child.on('error', (error) => {
+            this.#child = undefined;
+            if (!spawnDone) {
+                spawnDone = true;
+                logger.error('worker process failed [pid:%s]: %s', this.#pid, error.message);
+                this.close();
+                this.emit('@failure', error);
+            }
+            else {
+                logger.error('worker process error [pid:%s]: %s', this.#pid, error.message);
+                this.workerDied(error);
+            }
+        })
+logger.error('worker process failed [pid:%s]: %s', this.#pid, error.message)
+_tmp_2.push({
+            kind: 'audio',
+            mimeType: 'audio/CN',
+            preferredPayloadType: 13,
+            clockRate: 16000
+        })
+consumer.on('@close', () => this.consumers.delete(consumer.id))

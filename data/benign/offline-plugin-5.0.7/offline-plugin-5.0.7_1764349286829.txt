@@ -1,0 +1,5 @@
+event.waitUntil(caches.open(PRELOAD_CACHE_NAME).then(function (cache) {
+          return cache['delete'](request);
+        }))
+cache['delete'](request)
+response || fetch(event.request)

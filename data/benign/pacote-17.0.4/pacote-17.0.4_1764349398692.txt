@@ -1,0 +1,31 @@
+const usage = () =>
+`Pacote - The JavaScript Package Handler, v${version}
+
+Usage:
+
+  pacote resolve <spec>
+    Resolve a specifier and output the fully resolved target
+    Returns integrity and from if '--long' flag is set.
+
+  pacote manifest <spec>
+    Fetch a manifest and print to stdout
+
+  pacote packument <spec>
+    Fetch a full packument and print to stdout
+
+  pacote tarball <spec> [<filename>]
+    Fetch a package tarball and save to <filename>
+    If <filename> is missing or '-', the tarball will be streamed to stdout.
+
+  pacote extract <spec> <folder>
+    Extract a package to the destination folder.
+
+Configuration values all match the names of configs passed to npm, or
+options passed to Pacote.  Additional flags for this executable:
+
+  --long     Print an object from 'resolve', including integrity and spec.
+  --json     Print result objects as JSON rather than node's default.
+             (This is the default if stdout is not a TTY.)
+  --help -h  Print this helpful text.
+
+For examp...

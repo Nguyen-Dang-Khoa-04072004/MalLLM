@@ -1,0 +1,27 @@
+var ResponsiveContainer = /*#__PURE__*/forwardRef(function (_ref, ref) {
+  var aspect = _ref.aspect,
+    _ref$initialDimension = _ref.initialDimension,
+    initialDimension = _ref$initialDimension === void 0 ? {
+      width: -1,
+      height: -1
+    } : _ref$initialDimension,
+    _ref$width = _ref.width,
+    width = _ref$width === void 0 ? '100%' : _ref$width,
+    _ref$height = _ref.height,
+    height = _ref$height === void 0 ? '100%' : _ref$height,
+    _ref$minWidth = _ref.minWidth,
+    minWidth = _ref$minWidth === void 0 ? 0 : _ref$minWidth,
+    minHeight = _ref.minHeight,
+    maxHeight = _ref.maxHeight,
+    children = _ref.children,
+    _ref$debounce = _ref.debounce,
+    debounce = _ref$debounce === void 0 ? 0 : _ref$debounce,
+    id = _ref.id,
+    className = _ref.className,
+    onResize = _ref.onResize;
+  var _useState = useState({
+      containerWidth: initialDimension.width,
+      containerHeight: initialDimension.height
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    ...

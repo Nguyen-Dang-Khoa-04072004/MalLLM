@@ -1,0 +1,452 @@
+function roundedRect = function roundedRect(x, y, w, h, r, [tl, tr, bl, br]) {
+    let retval = '';
+    w = Math.floor(w);
+    h = Math.floor(h);
+    w = w === 0 ? 1 : w;
+    h = h === 0 ? 1 : h;
+    retval = `M${[x + r, y]}`;
+    retval += `h${w - 2 * r}`;
+    if (tr) {
+        retval += `a${[r, r]} 0 0 1 ${[r, r]}`;
+    }
+    else {
+        retval += `h${r}v${r}`;
+    }
+    retval += `v${h - 2 * r}`;
+    if (br) {
+        retval += `a${[r, r]} 0 0 1 ${[-r, r]}`;
+    }
+    else {
+        retval += `v${r}h${-r}`;
+    }
+    retval += `h${2 * r - w}`;
+    if (bl) {
+        retval += `a${[r, r]} 0 0 1 ${[-r, -r]}`;
+    }
+    else {
+        retval += `h${-r}v${-r}`;
+    }
+    retval += `v${2 * r - h}`;
+    if (tl) {
+        retval += `a${[r, r]} 0 0 1 ${[r, -r]}`;
+    }
+    else {
+        retval += `v${-r}h${r}`;
+    }
+    retval += `z`;
+    return retval;
+}
+function count = function count(countFrom, countTo, countDecimals, countDuration, callback) {
+    const startVal = Number(countFrom);
+    const endVal = Number(countTo);
+    const countDown = startVal > endVal;
+    const decimals = Math.max(0, countDecimals);
+    const dec = Math.pow(10, decimals);
+    const duration = Number(countDuration) * 1000;
+    let startTime;
+    function runCount(timestamp) {
+        let frameVal;
+        const progress = timestamp - startTime;
+        if (countDown) {
+            frameVal = startVal - easeOutExpo(progress, 0, startVal - endVal, duration);
+        }
+        else {
+            frameVal = easeOutExpo(progress, startVal, endVal - startVal, duration);
+        }
+        if (countDown) {
+            frameVal = frameVal < endVal ? endVal : frameVal;
+        }
+        else {
+            frameVal = frameVal > endVal ? endVal : frameVal;
+        }
+        frameVal = Math.round(frameVal * dec) / dec;
+        const tick = progress < duration;
+        callback({
+       ...
+function getXDomainArray = function getXDomainArray(values, xScaleMin, xScaleMax) {
+    const scaleType = getScaleType(values);
+    let xSet = [];
+    let domain = [];
+    if (scaleType === ScaleType.Linear) {
+        values = values.map(v => Number(v));
+    }
+    let min;
+    let max;
+    if (scaleType === ScaleType.Time || scaleType === ScaleType.Linear) {
+        const mappedValues = values.map(v => Number(v));
+        min = xScaleMin ? xScaleMin : Math.min(...mappedValues);
+        max = xScaleMax ? xScaleMax : Math.max(...mappedValues);
+    }
+    if (scaleType === ScaleType.Time) {
+        domain = [new Date(min), new Date(max)];
+        xSet = [...values].sort((a, b) => {
+            const aDate = a.getTime();
+            const bDate = b.getTime();
+            if (aDate > bDate)
+                return 1;
+            if (bDate > aDate)
+                return -1;
+            return 0;
+        });
+    }
+    else if (scaleType === ScaleType.Linear) {
+        domain = [min, max];
+        // Use compare funct...
+this.data.map(d => {
+            const baselineLabelHeight = 20;
+            const padding = 10;
+            const name = d.data.name;
+            const label = formatLabel(name);
+            const value = d.data.value;
+            const radius = min([d.width - padding, d.height - baselineLabelHeight]) / 2 - 5;
+            const innerRadius = radius * 0.9;
+            let count = 0;
+            const colors = () => {
+                count += 1;
+                if (count === 1) {
+                    return 'rgba(100,100,100,0.3)';
+                }
+                else {
+                    return this.colorScale.getColor(label);
+                }
+            };
+            const xPos = d.x + (d.width - padding) / 2;
+            const yPos = d.y + (d.height - baselineLabelHeight) / 2;
+            return {
+                transform: `translate(${xPos}, ${yPos})`,
+                colors,
+                innerRadius,
+                outerRadius: radius,
+                name,
+           ...
+PieLabelComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.1.0", type: PieLabelComponent, selector: "g[ngx-charts-pie-label]", inputs: { data: "data", radius: "radius", label: "label", color: "color", max: "max", value: "value", explodeSlices: "explodeSlices", animations: "animations", labelTrim: "labelTrim", labelTrimSize: "labelTrimSize" }, usesOnChanges: true, ngImport: i0, template: `
+    <title>{{ label }}</title>
+    <svg:g [attr.transform]="attrTransform" [style.transform]="styleTransform" [style.transition]="textTransition">
+      <svg:text
+        class="pie-label"
+        [class.animation]="animations"
+        dy=".35em"
+        [style.textAnchor]="textAnchor()"
+        [style.shapeRendering]="'crispEdges'"
+      >
+        {{ labelTrim ? trimLabel(label, labelTrimSize) : label }}
+      </svg:text>
+    </svg:g>
+    <svg:path
+      [attr.d]="line"
+      [attr.stroke]="color"
+      fill="none"
+      class="pie-label-line line"
+      [class.animation...
+this.dims = calculateViewDimensions({
+            width: this.width,
+            height: this.height,
+            margins: this.margin,
+            showXAxis: this.xAxis,
+            showYAxis: this.yAxis,
+            xAxisHeight: this.xAxisHeight,
+            yAxisWidth: this.yAxisWidth,
+            showXLabel: this.showXAxisLabel,
+            showYLabel: this.showYAxisLabel,
+            showLegend: this.legend,
+            legendType: this.schemeType,
+            legendPosition: this.legendPosition
+        })
+_tmp_84.template = "
+    <ngx-charts-chart
+      [view]="[width, height]"
+      [showLegend]="legend"
+      [legendOptions]="legendOptions"
+      [activeEntries]="activeEntries"
+      [animations]="animations"
+      (legendLabelClick)="onClick($event)"
+      (legendLabelActivate)="onActivate($event)"
+      (legendLabelDeactivate)="onDeactivate($event)"
+    >
+      <svg:defs>
+        <svg:clipPath [attr.id]="clipPathId">
+          <svg:rect
+            [attr.width]="dims.width + 10"
+            [attr.height]="dims.height + 10"
+            [attr.transform]="'translate(-5, -5)'"
+          />
+        </svg:clipPath>
+      </svg:defs>
+      <svg:g [attr.transform]="transform" class="area-chart chart">
+        <svg:g
+          ngx-charts-x-axis
+          *ngIf="xAxis"
+          [xScale]="xScale"
+          [dims]="dims"
+          [showGridLines]="showGridLines"
+          [showLabel]="showXAxisLabel"
+          [labelText]="xAxisLabel"
+          [trimTicks]="trimXAxisTicks"
+          [rotateTicks]="rotateXAxisTicks"
+          [maxTickLength]="maxXAxisTickLength"
+          [tickFormatting]="xAxisTickFormatting"
+          [ticks]="xAxisTicks"
+          [wrapTicks]="wrapTicks"
+          (dimensionsChanged)="updateXAxisHeight($event)"
+        ></svg:g>
+        <svg:g
+          ngx-charts-y-axis
+          *ngIf="yAxis"
+          [yScale]="yScale"
+          [dims]="dims"
+          [showGridLines]="showGridLines"
+          [showLabel]="showYAxisLabel"
+          [labelText]="yAxisLabel"
+          [trimTicks]="trimYAxisTicks"
+          [maxTickLength]="maxYAxisTickLength"
+          [tickFormatting]="yAxisTickFormatting"
+          [ticks]="yAxisTicks"
+          [wrapTicks]="wrapTicks"
+          (dimensionsChanged)="updateYAxisWidth($event)"
+        ></svg:g>
+        <svg:g [attr.clip-path]="clipPath">
+          <svg:g *ngFor="let series of results; trackBy: trackBy">
+            <svg:g
+              ngx-charts-area-series
+              [xScale]="xScale"
+              [yScale]="yScale"
+              [colors]="colors"
+              [data]="series"
+              [scaleType]="scaleType"
+              [activeEntries]="activeEntries"
+              [gradient]="gradient"
+              [normalized]="true"
+              [curve]="curve"
+              [animations]="animations"
+            />
+          </svg:g>
+
+          <svg:g *ngIf="!tooltipDisabled" (mouseleave)="hideCircles()">
+            <svg:g
+              ngx-charts-tooltip-area
+              [dims]="dims"
+              [xSet]="xSet"
+              [xScale]="xScale"
+              [yScale]="yScale"
+              [results]="results"
+              [colors]="colors"
+              [showPercentage]="true"
+              [tooltipDisabled]="tooltipDisabled"
+              [tooltipTemplate]="seriesTooltipTemplate"
+              (hover)="updateHoveredVertical($event)"
+            />
+
+            <svg:g *ngFor="let series of results">
+              <svg:g
+                ngx-charts-circle-series
+                [type]="seriesType.Stacked"
+                [xScale]="xScale"
+                [yScale]="yScale"
+                [colors]="colors"
+                [activeEntries]="activeEntries"
+                [data]="series"
+                [scaleType]="scaleType"
+                [visibleValue]="hoveredVertical"
+                [tooltipDisabled]="tooltipDisabled"
+                [tooltipTemplate]="tooltipTemplate"
+                (select)="onClick($event, series)"
+                (activate)="onActivate($event)"
+                (deactivate)="onDeactivate($event)"
+              />
+            </svg:g>
+          </svg:g>
+        </svg:g>
+      </svg:g>
+      <svg:g
+        ngx-charts-timeline
+        *ngIf="timeline && scaleType != 'ordinal'"
+        [attr.transform]="timelineTransform"
+        [results]="results"
+        [view]="[timelineWidth, height]"
+        [height]="timelineHeight"
+        [scheme]="scheme"
+        [customColors]="customColors"
+        [legend]="legend"
+        [scaleType]="scaleType"
+        (onDomainChange)="updateDomain($event)"
+      >
+        <svg:g *ngFor="let series of results; trackBy: trackBy">
+          <svg:g
+            ngx-charts-area-series
+            [xScale]="timelineXScale"
+            [yScale]="timelineYScale"
+            [colors]="colors"
+            [data]="series"
+            [scaleType]="scaleType"
+            [gradient]="gradient"
+            [normalized]="true"
+            [curve]="curve"
+            [animations]="animations"
+          />
+        </svg:g>
+      </svg:g>
+    </ngx-charts-chart>
+  "
+_tmp_85.template = "
+    <ngx-charts-chart
+      [view]="[width, height]"
+      [showLegend]="legend"
+      [legendOptions]="legendOptions"
+      [activeEntries]="activeEntries"
+      [animations]="animations"
+      (legendLabelClick)="onClick($event)"
+      (legendLabelActivate)="onActivate($event)"
+      (legendLabelDeactivate)="onDeactivate($event)"
+    >
+      <svg:g class="polar-chart chart" [attr.transform]="transform">
+        <svg:g [attr.transform]="transformPlot">
+          <svg:circle class="polar-chart-background" cx="0" cy="0" [attr.r]="this.outerRadius" />
+          <svg:g *ngIf="showGridLines">
+            <svg:circle
+              *ngFor="let r of radiusTicks"
+              class="gridline-path radial-gridline-path"
+              cx="0"
+              cy="0"
+              [attr.r]="r"
+            />
+          </svg:g>
+          <svg:g *ngIf="xAxis">
+            <svg:g
+              ngx-charts-pie-label
+              *ngFor="let tick of thetaTicks"
+              [data]="tick"
+              [radius]="outerRadius"
+              [label]="tick.label"
+              [max]="outerRadius"
+              [value]="showGridLines ? 1 : outerRadius"
+              [explodeSlices]="true"
+              [animations]="animations"
+              [labelTrim]="labelTrim"
+              [labelTrimSize]="labelTrimSize"
+            ></svg:g>
+          </svg:g>
+        </svg:g>
+        <svg:g
+          ngx-charts-y-axis
+          [attr.transform]="transformYAxis"
+          *ngIf="yAxis"
+          [yScale]="yAxisScale"
+          [dims]="yAxisDims"
+          [showGridLines]="showGridLines"
+          [showLabel]="showYAxisLabel"
+          [labelText]="yAxisLabel"
+          [trimTicks]="trimYAxisTicks"
+          [maxTickLength]="maxYAxisTickLength"
+          [tickFormatting]="yAxisTickFormatting"
+          [wrapTicks]="wrapTicks"
+          (dimensionsChanged)="updateYAxisWidth($event)"
+        ></svg:g>
+        <svg:g
+          ngx-charts-axis-label
+          *ngIf="xAxis && showXAxisLabel"
+          [label]="xAxisLabel"
+          [offset]="labelOffset"
+          [orient]="orientation.Bottom"
+          [height]="dims.height"
+          [width]="dims.width"
+        ></svg:g>
+        <svg:g *ngIf="!isSSR" [attr.transform]="transformPlot">
+          <svg:g *ngFor="let series of results; trackBy: trackBy" [@animationState]="'active'">
+            <svg:g
+              ngx-charts-polar-series
+              [gradient]="gradient"
+              [xScale]="xScale"
+              [yScale]="yScale"
+              [colors]="colors"
+              [data]="series"
+              [activeEntries]="activeEntries"
+              [scaleType]="scaleType"
+              [curve]="curve"
+              [rangeFillOpacity]="rangeFillOpacity"
+              [animations]="animations"
+              [tooltipDisabled]="tooltipDisabled"
+              [tooltipTemplate]="tooltipTemplate"
+              (select)="onClick($event)"
+              (activate)="onActivate($event)"
+              (deactivate)="onDeactivate($event)"
+            />
+          </svg:g>
+        </svg:g>
+        <svg:g *ngIf="isSSR" [attr.transform]="transformPlot">
+          <svg:g *ngFor="let series of results; trackBy: trackBy">
+            <svg:g
+              ngx-charts-polar-series
+              [gradient]="gradient"
+              [xScale]="xScale"
+              [yScale]="yScale"
+              [colors]="colors"
+              [data]="series"
+              [activeEntries]="activeEntries"
+              [scaleType]="scaleType"
+              [curve]="curve"
+              [rangeFillOpacity]="rangeFillOpacity"
+              [animations]="animations"
+              [tooltipDisabled]="tooltipDisabled"
+              [tooltipTemplate]="tooltipTemplate"
+              (select)="onClick($event)"
+              (activate)="onActivate($event)"
+              (deactivate)="onDeactivate($event)"
+            />
+          </svg:g>
+        </svg:g>
+      </svg:g>
+    </ngx-charts-chart>
+  "
+_tmp_56.push(".ngx-charts-outer{animation:chartFadeIn linear .6s}@keyframes chartFadeIn{0%{opacity:0}20%{opacity:0}to{opacity:1}}.ngx-charts{float:left;overflow:visible}.ngx-charts .circle,.ngx-charts .cell,.ngx-charts .bar,.ngx-charts .arc{cursor:pointer}.ngx-charts .bar.active,.ngx-charts .bar:hover,.ngx-charts .cell.active,.ngx-charts .cell:hover,.ngx-charts .arc.active,.ngx-charts .arc:hover,.ngx-charts .card.active,.ngx-charts .card:hover{opacity:.8;transition:opacity .1s ease-in-out}.ngx-charts .bar:focus,.ngx-charts .cell:focus,.ngx-charts .arc:focus,.ngx-charts .card:focus{outline:none}.ngx-charts .bar.hidden,.ngx-charts .cell.hidden,.ngx-charts .arc.hidden,.ngx-charts .card.hidden{display:none}.ngx-charts g:focus{outline:none}.ngx-charts .line-series.inactive,.ngx-charts .line-series-range.inactive,.ngx-charts .polar-series-path.inactive,.ngx-charts .polar-series-area.inactive,.ngx-charts .area-series.inactive{transition:opacity .1s ease-in-out;opacity:.2}.ngx-charts .line-highlight{display:none}.ngx-charts .line-highlight.active{display:block}.ngx-charts .area{opacity:.6}.ngx-charts .circle:hover{cursor:pointer}.ngx-charts .label{font-size:12px;font-weight:400}.ngx-charts .tooltip-anchor{fill:#000}.ngx-charts .gridline-path{stroke:#ddd;stroke-width:1;fill:none}.ngx-charts .refline-path{stroke:#a8b2c7;stroke-width:1;stroke-dasharray:5;stroke-dashoffset:5}.ngx-charts .refline-label{font-size:9px}.ngx-charts .reference-area{fill-opacity:.05;fill:#000}.ngx-charts .gridline-path-dotted{stroke:#ddd;stroke-width:1;fill:none;stroke-dasharray:1,20;stroke-dashoffset:3}.ngx-charts .grid-panel rect{fill:none}.ngx-charts .grid-panel.odd rect{fill:#0000000d}
+")
+_tmp_52.push(".ngx-charts-outer{animation:chartFadeIn linear .6s}@keyframes chartFadeIn{0%{opacity:0}20%{opacity:0}to{opacity:1}}.ngx-charts{float:left;overflow:visible}.ngx-charts .circle,.ngx-charts .cell,.ngx-charts .bar,.ngx-charts .arc{cursor:pointer}.ngx-charts .bar.active,.ngx-charts .bar:hover,.ngx-charts .cell.active,.ngx-charts .cell:hover,.ngx-charts .arc.active,.ngx-charts .arc:hover,.ngx-charts .card.active,.ngx-charts .card:hover{opacity:.8;transition:opacity .1s ease-in-out}.ngx-charts .bar:focus,.ngx-charts .cell:focus,.ngx-charts .arc:focus,.ngx-charts .card:focus{outline:none}.ngx-charts .bar.hidden,.ngx-charts .cell.hidden,.ngx-charts .arc.hidden,.ngx-charts .card.hidden{display:none}.ngx-charts g:focus{outline:none}.ngx-charts .line-series.inactive,.ngx-charts .line-series-range.inactive,.ngx-charts .polar-series-path.inactive,.ngx-charts .polar-series-area.inactive,.ngx-charts .area-series.inactive{transition:opacity .1s ease-in-out;opacity:.2}.ngx-charts .line-highlight{display:none}.ngx-charts .line-highlight.active{display:block}.ngx-charts .area{opacity:.6}.ngx-charts .circle:hover{cursor:pointer}.ngx-charts .label{font-size:12px;font-weight:400}.ngx-charts .tooltip-anchor{fill:#000}.ngx-charts .gridline-path{stroke:#ddd;stroke-width:1;fill:none}.ngx-charts .refline-path{stroke:#a8b2c7;stroke-width:1;stroke-dasharray:5;stroke-dashoffset:5}.ngx-charts .refline-label{font-size:9px}.ngx-charts .reference-area{fill-opacity:.05;fill:#000}.ngx-charts .gridline-path-dotted{stroke:#ddd;stroke-width:1;fill:none;stroke-dasharray:1,20;stroke-dashoffset:3}.ngx-charts .grid-panel rect{fill:none}.ngx-charts .grid-panel.odd rect{fill:#0000000d}
+")
+_tmp_69.roundDomains = [{
+                type: Input
+            }]
+_tmp_69.noBarWhenZero = [{
+                type: Input
+            }]
+_tmp_64.propDecorators = { showGridLines: [{
+                type: Input
+            }], legend: [{
+                type: Input
+            }], legendTitle: [{
+                type: Input
+            }], legendPosition: [{
+                type: Input
+            }], xAxis: [{
+                type: Input
+            }], yAxis: [{
+                type: Input
+            }], showXAxisLabel: [{
+                type: Input
+            }], showYAxisLabel: [{
+                type: Input
+            }], xAxisLabel: [{
+                type: Input
+            }], yAxisLabel: [{
+                type: Input
+            }], trimXAxisTicks: [{
+                type: Input
+            }], trimYAxisTicks: [{
+                type: Input
+            }], rotateXAxisTicks: [{
+                type: Input
+            }], maxXAxisTickLength: [{
+                type: Input
+            }], maxYAxisTickLength: [{
+                type: Input
+            }], xAxisTickFormatting: [{
+                type: Input
+            }], yAxisTickF...
+_tmp_72.showYAxisLabel = [{
+                type: Input
+            }]
+_tmp_72.showXAxisLabel = [{
+                type: Input
+            }]
+_tmp_76.push(animate(500, style({ opacity: 0, transform: 'scale(0)' })))
+_tmp_72.yAxisLabel = [{
+                type: Input
+            }]

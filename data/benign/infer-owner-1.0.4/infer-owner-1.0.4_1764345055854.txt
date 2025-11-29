@@ -1,0 +1,9 @@
+path = resolve(path)
+inflight.has(path)
+const p = inferOwner(path).then(owner => {
+    inflight.delete(path)
+    return owner
+  })
+inflight.delete(path)
+return owner
+inflight.set(path, p)

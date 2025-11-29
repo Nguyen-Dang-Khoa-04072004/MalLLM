@@ -1,0 +1,234 @@
+var RegExpStringIteratorNext = function next() {
+	var O = this; // eslint-disable-line no-invalid-this
+	if (Type(O) !== 'Object') {
+		throw new $TypeError('receiver must be an object');
+	}
+	if (
+		!(O instanceof RegExpStringIterator)
+		|| !SLOT.has(O, '[[IteratingRegExp]]')
+		|| !SLOT.has(O, '[[IteratedString]]')
+		|| !SLOT.has(O, '[[Global]]')
+		|| !SLOT.has(O, '[[Unicode]]')
+		|| !SLOT.has(O, '[[Done]]')
+	) {
+		throw new $TypeError('"this" value must be a RegExpStringIterator instance');
+	}
+	if (SLOT.get(O, '[[Done]]')) {
+		return CreateIterResultObject(undefined, true);
+	}
+	var R = SLOT.get(O, '[[IteratingRegExp]]');
+	var S = SLOT.get(O, '[[IteratedString]]');
+	var global = SLOT.get(O, '[[Global]]');
+	var fullUnicode = SLOT.get(O, '[[Unicode]]');
+	var match = RegExpExec(R, S);
+	if (match === null) {
+		SLOT.set(O, '[[Done]]', true);
+		return CreateIterResultObject(undefined, true);
+	}
+	if (global) {
+		var matchStr = ToString(Get(match, '0'));
+		if (matchStr === '') {
+			var thisIndex ...
+module.exports = function NumberToRawBytes(type, value, isLittleEndian) {
+	if (typeof type !== 'string' || !hasOwnProperty(TypeToSizes, type)) {
+		throw new $TypeError('Assertion failed: `type` must be a TypedArray element type: ' + keys(TypeToSizes));
+	}
+	if (Type(value) !== 'Number') {
+		throw new $TypeError('Assertion failed: `value` must be a Number');
+	}
+	if (Type(isLittleEndian) !== 'Boolean') {
+		throw new $TypeError('Assertion failed: `isLittleEndian` must be a Boolean');
+	}
+
+	if (type === 'Float32') { // step 1
+		return valueToFloat32Bytes(value, isLittleEndian);
+	} else if (type === 'Float64') { // step 2
+		return valueToFloat64Bytes(value, isLittleEndian);
+	} // step 3
+
+	var n = TypeToSizes[type]; // step 3.a
+
+	var convOp = TypeToAO[type]; // step 3.b
+
+	var intValue = convOp(value); // step 3.c
+
+	return integerToNBytes(intValue, n, isLittleEndian); // step 3.d, 3.e, 4
+}
+var enumerable = $isEnumerable(from, nextKey) || (
+		// this is to handle string keys being non-enumerable in older engines
+			typeof source === 'string'
+			&& nextKey >= 0
+			&& IsInteger(ToNumber(nextKey))
+		)
+_tmp_0.AsyncFunctionCreate = {
+		url: 'https://262.ecma-international.org/9.0/#sec-async-functions-abstract-operations-async-function-create'
+	}
+module.exports = function SetValueInBuffer(arrayBuffer, byteIndex, type, value) {
+	if (!isArrayBuffer(arrayBuffer)) {
+		throw new $TypeError('Assertion failed: `arrayBuffer` must be an ArrayBuffer');
+	}
+
+	if (!isInteger(byteIndex)) {
+		throw new $TypeError('Assertion failed: `byteIndex` must be an integer');
+	}
+
+	if (typeof type !== 'string' || !has(table49, type)) {
+		throw new $TypeError('Assertion failed: `type` must be a Typed Array Element Type');
+	}
+
+	if (typeof value !== 'number') {
+		throw new $TypeError('Assertion failed: `value` must be a number');
+	}
+
+	if (arguments.length > 4 && typeof arguments[4] !== 'boolean') {
+		throw new $TypeError('Assertion failed: `isLittleEndian` must be a boolean, if present');
+	}
+
+	if (IsDetachedBuffer(arrayBuffer)) {
+		throw new $TypeError('Assertion failed: ArrayBuffer is detached'); // step 1
+	}
+
+	// 2. Assert: There are sufficient bytes in arrayBuffer starting at byteIndex to represent a value of type.
+
+	if (byteIndex < 0) {
+		throw new $...
+var $AsyncFromSyncIteratorPrototype = GetIntrinsic('%AsyncFromSyncIteratorPrototype%', true) || {
+	next: function next(value) {
+		var O = this; // step 1
+
+		SLOT.assert(O, '[[SyncIteratorRecord]]'); // step 2
+
+		var argsLength = arguments.length;
+
+		return new Promise(function (resolve) { // step 3
+			var syncIteratorRecord = SLOT.get(O, '[[SyncIteratorRecord]]'); // step 4
+			var result;
+			if (argsLength > 0) {
+				result = IteratorNext(syncIteratorRecord['[[Iterator]]'], value); // step 5.a
+			} else { // step 6
+				result = IteratorNext(syncIteratorRecord['[[Iterator]]']);// step 6.a
+			}
+			resolve(AsyncFromSyncIteratorContinuation(result)); // step 8
+		});
+	},
+	'return': function () {
+		var O = this; // step 1
+
+		SLOT.assert(O, '[[SyncIteratorRecord]]'); // step 2
+
+		var valueIsPresent = arguments.length > 0;
+		var value = valueIsPresent ? arguments[0] : void undefined;
+
+		return new Promise(function (resolve, reject) { // step 3
+			var syncIterator = SLOT.get(O, '[[SyncIteratorRe...
+DefineOwnProperty(
+					IsDataDescriptor,
+					SameValue,
+					FromPropertyDescriptor,
+					O,
+					P,
+					{
+						'[[Configurable]]': Desc['[[Configurable]]'],
+						'[[Enumerable]]': Desc['[[Enumerable]]'],
+						'[[Value]]': Desc['[[Value]]'],
+						'[[Writable]]': Desc['[[Writable]]']
+					}
+				)
+_tmp_19.url = "https://262.ecma-international.org/10.0/#sec-async-functions-abstract-operations-async-function-create"
+new Promise(function (resolve) { // step 3
+			var syncIteratorRecord = SLOT.get(O, '[[SyncIteratorRecord]]'); // step 4
+			var result;
+			if (argsLength > 0) {
+				result = IteratorNext(syncIteratorRecord['[[Iterator]]'], value); // step 5.a
+			} else { // step 6
+				result = IteratorNext(syncIteratorRecord['[[Iterator]]']);// step 6.a
+			}
+			resolve(AsyncFromSyncIteratorContinuation(result)); // step 8
+		})
+value
+			&& has(value, '[[IgnoreCase]]')
+			&& typeof value['[[IgnoreCase]]'] === 'boolean'
+			&& has(value, '[[Multiline]]')
+			&& typeof value['[[Multiline]]'] === 'boolean'
+			&& has(value, '[[DotAll]]')
+			&& typeof value['[[DotAll]]'] === 'boolean'
+			&& has(value, '[[Unicode]]')
+			&& typeof value['[[Unicode]]'] === 'boolean'
+			&& has(value, '[[CapturingGroupsCount]]')
+			&& typeof value['[[CapturingGroupsCount]]'] === 'number'
+			&& isInteger(value['[[CapturingGroupsCount]]'])
+			&& value['[[CapturingGroupsCount]]'] >= 0
+_tmp_0.AsyncFunctionStart = {
+		url: 'https://262.ecma-international.org/12.0/#sec-async-functions-abstract-operations-async-function-start'
+	}
+_tmp_21.url = "https://262.ecma-international.org/12.0/#sec-async-functions-abstract-operations-async-function-start"
+_tmp_0.CompletePropertyDescriptor = {
+		url: 'https://262.ecma-international.org/7.0/#sec-completepropertydescriptor'
+	}
+_tmp_0.AsyncGeneratorFunctionCreate = {
+		url: 'https://262.ecma-international.org/10.0/#sec-asyncgeneratorfunctioncreate'
+	}
+_tmp_0.BlockDeclarationInstantiation = {
+		url: 'https://262.ecma-international.org/8.0/#sec-blockdeclarationinstantiation'
+	}
+_tmp_0.CompletionRecord = {
+		url: 'https://262.ecma-international.org/7.0/#sec-completion-record-specification-type'
+	}
+DefineOwnProperty(
+					IsDataDescriptor,
+					SameValue,
+					FromPropertyDescriptor,
+					O,
+					P,
+					Desc
+				)
+_tmp_0.CreateArrayIterator = {
+		url: 'https://262.ecma-international.org/6.0/#sec-createarrayiterator'
+	}
+new Promise(function (resolve, reject) { // step 3
+			var syncIterator = SLOT.get(O, '[[SyncIteratorRecord]]')['[[Iterator]]']; // step 4
+
+			var throwMethod = GetMethod(syncIterator, 'throw'); // step 5
+
+			if (typeof throwMethod === 'undefined') { // step 7
+				Call(reject, undefined, [value]); // step 7.a
+				return;
+			}
+
+			var result;
+			if (valueIsPresent) { // step 8
+				result = Call(throwMethod, syncIterator, [value]); // step 8.a
+			} else { // step 9
+				result = Call(throwMethod, syncIterator); // step 9.a
+			}
+			if (Type(result) !== 'Object') { // step 11
+				Call(reject, undefined, [new $TypeError('Iterator `throw` method returned a non-object value.')]); // step 11.a
+				return;
+			}
+
+			resolve(AsyncFromSyncIteratorContinuation(result/* , promiseCapability */)); // step 12
+		})
+new Promise(function (resolve, reject) { // step 3
+			var syncIterator = SLOT.get(O, '[[SyncIteratorRecord]]')['[[Iterator]]']; // step 4
+			var iteratorReturn = GetMethod(syncIterator, 'return'); // step 5
+
+			if (typeof iteratorReturn === 'undefined') { // step 7
+				var iterResult = CreateIterResultObject(value, true); // step 7.a
+				Call(resolve, undefined, [iterResult]); // step 7.b
+				return;
+			}
+			var result;
+			if (valueIsPresent) { // step 8
+				result = Call(iteratorReturn, syncIterator, [value]); // step 8.a
+			} else { // step 9
+				result = Call(iteratorReturn, syncIterator); // step 9.a
+			}
+			if (Type(result) !== 'Object') { // step 11
+				Call(reject, undefined, [new $TypeError('Iterator `return` method returned a non-object value.')]); // step 11.a
+				return;
+			}
+
+			resolve(AsyncFromSyncIteratorContinuation(result)); // step 12
+		})
+_tmp_27.url = "https://262.ecma-international.org/13.0/#sec-asyncgeneratorunwrapyieldresumption"
+IsGenericDescriptor(Desc) && !('[[Configurable]]' in Desc) && !('[[Enumerable]]' in Desc)

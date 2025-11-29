@@ -1,0 +1,9 @@
+request({
+    url: url,
+    isBuffer: true
+  }, function (err, res, body) {
+    if (err) return callback(err);
+
+    var data = 'data:' + res.headers['content-type'] + ';base64,' + body.toString('base64');
+    callback(err, res, data);
+  })

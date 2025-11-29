@@ -1,0 +1,18 @@
+$uploadFormValidator
+                                // .on('error', function(e, result) {
+                                //     console.error('[error] ', '\n(e)' + e, '\n(result)' + result)
+                                // })
+                                // .on('success', function(e, result){
+
+                                //     var $el = e.target;
+                                //     var $preview = null, $ul = null, $li = null, $img = null;
+                                //     var previewId = $el.getAttribute('data-gina-form-upload-preview') || null;
+                                //     if (previewId)
+                                //         $preview = document.getElementById(previewId);
+
+
+                                //     var files = result.files;
+                                //     if ($preview) {
+                                //         $preview.innerHTML = '';
+                                //         $ul = document.createElement("ul");
+            ...

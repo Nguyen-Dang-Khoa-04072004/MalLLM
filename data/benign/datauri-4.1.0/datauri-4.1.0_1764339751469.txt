@@ -1,0 +1,23 @@
+const parseImageSize = (ast) => Object.keys(ast).reduce((rule, propName) => {
+    const prop = propMap.get(propName);
+    if (prop && ast.dimensions) {
+        return rule.concat(`${tabChar}${prop(ast.dimensions)};`);
+    }
+    return rule;
+}, [])
+path_1.default.basename(fileName, path_1.default.extname(fileName))
+const buffer = await readFile(fileName)
+function DataURICSSParser = async function DataURICSSParser(filePath, config = defaultCSSConfig) {
+    var _a;
+    const parser = new parser_1.default();
+    const background = await parser.encode(filePath);
+    const ast = Object.assign(Object.assign({}, defaultCSSConfig), config);
+    if (!background || !parser.fileName || !parser.buffer) {
+        throw `Unabled to read file ${filePath}`;
+    }
+    if (ast.width || ast.height || ast.backgroundSize) {
+        ast.dimensions = image_size_1.imageSize(parser.buffer);
+    }
+    return cssTemplate_1.cssParser(Object.assign(Object.assign({}, ast), { className: (_a = ast.className) !== null && _a !== void 0 ? _a : createClassName(parser.fileName), background }));
+}
+const parser = new parser_1.default()

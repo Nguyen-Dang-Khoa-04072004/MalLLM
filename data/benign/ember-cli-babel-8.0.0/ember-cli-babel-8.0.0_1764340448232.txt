@@ -1,0 +1,4 @@
+module.exports[key]._parallelBabel = {
+    requireFile: __filename,
+    useMethod: key
+  }

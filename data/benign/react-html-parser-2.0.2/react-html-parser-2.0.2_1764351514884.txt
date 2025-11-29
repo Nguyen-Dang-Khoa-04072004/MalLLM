@@ -1,0 +1,3 @@
+function convertNodeToElement = function convertNodeToElement(node, index, transform) {
+  return _elementTypes2.default[node.type](node, index, transform);
+}

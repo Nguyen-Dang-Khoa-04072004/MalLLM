@@ -1,0 +1,123 @@
+_tmp_0._computed_object_property_73 = "This action requires a webhook token, but none is available."
+escapeMarkdown(subString, {
+          codeBlock,
+          bold,
+          italic,
+          underline,
+          strikethrough,
+          spoiler,
+        })
+this.once('end', () => {
+      this.client.removeListener(Events.InteractionCreate, this.handleCollect);
+      this.client.removeListener(Events.MessageDelete, this._handleMessageDeletion);
+      this.client.removeListener(Events.MessageBulkDelete, bulkDeleteListener);
+      this.client.removeListener(Events.ChannelDelete, this._handleChannelDeletion);
+      this.client.removeListener(Events.ThreadDelete, this._handleThreadDeletion);
+      this.client.removeListener(Events.GuildDelete, this._handleGuildDeletion);
+      this.client.decrementMaxListeners();
+    })
+const data = await this.client.rest.post(Routes.threads(this.channel.id, startMessageId), {
+      body: {
+        name,
+        auto_archive_duration: autoArchiveDuration,
+        type: resolvedType,
+        invitable: resolvedType === ChannelType.GuildPrivateThread ? invitable : undefined,
+        rate_limit_per_user: rateLimitPerUser,
+      },
+      reason,
+    })
+_tmp_12.body = {
+        name,
+        auto_archive_duration: autoArchiveDuration,
+        type: resolvedType,
+        invitable: resolvedType === ChannelType.GuildPrivateThread ? invitable : undefined,
+        rate_limit_per_user: rateLimitPerUser,
+      }
+other.id === this.id &&
+        other.name === this.name &&
+        other.managed === this.managed &&
+        other.available === this.available &&
+        other.requiresColons === this.requiresColons &&
+        other.roles.cache.size === this.roles.cache.size &&
+        other.roles.cache.every(role => this.roles.cache.has(role.id))
+const data = await this.client.rest.post(Routes.guildChannels(this.guild.id), {
+      body: {
+        name,
+        topic,
+        type,
+        nsfw,
+        bitrate,
+        user_limit: userLimit,
+        parent_id: parent,
+        position,
+        permission_overwrites: permissionOverwrites,
+        rate_limit_per_user: rateLimitPerUser,
+        rtc_region: rtcRegion,
+        video_quality_mode: videoQualityMode,
+      },
+      reason,
+    })
+_tmp_14.body = {
+        name,
+        topic,
+        type,
+        nsfw,
+        bitrate,
+        user_limit: userLimit,
+        parent_id: parent,
+        position,
+        permission_overwrites: permissionOverwrites,
+        rate_limit_per_user: rateLimitPerUser,
+        rtc_region: rtcRegion,
+        video_quality_mode: videoQualityMode,
+      }
+const keys = [
+  'ClientInvalidOption',
+  'ClientInvalidProvidedShards',
+  'ClientMissingIntents',
+  'ClientNotReady',
+
+  'TokenInvalid',
+  'TokenMissing',
+  'ApplicationCommandPermissionsTokenMissing',
+
+  'WSCloseRequested',
+  'WSConnectionExists',
+  'WSNotOpen',
+  'ManagerDestroyed',
+
+  'BitFieldInvalid',
+
+  'ShardingInvalid',
+  'ShardingRequired',
+  'InvalidIntents',
+  'DisallowedIntents',
+  'ShardingNoShards',
+  'ShardingInProcess',
+  'ShardingInvalidEvalBroadcast',
+  'ShardingShardNotFound',
+  'ShardingAlreadySpawned',
+  'ShardingProcessExists',
+  'ShardingWorkerExists',
+  'ShardingReadyTimeout',
+  'ShardingReadyDisconnected',
+  'ShardingReadyDied',
+  'ShardingNoChildExists',
+  'ShardingShardMiscalculation',
+
+  'ColorRange',
+  'ColorConvert',
+
+  'InviteOptionsMissingChannel',
+
+  'ButtonLabel',
+  'ButtonURL',
+  'ButtonCustomId',
+
+  'SelectMenuCustomId',
+  'SelectMenuPlaceholder',
+  'SelectOptionLabel',
+  'SelectOptionValue',
+  'SelectOptionDescription',
+
+  'InteractionCollectorError',...

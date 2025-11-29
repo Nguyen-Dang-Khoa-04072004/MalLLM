@@ -1,0 +1,150 @@
+function _which = function _which(cmd) {
+  if (!cmd) console.error('must specify command');
+
+  var options = {}
+
+  var isWindows = isWindowsPlatform();
+  var pathArray = splitPath(process.env.PATH);
+
+  var queryMatches = [];
+
+  // No relative/absolute paths provided?
+  if (cmd.indexOf('/') === -1) {
+    // Assume that there are no extensions to append to queries (this is the
+    // case for unix)
+    var pathExtArray = [''];
+    if (isWindows) {
+      // In case the PATHEXT variable is somehow not set (e.g.
+      // child_process.spawn with an empty environment), use the XP default.
+      var pathExtEnv = process.env.PATHEXT || XP_DEFAULT_PATHEXT;
+      pathExtArray = splitPath(pathExtEnv.toUpperCase());
+    }
+
+    // Search for command in PATH
+    for (var k = 0; k < pathArray.length; k++) {
+      // already found it
+      if (queryMatches.length > 0 && !options.all) break;
+
+      var attempt = path.resolve(pathArray[k], cmd);
+
+      if (isWindows) {
+        attempt = attempt.toUpperCase();
+      }
+...
+function installMultipleModules = function installMultipleModules(modules, cb, post_install) {
+  var functionList = [];
+  for (var i = 0; i < modules.length; i++) {
+    functionList.push((function (index) {
+      return function (callback) {
+        var module = modules[index];
+        if (typeof modules[index] === 'string') {
+          module = {name: modules[index]};
+        }
+        install(module, function ($post_install, err, $index, $modules) {
+          try {
+            var install_instance = spawn(post_install[modules[index]], {
+              stdio : 'inherit',
+              windowsHide: true,
+              env: process.env,
+              shell : true,
+              cwd : process.cwd()
+            });
+            Common.printOut(cst.PREFIX_MSG_MOD + 'Running configuraton script.');
+          }
+          catch(e)
+          {
+            Common.printOut(cst.PREFIX_MSG_MOD + 'No configuraton script found.');
+          }
+          callback(null, {  module: module, err: err });
+        }, false);
+      };
+    }...
+module.exports.dump = function(data, name) {
+    if ( name ) {
+        console.log(name + ' :', util.inspect(data, false, null, true));
+    }
+    else {
+        console.log(util.inspect(data, false, null, true));
+    }
+}
+CLI.prototype.pullCommitId = function(process_name, commit_id, cb) {
+    var reload_type = 'reload';
+    var that = this;
+
+    printOut(cst.PREFIX_MSG + 'Updating repository for process name %s', process_name);
+
+    that.Client.getProcessByNameOrId(process_name, function (err, processes) {
+
+      if (err || processes.length === 0) {
+        printError('No processes with this name or id : %s', process_name);
+        return cb ? cb({msg: 'Process not found: ' + process_name}) : that.exitCli(cst.ERROR_EXIT);
+      }
+
+      var proc = processes[0];
+      if (proc.pm2_env.versioning) {
+        require('vizion').isUpToDate({folder: proc.pm2_env.versioning.repo_path}, function(err, meta) {
+          if (err !== null)
+            return cb ? cb({msg:err}) : that.exitCli(cst.ERROR_EXIT);
+          require('vizion').revertTo(
+            {revision: commit_id,
+             folder: proc.pm2_env.versioning.repo_path},
+            function(err2, meta2) {
+              if (!err2 && meta2.success) ...
+Monit.refresh = function(processes) {
+  debug('Monit refresh');
+
+  if(!processes) {
+    processes = [];
+  }
+
+  var num = processes.length;
+  this.num_bars = Object.size(this.bars);
+
+  if(num !== this.num_bars) {
+    debug('Monit addProcesses - actual: %s, new: %s', this.num_bars, num);
+    return this.addProcesses(processes);
+  } else {
+
+    if(num === 0) {
+      return;
+    }
+
+    debug('Monit refresh');
+    var proc;
+
+    for(var i = 0; i < num; i++) {
+      proc = processes[i];
+
+      //this is to avoid a print issue when the process is restarted for example
+      //we might also check for the pid but restarted|restarting will be rendered bad
+      if(this.bars[proc.pm_id] && proc.pm2_env.status !== this.bars[proc.pm_id].status) {
+        debug('bars for %s does not exist', proc.pm_id);
+        this.addProcesses(processes);
+        break;
+      }
+
+      this.updateBars(proc);
+
+    }
+  }
+
+  return this;
+}
+require('vizion').isUpToDate({folder: proc.pm2_env.versioning.repo_path}, function(err, meta) {
+          if (err !== null)
+            return cb ? cb({msg:err}) : that.exitCli(cst.ERROR_EXIT);
+          require('vizion').revertTo(
+            {revision: commit_id,
+             folder: proc.pm2_env.versioning.repo_path},
+            function(err2, meta2) {
+              if (!err2 && meta2.success) {
+                getPostUpdateCmds(proc.pm2_env.versioning.repo_path, process_name, function (command_list) {
+                  execCommands(proc.pm2_env.versioning.repo_path, command_list, function(err, res) {
+                    if (err !== null)
+                    {
+                      printError(err);
+                      return cb ? cb({msg:err}) : that.exitCli(cst.ERROR_EXIT);
+                    }
+                    else {
+                      printOut(cst.PREFIX_MSG + 'Process successfully updated %s', process_name);
+                      printOut(cst.PREFIX_MSG + 'Current c...

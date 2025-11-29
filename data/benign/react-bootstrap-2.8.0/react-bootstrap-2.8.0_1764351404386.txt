@@ -1,0 +1,33 @@
+const NavDropdown = /*#__PURE__*/React.forwardRef(({
+  id,
+  title,
+  children,
+  bsPrefix,
+  className,
+  rootCloseEvent,
+  menuRole,
+  disabled,
+  active,
+  renderMenuOnMount,
+  menuVariant,
+  ...props
+}, ref) => {
+  /* NavItem has no additional logic, it's purely presentational. Can set nav item class here to support "as" */
+  const navItemPrefix = (0, _ThemeProvider.useBootstrapPrefix)(undefined, 'nav-item');
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Dropdown.default, {
+    ref: ref,
+    ...props,
+    className: (0, _classnames.default)(className, navItemPrefix),
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Dropdown.default.Toggle, {
+      id: id,
+      eventKey: null,
+      active: active,
+      disabled: disabled,
+      childBsPrefix: bsPrefix,
+      as: _NavLink.default,
+      children: title
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Dropdown.default.Menu, {
+      role: menuRole,
+      renderOnMount: renderMenuOnMount,
+      rootCloseEvent: rootCloseEvent,
+      variant: m...

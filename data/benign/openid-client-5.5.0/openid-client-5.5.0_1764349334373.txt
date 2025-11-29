@@ -1,0 +1,127 @@
+function pickCb = function pickCb(input) {
+  return pick(
+    input,
+    'access_token', // OAuth 2.0
+    'code', // OAuth 2.0
+    'error_description', // OAuth 2.0
+    'error_uri', // OAuth 2.0
+    'error', // OAuth 2.0
+    'expires_in', // OAuth 2.0
+    'id_token', // OIDC Core 1.0
+    'iss', // draft-ietf-oauth-iss-auth-resp
+    'response', // FAPI JARM
+    'session_state', // OIDC Session Management
+    'state', // OAuth 2.0
+    'token_type', // OAuth 2.0
+  );
+}
+meta[`${endpoint}_endpoint_auth_methods_supported`] =
+            meta.token_endpoint_auth_methods_supported
+alg =
+      Array.isArray(supported) &&
+      supported.find((signAlg) => keystore.get({ alg: signAlg, use: 'sig' }))
+function getAlgorithms = function getAlgorithms(use, alg, kty, crv) {
+  // Ed25519, Ed448, and secp256k1 always have "alg"
+  // OKP always has use
+  if (alg) {
+    return new Set([alg]);
+  }
+
+  switch (kty) {
+    case 'EC': {
+      let algs = [];
+
+      if (use === 'enc' || use === undefined) {
+        algs = algs.concat(['ECDH-ES', 'ECDH-ES+A128KW', 'ECDH-ES+A192KW', 'ECDH-ES+A256KW']);
+      }
+
+      if (use === 'sig' || use === undefined) {
+        algs = algs.concat([`ES${crv.slice(-3)}`.replace('21', '12')]);
+      }
+
+      return new Set(algs);
+    }
+    case 'OKP': {
+      return new Set(['ECDH-ES', 'ECDH-ES+A128KW', 'ECDH-ES+A192KW', 'ECDH-ES+A256KW']);
+    }
+    case 'RSA': {
+      let algs = [];
+
+      if (use === 'enc' || use === undefined) {
+        algs = algs.concat(['RSA-OAEP', 'RSA-OAEP-256', 'RSA-OAEP-384', 'RSA-OAEP-512', 'RSA1_5']);
+      }
+
+      if (use === 'sig' || use === undefined) {
+        algs = algs.concat(['PS256', 'PS384', 'PS512', 'RS256', 'RS384', 'RS512']);
+      }
+
+      re...
+throw new RPError(
+        'the device code %j has expired and the device authorization session has concluded',
+        this.device_code,
+      );
+throw new OPError(
+      {
+        error: format(
+          'expected %i %s with body but no body was returned',
+          statusCode,
+          STATUS_CODES[statusCode],
+        ),
+      },
+      response,
+    );
+Object.defineProperty(this, key, {
+          get() {
+            return this.#metadata.get(key);
+          },
+          enumerable: true,
+        })
+module.exports = async function request(options, { accessToken, mTLS = false, DPoP } = {}) {
+  let url;
+  try {
+    url = new URL(options.url);
+    delete options.url;
+    assert(/^(https?:)$/.test(url.protocol));
+  } catch (err) {
+    throw new TypeError('only valid absolute URLs can be requested');
+  }
+  const optsFn = this[HTTP_OPTIONS];
+  let opts = options;
+
+  const nonceKey = `${url.origin}${url.pathname}`;
+  if (DPoP && 'dpopProof' in this) {
+    opts.headers = opts.headers || {};
+    opts.headers.DPoP = await this.dpopProof(
+      {
+        htu: `${url.origin}${url.pathname}`,
+        htm: options.method,
+        nonce: nonces.get(nonceKey),
+      },
+      DPoP,
+      accessToken,
+    );
+  }
+
+  let userOptions;
+  if (optsFn) {
+    userOptions = pick(
+      optsFn.call(this, url, defaultsDeep({}, opts, DEFAULT_HTTP_OPTIONS)),
+      ...allowed,
+    );
+  }
+  opts = defaultsDeep({}, userOptions, opts, DEFAULT_HTTP_OPTIONS);
+
+  if (mTLS && !opts.pfx && !(opts.key && opts.cert)) {...
+<operator>.formatString("", tokenType, " ", token, "")
+algs = algs.concat(['ECDH-ES', 'ECDH-ES+A128KW', 'ECDH-ES+A192KW', 'ECDH-ES+A256KW'])
+Object.defineProperty(this, key, {
+          get() {
+            return this.#metadata.get(key);
+          },
+          enumerable: true,
+        })
+_tmp_45.get = get
+(_tmp_46 = this.#metadata).get
+const keystore = await keystores.get(this)
+!keystore
+key = keystore.get({ alg: signingAlgorithm, use: 'sig' })

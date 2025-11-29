@@ -1,0 +1,4 @@
+!type || typeof type !== 'string'
+var match = EXTRACT_TYPE_REGEXP.exec(type)
+!type || typeof type !== 'string'
+var match = EXTRACT_TYPE_REGEXP.exec(type)

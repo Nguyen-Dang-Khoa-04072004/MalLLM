@@ -1,0 +1,10 @@
+dispatchRef.current = composedMiddleware({
+                getState: function () { return ref.current; },
+                dispatch: function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    return dispatchRef.current.apply(dispatchRef, args);
+                },
+            }, dispatch)

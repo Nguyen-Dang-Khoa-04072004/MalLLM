@@ -1,0 +1,14 @@
+this.client.request(
+				'VerifySoftwareToken',
+				{
+					AccessToken: this.signInUserSession.getAccessToken().getJwtToken(),
+					UserCode: totpCode,
+					FriendlyDeviceName: friendlyDeviceName,
+				},
+				(err, data) => {
+					if (err) {
+						return callback.onFailure(err);
+					}
+					return callback.onSuccess(data);
+				}
+			)

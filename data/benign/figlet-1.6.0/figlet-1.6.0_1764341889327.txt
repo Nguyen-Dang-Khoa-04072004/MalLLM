@@ -1,0 +1,51 @@
+fonts
+      .reduce(function (promise, name) {
+        return promise.then(function () {
+          return fetch(figDefaults.fontPath + "/" + name + ".flf")
+            .then((response) => {
+              return response.text();
+            })
+            .then(function (data) {
+              fontData.push(data);
+            });
+        });
+      }, Promise.resolve())
+      .then(function (res) {
+        for (var i in fonts) {
+          if (fonts.hasOwnProperty(i)) {
+            me.parseFont(fonts[i], fontData[i]);
+          }
+        }
+
+        if (next) {
+          next();
+        }
+      })
+function (promise, name) {
+        return promise.then(function () {
+          return fetch(figDefaults.fontPath + "/" + name + ".flf")
+            .then((response) => {
+              return response.text();
+            })
+            .then(function (data) {
+              fontData.push(data);
+            });
+        });
+      }
+promise.then(function () {
+          return fetch(figDefaults.fontPath + "/" + name + ".flf")
+            .then((response) => {
+              return response.text();
+            })
+            .then(function (data) {
+              fontData.push(data);
+            });
+        })
+fetch(figDefaults.fontPath + "/" + name + ".flf")
+            .then((response) => {
+              return response.text();
+            })
+            .then(function (data) {
+              fontData.push(data);
+            })
+Promise.resolve()

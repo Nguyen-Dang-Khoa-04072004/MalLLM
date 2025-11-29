@@ -1,0 +1,10 @@
+const installMarker = new rush_lib_1._LastInstallFlag(expectedRushPath, {
+            node: process.versions.node
+        })
+const rushJsonLocation = rush_lib_1.RushConfiguration.tryFindRushJsonLocation({
+            showVerbose: !RushCommandLineParser_1.RushCommandLineParser.shouldRestrictConsoleOutput()
+        })
+const lock = await node_core_library_1.LockFile.acquire(expectedRushPath, resourceName)
+<operator>.formatString("Successfully installed Rush version ", version, " in ", expectedRushPath, ".")
+const rushCliEntrypoint = require(path.join(expectedRushPath, 'node_modules', '@microsoft', 'rush-lib', 'lib', 'index'))
+RushCommandSelector_1.RushCommandSelector.execute(this._currentPackageVersion, rushCliEntrypoint, executeOptions)

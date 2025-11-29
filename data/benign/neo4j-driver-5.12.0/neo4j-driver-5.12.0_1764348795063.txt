@@ -1,0 +1,1 @@
+var handleError = function (err) { return notify(function (consumer) { return consumer.error(err); }); }

@@ -1,0 +1,125 @@
+normalModuleFactoryHooks.createModule.tap(
+          'HardSourceWebpackPlugin',
+          ({ request }) => {
+            if (
+              compilation.cache &&
+              compilation.cache[`m${request}`] &&
+              compilation.cache[`m${request}`].cacheItem &&
+              !compilation.cache[`m${request}`].cacheItem.invalid
+            ) {
+              return compilation.cache[`m${request}`];
+            }
+
+            const identifierPrefix = cachePrefix(compilation);
+            if (identifierPrefix === null) {
+              return;
+            }
+
+            const identifier = identifierPrefix + request;
+
+            const module = fetch('Module', identifier, {
+              compilation,
+              normalModuleFactory: normalModuleFactory,
+              contextModuleFactory: contextModuleFactory,
+            });
+
+            if (module) {
+              return module;
+            }
+          },
+        )
+const serialNormalSourceExtra4 = {
+  freeze() {},
+  thaw(arg, module, extra) {
+    extra.source = arg._source;
+    return arg;
+  },
+}
+pluginCompat.tapPromise(
+      compiler,
+      '_hardSourceReadCache',
+      'HardSource - Md5Cache',
+      ({ contextKeys, contextNormalPath }) =>
+        md5CacheSerializer
+          .read()
+          .then(_md5Cache => {
+            Object.keys(_md5Cache).forEach(key => {
+              if (key.startsWith('__hardSource_parityToken')) {
+                parityCache[key] = _md5Cache[key];
+                delete _md5Cache[key];
+              }
+            });
+            return _md5Cache;
+          })
+          .then(contextKeys(compiler, contextNormalPath))
+          .then(_md5Cache => {
+            Object.keys(_md5Cache).forEach(key => {
+              if (typeof _md5Cache[key] === 'string') {
+                _md5Cache[key] = JSON.parse(_md5Cache[key]);
+              }
+
+              if (_md5Cache[key] && _md5Cache[key].hash) {
+                cachedMd5s[key] = _md5Cache[key].hash;
+              }
+            });
+            md5Cache = _md5Cache;
+          })
+          .then(() => {
+...
+exports.tapFor = (tapable, name, key, reason, callback) => {
+  if (tapable.hooks) {
+    tapable.hooks[name].for(key).tap(reason, callback);
+  } else {
+    exports.tap(tapable, name, reason, callback);
+  }
+}
+compilation.cache[<operator>.formatString("m", request, "")].cacheItem.invalid
+compiler.inputFileSystem.stat(
+                missed,
+                task((err, stat) => {
+                  if (err) {
+                    missingItem.invalid = true;
+                    missingItem.invalidReason = 'resolved now missing';
+                  }
+                }),
+              )
+missingItem.invalidReason = 'resolved now missing'
+const module = fetch('Module', identifier, {
+              compilation,
+              normalModuleFactory: normalModuleFactory,
+              contextModuleFactory: contextModuleFactory,
+            })
+exports.parallelConfigMismatch = (compiler, options) => {
+  const loggerParallel = logParallel(compiler);
+  loggerParallel.error(
+    {
+      id: 'parallel--config-mismatch',
+      ourHash: options.ourHash,
+      theirHash: options.theirHash,
+    },
+    [
+      `Child process's configuration does not match parent `,
+      `configuration. Unable to parallelize webpack.`,
+    ].join('\n'),
+  );
+}
+const AMDRequireDependencySerial = serial.serial('AMDRequireDependency', {
+  constructor: {
+    freeze(_, dependency, extra, methods) {
+      return {
+        block: !dependency.block.dependencies.includes(dependency) ?
+          methods.freeze('DependencyBlock', null, dependency.block, extra) :
+          undefined,
+      };
+    },
+    thaw(thawed, frozen, extra, methods) {
+      return new AMDRequireDependency(
+        !frozen.block ? extra.parent : methods.thaw('DependencyBlock', null, frozen.block, extra),
+      );
+    },
+  },
+
+  optional,
+
+  warnings,
+})

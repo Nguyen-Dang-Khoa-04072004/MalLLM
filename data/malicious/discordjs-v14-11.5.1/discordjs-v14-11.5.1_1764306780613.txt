@@ -1,0 +1,3 @@
+this.manager.respawnAll(shardDelay, respawnDelay, spawnTimeout).catch(() => {
+          // Do nothing
+        })

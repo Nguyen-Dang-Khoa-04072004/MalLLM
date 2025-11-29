@@ -1,0 +1,31 @@
+function useMediaQueryOld = function useMediaQueryOld(query, defaultMatches, matchMedia, ssrMatchMedia, noSsr) {
+  var _React$useState = React.useState(function () {
+      if (noSsr && matchMedia) {
+        return matchMedia(query).matches;
+      }
+      if (ssrMatchMedia) {
+        return ssrMatchMedia(query).matches;
+      }
+
+      // Once the component is mounted, we rely on the
+      // event listeners to return the correct matches value.
+      return defaultMatches;
+    }),
+    match = _React$useState[0],
+    setMatch = _React$useState[1];
+  useEnhancedEffect(function () {
+    var active = true;
+    if (!matchMedia) {
+      return undefined;
+    }
+    var queryList = matchMedia(query);
+    var updateMatch = function updateMatch() {
+      // Workaround Safari wrong implementation of matchMedia
+      // TODO can we remove it?
+      // https://github.com/mui/material-ui/pull/17315#issuecomment-528286677
+      if (active) {
+        setMatch(queryList.matches);
+      }
+    };
+    updateMatch();
+    // TODO: Us...

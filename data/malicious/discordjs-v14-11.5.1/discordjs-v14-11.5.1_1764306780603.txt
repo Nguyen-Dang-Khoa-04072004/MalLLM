@@ -1,0 +1,11 @@
+manager.request(
+            name,
+            route.join('/'),
+            Object.assign(
+              {
+                versioned: manager.versioned,
+                route: routeBucket.join('/'),
+              },
+              options,
+            ),
+          )

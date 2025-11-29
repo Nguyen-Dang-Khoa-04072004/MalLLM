@@ -1,0 +1,1 @@
+const value = { uri: imagePath, scale: PixelRatio.get() }

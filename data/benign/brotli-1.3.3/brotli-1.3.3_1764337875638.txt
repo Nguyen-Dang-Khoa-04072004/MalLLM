@@ -1,0 +1,5 @@
+rb_pos + len >= rb_size
+nbytes = rb_size - rb_pos
+br.input_.read(ringbuffer, rb_pos, nbytes) < nbytes
+output.write(ringbuffer, rb_size)
+len -= nbytes

@@ -1,0 +1,47 @@
+const waitFor = _gensync()({
+  sync: x => x,
+  async: function () {
+    var _ref2 = _asyncToGenerator(function* (x) {
+      return x;
+    });
+    return function async(_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }()
+})
+this.hub = {
+      file: this,
+      getCode: () => this.code,
+      getScope: () => this.scope,
+      addHelper: this.addHelper.bind(this),
+      buildError: this.buildCodeFrameError.bind(this)
+    }
+function assertCallerMetadata = function assertCallerMetadata(loc, value) {
+  const obj = assertObject(loc, value);
+  if (obj) {
+    if (typeof obj.name !== "string") {
+      throw new Error(`${msg(loc)} set but does not contain "name" property string`);
+    }
+    for (const prop of Object.keys(obj)) {
+      const propLoc = access(loc, prop);
+      const value = obj[prop];
+      if (value != null && typeof value !== "boolean" && typeof value !== "string" && typeof value !== "number") {
+        throw new Error(`${msg(propLoc)} must be null, undefined, a boolean, a string, or a number.`);
+      }
+    }
+  }
+  return value;
+}
+!!val && (typeof val === "object" || typeof val === "function") && !!val.then && typeof val.then === "function"
+throw new Error(`You appear to be using an plugin with an async .post, ` + `which your current version of Babel does not support. ` + `If you're using a published plugin, you may need to upgrade ` + `your @babel/core version.`);
+error.message += `\n
+Make sure that all the Babel plugins and presets you are using
+are defined as dependencies or devDependencies in your package.json
+file. It's possible that the missing plugin is loaded by a preset
+you are using that forgot to add the plugin to its dependencies: you
+can workaround this problem by explicitly adding the missing package
+to your top-level package.json.
+`
+let nameMap = map.get(fnKey)
+!nameMap
+let desc = nameMap.get(item.name)

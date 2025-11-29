@@ -1,0 +1,31 @@
+subtask(TASK_COMPILE_SOLIDITY_FILTER_COMPILATION_JOBS)
+  .addParam("compilationJobs", undefined, undefined, types.any)
+  .addParam("force", undefined, undefined, types.boolean)
+  .addOptionalParam("solidityFilesCache", undefined, undefined, types.any)
+  .setAction(
+    async ({
+      compilationJobs,
+      force,
+      solidityFilesCache,
+    }: {
+      compilationJobs: CompilationJob[];
+      force: boolean;
+      solidityFilesCache?: SolidityFilesCache;
+    }): Promise<CompilationJob[]> => {
+      assertHardhatInvariant(
+        solidityFilesCache !== undefined,
+        "The implementation of this task needs a defined solidityFilesCache"
+      );
+
+      if (force) {
+        log(`force flag enabled, not filtering`);
+        return compilationJobs;
+      }
+
+      const neededCompilationJobs = compilationJobs.filter((job) =>
+        needsCompilation(job, solidityFilesCache)
+      );
+
+      const jobsFilteredOutCount =
+        compilationJobs.length - neededCompilationJobs.length;
+   ...

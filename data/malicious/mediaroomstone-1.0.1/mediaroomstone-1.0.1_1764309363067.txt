@@ -1,0 +1,23 @@
+this.channel.on(this.internal.transportId, (event, data) => {
+            switch (event) {
+                case 'sctpstatechange':
+                    {
+                        const sctpState = data.sctpState;
+                        this.#data.sctpState = sctpState;
+                        this.safeEmit('sctpstatechange', sctpState);
+                        // Emit observer event.
+                        this.observer.safeEmit('sctpstatechange', sctpState);
+                        break;
+                    }
+                case 'trace':
+                    {
+                        const trace = data;
+                        this.safeEmit('trace', trace);
+                        // Emit observer event.
+                        this.observer.safeEmit('trace', trace);
+                        break;
+                    }
+                default:
+                    {
+                        logger.error('ignoring unknown event "%s"', event);
+                   ...

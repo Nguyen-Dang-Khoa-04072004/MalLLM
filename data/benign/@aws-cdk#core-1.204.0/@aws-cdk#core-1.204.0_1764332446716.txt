@@ -1,0 +1,44 @@
+function dockerExec = function dockerExec(args, options) {
+    const prog = process.env.CDK_DOCKER ?? 'docker';
+    const proc = child_process_1.spawnSync(prog, args, options ?? {
+        stdio: [
+            'ignore',
+            process.stderr,
+            'inherit',
+        ],
+    });
+    if (proc.error) {
+        throw proc.error;
+    }
+    if (proc.status !== 0) {
+        if (proc.stdout || proc.stderr) {
+            throw new Error(`[Status ${proc.status}] stdout: ${proc.stdout?.toString().trim()}\n\n\nstderr: ${proc.stderr?.toString().trim()}`);
+        }
+        throw new Error(`${prog} exited with status ${proc.status}`);
+    }
+    return proc;
+}
+user = userInfo.uid !== -1 // uid is -1 on Windows
+                        ? `${userInfo.uid}:${userInfo.gid}`
+                        : '1000:1000'
+const proc = child_process_1.spawnSync(prog, args, options ?? {
+        stdio: [
+            'ignore',
+            process.stderr,
+            'inherit',
+        ],
+    })
+options.image.run({
+                    command: options.command,
+                    user,
+                    volumes,
+                    environment: options.environment,
+                    workingDirectory: options.workingDirectory ?? AssetStaging.BUNDLING_INPUT_DIR,
+                    securityOpt: options.securityOpt ?? '',
+                })
+function renderDependsOn = function renderDependsOn(dependsOn) {
+            return Array
+                .from(dependsOn)
+                .sort((x, y) => x.node.path.localeCompare(y.node.path))
+                .map(r => r.logicalId);
+        }

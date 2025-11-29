@@ -1,0 +1,19 @@
+function _objectKeys = function _objectKeys(obj) {
+    if (Array.isArray(obj)) {
+        var keys_1 = new Array(obj.length);
+        for (var k = 0; k < keys_1.length; k++) {
+            keys_1[k] = "" + k;
+        }
+        return keys_1;
+    }
+    if (Object.keys) {
+        return Object.keys(obj);
+    }
+    var keys = [];
+    for (var i in obj) {
+        if (hasOwnProperty(obj, i)) {
+            keys.push(i);
+        }
+    }
+    return keys;
+}

@@ -1,0 +1,26 @@
+mapFragmentIntersection(
+    oldDetails,
+    newDetails,
+    (oldFrag: Fragment, newFrag: Fragment) => {
+      if (oldFrag.relurl) {
+        // Do not compare CC if the old fragment has no url. This is a level.fragmentHint used by LL-HLS parts.
+        // It maybe be off by 1 if it was created before any parts or discontinuity tags were appended to the end
+        // of the playlist.
+        ccOffset = oldFrag.cc - newFrag.cc;
+      }
+      if (
+        Number.isFinite(oldFrag.startPTS) &&
+        Number.isFinite(oldFrag.endPTS)
+      ) {
+        newFrag.start = newFrag.startPTS = oldFrag.startPTS as number;
+        newFrag.startDTS = oldFrag.startDTS;
+        newFrag.maxStartPTS = oldFrag.maxStartPTS;
+
+        newFrag.endPTS = oldFrag.endPTS;
+        newFrag.endDTS = oldFrag.endDTS;
+        newFrag.minEndPTS = oldFrag.minEndPTS;
+        newFrag.duration =
+          (oldFrag.endPTS as number) - (oldFrag.startPTS as number);
+
+        if (newFrag.duration) {
+          PTSFrag = newFra...

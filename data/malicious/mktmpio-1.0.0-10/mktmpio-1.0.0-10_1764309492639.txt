@@ -1,0 +1,11 @@
+request({
+    protocol: conf.url.protocol,
+    hostname: conf.url.hostname,
+    port: conf.url.port,
+    path: conf.url.pathname + '/i/' + instanceId,
+    method: 'DELETE',
+    headers: {
+      'X-Auth-Token': conf.token,
+      'User-Agent': 'node-mktmpio/' + require('./package.json').version,
+    },
+  }, callback)

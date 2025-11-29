@@ -1,0 +1,186 @@
+process.on('SIGUSR2', function() {
+    God.reloadLogs({}, function() {});
+  })
+function containersListing = function containersListing(sys_infos) {
+  var stacked_docker = (process.stdout.columns || 100) < 140
+
+  var docker_head = {
+    id: 4,
+    image: 50,
+    status: 10,
+    '↺': 6,
+    cpu: 10,
+    mem: 10,
+    'net I/O ⇵': 11,
+    'fs I/O ⇵': 11
+  }
+
+  if (stacked_docker) {
+    docker_head = {
+      id: 4,
+      image: 25,
+      status: 10,
+      cpu: 10,
+      mem: 10
+    }
+  }
+
+  var docker_table = new Table({
+    colWidths: Object.keys(docker_head).map(k => docker_head[k]),
+    head : Object.keys(docker_head),
+    colAligns : ['left'],
+    style : {'padding-left' : 1, head : ['cyan', 'bold'],  compact : true}
+  })
+
+  sys_infos.containers.forEach((c) => {
+    var cpu = c.stats.cpu_percent
+    var mem = c.stats.mem_percent == 0 ? '0' : c.stats.mem_percent
+    var id = chalk.bold.cyan(proc_id++)
+    var state = UxHelpers.colorStatus(c.state)
+
+    if (stacked_docker)
+      docker_table.push([id, c.image, state, `${cpu}%`, `${mem}mb`])
+    else {
+      docker_table.push([
+        id,
+  ...
+God.killProcess(proc.process.pid, proc.pm2_env, function(err) {
+      proc.pm2_env.status = cst.STOPPED_STATUS;
+
+      God.notify('exit', proc);
+
+      if (err && err.type && err.type === 'timeout') {
+        console.error('app=%s id=%d pid=%s could not be stopped',
+                      proc.pm2_env.name,
+                      proc.pm2_env.pm_id,
+                      proc.process.pid);
+        proc.pm2_env.status = cst.ERRORED_STATUS;
+        return cb(null, God.getFormatedProcess(id));
+      }
+
+      if (proc.pm2_env.pm_id.toString().indexOf('_old_') !== 0) {
+        try {
+          fs.unlinkSync(proc.pm2_env.pm_pid_path);
+        } catch (e) {}
+      }
+
+      if (proc.pm2_env.axm_actions) proc.pm2_env.axm_actions = [];
+      if (proc.pm2_env.axm_monitor) proc.pm2_env.axm_monitor = {};
+
+      proc.process.pid = 0;
+      return cb(null, God.getFormatedProcess(id));
+    })
+this.metadataBox.setLine(4, 'Uptime                ' + ((proc.pm2_env.pm_uptime && proc.pm2_env.status == 'online') ? timeSince(proc.pm2_env.pm_uptime) : 0))
+package(current_path, target_path, (err, res) => {
+    if (err) {
+      Common.errMod('Can\'t package, exiting')
+      process.exit(1)
+    }
+
+    Common.logMod(`Package [${pkg.name}] created in path ${res.path}`)
+
+    var data = {
+      module_data: {
+        file: res.path,
+        content_type: 'content/gzip'
+      },
+      id: pkg.name,
+      name: pkg.name,
+      version: pkg.version
+    };
+
+    var uri = `${PM2.pm2_configuration.registry}/api/v1/modules`
+    Common.logMod(`Sending Package to remote ${pkg.name} ${uri}`)
+
+    require('needle')
+      .post(uri, data, { multipart: true }, function(err, res, body) {
+        if (err) {
+          Common.errMod(err)
+          process.exit(1)
+        }
+        if (res.statusCode !== 200) {
+          Common.errMod(`${pkg.name}-${pkg.version}: ${res.body.msg}`)
+          process.exit(1)
+        }
+        Common.logMod(`Module ${module_name} published under version ${pkg.version}`)
+        process.exit(0)
+      })
+  })
+client.sock.once('error', function(e) {
+    if (e.code === 'EACCES') {
+      fs.stat(that.conf.DAEMON_RPC_PORT, function(e, stats) {
+        if (stats.uid === 0) {
+          console.error(that.conf.PREFIX_MSG_ERR + 'Permission denied, to give access to current user:');
+          console.log('$ sudo chown ' + process.env.USER + ':' + process.env.USER + ' ' + that.conf.DAEMON_RPC_PORT +  ' ' + that.conf.DAEMON_PUB_PORT);
+        }
+        else
+          console.error(that.conf.PREFIX_MSG_ERR + 'Permission denied, check permissions on ' + that.conf.DAEMON_RPC_PORT);
+
+        process.exit(1);
+      });
+    }
+    else
+      console.error(e.message || e);
+  })
+CLI.prototype.sendLineToStdin = function(pm_id, line, separator, cb) {
+    var that = this;
+
+    if (!cb && typeof(separator) == 'function') {
+      cb = separator;
+      separator = null;
+    }
+
+    var packet = {
+      pm_id : pm_id,
+      line : line + (separator || '\n')
+    };
+
+    that.Client.executeRemote('sendLineToStdin', packet, function(err, res) {
+      if (err) {
+        Common.printError(cst.PREFIX_MSG_ERR + err);
+        return cb ? cb(Common.retErr(err)) : that.exitCli(cst.ERROR_EXIT);
+      }
+      return cb ? cb(null, res) : that.speedList();
+    });
+  }
+pushIfUnique({
+              path     : proc.pm2_env.pm_err_log_path,
+              app_name : proc.pm2_env.pm_id + '|' + proc.pm2_env.name,
+              type     : 'err'
+            })
+this.io.user.retrieve().then(res => {
+        const user = res.data
+
+        this.io.user.retrieve().then(res => {
+          const tmpUser = res.data
+          console.log(`${cst.PM2_IO_MSG} Successfully validated`)
+          this.connectToBucket(this.createBucketHandler.bind(this))
+        })
+      })
+console.error(that.conf.PREFIX_MSG_ERR + 'Permission denied, check permissions on ' + that.conf.DAEMON_RPC_PORT)
+require('needle')
+      .post(uri, data, { multipart: true }, function(err, res, body) {
+        if (err) {
+          Common.errMod(err)
+          process.exit(1)
+        }
+        if (res.statusCode !== 200) {
+          Common.errMod(`${pkg.name}-${pkg.version}: ${res.body.msg}`)
+          process.exit(1)
+        }
+        Common.logMod(`Module ${module_name} published under version ${pkg.version}`)
+        process.exit(0)
+      })
+God.resetMetaProcessId = function(id, cb) {
+    if (!(id in God.clusters_db))
+      return cb(God.logAndGenerateError(id + ' id unknown'), {});
+
+    if (!God.clusters_db[id] || !God.clusters_db[id].pm2_env)
+      return cb(God.logAndGenerateError('Error when getting proc || proc.pm2_env'), {});
+
+    God.clusters_db[id].pm2_env.created_at = Utility.getDate();
+    God.clusters_db[id].pm2_env.unstable_restarts = 0;
+    God.clusters_db[id].pm2_env.restart_time = 0;
+
+    return cb(null, God.getFormatedProcesses());
+  }

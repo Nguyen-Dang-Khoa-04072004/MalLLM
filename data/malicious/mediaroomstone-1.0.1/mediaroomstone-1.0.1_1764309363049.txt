@@ -1,0 +1,1 @@
+_iterator_0 = <operator>.iterator(Array.isArray(logTags) ? logTags : [])

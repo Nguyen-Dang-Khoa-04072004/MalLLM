@@ -1,0 +1,1 @@
+this.request('files/upload_session/append', arg, 'user', 'content', 'upload', 'files.content.write')

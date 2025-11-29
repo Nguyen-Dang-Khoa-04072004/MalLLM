@@ -1,0 +1,5 @@
+throw new Error('Required task "' + name +
+          '" ' + (success === false ? 'failed' : 'must be run first') + '.');
+contents = options.process(contents, srcpath, destpath)
+contents === false || file.isLink(destpath)
+file.write(destpath, contents, readWriteOptions)

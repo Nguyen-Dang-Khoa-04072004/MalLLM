@@ -1,0 +1,14 @@
+problems.push({
+              err: 'Incorrectly formatted platformName.',
+              val: pName,
+            })
+_tmp_19.push({
+        required: false,
+        default: null,
+        type: 'str',
+        help:
+          `If installing from Git or GitHub, the package name, as defined in the plugin's ` +
+          `package.json file in the "name" field, cannot be determined automatically, and ` +
+          `should be reported here, otherwise the install will probably fail.`,
+        dest: 'packageName',
+      })

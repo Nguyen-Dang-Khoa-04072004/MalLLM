@@ -1,0 +1,36 @@
+const key = getKey(item)
+map.set(
+      key,
+      (map.has(key))
+        ? merge(item, map.get(key), { arrayMerge: overwriteMerge$1 })
+        : item
+    )
+key
+map.has(key) ? merge(item, map.get(key), { arrayMerge: overwriteMerge$1 }) : item
+function mergeDuplicatesPreferLast = function mergeDuplicatesPreferLast (items, getKey) {
+  const map = new Map();
+  for (let i = items.length; i-- > 0;) {
+    const item = items[i];
+    const key = getKey(item);
+    map.set(
+      key,
+      (map.has(key))
+        ? merge__default["default"](item, map.get(key), { arrayMerge: overwriteMerge$1 })
+        : item
+    );
+  }
+  return [...map.values()].reverse();
+}
+map.set(
+      key,
+      (map.has(key))
+        ? merge__default["default"](item, map.get(key), { arrayMerge: overwriteMerge$1 })
+        : item
+    )
+key
+map.has(key) ? merge__default["default"](item, map.get(key), { arrayMerge: overwriteMerge$1 }) : item
+merge__default["default"](item, map.get(key), { arrayMerge: overwriteMerge$1 })
+this.wrapCharacters = get(options, ['longWordSplit', 'wrapCharacters']) || []
+this.forceWrapOnLimit = get(options, ['longWordSplit', 'forceWrapOnLimit']) || false
+this.wrapCharacters = get(options, ['longWordSplit', 'wrapCharacters']) || []
+this.forceWrapOnLimit = get(options, ['longWordSplit', 'forceWrapOnLimit']) || false

@@ -1,0 +1,5 @@
+const pth = path.resolve(input)
+fs.mkdirSync(pth, {
+			mode: options.mode,
+			recursive: true
+		})

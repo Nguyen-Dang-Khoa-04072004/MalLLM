@@ -1,0 +1,8 @@
+socksClient.createConnection(connectionOpts, (err, info) => {
+                            if (err) {
+                                return callback(err);
+                            }
+                            return callback(null, {
+                                connection: info.socket || info
+                            });
+                        })

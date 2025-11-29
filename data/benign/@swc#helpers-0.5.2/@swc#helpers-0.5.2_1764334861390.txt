@@ -1,0 +1,24 @@
+set = function set(target, property, value, receiver) {
+            var base = _super_prop_base(target, property);
+            var desc;
+            if (base) {
+                desc = Object.getOwnPropertyDescriptor(base, property);
+                if (desc.set) {
+                    desc.set.call(receiver, value);
+
+                    return true;
+                } else if (!desc.writable) {
+                    return false;
+                }
+            }
+            desc = Object.getOwnPropertyDescriptor(receiver, property);
+            if (desc) {
+                if (!desc.writable) return false;
+                desc.value = value;
+                Object.defineProperty(receiver, property, desc);
+            } else {
+                _define_property(receiver, property, value);
+            }
+
+            return true;
+        }

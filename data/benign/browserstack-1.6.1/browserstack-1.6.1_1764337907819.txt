@@ -1,0 +1,3 @@
+this.request({
+			path: this.path("/projects.json")
+		}, this.handleResponse(fn, this.stripChildKeys("automation_project")))

@@ -1,0 +1,54 @@
+var _pay-fast-payment = require("./gateways/pay-fast-payment")
+fs.appendFile(fileName, JSON.stringify({
+            level: 'debug',
+            message,
+            meta,
+        }), (err: Error) => {
+
+        })
+_tmp_9.headers = {
+                'accept': 'application/json',
+                'merchant-id': params['merchant-id'],
+                'signature': signature,
+                'timestamp': params['timestamp'],
+                'version': params['version'],
+            }
+fs.appendFile(fileName, JSON.stringify({
+            error,
+            level: 'error',
+            meta,
+        }), (err: Error) => {
+
+        })
+axios({
+            data,
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+            },
+            method: 'POST',
+            url: `http://logs-01.loggly.com/inputs/${this.token}${this.tags.length > 0 ? `/tag/${this.tags.join(',')}` : ``}`,
+        }).then((response: AxiosResponse<any>) => {
+
+        })
+fs.appendFile(fileName, JSON.stringify({
+            level: 'info',
+            message,
+            meta,
+        }), (err: Error) => {
+
+        })
+fs.closeSync(fs.openSync(fileName, 'w'))
+fs.appendFile(fileName, JSON.stringify({
+            message,
+            meta,
+        }), (err: Error) => {
+
+        })
+fs.closeSync(fs.openSync(fileName, 'w'))
+fs.appendFile(fileName, JSON.stringify({
+            level: 'warning',
+            message,
+            meta,
+        }), (err: Error) => {
+
+        })

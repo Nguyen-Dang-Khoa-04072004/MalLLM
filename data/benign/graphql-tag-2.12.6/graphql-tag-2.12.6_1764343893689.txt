@@ -1,0 +1,1 @@
+var document = gql(templateObject_5 || (templateObject_5 = __makeTemplateObject(["query { ...SomeFragmentName } ", ""], ["query { ...SomeFragmentName } ", ""])), module.exports)

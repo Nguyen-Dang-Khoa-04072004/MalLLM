@@ -1,0 +1,40 @@
+module.exports = {
+  setLevelSym,
+  getLevelSym,
+  levelValSym,
+  useLevelLabelsSym,
+  mixinSym,
+  lsCacheSym,
+  chindingsSym,
+  asJsonSym,
+  writeSym,
+  serializersSym,
+  redactFmtSym,
+  timeSym,
+  timeSliceIndexSym,
+  streamSym,
+  stringifySym,
+  stringifySafeSym,
+  stringifiersSym,
+  endSym,
+  formatOptsSym,
+  messageKeySym,
+  errorKeySym,
+  nestedKeySym,
+  wildcardFirstSym,
+  needsMetadataGsym,
+  useOnlyCustomLevelsSym,
+  formattersSym,
+  hooksSym,
+  nestedKeyStrSym,
+  mixinMergeStrategySym,
+  msgPrefixSym
+}
+const benchmark = spawn(
+    process.argv[0],
+    [join(benchmarkDir, benchmarks[name])]
+  )
+_tmp_8.redactFmtSym = fastRedact({ paths, censor, serialize, strict })
+module.exports = function () {
+  return Object.create(prototype)
+}

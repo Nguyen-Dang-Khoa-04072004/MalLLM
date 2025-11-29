@@ -1,0 +1,24 @@
+tapable.__hardSource_proxy[name] = {
+          tap: (...args) => exports.tap(tapable, name, ...args),
+          tapPromise: (...args) => exports.tapPromise(tapable, name, ...args),
+          call: (...args) => exports.call(tapable, name, args),
+          promise: (...args) => exports.promise(tapable, name, args),
+        }
+Promise.all(
+                  items.map(item =>
+                    stat(path.join(root, dir, item))
+                      .then(stat => {
+                        if (stat.isDirectory()) {
+                          return hashFiles(path.join(root, dir, item), files);
+                        }
+                        if (stat.isFile()) {
+                          return hashFile(path.join(root, dir, item)).then(
+                            hash => (hash ? [hash] : hash),
+                          );
+                        }
+                      })
+                      .catch(function(...args) {
+                        console.error(args);
+                      }),
+                  ),
+                ).then(hashes => hashes.filter(Boolean))

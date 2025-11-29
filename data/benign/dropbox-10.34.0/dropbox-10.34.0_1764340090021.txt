@@ -1,0 +1,1 @@
+this.request('team/members/move_former_member_files/job_status/check', arg, 'team', 'api', 'rpc', 'members.write')

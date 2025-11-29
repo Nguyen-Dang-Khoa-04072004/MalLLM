@@ -1,0 +1,175 @@
+function loadNxPluginsSync = function loadNxPluginsSync(plugins, paths = (0, installation_directory_1.getNxRequirePaths)(), root = workspace_root_1.workspaceRoot) {
+    // TODO: This should be specified in nx.json
+    // Temporarily load js as if it were a plugin which is built into nx
+    // In the future, this will be optional and need to be specified in nx.json
+    const result = [...getDefaultPluginsSync(root)];
+    if ((0, angular_json_1.shouldMergeAngularProjects)(root, false)) {
+        result.push(angular_json_1.NxAngularJsonPlugin);
+    }
+    plugins ??= [];
+    for (const plugin of plugins) {
+        try {
+            result.push(loadNxPluginSync(plugin, paths, root));
+        }
+        catch (e) {
+            if (e.code === 'ERR_REQUIRE_ESM') {
+                throw new Error(`Unable to load "${plugin}". Plugins cannot be ESM modules. They must be CommonJS modules. Follow the issue on github: https://github.com/nrwl/nx/issues/15682`);
+            }
+            throw e;
+        }
+    }
+    // We push ...
+function updateProjectOutputs = function updateProjectOutputs(repoRoot, project) {
+    Object.values(project.targets ?? {}).forEach((target) => {
+        if ([
+            '@angular-devkit/build-angular:browser',
+            '@angular-builders/custom-webpack:browser',
+            'ngx-build-plus:browser',
+            '@angular-devkit/build-angular:server',
+            '@angular-builders/custom-webpack:server',
+            'ngx-build-plus:server',
+        ].includes(target.executor)) {
+            target.outputs = ['{options.outputPath}'];
+        }
+        else if (target.executor === '@angular-eslint/builder:lint') {
+            target.outputs = ['{options.outputFile}'];
+        }
+        else if (target.executor === '@angular-devkit/build-angular:ng-packagr') {
+            try {
+                const ngPackageJsonPath = (0, path_1.join)(repoRoot, target.options.project);
+                const ngPackageJson = (0, fileutils_1.readJsonFile)(ngPackageJsonPath);
+                const outputPath = (0, path_1.relative)...
+_tmp_8.data = {
+            version,
+            packageName,
+            hash: snapshot.integrity ||
+                (0, file_hasher_1.hashArray)(snapshot.resolved
+                    ? [snapshot.resolved]
+                    : version
+                        ? [packageName, version]
+                        : [packageName]),
+        }
+_tmp_9.push({
+                name: 'customCollection',
+                type: 'input',
+                message: `Which collection would you like to use?`,
+                skip: function () {
+                    // Skip this question if the user did not answer None of the above
+                    return this.state.answers.generator !== noneOfTheAbove;
+                },
+                validate: function (value) {
+                    if (this.skipped) {
+                        return true;
+                    }
+                    try {
+                        (0, generator_utils_1.getGeneratorInformation)(value, generatorName, workspace_root_1.workspaceRoot);
+                        return true;
+                    }
+                    catch {
+                        logger_1.logger.error(`\nCould not find ${value}:${generatorName}`);
+                        return false;
+                    }
+                },
+            })
+Object.entries(generators)
+                .filter(([, migration]) => migration.version &&
+                this.gt(migration.version, currentVersion) &&
+                this.lte(migration.version, version) &&
+                this.areMigrationRequirementsMet(packageName, migration))
+                .map(([migrationName, migration]) => ({
+                ...migration,
+                package: packageName,
+                name: migrationName,
+            }))
+function retrieveProjectConfigurationsWithoutPluginInference = function retrieveProjectConfigurationsWithoutPluginInference(root) {
+    const nxJson = (0, nx_json_1.readNxJson)(root);
+    const projectGlobPatterns = configurationGlobsWithoutPlugins(root);
+    const cacheKey = root + ',' + projectGlobPatterns.join(',');
+    if (projectsWithoutPluginCache.has(cacheKey)) {
+        return projectsWithoutPluginCache.get(cacheKey);
+    }
+    const projectConfigurations = (0, workspace_context_1.getProjectConfigurationsFromContext)(root, projectGlobPatterns, (configs) => {
+        const { projects } = createProjectConfigurations(root, nxJson, configs, [
+            (0, package_json_workspaces_1.getNxPackageJsonWorkspacesPlugin)(root),
+            project_json_1.CreateProjectJsonProjectsPlugin,
+        ]);
+        return {
+            projectNodes: projects,
+            externalNodes: {},
+        };
+    }).projectNodes;
+    projectsWithoutPluginCache.set(cacheKey, projectConfigurations);
+    return projectConfigurations;
+}
+function createProjectJson = function createProjectJson(repoRoot, packageJson, nestCLIOptions) {
+    const packageName = packageJson.name;
+    const path = (0, path_1.join)(repoRoot, 'project.json');
+    const json = {
+        name: packageName,
+        root: '.',
+        sourceRoot: nestCLIOptions.sourceRoot,
+        projectType: 'application',
+        targets: {},
+        tags: [],
+    };
+    json['$schema'] = 'node_modules/nx/schemas/project-schema.json';
+    if (nestCLIOptions.language !== 'js') {
+        json.targets['serve'] = {
+            executor: '@nx/js:node',
+            options: {
+                buildTarget: `${packageName}:build`,
+            },
+        };
+        console.log(nestCLIOptions);
+        if (nestCLIOptions.webpackOptions) {
+            json.targets['build'] = {
+                executor: '@nx/webpack:webpack',
+                outputs: ['{options.outputPath}'],
+                options: {
+                    target: 'node',
+                    compiler: 'tsc',
+                    output...
+function extractFileFromTarball = async function extractFileFromTarball(tarballPath, file, destinationFilePath) {
+    return new Promise((resolve, reject) => {
+        (0, fs_1.mkdirSync)((0, path_1.dirname)(destinationFilePath), { recursive: true });
+        var tarExtractStream = tar.extract();
+        const destinationFileStream = (0, fs_1.createWriteStream)(destinationFilePath);
+        let isFileExtracted = false;
+        tarExtractStream.on('entry', function (header, stream, next) {
+            if (header.name === file) {
+                stream.pipe(destinationFileStream);
+                stream.on('end', () => {
+                    isFileExtracted = true;
+                });
+                destinationFileStream.on('close', () => {
+                    resolve(destinationFilePath);
+                });
+            }
+            stream.on('end', function () {
+                next();
+            });
+            stream.resume();
+        });
+        tarExtractStream.on('finish', function () {
+            if (!isFil...
+lockfileToSave = {
+            ...lockfile,
+            importers: mapValues(lockfile.importers, (importer) => {
+                const normalizedImporter = {};
+                if (!isEmpty(importer.specifiers ?? {}) || !isLockfileV6) {
+                    normalizedImporter['specifiers'] = importer.specifiers ?? {};
+                }
+                if (importer.dependenciesMeta != null &&
+                    !isEmpty(importer.dependenciesMeta)) {
+                    normalizedImporter['dependenciesMeta'] = importer.dependenciesMeta;
+                }
+                for (const depType of DEPENDENCIES_FIELDS) {
+                    if (!isEmpty(importer[depType] ?? {})) {
+                        normalizedImporter[depType] = importer[depType];
+                    }
+                }
+                if (importer.publishDirectory) {
+                    normalizedImporter.publishDirectory = importer.publishDirectory;
+                }
+                return normalizedImporter;
+         ...

@@ -1,0 +1,13 @@
+function makeFileWritable = function makeFileWritable (dest, srcMode, cb) {
+  return setDestMode(dest, srcMode | 0o200, cb)
+}
+function setDestTimestampsAndMode = function setDestTimestampsAndMode (srcMode, src, dest, cb) {
+  setDestTimestamps(src, dest, err => {
+    if (err) return cb(err)
+    return setDestMode(dest, srcMode, cb)
+  })
+}
+process.emitWarning(
+    'fs.realpath.native is not a function. Is fs being monkey-patched?',
+    'Warning', 'fs-extra-WARN0003'
+  )

@@ -1,0 +1,1 @@
+BatchedHash = require("./hash/BatchedHash")

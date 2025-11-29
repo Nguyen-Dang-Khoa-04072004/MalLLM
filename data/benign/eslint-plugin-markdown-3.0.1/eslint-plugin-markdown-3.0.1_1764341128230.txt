@@ -1,0 +1,1 @@
+const blocks = blocksCache.get(filename)

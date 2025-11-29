@@ -1,0 +1,16 @@
+electronApi.onIpcInvoke('__ELECTRON_LOG__', (_, { cmd = '', logId }) => {
+  switch (cmd) {
+    case 'getOptions': {
+      const logger = Logger.getInstance({ logId });
+      return {
+        levels: logger.levels,
+        logId,
+      };
+    }
+
+    default: {
+      processMessage({ data: [`Unknown cmd '${cmd}'`], level: 'error' });
+      return {};
+    }
+  }
+})

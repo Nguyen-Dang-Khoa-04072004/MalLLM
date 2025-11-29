@@ -1,0 +1,8 @@
+_tmp_2.push({
+            kind: 'audio',
+            mimeType: 'audio/SILK',
+            clockRate: 24000,
+            rtcpFeedback: [
+                { type: 'transport-cc' }
+            ]
+        })

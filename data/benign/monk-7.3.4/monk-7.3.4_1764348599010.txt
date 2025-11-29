@@ -1,0 +1,4 @@
+db.listCollections(query).toArray().then(x => x.map(
+      x => self.get(x.name)
+    ))
+self.get(x.name)

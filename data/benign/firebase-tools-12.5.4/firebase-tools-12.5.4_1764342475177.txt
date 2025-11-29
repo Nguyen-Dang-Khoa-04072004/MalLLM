@@ -1,0 +1,31 @@
+function zipDirectory = async function zipDirectory(sourceDirectory, tempFile, options) {
+    const archiveFileStream = fs.createWriteStream(tempFile.name, {
+        flags: "w",
+        encoding: "binary",
+    });
+    const archive = archiver("zip");
+    const archiveDone = pipeAsync(archive, archiveFileStream);
+    const allFiles = [];
+    let files;
+    try {
+        files = await fsAsync.readdirRecursive({ path: sourceDirectory, ignore: options.ignore });
+    }
+    catch (err) {
+        if (err.code === "ENOENT") {
+            throw new error_1.FirebaseError(`Could not read directory "${sourceDirectory}"`, { original: err });
+        }
+        throw err;
+    }
+    for (const file of files) {
+        const name = path.relative(sourceDirectory, file.name);
+        allFiles.push(name);
+        archive.file(file.name, {
+            name,
+            mode: file.mode,
+        });
+    }
+    void archive.finalize();
+    await archiveDone;
+    const stats = fs.statSync(tempFile.name);
+    return {
+        file: ...

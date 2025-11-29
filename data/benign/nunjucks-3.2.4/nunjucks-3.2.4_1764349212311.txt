@@ -1,0 +1,3 @@
+function NodeList = function NodeList() {
+    return _Node2.apply(this, arguments) || this;
+  }

@@ -1,0 +1,8 @@
+this.process = childProcess
+        .fork(path.resolve(this.manager.file), this.args, {
+          env: this.env,
+          execArgv: this.execArgv,
+        })
+        .on('message', this._handleMessage.bind(this))
+        .on('exit', this._exitListener)
+this._createdTimestamp ??= this.type === ChannelType.GuildPrivateThread ? super.createdTimestamp : null

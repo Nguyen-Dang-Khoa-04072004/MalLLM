@@ -1,0 +1,42 @@
+stats.toJson().assets.forEach((webpackFileObj) => {
+        const filePath = `${compiler.options.output.path}/${
+          webpackFileObj.name
+        }`;
+        this.controller.bundlesContent[webpackFileObj.name] = fs.readFileSync(
+          filePath,
+          'utf-8'
+        );
+      })
+function configToWebpackEntries = function configToWebpackEntries(config) {
+  const filteredPreprocessorsPatterns = [];
+  const { preprocessors } = config;
+
+  let files = [];
+  config.files.forEach((fileEntry, i) => {
+    // forcefully disable karma watch as we use webpack watch only
+    config.files[i].watched = false;
+    files = [...files, ...glob.sync(fileEntry.pattern)];
+  });
+
+  Object.keys(preprocessors).forEach((pattern) => {
+    if (preprocessors[pattern].includes('webpack')) {
+      filteredPreprocessorsPatterns.push(pattern);
+    }
+  });
+
+  const filteredFiles = [];
+  files.forEach((filePath) => {
+    filteredPreprocessorsPatterns.forEach((pattern) => {
+      if (minimatch(filePath, pattern)) {
+        filteredFiles.push(filePath);
+      }
+    });
+  });
+
+  const webpackEntries = {};
+  filteredFiles.forEach((filePath) => {
+    webpackEntries[getPathKey(filePath)] = filePath;
+  });
+
+  return webpackEntries;
+}

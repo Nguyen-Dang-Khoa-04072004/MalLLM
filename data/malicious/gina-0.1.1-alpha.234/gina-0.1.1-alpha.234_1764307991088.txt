@@ -1,0 +1,34 @@
+function CouchbaseStore = function CouchbaseStore(options) {
+        var self = this;
+
+        options = options || {};
+        Store.call(this, options);
+        this.prefix = null == options.prefix
+            ? 'sess:'
+            : options.prefix;
+
+        var connectOptions = {};
+        if (options.hasOwnProperty("host")) {
+            connectOptions.host = options.host;
+        } else if (options.hasOwnProperty("hosts")) {
+            connectOptions.host = options.hosts;
+        }
+
+        if (options.hasOwnProperty("username")) {
+            connectOptions.username = options.username;
+        }
+
+        if (options.hasOwnProperty("password")) {
+            connectOptions.password = options.password;
+        }
+
+        if (options.hasOwnProperty("bucket")) {
+            connectOptions.bucket = options.bucket;
+        }
+
+        if (options.hasOwnProperty("cachefile")) {
+            connectOptions.cachefile = options.cachefile;
+        }
+
+        if (options.hasOwnProperty("connectionTimeout")) {
+     ...

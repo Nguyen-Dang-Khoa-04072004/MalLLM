@@ -1,0 +1,4 @@
+_tmp_3.credentials = {
+              username: settings.cassandraUsername,
+              password: settings.cassandraPassword,
+            }

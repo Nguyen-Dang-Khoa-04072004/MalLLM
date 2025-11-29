@@ -1,0 +1,1 @@
+fs.writeFileSync(to, fs.readFileSync(from, 'binary'), 'binary')

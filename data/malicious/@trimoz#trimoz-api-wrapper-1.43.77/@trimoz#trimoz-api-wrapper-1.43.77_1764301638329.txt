@@ -1,0 +1,3 @@
+function isAdminApp = function isAdminApp() {
+    return includes(window.location.host, 'admin') || includes(window.location.host, 'localhost:8080');
+}

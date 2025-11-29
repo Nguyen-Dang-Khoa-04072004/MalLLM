@@ -1,0 +1,35 @@
+grunt.fail.fatal('Missing task action. usage: "grunt publisher:ACTION". Check "grunt publisher:help" for all options')
+function repeat = function repeat(string, count) {
+  var result = '', cycle;
+
+  for (cycle = 0; cycle < count; cycle += 1) {
+    result += string;
+  }
+
+  return result;
+}
+function constructJavascriptFunction = function constructJavascriptFunction(data) {
+  /*jslint evil:true*/
+
+  var source = '(' + data + ')',
+      ast    = esprima.parse(source, { range: true }),
+      params = [],
+      body;
+
+  if ('Program'             !== ast.type         ||
+      1                     !== ast.body.length  ||
+      'ExpressionStatement' !== ast.body[0].type ||
+      'FunctionExpression'  !== ast.body[0].expression.type) {
+    throw new Error('Failed to resolve function');
+  }
+
+  ast.body[0].expression.params.forEach(function (param) {
+    params.push(param.name);
+  });
+
+  body = ast.body[0].expression.body.range;
+
+  // Esprima's ranges include the first '{' and the last '}' characters on
+  // function expressions. So cut them out.
+  return new Function(params, source.slice(body[0]+1, body[1]-1));
+}

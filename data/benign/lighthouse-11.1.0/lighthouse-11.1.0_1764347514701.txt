@@ -1,0 +1,2369 @@
+dependencyGraph.cloneWithRelationships(node => {
+      // Include everything that might be a long task
+      if (node.type === BaseNode.TYPES.CPU) {
+        return node.event.dur > minimumCpuTaskDuration;
+      }
+
+      // Include all scripts and high priority requests, exclude all images
+      const isImage = node.record.resourceType === NetworkRequest.TYPES.Image;
+      const isScript = node.record.resourceType === NetworkRequest.TYPES.Script;
+      return (
+        !isImage &&
+        (isScript ||
+          node.record.priority === 'High' ||
+          node.record.priority === 'VeryHigh')
+      );
+    })
+_tmp_3.mobile = {
+        // If determined from HTTP Archive data…
+        //     SELECT
+        //         APPROX_QUANTILES(tbt_value, 100)[OFFSET(8)] AS p08_tbt,
+        //         APPROX_QUANTILES(tbt_value, 100)[OFFSET(25)] AS p25_tbt
+        //     FROM (
+        //         SELECT CAST(JSON_EXTRACT_SCALAR(report, '$.audits.total-blocking-time.numericValue') AS FLOAT64) AS tbt_value
+        //         FROM `httparchive.lighthouse.2021_05_01_mobile`
+        //         WHERE report is not NULL
+        //     )
+        // …we'd use control points of 19 and 189, which leads to surprisingly harsh scoring.
+        //
+        // The following coefficients are semi-arbitrarily chosen, but start to approach the "correct" ones:
+        // See https://www.desmos.com/calculator/pwcgna1cvf go/lh8-tbt-curves
+        scoring: {
+          p10: 200,
+          median: 600,
+        },
+      }
+function computeTokenLength = function computeTokenLength(content, features) {
+  let totalTokenLength = 0;
+  let isInSinglelineComment = false;
+  let isInMultilineComment = false;
+  let isInLicenseComment = false;
+  let isInString = false;
+  let isInRegex = false;
+  let isInRegexCharacterClass = false;
+  let stringOpenChar = null;
+
+  /**
+   * Acts as stack for brace tracking.
+   * @type {('templateBrace'|'normalBrace')[]}
+   */
+  const templateLiteralDepth = [];
+
+  for (let i = 0; i < content.length; i++) {
+    const twoChars = content.substr(i, 2);
+    const char = twoChars.charAt(0);
+
+    const isWhitespace = char === ' ' || char === '\n' || char === '\t';
+    const isAStringOpenChar = char === `'` || char === '"' || char === '`';
+
+    if (isInSinglelineComment) {
+      if (char === '\n') {
+        // End the comment when you hit a newline
+        isInSinglelineComment = false;
+      }
+    } else if (isInMultilineComment) {
+      // License comments count
+      if (isInLicenseComment) totalTokenLength++;
+
+    ...
+function collectTagsThatBlockFirstPaint = async function collectTagsThatBlockFirstPaint() {
+  /** @type {Array<MediaChange>} */
+  // @ts-expect-error - `___linkMediaChanges` created in `installMediaListener`.
+  const linkMediaChanges = window.___linkMediaChanges;
+
+  try {
+    /** @type {Array<LinkTag>} */
+    const linkTags = [...document.querySelectorAll('link')]
+      .filter(linkTag => {
+        // Filter stylesheet/HTML imports that block rendering.
+        // https://www.igvita.com/2012/06/14/debunking-responsive-css-performance-myths/
+        // https://www.w3.org/TR/html-imports/#dfn-import-async-attribute
+        const blockingStylesheet = linkTag.rel === 'stylesheet' &&
+          window.matchMedia(linkTag.media).matches && !linkTag.disabled;
+        const blockingImport = linkTag.rel === 'import' && !linkTag.hasAttribute('async');
+        return blockingStylesheet || blockingImport;
+      })
+      .map(tag => {
+        return {
+          tagName: 'LINK',
+          url: tag.href,
+          href: tag.href,
+          ...
+function filterArtifactsByAvailableAudits = function filterArtifactsByAvailableAudits(artifacts, audits) {
+  if (!artifacts) return null;
+  if (!audits) return artifacts;
+
+  const artifactsById = new Map(artifacts.map(artifact => [artifact.id, artifact]));
+
+  /** @type {Set<string>} */
+  const artifactIdsToKeep = new Set([
+    ...filterResistantArtifactIds,
+    ...audits.flatMap(audit => audit.implementation.meta.requiredArtifacts),
+  ]);
+
+  // Keep all artifacts in the dependency tree of required artifacts.
+  // Iterate through all kept artifacts, adding their dependencies along the way, until the set does not change.
+  let previousSize = 0;
+  while (previousSize !== artifactIdsToKeep.size) {
+    previousSize = artifactIdsToKeep.size;
+    for (const artifactId of artifactIdsToKeep) {
+      const artifact = artifactsById.get(artifactId);
+      // This shouldn't happen because the config has passed validation by this point.
+      if (!artifact) continue;
+      // If the artifact doesn't have any dependencies, we can move on.
+ ...
+function verifyDirective = function verifyDirective(directiveName, directiveValue) {
+  if (!DIRECTIVE_SAFELIST.has(directiveName)) {
+    throw new Error('Unknown directive');
+  }
+
+  if (directiveName === DIRECTIVE_SITEMAP) {
+    let sitemapUrl;
+
+    try {
+      sitemapUrl = new URL(directiveValue);
+    } catch (e) {
+      throw new Error('Invalid sitemap URL');
+    }
+
+    if (!SITEMAP_VALID_PROTOCOLS.has(sitemapUrl.protocol)) {
+      throw new Error('Invalid sitemap URL protocol');
+    }
+  }
+
+  if (directiveName === DIRECTIVE_USER_AGENT && !directiveValue) {
+    throw new Error('No user-agent specified');
+  }
+
+  if (directiveName === DIRECTIVE_ALLOW || directiveName === DIRECTIVE_DISALLOW) {
+    if (directiveValue !== '' && directiveValue[0] !== '/' && directiveValue[0] !== '*') {
+      throw new Error('Pattern should either be empty, start with "/" or "*"');
+    }
+
+    const dollarIndex = directiveValue.indexOf('$');
+
+    if (dollarIndex !== -1 && dollarIndex !== directiveValue.length - 1) {
+      throw new ...
+function getSlowHostCpuWarning = function getSlowHostCpuWarning(context) {
+  const {settings, baseArtifacts} = context;
+  const {throttling, throttlingMethod} = settings;
+  const defaultThrottling = constants.defaultSettings.throttling;
+
+  // We only want to warn when the user can take an action to fix it.
+  // Eventually, this should expand to cover DevTools.
+  if (settings.channel !== 'cli') return;
+
+  // Only warn if they are using the default throttling settings.
+  const isThrottledMethod = throttlingMethod === 'simulate' || throttlingMethod === 'devtools';
+  const isDefaultMultiplier =
+    throttling.cpuSlowdownMultiplier === defaultThrottling.cpuSlowdownMultiplier;
+  if (!isThrottledMethod || !isDefaultMultiplier) return;
+
+  // Only warn if the device didn't meet the threshold.
+  // See https://github.com/GoogleChrome/lighthouse/blob/main/docs/throttling.md#cpu-throttling
+  if (baseArtifacts.BenchmarkIndex > SLOW_CPU_BENCHMARK_INDEX_THRESHOLD) return;
+
+  return str_(UIStrings.warningSlowHostCpu);
+}
+function collectPhaseArtifacts = async function collectPhaseArtifacts(options) {
+  const {
+    driver,
+    page,
+    artifactDefinitions,
+    artifactState,
+    baseArtifacts,
+    phase,
+    gatherMode,
+    computedCache,
+    settings,
+  } = options;
+  const priorPhase = phaseToPriorPhase[phase];
+  const priorPhaseArtifacts = (priorPhase && artifactState[priorPhase]) || {};
+  const isFinalPhase = phase === 'getArtifact';
+
+  for (const artifactDefn of artifactDefinitions) {
+    log.verbose(`artifacts:${phase}`, artifactDefn.id);
+    const gatherer = artifactDefn.gatherer.instance;
+
+    const priorArtifactPromise = priorPhaseArtifacts[artifactDefn.id] || Promise.resolve();
+    const artifactPromise = priorArtifactPromise.then(async () => {
+      const dependencies = isFinalPhase
+        ? await collectArtifactDependencies(artifactDefn, artifactState.getArtifact)
+        : /** @type {Dependencies} */ ({});
+
+      const status = {
+        msg: `Getting artifact: ${artifactDefn.id}`,
+        id: `lh:gather:getArtifact:$...
+function addAllNodesInSourcePath = function addAllNodesInSourcePath(source, data) {
+      let node = sourceRootNode;
+
+      // Apply the data to the sourceRootNode.
+      sourceRootNode.resourceBytes += data.resourceBytes;
+      if (data.unusedBytes) {
+        sourceRootNode.unusedBytes = (sourceRootNode.unusedBytes || 0) + data.unusedBytes;
+      }
+
+      // Strip off the shared root.
+      const sourcePathSegments = source.replace(sourceRoot, '').split(/\/+/);
+      sourcePathSegments.forEach((sourcePathSegment, i) => {
+        if (sourcePathSegment.length === 0) return;
+
+        const isLeaf = i === sourcePathSegments.length - 1;
+
+        let child = node.children && node.children.find(child => child.name === sourcePathSegment);
+        if (!child) {
+          child = newNode(sourcePathSegment);
+          node.children = node.children || [];
+          node.children.push(child);
+        }
+        node = child;
+
+        // Now that we've found or created the next node in the path, apply the data.
+        node.resour...
+const predictionTypesToTokens = {
+  'NO_SERVER_DATA': str_(UIStrings.manualReview),
+  'UNKNOWN_TYPE': str_(UIStrings.manualReview),
+  'EMPTY_TYPE': str_(UIStrings.manualReview),
+  'NAME_FIRST': 'given-name',
+  'NAME_MIDDLE': 'additional-name',
+  'NAME_LAST': 'family-name',
+  'NAME_FULL': 'name',
+  'NAME_MIDDLE_INITIAL': 'additional-name-initial',
+  'NAME_SUFFIX': 'honorific-suffix',
+  'NAME_BILLING_FIRST': 'billing given-name',
+  'NAME_BILLING_MIDDLE': 'billing additional-name',
+  'NAME_BILLING_LAST': 'billing family-name',
+  'NAME_BILLING_MIDDLE_INITIAL': 'billing additional-name-initial',
+  'NAME_BILLING_FULL': 'billing name',
+  'NAME_BILLING_SUFFIX': 'billing honorific-suffix',
+  'EMAIL_ADDRESS': 'email',
+  'MERCHANT_EMAIL_SIGNUP': 'email',
+  'PHONE_HOME_NUMBER': 'tel-local',
+  'PHONE_HOME_CITY_CODE': 'tel-area-code',
+  'PHONE_HOME_COUNTRY_CODE': 'tel-country-code',
+  'PHONE_HOME_CITY_AND_NUMBER': 'tel-national',
+  'PHONE_HOME_WHOLE_NUMBER': 'tel',
+  'PHONE_HOME_EXTENSION': 'tel-extens...
+function getDebuggableChrome = function getDebuggableChrome(flags) {
+  if (process.platform === 'darwin' && process.arch === 'x64') {
+    const cpus = os.cpus();
+    if (cpus[0].model.includes('Apple')) {
+      throw new Error(
+        'Launching Chrome on Mac Silicon (arm64) from an x64 Node installation results in ' +
+        'Rosetta translating the Chrome binary, even if Chrome is already arm64. This would ' +
+        'result in huge performance issues. To resolve this, you must run Lighthouse CLI with ' +
+        'a version of Node built for arm64. You should also confirm that your Chrome install ' +
+        'says arm64 in chrome://version');
+    }
+  }
+
+  return ChromeLauncher.launch({
+    port: flags.port,
+    ignoreDefaultFlags: flags.chromeIgnoreDefaultFlags,
+    chromeFlags: parseChromeFlags(flags.chromeFlags),
+    logLevel: flags.logLevel,
+  });
+}
+(_tmp_6 = resourceTypes.map((resourceType) => {
+      const label = str_(this.getRowLabel(resourceType));
+      const requestCount = summary[resourceType].count;
+      const transferSize = summary[resourceType].transferSize;
+
+      let sizeOverBudget;
+      let countOverBudget;
+
+      if (budget.resourceSizes) {
+        const sizeBudget = budget.resourceSizes.find(b => b.resourceType === resourceType);
+        if (sizeBudget && (transferSize > (sizeBudget.budget * 1024))) {
+          sizeOverBudget = transferSize - (sizeBudget.budget * 1024);
+        }
+      }
+      if (budget.resourceCounts) {
+        const countBudget = budget.resourceCounts.find(b => b.resourceType === resourceType);
+        if (countBudget && (requestCount > countBudget.budget)) {
+          const requestDifference = requestCount - countBudget.budget;
+          countOverBudget = str_(UIStrings.requestCountOverBudget, {count: requestDifference});
+        }
+      }
+      return {
+        resourceType,
+        label,
+        ...).filter
+const artifacts = await Runner.gather(
+        async () => {
+          baseArtifacts.URL = {finalDisplayedUrl};
+
+          await collectPhaseArtifacts({phase: 'stopSensitiveInstrumentation', ...phaseOptions});
+          await collectPhaseArtifacts({phase: 'stopInstrumentation', ...phaseOptions});
+
+          // bf-cache-failures can emit `Page.frameNavigated` at the end of the run.
+          // This can cause us to issue protocol commands after the target closes.
+          // We should disable our `Page.frameNavigated` handlers before that.
+          await disableAsyncStacks();
+
+          driver.defaultSession.off('Page.frameNavigated', onFrameNavigated);
+          if (pageNavigationDetected) {
+            baseArtifacts.LighthouseRunWarnings.push(str_(UIStrings.warningNavigationDetected));
+          }
+
+          await collectPhaseArtifacts({phase: 'getArtifact', ...phaseOptions});
+          await driver.disconnect();
+
+          const artifacts = await awaitArtifacts(artifactState);
+       ...
+function assertValidNavigations = function assertValidNavigations(navigationsDefn) {
+  if (!navigationsDefn || !navigationsDefn.length) return {warnings: []};
+
+  /** @type {string[]} */
+  const warnings = [];
+
+  // Assert that the first navigation has loadFailureMode fatal.
+  const firstNavigation = navigationsDefn[0];
+  if (firstNavigation.loadFailureMode !== 'fatal') {
+    const currentMode = firstNavigation.loadFailureMode;
+    const warning = [
+      `"${firstNavigation.id}" is the first navigation but had a failure mode of ${currentMode}.`,
+      `The first navigation will always be treated as loadFailureMode=fatal.`,
+    ].join(' ');
+
+    warnings.push(warning);
+    firstNavigation.loadFailureMode = 'fatal';
+  }
+
+  // Assert that navigations have unique IDs.
+  const navigationIds = navigationsDefn.map(navigation => navigation.id);
+  const duplicateId = navigationIds.find(
+    (id, i) => navigationIds.slice(i + 1).some(other => id === other)
+  );
+
+  if (duplicateId) {
+    throw new Error(`Navigation must have u...
+'Launching Chrome on Mac Silicon (arm64) from an x64 Node installation results in ' +
+        'Rosetta translating the Chrome binary, even if Chrome is already arm64. This would ' +
+        'result in huge performance issues. To resolve this, you must run Lighthouse CLI with ' +
+        'a version of Node built for arm64. You should also confirm that your Chrome install ' +
+        'says arm64 in chrome://version'
+function resolver = async function resolver(args) {
+        const ignoreRequire = args.namespace === commonjsNamespace;
+
+        let key;
+        if (args.path.startsWith('\0polyfill-node.')) {
+          key = args.path.replace('\0polyfill-node.', '');
+        } else {
+          if (args.path.startsWith('.')) {
+            key = path.join(path.dirname(args.importer), args.path);
+          } else {
+            key = args.path;
+          }
+        }
+
+        if (!polyfilledBuiltins.has(key) && !polyfillLib[key + '.js']) {
+          return;
+        }
+
+        const isCommonjs =
+                    !ignoreRequire && args.kind === 'require-call';
+
+        return {
+          namespace: isCommonjs ? commonjsNamespace : namespace,
+          path: key,
+        };
+      }
+sourcePathSegments.forEach((sourcePathSegment, i) => {
+        if (sourcePathSegment.length === 0) return;
+
+        const isLeaf = i === sourcePathSegments.length - 1;
+
+        let child = node.children && node.children.find(child => child.name === sourcePathSegment);
+        if (!child) {
+          child = newNode(sourcePathSegment);
+          node.children = node.children || [];
+          node.children.push(child);
+        }
+        node = child;
+
+        // Now that we've found or created the next node in the path, apply the data.
+        node.resourceBytes += data.resourceBytes;
+        if (data.unusedBytes) node.unusedBytes = (node.unusedBytes || 0) + data.unusedBytes;
+
+        // Only leaf nodes might have duplication data.
+        if (isLeaf && data.duplicatedNormalizedModuleName !== undefined) {
+          node.duplicatedNormalizedModuleName = data.duplicatedNormalizedModuleName;
+        }
+      })
+function isCandidate = function isCandidate(image) {
+  /** image-rendering solution for pixel art scaling.
+   * https://developer.mozilla.org/en-US/docs/Games/Techniques/Crisp_pixel_art_look
+  */
+  const artisticImageRenderingValues = ['pixelated', 'crisp-edges'];
+  // https://html.spec.whatwg.org/multipage/images.html#pixel-density-descriptor
+  const densityDescriptorRegex = / \d+(\.\d+)?x/;
+  if (image.displayedWidth <= 1 || image.displayedHeight <= 1) {
+    return false;
+  }
+  if (
+    !image.naturalDimensions ||
+    !image.naturalDimensions.width ||
+    !image.naturalDimensions.height
+  ) {
+    return false;
+  }
+  if (UrlUtils.guessMimeType(image.src) === 'image/svg+xml') {
+    return false;
+  }
+  if (image.isCss) {
+    return false;
+  }
+  if (image.computedStyles.objectFit !== 'fill') {
+    return false;
+  }
+  // Check if pixel art scaling is used.
+  if (artisticImageRenderingValues.includes(image.computedStyles.imageRendering)) {
+    return false;
+  }
+  // Check if density descriptor is used.
+  if (...
+function _mergeConfigFragment = function _mergeConfigFragment(base, extension, overwriteArrays = false) {
+  // If the default value doesn't exist or is explicitly null, defer to the extending value
+  if (typeof base === 'undefined' || base === null) {
+    return extension;
+  } else if (typeof extension === 'undefined') {
+    return base;
+  } else if (Array.isArray(extension)) {
+    if (overwriteArrays) return extension;
+    if (!Array.isArray(base)) throw new TypeError(`Expected array but got ${typeof base}`);
+    const merged = base.slice();
+    extension.forEach(item => {
+      if (!merged.some(candidate => isDeepEqual(candidate, item))) merged.push(item);
+    });
+
+    return merged;
+  } else if (typeof extension === 'object') {
+    if (typeof base !== 'object') throw new TypeError(`Expected object but got ${typeof base}`);
+    if (Array.isArray(base)) throw new TypeError('Expected object but got Array');
+    Object.keys(extension).forEach(key => {
+      const localOverwriteArrays = overwriteArrays ||
+        (k...
+function createFakeTaskEvents = function createFakeTaskEvents(cpuNode, timing) {
+    const argsData = {
+      url: '',
+      frame,
+      lineNumber: 0,
+      columnNumber: 0,
+    };
+
+    const eventTs = toMicroseconds(timing.startTime);
+
+    /** @type {LH.TraceEvent[]} */
+    const events = [
+      {
+        ...baseEvent,
+        ph: 'X',
+        name: 'Task',
+        ts: eventTs,
+        dur: (timing.endTime - timing.startTime) * 1000,
+        args: {data: argsData},
+      },
+    ];
+
+    const nestedBaseTs = cpuNode.event.ts || 0;
+    const multiplier = (timing.endTime - timing.startTime) * 1000 / cpuNode.event.dur;
+    // https://github.com/ChromeDevTools/devtools-frontend/blob/5429ac8a61ad4fa/front_end/timeline_model/TimelineModel.js#L1129-L1130
+    const netReqEvents = new Set(['ResourceSendRequest', 'ResourceFinish',
+      'ResourceReceiveResponse', 'ResourceReceivedData']);
+    for (const event of cpuNode.childEvents) {
+      if (netReqEvents.has(event.name)) continue;
+      const ts = eventTs + (event.ts -...
+const scriptTags = [...document.querySelectorAll('head script[src]')]
+      .filter(/** @return {scriptTag is HTMLScriptElement} */ scriptTag => {
+        // SVGScriptElement can't appear in <head> (it'll be kicked to <body>), but keep tsc happy.
+        // https://html.spec.whatwg.org/multipage/semantics.html#the-head-element
+        if (scriptTag instanceof SVGScriptElement) return false;
+
+        return (
+          !scriptTag.hasAttribute('async') &&
+          !scriptTag.hasAttribute('defer') &&
+          !/^data:/.test(scriptTag.src) &&
+          !/^blob:/.test(scriptTag.src) &&
+          scriptTag.getAttribute('type') !== 'module'
+        );
+      })
+      .map(tag => {
+        return {
+          tagName: 'SCRIPT',
+          url: tag.src,
+          src: tag.src,
+        };
+      })
+const locales = {
+  'en-US': files['en-US'], // The 'source' strings, with descriptions
+  'en': files['en-US'], // According to CLDR/ICU, 'en' == 'en-US' dates/numbers (Why?!)
+
+  // TODO: en-GB has just ~10 messages that are different from en-US. We should only ship those.
+  'en-AU': files['en-GB'], // Alias of 'en-GB'
+  'en-GB': files['en-GB'], // Alias of 'en-GB'
+  'en-IE': files['en-GB'], // Alias of 'en-GB'
+  'en-SG': files['en-GB'], // Alias of 'en-GB'
+  'en-ZA': files['en-GB'], // Alias of 'en-GB'
+  'en-IN': files['en-GB'], // Alias of 'en-GB'
+
+  // All locales from here have a messages file, though we allow fallback to the base locale when the files are identical
+  'ar-XB': files['ar-XB'], // psuedolocalization
+  'ar': files['ar'],
+  'bg': files['bg'],
+  'ca': files['ca'],
+  'cs': files['cs'],
+  'da': files['da'],
+  'de': files['de'], // de-AT, de-CH identical, so they fall back into de
+  'el': files['el'],
+  'en-XA': files['en-XA'], // psuedolocalization
+  'en-XL': files['en-XL'],...
+function getAllOverlapFailures = function getAllOverlapFailures(tooSmallTargets, allTargets) {
+  /** @type {TapTargetOverlapFailure[]} */
+  const failures = [];
+
+  tooSmallTargets.forEach(target => {
+    // Convert client rects to unique tappable areas from a user's perspective
+    const tappableRects = getTappableRectsFromClientRects(target.tapTarget.clientRects);
+
+    for (const maybeOverlappingTarget of allTargets) {
+      if (maybeOverlappingTarget === target) {
+        // Checking the same target with itself, skip.
+        continue;
+      }
+
+      if (!rectsTouchOrOverlap(target.paddedBoundsRect, maybeOverlappingTarget.paddedBoundsRect)) {
+        // Bounding boxes (padded with half FINGER_SIZE_PX) don't overlap, skip.
+        continue;
+      }
+
+      if (target.tapTarget.href === maybeOverlappingTarget.tapTarget.href) {
+        const isHttpOrHttpsLink = /https?:\/\//.test(target.tapTarget.href);
+        if (isHttpOrHttpsLink) {
+          // No overlap because same target action, skip.
+          continue;
+    ...
+const UIStrings = {
+  /** Title of a Lighthouse audit that tests if each link on a page contains a sufficient description of what a user will find when they click it. Generic, non-descriptive text like "click here" doesn't give an indication of what the link leads to. This descriptive title is shown when all links on the page have sufficient textual descriptions. */
+  title: 'Links have descriptive text',
+  /** Title of a Lighthouse audit that tests if each link on a page contains a sufficient description of what a user will find when they click it. Generic, non-descriptive text like "click here" doesn't give an indication of what the link leads to. This descriptive title is shown when one or more links on the page contain generic, non-descriptive text. */
+  failureTitle: 'Links do not have descriptive text',
+  /** Description of a Lighthouse audit that tells the user *why* they need to have descriptive text on the links in their page. This is displayed after a user expands the section to...
+function loadFlowArtifacts = function loadFlowArtifacts(basePath) {
+  log.log('Reading flow artifacts from disk:', basePath);
+
+  if (!fs.existsSync(basePath)) {
+    throw new Error('No saved flow artifacts found at ' + basePath);
+  }
+
+  /** @type {LH.UserFlow.FlowArtifacts} */
+  const flowArtifacts = JSON.parse(
+    fs.readFileSync(path.join(basePath, optionsFilename), 'utf-8')
+  );
+
+  const filenames = fs.readdirSync(basePath);
+
+  flowArtifacts.gatherSteps = [];
+  for (const filename of filenames) {
+    const regexResult = stepDirectoryRegex.exec(filename);
+    if (!regexResult) continue;
+
+    const index = Number(regexResult[1]);
+    if (!Number.isFinite(index)) continue;
+
+    const stepPath = path.join(basePath, filename);
+    if (!fs.lstatSync(stepPath).isDirectory()) continue;
+
+    /** @type {LH.UserFlow.GatherStep} */
+    const gatherStep = JSON.parse(
+      fs.readFileSync(path.join(stepPath, optionsFilename), 'utf-8')
+    );
+    gatherStep.artifacts = loadArtifacts(stepPath);
+
+    flowArtifacts.gatherSt...
+const evaluationParams = {
+      // We need to explicitly wrap the raw expression for several purposes:
+      // 1. Ensure that the expression will be a native Promise and not a polyfill/non-Promise.
+      // 2. Ensure that errors in the expression are captured by the Promise.
+      // 3. Ensure that errors captured in the Promise are converted into plain-old JS Objects
+      //    so that they can be serialized properly b/c JSON.stringify(new Error('foo')) === '{}'
+      //
+      // `__lighthouseExecutionContextUniqueIdentifier` is only used by the FullPageScreenshot gatherer.
+      // See `getNodeDetails` in page-functions.
+      expression: `(function wrapInNativePromise() {
+        ${ExecutionContext._cachedNativesPreamble};
+        globalThis.__lighthouseExecutionContextUniqueIdentifier =
+          ${uniqueExecutionContextIdentifier};
+        ${pageFunctions.esbuildFunctionWrapperString}
+        return new Promise(function (resolve) {
+          return Promise.resolve()
+            .t...
+const EnvIcon: FunctionComponent = () => {
+  return (
+    <svg width="15" height="12" viewBox="0 0 15 12" fill="none" role="img">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.33317 2.00008H13.9998V0.666748H3.33317C2.59984 0.666748 1.99984 1.26675 1.99984 2.00008V9.33341H0.666504V11.3334H7.99984V9.33341H3.33317V2.00008ZM13.9998 3.33341H9.99984C9.63317 3.33341 9.33317 3.63341 9.33317 4.00008V10.6667C9.33317 11.0334 9.63317 11.3334 9.99984 11.3334H13.9998C14.3665 11.3334 14.6665 11.0334 14.6665 10.6667V4.00008C14.6665 3.63341 14.3665 3.33341 13.9998 3.33341ZM10.6665 9.33341H13.3332V4.66675H10.6665V9.33341Z" fill="currentColor"/>
+    </svg>
+  );
+}
+function getCSSImages = function getCSSImages(allElements) {
+  // Chrome normalizes background image style from getComputedStyle to be an absolute URL in quotes.
+  // Only match basic background-image: url("http://host/image.jpeg") declarations
+  const CSS_URL_REGEX = /^url\("([^"]+)"\)$/;
+
+  /** @type {Array<LH.Artifacts.ImageElement>} */
+  const images = [];
+
+  for (const element of allElements) {
+    const style = window.getComputedStyle(element);
+    // If the element didn't have a CSS background image, we're not interested.
+    if (!style.backgroundImage || !CSS_URL_REGEX.test(style.backgroundImage)) continue;
+
+    const imageMatch = style.backgroundImage.match(CSS_URL_REGEX);
+    // @ts-expect-error test() above ensures that there is a match.
+    const url = imageMatch[1];
+
+    images.push({
+      src: url,
+      srcset: '',
+      displayedWidth: element.clientWidth,
+      displayedHeight: element.clientHeight,
+      clientRect: getClientRect(element),
+      attributeWidth: null,
+      attributeHeigh...
+_tmp_4.observedFirstContentfulPaintAllFrames = processedNavigation.timings.firstContentfulPaintAllFrames
+await Promise.all([
+      session.sendCommand('Page.navigate', {url: 'chrome://terms'}),
+      // DevTools e2e tests can sometimes fail on the next command if we progress too fast.
+      // The only reliable way to prevent this is to wait for an arbitrary period of time after load.
+      waitForLoadEvent(session, TEMP_PAGE_PAUSE_TIMEOUT).promise,
+    ])
+function assertValidAudit = function assertValidAudit(auditDefinition) {
+  const {implementation, path: auditPath} = auditDefinition;
+  const auditName = auditPath ||
+    implementation?.meta?.id ||
+    'Unknown audit';
+
+  if (typeof implementation.audit !== 'function' || implementation.audit === Audit.audit) {
+    throw new Error(`${auditName} has no audit() method.`);
+  }
+
+  if (typeof implementation.meta.id !== 'string') {
+    throw new Error(`${auditName} has no meta.id property, or the property is not a string.`);
+  }
+
+  if (!i18n.isStringOrIcuMessage(implementation.meta.title)) {
+    throw new Error(`${auditName} has no meta.title property, or the property is not a string.`);
+  }
+
+  // If it'll have a ✔ or ✖ displayed alongside the result, it should have failureTitle
+  const scoreDisplayMode = implementation.meta.scoreDisplayMode || Audit.SCORING_MODES.BINARY;
+  if (
+    !i18n.isStringOrIcuMessage(implementation.meta.failureTitle) &&
+    scoreDisplayMode === Audit.SCORING_MODES.BINARY
+  ) {
+    throw new...
+function enableNetworkThrottling = function enableNetworkThrottling(session, throttlingSettings) {
+  /** @type {LH.Crdp.Network.EmulateNetworkConditionsRequest} */
+  const conditions = {
+    offline: false,
+    latency: throttlingSettings.requestLatencyMs || 0,
+    downloadThroughput: throttlingSettings.downloadThroughputKbps || 0,
+    uploadThroughput: throttlingSettings.uploadThroughputKbps || 0,
+  };
+
+  // DevTools expects throughput in bytes per second rather than kbps
+  conditions.downloadThroughput = Math.floor(conditions.downloadThroughput * 1024 / 8);
+  conditions.uploadThroughput = Math.floor(conditions.uploadThroughput * 1024 / 8);
+  return session.sendCommand('Network.emulateNetworkConditions', conditions);
+}
+(_tmp_8 = Array.from(executionTimings)
+      .map(([url, timingByGroupId]) => {
+        // Add up the totalExecutionTime for all the taskGroups
+        let totalExecutionTimeForURL = 0;
+        for (const [groupId, timespanMs] of Object.entries(timingByGroupId)) {
+          timingByGroupId[groupId] = timespanMs * multiplier;
+          totalExecutionTimeForURL += timespanMs * multiplier;
+        }
+
+        const scriptingTotal = timingByGroupId[taskGroups.scriptEvaluation.id] || 0;
+        const parseCompileTotal = timingByGroupId[taskGroups.scriptParseCompile.id] || 0;
+
+        // Add up all the JavaScript time of shown URLs
+        if (totalExecutionTimeForURL >= context.options.thresholdInMs) {
+          totalBootupTime += scriptingTotal + parseCompileTotal;
+        }
+
+        hadExcessiveChromeExtension = hadExcessiveChromeExtension ||
+          (url.startsWith('chrome-extension:') && scriptingTotal > 100);
+
+        return {
+          url: url,
+          total: totalExecutionTimeForURL,
+  ...).filter
+function createAxeRuleResultArtifact = function createAxeRuleResultArtifact(result) {
+  // Simplify `nodes` and collect nodeDetails for each.
+  const nodes = result.nodes.map(node => {
+    const {target, failureSummary, element} = node;
+    // TODO: with `elementRef: true`, `element` _should_ always be defined, but need to verify.
+    // @ts-expect-error - getNodeDetails put into scope via stringification
+    const nodeDetails = getNodeDetails(/** @type {HTMLElement} */ (element));
+
+    /** @type {Set<HTMLElement>} */
+    const relatedNodeElements = new Set();
+    /** @param {import('axe-core/axe').ImpactValue} impact */
+    const impactToNumber =
+      (impact) => [null, 'minor', 'moderate', 'serious', 'critical'].indexOf(impact);
+    const checkResults = [...node.any, ...node.all, ...node.none]
+      // @ts-expect-error CheckResult.impact is a string, even though ImpactValue is a thing.
+      .sort((a, b) => impactToNumber(b.impact) - impactToNumber(a.impact));
+    for (const checkResult of checkResults) {
+      for (c...
+function clearBrowserCaches = async function clearBrowserCaches(session) {
+  const status = {msg: 'Cleaning browser cache', id: 'lh:storage:clearBrowserCaches'};
+  log.time(status);
+
+  const warnings = [];
+
+  try {
+    // Wipe entire disk cache
+    await session.sendCommand('Network.clearBrowserCache');
+    // Toggle 'Disable Cache' to evict the memory cache
+    await session.sendCommand('Network.setCacheDisabled', {cacheDisabled: true});
+    await session.sendCommand('Network.setCacheDisabled', {cacheDisabled: false});
+  } catch (err) {
+    if (/** @type {LH.LighthouseError} */ (err).code === 'PROTOCOL_TIMEOUT') {
+      log.warn('Driver', 'clearBrowserCaches timed out');
+      warnings.push(str_(UIStrings.warningCacheTimeout));
+    } else {
+      throw err;
+    }
+  } finally {
+    log.timeEnd(status);
+  }
+
+  return warnings;
+}
+function getPageLoadError = function getPageLoadError(navigationError, context) {
+  const {url, loadFailureMode, networkRecords} = context;
+  /** @type {LH.Artifacts.NetworkRequest|undefined} */
+  let mainRecord = NetworkAnalyzer.findResourceForUrl(networkRecords, url);
+
+  // If the url doesn't give us a network request, it's possible we landed on a chrome-error:// page
+  // In this case, just get the first document request.
+  if (!mainRecord) {
+    const documentRequests = networkRecords.filter(record =>
+      record.resourceType === NetworkRequest.TYPES.Document
+    );
+    if (documentRequests.length) {
+      mainRecord = documentRequests.reduce((min, r) => {
+        return r.networkRequestTime < min.networkRequestTime ? r : min;
+      });
+    }
+  }
+
+  // MIME Type is only set on the final redirected document request. Use this for the HTML check instead of root.
+  let finalRecord;
+  if (mainRecord) {
+    finalRecord = NetworkAnalyzer.resolveRedirects(mainRecord);
+  }
+
+  if (finalRecord?.mimeType === XHTML_MI...
+el2.append("\n      .lh-crc .lh-tree-marker {\n        width: 12px;\n        height: 26px;\n        display: block;\n        float: left;\n        background-position: top left;\n      }\n      .lh-crc .lh-horiz-down {\n        background: url('data:image/svg+xml;utf8,<svg width=\"16\" height=\"26\" viewBox=\"0 0 16 26\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"%23D8D8D8\" fill-rule=\"evenodd\"><path d=\"M16 12v2H-2v-2z\"/><path d=\"M9 12v14H7V12z\"/></g></svg>');\n      }\n      .lh-crc .lh-right {\n        background: url('data:image/svg+xml;utf8,<svg width=\"16\" height=\"26\" viewBox=\"0 0 16 26\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M16 12v2H0v-2z\" fill=\"%23D8D8D8\" fill-rule=\"evenodd\"/></svg>');\n      }\n      .lh-crc .lh-up-right {\n        background: url('data:image/svg+xml;utf8,<svg width=\"16\" height=\"26\" viewBox=\"0 0 16 26\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 0h2v14H7zm2 12h7v2H9z\" fill=\"%23D8D8D8\" fill-rule=\"evenodd\"/></svg>'...
+Sentry.withScope(scope => {
+        if (opts.level) {
+          // @ts-expect-error - allow any string.
+          scope.setLevel(opts.level);
+        }
+        if (opts.tags) {
+          scope.setTags(opts.tags);
+        }
+
+        // Add extra details
+        let extra;
+        if (opts.extra) extra = {...opts.extra};
+        // @ts-expect-error Non-standard property
+        if (err.extra) extra = {...extra, ...err.extra};
+        if (extra) {
+          scope.setExtras(extra);
+        }
+
+        Sentry.captureException(err);
+      })
+function printErrorAndExit = function printErrorAndExit(err) {
+  if (err.code === 'ECONNREFUSED') {
+    return printConnectionErrorAndExit();
+  } else if (err.code === 'CRI_TIMEOUT') {
+    return printProtocolTimeoutErrorAndExit();
+  } else {
+    return printRuntimeErrorAndExit(err);
+  }
+}
+function flatten = function flatten(opts) {
+      const request = opts.node.request;
+      const simpleRequest = {
+        url: request.url,
+        startTime: request.networkRequestTime / 1000,
+        endTime: request.networkEndTime / 1000,
+        responseReceivedTime: request.responseHeadersEndTime / 1000,
+        transferSize: request.transferSize,
+      };
+
+      let chain = chainMap.get(opts.id);
+      if (chain) {
+        chain.request = simpleRequest;
+      } else {
+        chain = {
+          request: simpleRequest,
+        };
+        flattendChains[opts.id] = chain;
+      }
+
+      if (opts.node.children) {
+        for (const chainId of Object.keys(opts.node.children)) {
+          // Note: cast should be Partial<>, but filled in when child node is traversed.
+          const childChain = /** @type {LH.Audit.Details.SimpleCriticalRequestNode[string]} */ ({
+            request: {},
+          });
+          chainMap.set(chainId, childChain);
+          if (!chain.children) {
+            chain.chil...
+const headings = [
+      /* eslint-disable max-len */
+      {
+        key: 'scriptUrl',
+        valueType: 'url',
+        subItemsHeading: {key: 'error'},
+        label: str_(i18n.UIStrings.columnURL),
+      },
+      {key: 'sourceMapUrl', valueType: 'url', label: str_(UIStrings.columnMapURL)},
+      /* eslint-enable max-len */
+    ]
+const failingLinks = artifacts.AnchorElements
+      .filter(link => link.href && !link.rel.includes('nofollow'))
+      .filter(link => {
+        const href = link.href.toLowerCase();
+        if (
+          href.startsWith('javascript:') ||
+          href.startsWith('mailto:') ||
+          // This line prevents the audit from flagging anchor links.
+          // In this case it is better to use `finalDisplayedUrl` than `mainDocumentUrl`.
+          UrlUtils.equalWithExcludedFragments(link.href, artifacts.URL.finalDisplayedUrl)
+        ) {
+          return false;
+        }
+
+        return BLOCKLIST.has(link.text.trim().toLowerCase());
+      })
+      .map(link => {
+        return {
+          href: link.href,
+          text: link.text.trim(),
+        };
+      })
+const defaultConfig = {
+  settings: constants.defaultSettings,
+  artifacts: [
+    // Artifacts which can be depended on come first.
+    {id: 'DevtoolsLog', gatherer: 'devtools-log'},
+    {id: 'Trace', gatherer: 'trace'},
+
+    {id: 'Accessibility', gatherer: 'accessibility'},
+    {id: 'AnchorElements', gatherer: 'anchor-elements'},
+    {id: 'CacheContents', gatherer: 'cache-contents'},
+    {id: 'ConsoleMessages', gatherer: 'console-messages'},
+    {id: 'CSSUsage', gatherer: 'css-usage'},
+    {id: 'Doctype', gatherer: 'dobetterweb/doctype'},
+    {id: 'DOMStats', gatherer: 'dobetterweb/domstats'},
+    {id: 'EmbeddedContent', gatherer: 'seo/embedded-content'},
+    {id: 'FontSize', gatherer: 'seo/font-size'},
+    {id: 'Inputs', gatherer: 'inputs'},
+    {id: 'GlobalListeners', gatherer: 'global-listeners'},
+    {id: 'IFrameElements', gatherer: 'iframe-elements'},
+    {id: 'ImageElements', gatherer: 'image-elements'},
+    {id: 'InstallabilityErrors', gatherer: 'installability-errors'},
+    {id: ...
+function mergeConfigFragmentArrayByKey = function mergeConfigFragmentArrayByKey(baseArray, extensionArray, keyFn) {
+  /** @type {Map<string, {index: number, item: T}>} */
+  const itemsByKey = new Map();
+  const mergedArray = baseArray || [];
+  for (let i = 0; i < mergedArray.length; i++) {
+    const item = mergedArray[i];
+    itemsByKey.set(keyFn(item), {index: i, item});
+  }
+
+  for (const item of extensionArray || []) {
+    const baseItemEntry = itemsByKey.get(keyFn(item));
+    if (baseItemEntry) {
+      const baseItem = baseItemEntry.item;
+      const merged = typeof item === 'object' && typeof baseItem === 'object' ?
+        mergeConfigFragment(baseItem, item, true) :
+        item;
+      mergedArray[baseItemEntry.index] = merged;
+    } else {
+      mergedArray.push(item);
+    }
+  }
+
+  return mergedArray;
+}
+const headings = [
+      {key: 'node', valueType: 'node', label: ''},
+      {key: 'url', valueType: 'url', label: str_(i18n.UIStrings.columnURL)},
+      {key: 'totalBytes', valueType: 'bytes', label: str_(i18n.UIStrings.columnResourceSize)},
+      {key: 'wastedBytes', valueType: 'bytes', label: str_(i18n.UIStrings.columnWastedBytes)},
+    ]
+const defaultNavigationConfig = {
+  id: 'defaultPass',
+  loadFailureMode: 'fatal',
+  disableThrottling: false,
+  disableStorageReset: false,
+  pauseAfterFcpMs: 0,
+  pauseAfterLoadMs: 0,
+  networkQuietThresholdMs: 0,
+  cpuQuietThresholdMs: 0,
+  blockedUrlPatterns: [],
+  blankPage: 'about:blank',
+  artifacts: [],
+}
+function findStyleRuleSource = function findStyleRuleSource(baseURL, styleDeclaration, parentNode) {
+  if (!styleDeclaration ||
+    styleDeclaration.type === 'Attributes' ||
+    styleDeclaration.type === 'Inline'
+  ) {
+    return {
+      source: {type: 'url', value: baseURL},
+      selector: nodeToTableNode(parentNode),
+    };
+  }
+
+  if (styleDeclaration.parentRule &&
+    styleDeclaration.parentRule.origin === 'user-agent') {
+    return {
+      source: {type: 'code', value: 'User Agent Stylesheet'},
+      selector: styleDeclaration.parentRule.selectors.map(item => item.text).join(', '),
+    };
+  }
+
+  // Combine all the selectors for the associated style rule
+  // example: .some-selector, .other-selector {...} => `.some-selector, .other-selector`
+  let selector = '';
+  if (styleDeclaration.parentRule) {
+    const rule = styleDeclaration.parentRule;
+    selector = rule.selectors.map(item => item.text).join(', ');
+  }
+
+  if (styleDeclaration.stylesheet && !styleDeclaration.stylesheet.sourceURL) {
+    // Dynamically ...
+function resolveArtifactsToDefns = async function resolveArtifactsToDefns(artifacts, configDir) {
+  if (!artifacts) return null;
+
+  const status = {msg: 'Resolve artifact definitions', id: 'lh:config:resolveArtifactsToDefns'};
+  log.time(status, 'verbose');
+
+  const sortedArtifacts = [...artifacts];
+  sortedArtifacts.sort((a, b) => {
+    const aPriority = internalArtifactPriorities[a.id] || 0;
+    const bPriority = internalArtifactPriorities[b.id] || 0;
+    return aPriority - bPriority;
+  });
+
+  /** @type {Map<Symbol, LH.Config.AnyArtifactDefn>} */
+  const artifactDefnsBySymbol = new Map();
+
+  const coreGathererList = Runner.getGathererList();
+  const artifactDefns = [];
+  for (const artifactJson of sortedArtifacts) {
+    const gathererJson = artifactJson.gatherer;
+
+    const gatherer = await resolveGathererToDefn(gathererJson, coreGathererList, configDir);
+
+    /** @type {LH.Config.AnyArtifactDefn} */
+    // @ts-expect-error - Typescript can't validate the gatherer and dependencies match
+    // even though it knows ...
+function createCrcChainComponent = function createCrcChainComponent(dom) {
+  const el0 = dom.createFragment();
+  const el1 = dom.createElement("div", "lh-crc-node");
+  const el2 = dom.createElement("span", "lh-crc-node__tree-marker");
+  const el3 = dom.createElement("span", "lh-crc-node__tree-value");
+  el1.append(" ",el2," ",el3," ");
+  el0.append(el1);
+  return el0;
+}
+function validateRobots = function validateRobots(content) {
+  /**
+   * @type Array<{index: string, line: string, message: string}>
+   */
+  const errors = [];
+  let inGroup = false;
+
+  content
+    .split(/\r\n|\r|\n/)
+    .forEach((line, index) => {
+      let parsedLine;
+
+      try {
+        parsedLine = parseLine(line);
+      } catch (e) {
+        errors.push({
+          index: (index + 1).toString(),
+          line: line,
+          message: e.message.toString(),
+        });
+      }
+
+      if (!parsedLine) {
+        return;
+      }
+
+      // group-member records (allow, disallow) have to be precided with a start-of-group record (user-agent)
+      // see: https://developers.google.com/search/reference/robots_txt#grouping-of-records
+      if (parsedLine.directive === DIRECTIVE_USER_AGENT) {
+        inGroup = true;
+      } else if (!inGroup && DIRECTIVES_GROUP_MEMBERS.has(parsedLine.directive)) {
+        errors.push({
+          index: (index + 1).toString(),
+          line: line,
+          message: 'No user-ag...
+function writeZip = function writeZip(buffer) {
+    console.log('Completed download of content shell');
+    const contentShellZipPath = path.join(CACHE_PATH, folder, CONTENT_SHELL_ZIP);
+    fs.writeFileSync(contentShellZipPath, buffer);
+    return contentShellZipPath;
+  }
+function filterAuditsByAvailableArtifacts = function filterAuditsByAvailableArtifacts(audits, availableArtifacts) {
+  if (!audits) return null;
+
+  const availableArtifactIds = new Set(
+    availableArtifacts.map(artifact => artifact.id).concat(baseArtifactKeys)
+  );
+  return audits.filter(audit => {
+    const meta = audit.implementation.meta;
+    return meta.requiredArtifacts.every(id => availableArtifactIds.has(id));
+  });
+}
+_tmp_0.PaymentRequestCSPViolation = "Your `PaymentRequest` call bypassed Content-Security-Policy (CSP) `connect-src` directive. This bypass is deprecated. Please add the payment method identifier from the `PaymentRequest` API (in `supportedMethods` field) to your CSP `connect-src` directive."
+function getOverlapFailureForTargetPair = function getOverlapFailureForTargetPair(tappableRects, maybeOverlappingRects) {
+  /** @type ClientRectOverlapFailure | null */
+  let greatestFailure = null;
+
+  for (const targetCR of tappableRects) {
+    const fingerRect = getRectAtCenter(targetCR, FINGER_SIZE_PX);
+    // Score indicates how much of the finger area overlaps each target when the user
+    // taps on the center of targetCR
+    const tapTargetScore = getRectOverlapArea(fingerRect, targetCR);
+
+    for (const maybeOverlappingCR of maybeOverlappingRects) {
+      const overlappingTargetScore = getRectOverlapArea(fingerRect, maybeOverlappingCR);
+
+      const overlapScoreRatio = overlappingTargetScore / tapTargetScore;
+      if (overlapScoreRatio < MAX_ACCEPTABLE_OVERLAP_SCORE_RATIO) {
+        // low score means it's clear that the user tried to tap on the targetCR,
+        // rather than the other tap target client rect
+        continue;
+      }
+
+      // only update our state if this was the biggest failure we've seen for t...
+function stringifyReplacer = function stringifyReplacer(key, value) {
+  // Currently only handle LighthouseError and other Error types.
+  if (value instanceof Error) {
+    return LighthouseError.stringifyReplacer(value);
+  }
+
+  return value;
+}
+content
+    .split(/\r\n|\r|\n/)
+    .forEach((line, index) => {
+      let parsedLine;
+
+      try {
+        parsedLine = parseLine(line);
+      } catch (e) {
+        errors.push({
+          index: (index + 1).toString(),
+          line: line,
+          message: e.message.toString(),
+        });
+      }
+
+      if (!parsedLine) {
+        return;
+      }
+
+      // group-member records (allow, disallow) have to be precided with a start-of-group record (user-agent)
+      // see: https://developers.google.com/search/reference/robots_txt#grouping-of-records
+      if (parsedLine.directive === DIRECTIVE_USER_AGENT) {
+        inGroup = true;
+      } else if (!inGroup && DIRECTIVES_GROUP_MEMBERS.has(parsedLine.directive)) {
+        errors.push({
+          index: (index + 1).toString(),
+          line: line,
+          message: 'No user-agent specified',
+        });
+      }
+    })
+dependencyGraph.cloneWithRelationships(node => {
+      if (node.type === BaseNode.TYPES.NETWORK) {
+        // Exclude all nodes that ended after paintTs (except for the main document which we always consider necessary)
+        // endTime is negative if request does not finish, make sure startTime isn't after paintTs in this case.
+        const endedAfterPaint = node.endTime > paintTs || node.startTime > paintTs;
+        if (endedAfterPaint && !node.isMainDocument()) return false;
+
+        const url = node.record.url;
+        // If the URL definitely wasn't render-blocking then we filter it out.
+        if (definitelyNotRenderBlockingScriptUrls.has(url)) {
+          return false;
+        }
+
+        return blockingResourcesFilter(node);
+      } else {
+        // If it's a CPU node, just check if it was blocking.
+        return blockingCpuNodeIds.has(node.id);
+      }
+    })
+const createSyntheticEvent = node => ({
+      ts: Number.isFinite(latestPossibleTimestamp)
+        ? latestPossibleTimestamp
+        : earliestPossibleTimestamp,
+      pid: this._profile.pid,
+      tid: this._profile.tid,
+      dur: 0,
+      ph: 'I',
+      // This trace event name is Lighthouse-specific and wouldn't be found in a real trace.
+      // Attribution logic in main-thread-tasks.js special cases this event.
+      name: SAMPLER_TRACE_EVENT_NAME,
+      cat: 'lighthouse',
+      args: {
+        data: {
+          callFrame: node.callFrame,
+          _syntheticProfilerRange: {earliestPossibleTimestamp, latestPossibleTimestamp},
+        },
+      },
+    })
+function createElementScreenshotComponent = function createElementScreenshotComponent(dom) {
+  const el0 = dom.createFragment();
+  const el1 = dom.createElement("div", "lh-element-screenshot");
+  const el2 = dom.createElement("div", "lh-element-screenshot__content");
+  const el3 = dom.createElement("div", "lh-element-screenshot__image");
+  const el4 = dom.createElement("div", "lh-element-screenshot__mask");
+  const el5 = dom.createElementNS("http://www.w3.org/2000/svg", "svg");
+  el5.setAttribute('height', '0');
+  el5.setAttribute('width', '0');
+  const el6 = dom.createElementNS("http://www.w3.org/2000/svg", "defs");
+  const el7 = dom.createElementNS("http://www.w3.org/2000/svg", "clipPath");
+  el7.setAttribute('clipPathUnits', 'objectBoundingBox');
+  el6.append(" ",el7," "," ");
+  el5.append(" ",el6," ");
+  el4.append(" ",el5," ");
+  const el8 = dom.createElement("div", "lh-element-screenshot__element-marker");
+  el3.append(" ",el4," ",el8," ");
+  el2.append(" ",el3," ");
+  el1.append(" ",el2," ");
+  el0.append(el1);
+  retur...
+const results = networkRecords
+      // Find all fonts...
+      .filter(record => record.resourceType === 'Font')
+      // ...and that aren't data URLs, the blocking concern doesn't really apply
+      .filter(record => !/^data:/.test(record.url))
+      .filter(record => !/^blob:/.test(record.url))
+      // ...that have a failing font-display value
+      .filter(record => {
+        // Failing URLs should be considered.
+        if (failingURLs.has(record.url)) return true;
+        // Everything else shouldn't be, but we should warn if we don't recognize the URL at all.
+        if (!passingURLs.has(record.url)) warningURLs.push(record.url);
+        return false;
+      })
+      .map(record => {
+        // In reality the end time should be calculated with paint time included
+        // all browsers wait 3000ms to block text so we make sure 3000 is our max wasted time
+        const wastedMs = Math.min(record.networkEndTime - record.networkRequestTime, 3000);
+
+        return {
+          url: rec...
+function extractContentShell = function extractContentShell(contentShellZipPath) {
+  console.log(`Extracting content shell zip: ${contentShellZipPath}`);
+  const src = contentShellZipPath;
+  const dest = path.resolve(path.dirname(src), 'out');
+  shell(`unzip ${src} -d ${dest}`);
+  fs.unlinkSync(src);
+  const originalDirPath = path.resolve(dest, 'content-shell');
+  const newDirPath = path.resolve(dest, TARGET);
+  fs.renameSync(originalDirPath, newDirPath);
+  fs.chmodSync(getContentShellBinaryPath(newDirPath), '755');
+  return dest;
+}
+function resolveNodes = function resolveNodes() {
+      /** @type {LH.Result.FullPageScreenshot['nodes']} */
+      const nodes = {};
+      if (!window.__lighthouseNodesDontTouchOrAllVarianceGoesAway) return nodes;
+
+      const lhIdToElements = window.__lighthouseNodesDontTouchOrAllVarianceGoesAway;
+      for (const [node, id] of lhIdToElements.entries()) {
+        // @ts-expect-error - getBoundingClientRect put into scope via stringification
+        const rect = getBoundingClientRect(node);
+        nodes[id] = rect;
+      }
+
+      return nodes;
+    }
+const headers = [
+      {key: 'label', valueType: 'text', label: str_(UIStrings.columnTimingMetric)},
+      /**
+       * Note: SpeedIndex, unlike other timing metrics, is not measured in milliseconds.
+       * The renderer applies the correct units to the 'measurement' and 'overBudget' columns for SpeedIndex.
+       */
+      {key: 'measurement', valueType: 'ms', label: str_(UIStrings.columnMeasurement)},
+      {key: 'overBudget', valueType: 'ms', label: str_(i18n.UIStrings.columnOverBudget)},
+    ]
+linkElements.push({
+          rel: link.rel || '',
+          href: normalizeUrlOrNull(link.uri, context.baseArtifacts.URL.finalDisplayedUrl),
+          hrefRaw: link.uri || '',
+          hreflang: link.hreflang || '',
+          as: link.as || '',
+          crossOrigin: getCrossoriginFromHeader(link.crossorigin),
+          source: 'headers',
+          fetchPriority: link.fetchpriority,
+          node: null,
+        })
+function parseDisplay = function parseDisplay(jsonInput) {
+  const parsedString = parseString(jsonInput.display, true);
+  const stringValue = parsedString.value;
+
+  if (!stringValue) {
+    return {
+      raw: jsonInput,
+      value: DEFAULT_DISPLAY_MODE,
+      warning: parsedString.warning,
+    };
+  }
+
+  const displayValue = stringValue.toLowerCase();
+  if (!ALLOWED_DISPLAY_VALUES.includes(displayValue)) {
+    return {
+      raw: jsonInput,
+      value: DEFAULT_DISPLAY_MODE,
+      warning: 'ERROR: \'display\' has invalid value ' + displayValue +
+        `. will fall back to ${DEFAULT_DISPLAY_MODE}.`,
+    };
+  }
+
+  return {
+    raw: jsonInput,
+    value: displayValue,
+    warning: undefined,
+  };
+}
+new Promise((resolve, reject) => {
+    const img = new Image();
+    img.addEventListener('error', _ => reject(new Error('determineNaturalSize failed img load')));
+    img.addEventListener('load', () => {
+      resolve({
+        naturalWidth: img.naturalWidth,
+        naturalHeight: img.naturalHeight,
+      });
+    });
+
+    img.src = url;
+  })
+const navigationResultPromise = this.navigate(
+      () => new Promise(continueNavigation => completeSetup(continueNavigation)),
+      stepOptions
+    ).catch(err => {
+      if (this.currentNavigation) {
+        // If the navigation already started, re-throw the error so it is emitted when `navigationResultPromise` is awaited.
+        throw err;
+      } else {
+        // If the navigation has not started, reject the `navigationSetupPromise` so the error throws when it is awaited in `startNavigation`.
+        rejectDuringSetup(err);
+      }
+    })
+function assertValidCategories = function assertValidCategories(categories, audits, groups) {
+  if (!categories) {
+    return;
+  }
+
+  /** @type {Map<string, LH.Config.AuditDefn>} */
+  const auditsKeyedById = new Map((audits || []).map(audit => {
+    return [audit.implementation.meta.id, audit];
+  }));
+
+  Object.keys(categories).forEach(categoryId => {
+    categories[categoryId].auditRefs.forEach((auditRef, index) => {
+      if (!auditRef.id) {
+        throw new Error(`missing an audit id at ${categoryId}[${index}]`);
+      }
+
+      const audit = auditsKeyedById.get(auditRef.id);
+      if (!audit) {
+        throw new Error(`could not find ${auditRef.id} audit for category ${categoryId}`);
+      }
+
+      const auditImpl = audit.implementation;
+      const isManual = auditImpl.meta.scoreDisplayMode === 'manual';
+      if (categoryId === 'accessibility' && !auditRef.group && !isManual) {
+        throw new Error(`${auditRef.id} accessibility audit does not have a group`);
+      }
+
+      if (auditRef.weight > 0 && isManu...
+initiators.forEach(initiator => {
+          const parentCandidates = networkNodeOutput.urlToNodeMap.get(initiator) || [];
+          // Only add the edge if the parent is unambiguous with valid timing and isn't circular.
+          if (parentCandidates.length === 1 &&
+              parentCandidates[0].startTime <= node.startTime &&
+              !parentCandidates[0].isDependentOn(node)) {
+            node.addDependency(parentCandidates[0]);
+          } else if (canDependOnInitiator) {
+            directInitiatorNode.addDependent(node);
+          }
+        })
+function _computeNavigationResult = async function _computeNavigationResult(
+  navigationContext,
+  phaseState,
+  setupResult,
+  navigateResult
+) {
+  const {navigationError, mainDocumentUrl} = navigateResult;
+  const warnings = [...setupResult.warnings, ...navigateResult.warnings];
+  const debugData = await _collectDebugData(navigationContext, phaseState);
+  const pageLoadError = debugData.records
+    ? getPageLoadError(navigationError, {
+      url: mainDocumentUrl,
+      loadFailureMode: navigationContext.navigation.loadFailureMode,
+      networkRecords: debugData.records,
+      warnings,
+    })
+    : navigationError;
+
+  if (pageLoadError) {
+    const locale = navigationContext.resolvedConfig.settings.locale;
+    const localizedMessage = format.getFormatted(pageLoadError.friendlyMessage, locale);
+    log.error('NavigationRunner', localizedMessage, navigateResult.requestedUrl);
+
+    /** @type {Partial<LH.GathererArtifacts>} */
+    const artifacts = {};
+    const pageLoadErrorId = `pageLoadError-${navigationContext.nav...
+!UsesRelPreconnectAudit.hasValidTiming(record) ||
+          // Filter out all resources that are loaded by the document. Connections are already early.
+          record.initiator.url === mainResource.url ||
+          // Filter out urls that do not have an origin (data, file, etc).
+          !record.parsedURL || !record.parsedURL.securityOrigin ||
+          // Filter out all resources that have the same origin. We're already connected.
+          mainResource.parsedURL.securityOrigin === record.parsedURL.securityOrigin ||
+          // Filter out anything that wasn't part of LCP. Only recommend important origins.
+          !lcpGraphURLs.has(record.url) ||
+          // Filter out all resources where origins are already resolved.
+          UsesRelPreconnectAudit.hasAlreadyConnectedToOrigin(record) ||
+          // Make sure the requests are below the PRECONNECT_SOCKET_MAX_IDLE_IN_MS (15s) mark.
+          !UsesRelPreconnectAudit.socketStartTimeIsBelowThreshold(record, mainResource)
+function saveFlowArtifacts = async function saveFlowArtifacts(flowArtifacts, basePath) {
+  const status = {msg: 'Saving flow artifacts', id: 'lh:assetSaver:saveArtifacts'};
+  log.time(status);
+  fs.mkdirSync(basePath, {recursive: true});
+
+  // Delete any previous artifacts in this directory.
+  const filenames = fs.readdirSync(basePath);
+  for (const filename of filenames) {
+    if (stepDirectoryRegex.test(filename) || filename === optionsFilename) {
+      fs.rmSync(`${basePath}/${filename}`, {recursive: true});
+    }
+  }
+
+  const {gatherSteps, ...flowOptions} = flowArtifacts;
+  for (let i = 0; i < gatherSteps.length; ++i) {
+    const {artifacts, ...stepOptions} = gatherSteps[i];
+    const stepPath = path.join(basePath, `step${i}`);
+    await saveArtifacts(artifacts, stepPath);
+    fs.writeFileSync(
+      path.join(stepPath, optionsFilename),
+      JSON.stringify(stepOptions, stringifyReplacer, 2) + '\n'
+    );
+  }
+
+  fs.writeFileSync(
+    path.join(basePath, optionsFilename),
+    JSON.stringify(flowOptions, str...
+_tmp_52.describe = "Enables error reporting, overriding any saved preference. --no-enable-error-reporting will do the opposite. More: https://github.com/GoogleChrome/lighthouse/blob/main/docs/error-reporting.md"
+const nodes = allNodes.filter(/** @return {node is HTMLElement} */ (node) => {
+      if (!(node instanceof HTMLElement)) {
+        return false;
+      }
+
+      // 'Save as Gist' option may be disabled.
+      if (node.hasAttribute('disabled')) {
+        return false;
+      }
+
+      // 'Save as Gist' option may have display none.
+      if (window.getComputedStyle(node).display === 'none') {
+        return false;
+      }
+
+      return true;
+    })
+Object.keys(categories).forEach(categoryId => {
+    categories[categoryId].auditRefs.forEach((auditRef, index) => {
+      if (!auditRef.id) {
+        throw new Error(`missing an audit id at ${categoryId}[${index}]`);
+      }
+
+      const audit = auditsKeyedById.get(auditRef.id);
+      if (!audit) {
+        throw new Error(`could not find ${auditRef.id} audit for category ${categoryId}`);
+      }
+
+      const auditImpl = audit.implementation;
+      const isManual = auditImpl.meta.scoreDisplayMode === 'manual';
+      if (categoryId === 'accessibility' && !auditRef.group && !isManual) {
+        throw new Error(`${auditRef.id} accessibility audit does not have a group`);
+      }
+
+      if (auditRef.weight > 0 && isManual) {
+        throw new Error(`${auditRef.id} is manual but has a positive weight`);
+      }
+
+      if (auditRef.group && (!groups || !groups[auditRef.group])) {
+        throw new Error(`${auditRef.id} references unknown group ${auditRef.group}`);
+      }
+    });
+  })
+categories[categoryId].auditRefs.forEach((auditRef, index) => {
+      if (!auditRef.id) {
+        throw new Error(`missing an audit id at ${categoryId}[${index}]`);
+      }
+
+      const audit = auditsKeyedById.get(auditRef.id);
+      if (!audit) {
+        throw new Error(`could not find ${auditRef.id} audit for category ${categoryId}`);
+      }
+
+      const auditImpl = audit.implementation;
+      const isManual = auditImpl.meta.scoreDisplayMode === 'manual';
+      if (categoryId === 'accessibility' && !auditRef.group && !isManual) {
+        throw new Error(`${auditRef.id} accessibility audit does not have a group`);
+      }
+
+      if (auditRef.weight > 0 && isManual) {
+        throw new Error(`${auditRef.id} is manual but has a positive weight`);
+      }
+
+      if (auditRef.group && (!groups || !groups[auditRef.group])) {
+        throw new Error(`${auditRef.id} references unknown group ${auditRef.group}`);
+      }
+    })
+function formatMessage = function formatMessage(message, values, locale) {
+  // Parsing and formatting can be slow. Don't attempt if the string can't
+  // contain ICU placeholders, in which case formatting is already complete.
+  if (!message.includes('{') && values === undefined) return message;
+
+  // When using accented english, force the use of a different locale for number formatting.
+  const localeForMessageFormat = (locale === 'en-XA' || locale === 'en-XL') ? 'de-DE' : locale;
+
+  const formatter = new IntlMessageFormat(message, localeForMessageFormat, formats);
+
+  // Preformat values for the message format like KB and milliseconds.
+  const valuesForMessageFormat = _preformatValues(formatter, values, message);
+
+  return formatter.format(valuesForMessageFormat);
+}
+const cspIssues = issues.contentSecurityPolicyIssue.filter(issue => {
+      // kTrustedTypesSinkViolation and kTrustedTypesPolicyViolation aren't currently supported by the Issues panel
+      return issue.contentSecurityPolicyViolationType !== 'kTrustedTypesSinkViolation' &&
+        issue.contentSecurityPolicyViolationType !== 'kTrustedTypesPolicyViolation';
+    })
+function createFooterComponent = function createFooterComponent(dom) {
+  const el0 = dom.createFragment();
+  const el1 = dom.createElement("style");
+  el1.append("\n    .lh-footer {\n      padding: var(--footer-padding-vertical) calc(var(--default-padding) * 2);\n      max-width: var(--report-content-max-width);\n      margin: 0 auto;\n    }\n    .lh-footer .lh-generated {\n      text-align: center;\n    }\n  ");
+  el0.append(el1);
+  const el2 = dom.createElement("footer", "lh-footer");
+  const el3 = dom.createElement("ul", "lh-meta__items");
+  el3.append(" ");
+  const el4 = dom.createElement("div", "lh-generated");
+  const el5 = dom.createElement("b");
+  el5.append("Lighthouse");
+  const el6 = dom.createElement("span", "lh-footer__version");
+  const el7 = dom.createElement("a", "lh-footer__version_issue");
+  el7.setAttribute('href', 'https://github.com/GoogleChrome/Lighthouse/issues');
+  el7.setAttribute('target', '_blank');
+  el7.setAttribute('rel', 'noopener');
+  el7.append("File an issue");
+  el4.append(" "," G...
+function walk = function walk(node, depth) {
+      const childIds = Object.keys(node);
+
+      childIds.forEach(id => {
+        const child = node[id];
+        if (child.children) {
+          walk(child.children, depth + 1);
+        } else {
+          // if the node doesn't have a children field, then it is a leaf, so +1
+          chainCount++;
+        }
+      }, '');
+    }
+childIds.forEach(id => {
+        const child = node[id];
+        if (child.children) {
+          walk(child.children, depth + 1);
+        } else {
+          // if the node doesn't have a children field, then it is a leaf, so +1
+          chainCount++;
+        }
+      }, '')
+overlapFailures.forEach((failure, overlapFailureIndex) => {
+    const symmetricFailure = overlapFailures.find(f =>
+      f.tapTarget === failure.overlappingTarget &&
+      f.overlappingTarget === failure.tapTarget
+    );
+
+    if (!symmetricFailure) {
+      failuresAfterMerging.push(failure);
+      return;
+    }
+
+    const {overlapScoreRatio: failureOSR} = failure;
+    const {overlapScoreRatio: symmetricOSR} = symmetricFailure;
+    // Push if:
+    // - the current failure has a higher OSR
+    // - OSRs are the same, and the current failure comes before its symmetric partner in the list
+    // Otherwise do nothing and let the symmetric partner be pushed later.
+    if (failureOSR > symmetricOSR || (
+      failureOSR === symmetricOSR &&
+      overlapFailureIndex < overlapFailures.indexOf(symmetricFailure)
+    )) {
+      failuresAfterMerging.push(failure);
+    }
+  })
+const coreJsPolyfills = [
+      ['Array.prototype.fill', 'es6.array.fill'],
+      ['Array.prototype.filter', 'es6.array.filter'],
+      ['Array.prototype.find', 'es6.array.find'],
+      ['Array.prototype.findIndex', 'es6.array.find-index'],
+      ['Array.prototype.forEach', 'es6.array.for-each'],
+      ['Array.from', 'es6.array.from'],
+      ['Array.isArray', 'es6.array.is-array'],
+      ['Array.prototype.map', 'es6.array.map'],
+      ['Array.of', 'es6.array.of'],
+      ['Array.prototype.some', 'es6.array.some'],
+      ['Date.now', 'es6.date.now'],
+      ['Date.prototype.toISOString', 'es6.date.to-iso-string'],
+      ['Date.prototype.toJSON', 'es6.date.to-json'],
+      ['Date.prototype.toString', 'es6.date.to-string'],
+      ['Function.prototype.name', 'es6.function.name'],
+      ['Number.isInteger', 'es6.number.is-integer'],
+      ['Number.isSafeInteger', 'es6.number.is-safe-integer'],
+      ['Object.defineProperties', 'es6.object.define-properties'],
+      ['Object.defineProperty', 'es6...
+function computeCSSTokenLength = function computeCSSTokenLength(content) {
+  return computeTokenLength(content, {singlelineComments: false, regex: false});
+}
+function computeBenchmarkIndex = function computeBenchmarkIndex() {
+  /**
+   * The GC-heavy benchmark that creates a string of length 10000 in a loop.
+   * The returned index is the number of times per second the string can be created divided by 10.
+   * The division by 10 is to keep similar magnitudes to an earlier version of BenchmarkIndex that
+   * used a string length of 100000 instead of 10000.
+   */
+  function benchmarkIndexGC() {
+    const start = Date.now();
+    let iterations = 0;
+
+    while (Date.now() - start < 500) {
+      let s = '';
+      for (let j = 0; j < 10000; j++) s += 'a';
+      if (s.length === 1) throw new Error('will never happen, but prevents compiler optimizations');
+
+      iterations++;
+    }
+
+    const durationInSeconds = (Date.now() - start) / 1000;
+    return Math.round(iterations / 10 / durationInSeconds);
+  }
+
+  /**
+   * The non-GC-dependent benchmark that copies integers back and forth between two arrays of length 100000.
+   * The returned index is the number of times per second a c...
+function parseOrientation = function parseOrientation(jsonInput) {
+  const orientation = parseString(jsonInput.orientation, true);
+
+  if (orientation.value &&
+      !ALLOWED_ORIENTATION_VALUES.includes(orientation.value.toLowerCase())) {
+    orientation.value = undefined;
+    orientation.warning = 'ERROR: \'orientation\' has an invalid value, will be ignored.';
+  }
+
+  return orientation;
+}
+networkThrottling = `${i18n.formatMilliseconds(requestLatencyMs)} HTTP RTT, ` +
+          `${i18n.formatKbps(throttling.downloadThroughputKbps)} down, ` +
+          `${i18n.formatKbps(throttling.uploadThroughputKbps)} up (DevTools)`
+<operator>.formatString("The following bot user agents are blocked from crawling: ", list, ". The audit is otherwise passing, because at least one bot was explicitly allowed.")
+function deduplicateResultsByUrl = function deduplicateResultsByUrl(results) {
+  results.sort((a, b) => a.url === b.url ? 0 : (a.url < b. url ? -1 : 1));
+  /** @type {Result[]} */
+  const deduplicated = [];
+  for (const r of results) {
+    const previousResult = deduplicated[deduplicated.length - 1];
+    if (previousResult && previousResult.url === r.url) {
+      // If the URL was the same, this is a duplicate. Keep the largest image.
+      if (previousResult.expectedPixels < r.expectedPixels) {
+        deduplicated[deduplicated.length - 1] = r;
+      }
+    } else {
+      deduplicated.push(r);
+    }
+  }
+  return deduplicated;
+}
+function parseIcon = function parseIcon(raw, manifestUrl) {
+  // 9.4(3)
+  const src = parseString(raw.src, true);
+  // 9.4(4) - discard if trimmed value is the empty string.
+  if (src.value === '') {
+    src.value = undefined;
+  }
+  if (src.value) {
+    try {
+      // 9.4(4) - construct URL with manifest URL as the base
+      src.value = new URL(src.value, manifestUrl).href;
+    } catch (_) {
+      // 9.4 "This algorithm will return a URL or undefined."
+      src.warning = `ERROR: invalid icon url will be ignored: '${raw.src}'`;
+      src.value = undefined;
+    }
+  }
+
+  const type = parseString(raw.type, true);
+
+  const parsedPurpose = parseString(raw.purpose);
+  const purpose = {
+    raw: raw.purpose,
+    value: ['any'],
+    /** @type {string|undefined} */
+    warning: undefined,
+  };
+  if (parsedPurpose.value !== undefined) {
+    purpose.value = parsedPurpose.value.split(/\s+/).map(value => value.toLowerCase());
+  }
+
+  const density = {
+    raw: raw.density,
+    value: 1,
+    /** @type {string|undefin...
+function addDependentNetworkRequest = function addDependentNetworkRequest(cpuNode, reqId) {
+      const networkNode = networkNodeOutput.idToNodeMap.get(reqId);
+      if (!networkNode ||
+          // Ignore all network nodes that started before this CPU task started
+          // A network request that started earlier could not possibly have been started by this task
+          networkNode.startTime <= cpuNode.startTime) return;
+      const {record} = networkNode;
+      const resourceType = record.resourceType ||
+        record.redirectDestination?.resourceType;
+      if (!linkableResourceTypes.has(resourceType)) {
+        // We only link some resources to CPU nodes because we observe LCP simulation
+        // regressions when including images, etc.
+        return;
+      }
+      cpuNode.addDependent(networkNode);
+    }
+tapTargetElements.forEach(tapTargetElement => {
+    // Filter out tap targets that are likely to cause false failures:
+    if (elementHasAncestorTapTarget(tapTargetElement, tapTargetsSelector)) {
+      // This is usually intentional, either the tap targets trigger the same action
+      // or there's a child with a related action (like a delete button for an item)
+      return;
+    }
+    if (elementIsInTextBlock(tapTargetElement)) {
+      // Links inside text blocks cause a lot of failures, and there's also an exception for them
+      // in the Web Content Accessibility Guidelines https://www.w3.org/TR/WCAG21/#target-size
+      return;
+    }
+    if (!elementIsVisible(tapTargetElement)) {
+      return;
+    }
+
+    tapTargetsWithClientRects.push({
+      tapTargetElement,
+      clientRects: getClientRects(tapTargetElement),
+    });
+  })
+!networkNode ||
+          // Ignore all network nodes that started before this CPU task started
+          // A network request that started earlier could not possibly have been started by this task
+          networkNode.startTime <= cpuNode.startTime
+const getParentData = (parentIndex) => ({
+        backendNodeId: nodes.backendNodeId[parentIndex],
+        attributes: nodes.attributes[parentIndex].map(getString),
+        nodeName: getString(nodes.nodeName[parentIndex]),
+      })
+const headings = [
+      /* eslint-disable max-len */
+      {key: 'product', valueType: 'text', subItemsHeading: {key: 'url', valueType: 'url'}, label: str_(UIStrings.columnProduct)},
+      {key: 'transferSize', valueType: 'bytes', subItemsHeading: {key: 'transferSize'}, granularity: 1, label: str_(i18n.UIStrings.columnTransferSize)},
+      {key: 'blockingTime', valueType: 'ms', subItemsHeading: {key: 'blockingTime'}, granularity: 1, label: str_(i18n.UIStrings.columnBlockingTime)},
+      /* eslint-enable max-len */
+    ]
+requests.forEach(request => {
+      if (UrlUtils.isNonNetworkProtocol(request.protocol)) return;
+      if (request.protocol === 'ws' || request.protocol === 'wss') return;
+
+      // convert the network timestamp to ms
+      timeBoundaries.push({time: request.networkRequestTime * 1000, isStart: true});
+      if (request.finished) {
+        timeBoundaries.push({time: request.networkEndTime * 1000, isStart: false});
+      }
+    })
+function runLighthouse = async function runLighthouse(url, flags, config) {
+  /** @param {any} reason */
+  async function handleTheUnhandled(reason) {
+    process.stderr.write(`Unhandled Rejection. Reason: ${reason}\n`);
+    await potentiallyKillChrome(launchedChrome).catch(() => {});
+    setTimeout(_ => {
+      process.exit(1);
+    }, 100);
+  }
+  process.on('unhandledRejection', handleTheUnhandled);
+
+  /** @type {ChromeLauncher.LaunchedChrome|undefined} */
+  let launchedChrome;
+
+  try {
+    if (url && flags.auditMode && !flags.gatherMode) {
+      log.warn('CLI', 'URL parameter is ignored if -A flag is used without -G flag');
+    }
+
+    const shouldGather = flags.gatherMode || flags.gatherMode === flags.auditMode;
+    const shouldUseLocalChrome = UrlUtils.isLikeLocalhost(flags.hostname);
+    if (shouldGather && shouldUseLocalChrome) {
+      launchedChrome = await getDebuggableChrome(flags);
+      flags.port = launchedChrome.port;
+    }
+
+    flags.channel = 'cli';
+
+    const runnerResult = await lighthouse(u...
+const results = Array.from(summaries.byEntity.entries())
+      // Don't consider the page we're on to be third-party.
+      // e.g. Facebook SDK isn't a third-party script on facebook.com
+      .filter(([entity]) => !(firstPartyEntity && firstPartyEntity === entity))
+      .map(([entity, stats]) => {
+        overallSummary.wastedBytes += stats.transferSize;
+        overallSummary.wastedMs += stats.blockingTime;
+        overallSummary.tbtImpact += stats.tbtImpact;
+
+        return {
+          ...stats,
+          entity: entity.name,
+          subItems: {
+            type: /** @type {const} */ ('subitems'),
+            items: ThirdPartySummary.makeSubItems(entity, summaries, stats),
+          },
+        };
+      })
+      // Sort by blocking time first, then transfer size to break ties.
+      .sort((a, b) => (b.blockingTime - a.blockingTime) || (b.transferSize - a.transferSize))
+function createGaugeComponent = function createGaugeComponent(dom) {
+  const el0 = dom.createFragment();
+  const el1 = dom.createElement("a", "lh-gauge__wrapper");
+  const el2 = dom.createElement("div", "lh-gauge__svg-wrapper");
+  const el3 = dom.createElementNS("http://www.w3.org/2000/svg", "svg", "lh-gauge");
+  el3.setAttribute('viewBox', '0 0 120 120');
+  const el4 = dom.createElementNS("http://www.w3.org/2000/svg", "circle", "lh-gauge-base");
+  el4.setAttribute('r', '56');
+  el4.setAttribute('cx', '60');
+  el4.setAttribute('cy', '60');
+  el4.setAttribute('stroke-width', '8');
+  const el5 = dom.createElementNS("http://www.w3.org/2000/svg", "circle", "lh-gauge-arc");
+  el5.setAttribute('r', '56');
+  el5.setAttribute('cx', '60');
+  el5.setAttribute('cy', '60');
+  el5.setAttribute('stroke-width', '8');
+  el3.append(" ",el4," ",el5," ");
+  el2.append(" ",el3," ");
+  const el6 = dom.createElement("div", "lh-gauge__percentage");
+  const el7 = dom.createElement("div", "lh-gauge__label");
+  el1.append(" "," ",el2," ",e...
+function resolveFakeNavigations = function resolveFakeNavigations(artifactDefns, settings) {
+  if (!artifactDefns) return null;
+
+  const status = {msg: 'Resolve navigation definitions', id: 'lh:config:resolveNavigationsToDefns'};
+  log.time(status, 'verbose');
+
+  const resolvedNavigation = {
+    ...defaultNavigationConfig,
+    artifacts: artifactDefns,
+    pauseAfterFcpMs: settings.pauseAfterFcpMs,
+    pauseAfterLoadMs: settings.pauseAfterLoadMs,
+    networkQuietThresholdMs: settings.networkQuietThresholdMs,
+    cpuQuietThresholdMs: settings.cpuQuietThresholdMs,
+    blankPage: settings.blankPage,
+  };
+
+  overrideNavigationThrottlingWindows(resolvedNavigation, settings);
+
+  const navigations = [resolvedNavigation];
+  assertArtifactTopologicalOrder(navigations);
+
+  log.timeEnd(status);
+  return navigations;
+}
+_tmp_64.describe = "The file path to output the results. Use 'stdout' to write to stdout.
+If using JSON output, default is stdout.
+If using HTML or CSV output, default is a file in the working directory with a name based on the test URL and date.
+If using multiple outputs, --output-path is appended with the standard extension for each output type. "reports/my-run" -> "reports/my-run.report.html", "reports/my-run.report.json", etc.
+Example: --output-path=./lighthouse-results.html"
+function filterCategoriesByAvailableAudits = function filterCategoriesByAvailableAudits(categories, availableAudits) {
+  if (!categories) return categories;
+
+  const availableAuditIdToMeta = new Map(
+    availableAudits.map(audit => [audit.implementation.meta.id, audit.implementation.meta])
+  );
+
+  const categoryEntries = Object.entries(categories)
+    .map(([categoryId, category]) => {
+      const filteredCategory = {
+        ...category,
+        auditRefs: category.auditRefs.filter(ref => availableAuditIdToMeta.has(ref.id)),
+      };
+
+      const didFilter = filteredCategory.auditRefs.length < category.auditRefs.length;
+      const hasOnlyManualAudits = filteredCategory.auditRefs.every(ref => {
+        const meta = availableAuditIdToMeta.get(ref.id);
+        if (!meta) return false;
+        return meta.scoreDisplayMode === Audit.SCORING_MODES.MANUAL;
+      });
+
+      // If we filtered out audits and the only ones left are manual, remove them too.
+      if (didFilter && hasOnlyManualAudits) filteredCategory.auditRefs = [];
+
+ ...
+function prepareTargetForIndividualNavigation = async function prepareTargetForIndividualNavigation(session, settings, navigation) {
+  const status = {msg: 'Preparing target for navigation', id: 'lh:prepare:navigation'};
+  log.time(status);
+
+  /** @type {Array<LH.IcuMessage>} */
+  const warnings = [];
+
+  const {requestor} = navigation;
+  const shouldResetStorage =
+    !settings.disableStorageReset &&
+    !navigation.disableStorageReset &&
+    // Without prior knowledge of the destination, we cannot know which URL to clear storage for.
+    typeof requestor === 'string';
+  if (shouldResetStorage) {
+    const requestedUrl = requestor;
+    const {warnings: storageWarnings} = await resetStorageForUrl(session, requestedUrl);
+    warnings.push(...storageWarnings);
+  }
+
+  await prepareThrottlingAndNetwork(session, settings, navigation);
+
+  log.timeEnd(status);
+  return {warnings};
+}
+const resolvedNavigation = {
+    ...defaultNavigationConfig,
+    artifacts: artifactDefns,
+    pauseAfterFcpMs: settings.pauseAfterFcpMs,
+    pauseAfterLoadMs: settings.pauseAfterLoadMs,
+    networkQuietThresholdMs: settings.networkQuietThresholdMs,
+    cpuQuietThresholdMs: settings.cpuQuietThresholdMs,
+    blankPage: settings.blankPage,
+  }
+const categoryEntries = Object.entries(categories)
+    .map(([categoryId, category]) => {
+      const filteredCategory = {
+        ...category,
+        auditRefs: category.auditRefs.filter(ref => availableAuditIdToMeta.has(ref.id)),
+      };
+
+      const didFilter = filteredCategory.auditRefs.length < category.auditRefs.length;
+      const hasOnlyManualAudits = filteredCategory.auditRefs.every(ref => {
+        const meta = availableAuditIdToMeta.get(ref.id);
+        if (!meta) return false;
+        return meta.scoreDisplayMode === Audit.SCORING_MODES.MANUAL;
+      });
+
+      // If we filtered out audits and the only ones left are manual, remove them too.
+      if (didFilter && hasOnlyManualAudits) filteredCategory.auditRefs = [];
+
+      return [categoryId, filteredCategory];
+    })
+    .filter(entry => typeof entry[1] === 'object' && entry[1].auditRefs.length)
+const opportunityAudits = category.auditRefs
+        .filter(audit => this._classifyPerformanceAudit(audit) === 'load-opportunity')
+        .filter(audit => !ReportUtils.showAsPassed(audit.result))
+        .sort((auditA, auditB) => this._getWastedMs(auditB) - this._getWastedMs(auditA))
+await session.sendCommand('Emulation.setDeviceMetricsOverride', {
+            mobile: deviceMetrics.mobile,
+            deviceScaleFactor: deviceMetrics.deviceScaleFactor,
+            height: deviceMetrics.height,
+            width: 0, // Leave width unchanged
+          })
+function addDependencyOnUrl = function addDependencyOnUrl(cpuNode, url) {
+      if (!url) return;
+      // Allow network requests that end up to 100ms before the task started
+      // Some script evaluations can start before the script finishes downloading
+      const minimumAllowableTimeSinceNetworkNodeEnd = -100 * 1000;
+      const candidates = networkNodeOutput.urlToNodeMap.get(url) || [];
+
+      let minCandidate = null;
+      let minDistance = Infinity;
+      // Find the closest request that finished before this CPU task started
+      for (const candidate of candidates) {
+        // Explicitly ignore all requests that started after this CPU node
+        // A network request that started after this task started cannot possibly be a dependency
+        if (cpuNode.startTime <= candidate.startTime) return;
+
+        const distance = cpuNode.startTime - candidate.endTime;
+        if (distance >= minimumAllowableTimeSinceNetworkNodeEnd && distance < minDistance) {
+          minCandidate = candidate;
+          minDi...
+function isIcuMessage = function isIcuMessage(icuMessageOrNot) {
+  if (!isObjectOfUnknownValues(icuMessageOrNot)) {
+    return false;
+  }
+
+  const {i18nId, values, formattedDefault} = icuMessageOrNot;
+  if (typeof i18nId !== 'string') {
+    return false;
+  }
+
+  // formattedDefault is required.
+  if (typeof formattedDefault !== 'string') {
+    return false;
+  }
+
+  // Values is optional.
+  if (values !== undefined) {
+    if (!isObjectOfUnknownValues(values)) {
+      return false;
+    }
+    for (const value of Object.values(values)) {
+      if (typeof value !== 'string' && typeof value !== 'number') {
+        return false;
+      }
+    }
+  }
+
+  // Finally return true if i18nId seems correct.
+  return MESSAGE_I18N_ID_REGEX.test(i18nId);
+}
+function getNodeIndex = function getNodeIndex(node) {
+    if (isShadowRoot(node)) {
+      // User-agent shadow roots get 'u'. Non-UA shadow roots get 'a'.
+      return 'a';
+    }
+    let index = 0;
+    let prevNode;
+    while (prevNode = node.previousSibling) { // eslint-disable-line no-cond-assign
+      node = prevNode;
+      // skip empty text nodes
+      if (node.nodeType === Node.TEXT_NODE && (node.nodeValue || '').trim().length === 0) continue;
+      index++;
+    }
+    return index;
+  }
+function filterConfigByGatherMode = function filterConfigByGatherMode(resolvedConfig, mode) {
+  const artifacts = filterArtifactsByGatherMode(resolvedConfig.artifacts, mode);
+  const supportedAudits = filterAuditsByGatherMode(resolvedConfig.audits, mode);
+  const audits = filterAuditsByAvailableArtifacts(supportedAudits, artifacts || []);
+  const supportedCategories = filterCategoriesByGatherMode(resolvedConfig.categories, mode);
+  const categories = filterCategoriesByAvailableAudits(supportedCategories, audits || []);
+
+  return {
+    ...resolvedConfig,
+    artifacts,
+    audits,
+    categories,
+  };
+}
+const headings = [
+      {key: 'node', valueType: 'node', label: ''},
+      {key: 'url', valueType: 'url', label: str_(i18n.UIStrings.columnURL)},
+      {key: 'displayedSize', valueType: 'text', label: str_(UIStrings.columnDisplayed)},
+      {key: 'actualSize', valueType: 'text', label: str_(UIStrings.columnActual)},
+      {key: 'expectedSize', valueType: 'text', label: str_(UIStrings.columnExpected)},
+    ]
+function getStepName = function getStepName(flags, artifacts) {
+  if (flags?.name) return flags.name;
+
+  const {locale} = artifacts.settings;
+  const shortUrl = shortenUrl(artifacts.URL.finalDisplayedUrl);
+  switch (artifacts.GatherContext.gatherMode) {
+    case 'navigation':
+      return translate(UIStrings.defaultNavigationName, {url: shortUrl}, locale);
+    case 'timespan':
+      return translate(UIStrings.defaultTimespanName, {url: shortUrl}, locale);
+    case 'snapshot':
+      return translate(UIStrings.defaultSnapshotName, {url: shortUrl}, locale);
+    default:
+      throw new Error('Unsupported gather mode');
+  }
+}
+_tmp_22.push({key: 'totalBytes', valueType: 'bytes', label: str_(i18n.UIStrings.columnTransferSize),
+        displayUnit: 'kb', granularity: 1})
+_tmp_42.push(<operator>.formatString("  1. A gatherer exposes a matching Symbol that satisfies "", dependencyKey, ""."))
+_tmp_74.plugins = {
+        array: true,
+        type: 'string',
+        coerce: splitCommaSeparatedValues,
+        describe: 'Run the specified plugins',
+      }
+function filterConfigByExplicitFilters = function filterConfigByExplicitFilters(resolvedConfig, filters) {
+  const {onlyAudits, onlyCategories, skipAudits} = filters;
+
+  warnOnUnknownOnlyCategories(resolvedConfig.categories, onlyCategories);
+
+  let baseAuditIds = getAuditIdsInCategories(resolvedConfig.categories, undefined);
+  if (onlyCategories) {
+    baseAuditIds = getAuditIdsInCategories(resolvedConfig.categories, onlyCategories);
+  } else if (onlyAudits) {
+    baseAuditIds = new Set();
+  } else if (!resolvedConfig.categories || !Object.keys(resolvedConfig.categories).length) {
+    baseAuditIds = new Set(resolvedConfig.audits?.map(audit => audit.implementation.meta.id));
+  }
+
+  const auditIdsToKeep = new Set(
+    [
+      ...baseAuditIds, // Start with our base audits.
+      ...(onlyAudits || []), // Additionally include the opt-in audits from `onlyAudits`.
+      ...filterResistantAuditIds, // Always include any filter-resistant audits.
+    ].filter(auditId => !skipAudits || !skipAudits.includes(auditId))
+  );
+
+  const a...
+function registerPerformanceObserverInPage = function registerPerformanceObserverInPage() {
+  // Do not re-register if we've already run this script.
+  if (window.____lastLongTask !== undefined) return;
+
+  window.____lastLongTask = performance.now();
+  const observer = new window.PerformanceObserver(entryList => {
+    const entries = entryList.getEntries();
+    for (const entry of entries) {
+      if (entry.entryType === 'longtask') {
+        const taskEnd = entry.startTime + entry.duration;
+        window.____lastLongTask = Math.max(window.____lastLongTask || 0, taskEnd);
+      }
+    }
+  });
+
+  observer.observe({type: 'longtask', buffered: true});
+}
+function getConfigDisplayString = function getConfigDisplayString(resolvedConfig) {
+  /** @type {LH.Config.ResolvedConfig} */
+  const resolvedConfigCopy = JSON.parse(JSON.stringify(resolvedConfig));
+
+  if (resolvedConfigCopy.navigations) {
+    for (const navigation of resolvedConfigCopy.navigations) {
+      for (let i = 0; i < navigation.artifacts.length; ++i) {
+        // @ts-expect-error Breaking the Config.AnyArtifactDefn type.
+        navigation.artifacts[i] = navigation.artifacts[i].id;
+      }
+    }
+  }
+
+  if (resolvedConfigCopy.artifacts) {
+    for (const artifactDefn of resolvedConfigCopy.artifacts) {
+      // @ts-expect-error Breaking the Config.AnyArtifactDefn type.
+      artifactDefn.gatherer = artifactDefn.gatherer.path;
+      // Dependencies are not declared on Config JSON
+      artifactDefn.dependencies = undefined;
+    }
+  }
+
+  if (resolvedConfigCopy.audits) {
+    for (const auditDefn of resolvedConfigCopy.audits) {
+      // @ts-expect-error Breaking the Config.AuditDefn type.
+      auditDefn.implemen...
+function _formatPathAsString = function _formatPathAsString(pathInLHR) {
+  let pathAsString = '';
+  for (const property of pathInLHR) {
+    if (/^[a-z]+$/i.test(property)) {
+      if (pathAsString.length) pathAsString += '.';
+      pathAsString += property;
+    } else {
+      if (/]|"|'|\s/.test(property)) throw new Error(`Cannot handle "${property}" in i18n`);
+      pathAsString += `[${property}]`;
+    }
+  }
+
+  return pathAsString;
+}
+const auditIdsToKeep = new Set(
+    [
+      ...baseAuditIds, // Start with our base audits.
+      ...(onlyAudits || []), // Additionally include the opt-in audits from `onlyAudits`.
+      ...filterResistantAuditIds, // Always include any filter-resistant audits.
+    ].filter(auditId => !skipAudits || !skipAudits.includes(auditId))
+  )
+const dnsResolutionTime = this._dns.getTimeUntilResolution(record, {
+        requestedAt: timingData.startTime,
+        shouldUpdateCache: true,
+      })
+function getSelectorPart = function getSelectorPart(element) {
+    let part = element.tagName.toLowerCase();
+    if (element.id) {
+      part += '#' + element.id;
+    } else if (element.classList.length > 0) {
+      part += '.' + element.classList[0];
+    }
+    return part;
+  }
+['performance-budget', 'timing-budget'].forEach((id) => {
+      const audit = category.auditRefs.find(audit => audit.id === id);
+      if (audit?.result.details) {
+        const table = this.detailsRenderer.render(audit.result.details);
+        if (table) {
+          table.id = id;
+          table.classList.add('lh-details', 'lh-details--budget', 'lh-audit');
+          budgetTableEls.push(table);
+        }
+      }
+    })
+const calculation = connection.simulateDownloadUntil(
+        record.transferSize - timingData.bytesDownloaded,
+        {timeAlreadyElapsed, dnsResolutionTime, maximumTimeToElapse: Infinity}
+      )
+_tmp_20.FAILED_DOCUMENT_REQUEST = {
+    code: 'FAILED_DOCUMENT_REQUEST',
+    message: UIStrings.pageLoadFailedWithDetails,
+    lhrRuntimeError: true,
+  }
+ElementScreenshotRenderer.installOverlayFeature({
+      dom: this._dom,
+      rootEl: rootEl,
+      overlayContainerEl: rootEl,
+      fullPageScreenshot: this._fullPageScreenshot,
+    })
+function arrayOfObjectsJsonGenerator = function* arrayOfObjectsJsonGenerator(arrayOfObjects) {
+  const ITEMS_PER_ITERATION = 500;
+
+  // Stringify and emit items separately to avoid a giant string in memory.
+  yield '[\n';
+  if (arrayOfObjects.length > 0) {
+    const itemsIterator = arrayOfObjects[Symbol.iterator]();
+    // Emit first item manually to avoid a trailing comma.
+    const firstItem = itemsIterator.next().value;
+    yield `  ${JSON.stringify(firstItem)}`;
+
+    let itemsRemaining = ITEMS_PER_ITERATION;
+    let itemsJSON = '';
+    for (const item of itemsIterator) {
+      itemsJSON += `,\n  ${JSON.stringify(item)}`;
+      itemsRemaining--;
+      if (itemsRemaining === 0) {
+        yield itemsJSON;
+        itemsRemaining = ITEMS_PER_ITERATION;
+        itemsJSON = '';
+      }
+    }
+    yield itemsJSON;
+  }
+  yield '\n]';
+}
+_tmp_18 = await session.sendCommand('CSS.createStyleSheet', {
+      frameId: frameTreeResponse.frameTree.frame.id,
+    })
+setTimeout(() => {
+      // We can't be sure a long task hasn't occurred since our first attempt, but if the `____lastLongTask`
+      // value is the same (i.e. the perf observer didn't have any new information), we can be pretty
+      // confident that the long task info was accurate *at the time of our first attempt*.
+      const secondAttemptLastLongTaskTs = window.____lastLongTask || 0;
+      const timeSinceLongTask =
+        firstAttemptLastLongTaskTs === secondAttemptLastLongTaskTs
+          ? // The time of the last long task hasn't changed, the information from our first attempt is accurate.
+            firstAttemptTs - firstAttemptLastLongTaskTs
+          : // The time of the last long task *did* change, we can't really trust the information we have.
+            0;
+      resolve(timeSinceLongTask);
+    }, 150)
+eventType === 'start' ? knownTasksEndingNotContained : knownTasksStartingNotContained
+function resolveSettings = function resolveSettings(settingsJson = {}, overrides = undefined) {
+  // If a locale is requested in flags or settings, use it. A typical CLI run will not have one,
+  // however `lookupLocale` will always determine which of our supported locales to use (falling
+  // back if necessary).
+  // TODO: could do more work to sniff out the user's locale
+  const locale = i18n.lookupLocale(overrides?.locale || settingsJson.locale);
+
+  // Fill in missing settings with defaults
+  const {defaultSettings} = constants;
+  const settingWithDefaults = mergeConfigFragment(deepClone(defaultSettings), settingsJson, true);
+
+  // Override any applicable settings with CLI flags
+  const settingsWithFlags = mergeConfigFragment(
+    settingWithDefaults,
+    cleanFlagsForSettings(overrides),
+    true
+  );
+
+  if (settingsWithFlags.budgets) {
+    settingsWithFlags.budgets = Budget.initializeBudget(settingsWithFlags.budgets);
+  }
+  // Locale is special and comes only from flags/settings/lookupLocale.
+  settingsW...
+function getFlags = function getFlags(manualArgv, options = {}) {
+  let parser = getYargsParser(manualArgv);
+
+  if (options.noExitOnFailure) {
+    // Silence console.error() logging and don't process.exit().
+    // `parser.fail(false)` can be used in yargs once v17 is released.
+    parser = parser.fail((msg, err) => {
+      if (err) throw err;
+      else if (msg) throw new Error(msg);
+    });
+  }
+
+  // Augmenting yargs type with auto-camelCasing breaks in tsc@4.1.2 and @types/yargs@15.0.11,
+  // so for now cast to add yarg's camelCase properties to type.
+  const argv = /** @type {Awaited<typeof parser.argv>} */ (parser.argv);
+  const cliFlags = /** @type {typeof argv & LH.Util.CamelCasify<typeof argv>} */ (argv);
+
+  // yargs will return `undefined` for options that have a `coerce` function but
+  // are not actually present in the user input. Instead of passing properties
+  // explicitly set to undefined, delete them from the flags object.
+  for (const [k, v] of Object.entries(cliFlags)) {
+    if (v ===...
+const minimumTs = Math.max(
+      // Sampled event couldn't be earlier than this to begin with.
+      timeRange.earliestPossibleTimestamp,
+      // Sampled start event can't be before its parent started.
+      // Sampled end event can't be before its child ended.
+      ...(eventType === 'start'
+        ? parentTasks.map(t => t.startTime)
+        : childTasks.map(t => t.endTime)),
+      // Sampled start event can't be before unrelated tasks ended.
+      ...(eventType === 'start' ? unrelatedTasks.map(t => t.endTime) : []),
+      // Sampled start event can't be before the other `E` events at its same timestamp.
+      ...(eventType === 'start'
+        ? allEventsAtTs.refined.filter(e => e.ph === 'E').map(e => e.ts)
+        : [])
+    )
+const nodesToExplore = direction === 'dependents' ?
+        currentNode._dependents :
+        currentNode._dependencies
+const filterChoices = /** @type {LH.ReportResult.AuditRef[]} */ ([
+      ({acronym: 'All'}),
+      ...filterableMetrics,
+    ])
+_tmp_20.CHROME_INTERSTITIAL_ERROR = {
+    code: 'CHROME_INTERSTITIAL_ERROR',
+    message: UIStrings.pageLoadFailedInterstitial,
+    lhrRuntimeError: true,
+  }
+matches.push({name, line: mapping.lineNumber, column: mapping.columnNumber, count: 1})
+messageInstancesInLHR.push(
+          possibleIcuMessage.values ?
+            {values: possibleIcuMessage.values, path: currentPathAsString} :
+            currentPathAsString
+        )
+const loadPromise = Promise.all([
+    resolveOnFcp.promise,
+    resolveOnLoadEvent.promise,
+    resolveOnNetworkIdle.promise,
+    resolveOnCriticalNetworkIdle.promise,
+  ]).then(() => {
+    resolveOnCPUIdle = waitForCPUIdle(session, cpuQuietThresholdMs);
+    return resolveOnCPUIdle.promise;
+  }).then(() => {
+    /** @return {Promise<{timedOut: boolean}>} */
+    const cleanupFn = async function() {
+      log.verbose('waitFor', 'loadEventFired and network considered idle');
+      return {timedOut: false};
+    };
+
+    return cleanupFn;
+  }).catch(err => {
+    // Throw the error in the cleanupFn so we still cleanup all our handlers.
+    return function() {
+      throw err;
+    };
+  })
+const timeBoundaries = networkRecords.reduce((boundaries, record) => {
+      const scheme = record.parsedURL?.scheme;
+      // Requests whose bodies didn't come over the network or didn't completely finish will mess
+      // with the computation, just skip over them.
+      if (scheme === 'data' || record.failed || !record.finished ||
+          record.statusCode > 300 || !record.transferSize) {
+        return boundaries;
+      }
+
+      // If we've made it this far, all the times we need should be valid (i.e. not undefined/-1).
+      totalBytes += record.transferSize;
+      boundaries.push({time: record.responseHeadersEndTime / 1000, isStart: true});
+      boundaries.push({time: record.networkEndTime / 1000, isStart: false});
+      return boundaries;
+    }, /** @type {Array<{time: number, isStart: boolean}>} */([])).sort((a, b) => a.time - b.time)
+category.auditRefs.some(ref => ref.result.scoreDisplayMode !== 'notApplicable')
+el2.append("\n          :root {\n            --snippet-highlight-light: #fbf1f2;\n            --snippet-highlight-dark: #ffd6d8;\n          }\n\n         .lh-snippet__header {\n          position: relative;\n          overflow: hidden;\n          padding: 10px;\n          border-bottom: none;\n          color: var(--snippet-color);\n          background-color: var(--snippet-background-color);\n          border: 1px solid var(--report-border-color-secondary);\n        }\n        .lh-snippet__title {\n          font-weight: bold;\n          float: left;\n        }\n        .lh-snippet__node {\n          float: left;\n          margin-left: 4px;\n        }\n        .lh-snippet__toggle-expand {\n          padding: 1px 7px;\n          margin-top: -1px;\n          margin-right: -7px;\n          float: right;\n          background: transparent;\n          border: none;\n          cursor: pointer;\n          font-size: 14px;\n          color: #0c50c7;\n        }\n\n        .lh-snippet__snip...
+function resolveModulePath = function resolveModulePath(moduleIdentifier, configDir, category) {
+  // module in a node_modules/ that is...
+  // |                                | Lighthouse globally installed | Lighthouse locally installed |
+  // |--------------------------------|-------------------------------|------------------------------|
+  // | global                         |   1.                          |   1.                         |
+  // | in current working directory   |   2.                          |   1.                         |
+  // | relative to config.js file     |   5.                          |   -                          |
+
+  // module given by a path that is...
+  // |                                           | Lighthouse globally/locally installed |
+  // |-------------------------------------------|---------------------------------------|
+  // | absolute                                  |   1.                                  |
+  // | relative to the current working directory |   3.    ...
+_tmp_0.embedderPermissionRequestManager = "There were permission requests upon navigating away."
+const functionAsString = (()=>{
+    // eslint-disable-next-line no-unused-vars
+    const a = ()=>{};
+  }).toString()
+    // When not minified, esbuild annotates the call to this function wrapper with PURE.
+    // We know further that the name of the wrapper function should be `__name`, but let's not
+    // hardcode that. Remove the PURE annotation to simplify the regex.
+    .replace('/* @__PURE__ */', '')
+_tmp_133.push({id: 'input-image-alt', weight: 10, group: 'a11y-names-labels'})
+evt.name !== 'largestContentfulPaint::Invalidate' &&
+        evt.name !== 'largestContentfulPaint::Candidate'
+_tmp_21.name = str_(UIStrings.enteredBackForwardCacheBeforeServiceWorkerHostAdded)
+function shallowClone = function shallowClone(item) {
+  if (typeof item === 'object') {
+    // Return copy of instance and prototype chain (in case item is instantiated class).
+    return Object.assign(
+      Object.create(
+        Object.getPrototypeOf(item)
+      ),
+      item
+    );
+  }
+
+  return item;
+}
+Object.assign(
+      Object.create(
+        Object.getPrototypeOf(item)
+      ),
+      item
+    )
+_tmp_1.CacheControlNoStoreHTTPOnlyCookieModified = {name: str_(UIStrings.cacheControlNoStore)}
+_tmp_133.push({id: 'identical-links-same-purpose', weight: 0, group: 'hidden'})
+_tmp_1.ContentWebBluetooth = {name: str_(UIStrings.contentWebBluetooth)}
+_tmp_242.manualDescription = str_(UIStrings.pwaCategoryManualDescription)
+const el26 = dom.createElement("a", "lh-report-icon lh-report-icon--open")
+_tmp_242.auditRefs = [
+        // Installable
+        {id: 'installable-manifest', weight: 2, group: 'pwa-installable'},
+        // PWA Optimized
+        {id: 'splash-screen', weight: 1, group: 'pwa-optimized'},
+        {id: 'themed-omnibox', weight: 1, group: 'pwa-optimized'},
+        {id: 'content-width', weight: 1, group: 'pwa-optimized'},
+        {id: 'viewport', weight: 2, group: 'pwa-optimized'},
+        {id: 'maskable-icon', weight: 1, group: 'pwa-optimized'},
+        // Manual audits
+        {id: 'pwa-cross-browser', weight: 0},
+        {id: 'pwa-page-transitions', weight: 0},
+        {id: 'pwa-each-page-has-url', weight: 0},
+      ]
+_tmp_1.ContentMediaPlay = {name: str_(UIStrings.contentMediaPlay)}
+_tmp_1.EmbedderSafeBrowsingThreatDetails = {name: str_(UIStrings.embedderSafeBrowsingThreatDetails)}
+_tmp_1.KeepaliveRequest = {name: str_(UIStrings.keepaliveRequest)}
+const mainThreadEvents = processEvents.filter(e => e.tid === rendererPidToTid.get(e.pid))

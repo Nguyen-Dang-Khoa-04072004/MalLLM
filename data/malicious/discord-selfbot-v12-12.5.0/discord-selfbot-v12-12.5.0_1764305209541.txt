@@ -1,0 +1,49 @@
+function toSnakeCase = function toSnakeCase(obj) {
+  if (typeof obj !== 'object' || !obj) return obj;
+  if (obj instanceof Date) return obj;
+  if (Array.isArray(obj)) return obj.map(toSnakeCase);
+  return Object.fromEntries(Object.entries(obj).map(([key, value]) => [snakeCase(key), toSnakeCase(value)]));
+}
+const Targets = {
+  All: 'All',
+  Guild: 'Guild',
+  GuildScheduledEvent: 'GuildScheduledEvent',
+  Channel: 'Channel',
+  User: 'User',
+  Role: 'Role',
+  Invite: 'Invite',
+  Webhook: 'Webhook',
+  Emoji: 'Emoji',
+  Message: 'Message',
+  Integration: 'Integration',
+  StageInstance: 'StageInstance',
+  Sticker: 'Sticker',
+  Thread: 'Thread',
+  ApplicationCommand: 'ApplicationCommand',
+  Unknown: 'Unknown',
+}
+_tmp_5.options = options?.map(({ emoji, ...option }) => ({
+          ...option,
+          emoji: emoji && typeof emoji === 'string' ? resolvePartialEmoji(emoji) : emoji,
+        }))
+exports.unpack = (data, type) => {
+  if (exports.encoding === 'json' || type === 'json') {
+    if (typeof data !== 'string') {
+      data = ab.decode(data);
+    }
+    return JSON.parse(data);
+  }
+  if (!Buffer.isBuffer(data)) data = Buffer.from(new Uint8Array(data));
+  return erlpack.unpack(data);
+}
+const defaultCaching =
+      this._cache.constructor.name === 'Collection' ||
+      this._cache.maxSize === undefined ||
+      this._cache.maxSize === Infinity
+data.removed_member_ids?.reduce((removedMembersIds, removedMembersId) => {
+        const threadMember = this.getThreadMember(removedMembersId, thread.members);
+        if (threadMember) removedMembersIds.set(threadMember.id, threadMember);
+        thread.members.cache.delete(removedMembersId);
+        return removedMembersIds;
+      }, removedMembers)
+this.guild.stageInstances.cache.find(stageInstance => stageInstance.channelId === this.id) ?? null

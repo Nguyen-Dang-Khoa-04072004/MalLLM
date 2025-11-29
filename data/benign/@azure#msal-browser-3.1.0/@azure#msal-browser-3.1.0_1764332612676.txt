@@ -1,0 +1,1 @@
+const event = this.eventsByCorrelationId.get(correlationId)

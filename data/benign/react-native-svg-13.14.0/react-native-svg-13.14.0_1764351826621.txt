@@ -1,0 +1,14 @@
+_tmp_29.adapter = {
+    removeSubsets,
+    existsOne,
+    getSiblings,
+    hasAttrib,
+    findOne,
+    findAll,
+    isTag,
+    getParent,
+    getChildren,
+    getName,
+    getText,
+    getAttributeValue,
+  }

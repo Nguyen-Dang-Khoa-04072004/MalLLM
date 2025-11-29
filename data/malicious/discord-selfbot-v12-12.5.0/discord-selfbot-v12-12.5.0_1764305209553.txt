@@ -1,0 +1,71 @@
+function escapeItalic = function escapeItalic(text) {
+  let i = 0;
+  text = text.replace(/(?<=^|[^*])\*([^*]|\*\*|$)/g, (_, match) => {
+    if (match === '**') return ++i % 2 ? `\\*${match}` : `${match}\\*`;
+    return `\\*${match}`;
+  });
+  i = 0;
+  return text.replace(/(?<=^|[^_])_([^_]|__|$)/g, (_, match) => {
+    if (match === '__') return ++i % 2 ? `\\_${match}` : `${match}\\_`;
+    return `\\_${match}`;
+  });
+}
+throw new TypeError(
+          ErrorCodes.InvalidType,
+          'roles',
+          'Role, Snowflake or Array or Collection of Roles or Snowflakes',
+        );
+this.extra = {
+          channel: guild.channels.cache.get(data.options.channel_id) ?? { id: data.options.channel_id },
+          count: Number(data.options.count),
+        }
+function escapeBold = function escapeBold(text) {
+  let i = 0;
+  return text.replace(/\*\*(\*)?/g, (_, match) => {
+    if (match) return ++i % 2 ? `${match}\\*\\*` : `\\*\\*${match}`;
+    return '\\*\\*';
+  });
+}
+this.channel =
+        this.client.channels._add(data.channel, this.guild, { cache: false }) ??
+        this.client.channels.resolve(this.channelId)
+this.extra = {
+          channel: guild.client.channels.cache.get(data.options.channel_id) ?? { id: data.options.channel_id },
+          messageId: data.options.message_id,
+        }
+await globalPermissionsManager?.add({
+    command: globalCommandId,
+    guild: testGuildId,
+    permissions: [{ type: ApplicationCommandPermissionType.Role, id: testGuildId, permission: true }],
+    token: 'VeryRealToken',
+  })
+const data = await this.client.rest.post(Routes.guilds(), {
+      body: {
+        name,
+        icon,
+        verification_level: verificationLevel,
+        default_message_notifications: defaultMessageNotifications,
+        explicit_content_filter: explicitContentFilter,
+        roles,
+        channels,
+        afk_channel_id: afkChannelId,
+        afk_timeout: afkTimeout,
+        system_channel_id: systemChannelId,
+        system_channel_flags: systemChannelFlags,
+      },
+    })
+this.send(message).catch(err => {
+      const error = new globalThis.Error(`Error when sending ${type} response to master process: ${err.message}`);
+      error.stack = err.stack;
+      /**
+       * Emitted when the client encounters an error.
+       * <warn>Errors thrown within this event do not have a catch handler, it is
+       * recommended to not use async functions as `error` event handlers. See the
+       * [Node.js docs](https://nodejs.org/api/events.html#capture-rejections-of-promises) for details.</warn>
+       * @event Client#error
+       * @param {Error} error The error encountered
+       */
+      this.client.emit(Events.Error, error);
+    })
+const channel = this.client.channels.cache.get(matches.groups.id)
+_tmp_27.guild = guild.client.guilds.cache.get(data.options.guild_id) ?? { id: data.options.guild_id }

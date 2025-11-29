@@ -1,0 +1,1 @@
+var s = net.createConnection(port || 6379, host)

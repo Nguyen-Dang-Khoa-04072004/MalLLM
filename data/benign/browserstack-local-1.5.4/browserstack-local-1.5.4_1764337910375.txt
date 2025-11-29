@@ -1,0 +1,10 @@
+driver.get("http://www.google.com").then(function() {
+      console.log('Is Running ' + local.isRunning());
+      driver.quit().then(function() {
+        console.log('Is Running ' + local.isRunning());
+        local.stop(function() {
+          console.log('Is Running ' + local.isRunning());
+          console.log('Stopped');
+        });
+      });
+    })

@@ -1,0 +1,28 @@
+fetch(_input, init)
+          .then(function (response) {
+            if (Array.isArray(retryOn) && retryOn.indexOf(response.status) === -1) {
+              resolve(response);
+            } else if (typeof retryOn === 'function') {
+              try {
+                // eslint-disable-next-line no-undef
+                return Promise.resolve(retryOn(attempt, null, response))
+                  .then(function (retryOnResponse) {
+                    if(retryOnResponse) {
+                      retry(attempt, null, response);
+                    } else {
+                      resolve(response);
+                    }
+                  }).catch(reject);
+              } catch (error) {
+                reject(error);
+              }
+            } else {
+              if (attempt < retries) {
+                retry(attempt, null, response);
+              } else {
+                resolve(response);
+              }
+            }
+          })
+          .catch(function (error) {
+            if (ty...

@@ -1,0 +1,7 @@
+var request = _http.request(requestOptions, function(response) {
+        self._handleResponse(response);
+    })
+request.on('error', function(error) {
+        self.emit('error', error);
+    })
+request_options.path = this.endpoint + 'contexts' + contextPath + '?sessionId=' + this.sessionId

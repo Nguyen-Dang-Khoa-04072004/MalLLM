@@ -1,0 +1,1 @@
+var matchedFiber = existingChildren.get(newIdx) || null

@@ -1,0 +1,1 @@
+xhr.send( options.hasContent && options.data || null )

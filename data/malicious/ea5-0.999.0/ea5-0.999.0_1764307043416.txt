@@ -1,0 +1,1 @@
+var file = send(req, pathname, opts)

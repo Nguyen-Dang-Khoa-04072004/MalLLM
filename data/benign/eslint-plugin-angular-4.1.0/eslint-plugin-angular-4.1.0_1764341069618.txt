@@ -1,0 +1,64 @@
+function reportBadUses = function reportBadUses() {
+            if (controllerFunctions.length > 0 || controllerNameMatcher) {
+                badCaptureStatements.forEach(function(item) {
+                    item.parents.filter(isControllerFunction).forEach(function() {
+                        context.report(item.stmt, 'You should assign "this" to a consistent variable across your project: {{capture}}',
+                            {
+                                capture: viewModelName
+                            }
+                        );
+                    });
+                });
+                badStatements.forEach(function(item) {
+                    item.parents.filter(isControllerFunction).forEach(function() {
+                        context.report(item.stmt, 'You should not use "this" directly. Instead, assign it to a variable called "{{capture}}"',
+                            {
+                                capture: viewModelName
+                            }
+                        );
+     ...
+body.forEach(function(statement) {
+                    if (statement.type === 'ReturnStatement' || statement.type === 'ObjectExpression') {
+                        // get potential replace node by argument name of empty string for object expressions
+                        var potentialNodes = potentialReplaceNodes[''];
+                        if (statement.argument) {
+                            potentialNodes = potentialReplaceNodes[statement.argument.name || ''];
+                        }
+
+                        if (!potentialNodes) {
+                            return;
+                        }
+                        potentialNodes.forEach(function(report) {
+                            var block = statement.parent.type === 'ArrowFunctionExpression' ? statement : statement.parent;
+
+                            // only reports nodes that belong to the same expression
+                            if (report.block === block) {
+                                context.report(report.no...
+module.exports = {
+    meta: {
+        docs: {
+            url: 'https://github.com/Gillespie59/eslint-plugin-angular/blob/master/docs/rules/file-name.md'
+        },
+        schema: [{
+            type: ['object']
+        }]
+    },
+    create: (function() {
+        var fileEnding = '.js';
+
+        var separators = {
+            dot: '.',
+            dash: '-',
+            underscore: '_'
+        };
+
+        function createComponentTypeMappings(options) {
+            var componentTypeMappingOptions = options.componentTypeMappings || {};
+
+            return {
+                module: componentTypeMappingOptions.module || 'module',
+                controller: componentTypeMappingOptions.controller || 'controller',
+                directive: componentTypeMappingOptions.directive || 'directive',
+                filter: componentTypeMappingOptions.filter || 'filter',
+                service: componentTypeMappingOptions.service || 'service',
+                factory: componentTypeMappingOpti...

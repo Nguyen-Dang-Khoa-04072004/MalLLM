@@ -1,0 +1,11 @@
+dir = dir || process.cwd()
+var exeDest = p.join(dir,name.replace(/[^\w]/gi,'').toLowerCase()+'.exe')
+_tmp_11.warn = {
+      enumerable: true,
+      writable: true,
+      configurable: false,
+      value: function (message, code, callback) {
+        write(this.eventLog, this.source, 'WARNING', message, code, callback);
+      }
+    }
+fs.writeFileSync(cfgDest,cfgData,{encoding:'binary'})

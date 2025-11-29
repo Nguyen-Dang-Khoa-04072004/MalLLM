@@ -1,0 +1,16 @@
+var escape = app.get('json escape')
+var replacer = app.get('json replacer')
+var spaces = app.get('json spaces')
+var body = stringify(val, replacer, spaces, escape)
+this.send(body)
+var escape = app.get('json escape')
+var replacer = app.get('json replacer')
+var spaces = app.get('json spaces')
+var body = stringify(val, replacer, spaces, escape)
+body = body
+      .replace(/\u2028/g, '\\u2028')
+      .replace(/\u2029/g, '\\u2029')
+body = '/**/ typeof ' + callback + ' === \'function\' && ' + callback + '(' + body + ');'
+defineGetter(req, 'secure', function secure(){
+  return this.protocol === 'https';
+})

@@ -1,0 +1,5 @@
+this.runAsync.apply(this, (0, _tslib.__spreadArray)([], (0, _tslib.__read)(params), false))["catch"](function (error) {
+      if (!_this.options.onError) {
+        console.error(error);
+      }
+    })

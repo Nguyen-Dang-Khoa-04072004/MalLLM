@@ -1,0 +1,1 @@
+const environment = uri.searchParams.get('environment')

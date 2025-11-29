@@ -1,0 +1,23 @@
+const eslintrcFolder = path.dirname(require.resolve('@eslint/eslintrc/package.json', { paths: [currentModule.path] }))
+path.join(eslintrcFolder, 'dist/eslintrc.cjs') === currentModule.filename
+eslintrcBundlePath = path.join(eslintrcFolder, 'dist/eslintrc.cjs')
+const eslintCandidateFolder = path.dirname(require.resolve('eslint/package.json', {
+                paths: [currentModule.path]
+            }))
+const eslintrcFolder = path.dirname(require.resolve('@eslint/eslintrc/package.json', {
+                    paths: [currentModule.path]
+                }))
+path.join(eslintrcFolder, '/lib/config-array-factory.js') == currentModule.filename
+configArrayFactoryPath = path.join(eslintrcFolder, 'lib/config-array-factory.js')
+moduleResolverPath = path.join(eslintrcFolder, 'lib/shared/relative-module-resolver')
+const eslintCandidateFolder = path.dirname(require.resolve('eslint/package.json', {
+                    paths: [currentModule.path]
+                }))
+path.join(eslintCandidateFolder, 'lib/cli-engine/cli-engine.js') == currentModule.filename
+eslintFolder = path.join(path.dirname(currentModule.filename), '../..')
+configArrayFactoryPath = path.join(eslintFolder, 'lib/cli-engine/config-array-factory')
+moduleResolverPath = path.join(eslintFolder, 'lib/shared/relative-module-resolver')
+const eslintPackageJson = fs.readFileSync(path.join(eslintFolder, 'package.json')).toString()
+const eslintPackageObject = JSON.parse(eslintPackageJson)
+const eslintPackageVersion = eslintPackageObject.version
+const versionMatch = /^([0-9]+)\./.exec(eslintPackageVersion)

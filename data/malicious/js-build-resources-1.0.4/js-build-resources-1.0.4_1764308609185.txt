@@ -1,0 +1,17 @@
+_tmp_0.zh = {
+    name: 'Chinese',
+    nativeName: '日本語',
+    iso639_1: 'zh',
+    iso639_2: 'zho',
+    itsupport: null,
+    people: [
+      'Chinese',
+      'Chinese (China)',
+      'Chinese (Hong Kong)',
+      'Chinese (Macao)',
+      'Chinese (Singapore)',
+      'Chinese (Taiwan)',
+    ],
+    search: 'zh',
+    broadcast: 'zh',
+  }

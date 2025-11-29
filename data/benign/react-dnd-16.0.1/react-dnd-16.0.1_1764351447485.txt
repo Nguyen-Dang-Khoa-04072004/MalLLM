@@ -1,0 +1,25 @@
+const DndProvider: FC<DndProviderProps<unknown, unknown>> = memo(
+	function DndProvider({ children, ...props }) {
+		const [manager, isGlobalInstance] = getDndContextValue(props) // memoized from props
+		/**
+		 * If the global context was used to store the DND context
+		 * then where theres no more references to it we should
+		 * clean it up to avoid memory leaks
+		 */
+		useEffect(() => {
+			if (isGlobalInstance) {
+				const context = getGlobalContext()
+				++refCount
+
+				return () => {
+					if (--refCount === 0) {
+						context[INSTANCE_SYM] = null
+					}
+				}
+			}
+			return
+		}, [])
+
+		return <DndContext.Provider value={manager}>{children}</DndContext.Provider>
+	},
+)

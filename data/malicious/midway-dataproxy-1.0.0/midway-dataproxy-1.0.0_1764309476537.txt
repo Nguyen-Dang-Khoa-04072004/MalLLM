@@ -1,0 +1,11 @@
+MtopProxy.super_.prototype.requestReal
+            .call( this, params, function( result ) {
+                if ( result.retType === 0 ) {
+                    callback( result );
+                } else {
+                    var err = new Error( result.ret[0] 
+                        + '\nresponseText: ' + JSON.stringify( result ) );
+                    err.code = result.ret[0].split( '::' )[0];
+                    errCallback( err );
+                }
+            }, errCallback, cookie )

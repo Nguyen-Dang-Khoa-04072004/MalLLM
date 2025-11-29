@@ -1,0 +1,29 @@
+var httpsPromise = Promise.resolve(startupHttps)
+(_tmp_30 = httpsPromise.then(function(startupHttps) {
+    if (startupHttps) {
+        server = https.createServer(startupHttps,function(req,res) {app(req,res);});
+
+        if (settings.httpsRefreshInterval) {
+            var httpsRefreshInterval = parseFloat(settings.httpsRefreshInterval)||12;
+            if (httpsRefreshInterval > 596) {
+                // Max value based on (2^31-1)ms - the max that setInterval can accept
+                httpsRefreshInterval = 596;
+            }
+            // Check whether setSecureContext is available (Node.js 11+)
+            if (server.setSecureContext) {
+                // Check whether `http` is a callable function
+                if (typeof settings.https === "function") {
+                    delayedLogItems.push({type:"info", id:"server.https.refresh-interval", params:{interval:httpsRefreshInterval}});
+                    setInterval(function () {
+                        try {
+                            // Get the result of the function, because cre...).catch
+setInterval(function () {
+                        try {
+                            // Get the result of the function, because createServer doesn't accept functions as input
+                            Promise.resolve(settings.https()).then(function(refreshedHttps) {
+                                if (refreshedHttps) {
+                                    // The key/cert needs to be updated in the NodeJs http(s) server, when no key/cert is yet available or when the key/cert has changed.
+                                    // Note that the refreshed key/cert can be supplied as a string or a buffer.
+                                    var updateKey = (server.key == undefined || (Buffer.isBuffer(server.key) && !server.key.equals(refreshedHttps.key)) || (typeof server.key == "string" && server.key != refreshedHttps.key));
+                                    var updateCert = (server.cert == undefined || (Buffer.isBuffer(server.cert) && !server.cert.equals(refreshedHttps.cert)) || (typeof...
+httpsRefreshInterval*60*60*1000

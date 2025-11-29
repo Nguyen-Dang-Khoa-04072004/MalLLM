@@ -1,0 +1,6 @@
+var xmlfile = fs.openSync(filepath, "w")
+var total = suite._specs + suite._nestedSpecs
+var failed = suite._failures + suite._nestedFailures
+var xmlfile = fs.openSync(filepath, "w")
+fs.writeSync(xmlfile, text, 0)
+fs.closeSync(xmlfile)

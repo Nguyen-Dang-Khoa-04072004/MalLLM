@@ -1,0 +1,216 @@
+const functionDeclaration = (0, Function_js_1.stringifyFunction)((0, Function_js_1.interpolateFunction)((sendArgs, sendResolve, sendReject) => {
+            let id = 0;
+            Object.assign(globalThis, {
+                [PLACEHOLDER('name')]: function (...args) {
+                    return new Promise((resolve, reject) => {
+                        sendArgs([id, args]);
+                        sendResolve([id, resolve]);
+                        sendReject([id, reject]);
+                        ++id;
+                    });
+                },
+            });
+        }, { name: JSON.stringify(name) }))
+function createEvaluationError = function createEvaluationError(details) {
+    let name;
+    let message;
+    if (!details.exception) {
+        name = 'Error';
+        message = details.text;
+    }
+    else if ((details.exception.type !== 'object' ||
+        details.exception.subtype !== 'error') &&
+        !details.exception.objectId) {
+        return valueFromRemoteObject(details.exception);
+    }
+    else {
+        const detail = getErrorDetails(details);
+        name = detail.name;
+        message = detail.message;
+    }
+    const messageHeight = message.split('\n').length;
+    const error = new Error(message);
+    error.name = name;
+    const stackLines = error.stack.split('\n');
+    const messageLines = stackLines.splice(0, messageHeight);
+    // The first line is this function which we ignore.
+    stackLines.shift();
+    if (details.stackTrace && stackLines.length < Error.stackTraceLimit) {
+        for (const frame of details.stackTrace.callFrames.reverse()) {
+            if (PuppeteerURL.isPuppeteerURL(fram...
+this.#poller = await this.#world.evaluateHandle(({ MutationPoller, createFunction }, root, fn, ...args) => {
+                        const fun = createFunction(fn);
+                        return new MutationPoller(() => {
+                            return fun(...args);
+                        }, root || document);
+                    }, LazyArg.create(context => {
+                        return context.puppeteerUtil;
+                    }), this.#root, this.#fn, ...this.#args)
+_tmp_0.push(this.#installGlobalBinding(
+          new Binding('__ariaQuerySelectorAll', (async (
+            element: ElementHandle<Node>,
+            selector: string
+          ): Promise<JSHandle<Node[]>> => {
+            const results = ARIAQueryHandler.queryAll(element, selector);
+            return await element.realm.evaluateHandle(
+              (...elements) => {
+                return elements;
+              },
+              ...(await AsyncIterableUtil.collect(results))
+            );
+          }) as (...args: unknown[]) => unknown)
+        ))
+new Binding('__ariaQuerySelectorAll', (async (
+            element: ElementHandle<Node>,
+            selector: string
+          ): Promise<JSHandle<Node[]>> => {
+            const results = ARIAQueryHandler.queryAll(element, selector);
+            return await element.realm.evaluateHandle(
+              (...elements) => {
+                return elements;
+              },
+              ...(await AsyncIterableUtil.collect(results))
+            );
+          }) as (...args: unknown[]) => unknown)
+const createTextContent = (root) => {
+    let value = textContentCache.get(root);
+    if (value) {
+        return value;
+    }
+    value = { full: '', immediate: [] };
+    if (!(0, exports.isSuitableNodeForTextMatching)(root)) {
+        return value;
+    }
+    let currentImmediate = '';
+    if (isNonTrivialValueNode(root)) {
+        value.full = root.value;
+        value.immediate.push(root.value);
+        root.addEventListener('input', event => {
+            eraseFromCache(event.target);
+        }, { once: true, capture: true });
+    }
+    else {
+        for (let child = root.firstChild; child; child = child.nextSibling) {
+            if (child.nodeType === Node.TEXT_NODE) {
+                value.full += child.nodeValue ?? '';
+                currentImmediate += child.nodeValue ?? '';
+                continue;
+            }
+            if (currentImmediate) {
+                value.immediate.push(currentImmediate);
+            }
+            currentImmediate = '';
+            if (child.nod...
+await connection.send('script.callFunction', {
+                functionDeclaration: stringifyFunction(([_, resolve], result) => {
+                    resolve(result);
+                }),
+                arguments: [
+                    (await callbacks.resolve.valueOrThrow()),
+                    BidiSerializer.serializeRemoteValue(result),
+                ],
+                awaitPromise: false,
+                target: params.source,
+            })
+function invokeAtMostOnceForArguments = function invokeAtMostOnceForArguments(
+  target: (this: unknown, ...args: any[]) => any,
+  _: unknown
+): typeof target {
+  const cache = new WeakMap();
+  let cacheDepth = -1;
+  return function (this: unknown, ...args: unknown[]) {
+    if (cacheDepth === -1) {
+      cacheDepth = args.length;
+    }
+    if (cacheDepth !== args.length) {
+      throw new Error(
+        'Memoized method was called with the wrong number of arguments'
+      );
+    }
+    let freshArguments = false;
+    let cacheIterator = cache;
+    for (const arg of args) {
+      if (cacheIterator.has(arg as object)) {
+        cacheIterator = cacheIterator.get(arg as object)!;
+      } else {
+        freshArguments = true;
+        cacheIterator.set(arg as object, new WeakMap());
+        cacheIterator = cacheIterator.get(arg as object)!;
+      }
+    }
+    if (!freshArguments) {
+      return;
+    }
+    return target.call(this, ...args);
+  };
+}
+const chromeArguments = [
+            '--allow-pre-commit-input',
+            '--disable-background-networking',
+            '--disable-background-timer-throttling',
+            '--disable-backgrounding-occluded-windows',
+            '--disable-breakpad',
+            '--disable-client-side-phishing-detection',
+            '--disable-component-extensions-with-background-pages',
+            '--disable-component-update',
+            '--disable-default-apps',
+            '--disable-dev-shm-usage',
+            '--disable-extensions',
+            `--disable-features=${disabledFeatures.join(',')}`,
+            '--disable-hang-monitor',
+            '--disable-ipc-flooding-protection',
+            '--disable-popup-blocking',
+            '--disable-prompt-on-repost',
+            '--disable-renderer-backgrounding',
+            '--disable-search-engine-choice-screen',
+            '--disable-sync',
+            '--enable-automation',
+            // TODO(sadym): remove '--enable-blink-features=IdleDetec...
+#frameManagerHandlers = [
+        [
+            FrameManagerEvent.FrameAttached,
+            (frame) => {
+                this.emit("frameattached" /* PageEvent.FrameAttached */, frame);
+            },
+        ],
+        [
+            FrameManagerEvent.FrameDetached,
+            (frame) => {
+                this.emit("framedetached" /* PageEvent.FrameDetached */, frame);
+            },
+        ],
+        [
+            FrameManagerEvent.FrameNavigated,
+            (frame) => {
+                this.emit("framenavigated" /* PageEvent.FrameNavigated */, frame);
+            },
+        ],
+    ];
+_tmp_12.arguments = [
+                            (await callbacks.reject.valueOrThrow()),
+                            Serializer_js_1.BidiSerializer.serializeRemoteValue(error.name),
+                            Serializer_js_1.BidiSerializer.serializeRemoteValue(error.message),
+                            Serializer_js_1.BidiSerializer.serializeRemoteValue(error.stack),
+                        ]
+const chromeArguments = [
+            '--allow-pre-commit-input',
+            '--disable-background-networking',
+            '--disable-background-timer-throttling',
+            '--disable-backgrounding-occluded-windows',
+            '--disable-breakpad',
+            '--disable-client-side-phishing-detection',
+            '--disable-component-extensions-with-background-pages',
+            '--disable-component-update',
+            '--disable-default-apps',
+            '--disable-dev-shm-usage',
+            '--disable-extensions',
+            `--disable-features=${disabledFeatures.join(',')}`,
+            '--disable-hang-monitor',
+            '--disable-ipc-flooding-protection',
+            '--disable-popup-blocking',
+            '--disable-prompt-on-repost',
+            '--disable-renderer-backgrounding',
+            '--disable-search-engine-choice-screen',
+            '--disable-sync',
+            '--enable-automation',
+            // TODO(sadym): remove '--enable-blink-features=IdleDetec...

@@ -1,0 +1,333 @@
+function insertView = function insertView(tView, lView, lContainer, index) {
+    ngDevMode && assertLView(lView);
+    ngDevMode && assertLContainer(lContainer);
+    const indexInContainer = CONTAINER_HEADER_OFFSET + index;
+    const containerLength = lContainer.length;
+    if (index > 0) {
+        // This is a new view, we need to add it to the children.
+        lContainer[indexInContainer - 1][NEXT] = lView;
+    }
+    if (index < containerLength - CONTAINER_HEADER_OFFSET) {
+        lView[NEXT] = lContainer[indexInContainer];
+        addToArray(lContainer, CONTAINER_HEADER_OFFSET + index, lView);
+    }
+    else {
+        lContainer.push(lView);
+        lView[NEXT] = null;
+    }
+    lView[PARENT] = lContainer;
+    // track views where declaration and insertion points are different
+    const declarationLContainer = lView[DECLARATION_LCONTAINER];
+    if (declarationLContainer !== null && lContainer !== declarationLContainer) {
+        trackMovedView(declarationLContainer, lView);
+    }
+    // notify query t...
+ngZone.run(() => {
+            envInjector.resolveInjectorInitializers();
+            const exceptionHandler = envInjector.get(ErrorHandler, null);
+            if ((typeof ngDevMode === 'undefined' || ngDevMode) && !exceptionHandler) {
+                throw new RuntimeError(402 /* RuntimeErrorCode.MISSING_REQUIRED_INJECTABLE_IN_BOOTSTRAP */, 'No `ErrorHandler` found in the Dependency Injection tree.');
+            }
+            let onErrorSubscription;
+            ngZone.runOutsideAngular(() => {
+                onErrorSubscription = ngZone.onError.subscribe({
+                    next: (error) => {
+                        exceptionHandler.handleError(error);
+                    }
+                });
+            });
+            // If the whole platform is destroyed, invoke the `destroy` method
+            // for all bootstrapped applications as well.
+            const destroyListener = () => envInjector.destroy();
+            const onPlatformDestroyListeners = platformInjector.get(PL...
+function ɵɵpureFunction8 = function ɵɵpureFunction8(slotOffset, pureFn, exp1, exp2, exp3, exp4, exp5, exp6, exp7, exp8, thisArg) {
+    const bindingIndex = getBindingRoot() + slotOffset;
+    const lView = getLView();
+    const different = bindingUpdated4(lView, bindingIndex, exp1, exp2, exp3, exp4);
+    return bindingUpdated4(lView, bindingIndex + 4, exp5, exp6, exp7, exp8) || different ?
+        updateBinding(lView, bindingIndex + 8, thisArg ? pureFn.call(thisArg, exp1, exp2, exp3, exp4, exp5, exp6, exp7, exp8) :
+            pureFn(exp1, exp2, exp3, exp4, exp5, exp6, exp7, exp8)) :
+        getBinding(lView, bindingIndex + 8);
+}
+function getStandaloneDefFunctions = function getStandaloneDefFunctions(type, imports) {
+    let cachedDirectiveDefs = null;
+    let cachedPipeDefs = null;
+    const directiveDefs = () => {
+        if (cachedDirectiveDefs === null) {
+            // Standalone components are always able to self-reference, so include the component's own
+            // definition in its `directiveDefs`.
+            cachedDirectiveDefs = [getComponentDef(type)];
+            const seen = new Set([type]);
+            for (const rawDep of imports) {
+                ngDevMode && verifyStandaloneImport(rawDep, type);
+                const dep = resolveForwardRef(rawDep);
+                if (seen.has(dep)) {
+                    continue;
+                }
+                seen.add(dep);
+                if (!!getNgModuleDef(dep)) {
+                    const scope = transitiveScopesFor(dep);
+                    for (const dir of scope.exported.directives) {
+                        const def = getComponentDef(dir) || getDirectiveDef(dir);
+          ...
+_callAndReportToErrorHandler(exceptionHandler, ngZone, () => {
+                const initStatus = envInjector.get(ApplicationInitStatus);
+                initStatus.runInitializers();
+                return initStatus.donePromise.then(() => {
+                    const localeId = envInjector.get(LOCALE_ID, DEFAULT_LOCALE_ID);
+                    setLocaleId(localeId || DEFAULT_LOCALE_ID);
+                    const appRef = envInjector.get(ApplicationRef);
+                    if (rootComponent !== undefined) {
+                        appRef.bootstrap(rootComponent);
+                    }
+                    return appRef;
+                });
+            })
+function describeRNode = function describeRNode(rNode, innerContent = '…') {
+    const node = rNode;
+    switch (node.nodeType) {
+        case Node.ELEMENT_NODE:
+            const tag = node.tagName.toLowerCase();
+            const attrs = stringifyRNodeAttrs(node);
+            return `<${tag}${attrs ? ' ' + attrs : ''}>${innerContent}</${tag}>`;
+        case Node.TEXT_NODE:
+            const content = node.textContent ? shorten(node.textContent) : '';
+            return `#text${content ? `(${content})` : ''}`;
+        case Node.COMMENT_NODE:
+            return `<!-- ${shorten(node.textContent ?? '')} -->`;
+        default:
+            return `#node(${node.nodeType})`;
+    }
+}
+function throwInvalidProviderError = function throwInvalidProviderError(ngModuleType, providers, provider) {
+    if (ngModuleType && providers) {
+        const providerDetail = providers.map(v => v == provider ? '?' + provider + '?' : '...');
+        throw new Error(`Invalid provider for the NgModule '${stringify(ngModuleType)}' - only instances of Provider and Type are allowed, got: [${providerDetail.join(', ')}]`);
+    }
+    else if (isEnvironmentProviders(provider)) {
+        if (provider.ɵfromNgModule) {
+            throw new RuntimeError(207 /* RuntimeErrorCode.PROVIDER_IN_WRONG_CONTEXT */, `Invalid providers from 'importProvidersFrom' present in a non-environment injector. 'importProvidersFrom' can't be used for component providers.`);
+        }
+        else {
+            throw new RuntimeError(207 /* RuntimeErrorCode.PROVIDER_IN_WRONG_CONTEXT */, `Invalid providers present in a non-environment injector. 'EnvironmentProviders' can't be used for component providers.`);
+        }
+    }
+    else {
+        throw new ...
+function producerRemoveLiveConsumerAtIndex = function producerRemoveLiveConsumerAtIndex(node, idx) {
+    assertProducerNode(node);
+    assertConsumerNode(node);
+    if (typeof ngDevMode !== 'undefined' && ngDevMode && idx >= node.liveConsumerNode.length) {
+        throw new Error(`Assertion error: active consumer index ${idx} is out of bounds of ${node.liveConsumerNode.length} consumers)`);
+    }
+    if (node.liveConsumerNode.length === 1) {
+        // When removing the last live consumer, we will no longer be live. We need to remove
+        // ourselves from our producers' tracking (which may cause consumer-producers to lose
+        // liveness as well).
+        for (let i = 0; i < node.producerNode.length; i++) {
+            producerRemoveLiveConsumerAtIndex(node.producerNode[i], node.producerIndexOfThis[i]);
+        }
+    }
+    // Move the last value of `liveConsumers` into `idx`. Note that if there's only a single
+    // live consumer, this is a no-op.
+    const lastIdx = node.liveConsumerNode.length - 1;
+    node.liveCons...
+<operator>.formatString("Directive ", stringifyForError(type), " has no selector, please add it!")
+const REACTIVE_NODE = {
+    version: 0,
+    dirty: false,
+    producerNode: undefined,
+    producerLastReadVersion: undefined,
+    producerIndexOfThis: undefined,
+    nextProducerIndex: 0,
+    liveConsumerNode: undefined,
+    liveConsumerIndexOfThis: undefined,
+    consumerAllowSignalWrites: false,
+    consumerIsAlwaysLive: false,
+    producerMustRecompute: () => false,
+    producerRecomputeValue: () => { },
+    consumerMarkedDirty: () => { },
+}
+this.ɵprov = ɵɵdefineInjectable({
+        token: AfterRenderEventManager,
+        providedIn: 'root',
+        factory: () => new AfterRenderEventManager(),
+    })
+ngZone.run(() => {
+            const moduleRef = createNgModuleRefWithProviders(moduleFactory.moduleType, this.injector, internalProvideZoneChangeDetection(() => ngZone));
+            if ((typeof ngDevMode === 'undefined' || ngDevMode) &&
+                moduleRef.injector.get(PROVIDED_NG_ZONE, null) !== null) {
+                throw new RuntimeError(207 /* RuntimeErrorCode.PROVIDER_IN_WRONG_CONTEXT */, '`bootstrapModule` does not support `provideZoneChangeDetection`. Use `BootstrapOptions` instead.');
+            }
+            const exceptionHandler = moduleRef.injector.get(ErrorHandler, null);
+            if ((typeof ngDevMode === 'undefined' || ngDevMode) && exceptionHandler === null) {
+                throw new RuntimeError(402 /* RuntimeErrorCode.MISSING_REQUIRED_INJECTABLE_IN_BOOTSTRAP */, 'No ErrorHandler. Is platform module (BrowserModule) included?');
+            }
+            ngZone.runOutsideAngular(() => {
+                const subscription = ngZone.onError.subscribe({
+ ...
+zone._hasPendingMicrotasks ||
+        ((zone.shouldCoalesceEventChangeDetection || zone.shouldCoalesceRunChangeDetection) &&
+            zone.lastRequestAnimationFrameId !== -1)
+function createViewBlueprint = function createViewBlueprint(bindingStartIndex, initialViewLength) {
+    const blueprint = [];
+    for (let i = 0; i < initialViewLength; i++) {
+        blueprint.push(i < bindingStartIndex ? null : NO_CHANGE);
+    }
+    return blueprint;
+}
+throw new RuntimeError(204 /* RuntimeErrorCode.INVALID_INJECTION_TOKEN */, ngDevMode && `Can't resolve all parameters for ${stringify(token)}: (${args.join(', ')}).`);
+function locateHostElement = function locateHostElement(renderer, elementOrSelector, encapsulation, injector) {
+    // Note: we use default value for the `PRESERVE_HOST_CONTENT` here even though it's a
+    // tree-shakable one (providedIn:'root'). This code path can be triggered during dynamic
+    // component creation (after calling ViewContainerRef.createComponent) when an injector
+    // instance can be provided. The injector instance might be disconnected from the main DI
+    // tree, thus the `PRESERVE_HOST_CONTENT` would not be able to instantiate. In this case, the
+    // default value will be used.
+    const preserveHostContent = injector.get(PRESERVE_HOST_CONTENT, PRESERVE_HOST_CONTENT_DEFAULT);
+    // When using native Shadow DOM, do not clear host element to allow native slot
+    // projection.
+    const preserveContent = preserveHostContent || encapsulation === ViewEncapsulation.ShadowDom;
+    const rootElement = renderer.selectRootElement(elementOrSelector, preserveContent);
+    applyRootElementTra...
+function projectNodes = function projectNodes(tNode, ngContentSelectors, projectableNodes) {
+    const projection = tNode.projection = [];
+    for (let i = 0; i < ngContentSelectors.length; i++) {
+        const nodesforSlot = projectableNodes[i];
+        // Projectable nodes can be passed as array of arrays or an array of iterables (ngUpgrade
+        // case). Here we do normalize passed data structure to be an array of arrays to avoid
+        // complex checks down the line.
+        // We also normalize the length of the passed in projectable nodes (to match the number of
+        // <ng-container> slots defined by a component).
+        projection.push(nodesforSlot != null ? Array.from(nodesforSlot) : null);
+    }
+}
+this.storeFieldOfDefOnType(type, NG_INJ_DEF, 'providers')
+function consumerPollProducersForChange = function consumerPollProducersForChange(node) {
+    assertConsumerNode(node);
+    // Poll producers for change.
+    for (let i = 0; i < node.producerNode.length; i++) {
+        const producer = node.producerNode[i];
+        const seenVersion = node.producerLastReadVersion[i];
+        // First check the versions. A mismatch means that the producer's value is known to have
+        // changed since the last time we read it.
+        if (seenVersion !== producer.version) {
+            return true;
+        }
+        // The producer's version is the same as the last time we read it, but it might itself be
+        // stale. Force the producer to recompute its version (calculating a new value if necessary).
+        producerUpdateValueVersion(producer);
+        // Now when we do this check, `producer.version` is guaranteed to be up to date, so if the
+        // versions still match then it has not changed since the last time we read it.
+        if (seenVersion !== producer.version) {
+        ...
+_queryNodeChildren(componentView[TVIEW].firstChild, componentView, predicate, matches, elementsOnly, rootNativeNode)
+function locateOrCreateAnchorNode = function locateOrCreateAnchorNode(lContainer, hostLView, hostTNode, slotValue) {
+    // We already have a native element (anchor) set and the process
+    // of finding dehydrated views happened (so the `lContainer[DEHYDRATED_VIEWS]`
+    // is not null), exit early.
+    if (lContainer[NATIVE] && lContainer[DEHYDRATED_VIEWS])
+        return;
+    const hydrationInfo = hostLView[HYDRATION];
+    const noOffsetIndex = hostTNode.index - HEADER_OFFSET;
+    // TODO(akushnir): this should really be a single condition, refactor the code
+    // to use `hasInSkipHydrationBlockFlag` logic inside `isInSkipHydrationBlock`.
+    const skipHydration = isInSkipHydrationBlock(hostTNode) || hasInSkipHydrationBlockFlag(hostTNode);
+    const isNodeCreationMode = !hydrationInfo || skipHydration || isDisconnectedNode(hydrationInfo, noOffsetIndex);
+    // Regular creation mode.
+    if (isNodeCreationMode) {
+        return createAnchorNode(lContainer, hostLView, hostTNode, slotValue);
+    }
+    // Hydration mo...
+function convertToR3QueryPredicate = function convertToR3QueryPredicate(selector) {
+    return typeof selector === 'string' ? splitByComma(selector) : resolveForwardRef(selector);
+}
+assertNotEqual(Array.isArray(tStylingKey), true, 'Expected that \'tStylingKey\' has been unwrapped')
+const ngZone = envInjector.get(NgZone)
+ngZone.run(() => {
+            envInjector.resolveInjectorInitializers();
+            const exceptionHandler = envInjector.get(ErrorHandler, null);
+            if ((typeof ngDevMode === 'undefined' || ngDevMode) && !exceptionHandler) {
+                throw new RuntimeError(402 /* RuntimeErrorCode.MISSING_REQUIRED_INJECTABLE_IN_BOOTSTRAP */, 'No `ErrorHandler` found in the Dependency Injection tree.');
+            }
+            let onErrorSubscription;
+            ngZone.runOutsideAngular(() => {
+                onErrorSubscription = ngZone.onError.subscribe({
+                    next: (error) => {
+                        exceptionHandler.handleError(error);
+                    }
+                });
+            });
+            // If the whole platform is destroyed, invoke the `destroy` method
+            // for all bootstrapped applications as well.
+            const destroyListener = () => envInjector.destroy();
+            const onPlatformDestroyListeners = platformInjector.get(PL...
+const exceptionHandler = envInjector.get(ErrorHandler, null)
+(typeof ngDevMode === 'undefined' || ngDevMode) && !exceptionHandler
+_callAndReportToErrorHandler(exceptionHandler, ngZone, () => {
+                const initStatus = envInjector.get(ApplicationInitStatus);
+                initStatus.runInitializers();
+                return initStatus.donePromise.then(() => {
+                    const localeId = envInjector.get(LOCALE_ID, DEFAULT_LOCALE_ID);
+                    setLocaleId(localeId || DEFAULT_LOCALE_ID);
+                    const appRef = envInjector.get(ApplicationRef);
+                    if (rootComponent !== undefined) {
+                        appRef.bootstrap(rootComponent);
+                    }
+                    return appRef;
+                });
+            })
+const initStatus = envInjector.get(ApplicationInitStatus)
+initStatus.runInitializers()
+initStatus.donePromise.then(() => {
+                    const localeId = envInjector.get(LOCALE_ID, DEFAULT_LOCALE_ID);
+                    setLocaleId(localeId || DEFAULT_LOCALE_ID);
+                    const appRef = envInjector.get(ApplicationRef);
+                    if (rootComponent !== undefined) {
+                        appRef.bootstrap(rootComponent);
+                    }
+                    return appRef;
+                })
+const appRef = envInjector.get(ApplicationRef)
+appRef.bootstrap(rootComponent)
+return appRef
+ngZone.run(() => {
+            const moduleRef = createNgModuleRefWithProviders(moduleFactory.moduleType, this.injector, internalProvideZoneChangeDetection(() => ngZone));
+            if ((typeof ngDevMode === 'undefined' || ngDevMode) &&
+                moduleRef.injector.get(PROVIDED_NG_ZONE, null) !== null) {
+                throw new RuntimeError(207 /* RuntimeErrorCode.PROVIDER_IN_WRONG_CONTEXT */, '`bootstrapModule` does not support `provideZoneChangeDetection`. Use `BootstrapOptions` instead.');
+            }
+            const exceptionHandler = moduleRef.injector.get(ErrorHandler, null);
+            if ((typeof ngDevMode === 'undefined' || ngDevMode) && exceptionHandler === null) {
+                throw new RuntimeError(402 /* RuntimeErrorCode.MISSING_REQUIRED_INJECTABLE_IN_BOOTSTRAP */, 'No ErrorHandler. Is platform module (BrowserModule) included?');
+            }
+            ngZone.runOutsideAngular(() => {
+                const subscription = ngZone.onError.subscribe({
+ ...
+const moduleRef = createNgModuleRefWithProviders(moduleFactory.moduleType, this.injector, internalProvideZoneChangeDetection(() => ngZone))
+const exceptionHandler = moduleRef.injector.get(ErrorHandler, null)
+(typeof ngDevMode === 'undefined' || ngDevMode) && exceptionHandler === null
+_callAndReportToErrorHandler(exceptionHandler, ngZone, () => {
+                const initStatus = moduleRef.injector.get(ApplicationInitStatus);
+                initStatus.runInitializers();
+                return initStatus.donePromise.then(() => {
+                    // If the `LOCALE_ID` provider is defined at bootstrap then we set the value for ivy
+                    const localeId = moduleRef.injector.get(LOCALE_ID, DEFAULT_LOCALE_ID);
+                    setLocaleId(localeId || DEFAULT_LOCALE_ID);
+                    this._moduleDoBootstrap(moduleRef);
+                    return moduleRef;
+                });
+            })
+const initStatus = moduleRef.injector.get(ApplicationInitStatus)
+initStatus.runInitializers()
+initStatus.donePromise.then(() => {
+                    // If the `LOCALE_ID` provider is defined at bootstrap then we set the value for ivy
+                    const localeId = moduleRef.injector.get(LOCALE_ID, DEFAULT_LOCALE_ID);
+                    setLocaleId(localeId || DEFAULT_LOCALE_ID);
+                    this._moduleDoBootstrap(moduleRef);
+                    return moduleRef;
+                })
+const localeId = moduleRef.injector.get(LOCALE_ID, DEFAULT_LOCALE_ID)
+setLocaleId(localeId || DEFAULT_LOCALE_ID)
+this._moduleDoBootstrap(moduleRef)
+return moduleRef

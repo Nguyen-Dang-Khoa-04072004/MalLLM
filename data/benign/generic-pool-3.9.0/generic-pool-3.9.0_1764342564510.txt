@@ -1,0 +1,50 @@
+const wrappedValidationPromise = this._Promise.resolve(validationPromise)
+this._trackOperation(
+      wrappedValidationPromise,
+      this._validationOperations
+    ).then(isValid => {
+      this._testOnBorrowResources.delete(pooledResource);
+
+      if (isValid === false) {
+        pooledResource.invalidate();
+        this._destroy(pooledResource);
+        this._dispense();
+        return;
+      }
+      this._dispatchPooledResourceToNextWaitingClient(pooledResource);
+    })
+wrappedValidationPromise
+isValid => {
+      this._testOnBorrowResources.delete(pooledResource);
+
+      if (isValid === false) {
+        pooledResource.invalidate();
+        this._destroy(pooledResource);
+        this._dispense();
+        return;
+      }
+      this._dispatchPooledResourceToNextWaitingClient(pooledResource);
+    }
+this._testOnBorrowResources.delete(pooledResource)
+operation.then(
+      v => {
+        set.delete(operation);
+        return this._Promise.resolve(v);
+      },
+      e => {
+        set.delete(operation);
+        return this._Promise.reject(e);
+      }
+    )
+v => {
+        set.delete(operation);
+        return this._Promise.resolve(v);
+      }
+set.delete(operation)
+(_tmp_32 = this._Promise).resolve
+e => {
+        set.delete(operation);
+        return this._Promise.reject(e);
+      }
+set.delete(operation)
+(_tmp_33 = this._Promise).reject

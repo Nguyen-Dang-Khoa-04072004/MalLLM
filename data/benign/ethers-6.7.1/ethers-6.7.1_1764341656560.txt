@@ -1,0 +1,4 @@
+this.fetch("proxy", {
+                    action: "eth_getTransactionReceipt",
+                    txhash: req.hash
+                })

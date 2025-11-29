@@ -1,0 +1,4 @@
+_tmp_3.group = process.platform === 'win32' ? 0 : process.env.SUDO_GID || process.getgid && process.getgid()
+_tmp_3.unsafe-perm = process.platform === 'win32' || process.platform === 'cygwin' || !(process.getuid && process.setuid && process.getgid && process.setgid) || process.getuid() !== 0
+_tmp_3.user = process.platform === 'win32' ? 0 : "nobody"
+_tmp_3.umask = process.umask ? process.umask() : umask.fromString('022')

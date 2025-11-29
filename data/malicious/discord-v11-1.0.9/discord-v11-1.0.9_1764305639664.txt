@@ -1,0 +1,20 @@
+const interval = setInterval(() => {
+          this.createShard();
+          if (this.shards.size >= this.totalShards) {
+            clearInterval(interval);
+            resolve(this.shards);
+          }
+        }, delay)
+this.currentStream = {
+      dispatcher,
+      broadcast,
+      input: broadcast,
+      output: broadcast,
+    }
+this.send({ _eval: script }).catch(err => {
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        reject(err);
+      })
+this.client.rest.makeRequest('get', Constants.Endpoints.Guild(this.guild).Emoji(this.id), true)
+      .then(emoji => this.client.dataManager.newUser(emoji.user))

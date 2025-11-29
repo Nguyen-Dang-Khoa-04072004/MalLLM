@@ -1,0 +1,6 @@
+const joinRows = require('../core/join-rows')
+module.exports.isArray = (arr) => Array.isArray(arr)
+fs.createReadStream(inputFile)
+    .pipe(jsonexport())
+    .pipe(outputFile ? fs.createWriteStream(outputFile) : stdout)
+outputFile ? fs.createWriteStream(outputFile) : stdout

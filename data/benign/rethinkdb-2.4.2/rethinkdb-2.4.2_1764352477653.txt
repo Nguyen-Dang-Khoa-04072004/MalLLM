@@ -1,0 +1,1 @@
+var result = func.apply(child, args)

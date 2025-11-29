@@ -1,0 +1,1 @@
+request(url, shortcutOptions(options, 'HEAD'))

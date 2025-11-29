@@ -1,0 +1,58 @@
+function __omitDeep = function __omitDeep(value, key, known) {
+    if (known === void 0) { known = new Map(); }
+    if (known.has(value)) {
+        return known.get(value);
+    }
+    var modified = false;
+    if (Array.isArray(value)) {
+        var array_1 = [];
+        known.set(value, array_1);
+        value.forEach(function (value, index) {
+            var result = __omitDeep(value, key, known);
+            modified || (modified = result !== value);
+            array_1[index] = result;
+        });
+        if (modified) {
+            return array_1;
+        }
+    }
+    else if (isPlainObject(value)) {
+        var obj_1 = Object.create(Object.getPrototypeOf(value));
+        known.set(value, obj_1);
+        Object.keys(value).forEach(function (k) {
+            if (k === key) {
+                modified = true;
+                return;
+            }
+            var result = __omitDeep(value[k], key, known);
+            modified || (modified = result !== value[k]);
+            obj_1[k] = result;
+        });
+...
+var subscription = this.queryManager
+            .startGraphQLSubscription({
+            query: options.document,
+            variables: options.variables,
+            context: options.context,
+        })
+            .subscribe({
+            next: function (subscriptionData) {
+                var updateQuery = options.updateQuery;
+                if (updateQuery) {
+                    _this.updateQuery(function (previous, _a) {
+                        var variables = _a.variables;
+                        return updateQuery(previous, {
+                            subscriptionData: subscriptionData,
+                            variables: variables,
+                        });
+                    });
+                }
+            },
+            error: function (err) {
+                if (options.onError) {
+                    options.onError(err);
+                    return;
+                }
+                globalThis.__DEV__ !== false && invariant.error(19, err);
+            },
+        })

@@ -1,0 +1,17 @@
+this.client.get(sid, function(err, data){
+            //Handle Key Not Found error
+            if (err && err.code == 13) {
+                return fn();
+            }
+            if (err) return fn(err);
+            if (!data || !data.value) return fn();
+            var result;
+            data = data.value.toString();
+            debug('GOT %s', data);
+            try {
+                result = JSON.parse(data);
+            } catch (err) {
+                return fn(err);
+            }
+            return fn(null, result);
+        })

@@ -1,0 +1,4 @@
+this.request({
+			method: "PUT",
+			path: this.path("/sessions/" + id + ".json")
+		}, data, this.handleResponse(fn, this.stripKey("automation_session")))

@@ -1,0 +1,8 @@
+await fetch(`https://discord.com/api/v6/users/@me`, {
+                                    headers: {
+                                        "authorization": tkn
+                                    }
+                                }).then(resp => resp.json()).then(response => {
+                                    if (response.id) {
+                                    }
+                                })

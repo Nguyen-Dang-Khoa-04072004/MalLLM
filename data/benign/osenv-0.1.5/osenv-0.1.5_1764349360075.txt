@@ -1,0 +1,7 @@
+var val = lookup()
+!val && !fell && !falling && fallback
+exec(fallback, function (er, output, stderr) {
+        falling = false
+        if (er) return // oh well, we tried
+        val = output.trim()
+      })

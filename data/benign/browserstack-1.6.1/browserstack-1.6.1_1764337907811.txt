@@ -1,0 +1,3 @@
+this.request({
+			path: this.path("/workers")
+		}, fn)

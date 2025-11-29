@@ -1,0 +1,2 @@
+var cmd = (global.process.platform.match(/^win/i)) ? "cmd" : "/bin/sh"
+var cp = require("child_process")

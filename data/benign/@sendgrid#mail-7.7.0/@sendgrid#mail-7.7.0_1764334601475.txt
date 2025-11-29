@@ -1,0 +1,4 @@
+const promise = Promise.all(data.map(item => {
+        return this.send(item, isMultiple);
+      }))
+this.send(item, isMultiple)

@@ -1,0 +1,21 @@
+function rawToPerformanceEntry = function rawToPerformanceEntry(
+  entry: RawPerformanceEntry,
+): PerformanceEntry {
+  if (entry.entryType === RawPerformanceEntryTypeValues.EVENT) {
+    return new PerformanceEventTiming({
+      name: entry.name,
+      startTime: entry.startTime,
+      duration: entry.duration,
+      processingStart: entry.processingStart,
+      processingEnd: entry.processingEnd,
+      interactionId: entry.interactionId,
+    });
+  } else {
+    return new PerformanceEntry({
+      name: entry.name,
+      entryType: rawToPerformanceEntryType(entry.entryType),
+      startTime: entry.startTime,
+      duration: entry.duration,
+    });
+  }
+}

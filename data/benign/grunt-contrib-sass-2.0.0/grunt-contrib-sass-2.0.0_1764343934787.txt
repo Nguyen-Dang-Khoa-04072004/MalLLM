@@ -1,0 +1,101 @@
+module.exports = function (grunt) {
+  var checkBinary = function (cmd, errMsg) {
+    try {
+      which.sync(cmd);
+    } catch (err) {
+      return grunt.warn(
+        '\n' + errMsg + '\n' +
+        'More info: https://github.com/gruntjs/grunt-contrib-sass\n'
+      );
+    }
+  };
+
+  grunt.registerMultiTask('sass', 'Compile Sass to CSS', function () {
+    var cb = this.async();
+    var options = this.options();
+
+    if (options.bundleExec) {
+      checkBinary('bundle',
+        'bundleExec options set but no Bundler executable found in your PATH.'
+      );
+    } else {
+      checkBinary('sass',
+        'You need to have Ruby and Sass installed and in your PATH for this task to work.'
+      );
+    }
+
+    if (options.check) {
+      options.concurrencyCount = concurrencyCount;
+      checkFilesSyntax(this.filesSrc, options, cb);
+      return;
+    }
+
+    var passedArgs = dargs(options, {
+      excludes: ['bundleExec'],
+      ignoreFalse: true
+    });
+
+    async.eachLimit(this.files, concurre...
+var checkBinary = function (cmd, errMsg) {
+    try {
+      which.sync(cmd);
+    } catch (err) {
+      return grunt.warn(
+        '\n' + errMsg + '\n' +
+        'More info: https://github.com/gruntjs/grunt-contrib-sass\n'
+      );
+    }
+  }
+async.eachLimit(filesToCheck, options.concurrencyCount, function (src, next) {
+    var bin;
+    var args;
+
+    var passedArgs = dargs(options, {
+      includes: ['loadPath'],
+      ignoreFalse: true
+    });
+
+    if (options.bundleExec) {
+      bin = 'bundle';
+      args = ['exec', 'sass', '--check', src];
+    } else {
+      bin = 'sass';
+      args = ['--check', src];
+    }
+
+    args = args.concat(passedArgs);
+
+    grunt.verbose.writeln('Command: ' + bin + ' ' + args.join(' '));
+
+    grunt.verbose.writeln('Checking file ' + chalk.cyan(src) + ' syntax.');
+    spawn(bin, args, {stdio: 'inherit'})
+      .on('error', grunt.warn)
+      .on('close', function (code) {
+        if (code > 0) {
+          failCount++;
+          grunt.log.error('Checking file ' + chalk.cyan(src) + ' - ' + chalk.red('failed') + '.');
+        } else {
+          grunt.verbose.ok('Checking file ' + chalk.cyan(src) + ' - ' + chalk.green('passed') + '.');
+        }
+
+        next();
+      });
+  }, function () {
+    if...
+args = ['exec', 'sass', '--check', src]
+checkBinary('sass',
+        'You need to have Ruby and Sass installed and in your PATH for this task to work.'
+      )
+grunt.verbose.writeln('Command: ' + bin + ' ' + args.join(' '))
+spawn(bin, args, {stdio: 'inherit'})
+      .on('error', grunt.warn)
+      .on('close', function (code) {
+        if (code > 0) {
+          failCount++;
+          grunt.log.error('Checking file ' + chalk.cyan(src) + ' - ' + chalk.red('failed') + '.');
+        } else {
+          grunt.verbose.ok('Checking file ' + chalk.cyan(src) + ' - ' + chalk.green('passed') + '.');
+        }
+
+        next();
+      })

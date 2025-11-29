@@ -1,0 +1,38 @@
+fetch(this.endpoint, options)
+			.then(
+				resp => {
+					response = resp;
+					return resp;
+				},
+				err => {
+					// If error happens here, the request failed
+					// if it is TypeError throw network error
+					if (err instanceof TypeError) {
+						throw new Error('Network error');
+					}
+					throw err;
+				}
+			)
+			.then(resp => resp.json().catch(() => ({})))
+			.then(data => {
+				// return parsed body stream
+				if (response.ok) return callback(null, data);
+				responseJsonData = data;
+
+				// Taken from aws-sdk-js/lib/protocol/json.js
+				// eslint-disable-next-line no-underscore-dangle
+				const code = (data.__type || data.code).split('#').pop();
+				const error = new Error(data.message || data.Message || null);
+				error.name = code;
+				error.code = code;
+				return callback(error);
+			})
+			.catch(err => {
+				// first check if we have a service error
+				if (
+					response &&
+					response.headers &&
+					response.headers.get('x-amzn-errortype')
+				) {
+					try {
+		...

@@ -1,0 +1,47 @@
+pluginCompat.tap(
+      compiler,
+      '_hardSourceFreezeModule',
+      'HardModuleConcatenationPlugin',
+      (frozen, { modules }, extra) => {
+        if (modules) {
+          const compilation = extra.compilation;
+
+          modules.forEach(module => {
+            if (
+              (module.cacheable ||
+                (module.buildInfo && module.buildInfo.cacheable)) &&
+              module instanceof NormalModule
+            ) {
+              const identifierPrefix = cachePrefix(compilation);
+              if (identifierPrefix === null) {
+                return;
+              }
+              const identifier = identifierPrefix + module.identifier();
+
+              store('Module', identifier, module, {
+                id: identifier,
+                compilation,
+              });
+            }
+          });
+        }
+
+        return frozen;
+      },
+    )
+const mapArchetype = (exports.mapArchetype = type => ({
+  freeze: (arg, module, extra, { mapFreeze }) =>
+    mapFreeze(type, null, arg, extra),
+  thaw: (arg, module, extra, { mapThaw }) => mapThaw(type, null, arg, extra),
+}))
+serial.created({
+      type: serial.identity,
+      request: serial.request,
+      userRequest: serial.request,
+      rawRequest: serial.request,
+      loaders: serial.loaders,
+      resource: serial.path,
+      parser: serial.parser,
+      generator: serial.generator,
+      resolveOptions: serial.identity,
+    })

@@ -1,0 +1,4 @@
+const explorer = cosmiconfigSync('release-it', {
+    searchPlaces,
+    loaders
+  })

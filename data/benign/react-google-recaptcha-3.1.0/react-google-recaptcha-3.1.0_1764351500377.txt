@@ -1,0 +1,13 @@
+this.executionResolve = resolve
+_proto.executeAsync = function executeAsync() {
+    var _this2 = this;
+    return new Promise(function (resolve, reject) {
+      _this2.executionResolve = resolve;
+      _this2.executionReject = reject;
+      _this2.execute();
+    });
+  }
+_this2.executionResolve = resolve
+const resetter = this.getCaptchaFunction("reset")
+resetter && this._widgetId !== undefined
+const resetter = this.getCaptchaFunction("reset")

@@ -1,0 +1,58 @@
+root = fss.readlinkSync(root)
+is.directory(root)
+fss.readdir(root, function(err, all) {
+      var chain = Chain();
+      all && all.forEach(function(dir) {
+        dir = path.join(originRoot, dir);
+        chain.add(function() {
+          var handleFile = function() {
+            if (type == 'file') action(dir);
+            process.nextTick(function() { chain.next() });
+          }
+          var handleDir = function(skip) {
+            if (type == 'dir') action(dir);
+            if (skip) chain.next();
+            else process.nextTick(function() { traverseAsync(dir, type, action, callback, chain)});
+          }
+          var isSymbolicLink = is.symbolicLink(dir);
+          if (is.directory(dir)) {
+            handleDir();
+          } else if (isSymbolicLink) {
+            fss.readlink(dir, function(origin) {
+              if (origin) {
+                if (is.existed(origin) && is.directory(origin)) {
+                  handleDir(isSymbolicLink)
+                } else {
+                  handleFile()
+                }
+             ...
+all && all.forEach(function(dir) {
+        dir = path.join(originRoot, dir);
+        chain.add(function() {
+          var handleFile = function() {
+            if (type == 'file') action(dir);
+            process.nextTick(function() { chain.next() });
+          }
+          var handleDir = function(skip) {
+            if (type == 'dir') action(dir);
+            if (skip) chain.next();
+            else process.nextTick(function() { traverseAsync(dir, type, action, callback, chain)});
+          }
+          var isSymbolicLink = is.symbolicLink(dir);
+          if (is.directory(dir)) {
+            handleDir();
+          } else if (isSymbolicLink) {
+            fss.readlink(dir, function(origin) {
+              if (origin) {
+                if (is.existed(origin) && is.directory(origin)) {
+                  handleDir(isSymbolicLink)
+                } else {
+                  handleFile()
+                }
+              } else {
+                chain.next();
+              }
+            });
+...
+process.nextTick(function() { chain.next() })
+process.nextTick(function() { traverseAsync(dir, type, action, callback, chain)})

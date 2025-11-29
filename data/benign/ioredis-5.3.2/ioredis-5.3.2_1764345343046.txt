@@ -1,0 +1,1 @@
+const sampleNode = (0, utils_1.sample)(this.connectionPool.getNodes())

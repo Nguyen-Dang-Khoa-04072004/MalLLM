@@ -1,0 +1,36 @@
+const cleanup = () => {
+        this.removeListener(WebSocketShardEvents.Close, onClose);
+        this.removeListener(WebSocketShardEvents.Ready, onReady);
+        this.removeListener(WebSocketShardEvents.Resumed, onResumed);
+        this.removeListener(WebSocketShardEvents.InvalidSession, onInvalidOrDestroyed);
+        this.removeListener(WebSocketShardEvents.Destroyed, onInvalidOrDestroyed);
+      }
+await globalPermissionsManager?.add({
+    command: globalCommandId,
+    guild: testGuildId,
+    permissions: [{ type: ApplicationCommandPermissionType.Role, id: testGuildId, permission: true }],
+    token: 'VeryRealToken',
+  })
+const data = await this.client.rest.post(Routes.guilds(), {
+      body: {
+        name,
+        icon,
+        verification_level: verificationLevel,
+        default_message_notifications: defaultMessageNotifications,
+        explicit_content_filter: explicitContentFilter,
+        roles,
+        channels,
+        afk_channel_id: afkChannelId,
+        afk_timeout: afkTimeout,
+        system_channel_id: systemChannelId,
+        system_channel_flags: systemChannelFlags,
+      },
+    })
+shard.on(WebSocketShardEvents.Destroyed, () => {
+        this.debug('Shard was destroyed but no WebSocket connection was present! Reconnecting...', shard);
+
+        this.client.emit(Events.ShardReconnecting, shard.id);
+
+        this.shardQueue.add(shard);
+        this.reconnect();
+      })

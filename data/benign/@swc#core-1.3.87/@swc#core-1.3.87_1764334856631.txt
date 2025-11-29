@@ -1,0 +1,16 @@
+_tmp_9 = require(path.resolve(process.env.INIT_CWD, 'package.json'))
+_setPrototypeOf =
+        Object.setPrototypeOf ||
+            //@ts-ignore
+            function _setPrototypeOf(o, p) {
+                o.__proto__ = p;
+                return o;
+            }
+wasmBinding = require.resolve(`@swc/wasm`)
+!!wasmBinding && (0, fs_1.existsSync)(wasmBinding)
+_tmp_13 = require(path.join(path.dirname(require.resolve('@swc/core')), 'package.json'))
+const coreDir = path.dirname(require.resolve('@swc/core'))
+nativeBinding = require('@swc/core-darwin-universal')
+fs.mkdirSync(installDir)
+fs.writeFileSync(path.join(installDir, 'package.json'), '{}')
+child_process.execSync(`npm install --no-save --loglevel=error --prefer-offline --no-audit --progress=false @swc/wasm@${version}`, { cwd: installDir, stdio: 'pipe', env })

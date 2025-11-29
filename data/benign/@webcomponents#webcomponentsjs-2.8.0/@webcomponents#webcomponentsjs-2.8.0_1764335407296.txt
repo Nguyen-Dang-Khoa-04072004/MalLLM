@@ -1,0 +1,29 @@
+Map.prototype[Symbol.iterator]||(Map.prototype[Symbol.iterator]=function Za(){var b,c=this,d;return Ea(Za,function(e){1==e.g&&(b=[],c.forEach(function(f,g){b.push([g,f])}),d=0);if(3!=e.g)return d<b.length?e=ya(e,b[d]):(e.g=0,e=void 0),e;d++;e.g=2})})
+!map.has(listener)
+const cachedListener = once
+                ? (e) => {
+                    map.delete(listener);
+                    origRemoveEventListener.call(this, type, cachedListener, capture);
+                    if (typeof listener === 'function') {
+                        return listener.call(this, e);
+                    }
+                    if (typeof (listener === null || listener === void 0 ? void 0 : listener.handleEvent) === 'function') {
+                        return listener.handleEvent(e);
+                    }
+                }
+                : null
+flushFn && flushFn()
+map.delete(listener)
+origRemoveEventListener.call(this, type, cachedListener, capture)
+typeof listener === 'function'
+listener.call(this, e)
+function Bc = function Bc(a,b){if("slot"===b)a=a.__shady_parentNode,ja(a)&&F(u(a).root);else if("slot"===a.localName&&"name"===b&&(b=hc(a))){if(b.g){Cc(b);var c=a.Ca,d=Dc(a);if(d!==c){c=b.h[c];var e=c.indexOf(a);0<=e&&c.splice(e,1);c=b.h[d]||(b.h[d]=[]);c.push(a);1<c.length&&(b.h[d]=Ec(c))}}F(b)}}
+var Fc=A({get previousElementSibling(){var a=u(this);if(a&&void 0!==a.previousSibling){for(a=this.__shady_previousSibling;a&&a.nodeType!==Node.ELEMENT_NODE;)a=a.__shady_previousSibling;return a}return this.__shady_native_previousElementSibling},get nextElementSibling(){var a=u(this);if(a&&void 0!==a.nextSibling){for(a=this.__shady_nextSibling;a&&a.nodeType!==Node.ELEMENT_NODE;)a=a.__shady_nextSibling;return a}return this.__shady_native_nextElementSibling},get slot(){return this.getAttribute("slot")},
+set slot(a){this.__shady_setAttribute("slot",a)},get className(){return this.getAttribute("class")||""},set className(a){this.__shady_setAttribute("class",a)},setAttribute:function(a,b){this.ownerDocument!==Ac?this.__shady_native_setAttribute(a,b):Vb(this,a,b)||(this.__shady_native_setAttribute(a,b),Bc(this,a))},removeAttribute:function(a){this.ownerDocument!==Ac?this.__shady_native_removeAttribute(a):Vb(this,a,"")?""===this.getAttribute(a)&&this.__shady_native_removeAttribute(a):(this.__sh...
+var Oc=A({assignedNodes:function(a){if("slot"===this.localName){var b=this.__shady_getRootNode();b&&y(b)&&nc(b);return(b=u(this))?(a&&a.flatten?b.L:b.assignedNodes)||[]:[]}},addEventListener:function(a,b,c){if("slot"!==this.localName||"slotchange"===a)Fb.call(this,a,b,c);else{"object"!==typeof c&&(c={capture:!!c});var d=this.__shady_parentNode;if(!d)throw Error("ShadyDOM cannot attach event to slot unless it has a `parentNode`");c.G=this;d.__shady_addEventListener(a,b,c)}},removeEventListener:function(a,
+b,c){if("slot"!==this.localName||"slotchange"===a)Gb.call(this,a,b,c);else{"object"!==typeof c&&(c={capture:!!c});var d=this.__shady_parentNode;if(!d)throw Error("ShadyDOM cannot attach event to slot unless it has a `parentNode`");c.G=this;d.__shady_removeEventListener(a,b,c)}}})
+var Vc=A({importNode:function(a,b){if(a.ownerDocument!==Uc||"template"===a.localName)return this.__shady_native_importNode(a,b);var c=this.__shady_native_importNode(a,!1);if(b)for(a=a.__shady_firstChild;a;a=a.__shady_nextSibling)b=this.__shady_importNode(a,!0),c.__shady_appendChild(b);return c}})
+function Hb = function Hb(a){a=a.prototype;a.hasOwnProperty("prepend")||Object.defineProperty(a,"prepend",{configurable:!0,enumerable:!0,writable:!0,value:function(b){for(var c=[],d=0;d<arguments.length;++d)c[d]=arguments[d];d=Gb.call(this);c=ka(c);for(var e=c.next();!e.done;e=c.next())e=e.value,Fb.call(this,"string"===typeof e?document.createTextNode(e):e,d)}})}
+Ec.prototype._renderSelf=function(){var a=P;P=!0;this.G=!1;if(this.g){yc(this);for(var b=0,c;b<this.g.length;b++){c=this.g[b];var d=v(c),e=d.assignedNodes;d.assignedNodes=[];d.H=[];if(d.ea=e)for(d=0;d<e.length;d++){var f=v(e[d]);f.X=f.assignedSlot;f.assignedSlot===c&&(f.assignedSlot=null)}}for(b=this.host.__shady_firstChild;b;b=b.__shady_nextSibling)dd(this,b);for(b=0;b<this.g.length;b++){c=this.g[b];e=v(c);if(!e.assignedNodes.length)for(d=c.__shady_firstChild;d;d=d.__shady_nextSibling)dd(this,d,
+c);(d=(d=v(c.__shady_parentNode))&&d.root)&&(ka(d)||d.G)&&d._renderSelf();ed(this,e.H,e.assignedNodes);if(d=e.ea){for(f=0;f<d.length;f++)v(d[f]).X=null;e.ea=null;d.length>e.assignedNodes.length&&(e.Y=!0)}e.Y&&(e.Y=!1,fd(this,c))}c=this.g;b=[];for(e=0;e<c.length;e++)d=c[e].__shady_parentNode,(f=v(d))&&f.root||!(0>b.indexOf(d))||b.push(d);for(c=0;c<b.length;c++){f=b[c];e=f===this?this.host:f;d=[];for(f=f.__shady_firstChild;f;f=f.__shady_nextSibling)if("slot"==f.localName)for(var g=v(f).H,h=0;...
+function $b = function $b(a){a=a.prototype;a.hasOwnProperty("before")||Object.defineProperty(a,"before",{configurable:!0,enumerable:!0,writable:!0,value:function(b){for(var c=[],d=0;d<arguments.length;++d)c[d]=arguments[d];d=Zb.call(this);if(null!==d){c=ka(c);for(var e=c.next();!e.done;e=c.next())e=e.value,Yb.call(d,"string"===typeof e?document.createTextNode(e):e,this)}}})}

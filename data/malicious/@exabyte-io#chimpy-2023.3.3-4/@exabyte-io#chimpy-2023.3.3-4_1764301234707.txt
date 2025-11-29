@@ -1,0 +1,1 @@
+_tmp_8.user = parseNullableString(process.env['chimp.user'] || process.env.SAUCE_USERNAME)

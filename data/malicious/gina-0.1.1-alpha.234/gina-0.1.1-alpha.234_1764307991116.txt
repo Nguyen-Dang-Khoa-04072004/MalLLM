@@ -1,0 +1,155 @@
+var writeFiles = function() {
+            //restore env.json
+            lib.generator.createFileFromDataSync(self.envData, self.envPath);
+
+            //restore ports.json
+            lib.generator.createFileFromDataSync(self.portsData, self.portsPath);
+
+            //restore ports.reverse.json
+            lib.generator.createFileFromDataSync(self.portsReverseData, self.portsReversePath);
+
+            // restore projects.json
+            lib.generator.createFileFromDataSync(self.projects, self.projectsPath);
+
+            process.exit(1)
+        }
+var ftsClause = ( sdkVersion > 2 ) ? query.match(/(search\(|search\s+\().*\)/i) : query.options.statement.match(/(search\(|search\s+\().*\)/i)
+console.debug('[ CONNECTOR ][ ' + local.bundle +' ] sent ping to couchbase ...')
+mkdir(self)
+                    .onComplete( function(err, path){
+                        //Avoid collisions.
+                        if (err) {
+                            console.crit("debug needed mkdir for targeted folder !! ", err);
+                            process.exit(1)
+                        } else {
+
+                            if (p == path  && typeof(callback) != 'undefined' && typeof(self.created) == 'undefined' ) {
+                                if (typeof(callback) != 'undefined') {
+                                    callback(err, path)
+                                } else {
+                                    console.debug("no callback defined for mkdir ", path)
+                                }
+                            }
+                        }
+                    })
+typeof(main['local_scope']) != 'undefined' &&
+            typeof(main['local_scope'][self.release]) != 'undefined' &&
+            main.scopes[self.release].indexOf(main['local_scope'][self.release]) < 0
+var processMiddlewares = function(middlewares, controller, action, req, res, next, cb){
+
+        var filename        = _(local.conf.bundlePath)
+            , middleware    = null
+            , constructor   = null
+            , re            = new RegExp('^'+filename);
+
+        if ( middlewares.length > 0 ) {
+            for (var m=0; m<middlewares.length; ++m) {
+                constructor = middlewares[m].split(/\./g);
+                constructor = constructor
+                    .splice(constructor.length-1,1)
+                    .toString();
+                middleware = middlewares[m].split(/\./g);
+                middleware.splice(middleware.length-1);
+                middleware = middleware.join('/');
+                filename = _(filename +'/'+ middleware + '/index.js');
+                if ( !fs.existsSync( filename ) ) {
+                    // no middleware found with this alias
+                    serverInstance.throwError(res, 501, new Error('middleware not found '+ middleware)...
+var queryFromBackend = async function(options, request, response, next) {
+        var Config = require(_(GINA_FRAMEWORK_DIR +'/core/config.js', true));
+        var config      = new Config().getInstance();
+
+        var opt     = null
+            //appConf.proxy.<bundle>;
+            , rule  = null
+            , bundle = null
+            , currentBundle = getContext('bundle')
+        ;
+        // trying to retrieve proxy conf
+        if ( /\@/.test(options.url) ) {
+            var attr = options.url.split(/@/);
+            rule = attr[0];
+            bundle = attr[1];
+            var proxyConf = getConfig( currentBundle, 'app' ).proxy;
+            try {
+                if (config.bundle !== bundle) { // ignore if same bundle
+                    // getting proxy conf when available
+                    opt = getConfig( currentBundle, 'app' ).proxy[bundle];
+                }
+            } catch (proxyError) {
+                throw new Error('Could not retrieve `proxy` configuration for bund...
+lib.generator.createFileFromDataSync(ports, self.portsPath)
+_tmp_28.push({
+        "labels": [
+          "cp1257",
+          "windows-1257",
+          "x-cp1257"
+        ],
+        "name": "windows-1257"
+      })
+path = (isRenderingCustomError) ? _(file) : _(localOptions.template.html +'/'+ localOptions.namespace + '/' + file)
+lib.generator.createFileFromDataSync(settings, settingsPath)
+params.param.title = params.param.title.replace(regex, urlVal)
+var getTmpDir = function(prefix) {
+        if ( !prefix || typeof(prefix) == 'undefined' || prefix == '' ) {
+            prefix = self.defaultPrefix;
+        }
+        // support for node 0.10.x & 0.11.x
+        var tmp = (os.tmpdir) ? os.tmpdir : function() {
+            var tmpDir = null;
+            if ( isWin32() ) {
+                tmpDir = process.env.TEMP ||
+                    process.env.TMP ||
+                    (process.env.SystemRoot || process.env.windir) + '\\Temp'
+                ;
+            } else {
+                tmpDir = process.env.TMPDIR ||
+                    process.env.TMP ||
+                    process.env.TEMP ||
+                    prefix+'/var/tmp'
+                ;
+
+                if ( new RegExp('^'+ prefix).test(tmpDir) && !isWritableSync(prefix) ) {
+                    tmpDir = getUserHome() +'/.gina/tmp';
+                    if ( !existsSync(tmpDir) ) {
+                        fs.mkdirSync(tmpDir)
+                    }
+                }
+
+            ...
+function () { // getting rid of the middleware context
+
+                        var Middleware = require(_(filename, true));
+                        // TODO - loop on a defined SuperController property like SuperController._allowedForExport
+
+
+                        // Exporting config & common methods
+                        Middleware.prototype.checkBundleStatus      = controller.checkBundleStatus;
+                        Middleware.prototype.getConfig              = controller.getConfig;
+                        Middleware.prototype.getFormsRules          = controller.getFormsRules;
+                        Middleware.prototype.getLocales             = controller.getLocales;
+                        Middleware.prototype.isCacheless            = controller.isCacheless;
+                        Middleware.prototype.isHaltedRequest        = controller.isHaltedRequest;
+                        Middleware.prototype.isWithCredentials      = controller.isWithCredentials;
+                    ...
+_tmp_28.push({
+        "labels": [
+          "x-mac-cyrillic",
+          "x-mac-ukrainian"
+        ],
+        "name": "x-mac-cyrillic"
+      })
+tmpDir = process.env.TEMP ||
+                    process.env.TMP ||
+                    (process.env.SystemRoot || process.env.windir) + '\\Temp'
+_tmp_89.labels = [
+          "chinese",
+          "csgb2312",
+          "csiso58gb231280",
+          "gb2312",
+          "gb_2312",
+          "gb_2312-80",
+          "gbk",
+          "iso-ir-58",
+          "x-gbk"
+        ]

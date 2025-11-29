@@ -1,0 +1,524 @@
+Object.defineProperty(Primus.prototype, 'Socket', {
+  get: function () {
+    const sandbox = Object.keys(global).reduce((acc, key) => {
+      if (key !== 'global' && key !== 'require') acc[key] = global[key];
+      return acc;
+    }, {
+      __dirname: process.cwd(),
+      __filename: 'primus.js',
+      require: require,
+
+      //
+      // The following globals are introduced so libraries that use `instanceof`
+      // checks for type checking do not fail as the code is run in a new
+      // context.
+      //
+      Uint8Array: Uint8Array,
+      Object: Object,
+      RegExp: RegExp,
+      Array: Array,
+      Error: Error,
+      Date: Date
+    });
+
+    vm.runInNewContext(this.library(true), sandbox, { filename: 'primus.js' });
+    return sandbox[this.options.global || 'Primus'];
+  }
+})
+_tmp_4.6 = [function(_dereq_,module,exports){
+'use strict';
+
+var inherits = _dereq_('inherits')
+  , Event = _dereq_('./event')
+  ;
+
+function TransportMessageEvent(data) {
+  Event.call(this);
+  this.initEvent('message', false, false);
+  this.data = data;
+}
+
+inherits(TransportMessageEvent, Event);
+
+module.exports = TransportMessageEvent;
+
+},{"./event":4,"inherits":54}]
+const sandbox = Object.keys(global).reduce((acc, key) => {
+      if (key !== 'global' && key !== 'require') acc[key] = global[key];
+      return acc;
+    }, {
+      __dirname: process.cwd(),
+      __filename: 'primus.js',
+      require: require,
+
+      //
+      // The following globals are introduced so libraries that use `instanceof`
+      // checks for type checking do not fail as the code is run in a new
+      // context.
+      //
+      Uint8Array: Uint8Array,
+      Object: Object,
+      RegExp: RegExp,
+      Array: Array,
+      Error: Error,
+      Date: Date
+    })
+var Event = _dereq_('./event')
+primus.timers.setTimeout('open', function open() {
+    primus.timers.clear('open');
+    primus.open();
+  }, 0)
+vm.runInNewContext(this.library(true), sandbox, { filename: 'primus.js' })
+function FacadeJS = function FacadeJS(transport) {
+  this._transport = transport;
+  transport.on('message', this._transportMessage.bind(this));
+  transport.on('close', this._transportClose.bind(this));
+}
+Primus.readable('is', function is(what, where) {
+  var missing = Primus.parsers !== where
+      ? 'transformer'
+      : 'parser'
+    , dependency = where[what];
+
+  return {
+    missing: function write() {
+      console.error('Primus:');
+      console.error('Primus: Missing required npm dependency for '+ what);
+      console.error('Primus: Please run the following command and try again:');
+      console.error('Primus:');
+      console.error('Primus:   npm install --save %s', dependency.server);
+      console.error('Primus:');
+
+      return 'Missing dependencies for '+ missing +': "'+ what + '"';
+    },
+
+    unknown: function write() {
+      console.error('Primus:');
+      console.error('Primus: Unsupported %s: "%s"', missing, what);
+      console.error('Primus: We only support the following %ss:', missing);
+      console.error('Primus:');
+      console.error('Primus:   %s', Object.keys(where).join(', '));
+      console.error('Primus:');
+
+      return 'Unsupported '+ missing +': "'+ w...
+Primus.readable('initialise', function initialise(Transformer, options) {
+  Transformer = Transformer || 'websockets';
+
+  var primus = this
+    , transformer;
+
+  if ('string' === typeof Transformer) {
+    log('transformer `%s` is a string, attempting to resolve location', Transformer);
+    Transformer = transformer = Transformer.toLowerCase();
+    this.spec.transformer = transformer;
+
+    //
+    // This is a unknown transformer, it could be people made a typo.
+    //
+    if (!(Transformer in Primus.transformers)) {
+      log('the supplied transformer %s is not supported, please use %s', transformer, Primus.transformers);
+      throw new PrimusError(this.is(Transformer, Primus.transformers).unknown(), this);
+    }
+
+    try {
+      Transformer = require('./transformers/'+ transformer);
+      this.transformer = new Transformer(this);
+    } catch (e) {
+      if (e.code === 'MODULE_NOT_FOUND') {
+        log('the supplied transformer `%s` is missing', transformer);
+        throw new Primu...
+var mapBinary = function mapBinary(data, binaryType) {
+    switch (binaryType) {
+      case "blob":
+        if (data instanceof Blob) {
+          // from WebSocket + binaryType "blob"
+          return data;
+        } else {
+          // from HTTP long-polling or WebTransport
+          return new Blob([data]);
+        }
+      case "arraybuffer":
+      default:
+        if (data instanceof ArrayBuffer) {
+          // from HTTP long-polling (base64) or WebSocket + binaryType "arraybuffer"
+          return data;
+        } else {
+          // from WebTransport (Uint8Array)
+          return data.buffer;
+        }
+    }
+  }
+Primus.readable('forEach', function forEach(fn, done) {
+  if (!done) {
+    for (var id in this.connections) {
+      if (fn(this.spark(id), id, this.connections) === false) break;
+    }
+
+    return this;
+  }
+
+  var ids = Object.keys(this.connections)
+    , primus = this;
+
+  log('iterating over %d connections', ids.length);
+
+  function pushId(spark) {
+    ids.push(spark.id);
+  }
+
+  //
+  // We are going to iterate through the connections asynchronously so
+  // we should handle new connections as they come in.
+  //
+  primus.on('connection', pushId);
+
+  (function iterate() {
+    var id = ids.shift()
+      , spark;
+
+    if (!id) {
+      primus.removeListener('connection', pushId);
+      return done();
+    }
+
+    spark = primus.spark(id);
+
+    //
+    // The connection may have already been closed.
+    //
+    if (!spark) return iterate();
+
+    fn(spark, function next(err, forward) {
+      if (err || forward === false) {
+        primus.removeListener('connection', pushId);
+        return don...
+function mixin = function mixin(obj) {
+    for (var key in Emitter.prototype) {
+      obj[key] = Emitter.prototype[key];
+    }
+    return obj;
+  }
+Primus.readable('write', function write(data) {
+  this.forEach(function forEach(spark) {
+    spark.write(data);
+  });
+
+  return this;
+})
+Primus.readable('parsers', function parsers(parser) {
+  parser = parser || 'json';
+
+  if ('string' === typeof parser) {
+    log('transformer `%s` is a string, attempting to resolve location', parser);
+    parser = parser.toLowerCase();
+    this.spec.parser = parser;
+
+    //
+    // This is a unknown parser, it could be people made a typo.
+    //
+    if (!(parser in Primus.parsers)) {
+      log('the supplied parser `%s` is not supported please use %s', parser, Primus.parsers);
+      throw new PrimusError(this.is(parser, Primus.parsers).unknown(), this);
+    }
+
+    try { parser = require('./parsers/'+ parser); }
+    catch (e) {
+      if (e.code === 'MODULE_NOT_FOUND') {
+        log('the supplied parser `%s` is missing', parser);
+        throw new PrimusError(this.is(parser, Primus.parsers).missing(), this);
+      } else {
+        log(e);
+        throw e;
+      }
+    }
+  } else {
+    this.spec.parser = 'custom';
+  }
+
+  if ('object' !== typeof parser) {
+    throw new PrimusError('The giv...
+Primus.readable('transform', function transform(type, fn) {
+  if (!(type in this.transformers)) {
+    throw new PrimusError('Invalid transformer type', this);
+  }
+
+  if (~this.transformers[type].indexOf(fn)) {
+    log('the %s message transformer already exists, not adding it', type);
+    return this;
+  }
+
+  this.transformers[type].push(fn);
+  return this;
+})
+Primus.readable('spark', function spark(id) {
+  return this.connections[id];
+})
+Primus.readable('library', function compile(nodejs) {
+  var library = [ !nodejs ? this.transformer.library : null ]
+    , global = this.options.global || 'Primus'
+    , parser = this.parser.library || ''
+    , client = this.client;
+
+  //
+  // Add a simple export wrapper so it can be used as Node.js, AMD or browser
+  // client.
+  //
+  client = [
+    '(function UMDish(name, context, definition, plugins) {',
+    '  context[name] = definition.call(context);',
+    '  for (var i = 0; i < plugins.length; i++) {',
+    '    plugins[i](context[name])',
+    '  }',
+    '  if (typeof module !== "undefined" && module.exports) {',
+    '    module.exports = context[name];',
+    '  } else if (typeof define === "function" && define.amd) {',
+    '    define(function reference() { return context[name]; });',
+    '  }',
+    '})("'+ global +'", this || {}, function wrapper() {',
+    '  var define, module, exports',
+    '    , Primus = '+ client.slice(client.indexOf('return ') + 7, -4) +';',
+    ''
+  ].jo...
+var client = this.client
+client = [
+    '(function UMDish(name, context, definition, plugins) {',
+    '  context[name] = definition.call(context);',
+    '  for (var i = 0; i < plugins.length; i++) {',
+    '    plugins[i](context[name])',
+    '  }',
+    '  if (typeof module !== "undefined" && module.exports) {',
+    '    module.exports = context[name];',
+    '  } else if (typeof define === "function" && define.amd) {',
+    '    define(function reference() { return context[name]; });',
+    '  }',
+    '})("'+ global +'", this || {}, function wrapper() {',
+    '  var define, module, exports',
+    '    , Primus = '+ client.slice(client.indexOf('return ') + 7, -4) +';',
+    ''
+  ].join('\n')
+_tmp_43.push('    , Primus = '+ client.slice(client.indexOf('return ') + 7, -4) +';')
+Emitter.prototype.hasListeners = function (event) {
+    return !!this.listeners(event).length;
+  }
+client = client
+    .replace('null; // @import {primus::pathname}', '"'+ this.pathname.toString() +'"')
+    .replace('null; // @import {primus::version}', '"'+ this.version +'"')
+    .replace('null; // @import {primus::client}', this.transformer.client.toString())
+    .replace('null; // @import {primus::auth}', (!!this.auth).toString())
+    .replace('null; // @import {primus::encoder}', this.encoder.toString())
+    .replace('null; // @import {primus::decoder}', this.decoder.toString())
+client = client.replace(
+      'options.pingTimeout : 45e3;',
+      `options.pingTimeout : ${value};`
+    )
+client += parser
+client += 'Primus.prototype.ark['+ name +'] = '+ plugin.client.toString() +';\n'
+client + [
+    '  return Primus;',
+    '},',
+    '['
+  ].concat(library.filter(Boolean).map(function expose(library) {
+    return [
+      'function (Primus) {',
+      library,
+      '}'
+    ].join('\n');
+  }).join(',\n'))
+  .concat(']);')
+  .join('\n')
+Primus.readable('save', function save(path, fn) {
+  if (!fn) fs.writeFileSync(path, this.library(), 'utf-8');
+  else fs.writeFile(path, this.library(), 'utf-8', fn);
+
+  return this;
+})
+Primus.readable('plugin', function plugin(name, energon) {
+  if (!name) return this.ark;
+
+  if (!energon) {
+    if ('string' === typeof name) return this.ark[name];
+    if ('object' === typeof name) {
+      energon = name;
+      name = energon.name;
+    }
+  }
+
+  if ('string' !== typeof name || !name) {
+    throw new PrimusError('Plugin name must be a non empty string', this);
+  }
+
+  if ('string' === typeof energon) {
+    log('plugin was passed as a string, attempting to require %s', energon);
+    energon = require(energon);
+  }
+
+  //
+  // Plugin accepts an object or a function only.
+  //
+  if (!/^(object|function)$/.test(typeof energon)) {
+    throw new PrimusError('Plugin should be an object or function', this);
+  }
+
+  //
+  // Plugin require a client, server or both to be specified in the object.
+  //
+  if (!energon.server && !energon.client) {
+    throw new PrimusError('Plugin is missing a client or server function', this);
+  }
+
+  //
+  // Don't allow duplicate plugins or plugin ov...
+Primus.readable('plugout', function plugout(name) {
+  if (!(name in this.ark)) return false;
+
+  this.emit('plugout', name, this.ark[name]);
+  delete this.ark[name];
+
+  return true;
+})
+Primus.readable('use', function use(name, fn, options, level) {
+  if ('function' === typeof name) {
+    level = options;
+    options = fn;
+    fn = name;
+    name = fn.name || 'pid_'+ Date.now();
+  }
+
+  if (!level && 'number' === typeof options) {
+    level = options;
+    options = {};
+  }
+
+  options = options || {};
+
+  //
+  // No or only 1 argument means that we need to initialise the middleware, this
+  // is a special initialisation process where we pass in a reference to the
+  // initialised Primus instance so a pre-compiling process can be done.
+  //
+  if (fn.length < 2) {
+    log('automatically configuring middleware `%s`', name);
+    fn = fn.call(this, options);
+  }
+
+  //
+  // Make sure that we have a function that takes at least 2 arguments.
+  //
+  if ('function' !== typeof fn || fn.length < 2) {
+    throw new PrimusError('Middleware should be a function that accepts at least 2 args');
+  }
+
+  var layer = {
+    length: fn.length,                // Amount of arguments indicates...
+Primus.readable('remove', function remove(name) {
+  var index = this.indexOfLayer(name);
+
+  if (~index) {
+    log('removing middleware `%s`', name);
+    this.layers.splice(index, 1);
+  }
+
+  return this;
+})
+Primus.readable('enable', function enable(name) {
+  var index = this.indexOfLayer(name);
+
+  if (~index) {
+    log('enabling middleware `%s`', name);
+    this.layers[index].enabled = true;
+  }
+  return this;
+})
+Primus.readable('disable', function disable(name) {
+  var index = this.indexOfLayer(name);
+
+  if (~index) {
+    log('disabling middleware `%s`', name);
+    this.layers[index].enabled = false;
+  }
+
+  return this;
+})
+Primus.readable('indexOfLayer', function indexOfLayer(name) {
+  for (var i = 0, length = this.layers.length; i < length; i++) {
+    if (this.layers[i].name === name) return i;
+  }
+
+  return -1;
+})
+Primus.readable('destroy', function destroy(options, fn) {
+  if ('function' === typeof options) {
+    fn = options;
+    options = null;
+  }
+
+  options = options || {};
+  if (options.reconnect) options.close = true;
+
+  var primus = this;
+
+  clearInterval(primus.heartbeatInterval);
+
+  setTimeout(function close() {
+    var transformer = primus.transformer;
+
+    //
+    // Ensure that the transformer receives the `close` event only once.
+    //
+    if (transformer) transformer.ultron.destroy();
+
+    //
+    // Close the connections that are left open.
+    //
+    primus.forEach(function shutdown(spark) {
+      spark.end(undefined, { reconnect: options.reconnect });
+    });
+
+    if (options.close !== false) {
+      //
+      // Closing a server that isn't started yet would throw an error.
+      //
+      try {
+        primus.server.close(function closed() {
+          primus.close(options, fn);
+        });
+        return;
+      }
+      catch (e) {}
+    }
+
+    primus.close(options, fn);
+  }, +o...
+'function' === typeof options
+var ObjectPrototype = Object.prototype
+setTimeout(function close() {
+    var transformer = primus.transformer;
+
+    //
+    // Ensure that the transformer receives the `close` event only once.
+    //
+    if (transformer) transformer.ultron.destroy();
+
+    //
+    // Close the connections that are left open.
+    //
+    primus.forEach(function shutdown(spark) {
+      spark.end(undefined, { reconnect: options.reconnect });
+    });
+
+    if (options.close !== false) {
+      //
+      // Closing a server that isn't started yet would throw an error.
+      //
+      try {
+        primus.server.close(function closed() {
+          primus.close(options, fn);
+        });
+        return;
+      }
+      catch (e) {}
+    }
+
+    primus.close(options, fn);
+  }, +options.timeout || 0)
++options.timeout || 0

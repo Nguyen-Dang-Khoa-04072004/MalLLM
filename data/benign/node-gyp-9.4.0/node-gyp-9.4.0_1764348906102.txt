@@ -1,0 +1,41 @@
+const devDir = path.resolve(gyp.devDir, release.versionDir)
+this.findVisualStudio2017OrNewer((info) => {
+      if (info) {
+        return this.succeed(info)
+      }
+      this.findVisualStudio2015((info) => {
+        if (info) {
+          return this.succeed(info)
+        }
+        this.findVisualStudio2013((info) => {
+          if (info) {
+            return this.succeed(info)
+          }
+          this.fail()
+        })
+      })
+    })
+this.addLog(
+              'checking Python explicitly set from NODE_GYP_FORCE_PYTHON')
+fs.unlink(symlinkDestination, function (err) {
+      if (err && err.code !== 'ENOENT') {
+        log.verbose('python symlink', 'error when attempting to remove existing symlink')
+        log.verbose('python symlink', err.stack, 'errno: ' + err.errno)
+      }
+      fs.symlink(python, symlinkDestination, function (err) {
+        if (err) {
+          log.verbose('python symlink', 'error when attempting to create Python symlink')
+          log.verbose('python symlink', err.stack, 'errno: ' + err.errno)
+        }
+      })
+    })
+_tmp_4.libPath = normalizePath(path.relative(url.parse(baseUrl).path, url.parse(libUrl64).path))
+_tmp_19.push('&{Add-Type -Path \'' + csFile + '\';' + '[VisualStudioConfiguration.Main]::PrintJson()}')
+await fs.promises.writeFile(configPath, [prefix, json, ''].join('\n'))
+log.verbose('ensuring devDir is created', devDir)
+const created = await fs.promises.mkdir(devDir, { recursive: true })
+const tarExtractDir = win ? await fs.promises.mkdtemp(path.join(os.tmpdir(), 'node-gyp-tmp-')) : devDir
+const installVersionPath = path.resolve(tarExtractDir, 'installVersion')
+var nodeLibFile = path.join(nodeDir,
+        !gyp.opts.nodedir ? '<(target_arch)' : '$(Configuration)',
+        release.name + '.lib')

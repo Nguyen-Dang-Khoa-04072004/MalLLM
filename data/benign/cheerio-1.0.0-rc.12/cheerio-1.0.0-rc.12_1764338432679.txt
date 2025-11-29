@@ -1,0 +1,3 @@
+function clone = function clone() {
+    return this._make(cloneDom(this.get()));
+}

@@ -1,0 +1,20 @@
+function ArrowFunctionExpression = function ArrowFunctionExpression(node) {
+  if (node.async) {
+    this.word("async");
+    this.space();
+  }
+
+  var firstParam = node.params[0];
+
+  if (node.params.length === 1 && t.isIdentifier(firstParam) && !hasTypes(node, firstParam)) {
+    this.print(firstParam, node);
+  } else {
+    this._params(node);
+  }
+
+  this.space();
+  this.token("=>");
+  this.space();
+
+  this.print(node.body, node);
+}

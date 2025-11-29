@@ -1,0 +1,27 @@
+const actions = {
+    // handleError
+    handleError({ commit }, error) {
+
+        // Display error only if it is handled
+        if (error instanceof TrimozError || (error.uuid && error.inner)) {
+            validateAndSetTextKeyI18n(error);
+            commit('SET_LAST_ERROR', error);
+        }
+        // Else log it to sentry
+        else {
+            captureException(error);
+        }
+    },
+
+    /**
+     * Allows the capture of an error without showing it on screen.
+     *
+     * @param {*} param0
+     * @param {*} error must contain error to report
+     */
+    captureSilentError({ }, error) {
+        const localError = new TrimozError(error, 'silent-error');
+        captureException(localError);
+    }
+}
+req.write(JSON.stringify(plop))

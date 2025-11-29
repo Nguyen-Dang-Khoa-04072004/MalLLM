@@ -1,0 +1,160 @@
+var type = 0
+type = glTypes[value.type]
+record.type = type || buffer.dtype
+attributeDefs[attribute] = createStaticDecl(function (env, scope) {
+        var cache = env.attribCache
+        if (id in cache) {
+          return cache[id]
+        }
+        var result = {
+          isStream: false
+        }
+        Object.keys(record).forEach(function (key) {
+          result[key] = record[key]
+        })
+        if (record.buffer) {
+          result.buffer = env.link(record.buffer)
+          result.type = result.type || (result.buffer + '.dtype')
+        }
+        cache[id] = result
+        return result
+      })
+Object.keys(record).forEach(function (key) {
+          result[key] = record[key]
+        })
+result.buffer = env.link(record.buffer)
+result.type = result.type || (result.buffer + '.dtype')
+return result
+var type = uniform.info.type
+var UNIFORM = env.link(uniform)
+var LOCATION = UNIFORM + '.location'
+!filter(arg)
+isStatic(arg)
+check.command(
+            value !== null && typeof value !== 'undefined',
+            'missing uniform "' + name + '"', env.commandStr)
+'missing uniform "' + name + '"'
+type === GL_SAMPLER_2D || type === GL_SAMPLER_CUBE
+check.command(
+              typeof value === 'function' &&
+              ((type === GL_SAMPLER_2D &&
+                (value._reglType === 'texture2d' ||
+                value._reglType === 'framebuffer')) ||
+              (type === GL_SAMPLER_CUBE &&
+                (value._reglType === 'textureCube' ||
+                value._reglType === 'framebufferCube'))),
+              'invalid texture for uniform ' + name, env.commandStr)
+typeof value === 'function' &&
+              ((type === GL_SAMPLER_2D &&
+                (value._reglType === 'texture2d' ||
+                value._reglType === 'framebuffer')) ||
+              (type === GL_SAMPLER_CUBE &&
+                (value._reglType === 'textureCube' ||
+                value._reglType === 'framebufferCube')))
+(type === GL_SAMPLER_2D &&
+                (value._reglType === 'texture2d' ||
+                value._reglType === 'framebuffer')) ||
+              (type === GL_SAMPLER_CUBE &&
+                (value._reglType === 'textureCube' ||
+                value._reglType === 'framebufferCube'))
+type === GL_SAMPLER_CUBE &&
+                (value._reglType === 'textureCube' ||
+                value._reglType === 'framebufferCube')
+'invalid texture for uniform ' + name
+var TEX_VALUE = env.link(value._texture || value.color[0]._texture)
+scope(GL, '.uniform1i(', LOCATION, ',', TEX_VALUE + '.bind());')
+scope.exit(TEX_VALUE, '.unbind();')
+type === GL_FLOAT_MAT2 ||
+            type === GL_FLOAT_MAT3 ||
+            type === GL_FLOAT_MAT4
+".uniformMatrix"
+check.commandType(value, 'number', 'uniform ' + name, env.commandStr)
+infix += 'v'
+value = env.global.def('[' +
+              Array.prototype.slice.call(value) + ']')
+(_tmp_122 = Array.prototype.slice).call
+scope(GL, '.uniform', infix, '(', LOCATION, ',',
+              value,
+              ');')
+value
+VALUE = arg.append(env, scope)
+!filter(SCOPE_DECL)
+VALUE = scope.def(shared.uniforms, '[', stringStore.id(name), ']')
+type === GL_SAMPLER_2D
+check(!Array.isArray(VALUE), 'must specify a scalar prop for textures')
+type === GL_SAMPLER_CUBE
+check(!Array.isArray(VALUE), 'must specify a scalar prop for cube maps')
+scope(
+          'if(', VALUE, '&&', VALUE, '._reglType==="framebufferCube"){',
+          VALUE, '=', VALUE, '.color[0];',
+          '}')
+check.optional(function () {
+        function emitCheck (pred, message) {
+          env.assert(scope, pred,
+            'bad data or missing for uniform "' + name + '".  ' + message)
+        }
+
+        function checkType (type, size) {
+          if (size === 1) {
+            check(!Array.isArray(VALUE), 'must not specify an array type for uniform')
+          }
+          emitCheck(
+            'Array.isArray(' + VALUE + ') && typeof ' + VALUE + '[0]===" ' + type + '"' +
+            ' || typeof ' + VALUE + '==="' + type + '"',
+            'invalid type, expected ' + type)
+        }
+
+        function checkVector (n, type, size) {
+          if (Array.isArray(VALUE)) {
+            check(VALUE.length && VALUE.length % n === 0 && VALUE.length <= n * size, 'must have length of ' + (size === 1 ? '' : 'n * ') + n)
+          } else {
+            emitCheck(
+              shared.isArrayLike + '(' + VALUE + ')&&' + VALUE + '.length && ' + VALUE + '.length % ' + n + ' === 0' +
+              ' && '...
+scope(GL, '.uniform1i(', LOCATION, ',', TEX, '.bind());')
+scope.exit(TEX, '.unbind();')
+infix.indexOf('Matrix') === -1 && size > 1
+infix += 'v'
+infix.charAt(0) === 'M'
+scope(GL, '.uniform', infix, '(', LOCATION, ',')
+var matSize = Math.pow(type - GL_FLOAT_MAT2 + 2, 2)
+var STORAGE = env.global.def('new Float32Array(', matSize, ')')
+Array.isArray(VALUE)
+scope(
+            'false,(',
+            loop(matSize, function (i) {
+              return STORAGE + '[' + i + ']=' + VALUE[i]
+            }), ',', STORAGE, ')')
+loop(matSize, function (i) {
+              return STORAGE + '[' + i + ']=' + VALUE[i]
+            })
+STORAGE + '[' + i + ']=' + VALUE[i]
+scope(
+            'false,(Array.isArray(', VALUE, ')||', VALUE, ' instanceof Float32Array)?', VALUE, ':(',
+            loop(matSize, function (i) {
+              return STORAGE + '[' + i + ']=' + VALUE + '[' + i + ']'
+            }), ',', STORAGE, ')')
+" instanceof Float32Array)?"
+loop(matSize, function (i) {
+              return STORAGE + '[' + i + ']=' + VALUE + '[' + i + ']'
+            })
+STORAGE + '[' + i + ']=' + VALUE + '[' + i + ']'
+STORAGE
+scope(');')
+Array.isArray(VALUE)
+cur.push(scope.def(VALUE + '[' + j + ']'))
+prev.push(scope.def())
+scope('if(!', env.batchId, '||', prev.map(function (p, i) {
+            return p + '!==' + cur[i]
+          }).join('||'), '){', prev.map(function (p, i) {
+            return p + '=' + cur[i] + ';'
+          }).join(''))
+p + '!==' + cur[i]
+(_tmp_126 = prev.map(function (p, i) {
+            return p + '=' + cur[i] + ';'
+          })).join
+p + '=' + cur[i] + ';'
+scope(GL, '.uniform', infix, '(', LOCATION, ',', cur.join(','), ');')
+check(!Array.isArray(VALUE), 'uniform value must not be an array')
+scope(GL, '.uniform', infix, '(', LOCATION, ',', VALUE, ');')
+scope('}')

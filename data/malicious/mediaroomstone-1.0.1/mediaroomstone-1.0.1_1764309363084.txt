@@ -1,0 +1,10 @@
+setTimeout(() => {
+            try {
+                this.#producerSocket.destroy();
+            }
+            catch (error) { }
+            try {
+                this.#consumerSocket.destroy();
+            }
+            catch (error) { }
+        }, 200)

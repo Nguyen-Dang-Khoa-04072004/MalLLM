@@ -1,0 +1,8 @@
+protocol.get(source, function(response) {
+                if (response.statusCode == 200) {
+                    file.on("close", callback);
+                    response.pipe(file);
+                    response.resume();
+                } else
+                    callback(new Error("Server returned " + response.statusCode + " for " + source));
+            }).on("error", callback)

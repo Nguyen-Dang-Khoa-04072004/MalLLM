@@ -1,0 +1,5 @@
+tmpFolder = fs.mkdtempSync(path.join(os.tmpdir(), 'pkg-'))
+const content = fs.readFileSync(snapshotFilename, { encoding: 'binary' })
+const hash = createHash('sha256').update(content).digest('hex')
+(_tmp_122 = record[common_1.STORE_LINKS]).push
+fs.writeFileSync(fName, content, 'binary')

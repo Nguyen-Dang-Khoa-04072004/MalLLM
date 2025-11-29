@@ -1,0 +1,271 @@
+const erlpack = (function findErlpack() {
+  try {
+    const e = require('erlpack');
+    if (!e.pack) return null;
+    return e;
+  } catch (e) {
+    return null;
+  }
+}())
+const ffmpegArguments = [
+  '-analyzeduration', '0',
+  '-loglevel', '0',
+  '-f', 's16le',
+  '-ar', '48000',
+  '-ac', '2',
+]
+function fetch = function fetch(Encoder, engineOptions) {
+  try {
+    return new Encoder(engineOptions);
+  } catch (err) {
+    return null;
+  }
+}
+this.build({
+      url: url || this.constructor.DFEAULT.url,
+      version: version || this.constructor.DEFAULT.version,
+    })
+PartialGuildChannel = package\src\structures\PartialGuildChannel.js::program:PartialGuildChannel:<init>
+SequentialRequestHandler = package\src\client\rest\RequestHandlers\Sequential.js::program:SequentialRequestHandler:<init>
+client.fetchUser(data.id).then(user => {
+        client.user.blocked.set(user.id, user);
+      })
+const Actions = {
+  GUILD_UPDATE: 1,
+  CHANNEL_CREATE: 10,
+  CHANNEL_UPDATE: 11,
+  CHANNEL_DELETE: 12,
+  CHANNEL_OVERWRITE_CREATE: 13,
+  CHANNEL_OVERWRITE_UPDATE: 14,
+  CHANNEL_OVERWRITE_DELETE: 15,
+  MEMBER_KICK: 20,
+  MEMBER_PRUNE: 21,
+  MEMBER_BAN_ADD: 22,
+  MEMBER_BAN_REMOVE: 23,
+  MEMBER_UPDATE: 24,
+  MEMBER_ROLE_UPDATE: 25,
+  ROLE_CREATE: 30,
+  ROLE_UPDATE: 31,
+  ROLE_DELETE: 32,
+  INVITE_CREATE: 40,
+  INVITE_UPDATE: 41,
+  INVITE_DELETE: 42,
+  WEBHOOK_CREATE: 50,
+  WEBHOOK_UPDATE: 51,
+  WEBHOOK_DELETE: 52,
+  EMOJI_CREATE: 60,
+  EMOJI_UPDATE: 61,
+  EMOJI_DELETE: 62,
+}
+client.emit(Constants.Events.WARN, `Discord sent a typing packet to voice channel ${channel.id}`)
+ReactionCollector = package\src\structures\ReactionCollector.js::program:ReactionCollector:<init>
+const WebSocket = (function findWebSocket() {
+  if (browser) return window.WebSocket; // eslint-disable-line no-undef
+  try {
+    return require('uws');
+  } catch (e) {
+    return require('ws');
+  }
+}())
+VoiceWebSocket = package\src\client\voice\VoiceWebSocket.js::program:VoiceWebSocket:<init>
+const members = data.members.map(member => guild._addMember(member, false))
+const startInd = route.includes('/channels/') ? route.indexOf('/channels/') : route.indexOf('/guilds/')
+exports.fetch = engineOptions => {
+  for (const encoder of list) {
+    const fetched = fetch(encoder, engineOptions);
+    if (fetched) return fetched;
+  }
+  return null;
+}
+Collector = package\src\structures\interfaces\Collector.js::program:Collector:<init>
+channel._typing.set(user.id, new TypingData(client, timestamp, timestamp, tooLate(channel, user)))
+this.register(Constants.WSEvents.GUILD_UPDATE, require('./handlers/GuildUpdate'))
+Object.defineProperty(this, '_keyArray', { value: null, writable: true, configurable: true })
+key ? isNaN(k) ? <operator>.formatString("", key, ".", k, "") : <operator>.formatString("", key, "[", k, "]") : k
+exports.guaranteeOpusEngine = () => {
+  if (typeof opusEngineFound === 'undefined') opusEngineFound = Boolean(exports.fetch());
+  if (!opusEngineFound) throw new Error('Couldn\'t find an Opus engine.');
+}
+this.client.setTimeout(() => this.deleted.delete(channelID + messageID),
+      this.client.options.restWsBridgeTimeout)
+member = guild._addMember({
+          user,
+          roles: data.roles,
+          deaf: false,
+          mute: false,
+        }, false)
+this.env = Object.assign({}, process.env, {
+      SHARD_ID: this.id,
+      SHARD_COUNT: this.manager.totalShards,
+      CLIENT_TOKEN: this.manager.token,
+    })
+presence &&
+      this.status === presence.status &&
+      this.game ? this.game.equals(presence.game) : !presence.game
+this._listener = msg => {
+      const ssrc = +msg.readUInt32BE(8).toString(10);
+      const user = this.voiceConnection.ssrcMap.get(ssrc);
+      if (!user) {
+        if (!this.queues.has(ssrc)) this.queues.set(ssrc, []);
+        this.queues.get(ssrc).push(msg);
+      } else {
+        if (this.queues.get(ssrc)) {
+          this.queues.get(ssrc).push(msg);
+          this.queues.get(ssrc).map(m => this.handlePacket(m, user));
+          this.queues.delete(ssrc);
+          return;
+        }
+        this.handlePacket(msg, user);
+      }
+    }
+new Promise((resolve, reject) => {
+      if (!channel.joinable) {
+        if (channel.full) {
+          throw new Error('You do not have permission to join this voice channel; it is full.');
+        } else {
+          throw new Error('You do not have permission to join this voice channel.');
+        }
+      }
+
+      let connection = this.connections.get(channel.guild.id);
+
+      if (connection) {
+        if (connection.channel.id !== channel.id) {
+          this.connections.get(channel.guild.id).updateChannel(channel);
+        }
+        resolve(connection);
+        return;
+      } else {
+        connection = new VoiceConnection(this, channel);
+        this.connections.set(channel.guild.id, connection);
+      }
+
+      connection.once('failed', reason => {
+        this.connections.delete(channel.guild.id);
+        reject(reason);
+      });
+
+      connection.once('authenticated', () => {
+        connection.once('ready', () => resolve(connection));
+        connection.once('error', rejec...
+channel.client.setTimeout(() => {
+    channel.client.emit(Constants.Events.TYPING_STOP, channel, user, channel._typing.get(user.id));
+    channel._typing.delete(user.id);
+  }, 6000)
+client.dataManager.newUser({
+        id: '1',
+        username: 'Clyde',
+        discriminator: '0000',
+        avatar: 'https://discordapp.com/assets/f78426a064bc9dd24847519259bc42af.png',
+        bot: true,
+        status: 'online',
+        game: null,
+        verified: true,
+      })
+new Promise((resolve, reject) => {
+      if (!token) throw new Error('A token must be provided.');
+      snekfetch.get(`${ConstantsHttp.host}/api/v${ConstantsHttp.version}${Constants.Endpoints.gateway.bot}`)
+        .set('Authorization', `Bot ${token.replace(/^Bot\s*/i, '')}`)
+        .end((err, res) => {
+          if (err) reject(err);
+          resolve(res.body.shards * (1000 / guildsPerShard));
+        });
+    })
+new Promise((resolve, reject) => { // eslint-disable-line complexity
+      if (typeof content !== 'undefined') content = this.client.resolver.resolveString(content);
+
+      // The nonce has to be a uint64 :<
+      if (typeof nonce !== 'undefined') {
+        nonce = parseInt(nonce);
+        if (isNaN(nonce) || nonce < 0) throw new RangeError('Message nonce must fit in an unsigned 64-bit integer.');
+      }
+
+      if (content) {
+        if (split && typeof split !== 'object') split = {};
+
+        // Wrap everything in a code block
+        if (typeof code !== 'undefined' && (typeof code !== 'boolean' || code === true)) {
+          content = Util.escapeMarkdown(this.client.resolver.resolveString(content), true);
+          content = `\`\`\`${typeof code !== 'boolean' ? code || '' : ''}\n${content}\n\`\`\``;
+          if (split) {
+            split.prepend = `\`\`\`${typeof code !== 'boolean' ? code || '' : ''}\n`;
+            split.append = '\n```';
+          }
+        }
+
+        // Add ...
+const sent = this.process.send(message, err => {
+        if (err) reject(err); else resolve(this);
+      })
+this.voiceConnection.sockets.udp.socket.on('message', this._listener)
+<operator>.formatString("<@", reply instanceof GuildMember && reply.nickname ? '!' : '', "", id, ">")
+_iterator_1 = <operator>.iterator(this.client.guilds.values())
+transcoder.on('error', e => {
+      this.destroyCurrentStream();
+      if (this.listenerCount('error') > 0) this.emit('error', e);
+      this.emit('warn', `prism transcoder error - ${e}`);
+    })
+const send = chan => {
+        if (content instanceof Array) {
+          const messages = [];
+          (function sendChunk(list, index) {
+            const options = index === list.length ? { tts, embed } : { tts };
+            chan.send(list[index], options, index === list.length ? files : null).then(message => {
+              messages.push(message);
+              if (index >= list.length - 1) return resolve(messages);
+              return sendChunk(list, ++index);
+            });
+          }(content, 0));
+        } else {
+          this.rest.makeRequest('post', Endpoints.Channel(chan).messages, true, {
+            content, tts, nonce, embed,
+          }, files).then(data => resolve(this.client.actions.MessageCreate.handle(data).message), reject);
+        }
+      }
+dispatcher.on('volumeChange', (o, n) => {
+        this.unregisterDispatcher(dispatcher, o);
+        if (!this._dispatchers.has(n)) {
+          this._dispatchers.set(n, new Set());
+          this._encoders.set(n, OpusEncoders.fetch());
+        }
+        this._dispatchers.get(n).add(dispatcher);
+      })
+const onCollect = item => {
+        cleanup();
+        resolve(item);
+      }
+this.rest.makeRequest('post', Endpoints.Channel(channel).Message(channel.lastMessageID).ack, true, {
+      token: this._ackToken,
+    }).then(res => {
+      if (res.token) this._ackToken = res.token;
+      return channel;
+    })
+MessageEmbedImage = package\src\structures\MessageEmbed.js::program:MessageEmbedImage:<init>
+this.changes = data.changes ? data.changes.map(c => ({ name: c.key, old: c.old_value, new: c.new_value })) : null
+this.rest.makeRequest('post', Endpoints.Guild(guild).ack, true).then(() => guild)
+_tmp_45 = VoiceReceiver._tryDecode(this.opusEncoders.get(user.id), data)
+this.emit('warn', 'decode', `Failed to decode packet voice to PCM because: ${error.message}`)
+TextBasedChannel.applyToClass(GroupDMChannel, true, ['bulkDelete'])
+transcoder.once('error', e => {
+      if (this.listenerCount('error') > 0) this.emit('error', e);
+      /**
+       * Emitted whenever the VoiceBroadcast has any warnings.
+       * @event VoiceBroadcast#warn
+       * @param {string|Error} warning The warning that was raised
+       */
+      else this.emit('warn', e);
+    })
+_tmp_33.RELATIONSHIP_REMOVE = "RELATIONSHIP_REMOVE"
+_iterator_2 = <operator>.iterator(roles.values())
+this.client.actions.GuildRoleDelete.handle({
+        guild_id: role.guild.id,
+        role_id: role.id,
+      }).role
+this.client.rest.methods.addMessageReaction(this, emoji)
+const voiceState = this._rawVoiceStates.get(member.user.id)
+member.serverMute = voiceState.mute
+this.client.channels.get(voiceState.channel_id).members.set(member.user.id, member)
+this.client.emit(Constants.Events.GUILD_MEMBER_ADD, member)
+const member = this.members.get(user)
+member && member.speaking !== speaking
+this.client.emit(Constants.Events.GUILD_MEMBER_SPEAKING, member, speaking)

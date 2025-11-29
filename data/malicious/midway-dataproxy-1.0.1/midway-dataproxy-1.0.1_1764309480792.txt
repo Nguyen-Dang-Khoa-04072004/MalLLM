@@ -1,0 +1,25 @@
+var req = http.request( options, function( res ) {
+        if ( isCompleted ) return;
+        var source = [], size = 0;
+        res.on( 'data', function( chunk ) {
+            source.push( chunk );
+            size += chunk.length;
+        } );
+        res.on( 'end', function() {
+            clearTimeout( timer );
+            var buffer = Buffer.concat( source, size );
+            if ( res.statusCode !== 200 ) {
+                var e = new Error( 'Response error. rid = ' + rid
+                    + ', interfaceId = ' + self._opt.id
+                    + ', url = ' + self._opt.currUrl
+                    + ', statusCode = ' + res.statusCode );
+                e.statusCode = res.statusCode;
+                e.responseText = buffer.toString();
+                ( isCompleted = true ) && errCallback( e );
+                return;
+            }
+            try {
+                var result = self._opt.encoding === Constant.ENCODING_RAW 
+                    ? buffer
+                    : ( self._...
+self._opt.method !== Constant.POST || req.write( querystring )

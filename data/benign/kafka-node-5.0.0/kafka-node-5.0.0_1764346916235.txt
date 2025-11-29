@@ -1,0 +1,7 @@
+var queue = this.cbqueue.get(socketId)
+setImmediate(function () {
+      callback(null);
+    })
+request.Int32BE(topic.partitions)
+callback(new errors.BrokerNotAvailableError('Broker not available (initializeBroker)'))
+logger.debug('%s started heartbeats at every %d ms', this.client.clientId, heartbeatIntervalMs)

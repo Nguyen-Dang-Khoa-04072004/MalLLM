@@ -1,0 +1,586 @@
+(_pathsCache$get = pathsCache.get((_hub = hub) != null ? _hub : nullHub)) == null ? void 0 : _pathsCache$get.get(parent)
+function _remove = function _remove() {
+  if (Array.isArray(this.container)) {
+    this.container.splice(this.key, 1);
+    this.updateSiblingKeys(this.key, -1);
+  } else {
+    this._replaceWith(null);
+  }
+}
+function _call = function _call(fns) {
+  if (!fns) return false;
+  for (const fn of fns) {
+    if (!fn) continue;
+    const node = this.node;
+    if (!node) return true;
+    const ret = fn.call(this.state, this, this.state);
+    if (ret && typeof ret === "object" && typeof ret.then === "function") {
+      throw new Error(`You appear to be using a plugin with an async traversal visitor, ` + `which your current version of Babel does not support. ` + `If you're using a published plugin, you may need to upgrade ` + `your @babel/core version.`);
+    }
+    if (ret) {
+      throw new Error(`Unexpected return value from visitor method ${fn}`);
+    }
+    if (this.node !== node) return true;
+    if (this._traverseFlags > 0) return true;
+  }
+  return false;
+}
+function replaceWithMultiple = function replaceWithMultiple(nodes) {
+  var _getCachedPaths;
+  this.resync();
+  nodes = this._verifyNodeList(nodes);
+  inheritLeadingComments(nodes[0], this.node);
+  inheritTrailingComments(nodes[nodes.length - 1], this.node);
+  (_getCachedPaths = (0, _cache.getCachedPaths)(this.hub, this.parent)) == null ? void 0 : _getCachedPaths.delete(this.node);
+  this.node = this.container[this.key] = null;
+  const paths = this.insertAfter(nodes);
+  if (this.node) {
+    this.requeue();
+  } else {
+    this.remove();
+  }
+  return paths;
+}
+function equals = function equals(key, value) {
+  return this.node[key] === value;
+}
+function isDenylisted = function isDenylisted() {
+  var _this$opts$denylist;
+  const denylist = (_this$opts$denylist = this.opts.denylist) != null ? _this$opts$denylist : this.opts.blacklist;
+  return denylist && denylist.indexOf(this.node.type) > -1;
+}
+function TypeCastExpression = function TypeCastExpression(node) {
+  return node.typeAnnotation;
+}
+function canSwapBetweenExpressionAndStatement = function canSwapBetweenExpressionAndStatement(replacement) {
+  if (this.key !== "body" || !this.parentPath.isArrowFunctionExpression()) {
+    return false;
+  }
+  if (this.isExpression()) {
+    return isBlockStatement(replacement);
+  } else if (this.isBlockStatement()) {
+    return isExpression(replacement);
+  }
+  return false;
+}
+function isDeclaredInLoop = function isDeclaredInLoop(path) {
+  for (let {
+    parentPath,
+    key
+  } = path; parentPath; ({
+    parentPath,
+    key
+  } = parentPath)) {
+    if (parentPath.isFunctionParent()) return false;
+    if (parentPath.isWhile() || parentPath.isForXStatement() || parentPath.isForStatement() && key === "body") {
+      return true;
+    }
+  }
+  return false;
+}
+(0, _helperSplitExportDeclaration.default)(maybeExportDeclar)
+traverse.hasType = function (tree, type, denylistTypes) {
+  if (denylistTypes != null && denylistTypes.includes(tree.type)) return false;
+  if (tree.type === type) return true;
+  const state = {
+    has: false,
+    type: type
+  };
+  traverse(tree, {
+    noScope: true,
+    denylist: denylistTypes,
+    enter: hasDenylistedType
+  }, null, state);
+  return state.has;
+}
+function replaceBreakStatementInBreakCompletion = function replaceBreakStatementInBreakCompletion(completions, reachable) {
+  completions.forEach(c => {
+    if (c.path.isBreakStatement({
+      label: null
+    })) {
+      if (reachable) {
+        c.path.replaceWith(unaryExpression("void", numericLiteral(0)));
+      } else {
+        c.path.remove();
+      }
+    }
+  });
+}
+completions.forEach(c => {
+    if (c.path.isBreakStatement({
+      label: null
+    })) {
+      if (reachable) {
+        c.path.replaceWith(unaryExpression("void", numericLiteral(0)));
+      } else {
+        c.path.remove();
+      }
+    }
+  })
+this.shouldStop = (0, _traverseNode.traverseNode)(this.node, this.opts, this.scope, this.state, this, this.skipKeys)
+exports.arrowFunctionToShadowed = function () {
+    if (!this.isArrowFunctionExpression()) return;
+    this.arrowFunctionToExpression();
+  }
+function verify = function verify(visitor) {
+  if (visitor._verified) return;
+  if (typeof visitor === "function") {
+    throw new Error("You passed `traverse()` a function when it expected a visitor object, " + "are you sure you didn't mean `{ enter: Function }`?");
+  }
+  for (const nodeType of Object.keys(visitor)) {
+    if (nodeType === "enter" || nodeType === "exit") {
+      validateVisitorMethods(nodeType, visitor[nodeType]);
+    }
+    if (shouldIgnoreKey(nodeType)) continue;
+    if (TYPES.indexOf(nodeType) < 0) {
+      throw new Error(`You gave us a visitor for the node type ${nodeType} but it's not a valid type`);
+    }
+    const visitors = visitor[nodeType];
+    if (typeof visitors === "object") {
+      for (const visitorKey of Object.keys(visitors)) {
+        if (visitorKey === "enter" || visitorKey === "exit") {
+          validateVisitorMethods(`${nodeType}.${visitorKey}`, visitors[visitorKey]);
+        } else {
+          throw new Error("You passed `traverse()` a visitor object with the pr...
+function unwrapFunctionEnvironment = function unwrapFunctionEnvironment() {
+  if (!this.isArrowFunctionExpression() && !this.isFunctionExpression() && !this.isFunctionDeclaration()) {
+    throw this.buildCodeFrameError("Can only unwrap the environment of a function.");
+  }
+  hoistFunctionEnvironment(this);
+}
+throw new Error("Don't use `path.replaceWith()` with a source string, use `path.replaceWithSourceString()`");
+function insertAfter = function insertAfter(nodes_) {
+  this._assertUnremoved();
+  if (this.isSequenceExpression()) {
+    return last(this.get("expressions")).insertAfter(nodes_);
+  }
+  const nodes = this._verifyNodeList(nodes_);
+  const {
+    parentPath,
+    parent
+  } = this;
+  if (parentPath.isExpressionStatement() || parentPath.isLabeledStatement() || isExportNamedDeclaration(parent) || parentPath.isExportDefaultDeclaration() && this.isDeclaration()) {
+    return parentPath.insertAfter(nodes.map(node => {
+      return isExpression(node) ? expressionStatement(node) : node;
+    }));
+  } else if (this.isNodeType("Expression") && !this.isJSXElement() && !parentPath.isJSXElement() || parentPath.isForStatement() && this.key === "init") {
+    if (this.node) {
+      const node = this.node;
+      let {
+        scope
+      } = this;
+      if (scope.path.isPattern()) {
+        assertExpression(node);
+        this.replaceWith(callExpression(arrowFunctionExpression([], node), []));
+        this.get("callee.body")....
+function validateVisitorMethods = function validateVisitorMethods(path, val) {
+  const fns = [].concat(val);
+  for (const fn of fns) {
+    if (typeof fn !== "function") {
+      throw new TypeError(`Non-function found defined in ${path} with type ${typeof fn}`);
+    }
+  }
+}
+function merge = function merge(visitors, states = [], wrapper) {
+  const mergedVisitor = {};
+  for (let i = 0; i < visitors.length; i++) {
+    const visitor = explode(visitors[i]);
+    const state = states[i];
+    let topVisitor = visitor;
+    if (state || wrapper) {
+      topVisitor = wrapWithStateOrWrapper(topVisitor, state, wrapper);
+    }
+    mergePair(mergedVisitor, topVisitor);
+    for (const key of Object.keys(visitor)) {
+      if (shouldIgnoreKey(key)) continue;
+      let typeVisitor = visitor[key];
+      if (state || wrapper) {
+        typeVisitor = wrapWithStateOrWrapper(typeVisitor, state, wrapper);
+      }
+      const nodeVisitor = mergedVisitor[key] || (mergedVisitor[key] = {});
+      mergePair(nodeVisitor, typeVisitor);
+    }
+  }
+  ;
+  return mergedVisitor;
+}
+fn.replaceWith(callExpression(memberExpression((0, _helperFunctionName.default)(this, true) || fn.node, identifier("bind")), [checkBinding ? identifier(checkBinding.name) : thisExpression()]))
+function inType = function inType(...candidateTypes) {
+  let path = this;
+  while (path) {
+    for (const type of candidateTypes) {
+      if (path.node.type === type) return true;
+    }
+    path = path.parentPath;
+  }
+  return false;
+}
+isAlmostConstantAssignment(node, scope)
+node.importKind === "type" || node.importKind === "typeof"
+function getSource = function getSource() {
+  const node = this.node;
+  if (node.end) {
+    const code = this.hub.getCode();
+    if (code) return code.slice(node.start, node.end);
+  }
+  return "";
+}
+function isGenericType = function isGenericType(genericName) {
+  const type = this.getTypeAnnotation();
+  if (genericName === "Array") {
+    if (isTSArrayType(type) || isArrayTypeAnnotation(type) || isTupleTypeAnnotation(type)) {
+      return true;
+    }
+  }
+  return isGenericTypeAnnotation(type) && isIdentifier(type.id, {
+    name: genericName
+  }) || isTSTypeReference(type) && isIdentifier(type.typeName, {
+    name: genericName
+  });
+}
+p.isFunction() || p.isProgram() || p.isClassProperty({
+      static: false
+    }) || p.isClassPrivateProperty({
+      static: false
+    })
+function wrapWithStateOrWrapper = function wrapWithStateOrWrapper(oldVisitor, state, wrapper) {
+  const newVisitor = {};
+  for (const phase of ["enter", "exit"]) {
+    let fns = oldVisitor[phase];
+    if (!Array.isArray(fns)) continue;
+    fns = fns.map(function (fn) {
+      let newFn = fn;
+      if (state) {
+        newFn = function (path) {
+          fn.call(state, path, state);
+        };
+      }
+      if (wrapper) {
+        newFn = wrapper(state == null ? void 0 : state.key, phase, newFn);
+      }
+      if (newFn !== fn) {
+        newFn.toString = () => fn.toString();
+      }
+      return newFn;
+    });
+    newVisitor[phase] = fns;
+  }
+  return newVisitor;
+}
+fns = fns.map(function (fn) {
+      let newFn = fn;
+      if (state) {
+        newFn = function (path) {
+          fn.call(state, path, state);
+        };
+      }
+      if (wrapper) {
+        newFn = wrapper(state == null ? void 0 : state.key, phase, newFn);
+      }
+      if (newFn !== fn) {
+        newFn.toString = () => fn.toString();
+      }
+      return newFn;
+    })
+exports.isNumericLiteralTypeAnnotation = function isNumericLiteralTypeAnnotation() {
+    throw new Error("`path.isNumericLiteralTypeAnnotation()` has been renamed to `path.isNumberLiteralTypeAnnotation()` in Babel 7.");
+  }
+throw new Error("`path.isNumericLiteralTypeAnnotation()` has been renamed to `path.isNumberLiteralTypeAnnotation()` in Babel 7.");
+function _getCompletionRecords = function _getCompletionRecords(path, context) {
+  let records = [];
+  if (path.isIfStatement()) {
+    records = addCompletionRecords(path.get("consequent"), records, context);
+    records = addCompletionRecords(path.get("alternate"), records, context);
+  } else if (path.isDoExpression() || path.isFor() || path.isWhile() || path.isLabeledStatement()) {
+    return addCompletionRecords(path.get("body"), records, context);
+  } else if (path.isProgram() || path.isBlockStatement()) {
+    return getStatementListCompletion(path.get("body"), context);
+  } else if (path.isFunction()) {
+    return _getCompletionRecords(path.get("body"), context);
+  } else if (path.isTryStatement()) {
+    records = addCompletionRecords(path.get("block"), records, context);
+    records = addCompletionRecords(path.get("handler"), records, context);
+  } else if (path.isCatchClause()) {
+    return addCompletionRecords(path.get("body"), records, context);
+  } else if (path.isSwitchStatement()) {
+    return completio...
+function updateSiblingKeys = function updateSiblingKeys(fromIndex, incrementBy) {
+  if (!this.parent) return;
+  const paths = (0, _cache.getCachedPaths)(this.hub, this.parent) || [];
+  for (const [, path] of paths) {
+    if (typeof path.key === "number" && path.key >= fromIndex) {
+      path.key += incrementBy;
+    }
+  }
+}
+records = addCompletionRecords(path.get("consequent"), records, context)
+path.isDoExpression() || path.isFor() || path.isWhile() || path.isLabeledStatement()
+const isObjectKeys = buildMatchMemberExpression("Object.keys")
+attachTo.isVariableDeclarator() ? attached.get("init") : attached.get("declarations.0.init")
+function _resyncList = function _resyncList() {
+  if (!this.parent || !this.inList) return;
+  const newContainer = this.parent[this.listKey];
+  if (this.container === newContainer) return;
+  this.container = newContainer || null;
+}
+function _verifyNodeList = function _verifyNodeList(nodes) {
+  if (!nodes) {
+    return [];
+  }
+  if (!Array.isArray(nodes)) {
+    nodes = [nodes];
+  }
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
+    let msg;
+    if (!node) {
+      msg = "has falsy node";
+    } else if (typeof node !== "object") {
+      msg = "contains a non-object node";
+    } else if (!node.type) {
+      msg = "without a type";
+    } else if (node instanceof _index.default) {
+      msg = "has a NodePath when it expected a raw object";
+    }
+    if (msg) {
+      const type = Array.isArray(node) ? "array" : typeof node;
+      throw new Error(`Node list ${msg} with the index of ${i} and type of ${type}`);
+    }
+  }
+  return nodes;
+}
+records = addCompletionRecords(path.get("block"), records, context)
+isArrayFrom(callee) || isObjectValues(callee) || isIdentifier(callee, {
+    name: "Array"
+  })
+function ensureEntranceObjects = function ensureEntranceObjects(obj) {
+  for (const key of Object.keys(obj)) {
+    if (shouldIgnoreKey(key)) continue;
+    const fns = obj[key];
+    if (typeof fns === "function") {
+      obj[key] = {
+        enter: fns
+      };
+    }
+  }
+}
+const needToAwaitFunction = isParentAsync && _index.default.hasType(this.get("callee.body").node, "AwaitExpression", FUNCTION_TYPES)
+const collectorVisitor = {
+  ForStatement(path) {
+    const declar = path.get("init");
+    if (declar.isVar()) {
+      const {
+        scope
+      } = path;
+      const parentScope = scope.getFunctionParent() || scope.getProgramParent();
+      parentScope.registerBinding("var", declar);
+    }
+  },
+  Declaration(path) {
+    if (path.isBlockScoped()) return;
+    if (path.isImportDeclaration()) return;
+    if (path.isExportDeclaration()) return;
+    const parent = path.scope.getFunctionParent() || path.scope.getProgramParent();
+    parent.registerDeclaration(path);
+  },
+  ImportDeclaration(path) {
+    const parent = path.scope.getBlockParent();
+    parent.registerDeclaration(path);
+  },
+  ReferencedIdentifier(path, state) {
+    state.references.push(path);
+  },
+  ForXStatement(path, state) {
+    const left = path.get("left");
+    if (left.isPattern() || left.isIdentifier()) {
+      state.constantViolations.push(path);
+    } else if (left.isVar()) {
+      const {
+        scope
+      } = path;...
+throw superCalls[0].buildCodeFrameError("When using '@babel/plugin-transform-arrow-functions', " + "it's not possible to compile `super()` in an arrow function without compiling classes.\n" + "Please add '@babel/plugin-transform-classes' to your Babel configuration.");
+throw superCalls[0].buildCodeFrameError("When using '@babel/plugin-transform-parameters', " + "it's not possible to compile `super()` in an arrow function with default or rest parameters without compiling classes.\n" + "Please add '@babel/plugin-transform-classes' to your Babel configuration.");
+function TaggedTemplateExpression = function TaggedTemplateExpression() {
+  return resolveCall(this.get("tag"));
+}
+const parentScope = scope.getFunctionParent() || scope.getProgramParent()
+thisEnvFn.traverse(getSuperCallsVisitor, {
+      allSuperCalls
+    })
+function pushContext = function pushContext(context) {
+  this.contexts.push(context);
+  this.setContext(context);
+}
+const argumentsBinding = getBinding(thisEnvFn, "arguments", () => {
+      const args = () => identifier("arguments");
+      if (thisEnvFn.scope.path.isProgram()) {
+        return conditionalExpression(binaryExpression("===", unaryExpression("typeof", args()), stringLiteral("undefined")), thisEnvFn.scope.buildUndefinedNode(), args());
+      } else {
+        return args();
+      }
+    })
+function shouldIgnoreKey = function shouldIgnoreKey(key) {
+  if (key[0] === "_") return true;
+  if (key === "enter" || key === "exit" || key === "shouldSkip") return true;
+  if (key === "denylist" || key === "noScope" || key === "skipKeys") {
+    return true;
+  }
+  {
+    if (key === "blacklist") {
+      return true;
+    }
+  }
+  return false;
+}
+this.type = (_this$node = this.node) == null ? void 0 : _this$node.type
+const newTargetBinding = getBinding(thisEnvFn, "newtarget", () => metaProperty(identifier("new"), identifier("target")))
+const right = evaluateCached(path.get("right"), state)
+const flatSuperProps = superProps.reduce((acc, superProp) => acc.concat(standardizeSuperProperty(superProp)), [])
+flatSuperProps.forEach(superProp => {
+      const key = superProp.node.computed ? "" : superProp.get("property").node.name;
+      const superParentPath = superProp.parentPath;
+      const isAssignment = superParentPath.isAssignmentExpression({
+        left: superProp.node
+      });
+      const isCall = superParentPath.isCallExpression({
+        callee: superProp.node
+      });
+      const isTaggedTemplate = superParentPath.isTaggedTemplateExpression({
+        tag: superProp.node
+      });
+      const superBinding = getSuperPropBinding(thisEnvFn, isAssignment, key);
+      const args = [];
+      if (superProp.node.computed) {
+        args.push(superProp.get("property").node);
+      }
+      if (isAssignment) {
+        const value = superParentPath.node.right;
+        args.push(value);
+      }
+      const call = callExpression(identifier(superBinding), args);
+      if (isCall) {
+        superParentPath.unshiftContainer("arguments", thisExpression());
+        superProp.replaceWith(member...
+const divergence = {
+    this: paths.this[commonIndex.this - 1],
+    target: paths.target[commonIndex.target - 1]
+  }
+const superBinding = getSuperPropBinding(thisEnvFn, isAssignment, key)
+function _guessExecutionStatusRelativeToDifferentFunctionsInternal = function _guessExecutionStatusRelativeToDifferentFunctionsInternal(base, target, cache) {
+  if (!target.isFunctionDeclaration()) {
+    if (_guessExecutionStatusRelativeToCached(base, target, cache) === "before") {
+      return "before";
+    }
+    return "unknown";
+  } else if (target.parentPath.isExportDeclaration()) {
+    return "unknown";
+  }
+  const binding = target.scope.getBinding(target.node.id.name);
+  if (!binding.references) return "before";
+  const referencePaths = binding.referencePaths;
+  let allStatus;
+  for (const path of referencePaths) {
+    const childOfFunction = !!path.find(path => path.node === target.node);
+    if (childOfFunction) continue;
+    if (path.key !== "callee" || !path.parentPath.isCallExpression()) {
+      return "unknown";
+    }
+    const status = _guessExecutionStatusRelativeToCached(base, path, cache);
+    if (allStatus && allStatus !== status) {
+      return "unknown";
+    } else {
+      allStatus = status;
+    }
+  }
+  return allStatus;
+}
+const call = callExpression(identifier(superBinding), args)
+container.map((_, i) => {
+      return _index.default.get({
+        listKey: key,
+        parentPath: this,
+        parent: node,
+        container: container,
+        key: i
+      }).setContext(context);
+    })
+(_tmp_17 = _index.default.get({
+        listKey: key,
+        parentPath: this,
+        parent: node,
+        container: container,
+        key: i
+      })).setContext
+thisPaths.push(superParentPath.get("arguments.0"))
+const referencePaths = binding.referencePaths
+superProp.replaceWith(callExpression(memberExpression(call, identifier("bind"), false), [thisExpression()]))
+thisPaths.push(superProp.get("arguments.0"))
+(_tmp_20 = _index.default.get({
+      parentPath: this,
+      parent: node,
+      container: node,
+      key: key
+    })).setContext
+thisBinding = getThisBinding(thisEnvFn, inConstructor)
+noNewArrows || inConstructor && hasSuperClass(thisEnvFn)
+_iterator_4 = <operator>.iterator(params)
+path.scope.registerBinding("param", param)
+!nodeMap
+path.isFunctionExpression() && path.has("id") && !path.get("id").node[NOT_LOCAL_BINDING]
+path.scope.registerBinding("local", path.get("id"), path)
+path = path.get(part, context)
+const isLogicalAssignment = isLogicalOp(op)
+callee.isIdentifier() && !path.scope.getBinding(callee.node.name) && isValidCallee(callee.node.name)
+assignmentPath.get("right").replaceWith(rightExpression(isLogicalAssignment ? "=" : op, memberExpression(object, identifier(tmp.name), true), value))
+this.get("init").resolve(dangerous, resolved)
+const property = callee.get("property")
+assignmentPath.get("left").replaceWith(memberExpression(object, property))
+_tmp_36.push(assignmentPath.get("right").get("left"))
+(_tmp_38 = superProp.parentPath).isUpdateExpression
+this.get("expression").resolve(dangerous, resolved)
+const tmp = superProp.scope.generateDeclaredUidIdentifier("tmp")
+const computedKey = superProp.node.computed ? superProp.scope.generateDeclaredUidIdentifier("prop") : null
+const target = this.get("object").resolve(dangerous, resolved)
+target.isObjectExpression()
+updateExpr.replaceWith(sequenceExpression(parts))
+const left = updateExpr.get("expressions.0.right")
+function evaluateQuasis = function evaluateQuasis(path, quasis, state, raw = false) {
+  let str = "";
+  let i = 0;
+  const exprs = path.isTemplateLiteral() ? path.get("expressions") : path.get("quasi.expressions");
+  for (const elem of quasis) {
+    if (!state.confident) break;
+    str += raw ? elem.value.raw : elem.value.cooked;
+    const expr = exprs[i++];
+    if (expr) str += String(evaluateCached(expr, state));
+  }
+  if (!state.confident) return;
+  return str;
+}
+_tmp_42 = __ecma.Array.factory()
+let match = prop.isnt("computed") && key.isIdentifier({
+          name: targetName
+        })
+prop.get("value").resolve(dangerous, resolved)
+const child = id.get(key)
+target.isArrayExpression() && !isNaN(+targetName)
+const elems = target.get("elements")
+function evaluate = function evaluate() {
+  const state = {
+    confident: true,
+    deoptPath: null,
+    seen: new Map()
+  };
+  let value = evaluateCached(this, state);
+  if (!state.confident) value = undefined;
+  return {
+    confident: state.confident,
+    deopt: state.deoptPath,
+    value: value
+  };
+}
+path = path.get("body")
+let declarPath = !unique && path.getData(dataKey)
+_tmp_55 = path.unshiftContainer("body", [declar])
+path.setData(dataKey, declarPath)
+path.scope.registerBinding(kind, declarPath.get("declarations")[len - 1])

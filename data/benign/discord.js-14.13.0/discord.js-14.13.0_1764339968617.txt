@@ -1,0 +1,64 @@
+MessageContextMenuCommandInteraction = package/src/structures/MessageContextMenuCommandInteraction.js::program:MessageContextMenuCommandInteraction:<init>
+GuildApplicationCommandManager = package/src/managers/GuildApplicationCommandManager.js::program:GuildApplicationCommandManager:<init>
+function toSnakeCase = function toSnakeCase(obj) {
+  if (typeof obj !== 'object' || !obj) return obj;
+  if (obj instanceof Date) return obj;
+  if (isJSONEncodable(obj)) return toSnakeCase(obj.toJSON());
+  if (Array.isArray(obj)) return obj.map(toSnakeCase);
+  return Object.fromEntries(Object.entries(obj).map(([key, value]) => [snakeCase(key), toSnakeCase(value)]));
+}
+ApplicationCommandPermissionsManager = package/src/managers/ApplicationCommandPermissionsManager.js::program:ApplicationCommandPermissionsManager:<init>
+function makeDiscordjsError = function makeDiscordjsError(Base) {
+  return class DiscordjsError extends Base {
+    constructor(code, ...args) {
+      super(message(code, args));
+      this.code = code;
+      Error.captureStackTrace?.(this, DiscordjsError);
+    }
+
+    get name() {
+      return `${super.name} [${this.code}]`;
+    }
+  };
+}
+super(
+      toSnakeCase({
+        ...data,
+        options: options?.map(({ emoji, ...option }) => ({
+          ...option,
+          emoji: emoji && typeof emoji === 'string' ? resolvePartialEmoji(emoji) : emoji,
+        })),
+      }),
+    )
+const Targets = {
+  All: 'All',
+  Guild: 'Guild',
+  GuildScheduledEvent: 'GuildScheduledEvent',
+  Channel: 'Channel',
+  User: 'User',
+  Role: 'Role',
+  Invite: 'Invite',
+  Webhook: 'Webhook',
+  Emoji: 'Emoji',
+  Message: 'Message',
+  Integration: 'Integration',
+  StageInstance: 'StageInstance',
+  Sticker: 'Sticker',
+  Thread: 'Thread',
+  ApplicationCommand: 'ApplicationCommand',
+  AutoModeration: 'AutoModeration',
+  Unknown: 'Unknown',
+}
+data.added_members?.reduce(
+        (_addedMembers, addedMember) => _addedMembers.set(addedMember.user_id, thread.members._add(addedMember)),
+        addedMembers,
+      )
+this.options = new CommandInteractionOptionResolver(
+      this.client,
+      data.data.options?.map(option => this.transformOption(option, data.data.resolved)) ?? [],
+      this.transformResolved(data.data.resolved ?? {}),
+    )
+static from = deprecate(
+    other => new this(isJSONEncodable(other) ? other.toJSON() : other),
+    'ActionRow.from() is deprecated. Use ActionRowBuilder.from() instead.',
+  );

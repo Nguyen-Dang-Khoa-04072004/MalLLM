@@ -1,0 +1,4 @@
+const location = headers.get('Location')
+const locationURL = location === null ? null : resolve_url(request.url, location)
+locationURL === null
+resolve(fetch(new Request(locationURL, requestOpts)))

@@ -1,0 +1,1 @@
+this._paneElements.get(overlayContainer)[positionClass] = this._createPaneElement(positionClass, overlayContainer)

@@ -1,0 +1,14 @@
+var f=lr(b.get(d))
+a.write(8,f[e])
+var f=lr(qx(b.get(d)))
+a.write(8,f[e])
+var f=Eh(b.get(d))
+a.write(32,Eh(e[1]))
+var f=lr(qx(g[1]))
+a.write(8,f[e])
+var f=lr(qx(g[2]))
+function MH = function
+MH(a){switch(a){case
+7:case
+10:case
+11:return 2;default:return 1}}

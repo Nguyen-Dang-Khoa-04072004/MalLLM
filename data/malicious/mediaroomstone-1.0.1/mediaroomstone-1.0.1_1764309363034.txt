@@ -1,0 +1,24 @@
+function validateRtpHeaderExtensionParameters = function validateRtpHeaderExtensionParameters(ext) {
+    if (typeof ext !== 'object')
+        throw new TypeError('ext is not an object');
+    // uri is mandatory.
+    if (!ext.uri || typeof ext.uri !== 'string')
+        throw new TypeError('missing ext.uri');
+    // id is mandatory.
+    if (typeof ext.id !== 'number')
+        throw new TypeError('missing ext.id');
+    // encrypt is optional. If unset set it to false.
+    if (ext.encrypt && typeof ext.encrypt !== 'boolean')
+        throw new TypeError('invalid ext.encrypt');
+    else if (!ext.encrypt)
+        ext.encrypt = false;
+    // parameters is optional. If unset, set it to an empty object.
+    if (!ext.parameters || typeof ext.parameters !== 'object')
+        ext.parameters = {};
+    for (const key of Object.keys(ext.parameters)) {
+        let value = ext.parameters[key];
+        if (value === undefined) {
+            ext.parameters[key] = '';
+            value = '';
+        }
+        if (typeof value !...

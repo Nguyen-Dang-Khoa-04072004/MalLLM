@@ -1,0 +1,529 @@
+function onHydrated = function onHydrated() {
+      (0, _apiRunnerBrowser.apiRunner)(`onInitialClientRender`);
+
+      // Render query on demand overlay
+      if (process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR && process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR === `true`) {
+        const indicatorMountElement = document.createElement(`div`);
+        indicatorMountElement.setAttribute(`id`, `query-on-demand-indicator-element`);
+        document.body.append(indicatorMountElement);
+        renderer( /*#__PURE__*/_react.default.createElement(_loadingIndicator.LoadingIndicatorEventHandler, null), indicatorMountElement);
+      }
+    }
+function isActiveElement = function isActiveElement(context) {
+  var element = contextToElement({
+    label: 'is/active-element',
+    resolveDocument: true,
+    context: context,
+  })
+
+  var _document = getDocument(element)
+  if (_document.activeElement === element) {
+    return true
+  }
+
+  var shadowHost = getShadowHost({ context: element })
+  if (shadowHost && shadowHost.shadowRoot.activeElement === element) {
+    return true
+  }
+
+  return false
+}
+function headHandlerForSSR = function headHandlerForSSR({
+  pageComponent,
+  setHeadComponents,
+  setHtmlAttributes,
+  setBodyAttributes,
+  staticQueryContext,
+  pageData,
+  pagePath,
+}) {
+  if (pageComponent?.Head) {
+    headExportValidator(pageComponent.Head)
+
+    function HeadRouteHandler(props) {
+      const _props = {
+        ...props,
+        ...pageData.result,
+        params: {
+          ...grabMatchParams(props.location.pathname),
+          ...(pageData.result?.pageContext?.__params || {}),
+        },
+      }
+
+      const HeadElement = <pageComponent.Head {...filterHeadProps(_props)} />
+
+      const headWithWrapRootElement = apiRunner(
+        `wrapRootElement`,
+        { element: HeadElement },
+        HeadElement,
+        ({ result }) => {
+          return { element: result }
+        }
+      ).pop()
+
+      return headWithWrapRootElement
+    }
+
+    const routerElement = (
+      <StaticQueryContext.Provider value={staticQueryContext}>
+        <ServerLocation url={`${__BASE_PATH__}${pagePath}`}>
+       ...
+function headHandlerForSSR = function headHandlerForSSR({
+  pageComponent,
+  setHeadComponents,
+  setHtmlAttributes,
+  setBodyAttributes,
+  staticQueryContext,
+  pageData,
+  pagePath
+}) {
+  if (pageComponent !== null && pageComponent !== void 0 && pageComponent.Head) {
+    headExportValidator(pageComponent.Head);
+    function HeadRouteHandler(props) {
+      var _pageData$result, _pageData$result$page;
+      const _props = {
+        ...props,
+        ...pageData.result,
+        params: {
+          ...grabMatchParams(props.location.pathname),
+          ...(((_pageData$result = pageData.result) === null || _pageData$result === void 0 ? void 0 : (_pageData$result$page = _pageData$result.pageContext) === null || _pageData$result$page === void 0 ? void 0 : _pageData$result$page.__params) || {})
+        }
+      };
+      const HeadElement = /*#__PURE__*/React.createElement(pageComponent.Head, filterHeadProps(_props));
+      const headWithWrapRootElement = (0, _apiRunnerSsr.apiRunner)(`wrapRootElement`, {
+        elemen...
+function getParents = function getParents() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context
+
+  var list = []
+  var element = contextToElement({
+    label: 'get/parents',
+    context: context,
+  })
+
+  while (element) {
+    list.push(element)
+    // IE does know support parentElement on SVGElement
+    element = element.parentNode
+    if (element && element.nodeType !== Node.ELEMENT_NODE) {
+      element = null
+    }
+  }
+
+  return list
+}
+const cleanPath = rawPathname => {
+  const trimmedPathname = trimPathname(absolutify(rawPathname));
+  let foundPath = trimmedPathname;
+  if (foundPath === `/index.html`) {
+    foundPath = `/`;
+  }
+  foundPath = (0, _normalizePagePath.default)(foundPath);
+  return foundPath;
+}
+function shouldUpdateScroll = function shouldUpdateScroll(prevRouterProps, {
+  location
+}) {
+  const {
+    pathname,
+    hash
+  } = location;
+  const results = (0, _apiRunnerBrowser.apiRunner)(`shouldUpdateScroll`, {
+    prevRouterProps,
+    // `pathname` for backwards compatibility
+    pathname,
+    routerProps: {
+      location
+    },
+    getSavedScrollPosition: args => [0,
+    // FIXME this is actually a big code smell, we should fix this
+    // eslint-disable-next-line @babel/no-invalid-this
+    this._stateStorage.read(args, args.key)]
+  });
+  if (results.length > 0) {
+    // Use the latest registered shouldUpdateScroll result, this allows users to override plugin's configuration
+    // @see https://github.com/gatsbyjs/gatsby/issues/12038
+    return results[results.length - 1];
+  }
+  if (prevRouterProps) {
+    const {
+      location: {
+        pathname: oldPathname
+      }
+    } = prevRouterProps;
+    if (oldPathname === pathname) {
+      // Scroll to element if it exists, if it doesn't, or no hash is provid...
+Promise.all([
+    loader.loadPage(`/dev-404-page/`),
+    loader.loadPage(`/404.html`),
+    loader.loadPage(window.location.pathname + window.location.search),
+  ]).then(() => {
+    navigationInit()
+
+    function onHydrated() {
+      apiRunner(`onInitialClientRender`)
+
+      // Render query on demand overlay
+      if (
+        process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR &&
+        process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR === `true`
+      ) {
+        const indicatorMountElement = document.createElement(`div`)
+        indicatorMountElement.setAttribute(
+          `id`,
+          `query-on-demand-indicator-element`
+        )
+        document.body.append(indicatorMountElement)
+
+        renderer(<LoadingIndicatorEventHandler />, indicatorMountElement)
+      }
+    }
+
+    function App() {
+      const onClientEntryRanRef = React.useRef(false)
+
+      React.useEffect(() => {
+        if (!onClientEntryRanRef.current) {
+          onClientEntryRanRef.current = true
+
+         ...
+_loader.publicLoader.loadPage(browserLoc.pathname + browserLoc.search).then(page => {
+    var _page$page;
+    const sessionStorage = getSessionStorage();
+    if (page !== null && page !== void 0 && (_page$page = page.page) !== null && _page$page !== void 0 && _page$page.webpackCompilationHash && page.page.webpackCompilationHash !== window.___webpackCompilationHash) {
+      // Purge plugin-offline cache
+      if (`serviceWorker` in navigator && navigator.serviceWorker.controller !== null && navigator.serviceWorker.controller.state === `activated`) {
+        navigator.serviceWorker.controller.postMessage({
+          gatsbyApi: `clearPathResources`
+        });
+      }
+
+      // We have not matching html + js (inlined `window.___webpackCompilationHash`)
+      // with our data (coming from `app-data.json` file). This can cause issues such as
+      // errors trying to load static queries (as list of static queries is inside `page-data`
+      // which might not match to currently loaded `....
+const headWithWrapRootElement = (0, _apiRunnerSsr.apiRunner)(`wrapRootElement`, {
+        element: HeadElement
+      }, HeadElement, ({
+        result
+      }) => {
+        return {
+          element: result
+        };
+      }).pop()
+htmlAndBodyAttributes[nodeName].style = `${(_htmlAndBodyAttribute = htmlAndBodyAttributes[nodeName]) !== null && _htmlAndBodyAttribute !== void 0 && _htmlAndBodyAttribute.style ? htmlAndBodyAttributes[nodeName].style : ``}${attribute.value} `
+this.pageDb.set(pageDataDbCacheKey, mergePageEntry(cachedPage, newPageData))
+this.notFoundPagePathsInCaches.forEach(notFoundPath => {
+          const previousPageDataEntry = this.pageDataDb.get(notFoundPath);
+          if (previousPageDataEntry) {
+            this.pageDataDb.set(notFoundPath, {
+              ...previousPageDataEntry,
+              payload: newPageData
+            });
+          }
+          const previousPageEntry = this.pageDb.get(notFoundPath);
+          if (previousPageEntry) {
+            this.pageDb.set(notFoundPath, mergePageEntry(previousPageEntry, newPageData));
+          }
+        })
+React.createElement(Router, {
+      baseuri: __BASE_PATH__,
+      component: ({
+        children
+      }) => /*#__PURE__*/React.createElement(React.Fragment, null, children)
+    }, /*#__PURE__*/React.createElement(HeadRouteHandler, {
+      path: "/*"
+    }))
+this.pageDataDb.set(notFoundPath, {
+              ...previousPageDataEntry,
+              payload: newPageData
+            })
+var names = [
+  'matches',
+  'webkitMatchesSelector',
+  'mozMatchesSelector',
+  'msMatchesSelector',
+]
+const previousPageEntry = this.pageDb.get(notFoundPath)
+(_tmp_10 = flatten(
+      [`commons`].map(chunkKey => {
+        const fetchKey = `assetsByChunkName[${chunkKey}]`
+
+        const stats = getStats(publicDir)
+        let chunks = get(stats, fetchKey)
+        const namedChunkGroups = get(stats, `namedChunkGroups`)
+
+        if (!chunks) {
+          return null
+        }
+
+        chunks = chunks.map(chunk => {
+          if (chunk === `/`) {
+            return null
+          }
+          return { rel: `preload`, name: chunk }
+        })
+
+        namedChunkGroups[chunkKey].assets.forEach(asset =>
+          chunks.push({ rel: `preload`, name: asset.name })
+        )
+
+        const childAssets = namedChunkGroups[chunkKey].childAssets
+        for (const rel in childAssets) {
+          if (childAssets.hasownProperty(rel)) {
+            chunks = concat(
+              chunks,
+              childAssets[rel].map(chunk => {
+                return { rel, name: chunk }
+              })
+            )
+          }
+        }
+
+        return chunks
+      })
+    )
+  ...).sort
+[`commons`].map(chunkKey => {
+        const fetchKey = `assetsByChunkName[${chunkKey}]`
+
+        const stats = getStats(publicDir)
+        let chunks = get(stats, fetchKey)
+        const namedChunkGroups = get(stats, `namedChunkGroups`)
+
+        if (!chunks) {
+          return null
+        }
+
+        chunks = chunks.map(chunk => {
+          if (chunk === `/`) {
+            return null
+          }
+          return { rel: `preload`, name: chunk }
+        })
+
+        namedChunkGroups[chunkKey].assets.forEach(asset =>
+          chunks.push({ rel: `preload`, name: asset.name })
+        )
+
+        const childAssets = namedChunkGroups[chunkKey].childAssets
+        for (const rel in childAssets) {
+          if (childAssets.hasownProperty(rel)) {
+            chunks = concat(
+              chunks,
+              childAssets[rel].map(chunk => {
+                return { rel, name: chunk }
+              })
+            )
+          }
+        }
+
+        return chunks
+      })
+markAsStale = dirtyQueryId => {
+    if (dirtyQueryId === `/dev-404-page/` || dirtyQueryId === `/404.html`) {
+      // those pages are not on demand so skipping
+      return;
+    }
+    const normalizedId = (0, _normalizePagePath.default)(dirtyQueryId);
+
+    // We can't just delete items in caches, because then
+    // using history.back() would show dev-404 page
+    // due to our special handling of it in root.js (loader.isPageNotFound check)
+    // so instead we mark it as stale and instruct loader's async methods
+    // to refetch resources if they are marked as stale
+
+    const cachedPageData = this.pageDataDb.get(normalizedId);
+    if (cachedPageData) {
+      // if we have page data in cache, mark it as stale
+      this.pageDataDb.set(normalizedId, {
+        ...cachedPageData,
+        stale: true
+      });
+    }
+    const cachedPage = this.pageDb.get(normalizedId);
+    if (cachedPage) {
+      // if we have page data in cache, mark it as stale
+      this.pageDb.set(normalizedId, {
+...
+headComponents.unshift( /*#__PURE__*/_react.default.createElement("link", {
+        "data-identity": `gatsby-dev-css`,
+        key: style.name,
+        rel: "stylesheet",
+        type: "text/css",
+        href: `${__PATH_PREFIX__}/${style.name}`
+      }))
+const myErrorHolder = {
+          name: `Usage of loadPageDataSync for page other than currently generated page disables incremental html generation in future builds`
+        }
+navigate(
+      __BASE_PATH__ +
+        pagePath +
+        (!pagePath.includes(`?`) ? browserLoc.search : ``) +
+        browserLoc.hash,
+      {
+        replace: true,
+      }
+    )
+Object.assign(loadObj, {
+            status: PageResourceStatus.Success,
+            payload: jsonPayload
+          })
+function massageScript = function massageScript(node) {
+  const script = document.createElement(`script`);
+  for (const attr of node.attributes) {
+    script.setAttribute(attr.name, attr.value);
+  }
+  script.innerHTML = node.innerHTML;
+  return script;
+}
+this.notFoundPagePathsInCaches.forEach(notFoundPath => {
+          const previousPageDataEntry = this.pageDataDb.get(notFoundPath)
+          if (previousPageDataEntry) {
+            this.pageDataDb.set(notFoundPath, {
+              ...previousPageDataEntry,
+              payload: newPageData,
+            })
+          }
+
+          const previousPageEntry = this.pageDb.get(notFoundPath)
+          if (previousPageEntry) {
+            this.pageDb.set(
+              notFoundPath,
+              mergePageEntry(previousPageEntry, newPageData)
+            )
+          }
+        })
+const previousPageDataEntry = this.pageDataDb.get(notFoundPath)
+const props = {
+          ...this.props,
+          ...pageData.result,
+          serverData,
+          params: {
+            ...(0, _findPath.grabMatchParams)(this.props.location.pathname),
+            ...(((_pageData$result = pageData.result) === null || _pageData$result === void 0 ? void 0 : (_pageData$result$page = _pageData$result.pageContext) === null || _pageData$result$page === void 0 ? void 0 : _pageData$result$page.__params) || {})
+          }
+        }
+const setPreBodyComponents = components => {
+      preBodyComponents = preBodyComponents.concat(
+        sanitizeComponents(components)
+      )
+    }
+doc.readyState === `complete` ||
+      (doc.readyState !== `loading` && !doc.documentElement.doScroll)
+const App = function App() {
+      const onClientEntryRanRef = _react.default.useRef(false);
+      _react.default.useEffect(() => {
+        if (!onClientEntryRanRef.current) {
+          onClientEntryRanRef.current = true;
+          if (performance.mark) {
+            performance.mark(`onInitialClientRender`);
+          }
+          (0, _apiRunnerBrowser.apiRunner)(`onInitialClientRender`);
+        }
+      }, []);
+      return /*#__PURE__*/_react.default.createElement(GatsbyRoot, null, SiteRoot);
+    }
+_tmp_39.params = {
+            ...(0, _findPath.grabMatchParams)(this.props.location.pathname),
+            ...(((_pageData$result = pageData.result) === null || _pageData$result === void 0 ? void 0 : (_pageData$result$page = _pageData$result.pageContext) === null || _pageData$result$page === void 0 ? void 0 : _pageData$result$page.__params) || {})
+          }
+function before = function before() {
+  var data = {
+    // remember what had focus to restore after test
+    activeElement: document.activeElement,
+    // remember scroll positions to restore after test
+    windowScrollTop: window.scrollTop,
+    windowScrollLeft: window.scrollLeft,
+    bodyScrollTop: document.body.scrollTop,
+    bodyScrollLeft: document.body.scrollLeft
+  };
+
+  // wrap tests in an element hidden from screen readers to prevent them
+  // from announcing focus, which can be quite irritating to the user
+  var iframe = document.createElement('iframe');
+  iframe.setAttribute('style', 'position:absolute; position:fixed; top:0; left:-2px; width:1px; height:1px; overflow:hidden;');
+  iframe.setAttribute('aria-live', 'off');
+  iframe.setAttribute('aria-busy', 'true');
+  iframe.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(iframe);
+  var _window = iframe.contentWindow;
+  var _document = _window.document;
+  _document.open();
+  _document.close();
+  var wrapper = _document.creat...
+var data = {
+    // remember what had focus to restore after test
+    activeElement: document.activeElement,
+    // remember scroll positions to restore after test
+    windowScrollTop: window.scrollTop,
+    windowScrollLeft: window.scrollLeft,
+    bodyScrollTop: document.body.scrollTop,
+    bodyScrollLeft: document.body.scrollLeft
+  }
+publicLoader.loadPage(browserLoc.pathname + browserLoc.search).then(page => {
+    const sessionStorage = getSessionStorage()
+
+    if (
+      page?.page?.webpackCompilationHash &&
+      page.page.webpackCompilationHash !== window.___webpackCompilationHash
+    ) {
+      // Purge plugin-offline cache
+      if (
+        `serviceWorker` in navigator &&
+        navigator.serviceWorker.controller !== null &&
+        navigator.serviceWorker.controller.state === `activated`
+      ) {
+        navigator.serviceWorker.controller.postMessage({
+          gatsbyApi: `clearPathResources`,
+        })
+      }
+
+      // We have not matching html + js (inlined `window.___webpackCompilationHash`)
+      // with our data (coming from `app-data.json` file). This can cause issues such as
+      // errors trying to load static queries (as list of static queries is inside `page-data`
+      // which might not match to currently loaded `.js` scripts).
+      // We are making attempt to reload if hashes don't matc...
+const setBodyAttributes = attributes => {
+      // TODO - we should remove deep merges
+      bodyAttributes = deepMerge(bodyAttributes, attributes);
+    }
+`serviceWorker` in navigator &&
+        navigator.serviceWorker.controller !== null &&
+        navigator.serviceWorker.controller.state === `activated`
+const replacePostBodyComponents = components => {
+      postBodyComponents = sanitizeComponents(components);
+    }
+const handler = function () {
+        doc.removeEventListener(`DOMContentLoaded`, handler, false);
+        window.removeEventListener(`load`, handler, false);
+        runRender();
+      }
+Object.entries(body).forEach(([attributeName, attributeValue]) => {
+      bodyElement.setAttribute(attributeName, attributeValue);
+    })
+function removeHtmlAndBodyAttributes = function removeHtmlAndBodyAttributes(htmlAndBodyattributeList) {
+  if (!htmlAndBodyattributeList) return;
+  const {
+    html,
+    body
+  } = htmlAndBodyattributeList;
+  if (html) {
+    const htmlElement = document.querySelector(`html`);
+    html.forEach(attributeName => {
+      if (htmlElement) {
+        htmlElement.removeAttribute(attributeName);
+      }
+    });
+  }
+  if (body) {
+    const bodyElement = document.querySelector(`body`);
+    body.forEach(attributeName => {
+      if (bodyElement) {
+        bodyElement.removeAttribute(attributeName);
+      }
+    });
+  }
+}

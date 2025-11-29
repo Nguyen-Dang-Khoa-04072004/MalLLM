@@ -1,0 +1,11 @@
+_tmp_7.unprefixedProjectExtensions = new Set([
+            ...ANGULAR_PROJECT_EXTENSIONS,
+            ...(options.allowedProjectExtensions ?? []),
+        ])
+function convertJsonProjectCollection = function convertJsonProjectCollection(collection) {
+    const projects = Object.create(null);
+    for (const [projectName, project] of collection) {
+        projects[projectName] = convertJsonProject(project);
+    }
+    return projects;
+}

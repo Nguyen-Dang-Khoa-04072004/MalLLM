@@ -1,0 +1,61 @@
+this.bitfield =
+      typeof permissions === "number"
+        ? permissions
+        : this.constructor.resolve(permissions)
+this.client.setTimeout(
+      () => this.deleted.delete(guildID + userID),
+      this.client.options.restWsBridgeTimeout
+    )
+throw new TypeError(
+        `"timestamp" argument must be a number (received ${
+          isNaN(timestamp) ? "NaN" : typeof timestamp
+        })`
+      );
+<operator>.formatString(""timestamp" argument must be a number (received ", isNaN(timestamp) ? "NaN" : typeof timestamp, ")")
+this.register(Constants.WSEvents.MESSAGE_CREATE, require('./handlers/MessageCreate'))
+this.resetTimeout = this.client.setTimeout(() => {
+              this.handle();
+              this.resetTimeout = null;
+            }, 1e3 + this.client.options.restTimeOffset)
+new Promise(resolve => {
+      item.request.gen().end((err, res) => {
+        if (res && res.headers) {
+          this.requestLimit = Number(res.headers["x-ratelimit-limit"]);
+          this.requestResetTime =
+            Number(res.headers["x-ratelimit-reset"]) * 1000;
+          this.requestRemaining = Number(res.headers["x-ratelimit-remaining"]);
+          this.timeDifference =
+            Date.now() - new Date(res.headers.date).getTime();
+        }
+        if (err) {
+          if (err.status === 429) {
+            this.queue.unshift(item);
+            this.client.setTimeout(() => {
+              this.globalLimit = false;
+              resolve();
+            }, Number(res.headers["retry-after"]) + this.client.options.restTimeOffset);
+            if (res.headers["x-ratelimit-global"]) this.globalLimit = true;
+          } else if (err.status >= 500 && err.status < 600) {
+            if (item.retries === this.client.options.retryLimit) {
+              item.reject(err);
+              ...
+connection.once('failed', reason => {
+        this.connections.delete(channel.guild.id);
+        reject(reason);
+      })
+<operator>.formatString("", ConstantsHttp.host, "/api/v", ConstantsHttp.version, "", Constants.Endpoints.gateway.bot, "")
+this.client.ws.send({
+        op: Constants.OPCodes.HEARTBEAT,
+        d: this.client.ws.sequence,
+      })
+const permissions = new Permissions(roles.map(role => role.permissions))
+this.guildSettings.set(settings.guild_id, new ClientUserGuildSettings(settings, this.client))
+this.currentStream = {
+        dispatcher,
+        input: stream,
+        output: stream,
+      }
+reply &&
+          !(channel instanceof User || channel instanceof GuildMember) &&
+          channel.type !== "dm"
+this.setInterval(this.sweepMessages.bind(this), this.options.messageSweepInterval * 1000)

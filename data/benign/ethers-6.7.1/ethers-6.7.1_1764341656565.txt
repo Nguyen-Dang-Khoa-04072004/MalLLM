@@ -1,0 +1,688 @@
+function buildWrappedMethod = function buildWrappedMethod(contract, key) {
+    const getFragment = function (...args) {
+        const fragment = contract.interface.getFunction(key, args);
+        assert(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+            operation: "fragment",
+            info: { key, args }
+        });
+        return fragment;
+    };
+    const populateTransaction = async function (...args) {
+        const fragment = getFragment(...args);
+        // If an overrides was passed in, copy it and normalize the values
+        let overrides = {};
+        if (fragment.inputs.length + 1 === args.length) {
+            overrides = await copyOverrides(args.pop());
+        }
+        if (fragment.inputs.length !== args.length) {
+            throw new Error("internal error: fragment inputs doesn't match arguments; should not happen");
+        }
+        const resolvedArgs = await resolveArgs(contract.runner, fragment.inputs, args);
+        return Object.assign({}, overrides, await resolvePr...
+const populated = await index_js_3.TypedDataEncoder.resolveNames(domain, types, value, async (value) => {
+            const address = await (0, index_js_2.resolveAddress)(value);
+            (0, index_js_5.assertArgument)(address != null, "TypedData does not support null address", "value", value);
+            return address;
+        })
+(0, index_js_3.assert)(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+            operation: "fragment",
+            info: { key, args }
+        })
+function _encryptKeystore = function _encryptKeystore(key, kdf, account, options) {
+    const privateKey = (0, index_js_4.getBytes)(account.privateKey, "privateKey");
+    // Override initialization vector
+    const iv = (options.iv != null) ? (0, index_js_4.getBytes)(options.iv, "options.iv") : (0, index_js_2.randomBytes)(16);
+    (0, index_js_4.assertArgument)(iv.length === 16, "invalid options.iv length", "options.iv", options.iv);
+    // Override the uuid
+    const uuidRandom = (options.uuid != null) ? (0, index_js_4.getBytes)(options.uuid, "options.uuid") : (0, index_js_2.randomBytes)(16);
+    (0, index_js_4.assertArgument)(uuidRandom.length === 16, "invalid options.uuid length", "options.uuid", options.iv);
+    // This will be used to encrypt the wallet (as per Web3 secret storage)
+    // - 32 bytes   As normal for the Web3 secret storage (derivedKey, macPrefix)
+    // - 32 bytes   AES key to encrypt mnemonic with (required here to be Ethers Wallet)
+    const derivedKey = key.slice(0, 16);
+    const macPr...
+function checkCircular = function checkCircular(type, found) {
+            (0, index_js_4.assertArgument)(!found.has(type), `circular type reference to ${JSON.stringify(type)}`, "types", types);
+            found.add(type);
+            for (const child of links.get(type)) {
+                if (!parents.has(child)) {
+                    continue;
+                }
+                // Recursively check children
+                checkCircular(child, found);
+                // Mark all ancestors as having this decendant
+                for (const subtype of found) {
+                    subtypes.get(subtype).add(child);
+                }
+            }
+            found.delete(type);
+        }
+Object.defineProperty(exports, "getIndexedAccountPath", { enumerable: true, get: function () { return index_js_10.getIndexedAccountPath; } })
+const staticCall = async function (...args) {
+        const result = await staticCallResult(...args);
+        if (result.length === 1) {
+            return result[0];
+        }
+        return result;
+    }
+Object.defineProperty(exports, "decryptKeystoreJsonSync", { enumerable: true, get: function () { return index_js_10.decryptKeystoreJsonSync; } })
+this.#supports2544 = (async () => {
+                try {
+                    return await this.#resolver.supportsInterface("0x9061b923");
+                } catch (error) {
+                    // Wildcard resolvers must understand supportsInterface
+                    // and return true.
+                    if (isError(error, "CALL_EXCEPTION")) { return false; }
+
+                    // Let future attempts try again...
+                    this.#supports2544 = null;
+
+                    throw error;
+                }
+            })()
+this.#transactions = block.transactions.map((tx) => {
+            if (typeof (tx) !== "string") {
+                return new TransactionResponse(tx, provider);
+            }
+            return tx;
+        })
+function _parseEip2930 = function _parseEip2930(data) {
+    const fields = decodeRlp(getBytes(data).slice(1));
+    assertArgument(Array.isArray(fields) && (fields.length === 8 || fields.length === 11), "invalid field count for transaction type: 1", "data", hexlify(data));
+    const tx = {
+        type: 1,
+        chainId: handleUint(fields[0], "chainId"),
+        nonce: handleNumber(fields[1], "nonce"),
+        gasPrice: handleUint(fields[2], "gasPrice"),
+        gasLimit: handleUint(fields[3], "gasLimit"),
+        to: handleAddress(fields[4]),
+        value: handleUint(fields[5], "value"),
+        data: hexlify(fields[6]),
+        accessList: handleAccessList(fields[7], "accessList")
+    };
+    // Unsigned EIP-2930 Transaction
+    if (fields.length === 8) {
+        return tx;
+    }
+    tx.hash = keccak256(data);
+    _parseEipSignature(tx, fields.slice(8));
+    return tx;
+}
+function toQuantity = function toQuantity(value) {
+    let result = hexlify(isBytesLike(value) ? value : toBeArray(value)).substring(2);
+    while (result.startsWith("0")) {
+        result = result.substring(1);
+    }
+    if (result === "") {
+        result = "0";
+    }
+    return "0x" + result;
+}
+defineProperties(this, {
+            provider,
+            hash: getValue(block.hash),
+            number: block.number,
+            timestamp: block.timestamp,
+            parentHash: block.parentHash,
+            nonce: block.nonce,
+            difficulty: block.difficulty,
+            gasLimit: block.gasLimit,
+            gasUsed: block.gasUsed,
+            miner: block.miner,
+            extraData: block.extraData,
+            baseFeePerGas: getValue(block.baseFeePerGas)
+        })
+const send = async function (...args) {
+        const runner = contract.runner;
+        (0, index_js_3.assert)(canSend(runner), "contract runner does not support sending transactions", "UNSUPPORTED_OPERATION", { operation: "sendTransaction" });
+        const tx = await runner.sendTransaction(await populateTransaction(...args));
+        const provider = getProvider(contract.runner);
+        // @TODO: the provider can be null; make a custom dummy provider that will throw a
+        // meaningful error
+        return new wrappers_js_1.ContractTransactionResponse(contract.interface, provider, tx);
+    }
+const tx = {
+        type: 1,
+        chainId: handleUint(fields[0], "chainId"),
+        nonce: handleNumber(fields[1], "nonce"),
+        gasPrice: handleUint(fields[2], "gasPrice"),
+        gasLimit: handleUint(fields[3], "gasLimit"),
+        to: handleAddress(fields[4]),
+        value: handleUint(fields[5], "value"),
+        data: (0, index_js_3.hexlify)(fields[6]),
+        accessList: handleAccessList(fields[7], "accessList")
+    }
+function toBeArray = function toBeArray(_value: BigNumberish): Uint8Array {
+    const value = getUint(_value, "value");
+
+    if (value === BN_0) { return new Uint8Array([ ]); }
+
+    let hex = value.toString(16);
+    if (hex.length % 2) { hex = "0" + hex; }
+
+    const result = new Uint8Array(hex.length / 2);
+    for (let i = 0; i < result.length; i++) {
+        const offset = i * 2;
+        result[i] = parseInt(hex.substring(offset, offset + 2), 16);
+    }
+
+    return result;
+}
+function extractAccents = function extractAccents(words: Array<string>): { accents: Array<AccentSet>, words: Array<string> } {
+
+    // Build a list that maps accents to the letters it can follow
+    const followsMap: Map<number, string> = new Map();
+    for (const word of words) {
+        for (let i = 0; i < word.length; i++) {
+            const c = word[i];
+            if (c >= 'a' && c <= 'z') { continue; }
+
+            // Make sure this positions and codepoint make sense
+            if (c.charCodeAt(1)) { throw new Error(`unsupported codepoint: "${ c }"`); }
+            if (i === 0) { throw new Error(`unmatched accent: ${ c }`); }
+
+            const ac = c.charCodeAt(0), lastLetter = word[i - 1];;
+            const follows = (followsMap.get(ac) || "");
+            if (follows.indexOf(lastLetter) === -1) {
+                followsMap.set(ac, sorted(follows + lastLetter));
+            }
+        }
+    }
+
+    // Build the positions of each follow-set for those accents
+    const positionsMap: Map<number, Array<...
+function stall = function stall(duration: number): Promise<void> {
+    return new Promise((resolve) => { setTimeout(() => { resolve(); }, duration); });
+}
+_tmp_22.Crypto = {
+            cipher: "aes-128-ctr",
+            cipherparams: {
+                iv: (0, index_js_4.hexlify)(iv).substring(2),
+            },
+            ciphertext: (0, index_js_4.hexlify)(ciphertext).substring(2),
+            kdf: "scrypt",
+            kdfparams: {
+                salt: (0, index_js_4.hexlify)(kdf.salt).substring(2),
+                n: kdf.N,
+                dklen: 32,
+                p: kdf.p,
+                r: kdf.r
+            },
+            mac: mac.substring(2)
+        }
+_tmp_19.kdfparams = {
+                salt: hexlify(kdf.salt).substring(2),
+                n: kdf.N,
+                dklen: 32,
+                p: kdf.p,
+                r: kdf.r
+            }
+const staticCallResult = async function (...args) {
+        const runner = getRunner(contract.runner, "call");
+        assert(canCall(runner), "contract runner does not support calling", "UNSUPPORTED_OPERATION", { operation: "call" });
+        const tx = await populateTransaction(...args);
+        let result = "0x";
+        try {
+            result = await runner.call(tx);
+        }
+        catch (error) {
+            if (isCallException(error) && error.data) {
+                throw contract.interface.makeError(error.data, tx);
+            }
+            throw error;
+        }
+        const fragment = getFragment(...args);
+        return contract.interface.decodeFunctionResult(fragment, result);
+    }
+function toQuantity = function toQuantity(value) {
+    let result = (0, data_js_1.hexlify)((0, data_js_1.isBytesLike)(value) ? value : toBeArray(value)).substring(2);
+    while (result.startsWith("0")) {
+        result = result.substring(1);
+    }
+    if (result === "") {
+        result = "0";
+    }
+    return "0x" + result;
+}
+(0, index_js_3.assert)(canEstimate(runner), "contract runner does not support gas estimation", "UNSUPPORTED_OPERATION", { operation: "estimateGas" })
+const send = async function(overrides?: Omit<TransactionRequest, "to">): Promise<ContractTransactionResponse> {
+        const runner = contract.runner;
+        assert(canSend(runner), "contract runner does not support sending transactions",
+            "UNSUPPORTED_OPERATION", { operation: "sendTransaction" });
+
+        const tx = await runner.sendTransaction(await populateTransaction(overrides));
+        const provider = getProvider(contract.runner);
+        // @TODO: the provider can be null; make a custom dummy provider that will throw a
+        // meaningful error
+        return new ContractTransactionResponse(contract.interface, <Provider>provider, tx);
+    }
+const staticCallResult = async function (...args) {
+        const runner = getRunner(contract.runner, "call");
+        (0, index_js_3.assert)(canCall(runner), "contract runner does not support calling", "UNSUPPORTED_OPERATION", { operation: "call" });
+        const tx = await populateTransaction(...args);
+        let result = "0x";
+        try {
+            result = await runner.call(tx);
+        }
+        catch (error) {
+            if ((0, index_js_3.isCallException)(error) && error.data) {
+                throw contract.interface.makeError(error.data, tx);
+            }
+            throw error;
+        }
+        const fragment = getFragment(...args);
+        return contract.interface.decodeFunctionResult(fragment, result);
+    }
+function normalizeResult = function normalizeResult(value: RunnerResult): { tag: string, value: any } {
+
+    if ("error" in value) {
+        const error = value.error;
+        return { tag: _normalize(error), value: error };
+    }
+
+    const result = value.result;
+    return { tag: _normalize(result), value: result };
+}
+function _serializeEip2930 = function _serializeEip2930(tx, sig) {
+    const fields = [
+        formatNumber(tx.chainId || 0, "chainId"),
+        formatNumber(tx.nonce || 0, "nonce"),
+        formatNumber(tx.gasPrice || 0, "gasPrice"),
+        formatNumber(tx.gasLimit || 0, "gasLimit"),
+        ((tx.to != null) ? getAddress(tx.to) : "0x"),
+        formatNumber(tx.value || 0, "value"),
+        (tx.data || "0x"),
+        (formatAccessList(tx.accessList || []))
+    ];
+    if (sig) {
+        fields.push(formatNumber(sig.yParity, "recoveryParam"));
+        fields.push(toBeArray(sig.r));
+        fields.push(toBeArray(sig.s));
+    }
+    return concat(["0x01", encodeRlp(fields)]);
+}
+const fields = [
+        formatNumber(tx.chainId || 0, "chainId"),
+        formatNumber(tx.nonce || 0, "nonce"),
+        formatNumber(tx.gasPrice || 0, "gasPrice"),
+        formatNumber(tx.gasLimit || 0, "gasLimit"),
+        ((tx.to != null) ? getAddress(tx.to) : "0x"),
+        formatNumber(tx.value || 0, "value"),
+        (tx.data || "0x"),
+        (formatAccessList(tx.accessList || []))
+    ]
+options.client != null ? options.client : <operator>.formatString("ethers/", version, "")
+function getSubscription = async function getSubscription(_event: ProviderEvent, provider: AbstractProvider): Promise<Subscription> {
+    if (_event == null) { throw new Error("invalid event"); }
+
+    // Normalize topic array info an EventFilter
+    if (Array.isArray(_event)) { _event = { topics: _event }; }
+
+    if (typeof(_event) === "string") {
+        switch (_event) {
+            case "block": case "pending": case "debug": case "error": case "network": {
+                return { type: _event, tag: _event };
+            }
+        }
+    }
+
+    if (isHexString(_event, 32)) {
+        const hash = _event.toLowerCase();
+        return { type: "transaction", tag: getTag("tx", { hash }), hash };
+    }
+
+    if ((<any>_event).orphan) {
+        const event = <OrphanFilter>_event;
+        // @TODO: Should lowercase and whatnot things here instead of copy...
+        return { type: "orphan", tag: getTag("orphan", event), filter: copy(event) };
+    }
+
+    if (((<any>_event).address || (<any>_event).topics)) {
+        c...
+this.#transactions.map((tx) => {
+            if (typeof (tx) === "string") {
+                return tx;
+            }
+            return tx.hash;
+        })
+(0, index_js_2.assertArgument)(false, `conflicting network for ${JSON.stringify(existing.name)}`, "nameOrChainId", nameOrChainId)
+const positions = (positionsMap.get(accent) || []).map((value, index) => {
+            const delta = value - last;
+            last = value;
+            if (index === 0) {
+                return value;
+            }
+            return delta;
+        })
+function toQuantity = function toQuantity(value: BytesLike | BigNumberish): string {
+    let result = hexlify(isBytesLike(value) ? value: toBeArray(value)).substring(2);
+    while (result.startsWith("0")) { result = result.substring(1); }
+    if (result === "") { result = "0"; }
+    return "0x" + result;
+}
+const timestamp = (now.getUTCFullYear() + "-" +
+            zpad(now.getUTCMonth() + 1, 2) + "-" +
+            zpad(now.getUTCDate(), 2) + "T" +
+            zpad(now.getUTCHours(), 2) + "-" +
+            zpad(now.getUTCMinutes(), 2) + "-" +
+            zpad(now.getUTCSeconds(), 2) + ".0Z")
+request.retryFunc = (req, resp, attempt: number) => {
+            if (this.isCommunityResource()) {
+                showThrottleMessage("Etherscan");
+            }
+            return Promise.resolve(true);
+        }
+function parseUnits = function parseUnits(_value, decimals) {
+    const value = String(_value);
+    if (!value.match(/^[0-9.]+$/)) {
+        throw new Error(`invalid gwei value: ${_value}`);
+    }
+    // Break into [ whole, fraction ]
+    const comps = value.split(".");
+    if (comps.length === 1) {
+        comps.push("");
+    }
+    // More than 1 decimal point or too many fractional positions
+    if (comps.length !== 2) {
+        throw new Error(`invalid gwei value: ${_value}`);
+    }
+    // Pad the fraction to 9 decimalplaces
+    while (comps[1].length < decimals) {
+        comps[1] += "0";
+    }
+    // Too many decimals and some non-zero ending, take the ceiling
+    if (comps[1].length > 9) {
+        let frac = BigInt(comps[1].substring(0, 9));
+        if (!comps[1].substring(9).match(/^0+$/)) {
+            frac++;
+        }
+        comps[1] = frac.toString();
+    }
+    return BigInt(comps[0] + comps[1]);
+}
+defineProperties(method, {
+        name: contract.interface.getFunctionName(key),
+        _contract: contract, _key: key,
+        getFragment,
+        estimateGas,
+        populateTransaction,
+        send, staticCall, staticCallResult,
+    })
+function _parseEip1559 = function _parseEip1559(data: Uint8Array): TransactionLike {
+    const fields: any = decodeRlp(getBytes(data).slice(1));
+
+    assertArgument(Array.isArray(fields) && (fields.length === 9 || fields.length === 12),
+        "invalid field count for transaction type: 2", "data", hexlify(data));
+
+    const maxPriorityFeePerGas = handleUint(fields[2], "maxPriorityFeePerGas");
+    const maxFeePerGas = handleUint(fields[3], "maxFeePerGas");
+    const tx: TransactionLike = {
+        type:                  2,
+        chainId:               handleUint(fields[0], "chainId"),
+        nonce:                 handleNumber(fields[1], "nonce"),
+        maxPriorityFeePerGas:  maxPriorityFeePerGas,
+        maxFeePerGas:          maxFeePerGas,
+        gasPrice:              null,
+        gasLimit:              handleUint(fields[4], "gasLimit"),
+        to:                    handleAddress(fields[5]),
+        value:                 handleUint(fields[6], "value"),
+        data:                  hexlify(fie...
+this.fragments.forEach((fragment, index) => {
+            let bucket;
+            switch (fragment.type) {
+                case "constructor":
+                    if (this.deploy) {
+                        console.log("duplicate definition - constructor");
+                        return;
+                    }
+                    //checkNames(fragment, "input", fragment.inputs);
+                    (0, index_js_3.defineProperties)(this, { deploy: fragment });
+                    return;
+                case "fallback":
+                    if (fragment.inputs.length === 0) {
+                        receive = true;
+                    }
+                    else {
+                        (0, index_js_3.assertArgument)(!fallback || fragment.payable !== fallback.payable, "conflicting fallback fragments", `fragments[${index}]`, fragment);
+                        fallback = fragment;
+                        receive = fallback.payable;
+                    }
+                    return;
+      ...
+new FetchUrlFeeDataNetworkPlugin(url, async (fetchFeeData, provider, request) => {
+        // Prevent Cloudflare from blocking our request in node.js
+        request.setHeader("User-Agent", "ethers");
+        let response;
+        try {
+            const [_response, _feeData] = await Promise.all([
+                request.send(), fetchFeeData()
+            ]);
+            response = _response;
+            const payload = response.bodyJson.standard;
+            const feeData = {
+                gasPrice: _feeData.gasPrice,
+                maxFeePerGas: parseUnits(payload.maxFee, 9),
+                maxPriorityFeePerGas: parseUnits(payload.maxPriorityFee, 9),
+            };
+            return feeData;
+        }
+        catch (error) {
+            assert(false, `error encountered with polygon gas station (${JSON.stringify(request.url)})`, "SERVER_ERROR", { request, response, error });
+        }
+    })
+function getGasStationPlugin = function getGasStationPlugin(url) {
+    return new plugins_network_js_1.FetchUrlFeeDataNetworkPlugin(url, async (fetchFeeData, provider, request) => {
+        // Prevent Cloudflare from blocking our request in node.js
+        request.setHeader("User-Agent", "ethers");
+        let response;
+        try {
+            const [_response, _feeData] = await Promise.all([
+                request.send(), fetchFeeData()
+            ]);
+            response = _response;
+            const payload = response.bodyJson.standard;
+            const feeData = {
+                gasPrice: _feeData.gasPrice,
+                maxFeePerGas: parseUnits(payload.maxFee, 9),
+                maxPriorityFeePerGas: parseUnits(payload.maxPriorityFee, 9),
+            };
+            return feeData;
+        }
+        catch (error) {
+            (0, index_js_2.assert)(false, `error encountered with polygon gas station (${JSON.stringify(request.url)})`, "SERVER_ERROR", { request, response, error });
+        }
+    });
+}
+assertArgument(!fallback || fragment.payable !== fallback.payable, "conflicting fallback fragments", `fragments[${index}]`, fragment)
+function checkResultErrors = function checkResultErrors(result: Result): Array<{ path: Array<string | number>, error: Error }> {
+    // Find the first error (if any)
+    const errors: Array<{ path: Array<string | number>, error: Error }> = [ ];
+
+    const checkErrors = function(path: Array<string | number>, object: any): void {
+        if (!Array.isArray(object)) { return; }
+        for (let key in object) {
+            const childPath = path.slice();
+            childPath.push(key);
+
+            try {
+                 checkErrors(childPath, object[key]);
+            } catch (error: any) {
+                errors.push({ path: childPath, error: error });
+            }
+        }
+    }
+    checkErrors([ ], result);
+
+    return errors;
+
+}
+function checkCircular = function checkCircular(type: string, found: Set<string>) {
+            assertArgument(!found.has(type), `circular type reference to ${ JSON.stringify(type) }`, "types", types);
+
+            found.add(type);
+
+            for (const child of (links.get(type) as Set<string>)) {
+                if (!parents.has(child)) { continue; }
+
+                // Recursively check children
+                checkCircular(child, found);
+
+                // Mark all ancestors as having this decendant
+                for (const subtype of found) {
+                    (subtypes.get(subtype) as Set<string>).add(child);
+                }
+            }
+
+            found.delete(type);
+        }
+const checkErrors = function(path: Array<string | number>, object: any): void {
+        if (!Array.isArray(object)) { return; }
+        for (let key in object) {
+            const childPath = path.slice();
+            childPath.push(key);
+
+            try {
+                 checkErrors(childPath, object[key]);
+            } catch (error: any) {
+                errors.push({ path: childPath, error: error });
+            }
+        }
+    }
+(0, index_js_3.defineProperties)(method, {
+        name: contract.interface.getEventName(key),
+        _contract: contract, _key: key,
+        getFragment
+    })
+Object.defineProperty(method, "fragment", {
+        configurable: false,
+        enumerable: true,
+        get: () => {
+            const fragment = contract.interface.getEvent(key);
+            assert(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+                operation: "fragment",
+                info: { key }
+            });
+            return fragment;
+        }
+    })
+function findBest = function findBest() {
+        const tally = {};
+        const l = 2;
+        for (let i = l; i < data.length; i++) {
+            const key = data.substring(i - l, i);
+            tally[key] = (tally[key] || 0) + 1;
+        }
+        const sorted = Object.keys(tally).map((text) => {
+            return { text, count: tally[text], save: (tally[text] * (text.length - 1)) };
+        });
+        sorted.sort((a, b) => (b.save - a.save));
+        return sorted[0].text;
+    }
+Object.defineProperty(method, "fragment", {
+        configurable: false,
+        enumerable: true,
+        get: () => {
+            const fragment = contract.interface.getEvent(key);
+            (0, index_js_3.assert)(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+                operation: "fragment",
+                info: { key }
+            });
+            return fragment;
+        }
+    })
+function encodeOwl = function encodeOwl(words: Array<string>): { subs: string, data: string } {
+
+    // Fold the sorted words by indicating delta for the first 2 letters
+    let data = camelcase(fold(fold(words, ":"), ";"));
+
+    // Replace semicolons with counts (e.g. ";;;" with "3")
+    data = data.replace(/(;+)/g, (all, semis) => {
+        let result = "";
+        while (semis.length) {
+            let count = semis.length;
+            if (count > 10) { count = 10; }
+            result += String(count - 1);
+            semis = semis.substring(count);
+        }
+        return result;
+    });
+
+    // Finds the best option for a shortcut replacement using the
+    // unused ascii7 characters
+    function findBest(): string {
+        const tally: Record<string, number> = { };
+        const l = 2;
+        for (let i = l; i < data.length; i++) {
+            const key = data.substring(i - l, i);
+            tally[key] = (tally[key] || 0) + 1;
+        }
+
+        const sorted: Array<{ text: string, count: numb...
+function getPriorityFeePlugin = function getPriorityFeePlugin(maxPriorityFeePerGas) {
+    return new FetchUrlFeeDataNetworkPlugin("data:", async (fetchFeeData, provider, request) => {
+        const feeData = await fetchFeeData();
+        // This should always fail
+        if (feeData.maxFeePerGas == null || feeData.maxPriorityFeePerGas == null) {
+            return feeData;
+        }
+        // Compute the corrected baseFee to recompute the updated values
+        const baseFee = feeData.maxFeePerGas - feeData.maxPriorityFeePerGas;
+        return {
+            gasPrice: feeData.gasPrice,
+            maxFeePerGas: (baseFee + maxPriorityFeePerGas),
+            maxPriorityFeePerGas
+        };
+    });
+}
+function consumeParams = function consumeParams(tokens, allowIndexed) {
+    return tokens.popParams().map((t) => ParamType.from(t, allowIndexed));
+}
+function getValue = function getValue(value: BigNumberish): Uint8Array {
+    let bytes = toBeArray(value);
+
+    assert (bytes.length <= WordSize, "value out-of-bounds",
+        "BUFFER_OVERRUN", { buffer: bytes, length: WordSize, offset: bytes.length });
+
+    if (bytes.length !== WordSize) {
+        bytes = getBytesCopy(concat([ Padding.slice(bytes.length % WordSize), bytes ]));
+    }
+
+    return bytes;
+}
+function setInternal = function setInternal(contract, values) {
+    internalValues.set(contract[internal], values);
+}
+_tmp_16.Crypto = {
+            cipher: "aes-128-ctr",
+            cipherparams: {
+                iv: hexlify(iv).substring(2),
+            },
+            ciphertext: hexlify(ciphertext).substring(2),
+            kdf: "scrypt",
+            kdfparams: {
+                salt: hexlify(kdf.salt).substring(2),
+                n: kdf.N,
+                dklen: 32,
+                p: kdf.p,
+                r: kdf.r
+            },
+            mac: mac.substring(2)
+        }
+assert(false, "error response", "SERVER_ERROR", { request, response, info: { result } })
+function findBest = function findBest(): string {
+        const tally: Record<string, number> = { };
+        const l = 2;
+        for (let i = l; i < data.length; i++) {
+            const key = data.substring(i - l, i);
+            tally[key] = (tally[key] || 0) + 1;
+        }
+
+        const sorted: Array<{ text: string, count: number, save: number }> = Object.keys(tally).map((text) => {
+            return { text, count: tally[text], save: (tally[text] * (text.length - 1)) }
+        });
+        sorted.sort((a, b) => (b.save - a.save));
+
+        return sorted[0].text;
+    }
+index_js_2.SigningKey.recoverPublicKey(this.unsignedHash, this.signature)
+(0, index_js_4.assertArgument)(typeof (value) === "string", "invalid string", "value", value)

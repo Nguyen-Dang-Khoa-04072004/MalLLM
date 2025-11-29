@@ -1,0 +1,42 @@
+isMoveTargetValid(source, target, function(isMoveTargetValidErr, isTargetValid) {
+        var error, targetParentPath;
+        if (isMoveTargetValidErr) {
+          callback(isMoveTargetValidErr);
+          return;
+        }
+        if (!isTargetValid) {
+          error = new Error("'" + target + "' already exists.");
+          error.code = 'EEXIST';
+          callback(error);
+          return;
+        }
+        targetParentPath = path.dirname(target);
+        return fs.exists(targetParentPath, function(targetParentExists) {
+          if (targetParentExists) {
+            fs.rename(source, target, callback);
+            return;
+          }
+          return fsPlus.makeTree(targetParentPath, function(makeTreeErr) {
+            if (makeTreeErr) {
+              callback(makeTreeErr);
+              return;
+            }
+            return fs.rename(source, target, callback);
+          });
+        });
+      })
+fs.exists(targetParentPath, function(targetParentExists) {
+          if (targetParentExists) {
+            fs.rename(source, target, callback);
+            return;
+          }
+          return fsPlus.makeTree(targetParentPath, function(makeTreeErr) {
+            if (makeTreeErr) {
+              callback(makeTreeErr);
+              return;
+            }
+            return fs.rename(source, target, callback);
+          });
+        })
+fs.rename(source, target, callback)
+fs.rename(source, target, callback)

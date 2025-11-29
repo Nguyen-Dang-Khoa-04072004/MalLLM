@@ -1,0 +1,290 @@
+nativeFetch(options.url, requestOptions).then(response => {
+        pendingBodySize -= requestSize;
+        pendingCount--;
+        return {
+          statusCode: response.status,
+          headers: {
+            'x-sentry-rate-limits': response.headers.get('X-Sentry-Rate-Limits'),
+            'retry-after': response.headers.get('Retry-After'),
+          },
+        };
+      })
+nativeFetch(options.url, requestOptions).then(response => {
+        pendingBodySize -= requestSize;
+        pendingCount--;
+        return {
+          statusCode: response.status,
+          headers: {
+            'x-sentry-rate-limits': response.headers.get('X-Sentry-Rate-Limits'),
+            'retry-after': response.headers.get('Retry-After'),
+          },
+        };
+      })
+function wrapTransactionWithProfiling = function wrapTransactionWithProfiling(transaction) {
+  // Feature support check first
+  const JSProfilerConstructor = WINDOW.Profiler;
+
+  if (!isJSProfilerSupported(JSProfilerConstructor)) {
+    if ((typeof __SENTRY_DEBUG__ === 'undefined' || __SENTRY_DEBUG__)) {
+      logger.log(
+        '[Profiling] Profiling is not supported by this browser, Profiler interface missing on window object.',
+      );
+    }
+    return transaction;
+  }
+
+  // If constructor failed once, it will always fail, so we can early return.
+  if (PROFILING_CONSTRUCTOR_FAILED) {
+    if ((typeof __SENTRY_DEBUG__ === 'undefined' || __SENTRY_DEBUG__)) {
+      logger.log('[Profiling] Profiling has been disabled for the duration of the current user session.');
+    }
+    return transaction;
+  }
+
+  const client = getCurrentHub().getClient();
+  const options = client && client.getOptions();
+  if (!options) {
+    (typeof __SENTRY_DEBUG__ === 'undefined' || __SENTRY_DEBUG__) && logger.log('[Profiling] Profiling disabled, no...
+function wrapTransactionWithProfiling = function wrapTransactionWithProfiling(transaction) {
+  // Feature support check first
+  const JSProfilerConstructor = helpers.WINDOW.Profiler;
+
+  if (!isJSProfilerSupported(JSProfilerConstructor)) {
+    if ((typeof __SENTRY_DEBUG__ === 'undefined' || __SENTRY_DEBUG__)) {
+      utils.logger.log(
+        '[Profiling] Profiling is not supported by this browser, Profiler interface missing on window object.',
+      );
+    }
+    return transaction;
+  }
+
+  // If constructor failed once, it will always fail, so we can early return.
+  if (PROFILING_CONSTRUCTOR_FAILED) {
+    if ((typeof __SENTRY_DEBUG__ === 'undefined' || __SENTRY_DEBUG__)) {
+      utils.logger.log('[Profiling] Profiling has been disabled for the duration of the current user session.');
+    }
+    return transaction;
+  }
+
+  const client = core.getCurrentHub().getClient();
+  const options = client && client.getOptions();
+  if (!options) {
+    (typeof __SENTRY_DEBUG__ === 'undefined' || __SENTRY_DEBUG__) && utils.logger.log('[Pr...
+function insert = function insert(store, value, maxQueueSize) {
+  return store(store => {
+    return keys(store).then(keys => {
+      if (keys.length >= maxQueueSize) {
+        return;
+      }
+
+      // We insert with an incremented key so that the entries are popped in order
+      store.put(value, Math.max(...keys, 0) + 1);
+      return promisifyRequest(store.transaction);
+    });
+  });
+}
+store(store => {
+    return keys(store).then(keys => {
+      if (keys.length >= maxQueueSize) {
+        return;
+      }
+
+      // We insert with an incremented key so that the entries are popped in order
+      store.put(value, Math.max(...keys, 0) + 1);
+      return promisifyRequest(store.transaction);
+    });
+  })
+function insert = function insert(store, value, maxQueueSize) {
+  return store(store => {
+    return keys(store).then(keys => {
+      if (keys.length >= maxQueueSize) {
+        return;
+      }
+
+      // We insert with an incremented key so that the entries are popped in order
+      store.put(value, Math.max(...keys, 0) + 1);
+      return promisifyRequest(store.transaction);
+    });
+  });
+}
+store(store => {
+    return keys(store).then(keys => {
+      if (keys.length >= maxQueueSize) {
+        return;
+      }
+
+      // We insert with an incremented key so that the entries are popped in order
+      store.put(value, Math.max(...keys, 0) + 1);
+      return promisifyRequest(store.transaction);
+    });
+  })
+addInstrumentationHandler(
+    'error',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (data) => {
+      const [hub, stackParser, attachStacktrace] = getHubAndOptions();
+      if (!hub.getIntegration(GlobalHandlers)) {
+        return;
+      }
+      const { msg, url, line, column, error } = data;
+      if (shouldIgnoreOnError() || (error && error.__sentry_own_request__)) {
+        return;
+      }
+
+      const event =
+        error === undefined && isString(msg)
+          ? _eventFromIncompleteOnError(msg, url, line, column)
+          : _enhanceEventWithInitialFrame(
+              eventFromUnknownInput(stackParser, error || msg, undefined, attachStacktrace, false),
+              url,
+              line,
+              column,
+            );
+
+      event.level = 'error';
+
+      addMechanismAndCapture(hub, error, event, 'onerror');
+    },
+  )
+function _installGlobalOnErrorHandler = function _installGlobalOnErrorHandler() {
+  utils.addInstrumentationHandler(
+    'error',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (data) => {
+      const [hub, stackParser, attachStacktrace] = getHubAndOptions();
+      if (!hub.getIntegration(GlobalHandlers)) {
+        return;
+      }
+      const { msg, url, line, column, error } = data;
+      if (helpers.shouldIgnoreOnError() || (error && error.__sentry_own_request__)) {
+        return;
+      }
+
+      const event =
+        error === undefined && utils.isString(msg)
+          ? _eventFromIncompleteOnError(msg, url, line, column)
+          : _enhanceEventWithInitialFrame(
+              eventbuilder.eventFromUnknownInput(stackParser, error || msg, undefined, attachStacktrace, false),
+              url,
+              line,
+              column,
+            );
+
+      event.level = 'error';
+
+      addMechanismAndCapture(hub, error, event, 'onerror');
+    },
+  );
+}
+utils.addInstrumentationHandler(
+    'error',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (data) => {
+      const [hub, stackParser, attachStacktrace] = getHubAndOptions();
+      if (!hub.getIntegration(GlobalHandlers)) {
+        return;
+      }
+      const { msg, url, line, column, error } = data;
+      if (helpers.shouldIgnoreOnError() || (error && error.__sentry_own_request__)) {
+        return;
+      }
+
+      const event =
+        error === undefined && utils.isString(msg)
+          ? _eventFromIncompleteOnError(msg, url, line, column)
+          : _enhanceEventWithInitialFrame(
+              eventbuilder.eventFromUnknownInput(stackParser, error || msg, undefined, attachStacktrace, false),
+              url,
+              line,
+              column,
+            );
+
+      event.level = 'error';
+
+      addMechanismAndCapture(hub, error, event, 'onerror');
+    },
+  )
+keys(store).then(keys => {
+      if (keys.length === 0) {
+        return undefined;
+      }
+
+      return promisifyRequest(store.get(keys[0])).then(value => {
+        store.delete(keys[0]);
+        return promisifyRequest(store.transaction).then(() => value);
+      });
+    })
+promisifyRequest(store.get(keys[0])).then(value => {
+        store.delete(keys[0]);
+        return promisifyRequest(store.transaction).then(() => value);
+      })
+function getTraceId = function getTraceId(event) {
+  const traceId = event && event.contexts && event.contexts['trace'] && event.contexts['trace']['trace_id'];
+  // Log a warning if the profile has an invalid traceId (should be uuidv4).
+  // All profiles and transactions are rejected if this is the case and we want to
+  // warn users that this is happening if they enable debug flag
+  if (typeof traceId === 'string' && traceId.length !== 32) {
+    if ((typeof __SENTRY_DEBUG__ === 'undefined' || __SENTRY_DEBUG__)) {
+      utils.logger.log(`[Profiling] Invalid traceId: ${traceId} on profiled event`);
+    }
+  }
+  if (typeof traceId !== 'string') {
+    return '';
+  }
+
+  return traceId;
+}
+const gecko = line => {
+  const parts = geckoREgex.exec(line);
+
+  if (parts) {
+    const isEval = parts[3] && parts[3].indexOf(' > eval') > -1;
+    if (isEval) {
+      const subMatch = geckoEvalRegex.exec(parts[3]);
+
+      if (subMatch) {
+        // throw out eval line/column and use top-most line number
+        parts[1] = parts[1] || 'eval';
+        parts[3] = subMatch[1];
+        parts[4] = subMatch[2];
+        parts[5] = ''; // no column when eval
+      }
+    }
+
+    let filename = parts[3];
+    let func = parts[1] || UNKNOWN_FUNCTION;
+    [func, filename] = extractSafariExtensionDetails(func, filename);
+
+    return createFrame(filename, func, parts[4] ? +parts[4] : undefined, parts[5] ? +parts[5] : undefined);
+  }
+
+  return;
+}
+function _isSameMessageEvent = function _isSameMessageEvent(currentEvent, previousEvent) {
+  const currentMessage = currentEvent.message;
+  const previousMessage = previousEvent.message;
+
+  // If neither event has a message property, they were both exceptions, so bail out
+  if (!currentMessage && !previousMessage) {
+    return false;
+  }
+
+  // If only one event has a stacktrace, but not the other one, they are not the same
+  if ((currentMessage && !previousMessage) || (!currentMessage && previousMessage)) {
+    return false;
+  }
+
+  if (currentMessage !== previousMessage) {
+    return false;
+  }
+
+  if (!_isSameFingerprint(currentEvent, previousEvent)) {
+    return false;
+  }
+
+  if (!_isSameStacktrace(currentEvent, previousEvent)) {
+    return false;
+  }
+
+  return true;
+}

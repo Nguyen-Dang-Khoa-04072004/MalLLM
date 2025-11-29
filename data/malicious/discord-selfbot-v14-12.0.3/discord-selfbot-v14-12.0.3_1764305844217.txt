@@ -1,0 +1,86 @@
+new Promise((resolve, reject) => {
+      // eslint-disable-line complexity
+      if (typeof content !== "undefined")
+        content = this.client.resolver.resolveString(content);
+
+      // The nonce has to be a uint64 :<
+      if (typeof nonce !== "undefined") {
+        nonce = parseInt(nonce);
+        if (isNaN(nonce) || nonce < 0)
+          throw new RangeError(
+            "Message nonce must fit in an unsigned 64-bit integer."
+          );
+      }
+
+      if (content) {
+        if (split && typeof split !== "object") split = {};
+
+        // Wrap everything in a code block
+        if (
+          typeof code !== "undefined" &&
+          (typeof code !== "boolean" || code === true)
+        ) {
+          content = Util.escapeMarkdown(
+            this.client.resolver.resolveString(content),
+            true
+          );
+          content = `\`\`\`${
+            typeof code !== "boolean" ? code || "" : ""
+          }\n${content}\n\`\`\``;
+          if (split) {
+            split.prep...
+socket.once('message', message => {
+      const packet = parseLocalPacket(message);
+      if (packet.error) {
+        this.emit('error', packet.error);
+        return;
+      }
+
+      this.localAddress = packet.address;
+      this.localPort = packet.port;
+
+      this.voiceConnection.sockets.ws.sendPacket({
+        op: Constants.VoiceOPCodes.SELECT_PROTOCOL,
+        d: {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        },
+      });
+    })
+new Promise((resolve, reject) => {
+      this.once("ready", resolve);
+      this.once("disconnect", () =>
+        reject(
+          new Error(
+            `Shard ${this.id}'s Client disconnected before becoming ready.`
+          )
+        )
+      );
+      this.once("death", () =>
+        reject(
+          new Error(
+            `Shard ${this.id}'s process exited before its Client became ready.`
+          )
+        )
+      );
+      setTimeout(
+        () =>
+          reject(
+            new Error(
+              `Shard ${this.id}'s Client took too long to become ready.`
+            )
+          ),
+        30000
+      );
+    }).then(() => this.process)
+this.once("disconnect", () =>
+        reject(
+          new Error(
+            `Shard ${this.id}'s Client disconnected before becoming ready.`
+          )
+        )
+      )

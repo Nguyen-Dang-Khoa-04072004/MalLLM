@@ -1,0 +1,18 @@
+function GraphqlErrors = function GraphqlErrors({
+  errors,
+  dismiss
+}) {
+  const deduplicatedErrors = React.useMemo(() => Array.from(new Set(errors)), [errors]);
+  const hasMultipleErrors = deduplicatedErrors.length > 1;
+  return /*#__PURE__*/React.createElement(_overlay.Overlay, null, /*#__PURE__*/React.createElement(_overlay.Header, {
+    "data-gatsby-error-type": "graphql-error"
+  }, /*#__PURE__*/React.createElement("div", {
+    "data-gatsby-overlay": "header__cause-file"
+  }, /*#__PURE__*/React.createElement("h1", {
+    id: "gatsby-overlay-labelledby"
+  }, hasMultipleErrors ? `${errors.length} Unhandled GraphQL Errors` : `Unhandled GraphQL Error`)), /*#__PURE__*/React.createElement(_overlay.HeaderOpenClose, {
+    dismiss: dismiss
+  })), /*#__PURE__*/React.createElement(_overlay.Body, null, /*#__PURE__*/React.createElement("p", {
+    "data-gatsby-overlay": "body__describedby",
+    id: "gatsby-overlay-describedby"
+  }, hasMultipleErrors ? `Multiple` : `One`, " unhandled GraphQL", ` `, hasMultipleErrors ...

@@ -1,0 +1,35 @@
+(0, rxjs_1.concat)(this.exists(to), this.exists(from)).pipe((0, rxjs_1.toArray)(), (0, rxjs_1.switchMap)(([existTo, existFrom]) => {
+            if (!existFrom) {
+                return (0, rxjs_1.throwError)(new exception_1.FileDoesNotExistException(from));
+            }
+            if (from === to) {
+                return rxjs_1.EMPTY;
+            }
+            if (existTo) {
+                return (0, rxjs_1.throwError)(new exception_1.FileAlreadyExistException(to));
+            }
+            // If we're renaming a file that's been created, shortcircuit to creating the `to` path.
+            if (this._filesToCreate.has(from)) {
+                this._filesToCreate.delete(from);
+                this._filesToCreate.add(to);
+                return super.rename(from, to);
+            }
+            if (this._filesToOverwrite.has(from)) {
+                this._filesToOverwrite.delete(from);
+                // Recursively call this function. This is so we don't repeat the bottom logic. ...
+new source_map_1.SourceNode(end.line, end.column, sourceUrl, ['  };\n', '\n', '  return __p;\n', '}\n'])
+(_tmp_70 = this._filesToCreate).has
+const validate = await this._compile(schema)
+const maybeTo1 = this._filesToRenameRevert.get(from)
+(_tmp_84 = this._filesToRename).delete
+validator = await this._ajv.compileAsync(schema)
+(_tmp_86 = this._filesToRename).set
+this._currentCompilationSchemaInfo = undefined
+const fn = Function('module', source)
+const validationOptions = {
+                withPrompts: true,
+                applyPostTransforms: true,
+                applyPreTransforms: true,
+                ...options,
+            }
+this._back.read(from).pipe((0, rxjs_1.switchMap)((content) => super.write(to, content)))

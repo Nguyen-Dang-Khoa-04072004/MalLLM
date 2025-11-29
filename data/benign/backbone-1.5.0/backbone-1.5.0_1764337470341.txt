@@ -1,0 +1,1 @@
+_.escape(this.get(attr))

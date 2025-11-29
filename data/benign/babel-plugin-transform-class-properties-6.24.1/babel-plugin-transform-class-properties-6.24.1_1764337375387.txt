@@ -1,0 +1,15 @@
+var body = path.get("body")
+var _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator)
+_i >= _iterator.length
+_i = _iterator.next()
+_ref4 = _i.value
+var _path = _ref4
+_path.isClassProperty()
+_path.isClassMethod({ kind: "constructor" })
+constructor = _path
+!constructor
+constructor.get("body").unshiftContainer("body", instanceBody)
+var classExp = path.get("body")
+!classExp.isClassExpression()
+var body = classExp.get("body")
+var members = body.get("body")

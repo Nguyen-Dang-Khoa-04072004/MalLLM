@@ -1,0 +1,59 @@
+(_tmp_13 = getAllFiles(
+      paths,
+      name => !extensions || extensions.indexOf(path.extname(name)) != -1
+    ).then(files => {
+        const numFiles = files.length;
+
+        if (numFiles === 0) {
+          process.stdout.write('No files selected, nothing to do. \n');
+          return [];
+        }
+
+        const processes = options.runInBand ? 1 : Math.min(numFiles, cpus);
+        const chunkSize = processes > 1 ?
+          Math.min(Math.ceil(numFiles / processes), CHUNK_SIZE) :
+          numFiles;
+
+        let index = 0;
+        // return the next chunk of work for a free worker
+        function next() {
+          if (!options.silent && !options.runInBand && index < numFiles) {
+            process.stdout.write(
+              'Sending ' +
+              Math.min(chunkSize, numFiles-index) +
+              ' files to free worker...\n'
+            );
+          }
+          return files.slice(index, index += chunkSize);
+        }
+
+        if (!options.silent) {
+ ...).then
+Collection.registerMethods(globalMethods, types.Node)
+require('./Worker')(args)
+child_process.fork(require.resolve('./Worker'), args)
+workers.map(child => {
+          child.send({files: next(), options});
+          child.on('message', message => {
+            switch (message.action) {
+              case 'status':
+                fileCounters[message.status] += 1;
+                log[message.status](lineBreak(message.msg), options.verbose);
+                break;
+              case 'update':
+                if (!statsCounter[message.name]) {
+                  statsCounter[message.name] = 0;
+                }
+                statsCounter[message.name] += message.quantity;
+                break;
+              case 'free':
+                child.send({files: next(), options});
+                break;
+              case 'report':
+                report(message);
+                break;
+            }
+          });
+          return new Promise(resolve => child.on('disconnect', resolve));
+        })
+new Promise(resolve => child.on('disconnect', resolve))

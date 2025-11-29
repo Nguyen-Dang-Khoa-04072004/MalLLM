@@ -1,0 +1,12 @@
+ddp.connect((error) => {
+    if (error) {
+      log.error('[chimp] Error handshaking via DDP');
+      throw (error);
+    }
+  }).then(() => {
+    log.debug('[chimp] Handshaking with DDP server');
+    ddp.call('handshake').then(() => {
+      log.debug('[chimp] Handshake complete, closing DDP connection');
+      ddp.close();
+    });
+  })

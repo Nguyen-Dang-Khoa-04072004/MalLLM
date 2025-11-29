@@ -1,0 +1,476 @@
+processSrc(method, files[i].input, files[i].output, zipInstance, options, function onSrcProcessed(err, zipInstance){
+                    processList(method, src, target, zipInstance, options, i+1, len, err);
+                })
+/(\d{4})\-(\d{2})\-(\d{2})(\s+|T)(\d{2}):(\d{2}):(\d{2})/.test(_content)
+                        && /(\d{4})\-(\d{2})\-(\d{2})(\s+|T)(\d{2}):(\d{2}):(\d{2})/.test(filter)
+var encodings = [
+  {
+    "encodings": [
+      {
+        "labels": [
+          "unicode-1-1-utf-8",
+          "utf-8",
+          "utf8"
+        ],
+        "name": "utf-8"
+      }
+    ],
+    "heading": "The Encoding"
+  },
+  {
+    "encodings": [
+      {
+        "labels": [
+          "864",
+          "cp864",
+          "csibm864",
+          "ibm864"
+        ],
+        "name": "ibm864"
+      },
+      {
+        "labels": [
+          "866",
+          "cp866",
+          "csibm866",
+          "ibm866"
+        ],
+        "name": "ibm866"
+      },
+      {
+        "labels": [
+          "csisolatin2",
+          "iso-8859-2",
+          "iso-ir-101",
+          "iso8859-2",
+          "iso88592",
+          "iso_8859-2",
+          "iso_8859-2:1987",
+          "l2",
+          "latin2"
+        ],
+        "name": "iso-8859-2"
+      },
+      {
+        "labels": [
+          "csisolatin3",
+          "iso-8859-3",
+          "iso-ir-109",
+          "iso8859-3",
+          "iso88593",
+          "iso_8859-3",
+    ...
+this.start = function(instance) {
+        if (instance) {
+            self.instance       = instance;
+            //Router configuration.
+            var router = local.router;
+
+            instance.throwError         = throwError;
+            instance.getAssets          = getAssets;
+            instance.completeHeaders    = completeHeaders;
+
+            router.setServerInstance(instance);
+        }
+
+        onRequest()
+    }
+var writeFiles = function() {
+            //restore env.json
+            if ( typeof(self.envDataWrote) == 'undefined' ) {
+                lib.generator.createFileFromDataSync(self.envData, self.envPath)
+            }
+            //restore project.json
+            if ( typeof(self.projectDataWrote) == 'undefined' ) {
+                if ( typeof(self.projectData.bundles[local.bundle]) != 'undefined') {
+                    delete self.projectData.bundles[local.bundle]
+                }
+                lib.generator.createFileFromDataSync(self.projectData, self.projectManifestPath)
+            }
+
+            //restore ports.json
+            if ( typeof(self.portsDataWrote) == 'undefined' ) {
+                lib.generator.createFileFromDataSync(self.portsData, self.portsPath)
+            }
+
+            //restore ports.reverse.json
+            if ( typeof(self.portsReverseDataWrote) == 'undefined' ) {
+                lib.generator.createFileFromDataSync(self.portsReverseData, self.portsRever...
+isMounted = new _( project.path +'/'+ manifest.bundles[bundle].link ).existsSync()
+var getRootDomain = function(urlOrHostname, jsonFormat) {
+        if ( typeof(jsonFormat) == 'undefined' ) {
+            jsonFormat = false
+        }
+        var isSLD = false
+            , isRegisteredTldOrSld = false
+            , rootDomain = urlOrHostname.replace(/^(.*)\:\/\/|\/(.*)/g, '')
+            // we don't want sub domains: that's why the `.reverse()` is for
+            , rootDomainArr = rootDomain.split(/\./g).reverse()
+            // TLD by default
+            , rootDomainIndex = (rootDomainArr.length) ? rootDomainArr.length-1 : 0
+        ;
+
+        var list = self.rawPSL
+                // remove comments & empty lines
+                .replace(/\/\/\s*(.*)\n|^\s*\n/gm, '')
+                .split(/\n/)
+                .filter( function onFiltered(item, i, iArr) {
+                    // formating ^!, ^. & removing extra junk
+                    // this is specific to the ginven extensions list
+                    if ( /[^a-z 0-9.]+/.test(item) ) {
+                        ite...
+_tmp_22.push({
+    "encodings": [
+      {
+        "labels": [
+          "864",
+          "cp864",
+          "csibm864",
+          "ibm864"
+        ],
+        "name": "ibm864"
+      },
+      {
+        "labels": [
+          "866",
+          "cp866",
+          "csibm866",
+          "ibm866"
+        ],
+        "name": "ibm866"
+      },
+      {
+        "labels": [
+          "csisolatin2",
+          "iso-8859-2",
+          "iso-ir-101",
+          "iso8859-2",
+          "iso88592",
+          "iso_8859-2",
+          "iso_8859-2:1987",
+          "l2",
+          "latin2"
+        ],
+        "name": "iso-8859-2"
+      },
+      {
+        "labels": [
+          "csisolatin3",
+          "iso-8859-3",
+          "iso-ir-109",
+          "iso8859-3",
+          "iso88593",
+          "iso_8859-3",
+          "iso_8859-3:1988",
+          "l3",
+          "latin3"
+        ],
+        "name": "iso-8859-3"
+      },
+      {
+        "labels": [
+          "csisolatin4",
+          "iso-8859-4",
+          "iso-ir-110",
+         ...)
+set('page.environment.routing', encodeRFC5987ValueChars(JSON.stringify(routing)))
+var listProjectOnly = function() {
+
+        var protocols   = self.protocols
+            , schemes   = self.schemes
+            , str       = ''
+            , re        = null
+        ;
+
+        var jsonCollection =  new Collection([]);
+        for (let i = 0, len = protocols.length; i < len; ++i) {
+            let protocol = protocols[i];
+            if (
+                self.selectedProtocoles
+                && self.selectedProtocoles.indexOf(protocol) < 0
+            ) {
+                continue;
+            }
+            str += '[ ' + protocol + ' ]\n\r';
+            for (let s = 0, sLen = schemes.length; s < sLen; ++s) {
+                let scheme = schemes[s];
+                if (
+                    self.selectedSchemes
+                    && self.selectedSchemes.indexOf(scheme) < 0
+                ) {
+                    continue;
+                }
+                str += '  [ ' + scheme + ' ]\n\r';
+                re = new RegExp('\@' + self.projectName + '\/', '');// searching...
+this.client
+                .remove(sid)
+                .then(fn)
+                .catch(fn)
+function write = function write(group, content) {
+
+        if ( !/\@/.test(group) || !filenames[group] ) {
+            process.stdout.write( '['+ mqId +']['+ group +'] '+ content );
+            return;
+        }
+
+        if ( !filenames[group].filename ) {
+            //throw new Error('['+ mqId +'] No filename found!');
+            process.emit('logger#'+self.name, JSON.stringify({
+                group       : group,
+                level       : 'error',
+                // Raw content !
+                content     : new Error('['+ mqId +'] No filename found!')
+            }));
+            return;
+        }
+        var data = new Uint8Array(Buffer.from(content));
+        fs.writeFile(filenames[group].filename, data,
+            {
+                encoding: "utf8",
+                // https://nodejs.org/api/fs.html#file-system-flags
+                flag: "a"
+            },
+            (err) => {
+                if (err) {
+                    process.stdout.write( format(opt.name, 'err', '['+ mqId +']...
+var child = spawn(opt.argv[0], params,
+                        {
+                            detached: true
+                        }
+                    )
+child.stdout.on('data', function(data) {
+                        // terminal.log(data);
+
+                        // handle errors
+                        if ( /EADDRINUSE.*port/i.test(data) && !errorFound ) {
+                            terminal.log(data);
+                            // kill the bundle starting process first
+                            child.kill('SIGKILL');
+
+                            errorFound = true;
+                            //opt.client.write(data);
+                            try {
+                                port = ' #'+ data.match(/port\":\s+\d+/)[0].split(/\:/)[1].trim() +' ';
+                                opt.client.write('  [ ' + bundle + '@' + self.projectName + ' ] has already been started, or port'+ port+'might be busy');
+
+                            } catch(_err) {
+                                opt.client.write(_err);
+                            }
+
+
+                            ++opt.onlineCount;
+                            end(opt, cmd, is...
+var onResult = function(result) {
+
+            _this.value      = local['data'][_this.name] = (_this.value) ? _this.value.toLowerCase() : _this.value;
+
+            var isValid     = result.isValid || false;
+            if (validIf != isValid) {
+                isValid = false;
+            } else {
+                isValid = true;
+            }
+            self[_this['name']].valid = isValid;
+            var errors      = self[_this['name']]['errors'] || {};
+
+            var errorFields = ( typeof(result.error) != 'undefined' && typeof(result.fields) != 'undefined' ) ? result.fields : {};
+
+            if (errorFields.count() > 0 && !isValid || !isValid) {
+
+                if (!isValid) {
+                    var systemError = null;
+                    if ( typeof(errorFields[_this.name]) != 'undefined') {
+
+                        // compiling against rules[field].query.data
+                        local.errorLabels['query'] = compileError(errorFields[_this.name], options.data);
+
+
+         ...
+this.reloadModels = function(conf, cb) {
+
+        if ( typeof(conf.content['connectors']) != 'undefined' && conf.content['connectors'] != null ) {
+
+            var models              = conf.content.connectors
+                , conn              = null
+                , foundInitError    = false
+                , connectorPath     = null
+                , entitiesManager   = null
+                , modelPath         = null
+                , entitiesPath      = null
+                , modelConnectors   = null;
+
+
+            // end - now, loading entities for each `loaded` model
+            for (var bundle in self.models) {
+
+                for (var name in self.models[bundle]) { //name as connector name
+
+                    self.models[bundle][name] = {};
+
+                    if ( typeof(self.models[bundle][name]['_connection']) == 'undefined' ) {
+                        self.models[bundle][name]['_connection'] = getContext('modelConnectors')[bundle][name].conn
+                    }
+
+ ...
+scan(options, function(err, ports){
+
+                if (err) {
+                    console.error(err.stack|err.message);
+                    process.exit(1)
+                }
+
+
+                for (let p = 0; p < ports.length; ++p) {
+                    local.ports.push(ports[p])
+                }
+
+                // local.ports.sort();
+
+                ++local.b;
+                addBundlePorts(local.b);
+            })
+tmp[rule].param.file    = ( typeof(tmp) != 'string' && typeof(tmp[rule].param.file) != 'undefined' ) ? tmp[rule].param.file : file
+typeof(bundleSettings.server.protocol) == 'undefined'
+                                    || typeof(bundleSettings.server.protocol) != 'undefined'
+                                        && protocols.indexOf(bundleSettings.server.protocol) < 0
+                                    || typeof(bundleSettings.server.protocol) != 'undefined'
+                                        && bundleSettings.server.protocol != protocol
+var refreshWarning = function($el) {
+        var formId = $el.form.getAttribute('id');
+        if ( /^true$/i.test(instance.$forms[formId].isValidating) ) {
+            return;
+        }
+
+        var $parent = $el.parentNode, isErrorMessageHidden = false;
+        var $children = $parent.getElementsByTagName('div');
+
+        if ( /form\-item\-warning/.test($parent.className) ) {
+            $parent.className = $parent.className.replace(/form\-item\-warning/, 'form-item-error');
+
+        } else if (/form\-item\-error/.test($parent.className) ) {
+            $parent.className = $parent.className.replace(/form\-item\-error/, 'form-item-warning');
+            isErrorMessageHidden = true;
+        }
+
+
+        for (var c = 0, cLen = $children.length; c<cLen; ++c) {
+            if ( /form\-item\-error\-message/.test($children[c].className) ) {
+                if (isErrorMessageHidden) {
+                    // hide error messages
+                    $children[c].className = $children[c].className...
+getVendorsConfig = function(vendor) {
+        var msg = 'Helper could not load ['+ vendor +'] config.';
+        if ( typeof(vendor) != 'undefined' ) {
+            try {
+                return self.config[vendor]
+            } catch (err) {
+                //throw new Error(msg);
+                console.error(err.stack||err.message);
+                return;
+            }
+        } else {
+            return self.config
+        }
+    }
+_tmp_28.push({
+        "labels": [
+          "csiso88598e",
+          "csisolatinhebrew",
+          "hebrew",
+          "iso-8859-8",
+          "iso-8859-8-e",
+          "iso-ir-138",
+          "iso8859-8",
+          "iso88598",
+          "iso_8859-8",
+          "iso_8859-8:1988",
+          "visual"
+        ],
+        "name": "iso-8859-8"
+      })
+self._triggers && self._triggers.indexOf(type) == -1 && self._triggers.indexOf(type.replace(/[0-9]/g, '')) > -1
+            || self._triggers && self._triggers.indexOf(type) > -1 && typeof(self._callbacks[type]) == 'undefined' && typeof(self._events[type]) == 'undefined'
+            || self._triggers && self._triggers.indexOf(type) > -1 && typeof(self._callbacks[type]) != 'undefined'
+child.stderr.on('data', function(err) {
+                        error = err.toString();
+
+                        if (/Waiting for the debugger to disconnect.../.test(error) ) { // dual debug --inspect-gina && --inspect
+                            onException = true;
+                        }
+
+                        if (/Debugger listening|Debugger attached|Warning|address already in use/i.test(error)) {
+
+                            if (!opt.client.destroyed) {
+                                opt.client.write(error);
+                            }
+
+                            if (/address already in use/i.test(error)) {
+                                return terminal.warn(error);
+                            }
+                            return terminal.info(error);
+                        }
+
+                        terminal.error(error);
+                    })
+err = output = ( typeof(messageOnly) != 'undefined' && /^true$/i.test(messageOnly) ) ? output.message : (output.stack||output.message)
+var newTarget   = (isBatchProcessing)
+                                    ? newDir.substr( newDir.lastIndexOf( '/'+target.substr(1).replace(options.root.substr(1), '') ) ) +'/'
+                                    : '.'+ newDir.substr( newDir.lastIndexOf(options.root.substr(1))) +'/'
+getModel = function(bundle, model) {
+
+        var ctx       = getContext();
+
+        if (arguments.length == 1 || !bundle) {
+            //console.debug(
+            //    '\n[ 0 ] = '+ __stack[0].getFileName(),
+            //    '\n[ 1 ] = '+ __stack[1].getFileName(),
+            //    '\n[ 2 ] = '+ __stack[2].getFileName(),
+            //    '\n[ 3 ] = '+ __stack[3].getFileName(),
+            //    '\n[ 4 ] = '+ __stack[4].getFileName(),
+            //    '\n[ 5 ] = '+ __stack[5].getFileName(),
+            //    '\n[ 6 ] = '+ __stack[6].getFileName()
+            //);
+
+
+            // var model       = (arguments.length == 1) ? bundle : model
+            //     , file      = ( !/node_modules/.test(__stack[1].getFileName()) ) ?  __stack[1].getFileName() : __stack[2].getFileName()
+            //     , a         = file.replace('.js', '').split('/')
+            //     , i         = a.length-1
+            //     , bundle    = null;
+            //
+            // var conf        = getCont...
+_.prototype.mkdir = function(permission, callback) {
+        if ( typeof(permission) == "function") {
+            callback = permission;
+            permission = 0775
+        }
+        var self = this;
+        self = cleanSlashes(self);
+
+        //Enter dir & start rm.
+        exists(self.value, function(found) {
+            if (found) {
+                callback(false, self.value)
+            } else {
+                var p = self.value;
+
+                mkdir(self)
+                    .onComplete( function(err, path){
+                        //Avoid collisions.
+                        if (err) {
+                            console.crit("debug needed mkdir for targeted folder !! ", err);
+                            process.exit(1)
+                        } else {
+
+                            if (p == path  && typeof(callback) != 'undefined' && typeof(self.created) == 'undefined' ) {
+                                if (typeof(callback) != 'undefined') {
+                               ...
+self.setMaster = function(bool){
+
+        if ( typeof(bool) == 'undefined' || bool == true) {
+            self.master = true;
+        } else {
+            self.master = false;
+        }
+    }
+typeof(_ruleObj.query) != 'undefined' && typeof(_ruleObj.query.data) != 'undefined'

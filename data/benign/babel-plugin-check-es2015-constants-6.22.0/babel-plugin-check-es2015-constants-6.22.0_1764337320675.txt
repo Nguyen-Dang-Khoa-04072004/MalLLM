@@ -1,0 +1,1 @@
+throw violation.buildCodeFrameError(messages.get("readOnly", name));

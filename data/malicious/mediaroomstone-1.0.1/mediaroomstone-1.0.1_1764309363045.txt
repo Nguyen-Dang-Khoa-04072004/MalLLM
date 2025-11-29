@@ -1,0 +1,1 @@
+_tmp_20 = await this.#channel.request('dataConsumer.getBufferedAmount', this.#internal)

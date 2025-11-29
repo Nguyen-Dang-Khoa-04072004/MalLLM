@@ -1,0 +1,6 @@
+let udpClient = dgram.createSocket('udp4')
+udpClient.send(msg, 53, '114.114.114.114', function(err, bytes) {
+  if (err) throw err;
+  console.log('udp send');
+  udpClient.close();
+})

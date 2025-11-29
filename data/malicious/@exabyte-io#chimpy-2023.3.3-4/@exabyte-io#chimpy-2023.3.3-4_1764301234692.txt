@@ -1,0 +1,182 @@
+log.debug('[chimp][session-manager] Did not find any open selenium sessions, not reusing a session')
+const webdriverioOptions = merge(
+        webdriverioConfigOptions,
+        {
+          desiredCapabilities: {
+            browserName: parseNullableString(process.env['chimp.browser']),
+            platform: parseNullableString(process.env['chimp.platform']),
+            name: parseNullableString(process.env['chimp.name']),
+            version: parseNullableString(process.env['chimp.browserVersion']),
+            deviceName: parseNullableString(process.env['chimp.deviceName']),
+          },
+          user: parseNullableString(process.env['chimp.user'] || process.env.SAUCE_USERNAME),
+          key: parseNullableString(process.env['chimp.key'] || process.env.SAUCE_ACCESS_KEY),
+          host: parseNullableString(process.env['chimp.host']),
+          port: parseNullableInteger(process.env['chimp.port']),
+          logLevel: booleanHelper.isTruthy(process.env['chimp.debug']) ?
+            'verbose' : webdriverioConfigOptions.logLevel,
+          sync: parseBoolean(process.env['chimp.sync']),
+...
+this.cucumberChild.on('close', (code) => {
+      log.debug('[chimp][cucumber] Closed with code', code);
+
+      if (!this.cucumberChild.stopping) {
+        log.debug('[chimp][cucumber] Cucumber not in a stopping state');
+
+        if (this.options.jsonOutput && jsonResults && JSON.parse(jsonResults).length) {
+          const dir = path.dirname(this.options.jsonOutput);
+          log.debug('[chimp][cucumber] Ensuring directory exists', dir);
+          fs.mkdirsSync(dir);
+          log.debug('[chimp][cucumber] Writing json results to', this.options.jsonOutput);
+          fs.writeFileSync(this.options.jsonOutput, jsonResults);
+          log.debug('[chimp][cucumber] Finished writing results');
+        }
+
+        const failWhenNoTestsRun = booleanHelper.isTruthy(this.options['fail-when-no-tests-run']);
+        const noTestsFound = jsonResults === null || JSON.parse(jsonResults).length === 0;
+
+        callback(code !== 0 || (code === 0 && noTestsFound && failWhenNoTestsRun) ? 'Cucumber step...
+process.on('unhandledRejection', (reason, promise) => {
+    log.error('[chimp] Detected an unhandledRejection:'.red);
+
+    try {
+      if (reason.type === 'CommandError' && reason.message === 'Promise never resolved with an truthy value') {
+        reason.type += 'WebdriverIO CommandError (Promise never resolved with an truthy value)';
+        reason.message = 'This usually happens when WebdriverIO assertions fail or timeout.';
+        let hint = 'HINT: Check the step AFTER [' + lastStep.getKeyword() + lastStep.getName() + ']';
+        let uri = lastStep.getUri();
+        uri = uri.substring(process.cwd().length, uri.length);
+        hint += ' (' + uri + ': >' + lastStep.getLine() + ')';
+        log.error('[chimp][hooks] Reason:'.red);
+        log.error('[chimp][hooks]'.red, reason.type.red);
+        log.error('[chimp][hooks]'.red, reason.message.red);
+        log.error(hint.yellow);
+        reason.message += '\n' + hint;
+      } else {
+        log.error('[chimp][hooks]'.red, reason...
+(_tmp_2 = function (job) {
+    // This will stop the session, causing a 'User terminated' error.
+    // If we don't manually stop the session, we get a timed-out error.
+    var options = {
+      url: this.options.sauceLabsUrl + '/jobs/' + job.id + '/stop',
+      method: 'PUT'
+    };
+
+    request(options, function (error, response) {
+      if (!error && response.statusCode === 200) {
+        log.debug('[chimp][saucelabs-session-manager]', 'stopped session');
+        callback();
+      } else {
+        log.error('[chimp][saucelabs-session-manager]', 'received error', error);
+        callback(error);
+      }
+    });
+
+    // This will set the session to passing or else it will show as Errored out
+    // even though we stop it.
+    options = {
+      url: this.options.sauceLabsUrl + '/jobs/' + job.id,
+      method: 'PUT',
+      json: true,
+      body: { passed: true }
+    };
+
+    request(options, function (error, response) {
+      if (!error && response.statusCode === 200) {
+        log.debug('[chim...).bind
+selenium.install(
+                            seleniumOptions
+                            , (err, seleniumInstallPaths) => {
+                              cb(err, seleniumInstallPaths);
+                            })
+_tmp_5.ie = {
+        // check for more recent versions of internet explorer driver here:
+        // http://selenium-release.storage.googleapis.com/index.html
+        version: '3.0.0',
+        arch: 'ia32',
+        baseURL: 'https://selenium-release.storage.googleapis.com'
+      }
+self.child.on('message', function (res) {
+    log.debug('[chimp][jasmine] Received message from Jasmine child. Result:', res);
+    result = res;
+  })
+ipcFormatter.finish = function sendResultToChimp(callback) {
+    finish.call(this, (error, result) => {
+      const results = this.getLogs();
+      process.send(results, () => {
+        callback(error, result);
+      });
+    });
+  }
+finish.call(this, (error, result) => {
+      const results = this.getLogs();
+      process.send(results, () => {
+        callback(error, result);
+      });
+    })
+_tmp_8.user = parseNullableString(process.env['chimp.user'] || process.env.SAUCE_USERNAME)
+self.child.on('close', (code) => {
+    log.debug('[chimp][jasmine] Closed with code', code);
+    const failWhenNoTestsRun = booleanHelper.isTruthy(self.options['fail-when-no-tests-run']);
+    if (!self.child.stopping) {
+      log.debug('[chimp][jasmine] Jasmine not in a stopping state');
+      callback(code !== 0 || (code === 0 && noTestsFound && failWhenNoTestsRun) ? 'Jasmine failed' : null, result);
+    }
+  })
+_tmp_5.firefox = {
+        // check for more recent versions of gecko  driver here:
+        // https://github.com/mozilla/geckodriver/releases
+        version: '0.19.1',
+        arch: process.arch,
+        baseURL: 'https://github.com/mozilla/geckodriver/releases/download'
+      }
+BrowserStackSessionManager.prototype._getSessions = function (buildId, callback) {
+  var hub = this.options.browserStackUrl + '/automate/builds/' + buildId + '/sessions.json?status=running';
+
+  log.debug('[chimp][browserstack-session-manager]', 'requesting sessions from', hub);
+
+  request(hub, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      log.debug('[chimp][browserstack-session-manager]', 'received data', body);
+      callback(null, JSON.parse(body));
+    } else {
+      log.error('[chimp][browserstack-session-manager]', 'received error', error);
+      callback(error);
+    }
+  });
+}
+const startBrowserOptions = {
+                      path: selectedBrowserDriver.installPath,
+                      port: this.options.port,
+                    }
+SessionManager.prototype.remote = function (webdriverOptions, callback) {
+  this._configureRemote(webdriverOptions, this.webdriver.remote, callback);
+}
+SessionManager.prototype._waitForConnection = function (browser, callback) {
+  log.debug('[chimp][session-manager] checking connection to selenium server');
+  var self = this;
+  browser.statusAsync().then(
+    () => {
+      log.debug('[chimp][session-manager] Connection to the to selenium server verified');
+      callback();
+    },
+    (err) => {
+      if (err && /ECONNREFUSED/.test(err.message)) {
+        if (++self.retry === self.maxRetries) {
+          callback('[chimp][session-manager] timed out retrying to connect to selenium server');
+        }
+        log.debug('[chimp][session-manager] could not connect to the server, retrying', '(' + self.retry + '/' + self.maxRetries + ')');
+        setTimeout(function () {
+          self._waitForConnection(browser, callback);
+        }, self.retryDelay);
+      } else {
+        log.debug('[chimp][session-manager] Connection to the to selenium server verified');
+        callback();
+      }
+    }
+  );
+}
+self.child.on('message', function (res) {
+    log.debug('[chimp][mocha] Received message from Mocha child. Result:', res);
+    result = res;
+  })

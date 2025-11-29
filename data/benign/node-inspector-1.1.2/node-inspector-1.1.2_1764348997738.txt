@@ -1,0 +1,50 @@
+WebInspector.View.prototype = {
+    markAsRoot: function()
+    {
+        WebInspector.installComponentRootStyles(this.element);
+        WebInspector.View.__assert(!this.element.parentElement, "Attempt to mark as root attached node");
+        this._isRoot = true;
+    },
+
+    /**
+     * @return {?WebInspector.View}
+     */
+    parentView: function()
+    {
+        return this._parentView;
+    },
+
+    /**
+     * @return {!Array.<!WebInspector.View>}
+     */
+    children: function()
+    {
+        return this._children;
+    },
+
+    /**
+     * @param {!WebInspector.View} view
+     * @protected
+     */
+    childWasDetached: function(view)
+    {
+    },
+
+    /**
+     * @return {boolean}
+     */
+    isShowing: function()
+    {
+        return this._isShowing;
+    },
+
+    /**
+     * @return {boolean}
+     */
+    _shouldHideOnDetach: function()
+    {
+        if (this._hideOnDetach)
+            return true;
+        for (var child of this._children) {
+            if (child._shouldHideOnDetach())
+  ...

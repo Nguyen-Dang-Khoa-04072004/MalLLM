@@ -1,0 +1,7 @@
+this.guild.stageInstances.cache.find(stageInstance => stageInstance.channelId === this.id) ?? null
+const properties = [
+      this.commandName,
+      this.options._group,
+      this.options._subcommand,
+      ...this.options._hoistedOptions.map(o => `${o.name}:${o.value}`),
+    ]

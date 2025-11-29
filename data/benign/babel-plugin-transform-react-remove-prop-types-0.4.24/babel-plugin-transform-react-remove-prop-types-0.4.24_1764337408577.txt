@@ -1,0 +1,52 @@
+path.parentPath.type === 'ConditionalExpression'
+path.replaceWith(types.unaryExpression('void', types.numericLiteral(0)))
+superClass.node.name
+isPathReactClass(bindingSuperClass, globalOptions)
+memberExpression = parent.get('value')
+function memberExpressionRootIdentifier = function memberExpressionRootIdentifier(path) {
+  // Traverse up to the parent before the topmost member expression, and then
+  // traverse back down to find the topmost identifier. It seems like there
+  // might be a better way to do this.
+  var parent = path.findParent(function (p) {
+    return !p.isMemberExpression();
+  });
+  var type = parent.node.type;
+  var memberExpression;
+
+  if (type === 'ObjectProperty') {
+    // The topmost MemberExpression's parent is an object property, so the
+    // topmost MemberExpression should be the value.
+    memberExpression = parent.get('value');
+  }
+
+  if (!memberExpression || memberExpression.type !== 'MemberExpression') {
+    // This case is currently unhandled by this plugin.
+    return null;
+  } // We have a topmost MemberExpression now, so we want to traverse down the
+  // left half untli we no longer see MemberExpressions. This node will give us
+  // our leftmost identifier.
+
+
+  while (memberExpression.node.object.type === 'MemberExpress...
+path.replaceWith(unsafeWrapTemplate({
+            NODE: path.node
+          }))
+memberExpression.get('object')
+path.replaceWith(wrapTemplate({
+            LEFT: path.node.left,
+            RIGHT: path.node.right
+          }))
+path.replaceWith(
+            wrapTemplate({
+              LEFT: path.node.left,
+              RIGHT: path.node.right,
+            })
+          )
+memberExpression = memberExpression.get('object')
+wrapTemplate(
+            {
+              LEFT: path.node.id,
+              RIGHT: path.node.init,
+            },
+            { as: 'variableDeclarator' }
+          )

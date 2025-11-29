@@ -1,0 +1,30 @@
+const file = dir + '/' + process.pid
+rowName === cond.name || (rowName.endsWith('.exe') && rowName.slice(0, -4) === cond.name)
+utils.exec(cmd, () => {
+          fs.readFile(file, 'utf8', (err, data) => {
+            fs.unlink(file, () => { })
+            if (err) {
+              reject(err)
+            } else {
+              data = utils.stripLine(data, 2)
+              const columns = utils.extractColumns(data, [3, 6], 7).find(column => {
+                const matches = String(column[0]).match(/:(\d+)$/)
+                if (matches && matches[1] === String(port)) {
+                  return true
+                }
+              })
+
+              if (columns && columns[1]) {
+                const pid = columns[1].split('/', 1)[0]
+
+                if (pid.length) {
+                  resolve(parseInt(pid, 10))
+                } else {
+                  reject(new Error(`pid of port (${port}) not found`))
+                }
+              } else {
+                reject(new Error(`pid of port (${port}) not found`))
+              }
+            }
+          })
+        })

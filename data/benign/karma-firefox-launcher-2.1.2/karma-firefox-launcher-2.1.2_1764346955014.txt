@@ -1,0 +1,8 @@
+_iterator_2 = <operator>.iterator(process.env.PATH.split(':'))
+fs.existsSync(pathElem)
+const windowsPath = execSync('wslpath -w "' + pathElem + '"').toString()
+const matches = windowsPath.match(re)
+matches !== null && drives.indexOf(matches[1]) === -1
+drives.push(matches[1])
+_iterator_4 = <operator>.iterator(drives)
+(_tmp_16 = execSync('wslpath "' + drive + ':\\' + prefix + '"').toString()).trim

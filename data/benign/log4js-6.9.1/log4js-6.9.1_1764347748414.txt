@@ -1,0 +1,116 @@
+util.format(
+      '[%s] [%s] %s - ',
+      dateFormat.asString(loggingEvent.startTime),
+      loggingEvent.level.toString(),
+      loggingEvent.categoryName
+    )
+socket.on('error', (e) => {
+      debug('connection error', e);
+      canWrite = false;
+      emptyBuffer();
+    })
+function handleError = function handleError(error) {
+      const loggingEvent = {
+        startTime: new Date(),
+        categoryName: 'log4js',
+        level: levels.ERROR,
+        data: ['A worker log process hung up unexpectedly', error],
+        remoteAddress: clientSocket.remoteAddress,
+        remotePort: clientSocket.remotePort,
+      };
+      actualAppender(loggingEvent);
+    }
+_tmp_2.interval = setInterval(
+              checkForTimeout.bind(null, fileKey),
+              config.timeout
+            )
+<operator>.formatString("Problem reading config from file "", filename, "". Error was ", e.message, "")
+module.exports = {
+  configure,
+  addListener,
+  addPreProcessingListener,
+  throwExceptionIf,
+  anObject,
+  anInteger,
+  validIdentifier,
+  not,
+}
+function configure = function configure(configurationFileOrObject) {
+  if (enabled) {
+    // eslint-disable-next-line no-use-before-define
+    shutdown();
+  }
+
+  let configObject = configurationFileOrObject;
+
+  if (typeof configObject === 'string') {
+    configObject = loadConfigurationFile(configurationFileOrObject);
+  }
+  debug(`Configuration is ${configObject}`);
+
+  configuration.configure(deepClone(configObject));
+
+  clustering.onMessage(sendLogEventToAppender);
+
+  enabled = true;
+
+  // eslint-disable-next-line no-use-before-define
+  return log4js;
+}
+defaultTokens.push({
+    token: /:res\[([^\]]+)]/g,
+    replacement(_, field) {
+      return (
+        res.getHeader(field.toLowerCase()) ||
+        (res.__headers && res.__headers[field])
+      );
+    },
+  })
+process.emitWarning(
+            'Pattern %d{DATE} is deprecated due to the confusion it causes when used. ' +
+              'Please use %d{DATETIME} instead.',
+            'DeprecationWarning',
+            'log4js-node-DEP0004'
+          )
+function matchRules = function matchRules(statusCode, currentLevel, ruleSet) {
+  let level = currentLevel;
+
+  if (ruleSet) {
+    const matchedRule = ruleSet.find((rule) => {
+      let ruleMatched = false;
+      if (rule.from && rule.to) {
+        ruleMatched = statusCode >= rule.from && statusCode <= rule.to;
+      } else {
+        ruleMatched = rule.codes.indexOf(statusCode) !== -1;
+      }
+      return ruleMatched;
+    });
+    if (matchedRule) {
+      level = levels.getLevel(matchedRule.level, level);
+    }
+  }
+  return level;
+}
+debug(
+    'Creating fileSync appender (',
+    file,
+    ', ',
+    logSize,
+    ', ',
+    numBackups,
+    ', ',
+    options,
+    ', ',
+    timezoneOffset,
+    ')'
+  )
+let ruleMatched = false
+ruleMatched = statusCode >= rule.from && statusCode <= rule.to
+const getLevelForCategory = (category) => configForCategory(category).level
+configForCategory(category).level = level
+if (matchedRule) {
+      level = levels.getLevel(matchedRule.level, level);
+    }
+function startTime = function startTime(loggingEvent) {
+    return dateFormat.asString('hh:mm:ss', loggingEvent.startTime);
+  }

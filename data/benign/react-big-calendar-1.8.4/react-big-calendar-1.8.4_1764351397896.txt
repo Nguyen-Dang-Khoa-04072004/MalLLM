@@ -1,0 +1,23 @@
+_this.renderEvents = function (_ref) {
+      var events = _ref.events,
+        isBackgroundEvent = _ref.isBackgroundEvent;
+      var _this$props = _this.props,
+        rtl = _this$props.rtl,
+        selected = _this$props.selected,
+        accessors = _this$props.accessors,
+        localizer = _this$props.localizer,
+        getters = _this$props.getters,
+        components = _this$props.components,
+        step = _this$props.step,
+        timeslots = _this$props.timeslots,
+        dayLayoutAlgorithm = _this$props.dayLayoutAlgorithm,
+        resizable = _this$props.resizable;
+      var _assertThisInitialize = (0, _assertThisInitialized2.default)(_this),
+        slotMetrics = _assertThisInitialize.slotMetrics;
+      var messages = localizer.messages;
+      var styledEvents = DayEventLayout.getStyledEvents({
+        events: events,
+        accessors: accessors,
+        slotMetrics: slotMetrics,
+        minimumStartDifference: Math.ceil(step * timeslots / 2),
+        dayLayoutAlgorithm:...

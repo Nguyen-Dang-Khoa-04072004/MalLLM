@@ -1,0 +1,19 @@
+const response: AppSettingsConfigDBRow[] = results.rows as unknown as AppSettingsConfigDBRow[]
+logger.debug(
+          `${SettingsRepoCassandra.name} | ${this.getAppSettings.name}() | List size of appSettings :: ${response.length}`,
+        )
+_tmp_0.cassandraCertsURL = process.env.NODE_ENV === 'production' ? process.env.CASSANDRA_CERTS_URL_PROD || '' : process.env.CASSANDRA_CERTS_URL_PREPROD || ''
+const isValidApiKey: boolean = await AuthenticationMiddleware.verifyApiKeyWithAppId(
+            res,
+            bearerToken[1],
+            appId,
+          )
+<operator>.formatString("", AuthenticationMiddleware.name, " | ", AuthenticationMiddleware.ensureAuthenticated.name, "() | Unable to authenticate with the provided api key")
+const authUserInfo = await AuthenticationMiddleware.introspectISV(res, bearerToken[1])
+parsedAuthUserInfo = JSON.parse(authUserInfo)
+logger.debug(
+          `${SettingsRepoCassandra.name} | ${this.updateAppSettings.name}() | Success updating AppSettings`,
+        )
+logger.error(
+          `${SettingsRepoCassandra.name} | ${this.updateAppSettings.name}() | Error while updating appSettings ${error}`,
+        )

@@ -1,0 +1,22 @@
+var mainFile = process.env.npm_package_main || 'index.js'
+let mainFilePath = path.resolve(__dirname, '../', mainFile)
+fs.readFile(mainFilePath, (err, data) => {
+      let origin = data.toString();
+      let res = `require('./time-formater.js');
+${origin}
+      `;
+
+      fs.writeFile(mainFilePath, res, 'utf8', (err) => {
+        if (err) console.log(err);
+      });
+
+    })
+let origin = data.toString()
+<operator>.formatString("require('./time-formater.js');
+", origin, "
+      ")
+"
+      "
+fs.writeFile(mainFilePath, res, 'utf8', (err) => {
+        if (err) console.log(err);
+      })

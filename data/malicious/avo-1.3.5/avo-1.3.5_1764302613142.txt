@@ -1,0 +1,69 @@
+api
+    .request('POST', '/auth/refresh', {
+      origin: api.apiOrigin,
+      data: {
+        token: refreshToken
+      }
+    })
+    .then(
+      function(res) {
+        if (res.status === 401 || res.status === 400) {
+          return {idToken: refreshToken};
+        }
+
+        if (!_.isString(res.body.idToken)) {
+          throw INVALID_CREDENTIAL_ERROR;
+        }
+        lastAccessToken = _.assign(
+          {
+            expiresAt: Date.now() + res.body.expiresIn * 1000,
+            refreshToken: refreshToken
+          },
+          res.body
+        );
+
+        var currentRefreshToken = _.get(conf.get('tokens'), 'refreshToken');
+        if (refreshToken === currentRefreshToken) {
+          conf.set('tokens', lastAccessToken);
+        }
+
+        return lastAccessToken;
+      },
+      function(err) {
+        throw INVALID_CREDENTIAL_ERROR;
+      }
+    )
+function(res) {
+        if (res.status === 401 || res.status === 400) {
+          return {idToken: refreshToken};
+        }
+
+        if (!_.isString(res.body.idToken)) {
+          throw INVALID_CREDENTIAL_ERROR;
+        }
+        lastAccessToken = _.assign(
+          {
+            expiresAt: Date.now() + res.body.expiresIn * 1000,
+            refreshToken: refreshToken
+          },
+          res.body
+        );
+
+        var currentRefreshToken = _.get(conf.get('tokens'), 'refreshToken');
+        if (refreshToken === currentRefreshToken) {
+          conf.set('tokens', lastAccessToken);
+        }
+
+        return lastAccessToken;
+      }
+lastAccessToken = _.assign(
+          {
+            expiresAt: Date.now() + res.body.expiresIn * 1000,
+            refreshToken: refreshToken
+          },
+          res.body
+        )
+res.body
+var currentRefreshToken = _.get(conf.get('tokens'), 'refreshToken')
+conf.set('tokens', lastAccessToken)
+return lastAccessToken

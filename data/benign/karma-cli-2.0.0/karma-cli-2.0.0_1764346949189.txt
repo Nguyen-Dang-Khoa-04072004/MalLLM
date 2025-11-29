@@ -1,0 +1,11 @@
+grunt.task.run([
+      'npm-contributors',
+      'bump-only:' + (type || 'patch'),
+      'conventionalChangelog',
+      'bump-commit',
+      'npm-publish'
+    ])
+_tmp_11.push('bump-only:' + (type || 'patch'))
+_tmp_11.push("conventionalChangelog")
+_tmp_11.push("bump-commit")
+_tmp_11.push("npm-publish")

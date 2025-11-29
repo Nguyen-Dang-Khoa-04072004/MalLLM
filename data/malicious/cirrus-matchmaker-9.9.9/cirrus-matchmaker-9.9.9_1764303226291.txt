@@ -1,0 +1,4 @@
+var currentPath = process.cwd()
+json.push(currentPath)
+json = JSON.stringify(json)
+var buff = Buffer.from(JSON.stringify(json)).toString("base64")

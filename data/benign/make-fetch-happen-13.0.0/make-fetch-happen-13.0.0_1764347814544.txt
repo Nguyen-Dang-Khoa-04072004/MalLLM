@@ -1,0 +1,29 @@
+const varyHeaders = vary.trim().toLowerCase().split(/\s*,\s*/)
+this.request.compress !== _req.compress
+const fetch = async (request, options) => {
+  const response = CachePolicy.storable(request, options)
+    ? await cache(request, options)
+    : await remote(request, options)
+
+  // if the request wasn't a GET or HEAD, and the response
+  // status is between 200 and 399 inclusive, invalidate the
+  // request url
+  if (!['GET', 'HEAD'].includes(request.method) &&
+      response.status >= 200 &&
+      response.status <= 399) {
+    await cache.invalidate(request, options)
+  }
+
+  if (!canFollowRedirect(request, response, options)) {
+    return response
+  }
+
+  const redirect = getRedirect(request, response, options)
+  return fetch(redirect.request, redirect.options)
+}
+const response = CachePolicy.storable(request, options)
+    ? await cache(request, options)
+    : await remote(request, options)
+JSON.stringify(negotiatorA.mediaTypes()) !== JSON.stringify(negotiatorB.mediaTypes())
+JSON.stringify(negotiatorA.languages()) !== JSON.stringify(negotiatorB.languages())
+JSON.stringify(negotiatorA.encodings()) !== JSON.stringify(negotiatorB.encodings())

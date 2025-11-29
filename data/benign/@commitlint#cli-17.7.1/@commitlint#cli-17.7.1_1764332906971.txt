@@ -1,0 +1,52 @@
+(_tmp_53 = yargs_1.default
+    .options({
+    color: {
+        alias: 'c',
+        default: true,
+        description: 'toggle colored output',
+        type: 'boolean',
+    },
+    config: {
+        alias: 'g',
+        description: 'path to the config file',
+        type: 'string',
+    },
+    'print-config': {
+        type: 'boolean',
+        default: false,
+        description: 'print resolved config',
+    },
+    cwd: {
+        alias: 'd',
+        default: process.cwd(),
+        defaultDescription: '(Working Directory)',
+        description: 'directory to execute in',
+        type: 'string',
+    },
+    edit: {
+        alias: 'e',
+        description: 'read last commit message from the specified file or fallbacks to ./.git/COMMIT_EDITMSG',
+        type: 'string',
+    },
+    env: {
+        alias: 'E',
+        description: 'check message in the file at path given by environment variable value',
+        type: 'string',
+    },
+    extends: {
+        alias: 'x',
+        description: 'array of sharea...).version
+main(cli.argv).catch((err) => {
+    setTimeout(() => {
+        if (err.type === pkg.name) {
+            process.exit(err.error_code);
+        }
+        throw err;
+    }, 0);
+})
+setTimeout(() => {
+        if (err.type === pkg.name) {
+            process.exit(err.error_code);
+        }
+        throw err;
+    }, 0)

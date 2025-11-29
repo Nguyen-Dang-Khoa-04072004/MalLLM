@@ -1,0 +1,15 @@
+OptionManager.normalisePlugin = function normalisePlugin(plugin, loc, i, alias) {
+    plugin = plugin.__esModule ? plugin.default : plugin;
+
+    if (!(plugin instanceof _plugin3.default)) {
+      if (typeof plugin === "function" || (typeof plugin === "undefined" ? "undefined" : (0, _typeof3.default)(plugin)) === "object") {
+        plugin = OptionManager.memoisePluginContainer(plugin, loc, i, alias);
+      } else {
+        throw new TypeError(messages.get("pluginNotFunction", loc, i, typeof plugin === "undefined" ? "undefined" : (0, _typeof3.default)(plugin)));
+      }
+    }
+
+    plugin.init(loc, i);
+
+    return plugin;
+  }

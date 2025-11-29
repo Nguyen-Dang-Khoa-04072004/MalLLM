@@ -1,0 +1,1 @@
+!data.k.length || typeof (data.k[0]) === 'number'

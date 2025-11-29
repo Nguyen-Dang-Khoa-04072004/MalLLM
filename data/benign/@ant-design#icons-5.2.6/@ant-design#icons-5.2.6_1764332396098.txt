@@ -1,0 +1,4 @@
+function getSecondaryColor = function getSecondaryColor(primaryColor) {
+  // choose the second color
+  return generateColor(primaryColor)[0];
+}

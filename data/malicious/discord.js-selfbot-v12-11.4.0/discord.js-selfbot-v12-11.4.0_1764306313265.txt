@@ -1,0 +1,64 @@
+this.voiceConnection.sockets.ws.sendPacket({
+        op: Constants.VoiceOPCodes.SELECT_PROTOCOL,
+        d: {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        },
+      })
+_tmp_12.d = {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        }
+_tmp_6.INVALID_SHARD = "Invalid shard settings were provided."
+_tmp_13.data = {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          }
+dispatcher.once('end', () => this.unregisterDispatcher(dispatcher))
+dispatcher.on('volumeChange', (o, n) => {
+        this.unregisterDispatcher(dispatcher, o);
+        if (!this._dispatchers.has(n)) {
+          this._dispatchers.set(n, new Set());
+          this._encoders.set(n, OpusEncoders.fetch());
+        }
+        this._dispatchers.get(n).add(dispatcher);
+      })
+function parseLocalPacket = function parseLocalPacket(message) {
+  try {
+    const packet = Buffer.from(message);
+    let address = '';
+    for (let i = 4; i < packet.indexOf(0, i); i++) address += String.fromCharCode(packet[i]);
+    const port = parseInt(packet.readUIntLE(packet.length - 2, 2).toString(10), 10);
+    return { address, port };
+  } catch (error) {
+    return { error };
+  }
+}
+permission.map(p => this.resolve(p)).reduce((prev, p) => prev | p, 0)
+file = { attachment: file.file, name: path.basename(file.file) || 'file.jpg' }
+this.ratelimit.resetTimer = this.client.setTimeout(() => {
+        this.ratelimit.remaining = this.ratelimit.total;
+        this.processQueue();
+      }, this.ratelimit.time)
+(_tmp_14 = [
+      Actions.CHANNEL_DELETE,
+      Actions.CHANNEL_OVERWRITE_DELETE,
+      Actions.MEMBER_KICK,
+      Actions.MEMBER_PRUNE,
+      Actions.MEMBER_BAN_ADD,
+      Actions.ROLE_DELETE,
+      Actions.INVITE_DELETE,
+      Actions.WEBHOOK_DELETE,
+      Actions.EMOJI_DELETE,
+      Actions.MESSAGE_DELETE,
+    ]).includes
+options.maxID = long.fromNumber(t + 86400000).shiftLeft(22).toString()

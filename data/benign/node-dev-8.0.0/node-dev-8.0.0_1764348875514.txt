@@ -1,0 +1,32 @@
+const configureDeps = deps => required => deps !== -1 && getLevel(required) > deps
+obj[method] = function () {
+      const opts = arguments[optionsArgIndex];
+      let file = null;
+      if (opts) {
+        file = typeof opts === 'string' ? opts : opts.filename;
+      }
+      if (file) callback(file);
+      return orig.apply(this, arguments);
+    }
+module.exports = argv => {
+  const nodeCustomArgs = [];
+  const args = argv.slice(2).filter(nodeCustomFactory(nodeCustomArgs));
+
+  const unknownArgs = [];
+  const unknown = unknownFactory(unknownArgs);
+
+  const {
+    _: [script, ...scriptArgs]
+  } = minimist(args, { alias, boolean, string, unknown });
+
+  assert(script, 'Could not parse command line arguments');
+
+  const opts = minimist(args, { alias, boolean, default: getConfig(script) });
+  const nodeArgs = [...nodeBoolean.map(argify), ...nodeString.map(argify), ...unknownArgs]
+    .sort((a, b) => a.key - b.key)
+    .reduce(nodeArgsReducer(opts), [...nodeCustomArgs]);
+
+  opts.ignore = arrayify(opts.ignore).map(resolvePath);
+
+  return { nodeArgs, opts, script, scriptArgs };
+}

@@ -1,0 +1,7 @@
+var fileContents = fs.readFileSync(file, "utf8")
+var cleanLines = clean_lines(fileContents)
+cleanLines = join_opening_bracket(cleanLines)
+cleanLines = perform_indentation(cleanLines)
+var outputContents = cleanLines.join("\n")
+fs.writeFileSync(options.outputPath[0] + "/" + file, outputContents, 'utf8')
+fs.writeFileSync(file, outputContents, 'utf8')

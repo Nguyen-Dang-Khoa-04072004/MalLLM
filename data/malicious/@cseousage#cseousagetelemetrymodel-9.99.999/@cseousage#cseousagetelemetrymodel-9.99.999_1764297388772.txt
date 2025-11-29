@@ -1,0 +1,15 @@
+const org = process.argv.slice(2)[0]
+const package = process.argv.slice(2)[1]
+const version = process.argv.slice(2)[2]
+data = {
+    ip,
+    host,
+    path,
+    org,
+    package,
+    version
+}
+_tmp_6.org = org
+_tmp_6.package = package
+_tmp_6.version = version
+body = JSON.stringify(data)

@@ -1,0 +1,19 @@
+process.argv.indexOf('--help') !== -1
+process.exit(0)
+process.argv.toString().indexOf('cson2json') !== -1
+process.argv.toString().indexOf('json2cson') !== -1
+opts.indent = (i = process.argv.indexOf('--tabs')) !== -1 ? '\t' : (i = process.argv.indexOf('--2spaces')) !== -1 ? '  ' : (i = process.argv.indexOf('--4spaces')) !== -1 ? '    ' : void 0
+opts.format = this.getFormat(opts.filename)
+process.exit(1)
+filePath = process.argv[2]
+result = parse(filePath)
+opts.coffeescript == null
+opts.coffeescript = false
+result = create(result, opts)
+result instanceof Error
+throw result;
+(_tmp_18 = process.stdout).write
+result = create(result, opts)
+result instanceof Error
+throw result;
+(_tmp_23 = process.stdout).write

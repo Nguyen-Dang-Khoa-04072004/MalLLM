@@ -1,0 +1,1 @@
+this.#producerSocket.on('error', (error) => (logger.error('Producer Channel error: %s', String(error))))

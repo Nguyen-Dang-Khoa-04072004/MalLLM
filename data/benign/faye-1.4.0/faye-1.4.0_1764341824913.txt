@@ -1,0 +1,7 @@
+var ws       = new WebSocket(request, socket, head, [], options)
+request.originalUrl = request.url
+self._server.openSocket(cid, ws, request)
+self._server.process(message, request, function(replies) {
+          if (ws) ws.send(toJSON(replies));
+        })
+_tmp_0.subscribe = <lambda>13

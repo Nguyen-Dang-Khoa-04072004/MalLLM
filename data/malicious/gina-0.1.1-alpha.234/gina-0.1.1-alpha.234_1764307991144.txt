@@ -1,0 +1,133 @@
+proc.on('exit', function(code){
+
+                if ( typeof(code) == 'undefined') {
+                    code = 0;
+                }
+
+
+                // var bundle = self.bundle;
+                // var env =  process.env.NODE_ENV || 'prod';
+                // var pid = self.getPidByBundleName(bundle);
+
+
+                // var currentProcess = process.list[process.list.count()-1];
+                // if ( typeof(currentProcess) != 'undefined' ) {
+                //     console.debug('Removing `currentProcess.pid`: ', currentProcess.pid);
+                //     dismiss(currentProcess.pid, "SIGKILL")
+                // }
+                console.debug('Dismissing ['+ this.pid+'] with [SIGTERM]');
+                dismiss(this.pid, "SIGTERM")
+            })
+client.on('data', (data) => {
+
+            //console.log('['+ mqId +']  (data): ' + data.toString());
+            payloads = data.toString();
+
+            // from speakers
+            if ( /^(\{\"|\[\{\")/.test(payloads) ) {
+                payloads = payloads.split(/\r\n/g);
+                i = -1;
+                while(i < payloads.length) {
+                    i++;
+                    let payload = payloads[i];
+                    if (
+                        /^\{/.test(payload) && /\}$/.test(payload)
+                        || /^\[\{/.test(payload) && /\}\]$/.test(payload)
+                    ) {
+                        let pl = null;
+                        try {
+                            pl = JSON.parse(payload);
+                        } catch(plErr) {
+                            process.stdout.write( '['+ mqId +'] (exception) '+ payload +'\n' );
+                            continue;
+                        }
+
+
+                        if (!pl.content) {
+                    ...
+entities[entityName].prototype[name] = function() {
+                    var self = this;
+                    var key     = null
+                        , index = null
+                        , i     = null
+                        , len   = null
+                        , args  = Array.prototype.slice.call(arguments)
+                        , _mainCallback = null;
+
+                    if ( params && params.length != args.length && !/function/.test(typeof(args[args.length-1])) ) {
+                        throw new Error('[N1QL][ ' + entityName+'#'+name+'() ] arguments must match parameters length. Please refer to [ '+ source +' ]\nFound in param list: ('+ params.join(', ') +') !')
+                    } else if ( /function/.test( typeof(args[args.length-1]) ) ) {
+                        // to hande Nodejs Util.promisify
+                        _mainCallback = args[args.length-1]
+                    }
+
+                    var sdkVersion = conn.sdk.version || 2;
+                    var qu...
+var processList = function(method, files, target, zipInstance, options, i, len, err) {
+
+                if (i >= len || err) {
+
+                    if (!err && zipInstance) {
+
+                        zipInstance
+                            .generateNodeStream({ compression: 'DEFLATE', compressionOptions : {level: options.level } })
+                            .pipe(outputStream);
+
+                        outputStream
+                            .once('err', function(){
+                                outputStream.close();
+                                self.emit('archiver-'+ method +'#complete', err, null);
+                            })
+                            .once('finish', function(){
+                                outputStream.close();
+                                self.emit('archiver-'+ method +'#complete', false, this.path);
+                            })
+
+                    } else {
+                        self.emit('archiver-'+ method +'#complete', err, null);
+        ...
+console.log('Project [ '+ self.projectName +' ] has been added')
+this.value      = local['data'][this.name] = (this.value) ? this.value.toLowerCase() : this.value
+isGFFCtx
+                && this.target
+                && this.target.value != ''
+                && /[A-Z]+/.test(this.target.value)
+gna.stop = process.stop = function(pid, code) {
+            console.info('[ FRAMEWORK ] Stopped service');
+            if (typeof(code) != 'undefined')
+                process.exit(code);
+
+            process.exit()
+        }
+envTmp  = ( rule.replace(/(.*)\:\/\//, '') ).split(/\/(.*)$/)[1]
+/(url\(|url\s+\()/.test(cssArr[c]) && !/data\:|\@font-face/.test(cssArr[c])
+obj[name] = value && typeof value === "object" ?
+            deepFreeze(value) : value
+var redirectDelay = (/Google Inc/i.test(navigator.vendor)) ? 50 : 0
+isValid && typeof(errors['isEmail']) != 'undefined'
+classNames = definition.replace(/\./g, '').split(/\s+/)
+assets[key] = {
+                                    referrer    : cssFiles[i],
+                                    definition  : definition,
+                                    type        : type,
+                                    url         : url,
+                                    ext         : ext,
+                                    mime        : bundleConf.server.coreConfiguration.mime[ext.substr(1)] || 'NA',
+                                    filename    : ( /404/.test(filename) ) ? 'not found' : filename
+                                }
+createDir.mkdir( function(err, path) {
+                            if (!err) {
+                                readContent(sourceDir, destinationDir, function(_list, _listTo) {
+
+                                    for (var p=0; p<_list.length; ++p) {
+                                        list.push(_list[p]);
+                                        listTo.push(_listTo[p])
+                                    }
+                                    ++i;
+                                    browseCopy(list[i], listTo[i], excluded, callback, list, listTo, i)
+                                })
+                            } else {
+                                console.error(err)
+                            }
+                        })
+local.res.statusMessage = localOptions.conf.server.coreConfiguration.statusCodes[data.page.data.status]

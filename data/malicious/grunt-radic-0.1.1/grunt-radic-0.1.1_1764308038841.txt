@@ -1,0 +1,82 @@
+var options = this.options({
+            dir: 'docs/coverage',
+            exclude: [],
+            useFrontMatter: true,
+            frontMatterPath: path.join(__dirname, '..', 'lib/istanbul-radic-report/templates/front-matter.yml'),
+            templateDir: path.join(__dirname, '..', 'lib/istanbul-radic-report/templates'),
+            vendorDir: path.join(__dirname, '..', 'lib/istanbul-radic-report/vendor')
+        })
+function hashToLink = function hashToLink(doclet, hash) {
+    if (!/^(#.+)/.test(hash)) {
+        return hash;
+    }
+
+    var url = helper.createLink(doclet);
+
+    url = url.replace(/(#.+|$)/, hash);
+    return '<a href="' + url + '">' + hash + '</a>';
+}
+var ascmd = function(cmd){
+            return function(next){
+                exec(cmd, function(err, stdin, stdout){
+                    console.log(err, stdin, stdout);
+                    next(err);
+                });
+            }
+        }
+exclude = ' -x "' + options.exclude.join(' -x "') + '"'
+_tmp_18.push("<td data-value="{{metrics.statements.pct}}" class="pct {{reportClasses.statements}}">{{metrics.statements.pct}}%</td>")
+this.implicit.forEach(function (type) {
+    if (type.loadKind && 'scalar' !== type.loadKind) {
+      throw new YAMLException('There is a non-scalar type in the implicit list of a schema. Implicit resolving of such types is not supported.');
+    }
+  })
+function fromHexCode = function fromHexCode(c) {
+  var lc;
+
+  if ((0x30/* 0 */ <= c) && (c <= 0x39/* 9 */)) {
+    return c - 0x30;
+  }
+
+  lc = c | 0x20;
+  if ((0x61/* a */ <= lc) && (lc <= 0x66/* f */)) {
+    return lc - 0x61 + 10;
+  }
+
+  return -1;
+}
+collector.add(JSON.parse(fs.readFileSync(path.join(dir, 'coverage.json'), 'utf8')))
+Schema.create = function createSchema() {
+  var schemas, types;
+
+  switch (arguments.length) {
+  case 1:
+    schemas = Schema.DEFAULT;
+    types = arguments[0];
+    break;
+
+  case 2:
+    schemas = arguments[0];
+    types = arguments[1];
+    break;
+
+  default:
+    throw new YAMLException('Wrong number of arguments for Schema.create function');
+  }
+
+  schemas = common.toArray(schemas);
+  types = common.toArray(types);
+
+  if (!schemas.every(function (schema) { return schema instanceof Schema; })) {
+    throw new YAMLException('Specified list of super schemas (or a single Schema object) contains a non-Schema object.');
+  }
+
+  if (!types.every(function (type) { return type instanceof Type; })) {
+    throw new YAMLException('Specified list of YAML types (or a single Type object) contains a non-Type object.');
+  }
+
+  return new Schema({
+    include: schemas,
+    explicit: types
+  });
+}

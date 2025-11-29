@@ -1,0 +1,17 @@
+connection.send(envelope, mail.message.createReadStream(), function (err, info) {
+                if (returned) {
+                    return;
+                }
+                returned = true;
+
+                connection.close();
+                if (err) {
+                    return callback(err);
+                }
+                info.envelope = {
+                    from: envelope.from,
+                    to: envelope.to
+                };
+                info.messageId = messageId;
+                return callback(null, info);
+            })

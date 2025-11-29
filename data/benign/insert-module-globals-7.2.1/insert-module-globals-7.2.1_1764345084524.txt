@@ -1,0 +1,60 @@
+var processPath = require.resolve('process/browser.js')
+mdeps(files, { transform: inserter })
+    .pipe(bpack({ raw: true }))
+    .pipe(process.stdout)
+var defaultVars = {
+    process: function (file) {
+        var relpath = getRelativeRequirePath(processPath, file);
+        return 'require(' + JSON.stringify(relpath) + ')';
+    },
+    global: function () {
+        return 'typeof global !== "undefined" ? global : '
+            + 'typeof self !== "undefined" ? self : '
+            + 'typeof window !== "undefined" ? window : {}'
+        ;
+    },
+    'Buffer.isBuffer': function (file) {
+        var relpath = getRelativeRequirePath(isbufferPath, file);
+        return 'require(' + JSON.stringify(relpath) + ')';
+    },
+    Buffer: function () {
+        return 'require("buffer").Buffer';
+    },
+    setImmediate: function () {
+        return 'require("timers").setImmediate';
+    },
+    clearImmediate: function () {
+        return 'require("timers").clearImmediate';
+    },
+    __filename: function (file, basedir) {
+        var relpath = path.relative(basedir, file);
+        // standardize path separators, use slash in Windows too
+        if ( p...
+_tmp_8.process = <lambda>2
+var relpath = getRelativeRequirePath(processPath, file)
+'require(' + JSON.stringify(relpath) + ')'
+_tmp_8.Buffer.isBuffer = <lambda>4
+var relpath = getRelativeRequirePath(isbufferPath, file)
+'require(' + JSON.stringify(relpath) + ')'
+var vars = merge(defaultVars, opts.vars)
+var varNames = Object.keys(vars).filter(function(name) {
+        return typeof vars[name] === 'function';
+    })
+var quick = RegExp(varNames.map(function (name) {
+        return '\\b' + name + '\\b';
+    }).join('|'))
+'\\b' + name + '\\b'
+varNames.forEach(function (name) {
+            if (!/\./.test(name)) return;
+            var parts = name.split('.')
+            var prop = undeclared.properties.indexOf(name)
+            if (prop === -1 || countprops(undeclared.properties, parts[0]) > 1) return;
+            var value = vars[name](file, basedir);
+            if (!value) return;
+            globals[parts[0]] = '{'
+                + JSON.stringify(parts[1]) + ':' + value + '}';
+            self.emit('global', name);
+        })
+(_tmp_15 = /\./).test
+var parts = name.split('.')
+JSON.stringify(parts[1])

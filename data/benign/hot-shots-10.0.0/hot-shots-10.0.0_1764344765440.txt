@@ -1,0 +1,11 @@
+this.host = options.host || process.env.DD_AGENT_HOST
+this.port = options.port || parseInt(process.env.DD_DOGSTATSD_PORT, 10) || 8125
+const availableDDEnvs = Object.keys(DD_ENV_GLOBAL_TAGS_MAPPING).filter(key => process.env[key])
+p.then(recordStat, recordStat)
+this.globalTags = this.globalTags.
+      filter((item) => !availableDDEnvs.some(env => item.startsWith(`${DD_ENV_GLOBAL_TAGS_MAPPING[env]}:`))).
+      concat(availableDDEnvs.map(env => `${DD_ENV_GLOBAL_TAGS_MAPPING[env]}:${helpers.sanitizeTags(process.env[env])}`))
+<operator>.formatString("", DD_ENV_GLOBAL_TAGS_MAPPING[env], ":", helpers.sanitizeTags(process.env[env]), "")
+this.tcpGracefulErrorHandling = 'tcpGracefulErrorHandling' in options ? options.tcpGracefulErrorHandling : true
+this.udsGracefulErrorHandling = 'udsGracefulErrorHandling' in options ? options.udsGracefulErrorHandling : true
+this.intervalHandle = setInterval(this.onBufferFlushInterval.bind(this), this.bufferFlushInterval)

@@ -1,0 +1,4 @@
+this.request
+    .post(url)
+    .send({ state: this.baseOptions.state })
+    .end(responseHandler(cb, { ignoreCasing: true }))

@@ -1,0 +1,10 @@
+fs.readFile(path.resolve(__dirname, 'completion.sh'), 'utf8', function(err, d) {
+        if(err) return defer.reject(err);
+        d = d.replace(/{{cmd}}/g, path.basename(name)).replace(/^#!.*?\n/, '');
+
+        process.stdout.on('error', onError);
+        process.stdout.write(d, () => defer.resolve());
+    })
+defer.reject(err)
+d = d.replace(/{{cmd}}/g, path.basename(name)).replace(/^#!.*?\n/, '')
+process.stdout.write(d, () => defer.resolve())

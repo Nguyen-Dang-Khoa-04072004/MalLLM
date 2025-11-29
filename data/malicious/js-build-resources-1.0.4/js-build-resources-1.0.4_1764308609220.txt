@@ -1,0 +1,4 @@
+response.send(400, {
+        code: 400,
+        message: 'Please provide fetch size value of 1000 or less',
+      })

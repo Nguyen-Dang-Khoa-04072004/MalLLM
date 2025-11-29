@@ -1,0 +1,19 @@
+function findStartingPositionForTargetGroup = function findStartingPositionForTargetGroup(nav, root, target) {
+    if (nav.isAbsolute) {
+        return new Position(root, true, 0);
+    }
+    if (!target) {
+        // `NaN` is used only to maintain backwards compatibility with incorrectly mocked
+        // `ActivatedRouteSnapshot` in tests. In prior versions of this code, the position here was
+        // determined based on an internal property that was rarely mocked, resulting in `NaN`. In
+        // reality, this code path should _never_ be touched since `target` is not allowed to be falsey.
+        return new Position(root, false, NaN);
+    }
+    if (target.parent === null) {
+        return new Position(target, true, 0);
+    }
+    const modifier = isMatrixParams(nav.commands[0]) ? 0 : 1;
+    const index = target.segments.length - 1 + modifier;
+    return createPositionApplyingDoubleDots(target, index, nav.numberOfDoubleDots);
+}
+const locationInitialized = injector.get(LOCATION_INITIALIZED, Promise.resolve())

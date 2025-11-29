@@ -1,0 +1,86 @@
+function getValidationErrors = function getValidationErrors(config) {
+    const errors = [];
+    // These can't be validated with io-ts
+    if (config !== undefined && typeof config.networks === "object") {
+        const hardhatNetwork = config.networks[constants_1.HARDHAT_NETWORK_NAME];
+        if (hardhatNetwork !== undefined && typeof hardhatNetwork === "object") {
+            if ("url" in hardhatNetwork) {
+                errors.push(`HardhatConfig.networks.${constants_1.HARDHAT_NETWORK_NAME} can't have an url`);
+            }
+            // Validating the accounts with io-ts leads to very confusing errors messages
+            const { accounts, ...configExceptAccounts } = hardhatNetwork;
+            const netConfigResult = HardhatNetworkConfig.decode(configExceptAccounts);
+            if (netConfigResult.isLeft()) {
+                errors.push(getErrorMessage(`HardhatConfig.networks.${constants_1.HARDHAT_NETWORK_NAME}`, hardhatNetwork, "HardhatNetworkConfig"));
+            }
+            // manual validation o...
+_tmp_2.push({
+        name: "action",
+        type: "select",
+        message: "What do you want to do?",
+        initial: 0,
+        choices: Object.values(Action).map((a: Action) => {
+          let message: string;
+          if (isEsm) {
+            if (a === Action.CREATE_EMPTY_HARDHAT_CONFIG_ACTION) {
+              message = a.replace(".js", ".cjs");
+            } else if (a === Action.CREATE_TYPESCRIPT_PROJECT_ACTION) {
+              message = `${a} (not available for ESM projects)`;
+            } else {
+              message = a;
+            }
+          } else {
+            message = a;
+          }
+
+          return {
+            name: a,
+            message,
+            value: a,
+          };
+        }),
+      })
+<operator>.formatString("Solidity compiler is not configured. Version ", DEFAULT_SOLC_VERSION, " will be used by default. Add a 'solidity' entry to your configuration to suppress this warning.
+
+Learn more about compiler configuration at https://hardhat.org/config
+")
+_tmp_13.TASK_DEFINITIONS = {
+    PARAM_AFTER_VARIADIC: {
+      number: 200,
+      message:
+        "Could not set positional param %paramName% for task %taskName% because there is already a variadic positional param and it has to be the last positional one.",
+      title: "Could not add positional param",
+      description: `Could add a positional param to your task because
+there is already a variadic positional param and it has to be the last
+positional one.
+
+Please double check your task definitions.`,
+      shouldBeReported: false,
+    },
+    PARAM_ALREADY_DEFINED: {
+      number: 201,
+      message:
+        "Could not set param %paramName% for task %taskName% because its name is already used.",
+      title: "Repeated param name",
+      description: `Could not add a param to your task because its name is already used.
+
+Please double check your task definitions.`,
+      shouldBeReported: false,
+    },
+    PARAM_CLASHES_WITH_HARDHAT_PARAM: {
+      number: 202,
+      message:
+        "Could not set param %par...
+_tmp_55.PARAM_AFTER_VARIADIC = {
+      number: 200,
+      message:
+        "Could not set positional param %paramName% for task %taskName% because there is already a variadic positional param and it has to be the last positional one.",
+      title: "Could not add positional param",
+      description: `Could add a positional param to your task because
+there is already a variadic positional param and it has to be the last
+positional one.
+
+Please double check your task definitions.`,
+      shouldBeReported: false,
+    }
+_tmp_1.362193358 = [exports.BoolTy, exports.StringTy, exports.Uint256Ty, exports.AddressTy]

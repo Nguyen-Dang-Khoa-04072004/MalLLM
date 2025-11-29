@@ -1,0 +1,27 @@
+const servers = descriptions.map(description => topology.s.servers.get(description.address))
+this.state === DESTROYED || this.state === DESTROYING
+function connectServers = function connectServers(self, servers) {
+  // Update connectingServers
+  self.s.connectingServers = self.s.connectingServers.concat(servers);
+
+  // Index used to interleaf the server connects, avoiding
+  // runtime issues on io constrained vm's
+  var timeoutInterval = 0;
+
+  function connect(server, timeoutInterval) {
+    setTimeout(function() {
+      // Add the server to the state
+      if (self.s.replicaSetState.update(server)) {
+        // Primary lastIsMaster store it
+        if (server.lastIsMaster() && server.lastIsMaster().ismaster) {
+          self.ismaster = server.lastIsMaster();
+        }
+      }
+
+      // Add event handlers
+      server.once('close', handleInitialConnectEvent(self, 'close'));
+      server.once('timeout', handleInitialConnectEvent(self, 'timeout'));
+      server.once('parseError', handleInitialConnectEvent(self, 'parseError'));
+      server.once('error', handleInitialConnectEvent(self, 'error'));
+      server.once('connect', handleInitialConnectEvent(self,...
+var tagsArray = Array.isArray(readPreference.tags) ? readPreference.tags : [readPreference.tags]

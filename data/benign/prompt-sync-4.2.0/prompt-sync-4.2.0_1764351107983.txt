@@ -1,0 +1,7 @@
+var fd = (process.platform === 'win32') ?
+      process.stdin.fd :
+      fs.openSync('/dev/tty', 'rs')
+fs.openSync('/dev/tty', 'rs')
+read = fs.readSync(fd, buf, 0, 3)
+fs.closeSync(fd)
+fs.closeSync(fd)

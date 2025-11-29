@@ -1,0 +1,1 @@
+const cached = options.cache.get(filepath)

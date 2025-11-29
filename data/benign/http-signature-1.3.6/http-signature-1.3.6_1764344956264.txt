@@ -1,0 +1,17 @@
+assert.object(request, 'request')
+request.headers.date || request.headers['x-date']
+assert.optionalString(options.algorithm, 'options.algorithm')
+assert.string(options.keyId, 'options.keyId')
+assert.optionalString(options.opaque, 'options.opaque')
+assert.optionalArrayOfString(options.headers, 'options.headers')
+assert.optionalString(options.httpVersion, 'options.httpVersion')
+assert.optionalNumber(options.expiresIn, 'options.expiresIn')
+assert.optionalString(options.keyPassphrase, 'options.keyPassphrase')
+throw new ExpiredRequestError('Request expired with skew ' +
+          expiredSince + 's greater than allowed ' + options.clockSkew + 's');
+_tmp_30.passphrase = options.keyPassphrase
+assert.ok(sshpk.PrivateKey.isPrivateKey(key, [1, 2]),
+        'options.key must be a sshpk.PrivateKey')
+options.algorithms.indexOf(parsed.params.algorithm) === -1
+alg[1] = key.defaultHashAlgorithm()
+var hmac = crypto.createHmac(alg[1].toUpperCase(), key)

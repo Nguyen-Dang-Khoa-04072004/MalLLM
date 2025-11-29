@@ -1,0 +1,2 @@
+const content = passive_file_system_1.passiveFileSystem.readFile(path)
+mem_file_system_1.memFileSystem.writeFile(path, content)

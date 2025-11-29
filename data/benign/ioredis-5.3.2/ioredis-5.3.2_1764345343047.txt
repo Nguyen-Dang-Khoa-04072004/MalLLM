@@ -1,0 +1,3 @@
+this.connect().catch(function (err) {
+                    debug("Got error %s when reconnecting. Ignoring...", err);
+                })

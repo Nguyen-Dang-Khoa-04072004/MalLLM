@@ -1,0 +1,624 @@
+const _normalizeForms = ["NFD", "NFC", "NFKD", "NFKC"].reduce((accum, form) => {
+    try {
+        // General test for normalize
+        /* c8 ignore start */
+        if ("test".normalize(form) !== "test") {
+            throw new Error("bad");
+        }
+        ;
+        /* c8 ignore stop */
+        if (form === "NFD") {
+            const check = String.fromCharCode(0xe9).normalize("NFD");
+            const expected = String.fromCharCode(0x65, 0x0301);
+            /* c8 ignore start */
+            if (check !== expected) {
+                throw new Error("broken");
+            }
+            /* c8 ignore stop */
+        }
+        accum.push(form);
+    }
+    catch (error) { }
+    return accum;
+}, [])
+function toBeHex = function toBeHex(_value, _width) {
+    const value = getUint(_value, "value");
+    let result = value.toString(16);
+    if (_width == null) {
+        // Ensure the value is of even length
+        if (result.length % 2) {
+            result = "0" + result;
+        }
+    }
+    else {
+        const width = getNumber(_width, "width");
+        (0, errors_js_1.assert)(width * 2 >= result.length, `value exceeds width (${width} bits)`, "NUMERIC_FAULT", {
+            operation: "toBeHex",
+            fault: "overflow",
+            value: _value
+        });
+        // Pad the value to the required width
+        while (result.length < (width * 2)) {
+            result = "0" + result;
+        }
+    }
+    return "0x" + result;
+}
+function getIcapAddress = function getIcapAddress(address: string): string {
+    //let base36 = _base16To36(getAddress(address).substring(2)).toUpperCase();
+    let base36 = BigInt(getAddress(address)).toString(36).toUpperCase();
+    while (base36.length < 30) { base36 = "0" + base36; }
+    return "XE" + ibanChecksum("XE00" + base36) + base36;
+}
+function getEncryptKdfParams = function getEncryptKdfParams(options) {
+    // Check/generate the salt
+    const salt = (options.salt != null) ? (0, index_js_4.getBytes)(options.salt, "options.salt") : (0, index_js_2.randomBytes)(32);
+    // Override the scrypt password-based key derivation function parameters
+    let N = (1 << 17), r = 8, p = 1;
+    if (options.scrypt) {
+        if (options.scrypt.N) {
+            N = options.scrypt.N;
+        }
+        if (options.scrypt.r) {
+            r = options.scrypt.r;
+        }
+        if (options.scrypt.p) {
+            p = options.scrypt.p;
+        }
+    }
+    (0, index_js_4.assertArgument)(typeof (N) === "number" && N > 0 && Number.isSafeInteger(N) && (BigInt(N) & BigInt(N - 1)) === BigInt(0), "invalid scrypt N parameter", "options.N", N);
+    (0, index_js_4.assertArgument)(typeof (r) === "number" && r > 0 && Number.isSafeInteger(r), "invalid scrypt r parameter", "options.r", r);
+    (0, index_js_4.assertArgument)(typeof (p) === "number" && p > 0 && Number.isSafeInteg...
+function buildWrappedMethod = function buildWrappedMethod(contract, key) {
+    const getFragment = function (...args) {
+        const fragment = contract.interface.getFunction(key, args);
+        assert(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+            operation: "fragment",
+            info: { key, args }
+        });
+        return fragment;
+    };
+    const populateTransaction = async function (...args) {
+        const fragment = getFragment(...args);
+        // If an overrides was passed in, copy it and normalize the values
+        let overrides = {};
+        if (fragment.inputs.length + 1 === args.length) {
+            overrides = await copyOverrides(args.pop());
+        }
+        if (fragment.inputs.length !== args.length) {
+            throw new Error("internal error: fragment inputs doesn't match arguments; should not happen");
+        }
+        const resolvedArgs = await resolveArgs(contract.runner, fragment.inputs, args);
+        return Object.assign({}, overrides, await resolvePr...
+function getFuzzyMode = function getFuzzyMode(quorum, results) {
+    if (quorum === 1) {
+        return getNumber(getMedian(quorum, results), "%internal");
+    }
+    const tally = new Map();
+    const add = (result, weight) => {
+        const t = tally.get(result) || { result, weight: 0 };
+        t.weight += weight;
+        tally.set(result, t);
+    };
+    for (const { weight, value } of results) {
+        const r = getNumber(value);
+        add(r - 1, weight);
+        add(r, weight);
+        add(r + 1, weight);
+    }
+    let bestWeight = 0;
+    let bestResult = undefined;
+    for (const { weight, result } of tally.values()) {
+        // Use this result, if this result meets quorum and has either:
+        // - a better weight
+        // - or equal weight, but the result is larger
+        if (weight >= quorum && (weight > bestWeight || (bestResult != null && weight === bestWeight && result > bestResult))) {
+            bestWeight = weight;
+            bestResult = result;
+        }
+    }
+    return bestRes...
+function formatTransactionResponse = function formatTransactionResponse(value) {
+    // Some clients (TestRPC) do strange things like return 0x0 for the
+    // 0 address; correct this to be a real address
+    if (value.to && (0, index_js_4.getBigInt)(value.to) === BN_0) {
+        value.to = "0x0000000000000000000000000000000000000000";
+    }
+    const result = object({
+        hash: formatHash,
+        type: (value) => {
+            if (value === "0x" || value == null) {
+                return 0;
+            }
+            return (0, index_js_4.getNumber)(value);
+        },
+        accessList: allowNull(index_js_3.accessListify, null),
+        blockHash: allowNull(formatHash, null),
+        blockNumber: allowNull(index_js_4.getNumber, null),
+        transactionIndex: allowNull(index_js_4.getNumber, null),
+        //confirmations: allowNull(getNumber, null),
+        from: index_js_1.getAddress,
+        // either (gasPrice) or (maxPriorityFeePerGas + maxFeePerGas) must be set
+        gasPrice: allowNull(index_js_4.getBigI...
+function buildWrappedMethod = function buildWrappedMethod(contract, key) {
+    const getFragment = function (...args) {
+        const fragment = contract.interface.getFunction(key, args);
+        (0, index_js_3.assert)(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+            operation: "fragment",
+            info: { key, args }
+        });
+        return fragment;
+    };
+    const populateTransaction = async function (...args) {
+        const fragment = getFragment(...args);
+        // If an overrides was passed in, copy it and normalize the values
+        let overrides = {};
+        if (fragment.inputs.length + 1 === args.length) {
+            overrides = await copyOverrides(args.pop());
+        }
+        if (fragment.inputs.length !== args.length) {
+            throw new Error("internal error: fragment inputs doesn't match arguments; should not happen");
+        }
+        const resolvedArgs = await resolveArgs(contract.runner, fragment.inputs, args);
+        return Object.assign({}, overrides,...
+request.processFunc = async (request, response) => {
+            const result = response.hasBody() ? JSON.parse(toUtf8String(response.body)) : {};
+            const throttle = ((typeof (result.result) === "string") ? result.result : "").toLowerCase().indexOf("rate limit") >= 0;
+            if (module === "proxy") {
+                // This JSON response indicates we are being throttled
+                if (result && result.status == 0 && result.message == "NOTOK" && throttle) {
+                    this.emit("debug", { action: "receiveError", id, reason: "proxy-NOTOK", error: result });
+                    response.throwThrottleError(result.result, THROTTLE);
+                }
+            }
+            else {
+                if (throttle) {
+                    this.emit("debug", { action: "receiveError", id, reason: "null result", error: result.result });
+                    response.throwThrottleError(result.result, THROTTLE);
+                }
+            }
+            return respons...
+(0, index_js_3.assert)(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+            operation: "fragment",
+            info: { key, args }
+        })
+const result = object({
+        hash: formatHash,
+        type: (value) => {
+            if (value === "0x" || value == null) {
+                return 0;
+            }
+            return (0, index_js_4.getNumber)(value);
+        },
+        accessList: allowNull(index_js_3.accessListify, null),
+        blockHash: allowNull(formatHash, null),
+        blockNumber: allowNull(index_js_4.getNumber, null),
+        transactionIndex: allowNull(index_js_4.getNumber, null),
+        //confirmations: allowNull(getNumber, null),
+        from: index_js_1.getAddress,
+        // either (gasPrice) or (maxPriorityFeePerGas + maxFeePerGas) must be set
+        gasPrice: allowNull(index_js_4.getBigInt),
+        maxPriorityFeePerGas: allowNull(index_js_4.getBigInt),
+        maxFeePerGas: allowNull(index_js_4.getBigInt),
+        gasLimit: index_js_4.getBigInt,
+        to: allowNull(index_js_1.getAddress, null),
+        value: index_js_4.getBigInt,
+        nonce: index_js_4.getNumber,
+        data: formatData,
+  ...
+function formatTransactionResponse = function formatTransactionResponse(value: any): TransactionResponseParams {
+
+    // Some clients (TestRPC) do strange things like return 0x0 for the
+    // 0 address; correct this to be a real address
+    if (value.to && getBigInt(value.to) === BN_0) {
+        value.to = "0x0000000000000000000000000000000000000000";
+    }
+
+    const result = object({
+        hash: formatHash,
+
+        type: (value: any) => {
+            if (value === "0x" || value == null) { return 0; }
+            return getNumber(value);
+        },
+        accessList: allowNull(accessListify, null),
+
+        blockHash: allowNull(formatHash, null),
+        blockNumber: allowNull(getNumber, null),
+        transactionIndex: allowNull(getNumber, null),
+
+        //confirmations: allowNull(getNumber, null),
+
+        from: getAddress,
+
+        // either (gasPrice) or (maxPriorityFeePerGas + maxFeePerGas) must be set
+        gasPrice: allowNull(getBigInt),
+        maxPriorityFeePerGas: allowNull(getBigInt),
+        maxFee...
+function zeroPadValue = function zeroPadValue(data: BytesLike, length: number): string {
+    return zeroPad(data, length, true);
+}
+function extractAccents = function extractAccents(words) {
+    // Build a list that maps accents to the letters it can follow
+    const followsMap = new Map();
+    for (const word of words) {
+        for (let i = 0; i < word.length; i++) {
+            const c = word[i];
+            if (c >= 'a' && c <= 'z') {
+                continue;
+            }
+            // Make sure this positions and codepoint make sense
+            if (c.charCodeAt(1)) {
+                throw new Error(`unsupported codepoint: "${c}"`);
+            }
+            if (i === 0) {
+                throw new Error(`unmatched accent: ${c}`);
+            }
+            const ac = c.charCodeAt(0), lastLetter = word[i - 1];
+            ;
+            const follows = (followsMap.get(ac) || "");
+            if (follows.indexOf(lastLetter) === -1) {
+                followsMap.set(ac, sorted(follows + lastLetter));
+            }
+        }
+    }
+    // Build the positions of each follow-set for those accents
+    const positionsMap = new Map();
+    fo...
+function _encryptKeystore = function _encryptKeystore(key, kdf, account, options) {
+    const privateKey = getBytes(account.privateKey, "privateKey");
+    // Override initialization vector
+    const iv = (options.iv != null) ? getBytes(options.iv, "options.iv") : randomBytes(16);
+    assertArgument(iv.length === 16, "invalid options.iv length", "options.iv", options.iv);
+    // Override the uuid
+    const uuidRandom = (options.uuid != null) ? getBytes(options.uuid, "options.uuid") : randomBytes(16);
+    assertArgument(uuidRandom.length === 16, "invalid options.uuid length", "options.uuid", options.iv);
+    // This will be used to encrypt the wallet (as per Web3 secret storage)
+    // - 32 bytes   As normal for the Web3 secret storage (derivedKey, macPrefix)
+    // - 32 bytes   AES key to encrypt mnemonic with (required here to be Ethers Wallet)
+    const derivedKey = key.slice(0, 16);
+    const macPrefix = key.slice(16, 32);
+    // Encrypt the private key
+    const aesCtr = new CTR(derivedKey, iv);
+    const c...
+(0, index_js_4.assertArgument)(typeof (N) === "number" && N > 0 && Number.isSafeInteger(N) && (BigInt(N) & BigInt(N - 1)) === BigInt(0), "invalid scrypt N parameter", "options.N", N)
+function _serializeEip1559 = function _serializeEip1559(tx, sig) {
+    const fields = [
+        formatNumber(tx.chainId || 0, "chainId"),
+        formatNumber(tx.nonce || 0, "nonce"),
+        formatNumber(tx.maxPriorityFeePerGas || 0, "maxPriorityFeePerGas"),
+        formatNumber(tx.maxFeePerGas || 0, "maxFeePerGas"),
+        formatNumber(tx.gasLimit || 0, "gasLimit"),
+        ((tx.to != null) ? (0, index_js_1.getAddress)(tx.to) : "0x"),
+        formatNumber(tx.value || 0, "value"),
+        (tx.data || "0x"),
+        (formatAccessList(tx.accessList || []))
+    ];
+    if (sig) {
+        fields.push(formatNumber(sig.yParity, "yParity"));
+        fields.push((0, index_js_3.toBeArray)(sig.r));
+        fields.push((0, index_js_3.toBeArray)(sig.s));
+    }
+    return (0, index_js_3.concat)(["0x02", (0, index_js_3.encodeRlp)(fields)]);
+}
+function _serializeLegacy = function _serializeLegacy(tx: Transaction, sig?: Signature): string {
+    const fields: Array<any> = [
+        formatNumber(tx.nonce || 0, "nonce"),
+        formatNumber(tx.gasPrice || 0, "gasPrice"),
+        formatNumber(tx.gasLimit || 0, "gasLimit"),
+        ((tx.to != null) ? getAddress(tx.to): "0x"),
+        formatNumber(tx.value || 0, "value"),
+        (tx.data || "0x"),
+    ];
+
+    let chainId = BN_0;
+    if (tx.chainId != BN_0) {
+        // A chainId was provided; if non-zero we'll use EIP-155
+        chainId = getBigInt(tx.chainId, "tx.chainId");
+
+        // We have a chainId in the tx and an EIP-155 v in the signature,
+        // make sure they agree with each other
+        assertArgument(!sig || sig.networkV == null || sig.legacyChainId === chainId,
+             "tx.chainId/sig.v mismatch", "sig", sig);
+
+    } else if (tx.signature) {
+        // No explicit chainId, but EIP-155 have a derived implicit chainId
+        const legacy = tx.signature.legacyChainId;
+        if (l...
+function extractAccents = function extractAccents(words) {
+    // Build a list that maps accents to the letters it can follow
+    const followsMap = new Map();
+    for (const word of words) {
+        for (let i = 0; i < word.length; i++) {
+            const c = word[i];
+            if (c >= 'a' && c <= 'z') {
+                continue;
+            }
+            // Make sure this positions and codepoint make sense
+            if (c.charCodeAt(1)) {
+                throw new Error(`unsupported codepoint: "${c}"`);
+            }
+            if (i === 0) {
+                throw new Error(`unmatched accent: ${c}`);
+            }
+            const ac = c.charCodeAt(0), lastLetter = word[i - 1];
+            ;
+            const follows = (followsMap.get(ac) || "");
+            if (follows.indexOf(lastLetter) === -1) {
+                followsMap.set(ac, sorted(follows + lastLetter));
+            }
+        }
+    }
+    // Build the positions of each follow-set for those accents
+    const positionsMap = new Map();
+    fo...
+options.client != null ? options.client : <operator>.formatString("ethers/", version, "")
+_tmp_5.0x4e487b71 = {
+        signature: "Panic(uint256)",
+        name: "Panic",
+        inputs: [ "uint256" ],
+        reason: (code: bigint) => {
+            let reason = "unknown panic code";
+            if (code >= 0 && code <= 0xff && PanicReasons[code.toString()]) {
+                reason = PanicReasons[code.toString()];
+            }
+            return `reverted with panic code 0x${ code.toString(16) } (${ reason })`;
+        }
+    }
+function getSubscription = async function getSubscription(_event: ProviderEvent, provider: AbstractProvider): Promise<Subscription> {
+    if (_event == null) { throw new Error("invalid event"); }
+
+    // Normalize topic array info an EventFilter
+    if (Array.isArray(_event)) { _event = { topics: _event }; }
+
+    if (typeof(_event) === "string") {
+        switch (_event) {
+            case "block": case "pending": case "debug": case "error": case "network": {
+                return { type: _event, tag: _event };
+            }
+        }
+    }
+
+    if (isHexString(_event, 32)) {
+        const hash = _event.toLowerCase();
+        return { type: "transaction", tag: getTag("tx", { hash }), hash };
+    }
+
+    if ((<any>_event).orphan) {
+        const event = <OrphanFilter>_event;
+        // @TODO: Should lowercase and whatnot things here instead of copy...
+        return { type: "orphan", tag: getTag("orphan", event), filter: copy(event) };
+    }
+
+    if (((<any>_event).address || (<any>_event).topics)) {
+        c...
+(0, index_js_2.assertArgument)(false, `conflicting network for ${JSON.stringify(existing.name)}`, "nameOrChainId", nameOrChainId)
+function checkResultErrors = function checkResultErrors(result) {
+    // Find the first error (if any)
+    const errors = [];
+    const checkErrors = function (path, object) {
+        if (!Array.isArray(object)) {
+            return;
+        }
+        for (let key in object) {
+            const childPath = path.slice();
+            childPath.push(key);
+            try {
+                checkErrors(childPath, object[key]);
+            }
+            catch (error) {
+                errors.push({ path: childPath, error: error });
+            }
+        }
+    };
+    checkErrors([], result);
+    return errors;
+}
+function toUtf8Bytes = function toUtf8Bytes(str: string, form?: UnicodeNormalizationForm): Uint8Array {
+
+    if (form != null) {
+        assertNormalize(form);
+        str = str.normalize(form);
+    }
+
+    let result: Array<number> = [];
+    for (let i = 0; i < str.length; i++) {
+        const c = str.charCodeAt(i);
+
+        if (c < 0x80) {
+            result.push(c);
+
+        } else if (c < 0x800) {
+            result.push((c >> 6) | 0xc0);
+            result.push((c & 0x3f) | 0x80);
+
+        } else if ((c & 0xfc00) == 0xd800) {
+            i++;
+            const c2 = str.charCodeAt(i);
+
+            assertArgument(i < str.length && ((c2 & 0xfc00) === 0xdc00),
+                "invalid surrogate pair", "str", str);
+
+            // Surrogate Pair
+            const pair = 0x10000 + ((c & 0x03ff) << 10) + (c2 & 0x03ff);
+            result.push((pair >> 18) | 0xf0);
+            result.push(((pair >> 12) & 0x3f) | 0x80);
+            result.push(((pair >> 6) & 0x3f) | 0x80);
+            result.push((pair & 0x3f)...
+const values = fields.map(({ name, type }) => {
+                    const result = this.getEncoder(type)(value[name]);
+                    if (this.#fullTypes.has(type)) {
+                        return (0, index_js_2.keccak256)(result);
+                    }
+                    return result;
+                })
+words = words.map((word) => {
+        let result = "";
+        for (let i = 0; i < word.length; i++) {
+            const c = word[i];
+            if (c >= 'a' && c <= 'z') {
+                result += c;
+            }
+        }
+        return result;
+    })
+function encryptKeystoreJsonSync = function encryptKeystoreJsonSync(account, password, options) {
+    if (options == null) {
+        options = {};
+    }
+    const passwordBytes = getPassword(password);
+    const kdf = getEncryptKdfParams(options);
+    const key = scryptSync(passwordBytes, kdf.salt, kdf.N, kdf.r, kdf.p, 64);
+    return _encryptKeystore(getBytes(key), kdf, account, options);
+}
+function getMedian = function getMedian(quorum: number, results: Array<TallyResult>): undefined | bigint | Error {
+    let resultWeight = 0;
+
+    const errorMap: Map<string, { weight: number, value: Error }> = new Map();
+    let bestError: null | { weight: number, value: Error } = null;
+
+    const values: Array<bigint> = [ ];
+    for (const { value, tag, weight } of results) {
+        if (value instanceof Error) {
+            const e = errorMap.get(tag) || { value, weight: 0 };
+            e.weight += weight;
+            errorMap.set(tag, e);
+
+            if (bestError == null || e.weight > bestError.weight) { bestError = e; }
+        } else {
+            values.push(BigInt(value));
+            resultWeight += weight;
+        }
+    }
+
+    if (resultWeight < quorum) {
+        // We have quorum for an error
+        if (bestError && bestError.weight >= quorum) { return bestError.value; }
+
+        // We do not have quorum for a result
+        return undefined;
+    }
+
+    // Get the sorted values
+    values....
+function buildWrappedEvent = function buildWrappedEvent(contract, key) {
+    const getFragment = function (...args) {
+        const fragment = contract.interface.getEvent(key, args);
+        assert(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+            operation: "fragment",
+            info: { key, args }
+        });
+        return fragment;
+    };
+    const method = function (...args) {
+        return new PreparedTopicFilter(contract, getFragment(...args), args);
+    };
+    defineProperties(method, {
+        name: contract.interface.getEventName(key),
+        _contract: contract, _key: key,
+        getFragment
+    });
+    // Only works on non-ambiguous keys (refined fragment is always non-ambiguous)
+    Object.defineProperty(method, "fragment", {
+        configurable: false,
+        enumerable: true,
+        get: () => {
+            const fragment = contract.interface.getEvent(key);
+            assert(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+                operation: "fr...
+function buildWrappedEvent = function buildWrappedEvent(contract, key) {
+    const getFragment = function (...args) {
+        const fragment = contract.interface.getEvent(key, args);
+        (0, index_js_3.assert)(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+            operation: "fragment",
+            info: { key, args }
+        });
+        return fragment;
+    };
+    const method = function (...args) {
+        return new PreparedTopicFilter(contract, getFragment(...args), args);
+    };
+    (0, index_js_3.defineProperties)(method, {
+        name: contract.interface.getEventName(key),
+        _contract: contract, _key: key,
+        getFragment
+    });
+    // Only works on non-ambiguous keys (refined fragment is always non-ambiguous)
+    Object.defineProperty(method, "fragment", {
+        configurable: false,
+        enumerable: true,
+        get: () => {
+            const fragment = contract.interface.getEvent(key);
+            (0, index_js_3.assert)(fragment, "no matching fragment", "UNSUPPOR...
+_tmp_12 = (function (_v, yParityAndS, yParity) {
+            if (_v != null) {
+                const v = getBigInt(_v);
+                return {
+                    networkV: ((v >= BN_35) ? v : undefined),
+                    v: Signature.getNormalizedV(v)
+                };
+            }
+            if (yParityAndS != null) {
+                assertError(isHexString(yParityAndS, 32), "invalid yParityAndS");
+                return { v: ((getBytes(yParityAndS)[0] & 0x80) ? 28 : 27) };
+            }
+            if (yParity != null) {
+                switch (getNumber(yParity, "sig.yParity")) {
+                    case 0: return { v: 27 };
+                    case 1: return { v: 28 };
+                }
+                assertError(false, "invalid yParity");
+            }
+            assertError(false, "missing v");
+        })(sig.v, sig.yParityAndS, sig.yParity)
+function getGasStationPlugin = function getGasStationPlugin(url) {
+    return new plugins_network_js_1.FetchUrlFeeDataNetworkPlugin(url, async (fetchFeeData, provider, request) => {
+        // Prevent Cloudflare from blocking our request in node.js
+        request.setHeader("User-Agent", "ethers");
+        let response;
+        try {
+            const [_response, _feeData] = await Promise.all([
+                request.send(), fetchFeeData()
+            ]);
+            response = _response;
+            const payload = response.bodyJson.standard;
+            const feeData = {
+                gasPrice: _feeData.gasPrice,
+                maxFeePerGas: parseUnits(payload.maxFee, 9),
+                maxPriorityFeePerGas: parseUnits(payload.maxPriorityFee, 9),
+            };
+            return feeData;
+        }
+        catch (error) {
+            (0, index_js_2.assert)(false, `error encountered with polygon gas station (${JSON.stringify(request.url)})`, "SERVER_ERROR", { request, response, error });
+        }
+    });
+}
+function checkCircular = function checkCircular(type: string, found: Set<string>) {
+            assertArgument(!found.has(type), `circular type reference to ${ JSON.stringify(type) }`, "types", types);
+
+            found.add(type);
+
+            for (const child of (links.get(type) as Set<string>)) {
+                if (!parents.has(child)) { continue; }
+
+                // Recursively check children
+                checkCircular(child, found);
+
+                // Mark all ancestors as having this decendant
+                for (const subtype of found) {
+                    (subtypes.get(subtype) as Set<string>).add(child);
+                }
+            }
+
+            found.delete(type);
+        }
+function encryptKeystoreJson = async function encryptKeystoreJson(account, password, options) {
+    if (options == null) {
+        options = {};
+    }
+    const passwordBytes = getPassword(password);
+    const kdf = getEncryptKdfParams(options);
+    const key = await scrypt(passwordBytes, kdf.salt, kdf.N, kdf.r, kdf.p, 64, options.progressCallback);
+    return _encryptKeystore(getBytes(key), kdf, account, options);
+}

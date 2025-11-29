@@ -1,0 +1,248 @@
+_tmp_0.gb18030 = [[0, 128], [36, 165], [38, 169], [45, 178], [50, 184], [81, 216], [89, 226], [95, 235], [96, 238], [100, 244], [103, 248], [104, 251], [105, 253], [109, 258], [126, 276], [133, 284], [148, 300], [172, 325], [175, 329], [179, 334], [208, 364], [306, 463], [307, 465], [308, 467], [309, 469], [310, 471], [311, 473], [312, 475], [313, 477], [341, 506], [428, 594], [443, 610], [544, 712], [545, 716], [558, 730], [741, 930], [742, 938], [749, 962], [750, 970], [805, 1026], [819, 1104], [820, 1106], [7922, 8209], [7924, 8215], [7925, 8218], [7927, 8222], [7934, 8231], [7943, 8241], [7944, 8244], [7945, 8246], [7950, 8252], [8062, 8365], [8148, 8452], [8149, 8454], [8152, 8458], [8164, 8471], [8174, 8482], [8236, 8556], [8240, 8570], [8262, 8596], [8264, 8602], [8374, 8713], [8380, 8720], [8381, 8722], [8384, 8726], [8388, 8731], [8390, 8737], [8392, 8740], [8393, 8742], [8394, 8748], [8396, 8751], [8401, 8760], [8406, 8766], [8416, 8777], [8419, 8781], [8424, 8787], [8437, 8802], [8439, 88...
+_tmp_0.jis0208 = [12288, 12289, 12290, 65292, 65294, 12539, 65306, 65307, 65311, 65281, 12443, 12444, 180, 65344, 168, 65342, 65507, 65343, 12541, 12542, 12445, 12446, 12291, 20189, 12293, 12294, 12295, 12540, 8213, 8208, 65295, 65340, 65374, 8741, 65372, 8230, 8229, 8216, 8217, 8220, 8221, 65288, 65289, 12308, 12309, 65339, 65341, 65371, 65373, 12296, 12297, 12298, 12299, 12300, 12301, 12302, 12303, 12304, 12305, 65291, 65293, 177, 215, 247, 65309, 8800, 65308, 65310, 8806, 8807, 8734, 8756, 9794, 9792, 176, 8242, 8243, 8451, 65509, 65284, 65504, 65505, 65285, 65283, 65286, 65290, 65312, 167, 9734, 9733, 9675, 9679, 9678, 9671, 9670, 9633, 9632, 9651, 9650, 9661, 9660, 8251, 12306, 8594, 8592, 8593, 8595, 12307, null, null, null, null, null, null, null, null, null, null, null, 8712, 8715, 8838, 8839, 8834, 8835, 8746, 8745, null, null, null, null, null, null, null, null, 8743, 8744, 65506, 8658, 8660, 8704, 8707, null, null, null, null, null, null, null, null, null, null, null, 8736, 8869, 8978, 87...
+function SuperController = function SuperController(options) {
+
+    //public
+    this.name = 'SuperController';
+    this.engine = {};
+
+
+    var self = this;
+    //private
+    var local = {
+        req     : null,
+        res     : null,
+        next    : null,
+        options : options || null,
+        query   : {},
+        _data   : {},
+        view    : {}
+    };
+
+    /**
+     * SuperController Constructor
+     * @constructor
+     * */
+    var init = function() {
+
+        if ( typeof(SuperController.initialized) != 'undefined' ) {
+            return getInstance()
+        } else {
+
+            SuperController.instance = self;
+
+
+            if (local.options) {
+                SuperController.instance._options = local.options;
+            }
+
+            SuperController.initialized = true;
+
+        }
+    }
+
+    var getInstance = function() {
+        local.options = SuperController.instance._options = options;
+        // 2022-03-07 Fix for none-developpement environnements (without cache)
+        self._options ...
+module.exports = function(session, bundle){
+
+    /**
+     * Express's session Store.
+     */
+
+    var Store = session.Store;
+
+    /**
+     * Initialize CouchbaseStore with the given `options`.
+     *
+     * @param {Object} options
+     *      {
+     *          host: 127.0.0.1:8091 (default) -- Can be one or more address:ports, separated by semi-colon, or an array
+     *          username: '',   -- Should be same as bucket name, if provided
+     *          password: '',
+     *          bucket: 'default' (default)
+     *          cachefile: ''
+     *          ttl: 86400,
+     *          prefix: 'sess',
+     *          operationTimeout:2000,
+                connectionTimeout:2000,
+     *      }
+     * @api public
+     */
+
+    function CouchbaseStore(options) {
+        var self = this;
+
+        options = options || {};
+        Store.call(this, options);
+        this.prefix = null == options.prefix
+            ? 'sess:'
+            : options.prefix;
+
+        var connectOptions = {};
+    ...
+function CouchbaseStore = function CouchbaseStore(options) {
+        var self = this;
+
+        options = options || {};
+        Store.call(this, options);
+        this.prefix = null == options.prefix
+            ? 'sess:'
+            : options.prefix;
+
+        var connectOptions = {};
+        if (options.hasOwnProperty("host")) {
+            connectOptions.host = options.host;
+        } else if (options.hasOwnProperty("hosts")) {
+            connectOptions.host = options.hosts;
+        }
+
+        if (options.hasOwnProperty("username")) {
+            connectOptions.username = options.username;
+        }
+
+        if (options.hasOwnProperty("password")) {
+            connectOptions.password = options.password;
+        }
+
+        if (options.hasOwnProperty("bucket")) {
+            connectOptions.bucket = options.bucket;
+        }
+
+        if (options.hasOwnProperty("cachefile")) {
+            connectOptions.cachefile = options.cachefile;
+        }
+
+        if (options.hasOwnProperty("connectionTimeout")) {
+     ...
+var onConnect = function onConnect(cb){
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ] couchbase is alive !!');
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ][ ' + dbString.connector +' ] now connected...');
+
+            self.instance.reconnected  = self.instance.connected   = true;
+            var options = local.options;
+
+            // updating context
+            var ctx = getContext()
+                , bundle = ctx.bundle
+                , env = ctx.env
+                , conf = ctx['gina'].config.envConf[bundle][env]
+                , name = dbString.database
+                //Reload models.
+                , modelsPath = _(conf.modelsPath)
+            ;
+            // will send heartbeat every 4 minutes if keepAlive == `true`
+            self.ping(options.pingInterval, cb, function onPing(cb){
+
+                local.bundle = bundle;
+                local.env = env;
+
+                if ( typeof(cb) != 'undefined' ) { // this portition is not workin...
+app.listen = function() {               
+                    var server = http2.createSecureServer(this.credentials, this);
+                    
+                    return server.listen.apply(server, arguments);
+                }
+var respawn = function(bundle, env, pid, callback) {
+        //var loggerInstance = getContext('logger');
+        //loggerInstance["trace"]('Fatal error !');
+        //console.debug('[ PROC ] Exiting and re spawning : ', bundle, env);
+        // TODO - Count the restarts and prevent unilimited loop
+        // TODO - Send notification to admin or/and root to the Fatal Error Page.
+
+        try {
+            var version = process.getVersion(bundle);
+        } catch (err) {
+            bundle = process.argv[3];
+            //var port = self.getBundlePortByBundleName(bundle);
+            //console.debug('[ PROC ] Bundle ', bundle,' already running or port[ '+port+' ] is taken by another process...');
+            //loggerInstance["trace"]("Bundle [ "+ bundle +" ] already running or [ "+env+" ] port is use by another process...");
+            console.debug('[ PROC ] Bundle [ '+ bundle +' ] already running or [ '+env+' ] port is use by another process');
+            dismiss(process.pid);
+      ...
+setTimeout(() => {
+                            end(opt, cmd, isBulkRestart, bundleIndex, true)
+                        }, 500)
+self.checkIfHome = function(done) {
+        var path = self.opt.homedir;
+        console.debug('Checking home... [ '+ path +' ]');
+
+        if ( !getEnvVar('GINA_HOMEDIR') ) {
+            setEnvVar('GINA_HOMEDIR', path)
+        } else {
+            path = self.opt.homedir = getEnvVar('GINA_HOMEDIR')
+        }
+
+        if ( !fs.existsSync(path) ) {
+            try {
+                fs.mkdirSync(path, 0775)
+            } catch (err) {
+                // console.error(err.stack);
+                // process.exit(1)
+                return done(err)
+            }
+        }
+
+        done()
+    }
+var end = function (output, type, messageOnly) {
+        var err = false;
+        if ( typeof(output) != 'undefined') {
+            if ( output instanceof Error ) {
+                err = output = ( typeof(messageOnly) != 'undefined' && /^true$/i.test(messageOnly) ) ? output.message : (output.stack||output.message);
+            }
+            if ( typeof(type) != 'undefined' ) {
+                console[type](output)
+            } else {
+                console.log(output);
+            }
+        }
+
+        process.exit( err ? 1:0 )
+    }
+client.on('error', (data) => {
+            var err = data.toString();
+            console.error('[MQTail] ' + err + ' - Gina might not be running');
+            console.info('[MQTail] Waitting for `MQListener` to be started ...');
+
+            // var mqPort = null;
+            // nIntervId = setInterval(() => {
+            //     try {
+            //         mqPort = ~~(fs.readFileSync(mqPortFile).toString());
+            //         if (mqPort) {
+            //             process.emit('gina#mqlistener-started', mqPort, host);
+            //         }
+            //     } catch (fileErr) {}
+            // }, 100);
+        })
+var loadPSL = async function(opt, cb) {
+        var filenameOrUrl   = (isGFFCtx || opt.isCachingRequired) ? opt.url : opt.filename;
+        var isUpdating      = ( typeof(opt.isUpdating) != 'undefined' ) ? opt.isUpdating : false;
+        var err             = null;
+
+        if (isGFFCtx) {
+
+            if (self.rawPSL && !isUpdating) {
+                cb(false);
+                return;
+            }
+
+            if (!window.fetch) {// just in case
+                err = new Error('[DOMAIN] Fetch API not supported');
+                cb(err);
+                return;
+            }
+
+            var response = null
+                , result = null
+            ;
+            try {
+                response    = await fetch(filenameOrUrl);
+                result      = await response.text();
+
+                self.rawPSL = result;
+            } catch (PSLErr) {
+                // There was an error
+                // console.warn('[DOMAIN] Could not load PSL', err.stack || err.message || err);
+    ...

@@ -1,0 +1,14 @@
+function CognitoUser = function CognitoUser(data) {
+    if (data == null || data.Username == null || data.Pool == null) {
+      throw new Error('Username and Pool information are required.');
+    }
+    this.username = data.Username || '';
+    this.pool = data.Pool;
+    this.Session = null;
+    this.client = data.Pool.client;
+    this.signInUserSession = null;
+    this.authenticationFlowType = 'USER_SRP_AUTH';
+    this.storage = data.Storage || new StorageHelper().getStorage();
+    this.keyPrefix = "CognitoIdentityServiceProvider." + this.pool.getClientId();
+    this.userDataKey = this.keyPrefix + "." + this.username + ".userData";
+  }

@@ -1,0 +1,1 @@
+params.append('ids', join(resourceIds))

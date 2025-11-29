@@ -1,0 +1,24 @@
+id.replace(/\\u([0-9a-fA-F]{4})/g, function(m0, codepoint) {
+        return String.fromCharCode(parseInt(codepoint, 16));
+      })
+var options = cli.parse(OPTIONS)
+_tmp_61.data = ["unicode 8", "6"]
+options.reporter = path.resolve(process.cwd(), options.reporter)
+state.ignored[match[2]] = (match[1] === "-")
+var isblockscoped = type === "let" || type === "const" ||
+        type === "class" || type === "import" || type === "generator function" ||
+        type === "async function" || type === "async generator function"
+done(exports.run({
+      args:       cli.args,
+      config:     config,
+      reporter:   reporter,
+      ignores:    loadIgnores({ exclude: options.exclude, excludePath: options["exclude-path"] }),
+      extensions: options["extra-ext"],
+      verbose:    options.verbose,
+      extract:    options.extract,
+      filename:   options.filename,
+      prereq:     options.prereq,
+      useStdin:   { "-": true, "/dev/stdin": true }[args[args.length - 1]]
+    }, done))
+declaredInCurrentScope = !!_currentFunctBody["(parent)"]["(bindings)"][bindingName]
+_latedefWarning(type, bindingName, token)

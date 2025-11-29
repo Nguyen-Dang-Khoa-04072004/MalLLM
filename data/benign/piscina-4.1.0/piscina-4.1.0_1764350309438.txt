@@ -1,0 +1,2 @@
+await new Promise((resolve) => process.stdout.write('', resolve))
+await new Promise((resolve) => process.stderr.write('', resolve))

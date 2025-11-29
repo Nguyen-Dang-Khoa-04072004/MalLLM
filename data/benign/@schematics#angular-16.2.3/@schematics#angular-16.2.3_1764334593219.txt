@@ -1,0 +1,174 @@
+function default_1 = function default_1(options) {
+    return async (host) => {
+        options.path ?? (options.path = await (0, workspace_1.createDefaultPath)(host, options.project));
+        options.module = (0, find_module_1.findModuleFromOptions)(host, options);
+        const parsedPath = (0, parse_name_1.parseName)(options.path, options.name);
+        options.name = parsedPath.name;
+        options.path = parsedPath.path;
+        (0, validation_1.validateClassName)(schematics_1.strings.classify(options.name));
+        const templateSource = (0, schematics_1.apply)((0, schematics_1.url)('./files'), [
+            options.skipTests ? (0, schematics_1.filter)((path) => !path.endsWith('.spec.ts.template')) : (0, schematics_1.noop)(),
+            (0, schematics_1.applyTemplates)({
+                ...schematics_1.strings,
+                'if-flat': (s) => (options.flat ? '' : s),
+                ...options,
+            }),
+            (0, schematics_1.move)(parsedPath.path),
+        ]);
+        return (0...
+function findModuleFromOptions = function findModuleFromOptions(host, options) {
+    if (options.standalone || options.skipImport) {
+        return undefined;
+    }
+    const moduleExt = options.moduleExt || exports.MODULE_EXT;
+    const routingModuleExt = options.routingModuleExt || exports.ROUTING_MODULE_EXT;
+    if (!options.module) {
+        const pathToCheck = (options.path || '') + '/' + options.name;
+        return (0, core_1.normalize)(findModule(host, pathToCheck, moduleExt, routingModuleExt));
+    }
+    else {
+        const modulePath = (0, core_1.normalize)(`/${options.path}/${options.module}`);
+        const componentPath = (0, core_1.normalize)(`/${options.path}/${options.name}`);
+        const moduleBaseName = (0, core_1.normalize)(modulePath).split('/').pop();
+        const candidateSet = new Set([(0, core_1.normalize)(options.path || '/')]);
+        for (let dir = modulePath; dir != core_1.NormalizedRoot; dir = (0, core_1.dirname)(dir)) {
+            candidateSet.add(dir);
+        }
+        for (let...
+options.functional ? (0, generate_from_files_1.generateFromFiles)({ ...options, templateFilesDirectory: './functional-files' }, extraTemplateValues) : (0, generate_from_files_1.generateFromFiles)({ ...options, templateFilesDirectory: './class-files' }, extraTemplateValues)
+(0, workspace_1.updateWorkspace)((workspace) => {
+        const clientProject = workspace.projects.get(options.project);
+        if (clientProject) {
+            // In case the browser builder hashes the assets
+            // we need to add this setting to the server builder
+            // as otherwise when assets it will be requested twice.
+            // One for the server which will be unhashed, and other on the client which will be hashed.
+            const getServerOptions = (options = {}) => {
+                return {
+                    buildOptimizer: options?.buildOptimizer,
+                    outputHashing: options?.outputHashing === 'all' ? 'media' : options?.outputHashing,
+                    fileReplacements: options?.fileReplacements,
+                    optimization: options?.optimization === undefined ? undefined : !!options?.optimization,
+                    sourceMap: options?.sourceMap,
+                    localization: options?.localization,
+                    ...
+const siblingModules = host
+            .getDir(options.path)
+            .subfiles // Find all files that start with the same name, are ts files,
+            // and aren't spec or module files.
+            .filter((f) => fileRegExp.test(f) && !/(module|spec)\.ts$/.test(f))
+            // Sort alphabetically for consistency.
+            .sort()
+(function (Builders) {
+    Builders["AppShell"] = "@angular-devkit/build-angular:app-shell";
+    Builders["Server"] = "@angular-devkit/build-angular:server";
+    Builders["Browser"] = "@angular-devkit/build-angular:browser";
+    Builders["Karma"] = "@angular-devkit/build-angular:karma";
+    Builders["TsLint"] = "@angular-devkit/build-angular:tslint";
+    Builders["DeprecatedNgPackagr"] = "@angular-devkit/build-ng-packagr:build";
+    Builders["NgPackagr"] = "@angular-devkit/build-angular:ng-packagr";
+    Builders["DevServer"] = "@angular-devkit/build-angular:dev-server";
+    Builders["ExtractI18n"] = "@angular-devkit/build-angular:extract-i18n";
+    Builders["Protractor"] = "@angular-devkit/build-angular:protractor";
+})(Builders || (exports.Builders = Builders = {}))
+function replaceDefaultCollection = function replaceDefaultCollection(cliExtension) {
+    if (cliExtension && (0, core_1.isJsonObject)(cliExtension) && cliExtension['defaultCollection']) {
+        // If `schematicsCollection` defined `defaultCollection` is ignored hence no need to warn.
+        if (!cliExtension['schematicCollections']) {
+            cliExtension['schematicCollections'] = [cliExtension['defaultCollection']];
+        }
+        delete cliExtension['defaultCollection'];
+    }
+}
+function default_1 = function default_1(options) {
+    return async (host) => {
+        const workspace = await (0, workspace_1.getWorkspace)(host);
+        const project = workspace.projects.get(options.project);
+        if (!project) {
+            throw new schematics_1.SchematicsException(`Project "${options.project}" does not exist.`);
+        }
+        if (options.path === undefined) {
+            options.path = (0, workspace_1.buildDefaultPath)(project);
+        }
+        options.module = (0, find_module_1.findModuleFromOptions)(host, options);
+        const parsedPath = (0, parse_name_1.parseName)(options.path, options.name);
+        options.name = parsedPath.name;
+        options.path = parsedPath.path;
+        options.selector =
+            options.selector || buildSelector(options, (project && project.prefix) || '');
+        (0, validation_1.validateHtmlSelector)(options.selector);
+        const skipStyleFile = options.inlineStyle || options.style === schema_1.Style.None;
+        const templat...
+const getServerOptions = (options = {}) => {
+                return {
+                    buildOptimizer: options?.buildOptimizer,
+                    outputHashing: options?.outputHashing === 'all' ? 'media' : options?.outputHashing,
+                    fileReplacements: options?.fileReplacements,
+                    optimization: options?.optimization === undefined ? undefined : !!options?.optimization,
+                    sourceMap: options?.sourceMap,
+                    localization: options?.localization,
+                    stylePreprocessorOptions: options?.stylePreprocessorOptions,
+                    resourcesOutputPath: options?.resourcesOutputPath,
+                    deployUrl: options?.deployUrl,
+                    i18nMissingTranslation: options?.i18nMissingTranslation,
+                    preserveSymlinks: options?.preserveSymlinks,
+                    extractLicenses: options?.extractLicenses,
+                    inlineStyleLanguage: options?.inlineStyleLanguage,
+       ...
+this.code = (strings, ...params) => {
+            return {
+                expression: strings.map((part, index) => part + (params[index] || '')).join(''),
+                imports: this._imports,
+            };
+        }
+function addDependenciesToPackageJson = function addDependenciesToPackageJson() {
+    return (host) => {
+        [
+            {
+                type: dependencies_1.NodeDependencyType.Dev,
+                name: '@angular/compiler-cli',
+                version: latest_versions_1.latestVersions.Angular,
+            },
+            {
+                type: dependencies_1.NodeDependencyType.Dev,
+                name: '@angular-devkit/build-angular',
+                version: latest_versions_1.latestVersions.DevkitBuildAngular,
+            },
+            {
+                type: dependencies_1.NodeDependencyType.Dev,
+                name: 'ng-packagr',
+                version: latest_versions_1.latestVersions['ng-packagr'],
+            },
+            {
+                type: dependencies_1.NodeDependencyType.Default,
+                name: 'tslib',
+                version: latest_versions_1.latestVersions['tslib'],
+            },
+            {
+                type: dependencies_1.NodeDependencyType.Dev,
+                name: 'types...
+(_tmp_3 = [
+            {
+                type: dependencies_1.NodeDependencyType.Dev,
+                name: '@angular/compiler-cli',
+                version: latest_versions_1.latestVersions.Angular,
+            },
+            {
+                type: dependencies_1.NodeDependencyType.Dev,
+                name: '@angular-devkit/build-angular',
+                version: latest_versions_1.latestVersions.DevkitBuildAngular,
+            },
+            {
+                type: dependencies_1.NodeDependencyType.Dev,
+                name: 'ng-packagr',
+                version: latest_versions_1.latestVersions['ng-packagr'],
+            },
+            {
+                type: dependencies_1.NodeDependencyType.Default,
+                name: 'tslib',
+                version: latest_versions_1.latestVersions['tslib'],
+            },
+            {
+                type: dependencies_1.NodeDependencyType.Dev,
+                name: 'typescript',
+                version: latest_versions_1.latestVersions['typesc...).forEach

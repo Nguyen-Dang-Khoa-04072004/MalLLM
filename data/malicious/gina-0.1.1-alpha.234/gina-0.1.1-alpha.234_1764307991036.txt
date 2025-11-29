@@ -1,0 +1,129 @@
+self.checkDomainLibRequirements = function(done) {
+        // check for `public_suffix_list.dat`
+        var domainLibPath   = _( getEnvVar('GINA_FRAMEWORK_DIR') + '/lib/domain', true);
+        var distPathObj     = new _(domainLibPath + '/dist', true);
+
+        if ( !distPathObj.existsSync() ) {
+            distPathObj.mkdirSync();
+        }
+        console.debug('Checking for PSL file');
+        var datFilenameObj = new _(distPathObj.toString() + '/public_suffix_list.dat', true);
+        if ( !datFilenameObj.existsSync() ) {
+            try {
+                new Domain({isCachingRequired: true}, done);
+            } catch (err) {
+                // console.error(err.stack||err.message||err);
+                // process.exit(1)
+                return done(err)
+            }
+            // new Domain({isCachingRequired: true}, done);
+        }
+
+        done()
+    }
+_tmp_100.push({
+        "labels": [
+          "csiso2022jp",
+          "iso-2022-jp"
+        ],
+        "name": "iso-2022-jp"
+      })
+instance['notIn'] =  function(){
+
+        var arrayToFilter           = null // [] those that we don't want in the result
+            , key                   = null //  string comparison key
+            , result                = null
+            , filters               = null
+            , uuidSearchModeEnabled = true
+        ;
+
+        if ( typeof(arguments[arguments.length-1]) == 'string' ) {
+            key = arguments[arguments.length - 1];
+            delete arguments[arguments.length - 1];
+            --arguments.length;
+        }
+
+        if ( typeof(arguments[arguments.length-1]) == 'boolean' ) {
+            uuidSearchModeEnabled = arguments[arguments.length - 1]
+            delete arguments[arguments.length - 1];
+            --arguments.length;
+        }
+
+        if (arguments.length > 0) {
+            filters = arguments;
+        }
+
+
+        if ( typeof(filters) == 'undefined' || !filters || typeof(filters) != 'object' ) {
+            throw new Error('[ Collection ][ notIn...
+self.checkIfCertificatesDir = function(done) {
+        var certsDir = new _( getEnvVar('GINA_HOMEDIR') + '/certificates', true);
+        var theRSARootCertsDir = new _(certsDir.toString() + '/RSARootCerts', true);
+        var scopesDir = new _(certsDir.toString() + '/scopes', true);
+
+        if ( !certsDir.existsSync() ) {
+            certsDir.mkdirSync()
+        }
+        if ( !theRSARootCertsDir.existsSync() ) {
+            theRSARootCertsDir.mkdirSync()
+        }
+        if ( !scopesDir.existsSync() ) {
+            scopesDir.mkdirSync()
+        }
+
+        var mainConfig = require( _(self.opt.homedir + '/main.json', true) );
+        var scopes = mainConfig.scopes[self.release];
+
+        for (let i = 0, len = scopes.length; i < len; i++) {
+            let scopeDir = new _( scopesDir.toString() +'/'+ scopes[i], true);
+            if ( !scopeDir.existsSync() ) {
+                scopeDir.mkdirSync()
+            }
+        }
+
+        done()
+    }
+self.throwError(local.res, 500, new Error('template compilation exception encoutered: [ '+path+' ]\n'+(err.stack||err.message)))
+var staticProps = {
+            firstLevel  : '/'+ url.split(/\//g)[1] + '/',
+            isFile      :  /^\/[A-Za-z0-9_-]+\.(.*)$/.test(url)
+        }
+var scopesDir = new _(certsDir.toString() + '/scopes', true)
+typeof(params.param[key]) != 'undefined' &&
+                typeof(params.requirements) != 'undefined' &&
+                typeof(params.requirements[key]) != 'undefined' &&
+                typeof(request.params) != 'undefined' &&
+                tested
+typeof($formOrFormId) == 'undefined' && typeof(this.id) != 'undefined'
+var Controller = require(_(GINA_FRAMEWORK_DIR +'/core/controller/controller.js'), true)
+var controller = new Controller(controllerOptions)
+_tmp_111.encodings = [
+      {
+        "labels": [
+          "csiso2022kr",
+          "iso-2022-cn",
+            "iso-2022-cn-ext",
+            "iso-2022-kr"
+        ],
+        "name": "replacement"
+      },
+      {
+        "labels": [
+          "utf-16be"
+        ],
+        "name": "utf-16be"
+      },
+      {
+        "labels": [
+          "utf-16",
+          "utf-16le"
+        ],
+        "name": "utf-16le"
+      },
+      {
+        "labels": [
+          "x-user-defined"
+        ],
+        "name": "x-user-defined"
+      }
+    ]

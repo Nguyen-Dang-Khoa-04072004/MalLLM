@@ -1,0 +1,26 @@
+hostname    = targetedBundle +'@'+ project
+/^change\./i.test(event.type) && !/^(checkbox)$/i.test(event.target.type)
+hostname    = route.param.hostname
+var opt = {
+            ca: ca,
+            hostname: hostname,
+            port: port,
+            path: path,
+            method: method
+        }
+_tmp_345.hostname = hostname
+var range = $el.createTextRange()
+self.query(opt, obj, function onForward(err, result){
+            if (err) {
+                self.throwError(err);
+                return;
+            }
+
+            // TODO - filter : redirect & location
+
+            // if ( self.isXMLRequest() || !hasViews() || !local.options.isUsingTemplate && !hasViews() || hasViews() && !local.options.isUsingTemplate ) {
+                self.renderJSON(result)
+            // } else {
+            //     self.render(result)
+            // }
+        })

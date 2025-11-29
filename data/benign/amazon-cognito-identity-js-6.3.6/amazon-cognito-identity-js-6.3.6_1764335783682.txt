@@ -1,0 +1,16 @@
+_this8.client.request('ConfirmDevice', {
+          DeviceKey: dataAuthenticate.AuthenticationResult.NewDeviceMetadata.DeviceKey,
+          AccessToken: _this8.signInUserSession.getAccessToken().getJwtToken(),
+          DeviceSecretVerifierConfig: deviceSecretVerifierConfig,
+          DeviceName: userAgent
+        }, function (errConfirm, dataConfirm) {
+          if (errConfirm) {
+            return callback.onFailure(errConfirm);
+          }
+          _this8.deviceKey = dataAuthenticate.AuthenticationResult.NewDeviceMetadata.DeviceKey;
+          _this8.cacheDeviceKeyAndPassword();
+          if (dataConfirm.UserConfirmationNecessary === true) {
+            return callback.onSuccess(_this8.signInUserSession, dataConfirm.UserConfirmationNecessary);
+          }
+          return callback.onSuccess(_this8.signInUserSession);
+        })

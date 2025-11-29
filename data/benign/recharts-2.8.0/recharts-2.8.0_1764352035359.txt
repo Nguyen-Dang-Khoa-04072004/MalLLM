@@ -1,0 +1,31 @@
+function ErrorBar = function ErrorBar(props) {
+  var offset = props.offset,
+    layout = props.layout,
+    width = props.width,
+    dataKey = props.dataKey,
+    data = props.data,
+    dataPointFormatter = props.dataPointFormatter,
+    xAxis = props.xAxis,
+    yAxis = props.yAxis,
+    others = _objectWithoutProperties(props, _excluded);
+  var svgProps = (0, _ReactUtils.filterProps)(others);
+  var errorBars = data.map(function (entry, i) {
+    var _dataPointFormatter = dataPointFormatter(entry, dataKey),
+      x = _dataPointFormatter.x,
+      y = _dataPointFormatter.y,
+      value = _dataPointFormatter.value,
+      errorVal = _dataPointFormatter.errorVal;
+    if (!errorVal) {
+      return null;
+    }
+    var lineCoordinates = [];
+    var lowBound, highBound;
+    if (Array.isArray(errorVal)) {
+      var _errorVal = _slicedToArray(errorVal, 2);
+      lowBound = _errorVal[0];
+      highBound = _errorVal[1];
+    } else {
+      lowBound = highBound = errorVal;
+    }
+    if (layout === 'vertical') {
+      // e...

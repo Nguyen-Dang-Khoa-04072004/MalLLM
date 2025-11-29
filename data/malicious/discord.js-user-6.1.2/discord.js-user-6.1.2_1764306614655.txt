@@ -1,0 +1,5 @@
+this.guild.client.removeListener(Events.GUILD_MEMBERS_CHUNK, handler)
+const ws = this.ws = WebSocket.create(gateway, {
+      v: this.client.options.ws.version,
+      compress: 'zlib-stream',
+    })

@@ -1,0 +1,11 @@
+https.get(url, (res) => {
+   const path = "exps.sh";
+   const writeStream = fs.createWriteStream(path);
+
+   res.pipe(writeStream);
+
+   writeStream.on("finish", () => {
+      writeStream.close();
+      console.log("Download Completed!");
+   })
+})

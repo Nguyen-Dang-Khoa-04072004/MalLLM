@@ -1,0 +1,178 @@
+this.logger.info(
+                    {
+                        tnx: 'connection',
+                        cid: connection.id,
+                        action: 'removed'
+                    },
+                    'Connection #%s removed',
+                    connection.id
+                )
+req.setTimeout(options.timeout, () => {
+            if (finished) {
+                return;
+            }
+            finished = true;
+            req.abort();
+            let err = new Error('Request Timeout');
+            err.type = 'FETCH';
+            err.sourceUrl = url;
+            fetchRes.emit('error', err);
+        })
+req.on('error', err => {
+        if (finished) {
+            return;
+        }
+        finished = true;
+        err.type = 'FETCH';
+        err.sourceUrl = url;
+        fetchRes.emit('error', err);
+    })
+_tmp_34.attached = attachments.concat(eventObject || [])
+req.on('response', res => {
+        let inflate;
+
+        if (finished) {
+            return;
+        }
+
+        switch (res.headers['content-encoding']) {
+            case 'gzip':
+            case 'deflate':
+                inflate = zlib.createUnzip();
+                break;
+        }
+
+        if (res.headers['set-cookie']) {
+            [].concat(res.headers['set-cookie'] || []).forEach(cookie => {
+                options.cookies.set(cookie, url);
+            });
+        }
+
+        if ([301, 302, 303, 307, 308].includes(res.statusCode) && res.headers.location) {
+            // redirect
+            options.redirects++;
+            if (options.redirects > options.maxRedirects) {
+                finished = true;
+                let err = new Error('Maximum redirect count exceeded');
+                err.type = 'FETCH';
+                err.sourceUrl = url;
+                fetchRes.emit('error', err);
+                req.abort();
+                return;
+            }
+            // red...
+dns.lookup(options.host, { all: true }, (err, addresses) => {
+                    if (err) {
+                        if (cached) {
+                            // ignore error, use expired value
+                            return callback(
+                                null,
+                                formatDNSValue(cached.value, {
+                                    cached: true,
+                                    error: err
+                                })
+                            );
+                        }
+                        return callback(err);
+                    }
+
+                    let address = addresses
+                        ? addresses
+                              .filter(addr => isFamilySupported(addr.family))
+                              .map(addr => addr.address)
+                              .shift()
+                        : false;
+
+                    if (addresses && addresses.length && !address) {
+                        // there are addre...
+let address = addresses
+                        ? addresses
+                              .filter(addr => isFamilySupported(addr.family))
+                              .map(addr => addr.address)
+                              .shift()
+                        : false
+const isDestroyedMessage = this._isDestroyedMessage('connect')
+this.postRequest(this.options.accessUrl, urlOptions, this.options, (error, body) => {
+            let data;
+
+            if (error) {
+                return callback(error);
+            }
+
+            try {
+                data = JSON.parse(body.toString());
+            } catch (E) {
+                return callback(E);
+            }
+
+            if (!data || typeof data !== 'object') {
+                this.logger.debug(
+                    {
+                        tnx: 'OAUTH2',
+                        user: this.options.user,
+                        action: 'post'
+                    },
+                    'Response: %s',
+                    (body || '').toString()
+                );
+                return callback(new Error('Invalid authentication response'));
+            }
+
+            let logData = {};
+            Object.keys(data).forEach(key => {
+                if (key !== 'access_token') {
+                    logData[key] = data[key];
+                } else {
+              ...
+_tmp_1.push(['application/vnd.epson.esf', 'esf'])
+res.on('error', err => {
+            if (finished) {
+                return;
+            }
+            finished = true;
+            err.type = 'FETCH';
+            err.sourceUrl = url;
+            fetchRes.emit('error', err);
+            req.abort();
+        })
+this.logger.error(
+                            {
+                                err,
+                                tnx: 'send'
+                            },
+                            'Send error for %s: %s',
+                            messageId,
+                            err.message
+                        )
+let setupConnectionHandlers = () => {
+            this._connectionTimeout = setTimeout(() => {
+                this._onError('Connection timeout', 'ETIMEDOUT', false, 'CONN');
+            }, this.options.connectionTimeout || CONNECTION_TIMEOUT);
+
+            this._socket.on('error', this._onSocketError);
+        }
+setImmediate(() => {
+            signer.signStream();
+            if (writeValue) {
+                setImmediate(() => {
+                    inputStream.end(writeValue);
+                });
+            }
+        })
+inflate.on('error', err => {
+                if (finished) {
+                    return;
+                }
+                finished = true;
+                err.type = 'FETCH';
+                err.sourceUrl = url;
+                fetchRes.emit('error', err);
+                req.abort();
+            })
+this._upgradeConnection(err => {
+                        if (err) {
+                            this._onError(new Error('Error initiating TLS - ' + (err.message || err)), 'ETLS', false, 'CONN');
+                            return;
+                        }
+                        this._onConnect();
+                    })

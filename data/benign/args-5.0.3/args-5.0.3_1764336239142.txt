@@ -1,0 +1,28 @@
+const mainModule = process.env.APPVEYOR
+        ? '_fixture'
+        : process.mainModule.filename
+<operator>.formatString("", mainModule, "-", subCommand, "")
+<operator>.formatString("", mainModule.replace(binaryExt, ''), "-", subCommand, "", binaryExt, "")
+args.unshift(full)
+this.child = spawn(process.execPath, args, {
+        stdio: 'inherit'
+      })
+this.child.on('exit', (code, signal) => {
+      process.on('exit', () => {
+        this.child = null
+        if (signal) {
+          process.kill(process.pid, signal)
+        } else {
+          process.exit(code)
+        }
+      })
+    })
+process.kill(process.pid, signal)
+process.on('SIGINT', () => {
+      if (this.child) {
+        this.child.kill('SIGINT')
+        this.child.kill('SIGTERM') // If that didn't work, we're probably in an infinite loop, so make it die
+      }
+    })
+(_tmp_39 = this.child).kill
+(_tmp_40 = this.child).kill

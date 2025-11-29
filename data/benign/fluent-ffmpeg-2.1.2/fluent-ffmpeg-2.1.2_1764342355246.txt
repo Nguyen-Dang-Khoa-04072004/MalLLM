@@ -1,0 +1,17 @@
+var sizeFilters =  self._currentOutput.sizeFilters.get().map(function(f, i) {
+          if (i > 0) {
+            f.inputs = 'size' + (i - 1);
+          }
+
+          f.outputs = 'size' + i;
+
+          return f;
+        })
+i > 0
+var stdout = stdoutRing.get()
+helper.registerLink('global', globalUrl)
+path.getResourcePath(path.dirname(conf['default'].layoutFile),
+            path.basename(conf['default'].layoutFile) )
+_tmp_14.drawHorizBand = match[4] === 'S'
+self.complexFilter(filters)
+var newLines = str.split(nlRegexp)

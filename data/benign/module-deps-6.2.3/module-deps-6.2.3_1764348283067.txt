@@ -1,0 +1,7 @@
+var files = argv._.map(function (file) {
+    if (file === '-') return process.stdin;
+    return path.resolve(file);
+})
+process.stdin
+var inherits = require('inherits')
+files.forEach(function (file) { md.write(file) })

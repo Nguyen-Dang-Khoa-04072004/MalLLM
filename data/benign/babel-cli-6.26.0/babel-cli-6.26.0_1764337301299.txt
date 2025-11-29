@@ -1,0 +1,15 @@
+var pkg = require("../../package.json")
+function compile = function compile(filename, opts) {
+  try {
+    var code = fs.readFileSync(filename, "utf8");
+    return transform(filename, code, opts);
+  } catch (err) {
+    if (commander.watch) {
+      console.error(toErrorStack(err));
+      return { ignored: true };
+    } else {
+      throw err;
+    }
+  }
+}
+write(filename, filename)

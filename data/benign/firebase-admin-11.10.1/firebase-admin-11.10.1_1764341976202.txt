@@ -1,0 +1,10 @@
+const ERROR_CODES = {
+    400: 'Malformed installation ID argument.',
+    401: 'Request not authorized.',
+    403: 'Project does not match installation ID or the client does not have sufficient privileges.',
+    404: 'Failed to find the installation ID.',
+    409: 'Already deleted.',
+    429: 'Request throttled out by the backend server.',
+    500: 'Internal server error.',
+    503: 'Backend servers are over capacity. Try again later.',
+}

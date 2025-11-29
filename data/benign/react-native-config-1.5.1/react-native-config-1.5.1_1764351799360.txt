@@ -1,0 +1,2 @@
+!fs.existsSync(filename) || fs.readFileSync(filename) != content
+fs.writeFileSync(filename, content)

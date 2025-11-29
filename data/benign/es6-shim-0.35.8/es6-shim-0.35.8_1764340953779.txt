@@ -1,0 +1,291 @@
+var promiseSupportsSubclassing = supportsSubclassing(globals.Promise, function (S) {
+      return S.resolve(42).then(function () {}) instanceof S;
+    })
+S.resolve(42).then(function () {}) instanceof S
+var promiseIgnoresNonFunctionThenCallbacks = !throwsError(function () {
+      return globals.Promise.reject(42).then(null, 5).then(null, noop);
+    })
+var promiseRequiresObjectContext = throwsError(function () { return globals.Promise.call(3, noop); })
+var promiseResolveBroken = (function (Promise) {
+      var p = Promise.resolve(5);
+      p.constructor = {};
+      var p2 = Promise.resolve(p);
+      try {
+        p2.then(null, noop).then(null, noop); // avoid "uncaught rejection" warnings in console
+      } catch (e) {
+        return true; // v8 native Promises break here https://code.google.com/p/chromium/issues/detail?id=575314
+      }
+      return p === p2; // This *should* be false!
+    }(globals.Promise))
+var getsThenSynchronously = supportsDescriptors && (function () {
+      var count = 0;
+      // eslint-disable-next-line getter-return
+      var thenable = Object.defineProperty({}, 'then', { get: function () { count += 1; } });
+      Promise.resolve(thenable);
+      return count === 1;
+    }())
+var hasBadResolverPromise = valueOrFalseIfThrows(function () {
+      return !!BadResolverPromise.all([1, 2]);
+    })
+overrideNative(globals, 'Promise', PromiseShim)
+overrideNative(Promise, 'all', function all(iterable) {
+        return ES.Call(origAll, this, arguments);
+      })
+overrideNative(Promise, 'race', function race(iterable) {
+        return ES.Call(origRace, this, arguments);
+      })
+overrideNative(Promise, 'resolve', function resolve(x) {
+        return ES.Call(origResolve, this, arguments);
+      })
+var origReject = Promise.reject
+overrideNative(Promise, 'reject', function reject(r) {
+        return ES.Call(origReject, this, arguments);
+      })
+ES.Call(origReject, this, arguments)
+ensureEnumerable(Promise, 'all')
+ensureEnumerable(Promise, 'race')
+ensureEnumerable(Promise, 'resolve')
+ensureEnumerable(Promise, 'reject')
+addDefaultSpecies(Promise)
+var preservesInsertionOrder = testOrder(['z', 'a', 'bb'])
+var preservesNumericInsertionOrder = testOrder(['z', 1, 'a', '3', 2])
+_tmp_211.Map = function () {
+
+        var empty = {};
+
+        var MapEntry = function MapEntry(key, value) {
+          this.key = key;
+          this.value = value;
+          this.next = null;
+          this.prev = null;
+        };
+
+        MapEntry.prototype.isRemoved = function isRemoved() {
+          return this.key === empty;
+        };
+
+        var isMap = function isMap(map) {
+          return !!map._es6map;
+        };
+
+        var requireMapSlot = function requireMapSlot(map, method) {
+          if (!ES.TypeIsObject(map) || !isMap(map)) {
+            throw new TypeError('Method Map.prototype.' + method + ' called on incompatible receiver ' + ES.ToString(map));
+          }
+        };
+
+        var MapIterator = function MapIterator(map, kind) {
+          requireMapSlot(map, '[[MapIterator]]');
+          defineProperty(this, 'head', map._head);
+          defineProperty(this, 'i', this.head);
+          defineProperty(this, 'kind', kind);
+        };
+
+        MapIterator.prototype = {
+          ...
+addIterator(MapIterator.prototype)
+defineProperties(Map$prototype, {
+          get: function get(key) {
+            requireMapSlot(this, 'get');
+            var entry;
+            var fkey = fastkey(key, true);
+            if (fkey !== null) {
+              // fast O(1) path
+              entry = this._storage[fkey];
+              if (entry) {
+                return entry.value;
+              }
+              return;
+
+            }
+            if (this._map) {
+              // fast object key path
+              entry = origMapGet.call(this._map, key);
+              if (entry) {
+                return entry.value;
+              }
+              return;
+
+            }
+            var head = this._head;
+            var i = head;
+            while ((i = i.next) !== head) {
+              if (ES.SameValueZero(i.key, key)) {
+                return i.value;
+              }
+            }
+          },
+
+          has: function has(key) {
+            requireMapSlot(this, 'has');
+            var fkey = fastkey(key, true);
+         ...
+addIterator(Map$prototype, Map$prototype.entries)
+_tmp_211.Set = function () {
+        var isSet = function isSet(set) {
+          return set._es6set && typeof set._storage !== 'undefined';
+        };
+        var requireSetSlot = function requireSetSlot(set, method) {
+          if (!ES.TypeIsObject(set) || !isSet(set)) {
+            // https://github.com/paulmillr/es6-shim/issues/176
+            throw new TypeError('Set.prototype.' + method + ' called on incompatible receiver ' + ES.ToString(set));
+          }
+        };
+
+        // Creating a Map is expensive.  To speed up the common case of
+        // Sets containing only string or numeric keys, we use an object
+        // as backing storage and lazily create a full Map only when
+        // required.
+        var Set$prototype;
+        var SetShim = function Set() {
+          if (!(this instanceof Set)) {
+            throw new TypeError('Constructor Set requires "new"');
+          }
+          if (this && this._es6set) {
+            throw new TypeError('Bad construction');
+          }
+          v...
+defineProperties(SetShim.prototype, {
+          has: function has(key) {
+            requireSetSlot(this, 'has');
+            var fkey;
+            if (this._storage && (fkey = fastkey(key)) !== null) {
+              return !!this._storage[fkey];
+            }
+            ensureMap(this);
+            return this['[[SetData]]'].has(key);
+          },
+
+          add: function add(key) {
+            requireSetSlot(this, 'add');
+            var fkey;
+            if (this._storage && (fkey = fastkey(key)) !== null) {
+              this._storage[fkey] = true;
+              return this;
+            }
+            ensureMap(this);
+            this['[[SetData]]'].set(key, key);
+            return this;
+          },
+
+          'delete': function (key) {
+            requireSetSlot(this, 'delete');
+            var fkey;
+            if (this._storage && (fkey = fastkey(key)) !== null) {
+              var hasFKey = _hasOwnProperty(this._storage, fkey);
+              return (delete this._storage[fk...
+defineProperty(SetShim.prototype, 'keys', SetShim.prototype.values, true)
+addIterator(SetShim.prototype, SetShim.prototype.values)
+addIterator(SetIterator.prototype)
+var mapAcceptsArguments = valueOrFalseIfThrows(function () { return new Map([[1, 2]]).get(1) === 2; })
+globals.Map.prototype = create(OrigMap.prototype)
+defineProperty(globals.Map.prototype, 'constructor', globals.Map, true)
+Value.preserveToString(globals.Map, OrigMap)
+defineProperties(Map.prototype, {
+          get: function get(k) {
+            return _call(origMapGet, this, k === 0 ? 0 : k);
+          },
+          has: function has(k) {
+            return _call(origMapHas, this, k === 0 ? 0 : k);
+          }
+        }, true)
+_tmp_264.has = has
+_call(origMapHas, this, k === 0 ? 0 : k)
+Value.preserveToString(Map.prototype.get, origMapGet)
+Value.preserveToString(Map.prototype.has, origMapHas)
+var setUsesSameValueZero = Set.prototype['delete'] && Set.prototype.add && Set.prototype.has && (function (s) {
+        s['delete'](0);
+        s.add(-0);
+        return !s.has(0);
+      }(testSet))
+var mapSupportsSubclassing = supportsSubclassing(globals.Map, function (M) {
+        var m = new M([]);
+        // Firefox 32 is ok with the instantiating the subclass but will
+        // throw when the map is used.
+        m.set(42, 42);
+        return m instanceof M;
+      })
+var mapRequiresNew = (function () {
+        try {
+          return !(globals.Map() instanceof globals.Map);
+        } catch (e) {
+          return e instanceof TypeError;
+        }
+      }())
+defineProperty(globals.Map.prototype, 'constructor', globals.Map, true)
+var setSupportsSubclassing = supportsSubclassing(globals.Set, function (S) {
+        var s = new S([]);
+        s.add(42, 42);
+        return s instanceof S;
+      })
+var OrigSet = globals.Set
+globals.Set.prototype = OrigSet.prototype
+defineProperty(globals.Set.prototype, 'constructor', globals.Set, true)
+var mapIterationThrowsStopIterator = !valueOrFalseIfThrows(function () {
+        return newMap.keys().next().done;
+      })
+isCallableWithoutNew(globals.Map)
+isCallableWithoutNew(globals.Set)
+defineProperties(globals, {
+          Map: collectionShims.Map,
+          Set: collectionShims.Set
+        }, true)
+defineProperty(globals.Set.prototype, 'keys', globals.Set.prototype.values, true)
+addIterator(Object.getPrototypeOf((new globals.Map()).keys()))
+addIterator(Object.getPrototypeOf((new globals.Set()).keys()))
+overrideNative(globals.Set.prototype, 'has', function has(key) {
+          return _call(anonymousSetHas, this, key);
+        })
+defineProperties(globals, collectionShims)
+addDefaultSpecies(globals.Map)
+addDefaultSpecies(globals.Set)
+overrideNative(globals.Reflect, 'getPrototypeOf', function getPrototypeOf(target) {
+      return _call(originalReflectGetProto, globals.Reflect, target);
+    })
+valueOrFalseIfThrows(function () {
+      globals.Reflect.setPrototypeOf(1, {});
+      return true;
+    })
+overrideNative(globals.Reflect, 'setPrototypeOf', ReflectShims.setPrototypeOf)
+!valueOrFalseIfThrows(function () {
+      var basic = !globals.Reflect.defineProperty(1, 'test', { value: 1 });
+      // "extensible" fails on Edge 0.12
+      var extensible = typeof Object.preventExtensions !== 'function' || !globals.Reflect.defineProperty(Object.preventExtensions({}), 'test', {});
+      return basic && extensible;
+    })
+overrideNative(globals.Reflect, 'defineProperty', ReflectShims.defineProperty)
+!valueOrFalseIfThrows(function () {
+      var F = function F() {};
+      return globals.Reflect.construct(function () {}, [], F) instanceof F;
+    })
+overrideNative(globals.Reflect, 'construct', ReflectShims.construct)
+overrideNative(Date.prototype, 'toString', shimmedDateToString)
+_forEach(Object.keys(stringHTMLshims), function (key) {
+    var method = String.prototype[key];
+    var shouldOverwrite = false;
+    if (ES.IsCallable(method)) {
+      var output = _call(method, '', ' " ');
+      var quotesCount = _concat([], output.match(/"/g)).length;
+      shouldOverwrite = output !== output.toLowerCase() || quotesCount > 2;
+    } else {
+      shouldOverwrite = true;
+    }
+    if (shouldOverwrite) {
+      overrideNative(String.prototype, key, stringHTMLshims[key]);
+    }
+  })
+var JSONstringifiesSymbols = (function () {
+    // Microsoft Edge v0.12 stringifies Symbols incorrectly
+    if (!hasSymbols) { return false; } // Symbols are not supported
+    var stringify = typeof JSON === 'object' && typeof JSON.stringify === 'function' ? JSON.stringify : null;
+    if (!stringify) { return false; } // JSON.stringify is not supported
+    if (typeof stringify(Symbol()) !== 'undefined') { return true; } // Symbols should become `undefined`
+    if (stringify([Symbol()]) !== '[null]') { return true; } // Symbols in arrays should become `null`
+    var obj = { a: Symbol() };
+    obj[Symbol()] = true;
+    if (stringify(obj) !== '{}') { return true; } // Symbol-valued keys *and* Symbol-valued properties should be omitted
+    return false;
+  }())
+typeof stringify(Symbol()) !== 'undefined'
+stringify([Symbol()]) !== '[null]'
+stringify(obj) !== '{}'

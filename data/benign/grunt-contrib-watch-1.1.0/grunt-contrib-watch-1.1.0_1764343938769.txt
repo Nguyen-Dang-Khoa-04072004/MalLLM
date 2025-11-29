@@ -1,0 +1,24 @@
+this.livereload.trigger(Object.keys(this.changedFiles))
+var cfg = {
+        files: config.files,
+        tasks: config.tasks,
+        name: defaultTargetName,
+        options: self._options(config.options || {}, self.options)
+      }
+_tmp_17.name = defaultTargetName
+target.options.reload || /gruntfile\.(js|coffee)/i.test(filepath)
+Runner.prototype._options = function _options() {
+    var args = Array.prototype.slice.call(arguments).concat({
+      // The cwd to spawn within
+      cwd: process.cwd(),
+      // Additional cli args to append when spawning
+      cliArgs: _.without.apply(null, [[].slice.call(process.argv, 2)].concat(grunt.cli.tasks)),
+      interrupt: false,
+      nospawn: false,
+      spawn: true,
+      atBegin: false,
+      event: ['all'],
+      target: null
+    });
+    return _.defaults.apply(_, args);
+  }

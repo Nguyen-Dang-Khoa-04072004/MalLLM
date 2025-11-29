@@ -1,0 +1,54 @@
+_iterator_0 = <operator>.iterator(Object.keys(param.getBindingIdentifiers()))
+const isSimpleParameterList = params.every(param => param.isIdentifier())
+_iterator_0 = <operator>.iterator(params)
+(0, _shadowUtils.collectShadowedParamsNames)(param, scope, shadowedParams)
+_iterator_1 = <operator>.iterator(params)
+const param = params[i]
+shouldTransformParam && !shouldTransformParam(i)
+replaceRestElement(path, param, transformedRestNodes)
+const paramIsAssignmentPattern = param.isAssignmentPattern()
+parentPath.listKey === "params" && parentPath.key < state.offset
+const right = param.get("right")
+parentPath.isMemberExpression({
+        object: node
+      })
+body.push(buildLooseDefaultParam({
+          ASSIGNMENT_IDENTIFIER: _core.types.cloneNode(left.node),
+          DEFAULT_VALUE: right.node,
+          UNDEFINED: undefinedNode
+        }))
+_tmp_5.ASSIGNMENT_IDENTIFIER = _core.types.cloneNode(left.node)
+const grandparentPath = parentPath.parentPath
+body.push(buildLooseDestructuredDefaultParam({
+          ASSIGNMENT_IDENTIFIER: left.node,
+          DEFAULT_VALUE: right.node,
+          PARAMETER_NAME: _core.types.cloneNode(paramName),
+          UNDEFINED: undefinedNode
+        }))
+const left = param.get("left")
+const right = param.get("right")
+const defNode = buildDefaultParam({
+        VARIABLE_NAME: left.node,
+        DEFAULT_VALUE: right.node,
+        ARGUMENT_KEY: _core.types.numericLiteral(i)
+      })
+_tmp_9.VARIABLE_NAME = left.node
+_tmp_9.DEFAULT_VALUE = right.node
+const call = parentPath.parentPath
+const defNode = buildSafeArgumentsAccess([param.node, _core.types.numericLiteral(i)])
+_tmp_68.cause = "argSpread"
+body.push(defNode)
+count > 0 && _core.types.isIdentifier(node.params[0], {
+    name: "this"
+  })
+body.push((0, _shadowUtils.buildScopeIIFE)(shadowedParams, path.node.body))
+function hasRest = function hasRest(node) {
+  const length = node.params.length;
+  return length > 0 && _core.types.isRestElement(node.params[length - 1]);
+}
+const bodyPath = path.get("body.body")
+const arrowPath = bodyPath[bodyPath.length - 1].get("argument.callee")
+path.get("body").unshiftContainer("body", body)
+const offsetTestPath = replacedParentPath.get("test")
+const valRes = offsetTestPath.get("left").evaluate()
+offsetTestPath.replaceWith(offsetTestPath.get("right"))

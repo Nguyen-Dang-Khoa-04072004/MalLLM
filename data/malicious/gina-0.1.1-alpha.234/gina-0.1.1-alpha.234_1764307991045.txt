@@ -1,0 +1,142 @@
+var parse = function(file, list) {
+        //console.log('replacing: ', file);
+        try {
+            var f;
+            f =(f=file.split(/\//))[f.length-1];
+            var isJS = /\.js/.test(f.substring(f.length-3))
+                , isJSON = /\.js/.test(f.substring(f.length-5));
+
+            if ( isJS || isJSON && /config\/app\.json/.test(file) ) {
+                var contentFile = fs.readFileSync(file, 'utf8').toString();
+                var dic = {
+                    "Bundle" : local.bundle.substring(0, 1).toUpperCase() + local.bundle.substring(1),
+                    "bundle" : local.bundle,
+                    "Namespace" : (local.namespace) ? local.namespace.substring(0, 1).toUpperCase() + local.namespace.substring(1) : '',
+                    "namespace" : local.namespace || ''
+                };
+
+                contentFile = whisper(dic, contentFile);
+                //rewrite file
+                lib.generator.createFileFromDataSync(contentFile, file)
+            }
+
+    ...
+lib.generator.createFileFromDataSync(portsReverse, portsReversePath)
+client.on('error', (data) => {
+            var err = data.toString();
+            console.error('[MQTail] ' + err + ' - Gina might not be running');
+            console.info('[MQTail] Waitting for `MQListener` to be started ...');
+
+            // var mqPort = null;
+            // nIntervId = setInterval(() => {
+            //     try {
+            //         mqPort = ~~(fs.readFileSync(mqPortFile).toString());
+            //         if (mqPort) {
+            //             process.emit('gina#mqlistener-started', mqPort, host);
+            //         }
+            //     } catch (fileErr) {}
+            // }, 100);
+        })
+var $validator      = { // isGFFCtx only
+        'id'                    : null, // form id
+
+        'plugin'                : this.plugin,
+        'on'                    : (isGFFCtx) ? on : null,
+        'eventData'             : {},
+        'target'                : (isGFFCtx) ? document : null, // by default
+        'cachedErrors'          : {},
+        'binded'                : false,
+        'unbinded'              : false,
+        'withUserBindings'      : false,
+        'rules'                 : {},
+        'setOptions'            : null,
+        'send'                  : null,
+        'isValidating'          : null,
+        'isSubmitting'          : null,
+        'submit'                : null,
+        'destroy'               : null,
+        'resetErrorsDisplay'    : null,
+        'resetFields'           : null
+    }
+var setPID = function(bundle, PID, proc) {
+
+        if ( !/^gina\-/.test(bundle) ) {
+            proc.title = 'gina: '+ bundle;
+        } else {
+            proc.title = bundle;
+        }
+
+        //Set event.
+        setDefaultEvents(bundle, PID, proc);
+    }
+set('page.environment.routing', encodeRFC5987ValueChars(JSON.stringify(routing)))
+_tmp_33.labels = [
+          "csisolatin2",
+          "iso-8859-2",
+          "iso-ir-101",
+          "iso8859-2",
+          "iso88592",
+          "iso_8859-2",
+          "iso_8859-2:1987",
+          "l2",
+          "latin2"
+        ]
+this.ping = function(interval, cb, ncb) {
+        var options = local.options;
+        if (options.keepAlive) {
+            if ( self.pingId ) {
+                clearInterval(self.pingId )
+            }
+
+            interval    = interval || options.pingInterval; // for a minute
+            var value       = interval.match(/\d+/);
+            var unit        = null; // will be seconds by default
+            try {
+                unit = interval.match(/[a-z]+/i)[0]
+            } catch(err) {
+                unit = 's'
+            }
+
+            switch ( unit.toLowerCase() ) {
+                case 's':
+                    interval = value * 1000;
+                    break;
+
+                case 'm':
+                    interval = value * 60 * 1000;
+                    break;
+
+                case 'h':
+                    interval = value * 60 * 60 * 1000;
+                    break;
+
+                case 'd':
+                    interval = value * 60 * 60 * 1000 * 24;
+                 ...
+socket.send(JSON.stringify({
+                id: this.id,//socket.id,
+                handshake: 'Welcomed to `'+ options.bundle +'` main socket !',
+                // how many ms before sending a new ping packet
+                pingTimeout: options.ioServer.pingTimeout || options.ioServer.timeout,
+                // how many ms without a pong packet to consider the connection closed
+                pingInterval: options.ioServer.pingInterval || options.ioServer.interval
+            }))
+fs.exists(path, function(exists){
+            //delete when exists.
+            if (exists) {
+                //console.log("yeah about to delete main folder: ", p.toString());
+                //Delete ans die here..
+                p.rm(function(err, path){
+                    //console.log("receives ", err, path);
+                    if (err) {
+                        //logger.error('gina', 'LIB:CONFIG:ERR:8', err, __stack);
+                        console.error(err.stack||err.message);
+                        callback(err)
+                    } else {
+                        //logger.info('gina', 'LIB:CONFIG:INFO:1', path +': deleted with success !');
+                        console.info( path +': deleted with success !');
+                        callback(false)
+                    }
+                })
+            }
+        })

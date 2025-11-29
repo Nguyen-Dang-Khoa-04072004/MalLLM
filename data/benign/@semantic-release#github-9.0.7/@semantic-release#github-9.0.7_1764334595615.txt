@@ -1,0 +1,176 @@
+const release = {
+    owner,
+    repo,
+    name,
+    prerelease: isPrerelease(branch),
+    tag_name: gitTag,
+  }
+pluginConfig.assignees = defaultTo(
+      pluginConfig.assignees,
+      publishPlugin.assignees,
+    )
+const release = {
+    owner,
+    repo,
+    tag_name: gitTag,
+    target_commitish: branch.name,
+    name,
+    body: notes,
+    prerelease: isPrerelease(branch),
+  }
+_tmp_11 = await octokit.request(
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+        comment,
+      )
+await octokit.request(
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+        comment,
+      )
+function EINVALIDFAILCOMMENT = function EINVALIDFAILCOMMENT({ failComment }) {
+  return {
+    message: "Invalid `failComment` option.",
+    details: `The [failComment option](${linkify(
+      "README.md#failcomment",
+    )}) if defined, must be a non empty \`String\`.
+
+Your configuration for the \`failComment\` option is \`${stringify(
+      failComment,
+    )}\`.`,
+  };
+}
+const releaseInfos = releases.filter((release) => Boolean(release.name))
+baseUrl && new URL(baseUrl).protocol.replace(":", "") === "http" ? new HttpProxyAgent(options.proxy, options.proxy) : new HttpsProxyAgent(options.proxy, options.proxy)
+function addChannel = async function addChannel(
+  pluginConfig,
+  context,
+  { Octokit = SemanticReleaseOctokit } = {},
+) {
+  if (!verified) {
+    await verifyGitHub(pluginConfig, context, { Octokit });
+    verified = true;
+  }
+
+  return addChannelGitHub(pluginConfig, context, { Octokit });
+}
+_tmp_5.details = <operator>.formatString("The [labels option](", linkify(
+      "README.md#options",
+    ), ") if defined, must be an \`Array\` of non empty \`String\`.
+
+Your configuration for the \`labels\` option is \`", stringify(labels), "\`.")
+logger.log("Published GitHub release: %s", url)
+await octokit.request(
+    "POST /repos/{owner}/{repo}/releases",
+    draftReleaseOptions,
+  )
+const matchingCommit = commits.find(({ sha }) => shas.includes(sha))
+const globbedAssets = await globAssets(context, assets)
+function fail = async function fail(
+  pluginConfig,
+  context,
+  { Octokit = SemanticReleaseOctokit } = {},
+) {
+  if (!verified) {
+    await verifyGitHub(pluginConfig, context, { Octokit });
+    verified = true;
+  }
+
+  await failGitHub(pluginConfig, context, { Octokit });
+}
+globbedAssets.map(async (asset) => {
+      const filePath = isPlainObject(asset) ? asset.path : asset;
+      let file;
+
+      try {
+        file = await stat(resolve(cwd, filePath));
+      } catch {
+        logger.error(
+          "The asset %s cannot be read, and will be ignored.",
+          filePath,
+        );
+        return;
+      }
+
+      if (!file || !file.isFile()) {
+        logger.error(
+          "The asset %s is not a file, and will be ignored.",
+          filePath,
+        );
+        return;
+      }
+
+      const fileName = template(asset.name || basename(filePath))(context);
+      const upload = {
+        method: "POST",
+        url: uploadUrl,
+        data: await readFile(resolve(cwd, filePath)),
+        name: fileName,
+        headers: {
+          "content-type": mime.getType(extname(fileName)) || "text/plain",
+          "content-length": file.size,
+        },
+      };
+
+      debug("file path: %o", filePath);
+      debug("file name: %o", fileName);
+
+      if (isPlainObj...
+function EINVALIDRELEASEDLABELS = function EINVALIDRELEASEDLABELS({ releasedLabels }) {
+  return {
+    message: "Invalid `releasedLabels` option.",
+    details: `The [releasedLabels option](${linkify(
+      "README.md#options",
+    )}) if defined, must be an \`Array\` of non empty \`String\`.
+
+Your configuration for the \`releasedLabels\` option is \`${stringify(
+      releasedLabels,
+    )}\`.`,
+  };
+}
+file = await stat(resolve(cwd, filePath))
+const fileName = template(asset.name || basename(filePath))(context)
+_tmp_18.content-type = mime.getType(extname(fileName)) || "text/plain"
+stringify(
+      draftRelease,
+    )
+await Promise.all(
+      uniqBy([...prs, ...issues], "number").map(async (issue) => {
+        const body = successComment
+          ? template(successComment)({ ...context, issue })
+          : getSuccessComment(issue, releaseInfos, nextRelease);
+        try {
+          const comment = { owner, repo, issue_number: issue.number, body };
+          debug("create comment: %O", comment);
+          const {
+            data: { html_url: url },
+          } = await octokit.request(
+            "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+            comment,
+          );
+          logger.log("Added comment to issue #%d: %s", issue.number, url);
+
+          if (releasedLabels) {
+            const labels = releasedLabels.map((label) =>
+              template(label)(context),
+            );
+            await octokit.request(
+              "POST /repos/{owner}/{repo}/issues/{issue_number}/labels",
+              {
+                owner,
+                repo,
+                issue_n...
+const body = successComment
+          ? template(successComment)({ ...context, issue })
+          : getSuccessComment(issue, releaseInfos, nextRelease)
+errors.push(getError("ENOGHTOKEN", { owner, repo }))
+_tmp_10.details = "The **semantic-release** \`repositoryUrl\` option must a valid GitHub URL with the format \`<GitHub_or_GHE_URL>/<owner>/<repo>.git\`.
+
+By default the \`repositoryUrl\` option is retrieved from the \`repository\` property of your \`package.json\` or the [git origin url](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes) of the repository cloned by your CI environment."
+await octokit.request(
+    "PATCH /repos/{owner}/{repo}/releases/{release_id}",
+    {
+      owner,
+      repo,
+      release_id: releaseId,
+      draft: false,
+    },
+  )

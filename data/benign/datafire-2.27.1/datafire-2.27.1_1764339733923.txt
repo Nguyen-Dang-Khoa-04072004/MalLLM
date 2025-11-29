@@ -1,0 +1,25 @@
+parts.forEach(function (part, idx) {
+    if (idx === parts.length - 1) {
+      obj[part] = function (input, ctx) {
+        return action.run(input, ctx).catch(function (e) {
+          var message = "Action " + action.id + " failed";
+          if (Response.isResponse(e)) {
+            message += " with status code " + e.statusCode + ': ' + e.body;
+          } else if (e.message) {
+            message += ': ' + e.message;
+          }
+          var error = new Error(message);
+          if (Response.isResponse(e)) {
+            error.statusCode = e.statusCode;
+            error.body = e.body;
+          } else if (e instanceof Error) {
+            error.stack = e.stack;
+          }
+          throw error;
+        });
+      };
+      obj[part].action = action;
+    } else {
+      obj = obj[part] = obj[part] || {};
+    }
+  })

@@ -1,0 +1,30 @@
+var LessError = function (e, fileContentMap, currentFilename) {
+    Error.call(this);
+    var filename = e.filename || currentFilename;
+    this.message = e.message;
+    this.stack = e.stack;
+    if (fileContentMap && filename) {
+        var input = fileContentMap.contents[filename];
+        var loc = utils.getLocation(e.index, input);
+        var line = loc.line;
+        var col = loc.column;
+        var callLine = e.call && utils.getLocation(e.call, input).line;
+        var lines = input ? input.split('\n') : '';
+        this.type = e.type || 'Syntax';
+        this.filename = filename;
+        this.index = e.index;
+        this.line = typeof line === 'number' ? line + 1 : null;
+        this.column = col;
+        if (!this.line && this.stack) {
+            var found = this.stack.match(anonymousFunc);
+            /**
+             * We have to figure out how this environment stringifies anonymous functions
+             * so we can correctly map plugin errors.
+             *
+             ...
+var toCSSOptions = {
+                    compress: compress,
+                    dumpLineNumbers: options.dumpLineNumbers,
+                    strictUnits: Boolean(options.strictUnits),
+                    numPrecision: 8
+                }

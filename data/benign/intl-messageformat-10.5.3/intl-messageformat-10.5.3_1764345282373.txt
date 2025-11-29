@@ -1,0 +1,86 @@
+__export(lib_exports, {
+    ErrorCode: () => ErrorCode,
+    FormatError: () => FormatError,
+    IntlMessageFormat: () => IntlMessageFormat,
+    InvalidValueError: () => InvalidValueError,
+    InvalidValueTypeError: () => InvalidValueTypeError,
+    MissingValueError: () => MissingValueError,
+    PART_TYPE: () => PART_TYPE,
+    default: () => lib_default,
+    formatToParts: () => formatToParts,
+    isFormatXMLElementFn: () => isFormatXMLElementFn
+  })
+var InvalidValueError = /** @class */ (function (_super) {
+    tslib_1.__extends(InvalidValueError, _super);
+    function InvalidValueError(variableId, value, options, originalMessage) {
+        return _super.call(this, "Invalid values for \"".concat(variableId, "\": \"").concat(value, "\". Options are \"").concat(Object.keys(options).join('", "'), "\""), ErrorCode.INVALID_VALUE, originalMessage) || this;
+    }
+    return InvalidValueError;
+}(FormatError))
+(function(ErrorKind2) {
+    ErrorKind2[ErrorKind2["EXPECT_ARGUMENT_CLOSING_BRACE"] = 1] = "EXPECT_ARGUMENT_CLOSING_BRACE";
+    ErrorKind2[ErrorKind2["EMPTY_ARGUMENT"] = 2] = "EMPTY_ARGUMENT";
+    ErrorKind2[ErrorKind2["MALFORMED_ARGUMENT"] = 3] = "MALFORMED_ARGUMENT";
+    ErrorKind2[ErrorKind2["EXPECT_ARGUMENT_TYPE"] = 4] = "EXPECT_ARGUMENT_TYPE";
+    ErrorKind2[ErrorKind2["INVALID_ARGUMENT_TYPE"] = 5] = "INVALID_ARGUMENT_TYPE";
+    ErrorKind2[ErrorKind2["EXPECT_ARGUMENT_STYLE"] = 6] = "EXPECT_ARGUMENT_STYLE";
+    ErrorKind2[ErrorKind2["INVALID_NUMBER_SKELETON"] = 7] = "INVALID_NUMBER_SKELETON";
+    ErrorKind2[ErrorKind2["INVALID_DATE_TIME_SKELETON"] = 8] = "INVALID_DATE_TIME_SKELETON";
+    ErrorKind2[ErrorKind2["EXPECT_NUMBER_SKELETON"] = 9] = "EXPECT_NUMBER_SKELETON";
+    ErrorKind2[ErrorKind2["EXPECT_DATE_TIME_SKELETON"] = 10] = "EXPECT_DATE_TIME_SKELETON";
+    ErrorKind2[ErrorKind2["UNCLOSED_QUOTE_IN_ARGUMENT_STYLE"] = 11] = "UNCLOSED_QUOTE_IN_ARGUMENT_STYLE";
+    ErrorKind2[Err...
+(function(TYPE2) {
+    TYPE2[TYPE2["literal"] = 0] = "literal";
+    TYPE2[TYPE2["argument"] = 1] = "argument";
+    TYPE2[TYPE2["number"] = 2] = "number";
+    TYPE2[TYPE2["date"] = 3] = "date";
+    TYPE2[TYPE2["time"] = 4] = "time";
+    TYPE2[TYPE2["select"] = 5] = "select";
+    TYPE2[TYPE2["plural"] = 6] = "plural";
+    TYPE2[TYPE2["pound"] = 7] = "pound";
+    TYPE2[TYPE2["tag"] = 8] = "tag";
+  })(TYPE || (TYPE = {}))
+(function(SKELETON_TYPE2) {
+    SKELETON_TYPE2[SKELETON_TYPE2["number"] = 0] = "number";
+    SKELETON_TYPE2[SKELETON_TYPE2["dateTime"] = 1] = "dateTime";
+  })(SKELETON_TYPE || (SKELETON_TYPE = {}))
+re = RE("([^\\p{White_Space}\\p{Pattern_Syntax}]*)", "yu")
+REGEX_SUPPORTS_U_AND_Y = ((_a = re.exec("a")) === null || _a === void 0 ? void 0 : _a[0]) === "a"
+function(_super) {
+      __extends(InvalidValueTypeError2, _super);
+      function InvalidValueTypeError2(value, type, originalMessage) {
+        return _super.call(this, 'Value for "'.concat(value, '" must be of type ').concat(type), ErrorCode.INVALID_VALUE, originalMessage) || this;
+      }
+      return InvalidValueTypeError2;
+    }(FormatError)
+__extends(InvalidValueTypeError2, _super)
+function InvalidValueTypeError2 = function InvalidValueTypeError2(value, type, originalMessage) {
+        return _super.call(this, 'Value for "'.concat(value, '" must be of type ').concat(type), ErrorCode.INVALID_VALUE, originalMessage) || this;
+      }
+_super.call(this, 'Value for "'.concat(value, '" must be of type ').concat(type), ErrorCode.INVALID_VALUE, originalMessage) || this
+_tmp_82.type = PART_TYPE.literal
+var MissingValueError = (
+    /** @class */
+    function(_super) {
+      __extends(MissingValueError2, _super);
+      function MissingValueError2(variableId, originalMessage) {
+        return _super.call(this, 'The intl string context variable "'.concat(variableId, '" was not provided to the string "').concat(originalMessage, '"'), ErrorCode.MISSING_VALUE, originalMessage) || this;
+      }
+      return MissingValueError2;
+    }(FormatError)
+  )
+function(_super) {
+      __extends(MissingValueError2, _super);
+      function MissingValueError2(variableId, originalMessage) {
+        return _super.call(this, 'The intl string context variable "'.concat(variableId, '" was not provided to the string "').concat(originalMessage, '"'), ErrorCode.MISSING_VALUE, originalMessage) || this;
+      }
+      return MissingValueError2;
+    }(FormatError)
+__extends(MissingValueError2, _super)
+function MissingValueError2 = function MissingValueError2(variableId, originalMessage) {
+        return _super.call(this, 'The intl string context variable "'.concat(variableId, '" was not provided to the string "').concat(originalMessage, '"'), ErrorCode.MISSING_VALUE, originalMessage) || this;
+      }
+_super.call(this, 'The intl string context variable "'.concat(variableId, '" was not provided to the string "').concat(originalMessage, '"'), ErrorCode.MISSING_VALUE, originalMessage) || this
+_tmp_84.value = formatters.getDateTimeFormat(locales, style).format(value)
+FormatError

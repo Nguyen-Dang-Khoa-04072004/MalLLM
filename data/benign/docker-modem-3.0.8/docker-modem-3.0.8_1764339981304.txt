@@ -1,0 +1,9 @@
+var req = http[self.protocol === 'ssh' ? 'http' : self.protocol].request(opts, function () { })
+req.on('socket', function (socket) {
+      socket.setTimeout(self.timeout);
+      socket.on('timeout', function () {
+        debug('Timeout of %s ms exceeded', self.timeout);
+        req.abort();
+      });
+    })
+socket.setTimeout(self.timeout)

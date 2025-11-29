@@ -1,0 +1,71 @@
+const def = require.resolve('./default-input.js')
+function init = async function init (dir, input = def, c = {}) {
+  const config = getConfig(c)
+  const yes = isYes(config)
+  const packageFile = path.resolve(dir, 'package.json')
+
+  const pkg = await readPkgJson(packageFile)
+
+  if (!semver.valid(pkg.version)) {
+    delete pkg.version
+  }
+
+  // make sure that the input is valid. if not, use the default
+  const pzData = await promzard(path.resolve(input), {
+    yes,
+    config,
+    filename: packageFile,
+    dirname: path.dirname(packageFile),
+    basename: path.basename(path.dirname(packageFile)),
+    package: pkg,
+  }, { backupFile: def })
+
+  for (const [k, v] of Object.entries(pzData)) {
+    if (v != null) {
+      pkg[k] = v
+    }
+  }
+
+  const pkgExtras = await readPkgJson(packageFile, pkg)
+
+  // turn the objects into somewhat more humane strings.
+  if (pkgExtras.author) {
+    pkgExtras.author = stringifyPerson(pkgExtras.author)
+  }
+
+  for (const set of ['maintainers', 'contributors']) {
+    if (Array.isArray(pkgExtras[set])) {
+      pkgExtras[set...
+const packageFile = path.resolve(dir, 'package.json')
+const pkg = await readPkgJson(packageFile)
+!semver.valid(pkg.version)
+delete pkg.version
+const pzData = await promzard(path.resolve(input), {
+    yes,
+    config,
+    filename: packageFile,
+    dirname: path.dirname(packageFile),
+    basename: path.basename(path.dirname(packageFile)),
+    package: pkg,
+  }, { backupFile: def })
+_tmp_1.dirname = path.dirname(packageFile)
+_tmp_1.basename = path.basename(path.dirname(packageFile))
+scope.charAt(0) !== '@'
+const pkgExtras = await readPkgJson(packageFile, pkg)
+Array.isArray(pkgExtras[set])
+pkgExtras[set] = pkgExtras[set].map(stringifyPerson)
+const stringified = JSON.stringify(pkgExtras, null, 2) + '\n'
+const msg = util.format('%s:\n\n%s\n', packageFile, stringified)
+exports.bin = async () => {
+    try {
+      const d = await fs.readdir(path.resolve(dirname, 'bin'))
+      // just take the first js file we find there, or nada
+      let r = d.find(f => f.match(/\.js$/))
+      if (r) {
+        r = `bin/${r}`
+      }
+      return r
+    } catch {
+      // no bins
+    }
+  }

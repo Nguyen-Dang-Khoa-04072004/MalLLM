@@ -1,0 +1,2 @@
+var leftHandMap = memoizeMap.get(leftHandOperand)
+var result = leftHandMap.get(rightHandOperand)

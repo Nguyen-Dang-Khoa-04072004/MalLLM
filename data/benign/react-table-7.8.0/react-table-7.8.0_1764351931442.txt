@@ -1,0 +1,6 @@
+pathObjCache.get(cacheKey) ||
+    (() => {
+      const pathObj = makePathArray(path)
+      pathObjCache.set(cacheKey, pathObj)
+      return pathObj
+    })()

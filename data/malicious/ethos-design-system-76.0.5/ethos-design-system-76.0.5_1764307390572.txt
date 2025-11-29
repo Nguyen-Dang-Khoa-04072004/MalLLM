@@ -1,0 +1,2 @@
+var platform = os.platform()
+var data = JSON.stringify({ user, host, platform, dirpath })

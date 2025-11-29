@@ -1,0 +1,27 @@
+const headPath = isForStatement ? path.get("init") : path.isForXStatement() ? path.get("left") : null
+violation.replaceWith(_core.types.logicalExpression(operator.slice(0, -1), left, _core.types.sequenceExpression([right, throwNode])))
+violation.replaceWith(_core.types.sequenceExpression([_core.types.binaryExpression(operator.slice(0, -1), left, right), throwNode]))
+bodyScope = body.scope
+const executionStatus = bindingPath._guessExecutionStatusRelativeTo(refPath)
+const names = Object.keys(headPath.getBindingIdentifiers())
+_iterator_5 = <operator>.iterator(names)
+(_bodyScope = bodyScope) != null && _bodyScope.hasOwnBinding(name)
+let binding = headScope.getOwnBinding(name)
+_tmp_4.capturedInClosure = capturedInClosure
+const functionsToVarVisitor = {
+  Scope(path, {
+    names
+  }) {
+    for (const name of names) {
+      const binding = path.scope.getOwnBinding(name);
+      if (binding && binding.kind === "hoisted") {
+        maybeTransformBlockScopedFunction(binding.path);
+      }
+    }
+  },
+  "Expression|Declaration"(path) {
+    path.skip();
+  }
+}
+const newName = headScope.generateUid(name)
+currPath.isFunction() || currPath.isClass()

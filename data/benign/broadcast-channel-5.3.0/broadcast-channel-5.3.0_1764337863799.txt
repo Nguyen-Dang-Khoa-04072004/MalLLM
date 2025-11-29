@@ -1,0 +1,18 @@
+const msgObj = {
+        time,
+        type,
+        data: msg
+    }
+_tmp_1.type = type
+const sendPromise = broadcastChannel.method.postMessage(
+            broadcastChannel._state,
+            msgObj
+        )
+this._lstns.forEach(listener => this.broadcastChannel.removeEventListener('internal', listener))
+deleteRequest.onsuccess = () => res()
+broadcastChannel._uMP.add(sendPromise)
+sendPromise
+            .catch()
+            .then(() => broadcastChannel._uMP.delete(sendPromise))
+const olderThen = new Date().getTime() - ttl
+const objectStore = tx.objectStore(OBJECT_STORE_ID)

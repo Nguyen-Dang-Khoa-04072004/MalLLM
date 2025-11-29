@@ -1,0 +1,6 @@
+casper.emit('resource.requested', requestData, request)
+var checkUrl = ((phantom.casperEngine === 'phantomjs' && utils.ltVersion(phantom.version, '2.1.0')) ||
+                       (phantom.casperEngine === 'slimerjs' && utils.ltVersion(slimer.version, '0.10.0'))) ? utils.decodeUrl(requestData.url) : requestData.url
+phantom.casperEngine === 'slimerjs' && utils.ltVersion(slimer.version, '0.10.0')
+checkUrl === casper.requestUrl
+casper.emit('page.resource.requested', requestData, request)

@@ -1,0 +1,36 @@
+utils.log.detail('spawning')
+debug('spawn', sh, shFlag, args)
+files
+        .map(file => {
+          const res = path.relative(cwd, file);
+          return res;
+        })
+        .join(', ')
+utils.log.info('to restart at any time, enter `' +
+        config.options.restartable + '`')
+const res = path.relative(cwd, file)
+newExec !== options.exec &&
+      options.exec.indexOf('{{filename}}') !== -1
+files = files.filter(Boolean).map(file => {
+      return path.relative(process.cwd(), path.relative(cwd, file));
+    })
+utils.log.detail((config.options.restartable ? 'or ' : '') + 'send ' +
+        restartSignal + ' to ' + process.pid + ' to restart')
+files = files.map(f => {
+        if (f.indexOf(':') === -1) { return f; }
+        return f[0].toUpperCase() + f.slice(1);
+      })
+options.exec === 'node' && options.nodeArgs && options.nodeArgs.length
+options.execArgs = options.execArgs.concat(options.nodeArgs)
+!execDefined &&
+    options.exec === 'node' &&
+    scriptExt.indexOf('coffee') !== -1
+var matched = match(
+      files,
+      config.options.monitor,
+      undefsafe(config, 'options.execOptions.ext')
+    )
+arg === '--no-stdin' || arg === '-I'
+options.exec = 'coffee'
+utils.log.fail('Failed to parse config ' + filename)
+debug('matched?', JSON.stringify(matched))

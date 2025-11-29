@@ -1,0 +1,1 @@
+fs.writeFileSync(relative("browser.js"), fs.readFileSync(relative("dist/polyfill.min.js")))

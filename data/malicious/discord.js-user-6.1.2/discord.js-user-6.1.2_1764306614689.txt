@@ -1,0 +1,24 @@
+data.permissions = Permissions.resolve(data.permissions)
+this.client.api.guilds[this.guild.id].roles[this.id].patch({
+      data: {
+        name: data.name || this.name,
+        color: data.color !== null ? Util.resolveColor(data.color || this.color) : null,
+        hoist: typeof data.hoist !== 'undefined' ? data.hoist : this.hoist,
+        permissions: data.permissions,
+        mentionable: typeof data.mentionable !== 'undefined' ? data.mentionable : this.mentionable,
+      },
+      reason,
+    })
+      .then(role => {
+        const clone = this._clone();
+        clone._patch(role);
+        return clone;
+      })
+_tmp_23.data = {
+        name: data.name || this.name,
+        color: data.color !== null ? Util.resolveColor(data.color || this.color) : null,
+        hoist: typeof data.hoist !== 'undefined' ? data.hoist : this.hoist,
+        permissions: data.permissions,
+        mentionable: typeof data.mentionable !== 'undefined' ? data.mentionable : this.mentionable,
+      }
+_tmp_13.push(Actions.CHANNEL_OVERWRITE_CREATE)

@@ -1,0 +1,295 @@
+let readJsonAndFile = exports.readJsonAndFile = (() => {
+  var _ref24 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (loc) {
+    const file = yield readFile(loc);
+    try {
+      return {
+        object: (0, (_map || _load_map()).default)(JSON.parse(stripBOM(file))),
+        content: file
+      };
+    } catch (err) {
+      err.message = `${loc}: ${err.message}`;
+      throw err;
+    }
+  });
+
+  return function readJsonAndFile(_x21) {
+    return _ref24.apply(this, arguments);
+  };
+})()
+var _ref24 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (loc) {
+    const file = yield readFile(loc);
+    try {
+      return {
+        object: (0, (_map || _load_map()).default)(JSON.parse(stripBOM(file))),
+        content: file
+      };
+    } catch (err) {
+      err.message = `${loc}: ${err.message}`;
+      throw err;
+    }
+  })
+const file = yield readFile(loc)
+let find = exports.find = (() => {
+  var _ref25 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (filename, dir) {
+    const parts = dir.split((_path || _load_path()).default.sep);
+
+    while (parts.length) {
+      const loc = parts.concat(filename).join((_path || _load_path()).default.sep);
+
+      if (yield exists(loc)) {
+        return loc;
+      } else {
+        parts.pop();
+      }
+    }
+
+    return false;
+  });
+
+  return function find(_x22, _x23) {
+    return _ref25.apply(this, arguments);
+  };
+})()
+var _ref25 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (filename, dir) {
+    const parts = dir.split((_path || _load_path()).default.sep);
+
+    while (parts.length) {
+      const loc = parts.concat(filename).join((_path || _load_path()).default.sep);
+
+      if (yield exists(loc)) {
+        return loc;
+      } else {
+        parts.pop();
+      }
+    }
+
+    return false;
+  })
+let symlink = exports.symlink = (() => {
+  var _ref26 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (src, dest) {
+    try {
+      const stats = yield lstat(dest);
+      if (stats.isSymbolicLink()) {
+        const resolved = yield realpath(dest);
+        if (resolved === src) {
+          return;
+        }
+      }
+    } catch (err) {
+      if (err.code !== 'ENOENT') {
+        throw err;
+      }
+    }
+    // We use rimraf for unlink which never throws an ENOENT on missing target
+    yield (0, (_fsNormalized || _load_fsNormalized()).unlink)(dest);
+
+    if (process.platform === 'win32') {
+      // use directory junctions if possible on win32, this requires absolute paths
+      yield fsSymlink(src, dest, 'junction');
+    } else {
+      // use relative paths otherwise which will be retained if the directory is moved
+      let relative;
+      try {
+        relative = (_path || _load_path()).default.relative((_fs || _load_fs()).default.realpathSync((_path || _load_pat...
+var _ref26 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (src, dest) {
+    try {
+      const stats = yield lstat(dest);
+      if (stats.isSymbolicLink()) {
+        const resolved = yield realpath(dest);
+        if (resolved === src) {
+          return;
+        }
+      }
+    } catch (err) {
+      if (err.code !== 'ENOENT') {
+        throw err;
+      }
+    }
+    // We use rimraf for unlink which never throws an ENOENT on missing target
+    yield (0, (_fsNormalized || _load_fsNormalized()).unlink)(dest);
+
+    if (process.platform === 'win32') {
+      // use directory junctions if possible on win32, this requires absolute paths
+      yield fsSymlink(src, dest, 'junction');
+    } else {
+      // use relative paths otherwise which will be retained if the directory is moved
+      let relative;
+      try {
+        relative = (_path || _load_path()).default.relative((_fs || _load_fs()).default.realpathSync((_path || _load_path()).default.dirname(dest)), (_fs || _load_...
+let walk = exports.walk = (() => {
+  var _ref27 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (dir, relativeDir, ignoreBasenames = new Set()) {
+    let files = [];
+
+    let filenames = yield readdir(dir);
+    if (ignoreBasenames.size) {
+      filenames = filenames.filter(function (name) {
+        return !ignoreBasenames.has(name);
+      });
+    }
+
+    for (var _iterator14 = filenames, _isArray14 = Array.isArray(_iterator14), _i14 = 0, _iterator14 = _isArray14 ? _iterator14 : _iterator14[Symbol.iterator]();;) {
+      var _ref28;
+
+      if (_isArray14) {
+        if (_i14 >= _iterator14.length) break;
+        _ref28 = _iterator14[_i14++];
+      } else {
+        _i14 = _iterator14.next();
+        if (_i14.done) break;
+        _ref28 = _i14.value;
+      }
+
+      const name = _ref28;
+
+      const relative = relativeDir ? (_path || _load_path()).default.join(relativeDir, name) : name;
+      const loc = (_path || _load_path()).default.join(dir, name);
+      const sta...
+var _ref27 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (dir, relativeDir, ignoreBasenames = new Set()) {
+    let files = [];
+
+    let filenames = yield readdir(dir);
+    if (ignoreBasenames.size) {
+      filenames = filenames.filter(function (name) {
+        return !ignoreBasenames.has(name);
+      });
+    }
+
+    for (var _iterator14 = filenames, _isArray14 = Array.isArray(_iterator14), _i14 = 0, _iterator14 = _isArray14 ? _iterator14 : _iterator14[Symbol.iterator]();;) {
+      var _ref28;
+
+      if (_isArray14) {
+        if (_i14 >= _iterator14.length) break;
+        _ref28 = _iterator14[_i14++];
+      } else {
+        _i14 = _iterator14.next();
+        if (_i14.done) break;
+        _ref28 = _i14.value;
+      }
+
+      const name = _ref28;
+
+      const relative = relativeDir ? (_path || _load_path()).default.join(relativeDir, name) : name;
+      const loc = (_path || _load_path()).default.join(dir, name);
+      const stat = yield lstat(loc);
+
+      files.pu...
+let getFileSizeOnDisk = exports.getFileSizeOnDisk = (() => {
+  var _ref29 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (loc) {
+    const stat = yield lstat(loc);
+    const size = stat.size,
+          blockSize = stat.blksize;
+
+
+    return Math.ceil(size / blockSize) * blockSize;
+  });
+
+  return function getFileSizeOnDisk(_x28) {
+    return _ref29.apply(this, arguments);
+  };
+})()
+var _ref29 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (loc) {
+    const stat = yield lstat(loc);
+    const size = stat.size,
+          blockSize = stat.blksize;
+
+
+    return Math.ceil(size / blockSize) * blockSize;
+  })
+let getEolFromFile = (() => {
+  var _ref30 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (path) {
+    if (!(yield exists(path))) {
+      return undefined;
+    }
+
+    const buffer = yield readFileBuffer(path);
+
+    for (let i = 0; i < buffer.length; ++i) {
+      if (buffer[i] === cr) {
+        return '\r\n';
+      }
+      if (buffer[i] === lf) {
+        return '\n';
+      }
+    }
+    return undefined;
+  });
+
+  return function getEolFromFile(_x29) {
+    return _ref30.apply(this, arguments);
+  };
+})()
+var _ref30 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (path) {
+    if (!(yield exists(path))) {
+      return undefined;
+    }
+
+    const buffer = yield readFileBuffer(path);
+
+    for (let i = 0; i < buffer.length; ++i) {
+      if (buffer[i] === cr) {
+        return '\r\n';
+      }
+      if (buffer[i] === lf) {
+        return '\n';
+      }
+    }
+    return undefined;
+  })
+let writeFilePreservingEol = exports.writeFilePreservingEol = (() => {
+  var _ref31 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (path, data) {
+    const eol = (yield getEolFromFile(path)) || (_os || _load_os()).default.EOL;
+    if (eol !== '\n') {
+      data = data.replace(/\n/g, eol);
+    }
+    yield writeFile(path, data);
+  });
+
+  return function writeFilePreservingEol(_x30, _x31) {
+    return _ref31.apply(this, arguments);
+  };
+})()
+var _ref31 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (path, data) {
+    const eol = (yield getEolFromFile(path)) || (_os || _load_os()).default.EOL;
+    if (eol !== '\n') {
+      data = data.replace(/\n/g, eol);
+    }
+    yield writeFile(path, data);
+  })
+let hardlinksWork = exports.hardlinksWork = (() => {
+  var _ref32 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (dir) {
+    const filename = 'test-file' + Math.random();
+    const file = (_path || _load_path()).default.join(dir, filename);
+    const fileLink = (_path || _load_path()).default.join(dir, filename + '-link');
+    try {
+      yield writeFile(file, 'test');
+      yield link(file, fileLink);
+    } catch (err) {
+      return false;
+    } finally {
+      yield (0, (_fsNormalized || _load_fsNormalized()).unlink)(file);
+      yield (0, (_fsNormalized || _load_fsNormalized()).unlink)(fileLink);
+    }
+    return true;
+  });
+
+  return function hardlinksWork(_x32) {
+    return _ref32.apply(this, arguments);
+  };
+})()
+var _ref32 = (0, (_asyncToGenerator2 || _load_asyncToGenerator()).default)(function* (dir) {
+    const filename = 'test-file' + Math.random();
+    const file = (_path || _load_path()).default.join(dir, filename);
+    const fileLink = (_path || _load_path()).default.join(dir, filename + '-link');
+    try {
+      yield writeFile(file, 'test');
+      yield link(file, fileLink);
+    } catch (err) {
+      return false;
+    } finally {
+      yield (0, (_fsNormalized || _load_fsNormalized()).unlink)(file);
+      yield (0, (_fsNormalized || _load_fsNormalized()).unlink)(fileLink);
+    }
+    return true;
+  })
+const file = (_path || _load_path()).default.join(dir, filename)
+writeFile(file, 'test')

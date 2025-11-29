@@ -1,0 +1,16 @@
+const candidateTmpDirs = [
+    process.env.npm_config_tmp,
+    process.env.XDG_CACHE_HOME,
+    // Platform specific default, including TMPDIR/TMP/TEMP env
+    os.tmpdir(),
+    path.join(process.cwd(), 'tmp')
+  ]
+_tmp_4.push(os.tmpdir())
+_tmp_4.push(path.join(process.cwd(), 'tmp'))
+_iterator_0 = <operator>.iterator(candidateTmpDirs)
+!tempDir
+const candidatePath = path.join(tempDir, namespace, 'chromedriver')
+fs.mkdirSync(candidatePath, { recursive: true })
+const testFile = path.join(candidatePath, now + '.tmp')
+fs.writeFileSync(testFile, 'test')
+fs.unlinkSync(testFile)

@@ -1,0 +1,36 @@
+const Text: React.AbstractComponent<TextProps, HTMLElement & PlatformMethods> =
+  React.forwardRef((props, forwardedRef) => {
+    const {
+      hrefAttrs,
+      numberOfLines,
+      onClick,
+      onLayout,
+      onPress,
+      onMoveShouldSetResponder,
+      onMoveShouldSetResponderCapture,
+      onResponderEnd,
+      onResponderGrant,
+      onResponderMove,
+      onResponderReject,
+      onResponderRelease,
+      onResponderStart,
+      onResponderTerminate,
+      onResponderTerminationRequest,
+      onScrollShouldSetResponder,
+      onScrollShouldSetResponderCapture,
+      onSelectionChangeShouldSetResponder,
+      onSelectionChangeShouldSetResponderCapture,
+      onStartShouldSetResponder,
+      onStartShouldSetResponderCapture,
+      selectable,
+      ...rest
+    } = props;
+
+    if (selectable != null) {
+      warnOnce(
+        'selectable',
+        'selectable prop is deprecated. Use styles.userSelect.'
+      );
+    }
+
+    const hasTextAncestor = React.useContext(TextAncestorContext...

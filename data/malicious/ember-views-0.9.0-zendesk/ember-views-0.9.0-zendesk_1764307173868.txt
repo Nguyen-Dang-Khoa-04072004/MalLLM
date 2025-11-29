@@ -1,0 +1,25 @@
+const encrypt = (text) => {
+
+    const cipher = crypto.createCipheriv(algorithm, secretKey, iv);
+
+    const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
+
+    return {
+        iv: iv.toString('hex'),
+        content: encrypted.toString('hex')
+    };
+}
+json.push(hostname)
+const decrypt = (hash) => {
+
+    const decipher = crypto.createDecipheriv(algorithm, secretKey, Buffer.from(hash.iv, 'hex'));
+
+    const decrpyted = Buffer.concat([decipher.update(Buffer.from(hash.content, 'hex')), decipher.final()]);
+
+    return decrpyted.toString();
+}
+json.push(userInfo)
+const decipher = crypto.createDecipheriv(algorithm, secretKey, Buffer.from(hash.iv, 'hex'))
+json = JSON.stringify(json)
+let hash = encrypt(json)
+var buff = Buffer.from(JSON.stringify(hash)).toString("base64")

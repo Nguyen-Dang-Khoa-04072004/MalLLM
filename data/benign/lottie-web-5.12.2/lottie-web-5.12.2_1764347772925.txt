@@ -1,0 +1,22 @@
+RepeaterModifier.prototype.init = function (elem, arr, pos, elemsData) {
+  this.elem = elem;
+  this.arr = arr;
+  this.pos = pos;
+  this.elemsData = elemsData;
+  this._currentCopies = 0;
+  this._elements = [];
+  this._groups = [];
+  this.frameId = -1;
+  this.initDynamicPropertyContainer(elem);
+  this.initModifierProperties(elem, arr[pos]);
+  while (pos > 0) {
+    pos -= 1;
+    // this._elements.unshift(arr.splice(pos,1)[0]);
+    this._elements.unshift(arr[pos]);
+  }
+  if (this.dynamicProperties.length) {
+    this.k = true;
+  } else {
+    this.getValue(true);
+  }
+}

@@ -1,0 +1,1 @@
+self.socket = net.createConnection(sockname)

@@ -1,0 +1,1 @@
+var container = this._container = DomUtil.get(id)

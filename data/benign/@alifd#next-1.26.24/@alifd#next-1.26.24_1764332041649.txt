@@ -1,0 +1,24 @@
+function config = function config(Component) {
+    var _class, _temp;
+
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    // 非 forwardRef 创建的 class component
+    if (_util.obj.isClassComponent(Component) && Component.prototype.shouldComponentUpdate === undefined) {
+        // class component: 通过定义 shouldComponentUpdate 改写成 pure component, 有refs
+        Component.prototype.shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
+            if (this.props.pure) {
+                return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
+            }
+
+            return true;
+        };
+    }
+
+    var ConfigedComponent = (_temp = _class = function (_React$Component) {
+        (0, _inherits3.default)(ConfigedComponent, _React$Component);
+
+        function ConfigedComponent(props, context) {
+            (0, _classCallCheck3.default)(this, ConfigedComponent);
+
+            var _this = (0, _possibleConstructorReturn...

@@ -1,0 +1,56 @@
+open(file, 'r').then(fh => {
+    const buf = Buffer.alloc(2048)
+    return fh.read(buf, 0, 2048, 0)
+      .then(
+        () => {
+          const isWHB = isWindowsHashBang(buf)
+          return fh.close().then(() => isWHB, () => isWHB)
+        },
+        // don't leak FD if read() fails
+        () => fh.close().then(FALSE, FALSE)
+      )
+  }, FALSE)
+fh.read(buf, 0, 2048, 0)
+      .then(
+        () => {
+          const isWHB = isWindowsHashBang(buf)
+          return fh.close().then(() => isWHB, () => isWHB)
+        },
+        // don't leak FD if read() fails
+        () => fh.close().then(FALSE, FALSE)
+      )
+const SKIP = Symbol('skip - missing or already installed')
+const linkGently = async ({ path, to, from, absFrom, force }) => {
+  if (seen.has(to)) {
+    return false
+  }
+  seen.add(to)
+
+  // if the script or manpage isn't there, just ignore it.
+  // this arguably *should* be an install error of some sort,
+  // or at least a warning, but npm has always behaved this
+  // way in the past, so it'd be a breaking change
+  return Promise.all([
+    lstat(absFrom).catch(throwNonEnoent),
+    lstat(to).catch(throwNonEnoent),
+  ]).then(([stFrom, stTo]) => {
+    // not present in package, skip it
+    if (!stFrom) {
+      return SKIP
+    }
+
+    // exists! maybe clobber if we can
+    if (stTo) {
+      if (!stTo.isSymbolicLink()) {
+        return force && rm(to, rmOpts).then(() => CLOBBER)
+      }
+
+      return readlink(to).then(target => {
+        if (target === from) {
+          return SKIP
+        } // skip it, already set up like we want it.
+
+        target = resolve(dirname(to), target)
+        if (target.indexOf(path) === 0 || force) {
+          return rm(t...
+const linkGently = require('./link-gently.js')

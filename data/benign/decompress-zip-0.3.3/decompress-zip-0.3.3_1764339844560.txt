@@ -1,0 +1,58 @@
+zip.getBuffer(file._offset, file._offset + file.uncompressedSize)
+                .then(function (buffer) {
+                    return writeFile(destination, buffer, { mode: file.mode });
+                })
+this.getFiles()
+    .then(function (files) {
+        var result = [];
+
+        files.forEach(function (file) {
+            result.push(file.path);
+        });
+
+        self.emit('list', result);
+    })
+    .fail(function (error) {
+        self.emit('error', error);
+    })
+    .fin(self.closeFile.bind(self))
+writeFile(destination, buffer, { mode: file.mode })
+input.wrap(fs.createReadStream(zip.filename, {start: file._offset, end: file._offset + file.uncompressedSize - 1}))
+writer = pipePromise.bind(null, input, destination, { mode: file.mode })
+mkdir(path.dirname(destination), zip.dirCache)
+        .then(writer)
+        .then(function () {
+            return {stored: file.path};
+        })
+mkdir(path.dirname(destination), zip.dirCache)
+        .then(function () {
+            if (file._maxSize <= zip.chunkSize) {
+                return zip.getBuffer(file._offset, file._offset + file._maxSize)
+                .then(inflateRaw)
+                .then(function (buffer) {
+                    return writeFile(destination, buffer, { mode: file.mode });
+                });
+            } else {
+                // For node 0.8 we need to create the Zlib stream and attach
+                // handlers in the same tick of the event loop, which is why we do
+                // the creation in here
+                var input = new stream.Readable();
+                input.wrap(fs.createReadStream(zip.filename, {start: file._offset}));
+                var inflater = input.pipe(zlib.createInflateRaw({highWaterMark: 32 * 1024}));
+
+                return pipePromise(inflater, destination, { mode: file.mode });
+            }
+        })
+        .then(function () {
+            return {deflated:...
+options.path = options.path || process.cwd()
+zip.getBuffer(file._offset, file._offset + file._maxSize)
+                .then(inflateRaw)
+                .then(function (buffer) {
+                    return writeFile(destination, buffer, { mode: file.mode });
+                })
+options.restrict = options.restrict !== false
+writeFile(destination, buffer, { mode: file.mode })
+input.wrap(fs.createReadStream(zip.filename, {start: file._offset}))
+var inflater = input.pipe(zlib.createInflateRaw({highWaterMark: 32 * 1024}))
+throw new Error('You cannot extract a file outside of the target path');

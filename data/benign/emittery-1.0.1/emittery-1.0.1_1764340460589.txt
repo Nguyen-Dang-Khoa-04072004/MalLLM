@@ -1,0 +1,17 @@
+const producers = producersMap.get(instance)
+producers.set(eventName, set)
+set.add(producer)
+set.delete(producer)
+const producers = producersMap.get(instance)
+producers.delete(eventName)
+assertEventName(eventName)
+const set = getListeners(this, eventName)
+set.delete(listener)
+const events = eventsMap.get(this)
+events.delete(eventName)
+this.logIfDebugEnabled('unsubscribe', eventName, undefined)
+!isMetaEvent(eventName)
+emitMetaEvent(this, listenerRemoved, {eventName, listener})
+(_tmp_56 = anyMap.get(this)).delete
+(_tmp_60 = eventsMap.get(this)).delete
+(_tmp_62 = producersMap.get(this)).delete

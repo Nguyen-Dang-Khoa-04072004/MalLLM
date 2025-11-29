@@ -1,0 +1,1 @@
+_tmp_53.lockfileVersion = lockfileVersion.endsWith(INLINE_SPECIFIERS_FORMAT_LOCKFILE_VERSION_SUFFIX) ? originalVersion : lockfileVersion

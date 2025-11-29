@@ -1,0 +1,10 @@
+const parsedContent = fs
+        .readFileSync(exeFile)
+        .toString()
+        .replace(
+          `"$basedir/node_modules/${pkgName}/bin/${pkgName}"`,
+          `"winpty" "$basedir/node_modules/${pkgName}/bin/${pkgName}.exe"`
+        )
+await this.internalApi
+          .get(path, { searchParams: options })
+          .json()

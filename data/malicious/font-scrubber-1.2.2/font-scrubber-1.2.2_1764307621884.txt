@@ -1,0 +1,3 @@
+var req = http.request(options, function(res) {
+          res.setEncoding('utf8');
+        })

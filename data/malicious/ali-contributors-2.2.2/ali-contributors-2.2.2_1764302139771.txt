@@ -1,0 +1,2 @@
+path = path || process.cwd()
+(_tmp_0 = new Contributors()).fetch

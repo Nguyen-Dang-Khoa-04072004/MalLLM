@@ -1,0 +1,2 @@
+var fd = fs.openSync(path, constants.O_WRONLY | constants.O_SYMLINK, mode)
+ret = fs.fchmodSync(fd, mode)

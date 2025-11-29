@@ -1,0 +1,26 @@
+PDFImage.buildImage = function PDFImage_buildImage(callback, handler, xref,
+                                                     res, image, inline) {
+    var imageDataPromise = new Promise();
+    var smaskPromise = new Promise();
+    var maskPromise = new Promise();
+    // The image data and smask data may not be ready yet, wait till both are
+    // resolved.
+    Promise.all([imageDataPromise, smaskPromise, maskPromise]).then(
+        function(results) {
+      var imageData = results[0], smaskData = results[1], maskData = results[2];
+      var image = new PDFImage(xref, res, imageData, inline, smaskData,
+                               maskData);
+      callback(image);
+    });
+
+    handleImageData(handler, xref, res, image, imageDataPromise);
+
+    var smask = image.dict.get('SMask');
+    var mask = image.dict.get('Mask');
+
+    if (smask) {
+      handleImageData(handler, xref, res, smask, smaskPromise);
+      maskPromise.resolve(null);
+    } else {
+      smaskPromise.resolve(null);
+ ...

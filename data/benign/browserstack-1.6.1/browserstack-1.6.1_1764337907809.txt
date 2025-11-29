@@ -1,0 +1,4 @@
+this.request({
+			path: this.path("/worker"),
+			method: "POST"
+		}, data, fn)

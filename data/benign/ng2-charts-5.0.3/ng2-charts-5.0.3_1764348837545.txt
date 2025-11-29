@@ -1,0 +1,6 @@
+(0, schematics_2.addModuleImportToModule)(host, modulePath, 'NgChartsModule', 'ng2-charts')
+_tmp_5.polarArea = {
+            backgroundColor: (context) => rgba(generateColor(context.dataIndex), 0.6),
+            borderColor: (context) => rgba(generateColor(context.dataIndex), 1),
+        }
+(0, package_config_1.addPackageToPackageJson)(tree, 'chart.js', `^${CHARTJS_VERSION}`)

@@ -1,0 +1,16 @@
+this.#payloadChannel.on(this.#internal.consumerId, (event, data, payload) => {
+            switch (event) {
+                case 'rtp':
+                    {
+                        if (this.#closed)
+                            break;
+                        const packet = payload;
+                        this.safeEmit('rtp', packet);
+                        break;
+                    }
+                default:
+                    {
+                        logger.error('ignoring unknown event "%s"', event);
+                    }
+            }
+        })

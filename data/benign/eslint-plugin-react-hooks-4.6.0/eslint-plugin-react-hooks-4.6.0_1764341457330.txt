@@ -1,0 +1,7 @@
+var child = node.children.get(key)
+!child
+node = child
+var child = node.children.get(key)
+!child
+fn(child)
+node = child

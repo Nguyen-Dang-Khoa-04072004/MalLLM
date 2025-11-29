@@ -1,0 +1,6 @@
+const errorCallbacks = {
+        onForbiddenError: (error) => { console.log('forbidden error', error); },
+        onUnauthorizedError: (error) => { console.log('unauthorized error', error); },
+        onSheddingError: (error) => { console.log('shedding error', error); },
+        onAppointmentUpdateJobTokenExpired: (error) => { console.log('appointment update job token expired', error); },
+    }

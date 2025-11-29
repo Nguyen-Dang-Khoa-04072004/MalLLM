@@ -1,0 +1,61 @@
+programPath.get("body").forEach(child => {
+    if (child.isImportDeclaration()) {
+      const data = getData(child.node.source);
+      if (!data.loc) data.loc = child.node.loc;
+      child.get("specifiers").forEach(spec => {
+        if (spec.isImportDefaultSpecifier()) {
+          const localName = spec.get("local").node.name;
+          data.imports.set(localName, "default");
+          const reexport = localData.get(localName);
+          if (reexport) {
+            localData.delete(localName);
+            reexport.names.forEach(name => {
+              data.reexports.set(name, "default");
+            });
+            data.referenced = true;
+          }
+        } else if (spec.isImportNamespaceSpecifier()) {
+          const localName = spec.get("local").node.name;
+          data.importsNamespace.add(localName);
+          const reexport = localData.get(localName);
+          if (reexport) {
+            localData.delete(localName);
+            reexport.names.forEach(name => {
+            ...
+child.isImportDeclaration()
+child.get("specifiers").forEach(spec => {
+        if (spec.isImportDefaultSpecifier()) {
+          const localName = spec.get("local").node.name;
+          data.imports.set(localName, "default");
+          const reexport = localData.get(localName);
+          if (reexport) {
+            localData.delete(localName);
+            reexport.names.forEach(name => {
+              data.reexports.set(name, "default");
+            });
+            data.referenced = true;
+          }
+        } else if (spec.isImportNamespaceSpecifier()) {
+          const localName = spec.get("local").node.name;
+          data.importsNamespace.add(localName);
+          const reexport = localData.get(localName);
+          if (reexport) {
+            localData.delete(localName);
+            reexport.names.forEach(name => {
+              data.reexportNamespace.add(name);
+            });
+            data.referenced = true;
+          }
+        } else if (spec.isImportSpecifier()) {
+          const importName = getExpo...
+const exportNames = exported.get(localName) || []
+currentScope = currentScope.parent
+const srcNamespace = sourceMetadata.lazy ? callExpression(srcNamespaceId, []) : srcNamespaceId
+const importName = getExportSpecifierName(spec.get("imported"), stringSpecifiers)
+_core.template.expression.ast`
+    (function() {
+      throw new Error('"' + '${localName}' + '" is read-only.');
+    })()
+  `
+_iterator_1 = <operator>.iterator(sourceMetadata.reexportNamespace)
+localData.delete(localName)

@@ -1,0 +1,26 @@
+function setDocletNameToValue = function setDocletNameToValue(doclet, {value, text}) {
+    if (value && value.description) { // as in a long tag
+        doclet.addTag('name', value.description);
+    }
+    else if (text) { // or a short tag
+        doclet.addTag('name', text);
+    }
+}
+function getUniqueNames = function getUniqueNames() {
+        // start by trying to preserve existing variations
+        docletKeys.forEach(doclet => {
+            variations[doclet] = doclets[doclet].variation || getParamVariation(doclets[doclet]);
+        });
+
+        // if they're identical, try again, without preserving existing variations
+        if ( !hasUniqueValues(variations) ) {
+            docletKeys.forEach(doclet => {
+                variations[doclet] = getParamVariation(doclets[doclet]);
+            });
+
+            // if they're STILL identical, switch to numeric variations
+            if ( !hasUniqueValues(variations) ) {
+                getUniqueNumbers();
+            }
+        }
+    }

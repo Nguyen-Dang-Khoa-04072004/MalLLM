@@ -1,0 +1,49 @@
+new Promise((resolve, reject) => {
+      if (!this.ws || this.ws.readyState !== WebSocket.OPEN) throw new Error('WS_NOT_OPEN', data);
+      this.ws.send(data, null, error => {
+        if (error) reject(error); else resolve(data);
+      });
+    })
+socket.once('message', message => {
+      // Stop if the sockets have been deleted because the connection has been closed already
+      if (!this.voiceConnection.sockets.ws) return;
+
+      const packet = parseLocalPacket(message);
+      if (packet.error) {
+        this.emit('error', packet.error);
+        return;
+      }
+
+      this.localAddress = packet.address;
+      this.localPort = packet.port;
+
+      this.voiceConnection.sockets.ws.sendPacket({
+        op: VoiceOPCodes.SELECT_PROTOCOL,
+        d: {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: this.voiceConnection.authentication.encryptionMode,
+          },
+        },
+      });
+    })
+exports.WSCodes = {
+  1000: 'Connection gracefully closed',
+  4004: 'Tried to identify with an invalid token',
+  4010: 'Sharding data provided was invalid',
+  4011: 'Shard would be on too many guilds if connected',
+}
+new Promise((resolve, reject) => {
+          const file = browser ? resource : path.resolve(resource);
+          fs.stat(file, (err, stats) => {
+            if (err) return reject(err);
+            if (!stats || !stats.isFile()) return reject(new DiscordError('FILE_NOT_FOUND', file));
+            fs.readFile(file, (err2, data) => {
+              if (err2) reject(err2);
+              else resolve(data);
+            });
+            return null;
+          });
+        })

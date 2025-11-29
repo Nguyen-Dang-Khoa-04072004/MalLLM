@@ -1,0 +1,37 @@
+function baseClone = function baseClone(value, isDeep, isFull, customizer, key, object, stack) {
+    var result;
+    if (customizer) {
+      result = object ? customizer(value, key, object, stack) : customizer(value);
+    }
+    if (result !== undefined) {
+      return result;
+    }
+    if (!isObject(value)) {
+      return value;
+    }
+    var isArr = isArray(value);
+    if (isArr) {
+      result = initCloneArray(value);
+      if (!isDeep) {
+        return copyArray(value, result);
+      }
+    } else {
+      var tag = getTag(value),
+          isFunc = tag == funcTag || tag == genTag;
+
+      if (isBuffer(value)) {
+        return cloneBuffer(value, isDeep);
+      }
+      if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
+        if (isHostObject(value)) {
+          return object ? value : {};
+        }
+        result = initCloneObject(isFunc ? {} : value);
+        if (!isDeep) {
+          return copySymbols(value, baseAssign(result, value));
+        }
+      } else {
+        if (!cloneableTags...
+result = initCloneByTag(value, tag, baseClone, isDeep)
+var stacked = stack.get(value)
+return stacked

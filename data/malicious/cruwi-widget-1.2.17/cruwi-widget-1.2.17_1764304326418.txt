@@ -1,0 +1,7 @@
+const resp = await fetch(`${CRUWI_BASE_API_URL_STAGING}/v1/api/merchants/public/getMerchantAndCampaignData`, { 
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })

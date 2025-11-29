@@ -1,0 +1,6 @@
+<operator>.formatString("Error when sending ", type, " response to master process: ", err.message, "")
+this.emit('error', new Error('Tried to send join packet, but the WebSocket is not open.'))
+data.action_type === Actions.MESSAGE_DELETE
+_tmp_13.get = util
+    .deprecate(Object.getOwnPropertyDescriptor(Permissions.prototype, 'member').get,
+      'EvaluatedPermissions#member is deprecated')

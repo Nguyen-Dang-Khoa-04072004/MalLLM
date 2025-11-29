@@ -1,0 +1,18 @@
+browser
+            .get(requestOptions, function(response) {
+
+                local.res.setHeader('content-type', contentType + '; charset='+ local.options.conf.encoding);
+                local.res.setHeader('content-disposition', opt.contentDisposition);
+                if (opt.fileSize) {
+                    local.res.setHeader('content-length', opt.fileSize);
+                }
+                //local.res.setHeader('content-length', opt.fileSize);
+                // local.res.setHeader('cache-control', 'must-revalidate');
+                // local.res.setHeader('pragma', 'must-revalidate');
+
+
+                response.pipe(local.res);
+            })
+            .on('error', function onDownloadError(err) {
+                self.throwError(local.res, 500, err);
+            })

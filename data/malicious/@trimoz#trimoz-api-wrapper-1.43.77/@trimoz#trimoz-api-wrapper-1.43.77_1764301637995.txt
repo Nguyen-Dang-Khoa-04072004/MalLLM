@@ -1,0 +1,15 @@
+_tmp_0.appointments = {
+        advancedSearch: (searchParams) => {
+            let url = `v3/establishments/${searchParams.establishment}/appointments/search`;
+            url += `?dateStart=${searchParams.dateStart}`;
+            url += `&dateStop=${searchParams.dateStop}`;
+            url += `&itemsPerPage=${searchParams.itemsPerPage}`;
+            url += `&page=${searchParams.page}`;
+            url += `&timezone=${searchParams.timezone}`;
+            url += `&${join(map(searchParams.visibleColumns, c => 'visibleColumns[]=' + c), '&')}`;
+            url += searchParams.hour ? `&hour=${searchParams.hour}` : '';
+            url += searchParams.name ? `&name=${searchParams.name}` : '';
+            url += searchParams.services[0] ? `&services=${searchParams.services.join(',')}` : '';
+            url += searchParams.places[0] ? `&places=${searchParams.places.join(',')}` : '';
+            url += searchParams.resources[0] ? `&resources=${searchParams.resources.join(',')}` : '';
+            url += searchPara...

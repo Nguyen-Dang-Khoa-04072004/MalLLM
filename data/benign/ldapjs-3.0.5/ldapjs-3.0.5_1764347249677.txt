@@ -1,0 +1,31 @@
+function checkChangeType = function checkChangeType (req, requestType) {
+  return (req.persistentSearch.value.changeTypes &
+          getOperationType(requestType))
+}
+new E(res.errorMessage || errObj.message,
+    res.matchedDN || null,
+    module.exports.getError)
+const entry = new SearchEntry({
+    messageId: this.messageId,
+    objectName: object.objectName || object.dn,
+    attributes: object.attributes ?? []
+  })
+const src = path.join(branding, 'public')
+module.exports.getMessage = function (code) {
+  assert.number(code, 'code (number) required')
+
+  const errObj = ERRORS[code]
+  return (errObj && errObj.message ? errObj.message : '')
+}
+await copyRecursive(src, dist)
+this.emit('page', res, function (err) {
+        if (!err) {
+          self._nextPage(cookie)
+        } else {
+          // the paged search has been canceled so emit an end
+          self.emit('end', res)
+        }
+      })
+function ConnectionError = function ConnectionError (message) {
+  LDAPError.call(this, message, null, ConnectionError)
+}

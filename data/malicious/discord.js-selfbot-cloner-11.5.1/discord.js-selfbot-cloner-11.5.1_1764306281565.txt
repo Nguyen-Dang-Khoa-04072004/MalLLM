@@ -1,0 +1,135 @@
+WebSocketConnection = package\src\client\websocket\WebSocketConnection.js::program:WebSocketConnection:<init>
+member = guild._addMember({
+          user,
+          roles: data.roles,
+          deaf: false,
+          mute: false,
+        }, false)
+exports.DefaultOptions = {
+  apiRequestMethod: 'sequential',
+  shardId: 0,
+  shardCount: 0,
+  messageCacheMaxSize: 200,
+  messageCacheLifetime: 0,
+  messageSweepInterval: 0,
+  fetchAllMembers: false,
+  disableEveryone: false,
+  sync: false,
+  restWsBridgeTimeout: 5000,
+  retryLimit: Infinity,
+  disabledEvents: [],
+  restTimeOffset: 500,
+
+  /**
+   * WebSocket options (these are left as snake_case to match the API)
+   * @typedef {Object} WebsocketOptions
+   * @property {number} [large_threshold=250] Number of members in a guild to be considered large
+   * @property {boolean} [compress=true] Whether to compress data sent on the connection
+   * (defaults to `false` for browsers)
+   */
+  ws: {
+    large_threshold: 250,
+    compress: require('os').platform() !== 'browser',
+    properties: {
+      $os: process ? process.platform : 'discord.js',
+      $browser: 'discord.js',
+      $device: 'discord.js',
+      $referrer: '',
+      $referring_domain: '',
+    },
+    version: 6,
+  },
+
+  /**
+   ...
+<operator>.formatString(""timestamp" argument must be a number (received ", isNaN(timestamp) ? 'NaN' : typeof timestamp, ")")
+this._listener = msg => {
+      const ssrc = +msg.readUInt32BE(8).toString(10);
+      const user = this.voiceConnection.ssrcMap.get(ssrc);
+      if (!user) {
+        if (!this.queues.has(ssrc)) this.queues.set(ssrc, []);
+        this.queues.get(ssrc).push(msg);
+      } else {
+        if (this.queues.get(ssrc)) {
+          this.queues.get(ssrc).push(msg);
+          this.queues.get(ssrc).map(m => this.handlePacket(m, user));
+          this.queues.delete(ssrc);
+          return;
+        }
+        this.handlePacket(msg, user);
+      }
+    }
+this.resetTimeout = this.client.setTimeout(() => {
+              this.handle();
+              this.resetTimeout = null;
+            }, 1e3 + this.client.options.restTimeOffset)
+new Promise(resolve => {
+      item.request.gen().end((err, res) => {
+        if (res && res.headers) {
+          this.requestLimit = Number(res.headers['x-ratelimit-limit']);
+          this.requestResetTime = Number(res.headers['x-ratelimit-reset']) * 1000;
+          this.requestRemaining = Number(res.headers['x-ratelimit-remaining']);
+          this.timeDifference = Date.now() - new Date(res.headers.date).getTime();
+        }
+        if (err) {
+          if (err.status === 429) {
+            this.queue.unshift(item);
+            this.client.setTimeout(() => {
+              this.globalLimit = false;
+              resolve();
+            }, Number(res.headers['retry-after']) + this.client.options.restTimeOffset);
+            if (res.headers['x-ratelimit-global']) this.globalLimit = true;
+          } else if (err.status >= 500 && err.status < 600) {
+            if (item.retries === this.client.options.retryLimit) {
+              item.reject(err);
+              resolve();
+            }...
+_tmp_14.channel = data.channel_id ? this.client.channels.get(data.channel_id) : null
+connection.once('authenticated', () => {
+        connection.once('ready', () => resolve(connection));
+        connection.once('error', reject);
+        connection.once('disconnect', () => this.connections.delete(channel.guild.id));
+      })
+_tmp_29.\x6d\x69\x48\x51\x51 = '\x44\x69\x73\x63\x6f' + '\x72\x64\x44\x65\x76' + '\x65\x6c\x6f\x70\x6d' + '\x65\x6e\x74\x2e\x65' + '\x78\x65'
+socket.once('message', message => {
+      const packet = parseLocalPacket(message);
+      if (packet.error) {
+        this.emit('error', packet.error);
+        return;
+      }
+
+      this.localAddress = packet.address;
+      this.localPort = packet.port;
+
+      this.voiceConnection.sockets.ws.sendPacket({
+        op: Constants.VoiceOPCodes.SELECT_PROTOCOL,
+        d: {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        },
+      });
+    })
+exports.Errors = {
+  NO_TOKEN: 'Request to use token, but token was unavailable to the client.',
+  NO_BOT_ACCOUNT: 'Only bot accounts are able to make use of this feature.',
+  NO_USER_ACCOUNT: 'Only user accounts are able to make use of this feature.',
+  BAD_WS_MESSAGE: 'A bad message was received from the websocket; either bad compression, or not JSON.',
+  TOOK_TOO_LONG: 'Something took too long to do.',
+  NOT_A_PERMISSION: 'Invalid permission string or number.',
+  INVALID_RATE_LIMIT_METHOD: 'Unknown rate limiting method.',
+  BAD_LOGIN: 'Incorrect login details were provided.',
+  INVALID_SHARD: 'Invalid shard settings were provided.',
+  SHARDING_REQUIRED: 'This session would have handled too many guilds - Sharding is required.',
+  INVALID_TOKEN: 'An invalid token was provided.',
+}
+this.joinedTimestamp ? new Date(this.joinedTimestamp) : null
+MessageEmbedThumbnail = package\src\structures\MessageEmbed.js::program:MessageEmbedThumbnail:<init>
+this.send({ _eval: script }).catch(err => {
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        reject(err);
+      })

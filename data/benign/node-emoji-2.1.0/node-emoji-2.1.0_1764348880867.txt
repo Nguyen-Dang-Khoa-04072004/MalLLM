@@ -1,0 +1,1 @@
+emojiCodesByName.get(normalizeName(codeOrName))

@@ -1,0 +1,2 @@
+this.flatMap((n) => [n.parents().get(0)])
+this.flatMap((n) => [n.parents().get(0)])

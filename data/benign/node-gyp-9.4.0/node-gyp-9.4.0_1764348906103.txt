@@ -1,0 +1,9 @@
+streamPipeline(
+        res.body,
+        new ShaSum((_, checksum) => {
+          contentShasums[libPath] = checksum
+          log.verbose('content checksum', libPath, checksum)
+        }),
+        fs.createWriteStream(targetLibPath)
+      )
+fs.createWriteStream(targetLibPath)

@@ -1,0 +1,386 @@
+const PanicReasons = {
+    "0": "generic panic",
+    "1": "assert(false)",
+    "17": "arithmetic overflow",
+    "18": "division or modulo by zero",
+    "33": "enum overflow",
+    "34": "invalid encoded storage byte array accessed",
+    "49": "out-of-bounds array access; popping on an empty array",
+    "50": "out-of-bounds access of an array or bytesN",
+    "65": "out of memory",
+    "81": "uninitialized function",
+}
+function getEncryptKdfParams = function getEncryptKdfParams(options) {
+    // Check/generate the salt
+    const salt = (options.salt != null) ? (0, index_js_4.getBytes)(options.salt, "options.salt") : (0, index_js_2.randomBytes)(32);
+    // Override the scrypt password-based key derivation function parameters
+    let N = (1 << 17), r = 8, p = 1;
+    if (options.scrypt) {
+        if (options.scrypt.N) {
+            N = options.scrypt.N;
+        }
+        if (options.scrypt.r) {
+            r = options.scrypt.r;
+        }
+        if (options.scrypt.p) {
+            p = options.scrypt.p;
+        }
+    }
+    (0, index_js_4.assertArgument)(typeof (N) === "number" && N > 0 && Number.isSafeInteger(N) && (BigInt(N) & BigInt(N - 1)) === BigInt(0), "invalid scrypt N parameter", "options.N", N);
+    (0, index_js_4.assertArgument)(typeof (r) === "number" && r > 0 && Number.isSafeInteger(r), "invalid scrypt r parameter", "options.r", r);
+    (0, index_js_4.assertArgument)(typeof (p) === "number" && p > 0 && Number.isSafeInteg...
+function getFuzzyMode = function getFuzzyMode(quorum, results) {
+    if (quorum === 1) {
+        return getNumber(getMedian(quorum, results), "%internal");
+    }
+    const tally = new Map();
+    const add = (result, weight) => {
+        const t = tally.get(result) || { result, weight: 0 };
+        t.weight += weight;
+        tally.set(result, t);
+    };
+    for (const { weight, value } of results) {
+        const r = getNumber(value);
+        add(r - 1, weight);
+        add(r, weight);
+        add(r + 1, weight);
+    }
+    let bestWeight = 0;
+    let bestResult = undefined;
+    for (const { weight, result } of tally.values()) {
+        // Use this result, if this result meets quorum and has either:
+        // - a better weight
+        // - or equal weight, but the result is larger
+        if (weight >= quorum && (weight > bestWeight || (bestResult != null && weight === bestWeight && result > bestResult))) {
+            bestWeight = weight;
+            bestResult = result;
+        }
+    }
+    return bestRes...
+function formatTransactionResponse = function formatTransactionResponse(value) {
+    // Some clients (TestRPC) do strange things like return 0x0 for the
+    // 0 address; correct this to be a real address
+    if (value.to && (0, index_js_4.getBigInt)(value.to) === BN_0) {
+        value.to = "0x0000000000000000000000000000000000000000";
+    }
+    const result = object({
+        hash: formatHash,
+        type: (value) => {
+            if (value === "0x" || value == null) {
+                return 0;
+            }
+            return (0, index_js_4.getNumber)(value);
+        },
+        accessList: allowNull(index_js_3.accessListify, null),
+        blockHash: allowNull(formatHash, null),
+        blockNumber: allowNull(index_js_4.getNumber, null),
+        transactionIndex: allowNull(index_js_4.getNumber, null),
+        //confirmations: allowNull(getNumber, null),
+        from: index_js_1.getAddress,
+        // either (gasPrice) or (maxPriorityFeePerGas + maxFeePerGas) must be set
+        gasPrice: allowNull(index_js_4.getBigI...
+const staticCall = async function (...args) {
+        const result = await staticCallResult(...args);
+        if (result.length === 1) {
+            return result[0];
+        }
+        return result;
+    }
+Object.defineProperty(exports, "decryptKeystoreJsonSync", { enumerable: true, get: function () { return index_js_10.decryptKeystoreJsonSync; } })
+this.#supports2544 = (async () => {
+                try {
+                    return await this.#resolver.supportsInterface("0x9061b923");
+                } catch (error) {
+                    // Wildcard resolvers must understand supportsInterface
+                    // and return true.
+                    if (isError(error, "CALL_EXCEPTION")) { return false; }
+
+                    // Let future attempts try again...
+                    this.#supports2544 = null;
+
+                    throw error;
+                }
+            })()
+function _parseEip2930 = function _parseEip2930(data) {
+    const fields = decodeRlp(getBytes(data).slice(1));
+    assertArgument(Array.isArray(fields) && (fields.length === 8 || fields.length === 11), "invalid field count for transaction type: 1", "data", hexlify(data));
+    const tx = {
+        type: 1,
+        chainId: handleUint(fields[0], "chainId"),
+        nonce: handleNumber(fields[1], "nonce"),
+        gasPrice: handleUint(fields[2], "gasPrice"),
+        gasLimit: handleUint(fields[3], "gasLimit"),
+        to: handleAddress(fields[4]),
+        value: handleUint(fields[5], "value"),
+        data: hexlify(fields[6]),
+        accessList: handleAccessList(fields[7], "accessList")
+    };
+    // Unsigned EIP-2930 Transaction
+    if (fields.length === 8) {
+        return tx;
+    }
+    tx.hash = keccak256(data);
+    _parseEipSignature(tx, fields.slice(8));
+    return tx;
+}
+function toQuantity = function toQuantity(value: BytesLike | BigNumberish): string {
+    let result = hexlify(isBytesLike(value) ? value: toBeArray(value)).substring(2);
+    while (result.startsWith("0")) { result = result.substring(1); }
+    if (result === "") { result = "0"; }
+    return "0x" + result;
+}
+const timestamp = (now.getUTCFullYear() + "-" +
+            zpad(now.getUTCMonth() + 1, 2) + "-" +
+            zpad(now.getUTCDate(), 2) + "T" +
+            zpad(now.getUTCHours(), 2) + "-" +
+            zpad(now.getUTCMinutes(), 2) + "-" +
+            zpad(now.getUTCSeconds(), 2) + ".0Z")
+function _parseEip1559 = function _parseEip1559(data: Uint8Array): TransactionLike {
+    const fields: any = decodeRlp(getBytes(data).slice(1));
+
+    assertArgument(Array.isArray(fields) && (fields.length === 9 || fields.length === 12),
+        "invalid field count for transaction type: 2", "data", hexlify(data));
+
+    const maxPriorityFeePerGas = handleUint(fields[2], "maxPriorityFeePerGas");
+    const maxFeePerGas = handleUint(fields[3], "maxFeePerGas");
+    const tx: TransactionLike = {
+        type:                  2,
+        chainId:               handleUint(fields[0], "chainId"),
+        nonce:                 handleNumber(fields[1], "nonce"),
+        maxPriorityFeePerGas:  maxPriorityFeePerGas,
+        maxFeePerGas:          maxFeePerGas,
+        gasPrice:              null,
+        gasLimit:              handleUint(fields[4], "gasLimit"),
+        to:                    handleAddress(fields[5]),
+        value:                 handleUint(fields[6], "value"),
+        data:                  hexlify(fie...
+this.fragments.forEach((fragment, index) => {
+            let bucket;
+            switch (fragment.type) {
+                case "constructor":
+                    if (this.deploy) {
+                        console.log("duplicate definition - constructor");
+                        return;
+                    }
+                    //checkNames(fragment, "input", fragment.inputs);
+                    (0, index_js_3.defineProperties)(this, { deploy: fragment });
+                    return;
+                case "fallback":
+                    if (fragment.inputs.length === 0) {
+                        receive = true;
+                    }
+                    else {
+                        (0, index_js_3.assertArgument)(!fallback || fragment.payable !== fallback.payable, "conflicting fallback fragments", `fragments[${index}]`, fragment);
+                        fallback = fragment;
+                        receive = fallback.payable;
+                    }
+                    return;
+      ...
+_tmp_12 = (function (_v, yParityAndS, yParity) {
+            if (_v != null) {
+                const v = getBigInt(_v);
+                return {
+                    networkV: ((v >= BN_35) ? v : undefined),
+                    v: Signature.getNormalizedV(v)
+                };
+            }
+            if (yParityAndS != null) {
+                assertError(isHexString(yParityAndS, 32), "invalid yParityAndS");
+                return { v: ((getBytes(yParityAndS)[0] & 0x80) ? 28 : 27) };
+            }
+            if (yParity != null) {
+                switch (getNumber(yParity, "sig.yParity")) {
+                    case 0: return { v: 27 };
+                    case 1: return { v: 28 };
+                }
+                assertError(false, "invalid yParity");
+            }
+            assertError(false, "missing v");
+        })(sig.v, sig.yParityAndS, sig.yParity)
+assertArgument(!fallback || fragment.payable !== fallback.payable, "conflicting fallback fragments", `fragments[${index}]`, fragment)
+function encryptKeystoreJson = async function encryptKeystoreJson(account, password, options) {
+    if (options == null) {
+        options = {};
+    }
+    const passwordBytes = getPassword(password);
+    const kdf = getEncryptKdfParams(options);
+    const key = await scrypt(passwordBytes, kdf.salt, kdf.N, kdf.r, kdf.p, 64, options.progressCallback);
+    return _encryptKeystore(getBytes(key), kdf, account, options);
+}
+function findBest = function findBest() {
+        const tally = {};
+        const l = 2;
+        for (let i = l; i < data.length; i++) {
+            const key = data.substring(i - l, i);
+            tally[key] = (tally[key] || 0) + 1;
+        }
+        const sorted = Object.keys(tally).map((text) => {
+            return { text, count: tally[text], save: (tally[text] * (text.length - 1)) };
+        });
+        sorted.sort((a, b) => (b.save - a.save));
+        return sorted[0].text;
+    }
+Object.defineProperty(method, "fragment", {
+        configurable: false,
+        enumerable: true,
+        get: () => {
+            const fragment = contract.interface.getEvent(key);
+            (0, index_js_3.assert)(fragment, "no matching fragment", "UNSUPPORTED_OPERATION", {
+                operation: "fragment",
+                info: { key }
+            });
+            return fragment;
+        }
+    })
+function findBest = function findBest() {
+        const tally = {};
+        const l = 2;
+        for (let i = l; i < data.length; i++) {
+            const key = data.substring(i - l, i);
+            tally[key] = (tally[key] || 0) + 1;
+        }
+        const sorted = Object.keys(tally).map((text) => {
+            return { text, count: tally[text], save: (tally[text] * (text.length - 1)) };
+        });
+        sorted.sort((a, b) => (b.save - a.save));
+        return sorted[0].text;
+    }
+function getPriorityFeePlugin = function getPriorityFeePlugin(maxPriorityFeePerGas) {
+    return new FetchUrlFeeDataNetworkPlugin("data:", async (fetchFeeData, provider, request) => {
+        const feeData = await fetchFeeData();
+        // This should always fail
+        if (feeData.maxFeePerGas == null || feeData.maxPriorityFeePerGas == null) {
+            return feeData;
+        }
+        // Compute the corrected baseFee to recompute the updated values
+        const baseFee = feeData.maxFeePerGas - feeData.maxPriorityFeePerGas;
+        return {
+            gasPrice: feeData.gasPrice,
+            maxFeePerGas: (baseFee + maxPriorityFeePerGas),
+            maxPriorityFeePerGas
+        };
+    });
+}
+function lex = function lex(text: string): TokenString {
+    const tokens: Array<Token> = [ ];
+
+    const throwError = (message: string) => {
+        const token = (offset < text.length) ? JSON.stringify(text[offset]): "$EOI";
+        throw new Error(`invalid token ${ token } at ${ offset }: ${ message }`);
+    };
+
+    let brackets: Array<number> = [ ];
+    let commas: Array<number> = [ ];
+
+    let offset = 0;
+    while (offset < text.length) {
+
+        // Strip off any leading whitespace
+        let cur = text.substring(offset);
+        let match = cur.match(regexWhitespacePrefix);
+        if (match) {
+            offset += match[1].length;
+            cur = text.substring(offset);
+        }
+
+        const token = { depth: brackets.length, linkBack: -1, linkNext: -1, match: -1, type: "", text: "", offset, value: -1 };
+        tokens.push(token);
+
+        let type = (SimpleTokens[cur[0]] || "");
+        if (type) {
+            token.type = type;
+            token.text = cur[0];
+            offset+...
+_tmp_12 = (function(_v?: BigNumberish, yParityAndS?: string, yParity?: Numeric): { networkV?: bigint, v: 27 | 28 } {
+            if (_v != null) {
+                const v = getBigInt(_v);
+                return {
+                    networkV: ((v >= BN_35) ? v: undefined),
+                    v: Signature.getNormalizedV(v)
+                };
+            }
+
+            if (yParityAndS != null) {
+                assertError(isHexString(yParityAndS, 32), "invalid yParityAndS");
+                return { v: ((getBytes(yParityAndS)[0] & 0x80) ? 28: 27) };
+            }
+
+            if (yParity != null) {
+                switch (getNumber(yParity, "sig.yParity")) {
+                    case 0: return { v: 27 };
+                    case 1: return { v: 28 };
+                }
+                assertError(false, "invalid yParity");
+            }
+
+            assertError(false, "missing v");
+        })(sig.v, sig.yParityAndS, sig.yParity)
+promises.push((async () => {
+                tx.gasLimit = await this.provider.estimateGas({ ...tx, from: this.address});
+            })())
+_tmp_43.push("function ownerOf(uint) view returns (address)")
+function _serializeEip2930 = function _serializeEip2930(tx: TransactionLike, sig?: Signature): string {
+    const fields: any = [
+        formatNumber(tx.chainId || 0, "chainId"),
+        formatNumber(tx.nonce || 0, "nonce"),
+        formatNumber(tx.gasPrice || 0, "gasPrice"),
+        formatNumber(tx.gasLimit || 0, "gasLimit"),
+        ((tx.to != null) ? getAddress(tx.to): "0x"),
+        formatNumber(tx.value || 0, "value"),
+        (tx.data || "0x"),
+        (formatAccessList(tx.accessList || []))
+    ];
+
+    if (sig) {
+        fields.push(formatNumber(sig.yParity, "recoveryParam"));
+        fields.push(toBeArray(sig.r));
+        fields.push(toBeArray(sig.s));
+    }
+
+    return concat([ "0x01", encodeRlp(fields)]);
+}
+const contract = new index_js_3.Contract(comps[0], [
+                            // ERC-721
+                            "function tokenURI(uint) view returns (string)",
+                            "function ownerOf(uint) view returns (address)",
+                            // ERC-1155
+                            "function uri(uint) view returns (string)",
+                            "function balanceOf(address, uint256) view returns (uint)"
+                        ], this.provider)
+const values = fields.map(({ name, type }) => {
+                    const result = this.getEncoder(type)(value[name]);
+                    if (this.#fullTypes.has(type)) { return keccak256(result); }
+                    return result;
+                })
+this.fetch("account", {
+                    action: "balance",
+                    address: req.address,
+                    tag: req.blockTag
+                })
+tokens.length > 0 && tokens[tokens.length - 1].type === "NUMBER"
+assert (this.#network, "network is not available yet", "NETWORK_ERROR")
+this.emit("debug", { action: "sendCcipReadFetchRequest", request, index: i, urls })
+<operator>.formatString("invalid type: expecetd ", type, ", got ", value.type, "")
+makeError("nonce has already been used", "NONCE_EXPIRED", { transaction, info: { error } })
+consumeKeywords(obj, setify(["tuple"])).has("tuple") || obj.peekType("OPEN_PAREN")
+function isError = function isError<K extends ErrorCode, T extends CodedEthersError<K>>(error: any, code: K): error is T {
+    return (error && (<EthersError>error).code === code);
+}
+const tx = await this.provider.getTransaction(this.transactionHash)
+request.setHeader("content-type", "application/json")
+error.invocation = {
+                method: parsed.name,
+                signature: parsed.signature,
+                args: parsed.args
+            }
+this.#headers = Object.keys(headers).reduce((accum, k) => {
+            accum[k.toLowerCase()] = String(headers[k]);
+            return accum;
+        }, <Record<string, string>>{ })
+assertArgument(false, "invalid param type", "obj", obj)
+const promises: Array<Promise<void>> = [ ]
+assert(false, "provider cannot connect to target network", "UNSUPPORTED_OPERATION", {
+            operation: "_getProvider()"
+        })
+request.setHeader("content-type", "application/json")
+Object.defineProperty(this, internal, { value: FunctionFragmentInternal })

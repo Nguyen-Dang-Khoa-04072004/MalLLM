@@ -1,0 +1,51 @@
+request.post(
+      {
+        url,
+        json: true,
+        body: data,
+      },
+            (error, response, body) => {
+              const data = {};
+              if (!error && response.statusCode === 200) {
+                data.sessionId = body.sessionId;
+                data.browserVersion = body.value.version;
+                request.delete(`${url}/${data.sessionId}`,
+                        () => {
+                          callback(null, data.browserVersion);
+                        },
+                    );
+              } else {
+                error = 'Error connecting to browser driver.';
+                callback(error);
+              }
+            },
+        )
+line = line.replace('callback.pending()', 'pending()')
+stop = (callback) => {
+    const self = this;
+    Selenium.stopCallback = callback;
+
+    if (self.child) {
+      log.debug('[chimp][selenium] killing active session');
+
+      const options = {
+        child: self.child,
+        prefix: 'selenium',
+        signal: 'SIGINT',
+      };
+
+      log.debug('[chimp][selenium] stopping process');
+      processHelper.kill(options, (err, res) => {
+        self.child = null;
+        Selenium.stopCallback(err, res);
+      });
+    } else {
+      log.debug('[chimp][selenium] no process to kill');
+      Selenium.stopCallback(null);
+    }
+  }
+request.delete(`${url}/${data.sessionId}`,
+                        () => {
+                          callback(null, data.browserVersion);
+                        },
+                    )

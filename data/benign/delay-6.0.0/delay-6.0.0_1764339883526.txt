@@ -1,0 +1,1 @@
+clearMethods.get(promise)?.()

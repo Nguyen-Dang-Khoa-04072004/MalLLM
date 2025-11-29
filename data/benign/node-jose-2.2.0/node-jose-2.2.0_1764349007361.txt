@@ -1,0 +1,201 @@
+promise = promise.then(function(results) {
+        var content = results[0];
+        return {
+          payload: content,
+          signatures: results.slice(1)
+        };
+      })
+promise = promise.then(function(jwe) {
+        if (cfg.cek) {
+          encKey = JWK.asKey(cfg.cek);
+        }
+        return jwe;
+      })
+new Promise(function(resolve, reject) {
+          var processKey = function() {
+            var rcpt = rcptList.shift();
+            if (!rcpt) {
+              reject(new Error("no key found"));
+              return;
+            }
+
+            var algPromise = Promise.resolve(rcpt);
+            algPromise = algPromise.then(function(rcpt) {
+              // try to unwrap encrypted key
+              var prekey = kdata = rcpt.encrypted_key || "";
+              prekey = base64url.decode(prekey);
+              algKey = assumedKey || keystore.get({
+                use: "enc",
+                alg: rcpt.header.alg,
+                kid: rcpt.header.kid
+              });
+              if (algKey) {
+                return algKey.unwrap(rcpt.header.alg, prekey, rcpt.header);
+              } else {
+                return Promise.reject();
+              }
+            });
+            algPromise = algPromise.then(function(key) {
+              encKey = {
+                "kty": "oct",
+               ...
+Object.defineProperty(this, "add", {
+    value: function(jwk, form, extras) {
+      extras = extras || {};
+
+      var factors;
+      if (Buffer.isBuffer(jwk) || typeof jwk === "string") {
+        // form can be 'json', 'pkcs8', 'spki', 'pkix', 'x509', 'pem'
+        form = (form || "json").toLowerCase();
+        if ("json" === form) {
+          jwk = JSON.parse(jwk.toString("utf8"));
+        } else {
+          try {
+            if ("pem" === form) {
+              // convert *first* PEM -> DER
+              factors = fromPEM(jwk);
+            } else {
+              factors = {
+                body: jwk.toString("binary"),
+                form: form
+              };
+            }
+            jwk = importFrom(registry, factors);
+            if (!jwk) {
+              throw new Error("no importer for key");
+            }
+            Object.keys(extras).forEach(function(field){
+              jwk[field] = extras[field];
+            });
+          } catch (err) {
+            return Promise.re...
+var webcrypto = function(key, pdata, mac) {
+    key = rsaUtil.convertToJWK(key, true);
+    var promise;
+    promise = helpers.subtleCrypto.importKey("jwk", key, alg, true, ["verify"]);
+    promise = promise.then(function (key) {
+      return helpers.subtleCrypto.verify(alg, key, mac, pdata);
+    });
+    promise = promise.then(function (result) {
+      if (!result) {
+        return Promise.reject(new Error("verification failed"));
+      }
+
+      return {
+        data: pdata,
+        mac: mac,
+        valid: true
+      };
+    });
+
+    return promise;
+  }
+var fn = function(key, pdata, props) {
+    props = props || {};
+
+    // {props.epk} is private
+    if (!props.epk || !props.epk.d) {
+      return Promise.reject(new Error("missing ephemeral private key"));
+    }
+    var epk = ecUtil.convertToObj(props.epk, false);
+
+    // {key} is public
+    if (!key || !key.x || !key.y) {
+      return Promise.reject(new Error("missing static public key"));
+    }
+    var spk = ecUtil.convertToObj(key, true);
+
+    // derive ECDH shared
+    var promise = doEcdhesCommonDerive(epk, spk, {
+      algorithm: props.enc,
+      apu: props.apu,
+      apv: props.apv
+    });
+    promise = promise.then(function(shared) {
+      return {
+        data: shared,
+        once: true,
+        direct: true
+      };
+    });
+    return promise;
+  }
+promise = helpers.subtleCrypto.importKey("jwk", key, alg, true, ["verify"])
+promise = promise.then(function(jwe) {
+        var protect,
+          lenProtect,
+          unprotect,
+          lenUnprotect;
+
+        unprotect = clone(fields);
+        if ((protectAll && jwe.recipients.length === 1) || "compact" === format) {
+          // merge single recipient into fields
+          protect = {};
+          protect = assign({},
+                     unprotect,
+                    jwe.recipients[0].header);
+          lenProtect = Object.keys(protect).length;
+
+          unprotect = undefined;
+          lenUnprotect = 0;
+
+          delete jwe.recipients[0].header;
+          if (Object.keys(jwe.recipients[0]).length === 0) {
+            jwe.recipients.splice(0, 1);
+          }
+        } else {
+          protect = {};
+          lenProtect = 0;
+          lenUnprotect = Object.keys(unprotect).length;
+          cfg.protect.forEach(function(f) {
+            // remove protected header values from body unprotected header
+            if (!(f in unprotect)) {
+              retu...
+input.keyValue = forge.asn1.fromDer(input.keyValue)
+ref = ["kid", "jku", "x5c", "x5t", "x5u"].some(function(k) {
+          return (k in header);
+        })
+this.data[this.write + 1] = n & 0xff
+function ecdhesKwEncryptFn = function ecdhesKwEncryptFn(wrap) {
+  // NOTE: no nodejs/webcrypto/fallback model, since this algorithm is
+  //       implemented using other primitives
+  var fn = function(key, pdata, props) {
+    props = props || {};
+
+    // {props.epk} is private
+    if (!props.epk || !props.epk.d) {
+      return Promise.reject(new Error("missing ephemeral private key"));
+    }
+    var epk = ecUtil.convertToObj(props.epk, false);
+
+    // {key} is public
+    if (!key || !key.x || !key.y) {
+      return Promise.reject(new Error("missing static public key"));
+    }
+    var spk = ecUtil.convertToObj(key, true);
+
+    // derive ECDH shared
+    var promise = doEcdhesCommonDerive(epk, spk, {
+      algorithm: props.alg,
+      apu: props.apu,
+      apv: props.apv
+    });
+    promise = promise.then(function(shared) {
+      // wrap provided key with ECDH shared
+      return wrap(shared, pdata);
+    });
+    return promise;
+  };
+
+  return fn;
+}
+DataBuffer.prototype.getInt24 = function() {
+  var n = (this.data[this.read] << 16) ^
+          (this.data[this.read + 1] << 8) ^
+          this.data[this.read + 2];
+  this.read = Math.min(this.read + 3, this.write);
+  return n;
+}
+var n = (this.data[this.read] << 16) ^
+          (this.data[this.read + 1] << 8) ^
+          this.data[this.read + 2]

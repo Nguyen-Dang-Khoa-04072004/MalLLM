@@ -1,0 +1,85 @@
+function start = function start(args: string[]) {
+	const parsedArgs = minimist(args, {
+		string: [
+			'hostname',
+			'username',
+			'password',
+			'key',
+			'cert',
+			'ca',
+			'message',
+			'clientId',
+			'i',
+			'id',
+		],
+		boolean: ['stdin', 'retain', 'help', 'insecure', 'multiline'],
+		alias: {
+			port: 'p',
+			hostname: ['h', 'host'],
+			topic: 't',
+			message: 'm',
+			qos: 'q',
+			clientId: ['i', 'id'],
+			retain: 'r',
+			username: 'u',
+			password: 'P',
+			stdin: 's',
+			multiline: 'M',
+			protocol: ['C', 'l'],
+			help: 'H',
+			ca: 'cafile',
+		},
+		default: {
+			host: 'localhost',
+			qos: 0,
+			retain: false,
+			topic: '',
+			message: '',
+		},
+	})
+
+	if (parsedArgs.help) {
+		return helpMe.toStdout('publish')
+	}
+
+	if (parsedArgs.key) {
+		parsedArgs.key = fs.readFileSync(parsedArgs.key)
+	}
+
+	if (parsedArgs.cert) {
+		parsedArgs.cert = fs.readFileSync(parsedArgs.cert)
+	}
+
+	if (parsedArgs.ca) {
+		parsedArgs.ca = fs.readFileSync(parsedArgs.ca)
+	}
+
+	if (parsedArgs.key && parsedArgs.cert && !parsedAr...
+const socketErrors = [
+	'ECONNREFUSED',
+	'EADDRINUSE',
+	'ECONNRESET',
+	'ENOTFOUND',
+	'ETIMEDOUT',
+]
+my.onSocketMessage((res) => {
+		if (typeof res.data === 'string') {
+			const buffer = Buffer.from(res.data, 'base64')
+			proxy.push(buffer)
+		} else {
+			const reader = new FileReader()
+			reader.addEventListener('load', () => {
+				let data = reader.result
+
+				if (data instanceof ArrayBuffer) data = Buffer.from(data)
+				else data = Buffer.from(data, 'utf8')
+				proxy.push(data)
+			})
+			reader.readAsArrayBuffer(res.data)
+		}
+	})
+parsedArgs.key && parsedArgs.cert && !parsedArgs.protocol
+const websocketSubProtocol =
+		opts.protocolId === 'MQIsdp' && opts.protocolVersion === 3
+			? 'mqttv3.1'
+			: 'mqtt'

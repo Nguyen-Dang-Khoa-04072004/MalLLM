@@ -1,0 +1,1 @@
+objectPath.get(obj[currentPath], path.slice(1), defaultValue)

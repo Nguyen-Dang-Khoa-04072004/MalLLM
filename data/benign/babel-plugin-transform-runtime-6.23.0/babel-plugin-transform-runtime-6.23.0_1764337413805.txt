@@ -1,0 +1,1 @@
+!path.get("left").matchesPattern("Symbol.iterator")

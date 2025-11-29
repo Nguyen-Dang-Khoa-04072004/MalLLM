@@ -1,0 +1,184 @@
+function PathHelper = function PathHelper() {
+
+    this.paths = [];
+    var _this = this;
+
+    /**
+     * _
+     * PathHelper Constructor
+     *
+     * @constructor
+     *
+     * @param {string} path - Path to convert
+     * @param {boolean} [force] - Force conversion to match platform style (Only for string conversion)
+     *
+     * @returns {string|object} converted
+     * */
+
+    _ = function(path, force) {
+
+        if ( typeof(path) == 'undefined' || !path || path == '' || path.length <=2 ) {
+            throw new Error('This source cannot be used: `'+ path +'`')
+        }
+
+        // $HOME detection
+        if ( /^\~/.test(path) ) {
+            var homedir = null;
+            try {
+                homedir = execSync('echo $HOME').toString().replace(/(\r|\n)$/g, '');
+            } catch (err) {
+                throw err
+            }
+
+            path = path.replace(/^\~/, homedir);
+        }
+
+        if ( typeof(force) == undefined) {
+            force = _this.force = false
+        }
+        // Atte...
+function Model = function Model(namespace, _config) {
+    var self = this;
+    this.i = 0;
+    var local = {
+        connectorPath: null,
+        modelPath: null,
+        entitiesPath: null,
+        connection: null,
+        files: {},
+        toReload: [],
+        trying: 0
+    };
+
+    var _configuration = null;
+    var _connector = null;
+
+    var cacheless = (process.env.NODE_ENV_IS_DEV == 'false') ? false : true;
+    //var isStandalone = config.Host.isStandalone();
+
+
+    var setup = function(namespace) {
+        if ( typeof(namespace) == 'undefined' || namespace == '') {
+            console.error('[ MODEL ][ '+ namespace +' ] MODEL:ERR:1 EEMPTY: Model namespace',  __stack);
+        }
+
+        var model, namespace = namespace.split(/\//g);
+        _connector = namespace[1];//Has to be writtien the same for the connetors.json decalration or for the model folder
+        var bundle = namespace[0];
+        namespace.shift();
+        //Capitalize - Normalize
+        if (namespace.length > 1) {
+        ...
+function Connector = function Connector(dbString) {
+    var self    = this
+        , local = {
+            bundle: null,
+            env: null,
+            options: {
+                keepAlive: true,
+                pingInterval : "2m"
+            }
+        }
+        , sdk = {
+            version: 2
+        }
+    ;
+
+    /**
+     * connect
+     *
+     * @param {object} dbString
+     * @callback cb
+     * */
+    this.connect = async function(dbString, cb) {
+        // Attention: the connection is lost 5 minutes once the bucket is opened.
+        var conn        = null;
+
+        var onError = function (err, next) {
+            delete self.instance.reconnecting;
+            self.instance.reconnected = self.instance.connected = false;
+            console.error('[ CONNECTOR ][ ' + local.bundle +' ] couchbase could not be reached !!\n'+ ( err.stack || err.message || err ) );
+
+            // reconnecting
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ][ ' + dbString.database +' ] trying to reconn...
+_tmp_0.euc-kr = [44034,44035,44037,44038,44043,44044,44045,44046,44047,44056,44062,44063,44065,44066,44067,44069,44070,44071,44072,44073,44074,44075,44078,44082,44083,44084,44085,44086,44087,44090,44091,44093,44094,44095,44097,44098,44099,44100,44101,44102,44103,44104,44105,44106,44108,44110,44111,44112,44113,44114,44115,44117,44118,44119,44121,44122,44123,44125,44126,44127,44128,44129,44130,44131,44132,44133,44134,44135,44136,44137,44138,44139,44140,44141,44142,44143,44146,44147,44149,44150,44153,44155,44156,44157,44158,44159,44162,44167,44168,44173,44174,44175,44177,44178,44179,44181,44182,44183,44184,44185,44186,44187,44190,44194,44195,44196,44197,44198,44199,44203,44205,44206,44209,44210,44211,44212,44213,44214,44215,44218,44222,44223,44224,44226,44227,44229,44230,44231,44233,44234,44235,44237,44238,44239,44240,44241,44242,44243,44244,44246,44248,44249,44250,44251,44252,44253,44254,44255,44258,44259,44261,44262,44265,44267,44269,44270,44274,44276,44279,44280,44281,44282,44283,44286,44287,44289,...
+_tmp_0.gb18030 = [[0, 128], [36, 165], [38, 169], [45, 178], [50, 184], [81, 216], [89, 226], [95, 235], [96, 238], [100, 244], [103, 248], [104, 251], [105, 253], [109, 258], [126, 276], [133, 284], [148, 300], [172, 325], [175, 329], [179, 334], [208, 364], [306, 463], [307, 465], [308, 467], [309, 469], [310, 471], [311, 473], [312, 475], [313, 477], [341, 506], [428, 594], [443, 610], [544, 712], [545, 716], [558, 730], [741, 930], [742, 938], [749, 962], [750, 970], [805, 1026], [819, 1104], [820, 1106], [7922, 8209], [7924, 8215], [7925, 8218], [7927, 8222], [7934, 8231], [7943, 8241], [7944, 8244], [7945, 8246], [7950, 8252], [8062, 8365], [8148, 8452], [8149, 8454], [8152, 8458], [8164, 8471], [8174, 8482], [8236, 8556], [8240, 8570], [8262, 8596], [8264, 8602], [8374, 8713], [8380, 8720], [8381, 8722], [8384, 8726], [8388, 8731], [8390, 8737], [8392, 8740], [8393, 8742], [8394, 8748], [8396, 8751], [8401, 8760], [8406, 8766], [8416, 8777], [8419, 8781], [8424, 8787], [8437, 8802], [8439, 88...
+_tmp_0.jis0208 = [12288, 12289, 12290, 65292, 65294, 12539, 65306, 65307, 65311, 65281, 12443, 12444, 180, 65344, 168, 65342, 65507, 65343, 12541, 12542, 12445, 12446, 12291, 20189, 12293, 12294, 12295, 12540, 8213, 8208, 65295, 65340, 65374, 8741, 65372, 8230, 8229, 8216, 8217, 8220, 8221, 65288, 65289, 12308, 12309, 65339, 65341, 65371, 65373, 12296, 12297, 12298, 12299, 12300, 12301, 12302, 12303, 12304, 12305, 65291, 65293, 177, 215, 247, 65309, 8800, 65308, 65310, 8806, 8807, 8734, 8756, 9794, 9792, 176, 8242, 8243, 8451, 65509, 65284, 65504, 65505, 65285, 65283, 65286, 65290, 65312, 167, 9734, 9733, 9675, 9679, 9678, 9671, 9670, 9633, 9632, 9651, 9650, 9661, 9660, 8251, 12306, 8594, 8592, 8593, 8595, 12307, null, null, null, null, null, null, null, null, null, null, null, 8712, 8715, 8838, 8839, 8834, 8835, 8746, 8745, null, null, null, null, null, null, null, null, 8743, 8744, 65506, 8658, 8660, 8704, 8707, null, null, null, null, null, null, null, null, null, null, null, 8736, 8869, 8978, 87...
+var onConnect = function onConnect(cb){
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ] couchbase is alive !!');
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ][ ' + dbString.connector +' ] now connected...');
+
+            self.instance.reconnected  = self.instance.connected   = true;
+            var options = local.options;
+
+            // updating context
+            var ctx = getContext()
+                , bundle = ctx.bundle
+                , env = ctx.env
+                , conf = ctx['gina'].config.envConf[bundle][env]
+                , name = dbString.database
+                //Reload models.
+                , modelsPath = _(conf.modelsPath)
+            ;
+            // will send heartbeat every 4 minutes if keepAlive == `true`
+            self.ping(options.pingInterval, cb, function onPing(cb){
+
+                local.bundle = bundle;
+                local.env = env;
+
+                if ( typeof(cb) != 'undefined' ) { // this portition is not workin...
+setTimeout(() => {
+                            end(opt, cmd, isBulkRestart, bundleIndex, true)
+                        }, 500)
+self.checkIfHome = function(done) {
+        var path = self.opt.homedir;
+        console.debug('Checking home... [ '+ path +' ]');
+
+        if ( !getEnvVar('GINA_HOMEDIR') ) {
+            setEnvVar('GINA_HOMEDIR', path)
+        } else {
+            path = self.opt.homedir = getEnvVar('GINA_HOMEDIR')
+        }
+
+        if ( !fs.existsSync(path) ) {
+            try {
+                fs.mkdirSync(path, 0775)
+            } catch (err) {
+                // console.error(err.stack);
+                // process.exit(1)
+                return done(err)
+            }
+        }
+
+        done()
+    }
+var end = function (output, type, messageOnly) {
+        var err = false;
+        if ( typeof(output) != 'undefined') {
+            if ( output instanceof Error ) {
+                err = output = ( typeof(messageOnly) != 'undefined' && /^true$/i.test(messageOnly) ) ? output.message : (output.stack||output.message);
+            }
+            if ( typeof(type) != 'undefined' ) {
+                console[type](output)
+            } else {
+                console.log(output);
+            }
+        }
+
+        process.exit( err ? 1:0 )
+    }
+client.on('error', (data) => {
+            var err = data.toString();
+            console.error('[MQTail] ' + err + ' - Gina might not be running');
+            console.info('[MQTail] Waitting for `MQListener` to be started ...');
+
+            // var mqPort = null;
+            // nIntervId = setInterval(() => {
+            //     try {
+            //         mqPort = ~~(fs.readFileSync(mqPortFile).toString());
+            //         if (mqPort) {
+            //             process.emit('gina#mqlistener-started', mqPort, host);
+            //         }
+            //     } catch (fileErr) {}
+            // }, 100);
+        })

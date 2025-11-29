@@ -1,0 +1,23 @@
+new Promise((res) => {
+        const childProcess = (0, child_process_1.exec)(commandConfig.command, {
+            maxBuffer: exports.LARGE_BUFFER,
+            env: processEnv(color, cwd),
+            cwd,
+        });
+        /**
+         * Ensure the child process is killed when the parent exits
+         */
+        const processExitListener = (signal) => () => childProcess.kill(signal);
+        process.on('exit', processExitListener);
+        process.on('SIGTERM', processExitListener);
+        process.on('SIGINT', processExitListener);
+        process.on('SIGQUIT', processExitListener);
+        childProcess.stdout.on('data', (data) => {
+            process.stdout.write(addColorAndPrefix(data, commandConfig));
+            if (readyWhen && data.toString().indexOf(readyWhen) > -1) {
+                res(true);
+            }
+        });
+        childProcess.stderr.on('data', (err) => {
+            process.stderr.write(addColorAndPrefix(err, commandConfig));
+            if (readyWhen && ...

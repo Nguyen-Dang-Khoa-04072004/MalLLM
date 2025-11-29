@@ -1,0 +1,28 @@
+const contents = fs.readFileSync(file, encoding)
+fs.readFile(file, encoding, (error, contents) => {
+      //istanbul ignore if
+      if (error) {
+        return reject(error);
+      }
+
+      //Make replacements
+      const [result, newContents] = makeReplacements(
+        contents, from, to, file, countMatches
+      );
+
+      //Not changed or dry run?
+      if (!result.hasChanged || dry) {
+        return resolve(result);
+      }
+
+      //Write to file
+      fs.writeFile(file, newContents, encoding, error => {
+        //istanbul ignore if
+        if (error) {
+          return reject(error);
+        }
+        resolve(result);
+      });
+    })
+configFile = _tmp_0.configFile
+fs.writeFileSync(file, newContents, encoding)

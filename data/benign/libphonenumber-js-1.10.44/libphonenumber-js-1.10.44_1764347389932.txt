@@ -1,0 +1,109 @@
+function getIddPrefix = function getIddPrefix(country, callingCode, metadata) {
+  var countryMetadata = new Metadata(metadata);
+  countryMetadata.selectNumberingPlan(country, callingCode);
+
+  if (countryMetadata.defaultIDDPrefix()) {
+    return countryMetadata.defaultIDDPrefix();
+  }
+
+  if (SINGLE_IDD_PREFIX_REG_EXP.test(countryMetadata.IDDPrefix())) {
+    return countryMetadata.IDDPrefix();
+  }
+}
+generate(input, version, included_countries, extended, included_phone_number_types).then((output) => {
+	// Write uncompressed metadata into a file for easier debugging
+	if (command_line_arguments.debug) {
+		console.log('Output uncompressed JSON for debugging')
+		fs.writeFileSync(path.join(__dirname, '../metadata.json'), JSON.stringify(output, undefined, 3))
+	}
+
+	// Compress the generated metadata
+	fs.writeFileSync(path.join(__dirname, output_file), JSON.stringify(compress(output)))
+
+	// Output mobile phone number type examples
+	if (command_line_arguments.examples === 'mobile') {
+		var examples = Object.keys(output.countries).reduce(function(out, country_code) {
+			// if (country_code === REGION_CODE_FOR_NON_GEO_ENTITY) {
+			// 	return out
+			// }
+			var mobile = output.countries[country_code].examples.mobile
+			var fixed_line = output.countries[country_code].examples.fixed_line
+			if (mobile) {
+				out[country_code] = mobile
+			}
+			// "TA" country doesn't have ...
+(
+				!matchesEntirely(nationalNumber, metadata.nationalNumberPattern())
+				&&
+				matchesEntirely(possibleShorterNationalNumber, metadata.nationalNumberPattern())
+			)
+			||
+			checkNumberLength(nationalNumber, metadata) === 'TOO_LONG'
+const latinLetterRegexp = new RegExp
+(
+	'[' +
+	_InBasic_Latin +
+	_InLatin_1_Supplement +
+	_InLatin_Extended_A +
+	_InLatin_Extended_Additional +
+	_InLatin_Extended_B +
+	_InCombining_Diacritical_Marks +
+	']'
+)
+var examples = Object.keys(output.countries).reduce(function(out, country_code) {
+			// if (country_code === REGION_CODE_FOR_NON_GEO_ENTITY) {
+			// 	return out
+			// }
+			var mobile = output.countries[country_code].examples.mobile
+			var fixed_line = output.countries[country_code].examples.fixed_line
+			if (mobile) {
+				out[country_code] = mobile
+			}
+			// "TA" country doesn't have any mobile phone number example
+			else if (fixed_line) {
+				console.warn(`Country ${country_code} doesn't have a mobile phone number example. Substituting with a fixed line phone number example.`)
+				out[country_code] = fixed_line
+			} else {
+				console.error(`Country ${country_code} doesn't have neither a mobile phone number example nor a fixed line phone number example.`)
+				// `async` errors aren't being caught at the top level in Node.js
+				process.exit(1)
+			}
+			return out
+		}, {})
+function extractPhoneContext = function extractPhoneContext(numberToExtractFrom) {
+	const indexOfPhoneContext = numberToExtractFrom.indexOf(RFC3966_PHONE_CONTEXT_)
+	// If no phone-context parameter is present
+	if (indexOfPhoneContext < 0) {
+		return null
+	}
+
+	const phoneContextStart = indexOfPhoneContext + RFC3966_PHONE_CONTEXT_.length
+	// If phone-context parameter is empty
+	if (phoneContextStart >= numberToExtractFrom.length) {
+		return ''
+	}
+
+	const phoneContextEnd = numberToExtractFrom.indexOf(';', phoneContextStart)
+	// If phone-context is not the last parameter
+	if (phoneContextEnd >= 0) {
+		return numberToExtractFrom.substring(phoneContextStart, phoneContextEnd)
+	} else {
+		return numberToExtractFrom.substring(phoneContextStart)
+	}
+}
+this.startContext({
+					or: true,
+					instructions: [],
+					branches: []
+				})
+_tmp_2.push({
+    key: "isNonGeographicCallingCode",
+    value: function isNonGeographicCallingCode(callingCode) {
+      if (this.nonGeographic()) {
+        return this.nonGeographic()[callingCode] ? true : false;
+      } else {
+        return this.getCountryCodesForCallingCode(callingCode) ? false : true;
+      }
+    } // Deprecated.
+
+  })

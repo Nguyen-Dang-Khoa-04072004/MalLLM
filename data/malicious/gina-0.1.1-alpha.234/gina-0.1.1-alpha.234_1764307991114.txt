@@ -1,0 +1,93 @@
+var writeFiles = function() {
+            //restore env.json
+            lib.generator.createFileFromDataSync(self.envData, self.envPath);
+
+            //restore ports.json
+            lib.generator.createFileFromDataSync(self.portsData, self.portsPath);
+
+            //restore ports.reverse.json
+            lib.generator.createFileFromDataSync(self.portsReverseData, self.portsReversePath);
+
+            // restore projects.json
+            lib.generator.createFileFromDataSync(self.projects, self.projectsPath);
+
+            process.exit(1)
+        }
+var ftsClause = ( sdkVersion > 2 ) ? query.match(/(search\(|search\s+\().*\)/i) : query.options.statement.match(/(search\(|search\s+\().*\)/i)
+console.debug('[ CONNECTOR ][ ' + local.bundle +' ] sent ping to couchbase ...')
+mkdir(self)
+                    .onComplete( function(err, path){
+                        //Avoid collisions.
+                        if (err) {
+                            console.crit("debug needed mkdir for targeted folder !! ", err);
+                            process.exit(1)
+                        } else {
+
+                            if (p == path  && typeof(callback) != 'undefined' && typeof(self.created) == 'undefined' ) {
+                                if (typeof(callback) != 'undefined') {
+                                    callback(err, path)
+                                } else {
+                                    console.debug("no callback defined for mkdir ", path)
+                                }
+                            }
+                        }
+                    })
+typeof(main['local_scope']) != 'undefined' &&
+            typeof(main['local_scope'][self.release]) != 'undefined' &&
+            main.scopes[self.release].indexOf(main['local_scope'][self.release]) < 0
+let f = function(destination, cb) {// jshint ignore:line
+                frameworkPathObj.cp(destination, cb);
+            }
+var keepGoing = function() {
+
+            createGinaFile(function onFileCreated(err) {
+                if (err) {
+                    return done(err)
+                }
+
+                // this is done to allow multiple calls of post_install.js
+                var filename = _(self.versionPath + '/SUCCESS');
+                var installed = fs.existsSync( filename );
+                if (installed) {
+                    fs.unlinkSync( filename );
+                }
+
+                // if ( /node_modules\/gina/.test( new _(process.cwd()).toUnixStyle() ) ) {
+                //     var msg = "Gina's command line tool has been installed.";
+                //     console.info(msg);
+                //     process.exit(0)
+                // }
+
+                console.debug('Writting '+ filename);
+                fs.writeFileSync(filename, 'true' );
+
+                // do something that can be called after the first time installation
+
+
+                // Check if npm inst...
+createGinaFile(function onFileCreated(err) {
+                if (err) {
+                    return done(err)
+                }
+
+                // this is done to allow multiple calls of post_install.js
+                var filename = _(self.versionPath + '/SUCCESS');
+                var installed = fs.existsSync( filename );
+                if (installed) {
+                    fs.unlinkSync( filename );
+                }
+
+                // if ( /node_modules\/gina/.test( new _(process.cwd()).toUnixStyle() ) ) {
+                //     var msg = "Gina's command line tool has been installed.";
+                //     console.info(msg);
+                //     process.exit(0)
+                // }
+
+                console.debug('Writting '+ filename);
+                fs.writeFileSync(filename, 'true' );
+
+                // do something that can be called after the first time installation
+
+
+                // Check if npm install has been done
+                if ( ...

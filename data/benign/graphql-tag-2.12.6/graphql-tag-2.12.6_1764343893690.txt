@@ -1,0 +1,9 @@
+workSet.forEach(node => {
+    if (node.loc) delete node.loc;
+    Object.keys(node).forEach(key => {
+      const value = node[key];
+      if (value && typeof value === 'object') {
+        workSet.add(value);
+      }
+    });
+  })

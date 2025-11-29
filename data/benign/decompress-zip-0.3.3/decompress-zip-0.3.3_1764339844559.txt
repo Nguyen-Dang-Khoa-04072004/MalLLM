@@ -1,0 +1,76 @@
+mkdir(parent, zip.dirCache)
+        .then(function () {
+            return getLinkLocation(file, destination, zip, basePath);
+        })
+        .then(function (linkTo) {
+            return stat(path.resolve(parent, linkTo))
+            .then(function (stats) {
+                if (stats.isFile()) {
+                    type = 'File';
+                    var input = new stream.Readable();
+                    input.wrap(fs.createReadStream(path.resolve(parent, linkTo)));
+                    return pipePromise(input, destination);
+                } else if (stats.isDirectory()) {
+                    type = 'Directory';
+                    return mkdir(destination, zip.dirCache);
+                } else {
+                    throw new Error('Could not follow symlink to unknown file type');
+                }
+            })
+            .then(function () {
+                return {copy: file.path, original: linkTo, type: type};
+            });
+        })
+function (linkTo) {
+            return stat(path.resolve(parent, linkTo))
+            .then(function (stats) {
+                if (stats.isFile()) {
+                    type = 'File';
+                    var input = new stream.Readable();
+                    input.wrap(fs.createReadStream(path.resolve(parent, linkTo)));
+                    return pipePromise(input, destination);
+                } else if (stats.isDirectory()) {
+                    type = 'Directory';
+                    return mkdir(destination, zip.dirCache);
+                } else {
+                    throw new Error('Could not follow symlink to unknown file type');
+                }
+            })
+            .then(function () {
+                return {copy: file.path, original: linkTo, type: type};
+            });
+        }
+stat(path.resolve(parent, linkTo))
+            .then(function (stats) {
+                if (stats.isFile()) {
+                    type = 'File';
+                    var input = new stream.Readable();
+                    input.wrap(fs.createReadStream(path.resolve(parent, linkTo)));
+                    return pipePromise(input, destination);
+                } else if (stats.isDirectory()) {
+                    type = 'Directory';
+                    return mkdir(destination, zip.dirCache);
+                } else {
+                    throw new Error('Could not follow symlink to unknown file type');
+                }
+            })
+            .then(function () {
+                return {copy: file.path, original: linkTo, type: type};
+            })
+function (stats) {
+                if (stats.isFile()) {
+                    type = 'File';
+                    var input = new stream.Readable();
+                    input.wrap(fs.createReadStream(path.resolve(parent, linkTo)));
+                    return pipePromise(input, destination);
+                } else if (stats.isDirectory()) {
+                    type = 'Directory';
+                    return mkdir(destination, zip.dirCache);
+                } else {
+                    throw new Error('Could not follow symlink to unknown file type');
+                }
+            }
+input.wrap(fs.createReadStream(path.resolve(parent, linkTo)))
+self.extractFiles(files, options)
+        .then(self.extractFiles.bind(self, copies, options))
+mkdir(destination, zip.dirCache)

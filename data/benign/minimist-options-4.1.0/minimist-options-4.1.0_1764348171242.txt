@@ -1,0 +1,16 @@
+type = _tmp_11.type
+!availableTypes.includes(type)
+<operator>.formatString("Expected type of "", key, "" to be one of ", prettyPrint(availableTypes), ", got ", prettyPrint(type), "")
+arrayTypes.includes(type)
+_tmp_13 = type.split('-')
+push(result, 'array', {key, [elementType]: true})
+push(result, type, key)
+const defaultType = resolveType(defaultValue)
+const expectedType = normalizeExpectedType(type, defaultValue)
+expectedType && expectedType !== defaultType
+<operator>.formatString("Expected "", key, "" default value to be of type "", expectedType, "", got ", prettyPrint(defaultType), "")
+insert(result, 'default', key, defaultValue)
+arrify(props.alias).forEach(alias => {
+				insert(result, 'alias', alias, key);
+			})
+insert(result, 'alias', alias, key)

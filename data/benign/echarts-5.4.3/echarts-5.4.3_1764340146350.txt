@@ -1,0 +1,70 @@
+zrUtil.map(zrUtil.filter(geoJson.features, function (featureObj) {
+    // Output of mapshaper may have geometry null
+    return featureObj.geometry && featureObj.properties && featureObj.geometry.coordinates.length > 0;
+  }), function (featureObj) {
+    var properties = featureObj.properties;
+    var geo = featureObj.geometry;
+    var geometries = [];
+
+    switch (geo.type) {
+      case 'Polygon':
+        var coordinates = geo.coordinates; // According to the GeoJSON specification.
+        // First must be exterior, and the rest are all interior(holes).
+
+        geometries.push(new GeoJSONPolygonGeometry(coordinates[0], coordinates.slice(1)));
+        break;
+
+      case 'MultiPolygon':
+        zrUtil.each(geo.coordinates, function (item) {
+          if (item[0]) {
+            geometries.push(new GeoJSONPolygonGeometry(item[0], item.slice(1)));
+          }
+        });
+        break;
+
+      case 'LineString':
+        geometries.push(new GeoJSONLineStringGeometry([geo.coordinates]));
+ ...
+SunburstSeriesModel.defaultOption = {
+    // zlevel: 0,
+    z: 2,
+    // 默认全局居中
+    center: ['50%', '50%'],
+    radius: [0, '75%'],
+    // 默认顺时针
+    clockwise: true,
+    startAngle: 90,
+    // 最小角度改为0
+    minAngle: 0,
+    // If still show when all data zero.
+    stillShowZeroSum: true,
+    // 'rootToNode', 'link', or false
+    nodeClick: 'rootToNode',
+    renderLabelForZeroData: false,
+    label: {
+      // could be: 'radial', 'tangential', or 'none'
+      rotate: 'radial',
+      show: true,
+      opacity: 1,
+      // 'left' is for inner side of inside, and 'right' is for outer
+      // side for inside
+      align: 'center',
+      position: 'inside',
+      distance: 5,
+      silent: true
+    },
+    itemStyle: {
+      borderWidth: 1,
+      borderColor: 'white',
+      borderType: 'solid',
+      shadowBlur: 0,
+      shadowColor: 'rgba(0, 0, 0, 0.2)',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    },
+    emphasis: {
+      focus: 'descendant'
+    },
+    blur: {
+    ...

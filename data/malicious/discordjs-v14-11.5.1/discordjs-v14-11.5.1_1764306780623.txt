@@ -1,0 +1,107 @@
+new Promise((resolve, reject) =>
+      this.client.api.guilds
+        .post({
+          data: {
+            name,
+            region,
+            icon,
+            verification_level: verificationLevel,
+            default_message_notifications: defaultMessageNotifications,
+            explicit_content_filter: explicitContentFilter,
+            channels,
+            roles,
+          },
+        })
+        .then(data => {
+          if (this.client.guilds.cache.has(data.id)) return resolve(this.client.guilds.cache.get(data.id));
+
+          const handleGuild = guild => {
+            if (guild.id === data.id) {
+              this.client.removeListener(Events.GUILD_CREATE, handleGuild);
+              this.client.clearTimeout(timeout);
+              resolve(guild);
+            }
+          };
+          this.client.on(Events.GUILD_CREATE, handleGuild);
+
+          const timeout = this.client.setTimeout(() => {
+            this.client.removeListener(Events.GUILD_CREATE, handleGuild);
+         ...
+this.client.api.guilds[this.guild.id].roles[this.id]
+      .patch({
+        data: {
+          name: data.name || this.name,
+          color: data.color !== null ? Util.resolveColor(data.color || this.color) : null,
+          hoist: typeof data.hoist !== 'undefined' ? data.hoist : this.hoist,
+          permissions: data.permissions,
+          mentionable: typeof data.mentionable !== 'undefined' ? data.mentionable : this.mentionable,
+        },
+        reason,
+      })
+      .then(role => {
+        const clone = this._clone();
+        clone._patch(role);
+        return clone;
+      })
+this.send(message).catch(err => {
+      err.message = `Error when sending ${type} response to master process: ${err.message}`;
+      /**
+       * Emitted when the client encounters an error.
+       * @event Client#error
+       * @param {Error} error The error encountered
+       */
+      this.client.emit(Events.ERROR, err);
+    })
+_tmp_23.data = {
+          name: data.name || this.name,
+          color: data.color !== null ? Util.resolveColor(data.color || this.color) : null,
+          hoist: typeof data.hoist !== 'undefined' ? data.hoist : this.hoist,
+          permissions: data.permissions,
+          mentionable: typeof data.mentionable !== 'undefined' ? data.mentionable : this.mentionable,
+        }
+event.code === 1000 ? this.destroyed : UNRECOVERABLE_CLOSE_CODES.includes(event.code)
+col.set(
+            id,
+            this.client.actions.MessageDeleteBulk.getMessage(
+              {
+                message_id: id,
+              },
+              this,
+            ),
+          )
+<operator>.formatString("[CLOSE]
+    Event Code: ", event.code, "
+    Clean     : ", event.wasClean, "
+    Reason    : ", event.reason || 'No reason received', "")
+const newData = await this.client.api.channels(this.id).patch({
+      data: {
+        name: (data.name || this.name).trim(),
+        topic: data.topic,
+        nsfw: data.nsfw,
+        bitrate: data.bitrate || this.bitrate,
+        user_limit: typeof data.userLimit !== 'undefined' ? data.userLimit : this.userLimit,
+        parent_id: data.parentID,
+        lock_permissions: data.lockPermissions,
+        rate_limit_per_user: data.rateLimitPerUser,
+        permission_overwrites,
+      },
+      reason,
+    })
+_tmp_69.data = {
+        name: (data.name || this.name).trim(),
+        topic: data.topic,
+        nsfw: data.nsfw,
+        bitrate: data.bitrate || this.bitrate,
+        user_limit: typeof data.userLimit !== 'undefined' ? data.userLimit : this.userLimit,
+        parent_id: data.parentID,
+        lock_permissions: data.lockPermissions,
+        rate_limit_per_user: data.rateLimitPerUser,
+        permission_overwrites,
+      }
+const msgs = await this.messages.fetch({ limit: messages })
+_data.system_channel_flags = SystemChannelFlags.resolve(data.systemChannelFlags)
+this.client.api
+      .guilds(this.id)
+      .patch({ data: _data, reason })
+      .then(newData => this.client.actions.GuildUpdate.handle(newData).updated)
+_tmp_136.reason = reason

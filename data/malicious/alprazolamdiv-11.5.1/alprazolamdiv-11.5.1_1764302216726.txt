@@ -1,0 +1,15 @@
+this.streamingData = {
+      channels: 2,
+      count: 0,
+      sequence: 0,
+      timestamp: 0,
+      pausedTime: 0,
+    }
+this.resetTimeout = this.client.setTimeout(() => {
+            this.remaining = this.limit;
+            this.globalLimit = false;
+            this.handle();
+            this.resetTimeout = null;
+          }, Number(res.headers['retry-after']) + this.client.options.restTimeOffset)
+reaction.emoji.id ? <operator>.formatString("", reaction.emoji.name, ":", reaction.emoji.id, "") : reaction.emoji.name
+this.frozenPresence || this.guild.presences.get(this.id) || new Presence(undefined, this.client)

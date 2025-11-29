@@ -1,0 +1,160 @@
+pify(fs.readFile)(source.path, 'utf8').then(data => {
+                let eventMap = getEventMap(data);
+                if (eventMap !== null) {
+                  let moduleMap = getModuleMap(data);
+                  let sourcePath = path.parse(source.path);
+                  let moduleName = _.get(
+                    source,
+                    'analysis.module',
+                    moduleMap || sourcePath.name || 'Avo'
+                  );
+
+                  let globs = [
+                    new Minimatch(
+                      _.get(source, 'analysis.glob', '**/*' + sourcePath.ext),
+                      {}
+                    ),
+                    new Minimatch('!' + source.path, {})
+                  ];
+
+                  let lookup = _.pickBy(cache, (value, path) =>
+                    _.every(globs, mm => mm.match(path))
+                  );
+
+                  return Promise.all(
+                    eventMap.map(eventName => {
+                      let re = new RegExp(modul...
+let eventMap = getEventMap(data)
+let moduleMap = getModuleMap(data)
+let moduleName = _.get(
+                    source,
+                    'analysis.module',
+                    moduleMap || sourcePath.name || 'Avo'
+                  )
+source
+moduleMap || sourcePath.name || 'Avo'
+let globs = [
+                    new Minimatch(
+                      _.get(source, 'analysis.glob', '**/*' + sourcePath.ext),
+                      {}
+                    ),
+                    new Minimatch('!' + source.path, {})
+                  ]
+_tmp_194.push(new Minimatch(
+                      _.get(source, 'analysis.glob', '**/*' + sourcePath.ext),
+                      {}
+                    ))
+_.get(source, 'analysis.glob', '**/*' + sourcePath.ext)
+_tmp_194.push(new Minimatch('!' + source.path, {}))
+let lookup = _.pickBy(cache, (value, path) =>
+                    _.every(globs, mm => mm.match(path))
+                  )
+_.every(globs, mm => mm.match(path))
+Promise.all(
+                    eventMap.map(eventName => {
+                      let re = new RegExp(moduleName + '\\.' + eventName);
+                      let results = _.flatMap(lookup, (data, path) => {
+                        let results = findMatches(data, re);
+                        return results.length ? [[path, results]] : [];
+                      });
+                      return [eventName, _.fromPairs(results)];
+                    })
+                  ).then(results => {
+                    return Object.assign({}, source, {
+                      results: _.fromPairs(results)
+                    });
+                  })
+eventMap.map(eventName => {
+                      let re = new RegExp(moduleName + '\\.' + eventName);
+                      let results = _.flatMap(lookup, (data, path) => {
+                        let results = findMatches(data, re);
+                        return results.length ? [[path, results]] : [];
+                      });
+                      return [eventName, _.fromPairs(results)];
+                    })
+let re = new RegExp(moduleName + '\\.' + eventName)
+let results = _.flatMap(lookup, (data, path) => {
+                        let results = findMatches(data, re);
+                        return results.length ? [[path, results]] : [];
+                      })
+let results = findMatches(data, re)
+results.length ? [[path, results]] : __ecma.Array.factory()
+_tmp_203.push(_.fromPairs(results))
+let tokens = conf.get('tokens')
+let currentToken = _.get(tokens, 'refreshToken')
+var tokens = conf.get('tokens')
+refreshToken === _.get(tokens, 'refreshToken')
+var currentRefreshToken = _.get(conf.get('tokens'), 'refreshToken')
+var server = http.createServer(function(req, res) {
+      var tokens;
+      var query = _.get(url.parse(req.url, true), 'query', {});
+
+      if (query.state === nonce && _.isString(query.code)) {
+        return _getTokensFromAuthorizationCode(query.code, callbackUrl)
+          .then(function(result) {
+            tokens = result;
+            return _respondWithRedirect(
+              req,
+              res,
+              api.authOrigin + '/auth/cli/success'
+            );
+          })
+          .then(function() {
+            cancelWait();
+            server.shutdown();
+            return resolve({
+              user: jwt.decode(tokens.idToken),
+              tokens: tokens
+            });
+          })
+          .catch(function() {
+            return _respondWithRedirect(
+              req,
+              res,
+              api.authOrigin + '/auth/cli/error'
+            );
+          });
+      }
+      _respondWithRedirect(req, res, api.authOrigin + '/auth/cli/error');
+    })
+var query = _.get(url.parse(req.url, true), 'query', {})
+query.state === nonce && _.isString(query.code)
+_getTokensFromAuthorizationCode(query.code, callbackUrl)
+          .then(function(result) {
+            tokens = result;
+            return _respondWithRedirect(
+              req,
+              res,
+              api.authOrigin + '/auth/cli/success'
+            );
+          })
+          .then(function() {
+            cancelWait();
+            server.shutdown();
+            return resolve({
+              user: jwt.decode(tokens.idToken),
+              tokens: tokens
+            });
+          })
+          .catch(function() {
+            return _respondWithRedirect(
+              req,
+              res,
+              api.authOrigin + '/auth/cli/error'
+            );
+          })
+function() {
+            cancelWait();
+            server.shutdown();
+            return resolve({
+              user: jwt.decode(tokens.idToken),
+              tokens: tokens
+            });
+          }
+cancelWait()
+resolve({
+              user: jwt.decode(tokens.idToken),
+              tokens: tokens
+            })
+var tokens = conf.get('tokens')
+var currentToken = _.get(tokens, 'refreshToken')

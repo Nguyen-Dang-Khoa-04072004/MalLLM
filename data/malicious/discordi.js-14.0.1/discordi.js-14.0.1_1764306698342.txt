@@ -1,0 +1,24 @@
+let data = secretbox.open(msg.slice(12), nonce, this.voiceConnection.authentication.secretKey.key)
+throw new RangeError('RichEmbeds may not exceed 25 fields.');
+this.editedTimestamp = new Date(data.edited_timestamp).getTime()
+this.rest.makeRequest('post', Endpoints.Channel(channel).Message(channel.lastMessageID).ack, true, {
+      token: this._ackToken,
+    }).then(res => {
+      if (res.token) this._ackToken = res.token;
+      return channel;
+    })
+MessageEmbedImage = package\src\structures\MessageEmbed.js::program:MessageEmbedImage:<init>
+this.changes = data.changes ? data.changes.map(c => ({ name: c.key, old: c.old_value, new: c.new_value })) : null
+this.rest.makeRequest('post', Endpoints.Guild(guild).ack, true).then(() => guild)
+_tmp_45 = VoiceReceiver._tryDecode(this.opusEncoders.get(user.id), data)
+this.emit('warn', 'decode', `Failed to decode packet voice to PCM because: ${error.message}`)
+TextBasedChannel.applyToClass(GroupDMChannel, true, ['bulkDelete'])
+transcoder.once('error', e => {
+      if (this.listenerCount('error') > 0) this.emit('error', e);
+      /**
+       * Emitted whenever the VoiceBroadcast has any warnings.
+       * @event VoiceBroadcast#warn
+       * @param {string|Error} warning The warning that was raised
+       */
+      else this.emit('warn', e);
+    })

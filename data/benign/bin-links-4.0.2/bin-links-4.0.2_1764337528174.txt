@@ -1,0 +1,65 @@
+Promise.all([
+    lstat(absFrom).catch(throwNonEnoent),
+    lstat(to).catch(throwNonEnoent),
+  ]).then(([stFrom, stTo]) => {
+    // not present in package, skip it
+    if (!stFrom) {
+      return SKIP
+    }
+
+    // exists! maybe clobber if we can
+    if (stTo) {
+      if (!stTo.isSymbolicLink()) {
+        return force && rm(to, rmOpts).then(() => CLOBBER)
+      }
+
+      return readlink(to).then(target => {
+        if (target === from) {
+          return SKIP
+        } // skip it, already set up like we want it.
+
+        target = resolve(dirname(to), target)
+        if (target.indexOf(path) === 0 || force) {
+          return rm(to, rmOpts).then(() => CLOBBER)
+        }
+        // neither skip nor clobber
+        return false
+      })
+    } else {
+      // doesn't exist, dir might not either
+      return mkdir(dirname(to), { recursive: true })
+    }
+  })
+    .then(skipOrClobber => {
+      if (skipOrClobber === SKIP) {
+        return false
+      }
+      return symlink(from, to, 'file')...
+const handleReadCmdShimError = ({ er, target }) =>
+  er.code === 'ENOENT' ? null
+  : failEEXIST({ target })
+readlink(to).then(target => {
+        if (target === from) {
+          return SKIP
+        } // skip it, already set up like we want it.
+
+        target = resolve(dirname(to), target)
+        if (target.indexOf(path) === 0 || force) {
+          return rm(to, rmOpts).then(() => CLOBBER)
+        }
+        // neither skip nor clobber
+        return false
+      })
+_tmp_13.push(target + '.cmd')
+const current = await readCmdShim(shim)
+      .catch(er => handleReadCmdShimError({ er, target: shim }))
+rm(to, rmOpts).then(() => CLOBBER)
+handleReadCmdShimError({ er, from, to })
+symlink(from, to, 'file').catch(er => {
+        if (skipOrClobber === CLOBBER || force) {
+          return rm(to, rmOpts).then(() => symlink(from, to, 'file'))
+        }
+        throw er
+      }).then(() => true)
+const doShim = (absFrom, to) =>
+  cmdShim(absFrom, to).then(() => fixBin(absFrom))

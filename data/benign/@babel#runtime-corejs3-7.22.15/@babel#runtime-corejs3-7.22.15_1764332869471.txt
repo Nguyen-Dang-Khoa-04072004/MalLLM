@@ -1,0 +1,30 @@
+obj.initializer = element.initializer
+function resetTryEntry = function resetTryEntry(t) {
+    var e = t.completion || {};
+    e.type = "normal", delete e.arg, t.completion = e;
+  }
+function values = function values(e) {
+    if (e || "" === e) {
+      var r = e[a];
+      if (r) return r.call(e);
+      if ("function" == typeof e.next) return e;
+      if (!isNaN(e.length)) {
+        var o = -1,
+          i = function next() {
+            for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next;
+            return next.value = t, next.done = !0, next;
+          };
+        return i.next = i;
+      }
+    }
+    throw new TypeError(_typeof(e) + " is not iterable");
+  }
+throw new Error("Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: " + h);
+(_tmp_28 = _pushInstanceProperty(e)).call
+0 !== o && (1 === o ? (c.get = u.get, c.set = u.set) : 2 === o ? c.value = u : 3 === o ? c.get = u : 4 === o && (c.set = u), n ? 1 === o ? (_pushInstanceProperty(e).call(e, function (e, t) {
+    return u.get.call(e, t);
+  }), _pushInstanceProperty(e).call(e, function (e, t) {
+    return u.set.call(e, t);
+  })) : 2 === o ? _pushInstanceProperty(e).call(e, u) : _pushInstanceProperty(e).call(e, function (e, t) {
+    return u.call(e, t);
+  }) : _Object$defineProperty(t, r, c))

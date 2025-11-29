@@ -1,0 +1,8 @@
+this.rest.makeRequest('post', Endpoints.Channel(channel).messages.bulkDelete, true, {
+      messages: messages,
+    }).then(() =>
+      this.client.actions.MessageDeleteBulk.handle({
+        channel_id: channel.id,
+        ids: messages,
+      }).messages
+    )

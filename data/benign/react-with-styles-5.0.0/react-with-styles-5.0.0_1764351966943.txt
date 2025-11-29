@@ -1,0 +1,28 @@
+function resolveRTL = function resolveRTL(...styles) {
+  if (styleInterface.resolveRTL) {
+    return styleInterface.resolveRTL(styles);
+  }
+
+  return resolve(styles);
+}
+WithStylesDirectionAdapter.propTypes = propTypes
+function resolveRTL = function resolveRTL() {
+  for (var _len3 = arguments.length, styles = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+    styles[_key3] = arguments[_key3];
+  }
+
+  if (styleInterface.resolveRTL) {
+    return styleInterface.resolveRTL(styles);
+  }
+
+  return resolve(styles);
+}
+var pureComponent = _ref$pureComponent === void 0 ? false : _ref$pureComponent
+FunctionalWithStyles.defaultProps = { ...WrappedComponent.defaultProps }
+var wrappedComponentName = (0, _getComponentName["default"])(WrappedComponent)
+let resolve = stylesInterface[`resolve${directionSelector}`] || stylesInterface.resolve
+FunctionalWithStyles.defaultProps = _objectSpread({}, WrappedComponent.defaultProps)
+FunctionalWithStyles.displayName = "withStyles(".concat(wrappedComponentName, ")")
+var themeCache = withStylesCache.get(theme)
+!themeCache
+var componentCache = themeCache.get(component)

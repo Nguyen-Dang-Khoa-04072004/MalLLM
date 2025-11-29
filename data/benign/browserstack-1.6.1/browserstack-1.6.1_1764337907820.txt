@@ -1,0 +1,4 @@
+this.request({
+			path: this.path("/builds/" + buildId + "/sessions.json?" +
+				querystring.stringify(options))
+		}, this.handleResponse(fn, this.stripChildKeys("automation_session")))

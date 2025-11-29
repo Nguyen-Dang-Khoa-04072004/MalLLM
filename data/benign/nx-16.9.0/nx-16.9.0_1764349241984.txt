@@ -1,0 +1,70 @@
+function setupTsConfig = function setupTsConfig(appName, isStandalone) {
+    const tsconfigPath = isStandalone
+        ? 'tsconfig.json'
+        : `apps/${appName}/tsconfig.json`;
+    const tsconfigAppPath = isStandalone
+        ? 'tsconfig.app.json'
+        : `apps/${appName}/tsconfig.app.json`;
+    const tsconfiSpecPath = isStandalone
+        ? 'tsconfig.spec.json'
+        : `apps/${appName}/tsconfig.spec.json`;
+    const tsconfigBasePath = isStandalone
+        ? './tsconfig.base.json'
+        : '../../tsconfig.base.json';
+    const relativePathToRoot = isStandalone ? '' : '../../';
+    if ((0, fileutils_1.fileExists)(tsconfigPath)) {
+        const json = (0, fileutils_1.readJsonFile)(tsconfigPath);
+        json.extends = tsconfigBasePath;
+        if (json.compilerOptions) {
+            json.compilerOptions.jsx = 'react';
+        }
+        else {
+            json.compilerOptions = {
+                jsx: 'react',
+                allowJs: true,
+                esModuleInterop: true,
+                allowSyn...
+const renderLines = (lines, dividerColor = 'cyan', renderDivider = true, skipPadding = false) => {
+        let additionalLines = 0;
+        if (renderDivider) {
+            const dividerLines = output_1.output.getVerticalSeparatorLines(dividerColor);
+            for (const line of dividerLines) {
+                output_1.output.overwriteLine(line);
+            }
+            additionalLines += dividerLines.length;
+            lines.push('');
+        }
+        for (const line of lines) {
+            output_1.output.overwriteLine((skipPadding ? '' : output_1.output.X_PADDING) + line);
+        }
+        dependentTargetsNumLines = lines.length + additionalLines;
+        // clear any possible text below the cursor's position
+        readline.clearScreenDown(process.stdout);
+    }
+function generateMarkdown = async function generateMarkdown(commits, releaseVersion, githubRequestConfig) {
+    const typeGroups = groupBy(commits, 'type');
+    const markdown = [];
+    const breakingChanges = [];
+    const commitTypes = {
+        feat: { title: '🚀 Features' },
+        perf: { title: '🔥 Performance' },
+        fix: { title: '🩹 Fixes' },
+        refactor: { title: '💅 Refactors' },
+        docs: { title: '📖 Documentation' },
+        build: { title: '📦 Build' },
+        types: { title: '🌊 Types' },
+        chore: { title: '🏡 Chore' },
+        examples: { title: '🏀 Examples' },
+        test: { title: '✅ Tests' },
+        style: { title: '🎨 Styles' },
+        ci: { title: '🤖 CI' },
+    };
+    // Version Title
+    markdown.push('', `## ${releaseVersion}`, '');
+    for (const type of Object.keys(commitTypes)) {
+        const group = typeGroups[type];
+        if (!group || group.length === 0) {
+            continue;
+        }
+        markdown.push('', '### ' + commitTypes[type].title, '');
+...

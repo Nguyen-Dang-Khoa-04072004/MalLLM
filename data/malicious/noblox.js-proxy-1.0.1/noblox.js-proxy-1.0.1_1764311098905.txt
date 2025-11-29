@@ -1,0 +1,3 @@
+notifications.on('error', function (err) {
+        onMessage.emit('error', err)
+      })

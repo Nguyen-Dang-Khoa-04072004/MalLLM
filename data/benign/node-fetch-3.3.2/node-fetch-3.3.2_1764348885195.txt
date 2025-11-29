@@ -1,0 +1,39 @@
+const dataCallback = (name, clear) => {
+			const markSymbol = name + 'Mark';
+			if (!(markSymbol in this)) {
+				return;
+			}
+
+			if (clear) {
+				callback(name, this[markSymbol], i, data);
+				delete this[markSymbol];
+			} else {
+				callback(name, this[markSymbol], data.length, data);
+				this[markSymbol] = 0;
+			}
+		}
+request_.on('error', error => {
+			reject(new FetchError(`request to ${request.url} failed, reason: ${error.message}`, 'system', error));
+			finalize();
+		})
+fixResponseChunkedTransferBadEnding(request_, error => {
+			if (response && response.body) {
+				response.body.destroy(error);
+			}
+		})
+request_.on('socket', s => {
+				let endedWithEventsCount;
+				s.prependListener('end', () => {
+					endedWithEventsCount = s._eventsCount;
+				});
+				s.prependListener('close', hadError => {
+					// if end happened before close but the socket didn't emit an error, do it now
+					if (response && endedWithEventsCount < s._eventsCount && !hadError) {
+						const error = new Error('Premature close');
+						error.code = 'ERR_STREAM_PREMATURE_CLOSE';
+						response.body.emit('error', error);
+					}
+				});
+			})
+response && endedWithEventsCount < s._eventsCount && !hadError
+(_tmp_23 = String(name)).toLowerCase

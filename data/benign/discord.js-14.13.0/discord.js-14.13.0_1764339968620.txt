@@ -1,0 +1,19 @@
+this.client.guilds.cache.get(data.id) ??
+      new Promise(resolve => {
+        const handleGuild = guild => {
+          if (guild.id === data.id) {
+            clearTimeout(timeout);
+            this.client.decrementMaxListeners();
+            resolve(guild);
+          }
+        };
+        this.client.incrementMaxListeners();
+        this.client.once(Events.GuildCreate, handleGuild);
+
+        const timeout = setTimeout(() => {
+          this.client.removeListener(Events.GuildCreate, handleGuild);
+          this.client.decrementMaxListeners();
+          resolve(this.client.guilds._add(data));
+        }, 10_000).unref();
+      })
+overwrites.roles.length > 0 ? overwrites.roles.map(role => role.deny) : PermissionsBitField.DefaultBit

@@ -1,0 +1,443 @@
+function checkImportForRelativePackage = function checkImportForRelativePackage(context, importPath, node) {
+  var potentialViolationTypes = ['parent', 'index', 'sibling'];
+  if (potentialViolationTypes.indexOf((0, _importType2['default'])(importPath, context)) === -1) {
+    return;
+  }
+
+  var resolvedImport = (0, _resolve2['default'])(importPath, context);
+  var resolvedContext = context.getPhysicalFilename ? context.getPhysicalFilename() : context.getFilename();
+
+  if (!resolvedImport || !resolvedContext) {
+    return;
+  }
+
+  var importPkg = findNamedPackage(resolvedImport);
+  var contextPkg = findNamedPackage(resolvedContext);
+
+  if (importPkg.pkg && contextPkg.pkg && importPkg.pkg.name !== contextPkg.pkg.name) {
+    var importBaseName = _path2['default'].basename(importPath);
+    var importRoot = _path2['default'].dirname(importPkg.path);
+    var properPath = _path2['default'].relative(importRoot, resolvedImport);
+    var properImport = _path2['default'].join(
+    importPkg.pkg.name,
+    _path2['default'].dirname(prope...
+function checkSourceValue = function checkSourceValue(sourceNode) {
+        var depPath = sourceNode.value;
+
+        if ((0, _importType2['default'])(depPath, context) === 'external') {// ignore packages
+          return;
+        }
+
+        var absDepPath = (0, _resolve2['default'])(depPath, context);
+
+        if (!absDepPath) {// unable to resolve path
+          return;
+        }
+
+        var relDepPath = (0, _path.relative)((0, _path.dirname)(myPath), absDepPath);
+
+        if ((0, _importType2['default'])(relDepPath, context) === 'parent') {
+          context.report({
+            node: sourceNode,
+            message: 'Relative imports from parent directories are not allowed. Please either pass what you\'re importing through at runtime (dependency injection), move `' + String((0, _path.basename)(myPath)) + '` to same directory as `' + String(depPath) + '` or consider making `' + String(depPath) + '` a package.' });
+
+        }
+      }
+module.exports = {
+  meta: {
+    type: 'problem',
+    docs: {
+      category: 'Module systems',
+      description: 'Forbid import statements with CommonJS module.exports.',
+      recommended: true },
+
+    fixable: 'code',
+    schema: [
+    {
+      type: 'object',
+      properties: {
+        exceptions: { type: 'array' } },
+
+      additionalProperties: false }] },
+
+
+
+  create: function () {function create(context) {
+      var importDeclarations = [];
+      var entryPoint = getEntryPoint(context);
+      var options = context.options[0] || {};
+      var alreadyReported = false;
+
+      function report(node) {
+        var fileName = context.getPhysicalFilename ? context.getPhysicalFilename() : context.getFilename();
+        var isEntryPoint = entryPoint === fileName;
+        var isIdentifier = node.object.type === 'Identifier';
+        var hasKeywords = /^(module|exports)$/.test(node.object.name);
+        var objectScope = hasKeywords && findScope(context, node.object.name);
+        var ...
+variableImports.forEach(function (im) {
+          if (im.type !== 'Property' || !im.key || im.key.type !== 'Identifier') {
+            return;
+          }
+
+          var deepLookup = variableExports.hasDeep(im.key.name);
+
+          if (!deepLookup.found) {
+            if (deepLookup.path.length > 1) {
+              var deepPath = deepLookup.path.
+              map(function (i) {return path.relative(path.dirname(context.getFilename()), i.path);}).
+              join(' -> ');
+
+              context.report(im.key, String(im.key.name) + ' not found via ' + String(deepPath));
+            } else {
+              context.report(im.key, String(im.key.name) + ' not found in \'' + String(source.value) + '\'');
+            }
+          }
+        })
+parent &&
+      parent.type === 'MemberExpression' && (
+      parent.property.type === 'Identifier' || parent.property.type === 'Literal')
+nodes.types.set.forEach(function (node) {
+            context.report({
+              node: node,
+              message: errors[node.type] });
+
+          })
+function missingErrorMessage = function missingErrorMessage(packageName) {
+  return '\'' + String(packageName) + '\' should be listed in the project\'s dependencies. Run \'npm i -S ' + String(packageName) + '\' to add it';
+}
+var deepPath = deepLookup.path.
+              map(function (i) {return path.relative(path.dirname(context.getFilename()), i.path);}).
+              join(' -> ')
+function checkImportForReaching = function checkImportForReaching(importPath, node) {
+        var potentialViolationTypes = ['parent', 'index', 'sibling', 'external', 'internal'];
+        if (
+        potentialViolationTypes.indexOf((0, _importType2['default'])(importPath, context)) !== -1 &&
+        isReachViolation(importPath))
+        {
+          context.report({
+            node: node,
+            message: 'Reaching to "' + String(importPath) + '" is not allowed.' });
+
+        }
+      }
+insertFixer = lastLegalImp ?
+                  fixer.insertTextAfter(lastLegalImp, insertSourceCode) :
+                  fixer.insertTextBefore(body[0], insertSourceCode)
+function isExternalRootModule = function isExternalRootModule(file) {
+        if (file === '.' || file === '..') {return false;}
+        var slashCount = file.split('/').length - 1;
+
+        if (slashCount === 0) {return true;}
+        if ((0, _importType.isScoped)(file) && slashCount <= 1) {return true;}
+        return false;
+      }
+function isRequireExpression = function isRequireExpression(expr) {
+  return expr != null &&
+  expr.type === 'CallExpression' &&
+  expr.callee != null &&
+  expr.callee.name === 'require' &&
+  expr.arguments != null &&
+  expr.arguments.length === 1 &&
+  expr.arguments[0].type === 'Literal';
+}
+toRelativePath(
+        importPathSplit.
+        slice(0, countExpectedRelativeParents).
+        concat(importPathSplit.slice(countImportPathRelativeParents + diff)).
+        join('/'))
+var newDeclarationStatus = declarationStatus || {
+    isInDeps: false,
+    isInDevDeps: false,
+    isInOptDeps: false,
+    isInPeerDeps: false,
+    isInBundledDeps: false }
+(0, _moduleVisitor2['default'])(checkSourceValue, options)
+shouldAddDefault && openBrace == null && shouldAddSpecifiers
+!(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done)
+log('node position in scope:', nodePosition)
+function ExportAllDeclaration = function ExportAllDeclaration(node) {
+            if (node.source == null) {return;} // not sure if this is ever true
+
+            // `export * as X from 'path'` does not conflict
+            if (node.exported && node.exported.name) {return;}
+
+            var remoteExports = _ExportMap2['default'].get(node.source.value, context);
+            if (remoteExports == null) {return;}
+
+            if (remoteExports.errors.length) {
+              remoteExports.reportErrors(context, node);
+              return;
+            }
+
+            var parent = getParent(node);
+
+            var any = false;
+            remoteExports.forEach(function (v, name) {
+              if (name !== 'default') {
+                any = true; // poor man's filter
+                addNamed(name, node, parent);
+              }
+            });
+
+            if (!any) {
+              context.report(
+              node.source, 'No named exports found in module \'' + String(
+              node.source.value) + '\'.');
+
+      ...
+var makePathValidators = function () {function makePathValidators(zoneFrom) {var zoneExcept = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+          var allZoneFrom = [].concat(zoneFrom);
+          var areGlobPatterns = allZoneFrom.map(_isGlob2['default']);
+
+          if (areBothGlobPatternAndAbsolutePath(areGlobPatterns)) {
+            return [computeMixedGlobAndAbsolutePathValidator()];
+          }
+
+          var isGlobPattern = areGlobPatterns.every(function (isGlob) {return isGlob;});
+
+          return allZoneFrom.map(function (singleZoneFrom) {
+            var absoluteFrom = _path2['default'].resolve(basePath, singleZoneFrom);
+
+            if (isGlobPattern) {
+              return computeGlobPatternPathValidator(absoluteFrom, zoneExcept);
+            }
+            return computeAbsolutePathValidator(absoluteFrom, zoneExcept);
+          });
+        }return makePathValidators;}()
+testKey(property.value, dependencyExportMap.namespace, path)
+nextRequireCall && containsNodeOrEqual(statementWithRequireCall, nextRequireCall)
+var closingBrace = sourceCode.getTokenAfter(
+                          node.specifiers[node.specifiers.length - 1],
+                          function (token) {return token.type === 'Punctuator' && token.value === '}';})
+reexports.forEach(function (value, key) {
+        if (key === DEFAULT) {
+          exports.set(IMPORT_DEFAULT_SPECIFIER, { whereUsed: new Set() });
+        } else {
+          exports.set(key, { whereUsed: new Set() });
+        }
+        var reexport = value.getImport();
+        if (!reexport) {
+          return;
+        }
+        var localImport = imports.get(reexport.path);
+        var currentValue = void 0;
+        if (value.local === DEFAULT) {
+          currentValue = IMPORT_DEFAULT_SPECIFIER;
+        } else {
+          currentValue = value.local;
+        }
+        if (typeof localImport !== 'undefined') {
+          localImport = new Set([].concat(_toConsumableArray(localImport), [currentValue]));
+        } else {
+          localImport = new Set([currentValue]);
+        }
+        imports.set(reexport.path, localImport);
+      })
+depsOptions.allowOptDeps && declarationStatus.isInOptDeps
+depsOptions.allowBundledDeps && declarationStatus.isInBundledDeps
+matchingZones.forEach(function (zone, index) {
+          if (!validators[index]) {
+            validators[index] = makePathValidators(zone.from, zone.except);
+          }
+
+          var applicableValidatorsForImportPath = validators[index].filter(function (validator) {return validator.isPathRestricted(absoluteImportPath);});
+
+          var validatorsWithInvalidExceptions = applicableValidatorsForImportPath.filter(function (validator) {return !validator.hasValidExceptions;});
+          reportInvalidExceptions(validatorsWithInvalidExceptions, node);
+
+          var applicableValidatorsForImportPathExcludingExceptions = applicableValidatorsForImportPath.
+          filter(function (validator) {return validator.hasValidExceptions && !validator.isPathException(absoluteImportPath);});
+          reportImportsInRestrictedZone(applicableValidatorsForImportPathExcludingExceptions, node, importPath, zone.message);
+        })
+localImportList.forEach(function (value, key) {
+        if (isNodeModule(key)) {
+          return;
+        }
+        var localImport = imports.get(key) || new Set();
+        value.declarations.forEach(function (_ref5) {var importedSpecifiers = _ref5.importedSpecifiers;
+          importedSpecifiers.forEach(function (specifier) {
+            localImport.add(specifier);
+          });
+        });
+        imports.set(key, localImport);
+      })
+function testConfig = function testConfig(config, filename) {
+  // Simplest configuration first, either a boolean or nothing.
+  if (typeof config === 'boolean' || typeof config === 'undefined') {
+    return config;
+  }
+  // Array of globs.
+  return config.some(function (c) {return (0, _minimatch2['default'])(filename, c) ||
+    (0, _minimatch2['default'])(filename, _path2['default'].join(process.cwd(), c));});
+
+}
+outOfOrder.forEach(function (imp) {
+    var found = imported.find(function () {function hasHigherRank(importedItem) {
+        return importedItem.rank > imp.rank;
+      }return hasHigherRank;}());
+    fixOutOfOrder(context, found, imp, order);
+  })
+var currentExports = exportList.get(val)
+var currentExport = currentExports.get(EXPORT_ALL_DECLARATION)
+maxPosition = Math.max(maxPosition, groupNextPosition - 1)
+var exportAll = exportCount.get(EXPORT_ALL_DECLARATION)
+var namespaceImports = exportCount.get(IMPORT_NAMESPACE_SPECIFIER)
+exports = exportList.get(file)
+var getIsStartOfDistinctGroup = function getIsStartOfDistinctGroup(currentImport, previousImport) {return currentImport.rank - 1 >= previousImport.rank;}
+var namespaceImports = exports.get(IMPORT_NAMESPACE_SPECIFIER)
+newlinesBetweenImports !== 'always-and-inside-groups'
+var exports = exportList.get(file)
+module.exports = {
+  meta: {
+    type: 'suggestion',
+    docs: {
+      category: 'Style guide',
+      description: 'Enforce a convention in module import order.',
+      url: (0, _docsUrl2['default'])('order') },
+
+
+    fixable: 'code',
+    schema: [
+    {
+      type: 'object',
+      properties: {
+        groups: {
+          type: 'array' },
+
+        pathGroupsExcludedImportTypes: {
+          type: 'array' },
+
+        distinctGroup: {
+          type: 'boolean',
+          'default': defaultDistinctGroup },
+
+        pathGroups: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              pattern: {
+                type: 'string' },
+
+              patternOptions: {
+                type: 'object' },
+
+              group: {
+                type: 'string',
+                'enum': types },
+
+              position: {
+                type: 'string',
+                'enum': ['after', 'before'] } },
+
+
+            additionalProperties: false,
+ ...
+_tmp_64.items = {
+            type: 'object',
+            properties: {
+              pattern: {
+                type: 'string' },
+
+              patternOptions: {
+                type: 'object' },
+
+              group: {
+                type: 'string',
+                'enum': types },
+
+              position: {
+                type: 'string',
+                'enum': ['after', 'before'] } },
+
+
+            additionalProperties: false,
+            required: ['pattern', 'group'] }
+var exportAll = exports.get(EXPORT_ALL_DECLARATION)
+var namespaceImports = exports.get(IMPORT_NAMESPACE_SPECIFIER)
+var imports = oldImportPaths.get(value)
+function ExportMap = function ExportMap(path) {_classCallCheck(this, ExportMap);this.path = path;this.namespace = new Map(); // todo: restructure to key on path, value is resolver + map of names
+    this.reexports = new Map(); /**
+                                 * star-exports
+                                 * @type {Set} of () => ExportMap
+                                 */this.dependencies = new Set(); /**
+                                                                   * dependencies of this module that are not explicitly re-exported
+                                                                   * @type {Map} from path = () => ExportMap
+                                                                   */this.imports = new Map();this.errors = []; /**
+                                                                                                                 * type {'ambiguous' | 'Module' | 'Script'}
+                                                                                         ...
+imports.add(EXPORT_ALL_DECLARATION)
+registerNode(
+            context,
+            {
+              node: node,
+              value: name,
+              displayName: name,
+              type: 'require' },
+
+            ranks,
+            getBlockImports(block),
+            pathGroupsExcludedImportTypes)
+var _exports = exportList.get(value)
+typeof _exports !== 'undefined'
+_tmp_31.push({ key: 'has', /**
+                                                                                                                                                                                         * Note that this does not check explicitly re-exported names for existence
+                                                                                                                                                                                         * in the base namespace, but it will expand all `export * from '...'` exports
+                                                                                                                                                                                         * if not found in the explicit namespace.
+                                                                                                                                                                                         * @param  {string}  name
+                   ...)
+_tmp_53.value = function () {function get(name) {if (this.namespace.has(name)) {return this.namespace.get(name);}if (this.reexports.has(name)) {var reexports = this.reexports.get(name);var imported = reexports.getImport(); // if import is ignored, return explicit 'null'
+          if (imported == null) {return null;} // safeguard against cycles, only if name matches
+          if (imported.path === this.path && reexports.local === name) {return undefined;}return imported.get(reexports.local);} // default exports must be explicitly re-exported (#328)
+        if (name !== 'default') {var _iteratorNormalCompletion3 = true;var _didIteratorError3 = false;var _iteratorError3 = undefined;try {for (var _iterator3 = this.dependencies[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {var dep = _step3.value;var innerMap = dep(); // todo: report as unresolved?
+              if (!innerMap) {continue;} // safeguard against cycles
+    ...
+var imports = oldImportPaths.get(value)
+imported.path === this.path && reexports.local === name
+var _exports2 = exportList.get(value)
+_tmp_31.push({ key: 'forEach', value: function () {function forEach(callback, thisArg) {var _this = this;this.namespace.forEach(function (v, n) {callback.call(thisArg, v, n, _this);});this.reexports.forEach(function (reexports, name) {var reexported = reexports.getImport(); // can't look up meta for ignored re-exports (#348)
+          callback.call(thisArg, reexported && reexported.get(reexports.local), name, _this);});this.dependencies.forEach(function (dep) {var d = dep(); // CJS / ignored dependencies won't exist (#717)
+          if (d == null) {return;}d.forEach(function (v, n) {if (n !== 'default') {callback.call(thisArg, v, n, _this);}});});}return forEach;}() // todo: keys, values, entries?
+  })
+this.dependencies.forEach(function (dep) {var d = dep(); // CJS / ignored dependencies won't exist (#717)
+          if (d == null) {return;}d.forEach(function (v, n) {if (n !== 'default') {callback.call(thisArg, v, n, _this);}});})
+var imports = oldImportPaths.get(value)
+typeof imports === 'undefined'
+doc = _doctrine2['default'].parse(comment.value, { unwrap: true })
+oldImportPaths.set(value, imports)
+var _exports3 = exportList.get(value)
+var stats = _fs2['default'].statSync(path)
+currentExport = _exports3.get(IMPORT_DEFAULT_SPECIFIER)
+ast.body.forEach(function (n) {if (n.type === 'ExportDefaultDeclaration') {var exportMeta = captureDoc(source, docStyleParsers, n);if (n.declaration.type === 'Identifier') {addNamespace(exportMeta, n.declaration);}m.namespace.set('default', exportMeta);return;}if (n.type === 'ExportAllDeclaration') {var getter = captureDependency(n, n.exportKind === 'type');if (getter) {m.dependencies.add(getter);}if (n.exported) {processSpecifier(n, n.exported, m);}return;} // capture namespaces in case of later export
+    if (n.type === 'ImportDeclaration') {captureDependencyWithSpecifiers(n);var ns = n.specifiers.find(function (s) {return s.type === 'ImportNamespaceSpecifier';});if (ns) {namespaces.set(ns.local.name, n.source.value);}return;}if (n.type === 'ExportNamedDeclaration') {captureDependencyWithSpecifiers(n); // capture declaration
+      if (n.declaration != null) {switch (n.declaration.type) {case 'FunctionDeclaration':case 'ClassDeclaration':case 'TypeAlias': // flowtype with babel-esl...
+var ns = n.specifiers.find(function (s) {return s.type === 'ImportNamespaceSpecifier';})
+n.declaration.declarations.forEach(function (d) {recursivePatternCapture(d.id, function (id) {return m.namespace.set(id.name, captureDoc(source, docStyleParsers, d, n));});})
+var exportedDecls = ast.body.filter(function (_ref2) {var type = _ref2.type,id = _ref2.id,declarations = _ref2.declarations;return (0, _arrayIncludes2['default'])(declTypes, type) && (id && id.name === exportedName || declarations && declarations.find(function (d) {return d.id.name === exportedName;}));})
+isEsModuleInteropTrue // esModuleInterop is on in tsconfig
+      && !m.namespace.has('default')
+var imports = oldImportPaths.get(value)
+typeof imports === 'undefined'
+imports.add(IMPORT_NAMESPACE_SPECIFIER)
+function thunkFor = function thunkFor(p, context) {return function () {return ExportMap['for'](childContext(p, context));};}
+var _exports5 = exportList.get(value)
+typeof _exports5 !== 'undefined'
+currentExport = _exports5.get(IMPORT_NAMESPACE_SPECIFIER)
+var imports = oldImportPaths.get(value)
+imports['delete'](IMPORT_NAMESPACE_SPECIFIER)
+var _exports6 = exportList.get(value)
+typeof _exports6 !== 'undefined'
+var currentExport = _exports6.get(IMPORT_NAMESPACE_SPECIFIER)
+var imports = oldImportPaths.get(value)
+typeof imports === 'undefined'
+imports.add(key)
+oldImportPaths.set(value, imports)
+var _exports7 = exportList.get(value)
+typeof _exports7 !== 'undefined'
+currentExport = _exports7.get(key)
+var imports = oldImportPaths.get(value)
+imports['delete'](key)
+var _exports8 = exportList.get(value)
+typeof _exports8 !== 'undefined'
+var currentExport = _exports8.get(key)

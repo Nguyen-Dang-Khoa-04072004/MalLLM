@@ -1,0 +1,8 @@
+const setup = async () => {
+    const target = uniqueFilename(path.join(cache, 'tmp'), opts.tmpPrefix)
+    await mkdir(path.dirname(target), { recursive: true })
+    return {
+      target,
+      moved: false,
+    }
+  }

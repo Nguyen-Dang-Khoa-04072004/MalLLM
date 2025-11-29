@@ -1,0 +1,1 @@
+let named = sharedData.get('named')

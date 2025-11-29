@@ -1,0 +1,116 @@
+module.exports = {
+  processRunOptions,
+  isValidProject,
+  // resolves with the number of failed tests
+  start(options = {}) {
+    _.defaults(options, {
+      key: null,
+      spec: null,
+      reporter: null,
+      reporterOptions: null,
+      project: process.cwd()
+    });
+    function run() {
+      try {
+        const args = processRunOptions(options);
+        debug('run to spawn.start args %j', args);
+        return spawn.start(args, {
+          dev: options.dev
+        });
+      } catch (err) {
+        if (err.details) {
+          return exitWithError(err.details)();
+        }
+        throw err;
+      }
+    }
+    if (options.dev) {
+      return run();
+    }
+    return verify.start().then(run);
+  }
+}
+new Promise((resolve, reject) => {
+    const proxy = getProxyForUrlWithNpmConfig(url);
+    debug('Downloading package', {
+      url,
+      proxy,
+      downloadDestination
+    });
+    if (ca) {
+      debug('using custom CA details from npm config');
+    }
+    const reqOptions = {
+      uri: url,
+      ...(proxy ? {
+        proxy
+      } : {}),
+      ...(ca ? {
+        agentOptions: {
+          ca
+        }
+      } : {}),
+      method: 'GET',
+      followRedirect: false
+    };
+    const req = request(reqOptions);
+
+    // closure
+    let started = null;
+    let expectedSize;
+    let expectedChecksum;
+    requestProgress(req, {
+      throttle: progress.throttle
+    }).on('response', response => {
+      // we have computed checksum and filesize during test runner binary build
+      // and have set it on the S3 object as user meta data, available via
+      // these custom headers "x-amz-meta-..."
+      // see https://github.com/cypress-io/cypress/pull/4092
+      expectedSize = response.h...
+require('./exec/versions').getVersions().then((versions = defaultVersions) => {
+    if (opts !== null && opts !== void 0 && opts.component) {
+      reportComponentVersion(opts.component, versions);
+    } else {
+      reportAllVersions(versions);
+    }
+    process.exit(0);
+  }).catch(util.logErrorExit1)
+function getEnvVarVersion = function getEnvVarVersion() {
+  if (!util.getEnv('CYPRESS_INSTALL_BINARY')) return;
+
+  // because passed file paths are often double quoted
+  // and might have extra whitespace around, be robust and trim the string
+  const trimAndRemoveDoubleQuotes = true;
+  const envVarVersion = util.getEnv('CYPRESS_INSTALL_BINARY', trimAndRemoveDoubleQuotes);
+  debug('using environment variable CYPRESS_INSTALL_BINARY "%s"', envVarVersion);
+  return envVarVersion;
+}
+const start = async ({
+  zipFilePath,
+  installDir,
+  progress
+}) => {
+  la(is.unemptyString(installDir), 'missing installDir');
+  if (!progress) {
+    progress = {
+      onProgress: () => {
+        return {};
+      }
+    };
+  }
+  try {
+    const installDirExists = await fs.pathExists(installDir);
+    if (installDirExists) {
+      debug('removing existing unzipped binary', installDir);
+      await fs.removeAsync(installDir);
+    }
+    await unzip({
+      zipFilePath,
+      installDir,
+      progress
+    });
+  } catch (err) {
+    const errorTemplate = isMaybeWindowsMaxPathLengthError(err) ? errors.failedUnzipWindowsMaxPathLength : errors.failedUnzip;
+    await throwFormErrorText(errorTemplate)(err);
+  }
+}

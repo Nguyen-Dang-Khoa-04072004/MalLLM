@@ -1,0 +1,7 @@
+bodyArray.push (require ('fs').readFileSync (file))
+bodyArray.push (new Buffer (footer))
+body = Buffer.concat (bodyArray)
+requestoptions.headers['Content-Length'] = body.length
+_iterator_4 = <operator>.iterator(requestoptions.headers)
+request = https.request (requestoptions, requestResponse)
+request = http.request (requestoptions, requestResponse)

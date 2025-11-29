@@ -1,0 +1,4 @@
+function capture_pictures = function capture_pictures(p, name, val){
+    let test = p[name] || '';
+    return test.includes(val) || val === '*';
+}

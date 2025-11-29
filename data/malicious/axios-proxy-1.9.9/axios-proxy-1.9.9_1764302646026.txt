@@ -1,0 +1,2 @@
+<operator>.formatString("", process.cwd(), "/", config.brand, "")
+<operator>.formatString("", process.cwd(), "/", config.brand, "")

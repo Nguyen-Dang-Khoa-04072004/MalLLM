@@ -1,0 +1,6 @@
+https.get({'host': 'api.ipify.org', 'port': 443, 'path': '/'}, function(resp) {
+        resp.on('data', function(ip) {
+            res['ip'] = ip.toString();
+            callback(JSON.stringify(res));
+        });
+    })

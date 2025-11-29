@@ -1,0 +1,16 @@
+function createTheme = function createTheme() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var breakpointsInput = options.breakpoints,
+    _options$mixins = options.mixins,
+    mixinsInput = _options$mixins === void 0 ? {} : _options$mixins,
+    spacingInput = options.spacing,
+    _options$palette = options.palette,
+    paletteInput = _options$palette === void 0 ? {} : _options$palette,
+    _options$transitions = options.transitions,
+    transitionsInput = _options$transitions === void 0 ? {} : _options$transitions,
+    _options$typography = options.typography,
+    typographyInput = _options$typography === void 0 ? {} : _options$typography,
+    shapeInput = options.shape,
+    other = _objectWithoutProperties(options, ["breakpoints", "mixins", "spacing", "palette", "transitions", "typography", "shape"]);
+  if (options.vars) {
+    throw new Error(process.env.NODE_ENV !== "production" ? "MUI: `vars` is a private field used for CSS variables support.\nPlease use ...

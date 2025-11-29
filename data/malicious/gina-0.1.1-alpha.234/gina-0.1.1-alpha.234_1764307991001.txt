@@ -1,0 +1,1 @@
+typeof(portsReverse[bundle + '@' + cmd.projectName][env][protocol][scheme]) == 'undefined'

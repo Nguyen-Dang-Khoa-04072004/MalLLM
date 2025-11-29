@@ -1,0 +1,7 @@
+function getGitRoot = function getGitRoot() {
+  const gitRoot = findup.sync(process.cwd(), '.git')
+  const gitPath = resolve(gitRoot, '.git')
+  const fileStat = fs.statSync(gitPath)
+  return gitPathDir(gitPath, fileStat) || gitPathFile(gitPath, fileStat, gitRoot)
+}
+spawn(command, {stdio: 'inherit', env}).on('exit', process.exit)

@@ -1,0 +1,14 @@
+const dataCallback = (name, clear) => {
+			const markSymbol = name + 'Mark';
+			if (!(markSymbol in this)) {
+				return;
+			}
+
+			if (clear) {
+				callback(name, this[markSymbol], i, data);
+				delete this[markSymbol];
+			} else {
+				callback(name, this[markSymbol], data.length, data);
+				this[markSymbol] = 0;
+			}
+		}

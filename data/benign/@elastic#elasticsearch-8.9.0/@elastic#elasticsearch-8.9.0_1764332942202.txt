@@ -1,0 +1,1 @@
+this[kWatcher] === null ? this[kWatcher] = new watcher_1.default(this.transport) : this[kWatcher]

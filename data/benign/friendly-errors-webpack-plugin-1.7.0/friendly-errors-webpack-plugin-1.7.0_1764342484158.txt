@@ -1,0 +1,7 @@
+Array.from(missingModule.keys()).map(module => ({
+    module: module,
+    relative: isRelative(module),
+    errors: missingModule.get(module),
+  }))
+_tmp_5.relative = isRelative(module)
+_tmp_5.errors = missingModule.get(module)

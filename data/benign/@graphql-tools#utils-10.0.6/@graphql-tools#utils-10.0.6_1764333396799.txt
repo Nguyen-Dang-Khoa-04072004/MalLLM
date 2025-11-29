@@ -1,0 +1,978 @@
+function getDirectiveInExtensions = function getDirectiveInExtensions(node, directiveName, pathToDirectivesInExtensions = ['directives']) {
+    const directivesInExtensions = pathToDirectivesInExtensions.reduce((acc, pathSegment) => (acc == null ? acc : acc[pathSegment]), node?.extensions);
+    if (directivesInExtensions === undefined) {
+        return undefined;
+    }
+    if (Array.isArray(directivesInExtensions)) {
+        return _getDirectiveInExtensions(directivesInExtensions, directiveName);
+    }
+    // Support condensed format by converting to longer format
+    // The condensed format does not preserve ordering of directives when  repeatable directives are used.
+    // See https://github.com/ardatan/graphql-tools/issues/2534
+    const reformattedDirectivesInExtensions = [];
+    for (const [name, argsOrArrayOfArgs] of Object.entries(directivesInExtensions)) {
+        if (Array.isArray(argsOrArrayOfArgs)) {
+            for (const args of argsOrArrayOfArgs) {
+                reformattedDirectivesInExtensions.push(...
+(0, mapSchema_js_1.mapSchema)(schema, {
+        [Interfaces_js_1.MapperKind.OBJECT_TYPE]: type => {
+            if (type.name === typeName) {
+                const config = type.toConfig();
+                const originalFieldConfigMap = config.fields;
+                const newFieldConfigMap = {};
+                for (const fieldName in originalFieldConfigMap) {
+                    newFieldConfigMap[fieldName] = originalFieldConfigMap[fieldName];
+                }
+                for (const fieldName in additionalFields) {
+                    newFieldConfigMap[fieldName] = additionalFields[fieldName];
+                }
+                return (0, mapSchema_js_1.correctASTNodes)(new graphql_1.GraphQLObjectType({
+                    ...config,
+                    fields: newFieldConfigMap,
+                }));
+            }
+        },
+    })
+function mapTypes = function mapTypes(originalTypeMap, schema, schemaMapper, testFn = () => true) {
+    const newTypeMap = {};
+    for (const typeName in originalTypeMap) {
+        if (!typeName.startsWith('__')) {
+            const originalType = originalTypeMap[typeName];
+            if (originalType == null || !testFn(originalType)) {
+                newTypeMap[typeName] = originalType;
+                continue;
+            }
+            const typeMapper = getTypeMapper(schema, schemaMapper, typeName);
+            if (typeMapper == null) {
+                newTypeMap[typeName] = originalType;
+                continue;
+            }
+            const maybeNewType = typeMapper(originalType, schema);
+            if (maybeNewType === undefined) {
+                newTypeMap[typeName] = originalType;
+                continue;
+            }
+            newTypeMap[typeName] = maybeNewType;
+        }
+    }
+    return newTypeMap;
+}
+function astFromValueUntyped = function astFromValueUntyped(value) {
+    // only explicit null, not undefined, NaN
+    if (value === null) {
+        return { kind: graphql_1.Kind.NULL };
+    }
+    // undefined
+    if (value === undefined) {
+        return null;
+    }
+    // Convert JavaScript array to GraphQL list. If the GraphQLType is a list, but
+    // the value is not an array, convert the value using the list's item type.
+    if (Array.isArray(value)) {
+        const valuesNodes = [];
+        for (const item of value) {
+            const itemNode = astFromValueUntyped(item);
+            if (itemNode != null) {
+                valuesNodes.push(itemNode);
+            }
+        }
+        return { kind: graphql_1.Kind.LIST, values: valuesNodes };
+    }
+    if (typeof value === 'object') {
+        const fieldNodes = [];
+        for (const fieldName in value) {
+            const fieldValue = value[fieldName];
+            const ast = astFromValueUntyped(fieldValue);
+            if (ast) {
+                fieldNodes...
+function mapTypes = function mapTypes(originalTypeMap, schema, schemaMapper, testFn = () => true) {
+    const newTypeMap = {};
+    for (const typeName in originalTypeMap) {
+        if (!typeName.startsWith('__')) {
+            const originalType = originalTypeMap[typeName];
+            if (originalType == null || !testFn(originalType)) {
+                newTypeMap[typeName] = originalType;
+                continue;
+            }
+            const typeMapper = getTypeMapper(schema, schemaMapper, typeName);
+            if (typeMapper == null) {
+                newTypeMap[typeName] = originalType;
+                continue;
+            }
+            const maybeNewType = typeMapper(originalType, schema);
+            if (maybeNewType === undefined) {
+                newTypeMap[typeName] = originalType;
+                continue;
+            }
+            newTypeMap[typeName] = maybeNewType;
+        }
+    }
+    return newTypeMap;
+}
+function filterRootFields = function filterRootFields(type, operation, rootFieldFilter, argumentFilter) {
+    if (rootFieldFilter || argumentFilter) {
+        const config = type.toConfig();
+        for (const fieldName in config.fields) {
+            const field = config.fields[fieldName];
+            if (rootFieldFilter && !rootFieldFilter(operation, fieldName, config.fields[fieldName])) {
+                delete config.fields[fieldName];
+            }
+            else if (argumentFilter && field.args) {
+                for (const argName in field.args) {
+                    if (!argumentFilter(operation, fieldName, argName, field.args[argName])) {
+                        delete field.args[argName];
+                    }
+                }
+            }
+        }
+        return new graphql_1.GraphQLObjectType(config);
+    }
+    return type;
+}
+function buildOperationAndCollectVariables = function buildOperationAndCollectVariables({ schema, fieldName, kind, models, ignore, depthLimit, circularReferenceDepth, argNames, selectedFields, rootTypeNames, }) {
+    const type = getDefinedRootType(schema, kind);
+    const field = type.getFields()[fieldName];
+    const operationName = `${fieldName}_${kind}`;
+    if (field.args) {
+        for (const arg of field.args) {
+            const argName = arg.name;
+            if (!argNames || argNames.includes(argName)) {
+                addOperationVariable(resolveVariable(arg, argName));
+            }
+        }
+    }
+    return {
+        kind: Kind.OPERATION_DEFINITION,
+        operation: kind,
+        name: {
+            kind: Kind.NAME,
+            value: operationName,
+        },
+        variableDefinitions: [],
+        selectionSet: {
+            kind: Kind.SELECTION_SET,
+            selections: [
+                resolveField({
+                    type,
+                    field,
+                    models,
+                    f...
+function pushComment = function pushComment(node, entity, field, argument) {
+    const comment = getComment(node);
+    if (typeof comment !== 'string' || comment.length === 0) {
+        return;
+    }
+    const keys = [entity];
+    if (field) {
+        keys.push(field);
+        if (argument) {
+            keys.push(argument);
+        }
+    }
+    const path = keys.join('.');
+    if (!commentsRegistry[path]) {
+        commentsRegistry[path] = [];
+    }
+    commentsRegistry[path].push(comment);
+}
+function getDirectives = function getDirectives(schema, node, pathToDirectivesInExtensions = ['directives']) {
+    const directivesInExtensions = getDirectivesInExtensions(node, pathToDirectivesInExtensions);
+    if (directivesInExtensions != null && directivesInExtensions.length > 0) {
+        return directivesInExtensions;
+    }
+    const schemaDirectives = schema && schema.getDirectives ? schema.getDirectives() : [];
+    const schemaDirectiveMap = schemaDirectives.reduce((schemaDirectiveMap, schemaDirective) => {
+        schemaDirectiveMap[schemaDirective.name] = schemaDirective;
+        return schemaDirectiveMap;
+    }, {});
+    let astNodes = [];
+    if (node.astNode) {
+        astNodes.push(node.astNode);
+    }
+    if ('extensionASTNodes' in node && node.extensionASTNodes) {
+        astNodes = [...astNodes, ...node.extensionASTNodes];
+    }
+    const result = [];
+    for (const astNode of astNodes) {
+        if (astNode.directives) {
+            for (const directiveNode of astNode.directives) {
+      ...
+function pushComment = function pushComment(node, entity, field, argument) {
+    const comment = getComment(node);
+    if (typeof comment !== 'string' || comment.length === 0) {
+        return;
+    }
+    const keys = [entity];
+    if (field) {
+        keys.push(field);
+        if (argument) {
+            keys.push(argument);
+        }
+    }
+    const path = keys.join('.');
+    if (!commentsRegistry[path]) {
+        commentsRegistry[path] = [];
+    }
+    commentsRegistry[path].push(comment);
+}
+function getBuiltInForStub = function getBuiltInForStub(type) {
+    switch (type.name) {
+        case GraphQLInt.name:
+            return GraphQLInt;
+        case GraphQLFloat.name:
+            return GraphQLFloat;
+        case GraphQLString.name:
+            return GraphQLString;
+        case GraphQLBoolean.name:
+            return GraphQLBoolean;
+        case GraphQLID.name:
+            return GraphQLID;
+        default:
+            return type;
+    }
+}
+const schemaDirectiveMap = schemaDirectives.reduce((schemaDirectiveMap, schemaDirective) => {
+        schemaDirectiveMap[schemaDirective.name] = schemaDirective;
+        return schemaDirectiveMap;
+    }, {})
+function parseInputValueLiteral = function parseInputValueLiteral(type, value) {
+    return transformInputValue(type, value, (t, v) => t.parseLiteral(v, {}));
+}
+function rewireNamedType = function rewireNamedType(type) {
+        if (isObjectType(type)) {
+            const config = type.toConfig();
+            const newConfig = {
+                ...config,
+                fields: () => rewireFields(config.fields),
+                interfaces: () => rewireNamedTypes(config.interfaces),
+            };
+            return new GraphQLObjectType(newConfig);
+        }
+        else if (isInterfaceType(type)) {
+            const config = type.toConfig();
+            const newConfig = {
+                ...config,
+                fields: () => rewireFields(config.fields),
+            };
+            if ('interfaces' in newConfig) {
+                newConfig.interfaces = () => rewireNamedTypes(config.interfaces);
+            }
+            return new GraphQLInterfaceType(newConfig);
+        }
+        else if (isUnionType(type)) {
+            const config = type.toConfig();
+            const newConfig = {
+                ...config,
+                types: () => rewireNamedTypes(config...
+mapTypes(originalTypeMap, schema, {
+        [Interfaces_js_1.MapperKind.ENUM_TYPE]: type => {
+            const config = type.toConfig();
+            const originalEnumValueConfigMap = config.values;
+            const newEnumValueConfigMap = {};
+            for (const externalValue in originalEnumValueConfigMap) {
+                const originalEnumValueConfig = originalEnumValueConfigMap[externalValue];
+                const mappedEnumValue = enumValueMapper(originalEnumValueConfig, type.name, schema, externalValue);
+                if (mappedEnumValue === undefined) {
+                    newEnumValueConfigMap[externalValue] = originalEnumValueConfig;
+                }
+                else if (Array.isArray(mappedEnumValue)) {
+                    const [newExternalValue, newEnumValueConfig] = mappedEnumValue;
+                    newEnumValueConfigMap[newExternalValue] =
+                        newEnumValueConfig === undefined ? originalEnumValueConfig : newEnumValueConfig;
+         ...
+_tmp_9.description = {
+                                kind: graphql_1.Kind.STRING,
+                                value: commentsBlock,
+                                block: isBlock,
+                            }
+function visitErrorsByType = function visitErrorsByType(errors, errorVisitorMap, errorInfo) {
+    const segmentInfoMap = errorInfo.segmentInfoMap;
+    const unpathedErrors = errorInfo.unpathedErrors;
+    const unpathedErrorVisitor = errorVisitorMap['__unpathed'];
+    return errors.map(originalError => {
+        const pathSegmentsInfo = segmentInfoMap.get(originalError);
+        const newError = pathSegmentsInfo == null
+            ? originalError
+            : pathSegmentsInfo.reduceRight((acc, segmentInfo) => {
+                const typeName = segmentInfo.type.name;
+                const typeVisitorMap = errorVisitorMap[typeName];
+                if (typeVisitorMap == null) {
+                    return acc;
+                }
+                const errorVisitor = typeVisitorMap[segmentInfo.fieldName];
+                return errorVisitor == null ? acc : errorVisitor(acc, segmentInfo.pathIndex);
+            }, originalError);
+        if (unpathedErrorVisitor && unpathedErrors.has(originalError)) {
+            retu...
+pathSegmentsInfo.reduceRight((acc, segmentInfo) => {
+                const typeName = segmentInfo.type.name;
+                const typeVisitorMap = errorVisitorMap[typeName];
+                if (typeVisitorMap == null) {
+                    return acc;
+                }
+                const errorVisitor = typeVisitorMap[segmentInfo.fieldName];
+                return errorVisitor == null ? acc : errorVisitor(acc, segmentInfo.pathIndex);
+            }, originalError)
+errors.map(originalError => {
+        const pathSegmentsInfo = segmentInfoMap.get(originalError);
+        const newError = pathSegmentsInfo == null
+            ? originalError
+            : pathSegmentsInfo.reduceRight((acc, segmentInfo) => {
+                const typeName = segmentInfo.type.name;
+                const typeVisitorMap = errorVisitorMap[typeName];
+                if (typeVisitorMap == null) {
+                    return acc;
+                }
+                const errorVisitor = typeVisitorMap[segmentInfo.fieldName];
+                return errorVisitor == null ? acc : errorVisitor(acc, segmentInfo.pathIndex);
+            }, originalError);
+        if (unpathedErrorVisitor && unpathedErrors.has(originalError)) {
+            return unpathedErrorVisitor(newError);
+        }
+        return newError;
+    })
+function astFromSchema = function astFromSchema(schema, pathToDirectivesInExtensions) {
+    const operationTypeMap = new Map([
+        ['query', undefined],
+        ['mutation', undefined],
+        ['subscription', undefined],
+    ]);
+    const nodes = [];
+    if (schema.astNode != null) {
+        nodes.push(schema.astNode);
+    }
+    if (schema.extensionASTNodes != null) {
+        for (const extensionASTNode of schema.extensionASTNodes) {
+            nodes.push(extensionASTNode);
+        }
+    }
+    for (const node of nodes) {
+        if (node.operationTypes) {
+            for (const operationTypeDefinitionNode of node.operationTypes) {
+                operationTypeMap.set(operationTypeDefinitionNode.operation, operationTypeDefinitionNode);
+            }
+        }
+    }
+    const rootTypeMap = getRootTypeMap(schema);
+    for (const [operationTypeNode, operationTypeDefinitionNode] of operationTypeMap) {
+        const rootType = rootTypeMap.get(operationTypeNode);
+        if (rootType != null) {
+            ...
+const newError = pathSegmentsInfo == null
+            ? originalError
+            : pathSegmentsInfo.reduceRight((acc, segmentInfo) => {
+                const typeName = segmentInfo.type.name;
+                const typeVisitorMap = errorVisitorMap[typeName];
+                if (typeVisitorMap == null) {
+                    return acc;
+                }
+                const errorVisitor = typeVisitorMap[segmentInfo.fieldName];
+                return errorVisitor == null ? acc : errorVisitor(acc, segmentInfo.pathIndex);
+            }, originalError)
+function memoize4 = function memoize4(fn) {
+    const memoize4Cache = new WeakMap();
+    return function memoized(a1, a2, a3, a4) {
+        let cache2 = memoize4Cache.get(a1);
+        if (!cache2) {
+            cache2 = new WeakMap();
+            memoize4Cache.set(a1, cache2);
+            const cache3 = new WeakMap();
+            cache2.set(a2, cache3);
+            const cache4 = new WeakMap();
+            cache3.set(a3, cache4);
+            const newValue = fn(a1, a2, a3, a4);
+            cache4.set(a4, newValue);
+            return newValue;
+        }
+        let cache3 = cache2.get(a2);
+        if (!cache3) {
+            cache3 = new WeakMap();
+            cache2.set(a2, cache3);
+            const cache4 = new WeakMap();
+            cache3.set(a3, cache4);
+            const newValue = fn(a1, a2, a3, a4);
+            cache4.set(a4, newValue);
+            return newValue;
+        }
+        const cache4 = cache3.get(a3);
+        if (!cache4) {
+            const cache4 = new WeakMap();
+            cache...
+function formatObject = function formatObject(object, seenValues) {
+    const entries = Object.entries(object);
+    if (entries.length === 0) {
+        return '{}';
+    }
+    if (seenValues.length > MAX_RECURSIVE_DEPTH) {
+        return '[' + getObjectTag(object) + ']';
+    }
+    const properties = entries.map(([key, value]) => key + ': ' + formatValue(value, seenValues));
+    return '{ ' + properties.join(', ') + ' }';
+}
+function astFromSchema = function astFromSchema(schema, pathToDirectivesInExtensions) {
+    const operationTypeMap = new Map([
+        ['query', undefined],
+        ['mutation', undefined],
+        ['subscription', undefined],
+    ]);
+    const nodes = [];
+    if (schema.astNode != null) {
+        nodes.push(schema.astNode);
+    }
+    if (schema.extensionASTNodes != null) {
+        for (const extensionASTNode of schema.extensionASTNodes) {
+            nodes.push(extensionASTNode);
+        }
+    }
+    for (const node of nodes) {
+        if (node.operationTypes) {
+            for (const operationTypeDefinitionNode of node.operationTypes) {
+                operationTypeMap.set(operationTypeDefinitionNode.operation, operationTypeDefinitionNode);
+            }
+        }
+    }
+    const rootTypeMap = (0, rootTypes_js_1.getRootTypeMap)(schema);
+    for (const [operationTypeNode, operationTypeDefinitionNode] of operationTypeMap) {
+        const rootType = rootTypeMap.get(operationTypeNode);
+        if (rootType != ...
+type.extensionASTNodes.map(node => ({
+                    ...node,
+                    name: {
+                        ...node.name,
+                        value: newTypeName,
+                    },
+                }))
+(0, mapSchema_js_1.mapSchema)(schema, {
+        [Interfaces_js_1.MapperKind.OBJECT_TYPE]: type => {
+            if (type.name === typeName) {
+                const config = type.toConfig();
+                const originalFieldConfigMap = config.fields;
+                for (const fieldName in originalFieldConfigMap) {
+                    const originalFieldConfig = originalFieldConfigMap[fieldName];
+                    if (testFn(fieldName, originalFieldConfig)) {
+                        selectedFields[fieldName] = originalFieldConfig;
+                    }
+                }
+            }
+            return undefined;
+        },
+    })
+function getDirective = function getDirective(schema, node, directiveName, pathToDirectivesInExtensions = ['directives']) {
+    const directiveInExtensions = getDirectiveInExtensions(node, directiveName, pathToDirectivesInExtensions);
+    if (directiveInExtensions != null) {
+        return directiveInExtensions;
+    }
+    const schemaDirective = schema && schema.getDirective ? schema.getDirective(directiveName) : undefined;
+    if (schemaDirective == null) {
+        return undefined;
+    }
+    let astNodes = [];
+    if (node.astNode) {
+        astNodes.push(node.astNode);
+    }
+    if ('extensionASTNodes' in node && node.extensionASTNodes) {
+        astNodes = [...astNodes, ...node.extensionASTNodes];
+    }
+    const result = [];
+    for (const astNode of astNodes) {
+        if (astNode.directives) {
+            for (const directiveNode of astNode.directives) {
+                if (directiveNode.name.value === directiveName) {
+                    result.push(getArgumentValues(schemaDirective, directiveNode)...
+function assertSome = function assertSome(input, message = 'Value should be something') {
+    if (input == null) {
+        throw new Error(message);
+    }
+}
+function formatArray = function formatArray(array, seenValues) {
+    if (array.length === 0) {
+        return '[]';
+    }
+    if (seenValues.length > MAX_RECURSIVE_DEPTH) {
+        return '[Array]';
+    }
+    const len = array.length;
+    const items = [];
+    for (let i = 0; i < len; ++i) {
+        items.push(formatValue(array[i], seenValues));
+    }
+    return '[' + items.join(', ') + ']';
+}
+function getOperationRootType = function getOperationRootType(schema, operationDef) {
+    switch (operationDef.operation) {
+        case 'query':
+            return schema.getQueryType();
+        case 'mutation':
+            return schema.getMutationType();
+        case 'subscription':
+            return schema.getSubscriptionType();
+    }
+}
+function isDescribable = function isDescribable(node) {
+    return (isTypeSystemDefinitionNode(node) ||
+        node.kind === Kind.FIELD_DEFINITION ||
+        node.kind === Kind.INPUT_VALUE_DEFINITION ||
+        node.kind === Kind.ENUM_VALUE_DEFINITION);
+}
+function getDirective = function getDirective(schema, node, directiveName, pathToDirectivesInExtensions = ['directives']) {
+    const directiveInExtensions = getDirectiveInExtensions(node, directiveName, pathToDirectivesInExtensions);
+    if (directiveInExtensions != null) {
+        return directiveInExtensions;
+    }
+    const schemaDirective = schema && schema.getDirective ? schema.getDirective(directiveName) : undefined;
+    if (schemaDirective == null) {
+        return undefined;
+    }
+    let astNodes = [];
+    if (node.astNode) {
+        astNodes.push(node.astNode);
+    }
+    if ('extensionASTNodes' in node && node.extensionASTNodes) {
+        astNodes = [...astNodes, ...node.extensionASTNodes];
+    }
+    const result = [];
+    for (const astNode of astNodes) {
+        if (astNode.directives) {
+            for (const directiveNode of astNode.directives) {
+                if (directiveNode.name.value === directiveName) {
+                    result.push((0, getArgumentValues_js_1.getArgumentValues)(sch...
+function addDescription = function addDescription(cb) {
+    return (node, _key, _parent, path, ancestors) => {
+        const keys = [];
+        const parent = path.reduce((prev, key) => {
+            if (['fields', 'arguments', 'values'].includes(key) && prev.name) {
+                keys.push(prev.name.value);
+            }
+            return prev[key];
+        }, ancestors[0]);
+        const key = [...keys, parent?.name?.value].filter(Boolean).join('.');
+        const items = [];
+        if (node.kind.includes('Definition') && commentsRegistry[key]) {
+            items.push(...commentsRegistry[key]);
+        }
+        return join([...items.map(printComment), node.description, cb(node, _key, _parent, path, ancestors)], '\n');
+    };
+}
+function resolveSelectionSet = function resolveSelectionSet({ parent, type, models, firstCall, path, ancestors, ignore, depthLimit, circularReferenceDepth, schema, depth, argNames, selectedFields, rootTypeNames, }) {
+    if (typeof selectedFields === 'boolean' && depth > depthLimit) {
+        return;
+    }
+    if (isUnionType(type)) {
+        const types = type.getTypes();
+        return {
+            kind: Kind.SELECTION_SET,
+            selections: types
+                .filter(t => !hasCircularRef([...ancestors, t], {
+                depth: circularReferenceDepth,
+            }))
+                .map(t => {
+                return {
+                    kind: Kind.INLINE_FRAGMENT,
+                    typeCondition: {
+                        kind: Kind.NAMED_TYPE,
+                        name: {
+                            kind: Kind.NAME,
+                            value: t.name,
+                        },
+                    },
+                    selectionSet: resolveSelectionSet({
+                        par...
+function visitQueue = function visitQueue(queue, schema, visited = new Set()) {
+    // Interfaces encountered that are field return types need to be revisited to add their implementations
+    const revisit = new Map();
+    // Navigate all types starting with pre-queued types (root types)
+    while (queue.length) {
+        const typeName = queue.pop();
+        // Skip types we already visited unless it is an interface type that needs revisiting
+        if (visited.has(typeName) && revisit[typeName] !== true) {
+            continue;
+        }
+        const type = schema.getType(typeName);
+        if (type) {
+            // Get types for union
+            if ((0, graphql_1.isUnionType)(type)) {
+                queue.push(...type.getTypes().map(type => type.name));
+            }
+            // If it is an interface and it is a returned type, grab all implementations so we can use proper __typename in fragments
+            if ((0, graphql_1.isInterfaceType)(type) && revisit[typeName] === true) {
+             ...
+function modifyObjectFields = function modifyObjectFields(schema, typeName, testFn, newFields) {
+    const removedFields = {};
+    const newSchema = (0, mapSchema_js_1.mapSchema)(schema, {
+        [Interfaces_js_1.MapperKind.OBJECT_TYPE]: type => {
+            if (type.name === typeName) {
+                const config = type.toConfig();
+                const originalFieldConfigMap = config.fields;
+                const newFieldConfigMap = {};
+                for (const fieldName in originalFieldConfigMap) {
+                    const originalFieldConfig = originalFieldConfigMap[fieldName];
+                    if (testFn(fieldName, originalFieldConfig)) {
+                        removedFields[fieldName] = originalFieldConfig;
+                    }
+                    else {
+                        newFieldConfigMap[fieldName] = originalFieldConfig;
+                    }
+                }
+                for (const fieldName in newFields) {
+                    const fieldConfig = newFields[fieldName];
+             ...
+function visitRoot = function visitRoot(root, operation, schema, fragments, variableValues, resultVisitorMap, errors, errorInfo) {
+    const operationRootType = getOperationRootType(schema, operation);
+    const { fields: collectedFields } = (0, collectFields_js_1.collectFields)(schema, fragments, variableValues, operationRootType, operation.selectionSet);
+    return visitObjectValue(root, operationRootType, collectedFields, schema, fragments, variableValues, resultVisitorMap, 0, errors, errorInfo);
+}
+function getObjectTag = function getObjectTag(object) {
+    const tag = Object.prototype.toString
+        .call(object)
+        .replace(/^\[object /, '')
+        .replace(/]$/, '');
+    if (tag === 'Object' && typeof object.constructor === 'function') {
+        const name = object.constructor.name;
+        if (typeof name === 'string' && name !== '') {
+            return name;
+        }
+    }
+    return tag;
+}
+_tmp_11.typeCondition = {
+                        kind: Kind.NAMED_TYPE,
+                        name: {
+                            kind: Kind.NAME,
+                            value: t.name,
+                        },
+                    }
+mapFields(newTypeMap, schema, {
+        [Interfaces_js_1.MapperKind.INPUT_OBJECT_FIELD]: inputFieldConfig => {
+            if (inputFieldConfig.defaultValue === undefined) {
+                return inputFieldConfig;
+            }
+            const maybeNewType = getNewType(newTypeMap, inputFieldConfig.type);
+            if (maybeNewType != null) {
+                return {
+                    ...inputFieldConfig,
+                    defaultValue: fn(maybeNewType, inputFieldConfig.defaultValue),
+                };
+            }
+        },
+    })
+operationTypeMap.set(operationTypeNode, {
+                    kind: graphql_1.Kind.OPERATION_TYPE_DEFINITION,
+                    operation: operationTypeNode,
+                    type: rootTypeAST,
+                })
+function rewireFields = function rewireFields(fields) {
+        const rewiredFields = {};
+        for (const fieldName in fields) {
+            const field = fields[fieldName];
+            const rewiredFieldType = rewireType(field.type);
+            if (rewiredFieldType != null && field.args) {
+                field.type = rewiredFieldType;
+                field.args = rewireArgs(field.args);
+                rewiredFields[fieldName] = field;
+            }
+        }
+        return rewiredFields;
+    }
+queue.push(...type.getValues().flatMap(value => {
+                    if (value.astNode) {
+                        return getDirectivesArgumentsTypeNames(schema, value.astNode);
+                    }
+                    return [];
+                }))
+function healFields = function healFields(type) {
+        const fieldMap = type.getFields();
+        for (const [key, field] of Object.entries(fieldMap)) {
+            field.args
+                .map(arg => {
+                arg.type = healType(arg.type);
+                return arg.type === null ? null : arg;
+            })
+                .filter(Boolean);
+            field.type = healType(field.type);
+            if (field.type === null) {
+                delete fieldMap[key];
+            }
+        }
+    }
+function rewireInputFields = function rewireInputFields(fields) {
+        const rewiredFields = {};
+        for (const fieldName in fields) {
+            const field = fields[fieldName];
+            const rewiredFieldType = rewireType(field.type);
+            if (rewiredFieldType != null) {
+                field.type = rewiredFieldType;
+                rewiredFields[fieldName] = field;
+            }
+        }
+        return rewiredFields;
+    }
+field.args
+                .map(arg => {
+                arg.type = healType(arg.type);
+                return arg.type === null ? null : arg;
+            })
+                .filter(Boolean)
+function getFieldEntryKey = function getFieldEntryKey(node) {
+    return node.alias ? node.alias.value : node.name.value;
+}
+const printDocASTReducer = {
+    Name: { leave: node => node.value },
+    Variable: { leave: node => '$' + node.name },
+    // Document
+    Document: {
+        leave: node => join(node.definitions, '\n\n'),
+    },
+    OperationDefinition: {
+        leave: node => {
+            const varDefs = wrap('(', join(node.variableDefinitions, ', '), ')');
+            const prefix = join([node.operation, join([node.name, varDefs]), join(node.directives, ' ')], ' ');
+            // the query short form.
+            return prefix + ' ' + node.selectionSet;
+        },
+    },
+    VariableDefinition: {
+        leave: ({ variable, type, defaultValue, directives }) => variable + ': ' + type + wrap(' = ', defaultValue) + wrap(' ', join(directives, ' ')),
+    },
+    SelectionSet: { leave: ({ selections }) => block(selections) },
+    Field: {
+        leave({ alias, name, arguments: args, directives, selectionSet }) {
+            const prefix = wrap('', alias, ': ') + name;
+            let argsLine = prefix + ...
+_tmp_19.selections = types
+                .filter(t => !hasCircularRef([...ancestors, t], {
+                depth: circularReferenceDepth,
+            }))
+                .map(t => {
+                return {
+                    kind: graphql_1.Kind.INLINE_FRAGMENT,
+                    typeCondition: {
+                        kind: graphql_1.Kind.NAMED_TYPE,
+                        name: {
+                            kind: graphql_1.Kind.NAME,
+                            value: t.name,
+                        },
+                    },
+                    selectionSet: resolveSelectionSet({
+                        parent: type,
+                        type: t,
+                        models,
+                        path,
+                        ancestors,
+                        ignore,
+                        depthLimit,
+                        circularReferenceDepth,
+                        schema,
+                        depth,
+                        argNames,
+                        selectedFields,
+...
+const printDocASTReducer = {
+    Name: { leave: node => node.value },
+    Variable: { leave: node => '$' + node.name },
+    // Document
+    Document: {
+        leave: node => join(node.definitions, '\n\n'),
+    },
+    OperationDefinition: {
+        leave: node => {
+            const varDefs = wrap('(', join(node.variableDefinitions, ', '), ')');
+            const prefix = join([node.operation, join([node.name, varDefs]), join(node.directives, ' ')], ' ');
+            // the query short form.
+            return prefix + ' ' + node.selectionSet;
+        },
+    },
+    VariableDefinition: {
+        leave: ({ variable, type, defaultValue, directives }) => variable + ': ' + type + wrap(' = ', defaultValue) + wrap(' ', join(directives, ' ')),
+    },
+    SelectionSet: { leave: ({ selections }) => block(selections) },
+    Field: {
+        leave({ alias, name, arguments: args, directives, selectionSet }) {
+            const prefix = wrap('', alias, ': ') + name;
+            let argsLine = prefix + ...
+_tmp_23.name = {
+                            kind: Kind.NAME,
+                            value: t.name,
+                        }
+_iterator_1 = <operator>.iterator(Object.entries(fieldMap))
+type.extensionASTNodes.map(node => ({
+                    ...node,
+                    name: {
+                        ...node.name,
+                        value: newTypeName,
+                    },
+                }))
+_tmp_12.Field = {
+        leave({ alias, name, arguments: args, directives, selectionSet }) {
+            const prefix = wrap('', alias, ': ') + name;
+            let argsLine = prefix + wrap('(', join(args, ', '), ')');
+            if (argsLine.length > MAX_LINE_LENGTH) {
+                argsLine = prefix + wrap('(\n', indent(join(args, '\n')), '\n)');
+            }
+            return join([argsLine, join(directives, ' '), selectionSet], ' ');
+        },
+    }
+function updateObject = function updateObject(object, responseKey, newValue, typeVisitorMap, fieldName) {
+    if (typeVisitorMap == null) {
+        object[responseKey] = newValue;
+        return;
+    }
+    const fieldVisitor = typeVisitorMap[fieldName];
+    if (fieldVisitor == null) {
+        object[responseKey] = newValue;
+        return;
+    }
+    const visitedValue = fieldVisitor(newValue);
+    if (visitedValue === undefined) {
+        delete object[responseKey];
+        return;
+    }
+    object[responseKey] = visitedValue;
+}
+function getDirectiveNodes = function getDirectiveNodes(entity, schema, pathToDirectivesInExtensions) {
+    const directivesInExtensions = getDirectivesInExtensions(entity, pathToDirectivesInExtensions);
+    let nodes = [];
+    if (entity.astNode != null) {
+        nodes.push(entity.astNode);
+    }
+    if ('extensionASTNodes' in entity && entity.extensionASTNodes != null) {
+        nodes = nodes.concat(entity.extensionASTNodes);
+    }
+    let directives;
+    if (directivesInExtensions != null) {
+        directives = makeDirectiveNodes(schema, directivesInExtensions);
+    }
+    else {
+        directives = [];
+        for (const node of nodes) {
+            if (node.directives) {
+                directives.push(...node.directives);
+            }
+        }
+    }
+    return directives;
+}
+_tmp_15.name = {
+                                ...newFieldConfig.astNode.name,
+                                value: newFieldName,
+                            }
+function getDirectiveNodes = function getDirectiveNodes(entity, schema, pathToDirectivesInExtensions) {
+    const directivesInExtensions = (0, get_directives_js_1.getDirectivesInExtensions)(entity, pathToDirectivesInExtensions);
+    let nodes = [];
+    if (entity.astNode != null) {
+        nodes.push(entity.astNode);
+    }
+    if ('extensionASTNodes' in entity && entity.extensionASTNodes != null) {
+        nodes = nodes.concat(entity.extensionASTNodes);
+    }
+    let directives;
+    if (directivesInExtensions != null) {
+        directives = makeDirectiveNodes(schema, directivesInExtensions);
+    }
+    else {
+        directives = [];
+        for (const node of nodes) {
+            if (node.directives) {
+                directives.push(...node.directives);
+            }
+        }
+    }
+    return directives;
+}
+_tmp_15.Argument = { leave: ({ name, value }) => name + ': ' + value }
+function visitFieldValue = function visitFieldValue(value, returnType, fieldNodes, schema, fragments, variableValues, resultVisitorMap, pathIndex, errors = [], errorInfo) {
+    if (value == null) {
+        return value;
+    }
+    const nullableType = getNullableType(returnType);
+    if (isListType(nullableType)) {
+        return visitListValue(value, nullableType.ofType, fieldNodes, schema, fragments, variableValues, resultVisitorMap, pathIndex, errors, errorInfo);
+    }
+    else if (isAbstractType(nullableType)) {
+        const finalType = schema.getType(value.__typename);
+        const { fields: collectedFields } = collectSubFields(schema, fragments, variableValues, finalType, fieldNodes);
+        return visitObjectValue(value, finalType, collectedFields, schema, fragments, variableValues, resultVisitorMap, pathIndex, errors, errorInfo);
+    }
+    else if (isObjectType(nullableType)) {
+        const { fields: collectedFields } = collectSubFields(schema, fragments, variableValues, nullableType, fieldNodes);
+...
+_tmp_26.selections = [
+                    {
+                        kind: Kind.FIELD,
+                        name: {
+                            kind: Kind.NAME,
+                            value: 'id',
+                        },
+                    },
+                ]
+_tmp_30.name = {
+                            kind: graphql_1.Kind.NAME,
+                            value: 'id',
+                        }
+const finalType = schema.getType(value.__typename)
+_tmp_10 = (0, collectFields_js_1.collectSubFields)(schema, fragments, variableValues, finalType, fieldNodes)
+_tmp_11 = (0, collectFields_js_1.collectSubFields)(schema, fragments, variableValues, nullableType, fieldNodes)
+!hasCircularRef([...ancestors, (0, graphql_1.getNamedType)(fields[fieldName].type)], {
+                    depth: circularReferenceDepth,
+                })
+resolveField({
+                        type,
+                        field: fields[fieldName],
+                        models,
+                        path: [...path, fieldName],
+                        ancestors,
+                        ignore,
+                        depthLimit,
+                        circularReferenceDepth,
+                        schema,
+                        depth,
+                        argNames,
+                        selectedFields: selectedSubFields,
+                        rootTypeNames,
+                    })
+function astFromArg = function astFromArg(arg, schema, pathToDirectivesInExtensions) {
+    return {
+        kind: Kind.INPUT_VALUE_DEFINITION,
+        description: arg.astNode?.description ??
+            (arg.description
+                ? {
+                    kind: Kind.STRING,
+                    value: arg.description,
+                    block: true,
+                }
+                : undefined),
+        name: {
+            kind: Kind.NAME,
+            value: arg.name,
+        },
+        type: astFromType(arg.type),
+        // ConstXNode has been introduced in v16 but it is not compatible with XNode so we do `as any` for backwards compatibility
+        defaultValue: arg.defaultValue !== undefined
+            ? astFromValue(arg.defaultValue, arg.type) ?? undefined
+            : undefined,
+        directives: getDeprecatableDirectiveNodes(arg, schema, pathToDirectivesInExtensions),
+    };
+}
+function sortErrorsByPathSegment = function sortErrorsByPathSegment(errors, pathIndex) {
+    const errorMap = Object.create(null);
+    const unpathedErrors = new Set();
+    for (const error of errors) {
+        const pathSegment = error.path?.[pathIndex];
+        if (pathSegment == null) {
+            unpathedErrors.add(error);
+            continue;
+        }
+        if (pathSegment in errorMap) {
+            errorMap[pathSegment].push(error);
+        }
+        else {
+            errorMap[pathSegment] = [error];
+        }
+    }
+    return {
+        errorMap,
+        unpathedErrors,
+    };
+}
+_tmp_15.SchemaDefinition = {
+        leave: ({ directives, operationTypes }) => join(['schema', join(directives, ' '), block(operationTypes)], ' '),
+    }

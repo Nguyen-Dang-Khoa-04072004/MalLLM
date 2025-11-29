@@ -1,0 +1,12 @@
+this.logger.debug(
+            {
+                tnx: 'pool',
+                cid: connection.id,
+                messageId: connection.queueEntry.messageId,
+                action: 'requeue'
+            },
+            'Re-queued message <%s> for #%s. Attempt: #%s',
+            connection.queueEntry.messageId,
+            connection.id,
+            connection.queueEntry.requeueAttempts
+        )

@@ -1,0 +1,6 @@
+const b = s.read(state.value)
+(b == null) || (b.length !== state.value)
+(_tmp_24 = c.valueBytes).write
+const b = s.read(state.value)
+(b == null) || (b.length !== state.value)
+(_tmp_32 = c.valueBytes).write

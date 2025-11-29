@@ -1,0 +1,144 @@
+moduleRef[collection].forEach(({ token }) => {
+            const stringifiedToken = this.stringifyToken(token);
+            if (stringifiedToken === application_config_1.ApplicationConfig.name ||
+                stringifiedToken === moduleRef.metatype.name) {
+                return;
+            }
+            if (!this.globalScope[stringifiedToken]) {
+                // For in REPL auto-complete functionality
+                Object.defineProperty(this.globalScope, stringifiedToken, {
+                    value: token,
+                    configurable: false,
+                    enumerable: true,
+                });
+            }
+            if (stringifiedToken === injector_1.ModuleRef.name) {
+                return;
+            }
+            moduleDebugEntry[stringifiedToken] = token;
+        })
+moduleName !== 'current' ? <operator>.formatString("\n
+Potential solutions:
+- Is ", moduleName, " a valid NestJS module?
+- If ", dependencyName, " is a provider, is it part of the current ", moduleName, "?
+- If ", dependencyName, " is exported from a separate @Module, is that module imported within ", moduleName, "?
+  @Module({
+    imports: [ /* the Module containing ", dependencyName, " */ ]
+  })
+") : <operator>.formatString("\n
+Potential solutions:
+- If ", dependencyName, " is a provider, is it part of the current Module?
+- If ", dependencyName, " is exported from a separate @Module, is that module imported within Module?
+  @Module({
+    imports: [ /* the Module containing ", dependencyName, " */ ]
+  })
+")
+<operator>.formatString("\n
+Potential solutions:
+- Is ", moduleName, " a valid NestJS module?
+- If ", dependencyName, " is a provider, is it part of the current ", moduleName, "?
+- If ", dependencyName, " is exported from a separate @Module, is that module imported within ", moduleName, "?
+  @Module({
+    imports: [ /* the Module containing ", dependencyName, " */ ]
+  })
+")
+pathsToLog.forEach(path => {
+                        const logMessage = (0, messages_1.CONTROLLER_MAPPING_MESSAGE)(controllerName, path);
+                        this.logger.log(logMessage);
+                    })
+const modules = !this.isDynamicModule(moduleDefinition)
+            ? this.reflectMetadata(constants_1.MODULE_METADATA.IMPORTS, moduleDefinition)
+            : [
+                ...this.reflectMetadata(constants_1.MODULE_METADATA.IMPORTS, moduleDefinition.module),
+                ...(moduleDefinition.imports || []),
+            ]
+const guards = this.guardsContextCreator.create(instance, callback, module, contextId, inquirerId)
+this.graph.insertOrphanedEnhancer({
+            ...entry,
+            ref: entry.ref?.constructor?.name ?? 'Object',
+        })
+this.use = (...params) => {
+                const [req, _, next] = params;
+                const isExcluded = isMiddlewareRouteExcluded(req, excludedRoutes, httpAdapter);
+                if (isExcluded) {
+                    return next();
+                }
+                return middleware(...params);
+            }
+const subscription = result
+            .pipe((0, operators_1.map)((message) => {
+            if ((0, shared_utils_1.isObject)(message)) {
+                return message;
+            }
+            return { data: message };
+        }), (0, operators_1.debounce)(message => new Promise(resolve => stream.writeMessage(message, () => resolve()))), (0, operators_1.catchError)(err => {
+            const data = err instanceof Error ? err.message : err;
+            stream.writeMessage({ type: 'error', data }, writeError => {
+                if (writeError) {
+                    this.logger.error(writeError);
+                }
+            });
+            return rxjs_1.EMPTY;
+        }))
+            .subscribe({
+            complete: () => {
+                response.end();
+            },
+        })
+const callback = (req, res) => {
+            const method = applicationRef.getRequestMethod(req);
+            const url = applicationRef.getRequestUrl(req);
+            throw new common_1.NotFoundException(`Cannot ${method} ${url}`);
+        }
+params
+                .map(item => item.pipes)
+                .flat(1)
+                .forEach(injectable => this.insertInjectable(injectable, token, component, 'pipe', methodKey))
+Object.defineProperty(request, request_constants_1.REQUEST_CONTEXT_ID, {
+                value: contextId,
+                enumerable: false,
+                writable: false,
+                configurable: false,
+            })
+const proxy = new Proxy(app, {
+            get: (receiver, prop) => {
+                const mapToProxy = (result) => {
+                    return result instanceof Promise
+                        ? result.then(mapToProxy)
+                        : result instanceof nest_application_1.NestApplication
+                            ? proxy
+                            : result;
+                };
+                if (!(prop in receiver) && prop in adapter) {
+                    return (...args) => {
+                        const result = this.createExceptionZone(adapter, prop)(...args);
+                        return mapToProxy(result);
+                    };
+                }
+                if ((0, shared_utils_1.isFunction)(receiver[prop])) {
+                    return (...args) => {
+                        const result = receiver[prop](...args);
+                        return mapToProxy(result);
+                    };
+                }
+                return receiver[prop];
+            },
+  ...
+(0, iterare_1.iterate)(instances)
+            .map(item => item.get(constants_1.STATIC_CONTEXT))
+            .filter(item => !!item)
+            .toArray()
+contextId = contextId === void 0 ? constants_2.STATIC_CONTEXT : contextId
+<operator>.formatString("Calling the "", methodName, "" in the preview mode is not supported.")
+this.scope === common_1.Scope.TRANSIENT && (this.transientMap = new Map())
+_tmp_47.enhancerInstanceWrapper = instanceWrapper
+!this.isDebugMode() || this.name === 'REQUEST'
+const instanceRef = await this.lookupComponentInImports(relatedModule, name, wrapper, moduleRegistry, contextId, inquirer, keyOrIndex, true)
+this.httpAdapter.useStaticAssets &&
+            this.httpAdapter.useStaticAssets(pathOrOptions, options)
+this.httpAdapter.useStaticAssets(pathOrOptions, options)
+this.addDependencyMetadata(keyOrIndex, wrapper, instanceWrapperRef)
+const inquirerId = this.getInquirerId(inquirer)
+<operator>.formatString("", cli_colors_util_1.clc.cyanBright(this.name), "", cli_colors_util_1.clc.green(' introspected as '), "", cli_colors_util_1.clc.magentaBright('durable'), "")
+_tmp_63 = modulesContainer.get(moduleKey)
+const instanceWrapper = injectables.get(providerKey)

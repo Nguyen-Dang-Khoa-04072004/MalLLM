@@ -1,0 +1,4 @@
+BrokerTransform.prototype._transformNext = function () {
+  this.push(this._KafkaBuffer.getBatch());
+  this._KafkaBuffer.truncateBatch();
+}

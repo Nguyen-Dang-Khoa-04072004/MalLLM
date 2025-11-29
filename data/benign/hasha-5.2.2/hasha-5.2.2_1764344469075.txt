@@ -1,0 +1,23 @@
+parentPort.on('message', async message => {
+	try {
+		const {method, args} = message;
+		const handler = handlers[method];
+
+		if (handler === undefined) {
+			throw new Error(`Unknown method '${method}'`);
+		}
+
+		const {value, transferList} = await handler(...args);
+		parentPort.postMessage({id: message.id, value}, transferList);
+	} catch (error) {
+		const newError = {message: error.message, stack: error.stack};
+
+		for (const [key, value] of Object.entries(error)) {
+			if (typeof value !== 'object') {
+				newError[key] = value;
+			}
+		}
+
+		parentPort.postMessage({id: message.id, error: newError});
+	}
+})

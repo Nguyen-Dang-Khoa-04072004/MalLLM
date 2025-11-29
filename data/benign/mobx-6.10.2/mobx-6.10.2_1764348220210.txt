@@ -1,0 +1,70 @@
+function createActionFactory = function createActionFactory(autoAction: boolean): IActionFactory {
+    const res: IActionFactory = function action(arg1, arg2?): any {
+        // action(fn() {})
+        if (isFunction(arg1)) {
+            return createAction(arg1.name || DEFAULT_ACTION_NAME, arg1, autoAction)
+        }
+        // action("name", fn() {})
+        if (isFunction(arg2)) {
+            return createAction(arg1, arg2, autoAction)
+        }
+        // @action
+        if (isStringish(arg2)) {
+            return storeAnnotation(arg1, arg2, autoAction ? autoActionAnnotation : actionAnnotation)
+        }
+        // action("name") & @action("name")
+        if (isStringish(arg1)) {
+            return createDecoratorAnnotation(
+                createActionAnnotation(autoAction ? AUTOACTION : ACTION, {
+                    name: arg1,
+                    autoAction
+                })
+            )
+        }
+
+        if (__DEV__) {
+            die("Invalid arguments for `action`")
+        }
+    } as IActionFactory
+...
+function observeObservableProperty = function observeObservableProperty(thing, property, listener, fireImmediately: boolean) {
+    return getAdministration(thing, property).observe_(listener, fireImmediately)
+}
+this.setter_ = createAction(
+                __DEV__ ? this.name_ + "-setter" : "ComputedValue-setter",
+                options.set
+            ) as any
+function isComputingDerivation = function isComputingDerivation() {
+    return globalState.trackingDerivation !== null // filter out actions inside computations
+}
+function _endAction = function _endAction(runInfo: IActionRunInfo) {
+    if (currentActionId !== runInfo.actionId_) {
+        die(30)
+    }
+    currentActionId = runInfo.parentActionId_
+
+    if (runInfo.error_ !== undefined) {
+        globalState.suppressReactionErrors = true
+    }
+    allowStateChangesEnd(runInfo.prevAllowStateChanges_)
+    allowStateReadsEnd(runInfo.prevAllowStateReads_)
+    endBatch()
+    if (runInfo.runAsAction_) {
+        untrackedEnd(runInfo.prevDerivation_)
+    }
+    if (__DEV__ && runInfo.notifySpy_) {
+        spyReportEnd({ time: Date.now() - runInfo.startTime_ })
+    }
+    globalState.suppressReactionErrors = false
+}
+notify || notifySpy ? <ISetDidChange<T>>{
+                          observableKind: "set",
+                          debugObjectName: this.name_,
+                          type: ADD,
+                          object: this,
+                          newValue: value
+                      } : null
+_tmp_4.shallow = createDecoratorAnnotation(observableShallowAnnotation)
+_iterator_0 = <operator>.iterator(defaultGlobals)
+const observableValues = Array.from(this.data_.values())
+tree.dependencies.forEach(child => printDepTree(child, lines, depth + 1))

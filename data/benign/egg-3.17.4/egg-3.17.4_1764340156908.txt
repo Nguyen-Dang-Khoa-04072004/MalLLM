@@ -1,0 +1,14 @@
+const startTimeoutTimer = setTimeout(() => {
+      this.coreLogger.error(this.timing.toString());
+      this.coreLogger.error(`${this.type} still doesn't ready after ${this.config.workerStartTimeout} ms.`);
+      // log unfinished
+      const items = this.timing.toJSON();
+      for (const item of items) {
+        if (item.end) continue;
+        this.coreLogger.error(`unfinished timing item: ${CircularJSON.stringify(item)}`);
+      }
+      this.coreLogger.error(`check run/${this.type}_timing_${process.pid}.json for more details.`);
+      this.emit('startTimeout');
+      this.dumpConfig();
+      this.dumpTiming();
+    }, this.config.workerStartTimeout)

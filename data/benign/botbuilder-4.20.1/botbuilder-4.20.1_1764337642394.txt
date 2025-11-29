@@ -1,0 +1,24 @@
+const invokeResponse = context.turnState.get(botbuilder_core_1.INVOKE_RESPONSE_KEY)
+const context: TurnContext = contextOrServiceUrl as TurnContext
+client = this.getOrCreateConnectorClient(context, context.activity.serviceUrl, this.credentials)
+__awaiter(this, void 0, void 0, function* () {
+            yield this.handle(context, 'TeamsChannelDeleted', this.defaultNextEvent(context));
+        })
+!context.activity || !context.activity.membersAdded
+res.send(body)
+await handler(
+                {
+                    id: meeting.Id,
+                    joinUrl: meeting.JoinUrl,
+                    meetingType: meeting.MeetingType,
+                    startTime: new Date(meeting.StartTime),
+                    title: meeting.Title,
+                },
+                context,
+                next
+            )
+invokeResponse && invokeResponse.value
+response.statusCode = botbuilder_core_1.StatusCodes.OK
+_tmp_42.joinUrl = meeting.JoinUrl
+res.status(status)
+res.send(body)

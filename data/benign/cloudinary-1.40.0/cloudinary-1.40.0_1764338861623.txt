@@ -1,0 +1,23 @@
+function normalize_expression = function normalize_expression(expression) {
+  if (!isString(expression) || expression.length === 0 || expression.match(/^!.+!$/)) {
+    return expression;
+  }
+
+  var operators = "\\|\\||>=|<=|&&|!=|>|=|<|/|-|\\^|\\+|\\*";
+  var operatorsPattern = "((" + operators + ")(?=[ _]))";
+  var operatorsReplaceRE = new RegExp(operatorsPattern, "g");
+  expression = expression.replace(operatorsReplaceRE, function (match) {
+    return CONDITIONAL_OPERATORS[match];
+  });
+
+  // Duplicate PREDEFINED_VARS to also include :{var_name} as well as {var_name}
+  // Example:
+  // -- PREDEFINED_VARS = ['foo']
+  // -- predefinedVarsPattern = ':foo|foo'
+  // It is done like this because node 6 does not support regex lookbehind
+  var predefinedVarsPattern = "(" + Object.keys(PREDEFINED_VARS).map(function (v) {
+    return `:${v}|${v}`;
+  }).join("|") + ")";
+  var userVariablePattern = '(\\$_*[^_ ]+)';
+  var variablesReplaceRE = new RegExp(`${userVariablePattern}|${predefinedVarsPattern}`, "g");
+  expression = e...

@@ -1,0 +1,91 @@
+new Promise((resolve, reject) =>
+        this.client.api.guilds.post({ data: { name, region, icon } })
+          .then(data => {
+            if (this.client.guilds.has(data.id)) return resolve(this.client.guilds.get(data.id));
+
+            const handleGuild = guild => {
+              if (guild.id === data.id) {
+                this.client.removeListener(Events.GUILD_CREATE, handleGuild);
+                this.client.clearTimeout(timeout);
+                resolve(guild);
+              }
+            };
+            this.client.on(Events.GUILD_CREATE, handleGuild);
+
+            const timeout = this.client.setTimeout(() => {
+              this.client.removeListener(Events.GUILD_CREATE, handleGuild);
+              resolve(this.client.guilds.add(data));
+            }, 10000);
+            return undefined;
+          }, reject)
+      )
+this.client.api.guilds.post({ data: { name, region, icon } })
+          .then(data => {
+            if (this.client.guilds.has(data.id)) return resolve(this.client.guilds.get(data.id));
+
+            const handleGuild = guild => {
+              if (guild.id === data.id) {
+                this.client.removeListener(Events.GUILD_CREATE, handleGuild);
+                this.client.clearTimeout(timeout);
+                resolve(guild);
+              }
+            };
+            this.client.on(Events.GUILD_CREATE, handleGuild);
+
+            const timeout = this.client.setTimeout(() => {
+              this.client.removeListener(Events.GUILD_CREATE, handleGuild);
+              resolve(this.client.guilds.add(data));
+            }, 10000);
+            return undefined;
+          }, reject)
+throw new Error(
+        'The class/prototype returned from the extender function must extend the existing structure class/prototype.'
+      );
+module.exports = {
+  register,
+  Error: makeDiscordjsError(Error),
+  TypeError: makeDiscordjsError(TypeError),
+  RangeError: makeDiscordjsError(RangeError),
+}
+this.send({ _sFetchProp: prop }).catch(err => {
+        process.removeListener('message', listener);
+        reject(err);
+      })
+const promise = new Promise((resolve, reject) => {
+      const listener = message => {
+        if (!message || message._fetchProp !== prop) return;
+        this.process.removeListener('message', listener);
+        this._fetches.delete(prop);
+        resolve(message._result);
+      };
+      this.process.on('message', listener);
+
+      this.send({ _fetchProp: prop }).catch(err => {
+        this.process.removeListener('message', listener);
+        this._fetches.delete(prop);
+        reject(err);
+      });
+    })
+const listener = message => {
+        if (!message || message._fetchProp !== prop) return;
+        this.process.removeListener('message', listener);
+        this._fetches.delete(prop);
+        resolve(message._result);
+      }
+this.process.removeListener('message', listener)
+this.client.actions.GuildRolesPositionUpdate.handle({
+            guild_id: this.guild.id,
+            roles: updatedRoles,
+          })
+const results = [new this.constructor[Symbol.species](), new this.constructor[Symbol.species]()]
+Promise.reject(new TypeError('INVALID_TYPE', 'parameter', 'User nor a Role', true))
+new Promise((resolve, reject) => {
+      const collector = this.createMessageCollector(filter, options);
+      collector.once('end', (collection, reason) => {
+        if (options.errors && options.errors.includes(reason)) {
+          reject(collection);
+        } else {
+          resolve(collection);
+        }
+      });
+    })

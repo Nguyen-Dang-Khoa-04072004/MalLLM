@@ -1,0 +1,6 @@
+const watchers = watchersMap.get(normalizedPath) || []
+this.dirsWatchers.forEach((dirWatcher) => {
+                        dirWatcher === null || dirWatcher === void 0 ? void 0 : dirWatcher.close();
+                    })
+dirWatcher === null || dirWatcher === void 0 ? void 0 : dirWatcher.close()
+const watchers = watchersMap.get(normalizedPath) || []

@@ -1,0 +1,4 @@
+halt(
+        'INVALID_DEFINITIONS',
+        'Invalid option definitions: the `type` property must be a setter fuction (default: `Boolean`)'
+      )

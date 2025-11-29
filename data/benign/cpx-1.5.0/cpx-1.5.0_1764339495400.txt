@@ -1,0 +1,28 @@
+var commands = [].concat(args.command).filter(Boolean).map(function (command) {
+        if (typeof command !== "string") {
+            console.error("Invalid --command option");
+            process.exit(1);
+        }
+
+        return function (file) {
+            var env = (0, _create2.default)(process.env, { FILE: { value: file } });
+            var parts = parseShellQuote(command, env);
+            var child = spawn(parts[0], parts.slice(1), { env: env });
+            var outer = duplexer(child.stdin, child.stdout);
+            child.on("exit", function (code) {
+                if (code !== 0) {
+                    var error = new Error("non-zero exit code in command: " + command);
+                    outer.emit("error", error);
+                }
+            });
+            child.stderr.pipe(process.stderr);
+
+            return outer;
+        };
+    })
+_tmp_3.unknown = unknown
+var env = (0, _create2.default)(process.env, { FILE: { value: file } })
+var parts = parseShellQuote(command, env)
+var child = spawn(parts[0], parts.slice(1), { env: env })
+var outer = duplexer(child.stdin, child.stdout)
+process.exit(1)

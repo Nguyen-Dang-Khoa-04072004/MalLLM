@@ -1,0 +1,56 @@
+defineType("TSPropertySignature", {
+  aliases: ["TSTypeElement"],
+  visitor: ["key", "typeAnnotation", "initializer"],
+  fields: Object.assign({}, namedTypeElementCommon(), {
+    readonly: (0, _utils.validateOptional)(bool),
+    typeAnnotation: (0, _utils.validateOptionalType)("TSTypeAnnotation"),
+    initializer: (0, _utils.validateOptionalType)("Expression"),
+    kind: {
+      validate: (0, _utils.assertOneOf)("get", "set")
+    }
+  })
+})
+defineType("DeclareTypeAlias", {
+  visitor: ["id", "typeParameters", "right"],
+  aliases: ["FlowDeclaration", "Statement", "Declaration"],
+  fields: {
+    id: (0, _utils.validateType)("Identifier"),
+    typeParameters: (0, _utils.validateOptionalType)("TypeParameterDeclaration"),
+    right: (0, _utils.validateType)("FlowType")
+  }
+})
+function validator = function validator(node, key, val) {
+    if (!Array.isArray(val)) return;
+    for (let i = 0; i < val.length; i++) {
+      const subkey = `${key}[${i}]`;
+      const v = val[i];
+      callback(node, subkey, v);
+      if (process.env.BABEL_TYPES_8_BREAKING) (0, _validate.validateChild)(node, subkey, v);
+    }
+  }
+defineType("JSXNamespacedName", {
+  visitor: ["namespace", "name"],
+  fields: {
+    namespace: {
+      validate: (0, _utils.assertNodeType)("JSXIdentifier")
+    },
+    name: {
+      validate: (0, _utils.assertNodeType)("JSXIdentifier")
+    }
+  }
+})
+const FLOWPREDICATE_TYPES = _index.FLIPPED_ALIAS_KEYS["FlowPredicate"]
+function assertOneOf = function assertOneOf(...values) {
+  function validate(node, key, val) {
+    if (values.indexOf(val) < 0) {
+      throw new TypeError(`Property ${key} expected value to be one of ${JSON.stringify(values)} but got ${JSON.stringify(val)}`);
+    }
+  }
+  validate.oneOf = values;
+  return validate;
+}
+function validate = function validate(node, key, val) {
+    if (values.indexOf(val) < 0) {
+      throw new TypeError(`Property ${key} expected value to be one of ${JSON.stringify(values)} but got ${JSON.stringify(val)}`);
+    }
+  }

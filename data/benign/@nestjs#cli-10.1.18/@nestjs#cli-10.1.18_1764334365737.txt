@@ -1,0 +1,53 @@
+(_tmp_2 = program
+            .command('start [app]')
+            .allowUnknownOption()
+            .option('-c, --config [path]', 'Path to nest-cli configuration file.')
+            .option('-p, --path [path]', 'Path to tsconfig file.')
+            .option('-w, --watch', 'Run in watch mode (live-reload).')
+            .option('-b, --builder [name]', 'Builder to be used (tsc, webpack, swc).')
+            .option('--watchAssets', 'Watch non-ts (e.g., .graphql) files mode.')
+            .option('-d, --debug [hostport] ', 'Run in debug mode (with --inspect flag).')
+            .option('--webpack', 'Use webpack for compilation (deprecated option, use --builder instead).')
+            .option('--webpackPath [path]', 'Path to webpack configuration.')
+            .option('--type-check', 'Enable type checking (when SWC is used).')
+            .option('--tsc', 'Use typescript compiler for compilation.')
+            .option('--sourceRoot [sourceRoot]', 'Points at the root of the source code for the sin...).description
+_tmp_16.plugins = [
+                new tsconfig_paths_webpack_plugin_1.TsconfigPathsPlugin({
+                    configFile: tsConfigFile,
+                }),
+            ]
+compiler.hooks.watchRun.tapAsync('Rebuild info', (params, callback) => {
+                console.log(`\n${ui_1.INFO_PREFIX} Webpack is building your sources...\n`);
+                callback();
+            })
+_tmp_1.plugins = [
+            new webpack.IgnorePlugin({
+                checkResource(resource) {
+                    const lazyImports = [
+                        '@nestjs/microservices',
+                        'cache-manager',
+                        'class-validator',
+                        'class-transformer',
+                    ];
+                    if (!lazyImports.includes(resource)) {
+                        return false;
+                    }
+                    try {
+                        require.resolve(resource, {
+                            paths: [process.cwd()],
+                        });
+                    }
+                    catch (err) {
+                        return true;
+                    }
+                    return false;
+                },
+            }),
+        ]
+const lazyImports = [
+                        '@nestjs/microservices',
+                        'cache-manager',
+                        'class-validator',
+                        'class-transformer',
+                    ]

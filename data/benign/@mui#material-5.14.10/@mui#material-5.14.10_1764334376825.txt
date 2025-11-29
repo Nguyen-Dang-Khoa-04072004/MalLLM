@@ -1,0 +1,31 @@
+const ImageList = /*#__PURE__*/React.forwardRef(function ImageList(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiImageList'
+  });
+  const {
+      children,
+      className,
+      cols = 2,
+      component = 'ul',
+      rowHeight = 'auto',
+      gap = 4,
+      style: styleProp,
+      variant = 'standard'
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded);
+  const contextValue = React.useMemo(() => ({
+    rowHeight,
+    gap,
+    variant
+  }), [rowHeight, gap, variant]);
+  React.useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') {
+      // Detect Internet Explorer 8+
+      if (document !== undefined && 'objectFit' in document.documentElement.style === false) {
+        console.error(['MUI: ImageList v5+ no longer natively supports Internet Explorer.', 'Use v4 of this component instead, or polyfill CSS object-fit.'].join('\n'));
+      }
+    }
+  }, []);
+  const style = variant === 'masonry' ? _extends({
+    columnCount: c...

@@ -1,0 +1,4 @@
+const event = { type, target: this }
+<operator>.formatString("on", type, "")
+typeof this[handlerName] === "function"
+this.eventEmitter.emit(type, event)

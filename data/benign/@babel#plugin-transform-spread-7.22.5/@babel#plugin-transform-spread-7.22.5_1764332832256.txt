@@ -1,0 +1,1 @@
+const calleePath = (0, _helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers)(path.get("callee"))

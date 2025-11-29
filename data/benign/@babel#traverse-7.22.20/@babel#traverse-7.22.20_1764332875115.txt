@@ -1,0 +1,109 @@
+function TypeCastExpression = function TypeCastExpression(node) {
+  return node.typeAnnotation;
+}
+function canSwapBetweenExpressionAndStatement = function canSwapBetweenExpressionAndStatement(replacement) {
+  if (this.key !== "body" || !this.parentPath.isArrowFunctionExpression()) {
+    return false;
+  }
+  if (this.isExpression()) {
+    return isBlockStatement(replacement);
+  } else if (this.isBlockStatement()) {
+    return isExpression(replacement);
+  }
+  return false;
+}
+function isDeclaredInLoop = function isDeclaredInLoop(path) {
+  for (let {
+    parentPath,
+    key
+  } = path; parentPath; ({
+    parentPath,
+    key
+  } = parentPath)) {
+    if (parentPath.isFunctionParent()) return false;
+    if (parentPath.isWhile() || parentPath.isForXStatement() || parentPath.isForStatement() && key === "body") {
+      return true;
+    }
+  }
+  return false;
+}
+this.shouldStop = (0, _traverseNode.traverseNode)(this.node, this.opts, this.scope, this.state, this, this.skipKeys)
+exports.arrowFunctionToShadowed = function () {
+    if (!this.isArrowFunctionExpression()) return;
+    this.arrowFunctionToExpression();
+  }
+function verify = function verify(visitor) {
+  if (visitor._verified) return;
+  if (typeof visitor === "function") {
+    throw new Error("You passed `traverse()` a function when it expected a visitor object, " + "are you sure you didn't mean `{ enter: Function }`?");
+  }
+  for (const nodeType of Object.keys(visitor)) {
+    if (nodeType === "enter" || nodeType === "exit") {
+      validateVisitorMethods(nodeType, visitor[nodeType]);
+    }
+    if (shouldIgnoreKey(nodeType)) continue;
+    if (TYPES.indexOf(nodeType) < 0) {
+      throw new Error(`You gave us a visitor for the node type ${nodeType} but it's not a valid type`);
+    }
+    const visitors = visitor[nodeType];
+    if (typeof visitors === "object") {
+      for (const visitorKey of Object.keys(visitors)) {
+        if (visitorKey === "enter" || visitorKey === "exit") {
+          validateVisitorMethods(`${nodeType}.${visitorKey}`, visitors[visitorKey]);
+        } else {
+          throw new Error("You passed `traverse()` a visitor object with the pr...
+function unwrapFunctionEnvironment = function unwrapFunctionEnvironment() {
+  if (!this.isArrowFunctionExpression() && !this.isFunctionExpression() && !this.isFunctionDeclaration()) {
+    throw this.buildCodeFrameError("Can only unwrap the environment of a function.");
+  }
+  hoistFunctionEnvironment(this);
+}
+throw new Error("Don't use `path.replaceWith()` with a source string, use `path.replaceWithSourceString()`");
+function insertAfter = function insertAfter(nodes_) {
+  this._assertUnremoved();
+  if (this.isSequenceExpression()) {
+    return last(this.get("expressions")).insertAfter(nodes_);
+  }
+  const nodes = this._verifyNodeList(nodes_);
+  const {
+    parentPath,
+    parent
+  } = this;
+  if (parentPath.isExpressionStatement() || parentPath.isLabeledStatement() || isExportNamedDeclaration(parent) || parentPath.isExportDefaultDeclaration() && this.isDeclaration()) {
+    return parentPath.insertAfter(nodes.map(node => {
+      return isExpression(node) ? expressionStatement(node) : node;
+    }));
+  } else if (this.isNodeType("Expression") && !this.isJSXElement() && !parentPath.isJSXElement() || parentPath.isForStatement() && this.key === "init") {
+    if (this.node) {
+      const node = this.node;
+      let {
+        scope
+      } = this;
+      if (scope.path.isPattern()) {
+        assertExpression(node);
+        this.replaceWith(callExpression(arrowFunctionExpression([], node), []));
+        this.get("callee.body")....
+const target = this.get("object").resolve(dangerous, resolved)
+target.isObjectExpression()
+updateExpr.replaceWith(sequenceExpression(parts))
+const left = updateExpr.get("expressions.0.right")
+function evaluateQuasis = function evaluateQuasis(path, quasis, state, raw = false) {
+  let str = "";
+  let i = 0;
+  const exprs = path.isTemplateLiteral() ? path.get("expressions") : path.get("quasi.expressions");
+  for (const elem of quasis) {
+    if (!state.confident) break;
+    str += raw ? elem.value.raw : elem.value.cooked;
+    const expr = exprs[i++];
+    if (expr) str += String(evaluateCached(expr, state));
+  }
+  if (!state.confident) return;
+  return str;
+}
+_tmp_42 = __ecma.Array.factory()
+let match = prop.isnt("computed") && key.isIdentifier({
+          name: targetName
+        })
+prop.get("value").resolve(dangerous, resolved)
+target.isArrayExpression() && !isNaN(+targetName)
+const elems = target.get("elements")

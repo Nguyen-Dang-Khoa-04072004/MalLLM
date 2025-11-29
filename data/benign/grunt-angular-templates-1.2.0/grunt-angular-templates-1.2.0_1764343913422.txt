@@ -1,0 +1,30 @@
+var cwd = file.orig.expand ? file.orig.cwd : file.cwd
+files
+      // Optionally filter original src/dest(s)
+      .filter(filter || function(files) {
+        // Default to only appending to JS targets
+        return files.src.filter(function(file) {
+          return '.js' === file.substr(-3);
+        }).length;
+      })
+      // Append compiled templates file to src
+      .forEach(function(files) {
+        files.src.push(file.dest);
+      })
+filter || function(files) {
+        // Default to only appending to JS targets
+        return files.src.filter(function(file) {
+          return '.js' === file.substr(-3);
+        }).length;
+      }
+path += Url.format( Url.parse( url.replace(/\\/g, '/') ) )
+"\n  $templateCache.put('" + path + "',\n    " + template + "\n  );\n"
+compiled.push(compiler.compile(module, [file.src[j]]))
+var paths = files.map(this.path).filter(function(path) {
+      if (!grunt.file.exists(path)) {
+        grunt.log.warn('Template "' + path + '" not found.');
+        return false;
+      }
+
+      return true;
+    })

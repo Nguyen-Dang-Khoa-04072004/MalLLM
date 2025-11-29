@@ -1,0 +1,42 @@
+defineType("DeclareExportDeclaration", {
+  visitor: ["declaration", "specifiers", "source"],
+  aliases: ["FlowDeclaration", "Statement", "Declaration"],
+  fields: {
+    declaration: (0, _utils.validateOptionalType)("Flow"),
+    specifiers: (0, _utils.validateOptional)((0, _utils.arrayOfType)(["ExportSpecifier", "ExportNamespaceSpecifier"])),
+    source: (0, _utils.validateOptionalType)("StringLiteral"),
+    default: (0, _utils.validateOptional)((0, _utils.assertValueType)("boolean"))
+  }
+})
+_tmp_45.typeAnnotation = (0, _utils.validateOptionalType)("TSTypeAnnotation")
+<operator>.formatString("Property ", key, " of ", node.type, " expected node to be of a type ", JSON.stringify(types), " but instead got ", JSON.stringify(val == null ? void 0 : val.type), "")
+_tmp_57.fields = {
+    source: (0, _utils.validateType)("StringLiteral"),
+    exportKind: (0, _utils.validateOptional)((0, _utils.assertOneOf)("type", "value"))
+  }
+(0, _utils.default)("PipelineBareFunction", {
+  builder: ["callee"],
+  visitor: ["callee"],
+  fields: {
+    callee: {
+      validate: (0, _utils.assertNodeType)("Expression")
+    }
+  },
+  aliases: ["Expression"]
+})
+<operator>.formatString("Property ", key, " of ", node.type, " expected node to be of a type ", JSON.stringify(types), " but instead got ", JSON.stringify(val == null ? void 0 : val.type), "")
+_tmp_131.fields = Object.assign({}, functionDeclarationCommon(), functionTypeAnnotationCommon(), {
+    body: {
+      validate: (0, _utils.assertNodeType)("BlockStatement")
+    },
+    predicate: {
+      validate: (0, _utils.assertNodeType)("DeclaredPredicate", "InferredPredicate"),
+      optional: true
+    }
+  })
+Object.defineProperty(exports, "removeProperties", {
+  enumerable: true,
+  get: function () {
+    return _removeProperties.default;
+  }
+})

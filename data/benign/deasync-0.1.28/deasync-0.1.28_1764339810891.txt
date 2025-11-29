@@ -1,0 +1,19 @@
+var args = process.argv.slice(2).filter(function (arg) {
+  if (arg === '-f') {
+    force = true;
+    return false;
+  } else if (arg.substring(0, 13) === '--target_arch') {
+    arch = arg.substring(14);
+  } else if (arg === '--debug') {
+    debug = true;
+  }
+  return true;
+})
+var modPath = path.join(__dirname, 'bin', process.platform + '-' + process.arch + '-' + nodeV, 'deasync')
+modPath = path.join(__dirname, 'bin', process.platform + '-' + process.arch + '-' + nodeVM, 'deasync')
+binding = require(modPath)
+binding = require('bindings')('deasync')
+module.exports.sleep = deasync(function (timeout, done) {
+	setTimeout(done, timeout)
+})
+console.log('err=' + err)

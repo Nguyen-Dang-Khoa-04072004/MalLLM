@@ -1,0 +1,16 @@
+this.client.request('UpdateUserAttributes', {
+      AccessToken: this.signInUserSession.getAccessToken().getJwtToken(),
+      UserAttributes: attributes,
+      ClientMetadata: clientMetadata
+    }, function (err, result) {
+      if (err) {
+        return callback(err, null);
+      }
+
+      // update cached user
+      return _this10.getUserData(function () {
+        return callback(null, 'SUCCESS', result);
+      }, {
+        bypassCache: true
+      });
+    })

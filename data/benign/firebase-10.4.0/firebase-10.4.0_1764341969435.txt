@@ -1,0 +1,3 @@
+const existingCallbacks = (_a = this.onInitCallbacks.get(normalizedIdentifier)) !== null && _a !== void 0 ? _a : new Set()
+existingCallbacks.add(callback)
+existingCallbacks.delete(callback)

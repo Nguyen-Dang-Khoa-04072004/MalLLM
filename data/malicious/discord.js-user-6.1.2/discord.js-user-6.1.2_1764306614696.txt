@@ -1,0 +1,25 @@
+this.send(message).catch(err => {
+      err.message = `Error when sending ${type} response to master process: ${err.message}`;
+      this.client.emit(Events.ERROR, err);
+    })
+_tmp_9.interval = this.client.setInterval(() => {
+          endpoint.post().catch(error => {
+            this.client.clearInterval(entry.interval);
+            this.client.user._typing.delete(this.id);
+            reject(error);
+          });
+        }, 9000)
+endpoint.post().catch(error => {
+            this.client.clearInterval(entry.interval);
+            this.client.user._typing.delete(this.id);
+            reject(error);
+          })
+this.player.voiceConnection.sockets.udp.send(packet)
+        .catch(e => {
+          this._setSpeaking(false);
+          this.emit('debug', `Failed to send a packet - ${e}`);
+        })
+this.connectTimeout = this.client.setTimeout(
+      () => this.authenticateFailed('VOICE_CONNECTION_TIMEOUT'), 15000)
+this.api.webhooks(id, token).get().then(data => new Webhook(this, data))
+<operator>.formatString("Failed to send a packet - ", e, "")

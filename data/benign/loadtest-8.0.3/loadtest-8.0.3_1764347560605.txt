@@ -1,0 +1,46 @@
+_iterator_0 = <operator>.iterator({...originalMap, ...addedMap})
+request.on('error', () => {
+			// ignore request
+			response.end()
+			this.latency.end(id, -1);
+		})
+request.on('end', () => {
+			request.body = Buffer.concat(bodyBuffers).toString();
+			this.partialRequests += 1
+			this.totalRequests += 1
+			const elapsedMs = Date.now() - this.debuggedTime
+			if (elapsedMs > LOG_HEADERS_INTERVAL_MS) {
+				this.debug(request, elapsedMs);
+			}
+			if (!this.options.delay) {
+				return this.end(request, response, id);
+			}
+			setTimeout(() => {
+				this.end(request, response, id);
+			}, this.options.delay).unref();
+		})
+request.body = Buffer.concat(bodyBuffers).toString()
+function readBody = async function readBody(filename) {
+	if (typeof filename !== 'string') {
+		throw new Error(`Invalid file to open for body: ${filename}`);
+	}
+	if (path.extname(filename) === '.js') {
+		return await import(new URL(filename, `file://${process.cwd()}/`))
+	}
+	return await readFile(filename, {encoding: 'utf8'}).replace("\n", "");
+}
+<operator>.formatString("Invalid timeout ", this.options.timeout, "")
+<operator>.formatString("Invalid file to open for body: ", filename, "")
+request.setTimeout(timeout, () => {
+				this.finishRequest(id, 'Connection timed out');
+			})
+this.connection.on('data', data => {
+			this.parser.addPacket(data)
+			if (this.parser.finished) {
+				this.finishRequest(null);
+			}
+		})
+(_tmp_12 = setTimeout(() => {
+				this.end(request, response, id);
+			}, this.options.delay)).unref
+request.write(message)

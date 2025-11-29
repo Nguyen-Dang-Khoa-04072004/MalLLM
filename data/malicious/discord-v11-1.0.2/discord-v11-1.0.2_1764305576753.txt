@@ -1,0 +1,54 @@
+this.send(message).catch(err => {
+      err.message = `Error when sending ${type} response to master process: ${err.message}`;
+      this.client.emit('error', err);
+    })
+this.rest.makeRequest('post', Endpoints.Channel(chan).messages, true, {
+            content, tts, nonce, embed,
+          }, files).then(data => resolve(this.client.actions.MessageCreate.handle(data).message), reject)
+new Promise((resolve, reject) => {
+      if (this.ended) {
+        reject(this.collected);
+        return;
+      }
+
+      const cleanup = () => {
+        this.removeListener('collect', onCollect);
+        this.removeListener('end', onEnd);
+      };
+
+      const onCollect = item => {
+        cleanup();
+        resolve(item);
+      };
+
+      const onEnd = () => {
+        cleanup();
+        reject(this.collected); // eslint-disable-line prefer-promise-reject-errors
+      };
+
+      this.on('collect', onCollect);
+      this.on('end', onEnd);
+    })
+const interval = setInterval(() => {
+          this.createShard();
+          if (this.shards.size >= this.totalShards) {
+            clearInterval(interval);
+            resolve(this.shards);
+          }
+        }, delay)
+const role = this.client.resolver.resolveRole(this.guild, memberOrRole)
+this.currentStream = {
+      dispatcher,
+      broadcast,
+      input: broadcast,
+      output: broadcast,
+    }
+this.sockets.ws.sendPacket({
+      op: Constants.VoiceOPCodes.SPEAKING,
+      d: {
+        speaking: true,
+        delay: 0,
+      },
+    }).catch(e => {
+      this.emit('debug', e);
+    })

@@ -1,0 +1,9 @@
+_tmp_13.removeMutationResult = {
+        reducer(draft, { payload }: PayloadAction<MutationSubstateIdentifier>) {
+          const cacheKey = getMutationCacheKey(payload)
+          if (cacheKey in draft) {
+            delete draft[cacheKey]
+          }
+        },
+        prepare: prepareAutoBatched<MutationSubstateIdentifier>(),
+      }

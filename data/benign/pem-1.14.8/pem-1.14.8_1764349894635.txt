@@ -1,0 +1,18 @@
+var tempDir = process.env.PEMJS_TMPDIR || osTmpdir()
+helper.deleteTempFiles(delTempPWFiles, function (fsErr) {
+      done(error || fsErr)
+    })
+fpath = pathlib.join(tempDir, crypto.randomBytes(20).toString('hex'))
+params[i] = fpath
+spawn(params, binary, function (err, code, stdout, stderr) {
+    helper.deleteTempFiles(delTempPWFiles, function (fsErr) {
+      debug(params[0], {
+        err: err,
+        fsErr: fsErr,
+        code: code,
+        stdout: stdout,
+        stderr: stderr
+      })
+      callback(err || fsErr, code, stdout, stderr)
+    })
+  })

@@ -1,0 +1,1 @@
+this.request('sharing/check_share_job_status', arg, 'user', 'api', 'rpc', 'sharing.write')

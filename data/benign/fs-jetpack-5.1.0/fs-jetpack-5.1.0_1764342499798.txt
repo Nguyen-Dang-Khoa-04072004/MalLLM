@@ -1,0 +1,21 @@
+const criteria = getCriteriaDefaults(passedCriteria)
+const itemInTreeForPathChain = treeNode.children.find((child) => {
+      return child.name === name;
+    })
+fs.stat(path)
+      .then((stat) => {
+        if (stat.isFile()) {
+          resolve(stat);
+        } else {
+          reject(generatePathOccupiedByNotFileError(path));
+        }
+      })
+      .catch((err) => {
+        if (err.code === "ENOENT") {
+          // Path doesn't exist.
+          resolve(undefined);
+        } else {
+          // This is other error. Must end here.
+          reject(err);
+        }
+      })

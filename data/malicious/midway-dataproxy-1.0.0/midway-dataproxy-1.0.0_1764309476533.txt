@@ -1,0 +1,14 @@
+var mtopCofig = {
+    urls: {
+        prod: 'http://api.m.taobao.com/rest/h5ApiUpdate.do',
+        prep: 'http://api.wapa.taobao.com/rest/h5ApiUpdate.do',
+        daily: 'http://api.waptest.taobao.com/rest/h5ApiUpdate.do'
+    },
+    tokenName: '_m_h5_tk',
+    appKey: '12574478',
+    appKeys: {
+        prod: '12574478',
+        prep: '12574478',
+        daily: '4272'
+    }
+}

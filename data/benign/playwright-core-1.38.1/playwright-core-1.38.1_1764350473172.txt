@@ -1,0 +1,279 @@
+function compare = function compare(actual, expected, diff, width, height, options = {}) {
+  const {
+    maxColorDeltaE94 = 1.0
+  } = options;
+  const paddingSize = Math.max(VARIANCE_WINDOW_RADIUS, SSIM_WINDOW_RADIUS);
+  const paddingColorEven = [255, 0, 255];
+  const paddingColorOdd = [0, 255, 0];
+  const [r1, g1, b1] = _imageChannel.ImageChannel.intoRGB(width, height, expected, {
+    paddingSize,
+    paddingColorEven,
+    paddingColorOdd
+  });
+  const [r2, g2, b2] = _imageChannel.ImageChannel.intoRGB(width, height, actual, {
+    paddingSize,
+    paddingColorEven,
+    paddingColorOdd
+  });
+  const noop = (x, y) => {};
+  const drawRedPixel = diff ? (x, y) => drawPixel(width, diff, x - paddingSize, y - paddingSize, 255, 0, 0) : noop;
+  const drawYellowPixel = diff ? (x, y) => drawPixel(width, diff, x - paddingSize, y - paddingSize, 255, 255, 0) : noop;
+  const drawGrayPixel = diff ? (x, y) => {
+    const gray = (0, _colorUtils.rgb2gray)(r1.get(x, y), g1.get(x, y), b1.get(x, y));
+    const value = (0, _...
+function rewriteCookies = function rewriteCookies(cookies) {
+  return cookies.map(c => {
+    (0, _utils.assert)(c.url || c.domain && c.path, 'Cookie should have a url or a domain/path pair');
+    (0, _utils.assert)(!(c.url && c.domain), 'Cookie should have either url or domain');
+    (0, _utils.assert)(!(c.url && c.path), 'Cookie should have either url or path');
+    (0, _utils.assert)(!(c.expires && c.expires < 0 && c.expires !== -1), 'Cookie should have a valid expires, only -1 or a positive number for the unix timestamp in seconds is allowed');
+    (0, _utils.assert)(!(c.expires && c.expires > 0 && c.expires > kMaxCookieExpiresDateInSeconds), 'Cookie should have a valid expires, only -1 or a positive number for the unix timestamp in seconds is allowed');
+    const copy = {
+      ...c
+    };
+    if (copy.url) {
+      (0, _utils.assert)(copy.url !== 'about:blank', `Blank page can not have cookie "${c.name}"`);
+      (0, _utils.assert)(!copy.url.startsWith('data:'), `Data URL page can not have cookie "${c.na...
+const progress = {
+      log: message => {
+        progress.logEntry({
+          message
+        });
+      },
+      logEntry: entry => {
+        if ('message' in entry) {
+          const message = entry.message;
+          if (this._state === 'running') this.metadata.log.push(message);
+          // Note: we might be sending logs after progress has finished, for example browser logs.
+          this.instrumentation.onCallLog(this.sdkObject, this.metadata, this._logName, message);
+        }
+      },
+      timeUntilDeadline: () => this._deadline ? this._deadline - (0, _utils.monotonicTime)() : 2147483647,
+      // 2^31-1 safe setTimeout in Node.
+      isRunning: () => this._state === 'running',
+      cleanupWhenAborted: cleanup => {
+        if (this._state === 'running') this._cleanups.push(cleanup);else runCleanup(cleanup);
+      },
+      throwIfAborted: () => {
+        if (this._state === 'aborted') throw new AbortedError();
+      },
+      beforeInputAction: async element => {
+        await ...
+this._nodeElectronHandlePromise = new Promise(f => {
+      this._nodeSession.on('Runtime.executionContextCreated', async event => {
+        if (event.context.auxData && event.context.auxData.isDefault) {
+          this._nodeExecutionContext = new js.ExecutionContext(this, new _crExecutionContext.CRExecutionContext(this._nodeSession, event.context), 'electron');
+          const source = `process.mainModule.require('electron')`;
+          f(await this._nodeExecutionContext.rawEvaluateHandle(source).then(objectId => new js.JSHandle(this._nodeExecutionContext, 'object', 'ElectronModule', objectId)));
+        }
+      });
+    })
+transport._ws.on('unexpected-response', (request, response) => {
+        if (redirect.follow && !redirect.hadRedirects && (response.statusCode === 301 || response.statusCode === 302 || response.statusCode === 307 || response.statusCode === 308)) {
+          fulfill({
+            redirect: response
+          });
+          transport._ws.close();
+          return;
+        }
+        for (let i = 0; i < response.rawHeaders.length; i += 2) {
+          if (debugLogHeader && response.rawHeaders[i] === debugLogHeader) progress === null || progress === void 0 ? void 0 : progress.log(response.rawHeaders[i + 1]);
+        }
+        const chunks = [];
+        const errorPrefix = `${logUrl} ${response.statusCode} ${response.statusMessage}`;
+        response.on('data', chunk => chunks.push(chunk));
+        response.on('close', () => {
+          const error = chunks.length ? `${errorPrefix}\n${Buffer.concat(chunks)}` : errorPrefix;
+          progress === null || progress === void 0 ? void 0 : progre...
+function runServer = async function runServer(options) {
+  const {
+    port,
+    path = '/',
+    maxConnections = Infinity,
+    extension
+  } = options;
+  const server = new _playwrightServer.PlaywrightServer({
+    mode: extension ? 'extension' : 'default',
+    path,
+    maxConnections
+  });
+  const wsEndpoint = await server.listen(port);
+  process.on('exit', () => server.close().catch(console.error));
+  console.log('Listening on ' + wsEndpoint);
+  process.stdin.on('close', () => (0, _processLauncher.gracefullyProcessExitDoNotHang)(0));
+}
+this._eventListeners = [_eventsHelper.eventsHelper.addEventListener(apiRequest, _fetch.APIRequestContext.Events.Request, event => this._onAPIRequest(event)), _eventsHelper.eventsHelper.addEventListener(apiRequest, _fetch.APIRequestContext.Events.RequestFinished, event => this._onAPIRequestFinished(event))]
+_tmp_8.push(session.send('Page.addScriptToEvaluateOnNewDocument', {
+      source: `
+        (() => {
+          const init = () => {
+            // Lazy init happens when InspectorFrontendHost is initialized.
+            // At this point DevToolsHost is ready to be used.
+            const host = window.DevToolsHost;
+            const old = host.sendMessageToEmbedder.bind(host);
+            host.sendMessageToEmbedder = message => {
+              if (['getPreferences', 'setPreference', 'removePreference', 'clearPreferences'].includes(JSON.parse(message).method))
+                window.${kBindingName}(message);
+              else
+                old(message);
+            };
+          };
+          let value;
+          Object.defineProperty(window, 'InspectorFrontendHost', {
+            configurable: true,
+            enumerable: true,
+            get() { return value; },
+            set(v) { value = v; init(); },
+          });
+        })()
+      `
+    }))
+function suggestedBrowsersToInstall = function suggestedBrowsersToInstall() {
+  return _server.registry.executables().filter(e => e.installType !== 'none' && e.type !== 'tool').map(e => e.name).join(', ');
+}
+_tmp_1.win = {
+    'fontFamilies': {
+      'standard': 'Times New Roman',
+      'fixed': 'Consolas',
+      'serif': 'Times New Roman',
+      'sansSerif': 'Arial',
+      'cursive': 'Comic Sans MS',
+      'fantasy': 'Impact'
+    },
+    'forScripts': [{
+      'script': 'cyrl',
+      'fontFamilies': {
+        'standard': 'Times New Roman',
+        'fixed': 'Courier New',
+        'serif': 'Times New Roman',
+        'sansSerif': 'Arial'
+      }
+    }, {
+      'script': 'arab',
+      'fontFamilies': {
+        'fixed': 'Courier New',
+        'sansSerif': 'Segoe UI'
+      }
+    }, {
+      'script': 'grek',
+      'fontFamilies': {
+        'standard': 'Times New Roman',
+        'fixed': 'Courier New',
+        'serif': 'Times New Roman',
+        'sansSerif': 'Arial'
+      }
+    }, {
+      'script': 'jpan',
+      'fontFamilies': {
+        'standard': ',Meiryo,Yu Gothic',
+        'fixed': 'MS Gothic',
+        'serif': ',Yu Mincho,MS PMincho',
+        'sansSerif': ',Meiryo,Yu Gothic'
+      }
+    }, {
+      'sc...
+_validatorPrimitives.scheme.SerializedValue = (0, _validatorPrimitives.tObject)({
+  n: (0, _validatorPrimitives.tOptional)(_validatorPrimitives.tNumber),
+  b: (0, _validatorPrimitives.tOptional)(_validatorPrimitives.tBoolean),
+  s: (0, _validatorPrimitives.tOptional)(_validatorPrimitives.tString),
+  v: (0, _validatorPrimitives.tOptional)((0, _validatorPrimitives.tEnum)(['null', 'undefined', 'NaN', 'Infinity', '-Infinity', '-0'])),
+  d: (0, _validatorPrimitives.tOptional)(_validatorPrimitives.tString),
+  u: (0, _validatorPrimitives.tOptional)(_validatorPrimitives.tString),
+  bi: (0, _validatorPrimitives.tOptional)(_validatorPrimitives.tString),
+  r: (0, _validatorPrimitives.tOptional)((0, _validatorPrimitives.tObject)({
+    p: _validatorPrimitives.tString,
+    f: _validatorPrimitives.tString
+  })),
+  a: (0, _validatorPrimitives.tOptional)((0, _validatorPrimitives.tArray)((0, _validatorPrimitives.tType)('SerializedValue'))),
+  o: (0, _validatorPrimitives.tOptional)((0, _validatorPrimi...
+_tmp_8 = await (0, _processLauncher.launchProcess)({
+      command: this._ffmpegPath,
+      args,
+      stdio: 'stdin',
+      log: message => progress.log(message),
+      tempDirectories: [],
+      attemptToGracefullyClose: async () => {
+        progress.log('Closing stdin...');
+        launchedProcess.stdin.end();
+      },
+      onExit: (exitCode, signal) => {
+        progress.log(`ffmpeg onkill exitCode=${exitCode} signal=${signal}`);
+      }
+    })
+_zipBundle.yauzl.open(tempFile, (err, inZipFile) => {
+      if (err) {
+        promise.reject(err);
+        return;
+      }
+      (0, _utils.assert)(inZipFile);
+      let pendingEntries = inZipFile.entryCount;
+      inZipFile.on('entry', entry => {
+        inZipFile.openReadStream(entry, (err, readStream) => {
+          if (err) {
+            promise.reject(err);
+            return;
+          }
+          zipFile.addReadStream(readStream, entry.fileName);
+          if (--pendingEntries === 0) {
+            zipFile.end(undefined, () => {
+              zipFile.outputStream.pipe(_fs.default.createWriteStream(params.zipFile)).on('close', () => {
+                _fs.default.promises.unlink(tempFile).then(() => {
+                  promise.resolve();
+                });
+              });
+            });
+          }
+        });
+      });
+    })
+const tObject = s => {
+  return (arg, path, context) => {
+    if (Object.is(arg, null)) throw new ValidationError(`${path}: expected object, got null`);
+    if (typeof arg !== 'object') throw new ValidationError(`${path}: expected object, got ${typeof arg}`);
+    const result = {};
+    for (const [key, v] of Object.entries(s)) {
+      const value = v(arg[key], path ? path + '.' + key : key, context);
+      if (!Object.is(value, undefined)) result[key] = value;
+    }
+    if ((0, _utils.isUnderTest)()) {
+      for (const [key, value] of Object.entries(arg)) {
+        if (key.startsWith('__testHook')) result[key] = value;
+      }
+    }
+    return result;
+  };
+}
+function innerSerialize = function innerSerialize(value, handleSerializer, visitorInfo) {
+    const result = handleSerializer(value);
+    if ('fallThrough' in result) value = result.fallThrough;else return result;
+    if (typeof value === 'symbol') return {
+      v: 'undefined'
+    };
+    if (Object.is(value, undefined)) return {
+      v: 'undefined'
+    };
+    if (Object.is(value, null)) return {
+      v: 'null'
+    };
+    if (Object.is(value, NaN)) return {
+      v: 'NaN'
+    };
+    if (Object.is(value, Infinity)) return {
+      v: 'Infinity'
+    };
+    if (Object.is(value, -Infinity)) return {
+      v: '-Infinity'
+    };
+    if (Object.is(value, -0)) return {
+      v: '-0'
+    };
+    if (typeof value === 'boolean') return value;
+    if (typeof value === 'number') return value;
+    if (typeof value === 'string') return value;
+    if (typeof value === 'bigint') return {
+      bi: value.toString()
+    };
+    if (isError(value)) {
+      var _error$stack;
+      const error = value;
+      if ((_error$stack = er...

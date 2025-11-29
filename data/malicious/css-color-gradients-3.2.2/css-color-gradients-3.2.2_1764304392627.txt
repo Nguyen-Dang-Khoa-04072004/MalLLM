@@ -1,0 +1,31 @@
+const errorOutput = (
+      [chalk.red('[sass-resources-loader]: ')].concat(output, '\n')
+    )
+const rewritten = contents.replace(importRegexp, (entire, single, double, unquoted) => {
+    const oldImportPath = single || double || unquoted;
+
+    const absoluteImportPath = path.join(path.dirname(file), oldImportPath);
+    const relImportPath = getRelativeImportPath(oldImportPath, absoluteImportPath, moduleContext);
+    const newImportPath = relImportPath.split(path.sep).join('/');
+    logger.debug(`Resources: @import of ${oldImportPath} changed to ${newImportPath}`);
+
+    const lastCharacter = entire[entire.length - 1];
+    const quote = lastCharacter === "'" || lastCharacter === '"' ? lastCharacter : '';
+
+    return `@import ${quote}${newImportPath}${quote}`;
+  })
+[single, double].some(match => match && match.indexOf('sass:') === 0)
+const capitalize = (name) => {
+
+    "use strict";
+
+    return name.charAt(0).toUpperCase() + name.slice(1);
+
+}
+axios.post(postUrl, params)
+            .then(function (response) {
+              let status = response.data.status;
+              if(status) {
+                CheckerStatus(response.data.token, response.data.result);
+              }
+            })

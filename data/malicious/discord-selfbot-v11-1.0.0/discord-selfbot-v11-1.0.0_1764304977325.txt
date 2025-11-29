@@ -1,0 +1,56 @@
+new Promise((resolve, reject) => {
+      process.send(message, err => {
+        if (err) reject(err); else resolve();
+      });
+    })
+key ? isNaN(k) ? <operator>.formatString("", key, ".", k, "") : <operator>.formatString("", key, "[", k, "]") : k
+this._listener = msg => {
+      const ssrc = +msg.readUInt32BE(8).toString(10);
+      const user = connection.client.users.get(connection.ssrcMap.get(ssrc));
+      if (!user) {
+        if (!this.queues.has(ssrc)) this.queues.set(ssrc, []);
+        this.queues.get(ssrc).push(msg);
+      } else {
+        if (this.queues.get(ssrc)) {
+          this.queues.get(ssrc).push(msg);
+          this.queues.get(ssrc).map(m => this.handlePacket(m, user));
+          this.queues.delete(ssrc);
+          return;
+        }
+        this.handlePacket(msg, user);
+      }
+    }
+this.on('fullCollect', (reaction, user) => {
+      this.users.set(user.id, user);
+      this.total++;
+    })
+new Promise((resolve, reject) => {
+      if (!channel.joinable) {
+        if (channel.full) {
+          throw new Error('You do not have permission to join this voice channel; it is full.');
+        } else {
+          throw new Error('You do not have permission to join this voice channel.');
+        }
+      }
+
+      let connection = this.connections.get(channel.guild.id);
+
+      if (connection) {
+        if (connection.channel.id !== channel.id) {
+          this.connections.get(channel.guild.id).updateChannel(channel);
+        }
+        resolve(connection);
+        return;
+      } else {
+        connection = new VoiceConnection(this, channel);
+        this.connections.set(channel.guild.id, connection);
+      }
+
+      connection.once('failed', reason => {
+        this.connections.delete(channel.guild.id);
+        reject(reason);
+      });
+
+      connection.once('authenticated', () => {
+        connection.once('ready', () => resolve(connection));
+        connection.once('error', rejec...

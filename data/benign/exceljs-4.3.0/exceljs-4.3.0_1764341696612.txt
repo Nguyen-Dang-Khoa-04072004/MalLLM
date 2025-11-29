@@ -1,0 +1,157 @@
+xmlStream.openNode(this.tag, {
+      ...TableXform.TABLE_ATTRIBUTES,
+      id: model.id,
+      name: model.name,
+      displayName: model.displayName || model.name,
+      ref: model.tableRef,
+      totalsRowCount: model.totalsRow ? '1' : undefined,
+      totalsRowShown: model.totalsRow ? undefined : '1',
+      headerRowCount: model.headerRow ? '1' : '0',
+    })
+const utils = {
+  nop() {},
+  promiseImmediate(value) {
+    return new Promise(resolve => {
+      if (global.setImmediate) {
+        setImmediate(() => {
+          resolve(value);
+        });
+      } else {
+        // poorman's setImmediate - must wait at least 1ms
+        setTimeout(() => {
+          resolve(value);
+        }, 1);
+      }
+    });
+  },
+  inherits,
+  dateToExcel(d, date1904) {
+    return 25569 + ( d.getTime() / (24 * 3600 * 1000) ) - (date1904 ? 1462 : 0);
+  },
+  excelToDate(v, date1904) {
+    const millisecondSinceEpoch = Math.round((v - 25569 + (date1904 ? 1462 : 0)) * 24 * 3600 * 1000);
+    return new Date(millisecondSinceEpoch);
+  },
+  parsePath(filepath) {
+    const last = filepath.lastIndexOf('/');
+    return {
+      path: filepath.substring(0, last),
+      name: filepath.substring(last + 1),
+    };
+  },
+  getRelsPath(filepath) {
+    const path = utils.parsePath(filepath);
+    return `${path.path}/_rels/${path.name}.rels`;
+  },
+  xm...
+const xform = {
+  dataValidations: new DataValidationsXform(),
+  sheetProperties: new SheetPropertiesXform(),
+  sheetFormatProperties: new SheetFormatPropertiesXform(),
+  columns: new ListXform({tag: 'cols', length: false, childXform: new ColXform()}),
+  row: new RowXform(),
+  hyperlinks: new ListXform({tag: 'hyperlinks', length: false, childXform: new HyperlinkXform()}),
+  sheetViews: new ListXform({tag: 'sheetViews', length: false, childXform: new SheetViewXform()}),
+  sheetProtection: new SheetProtectionXform(),
+  pageMargins: new PageMarginsXform(),
+  pageSeteup: new PageSetupXform(),
+  autoFilter: new AutoFilterXform(),
+  picture: new PictureXform(),
+  conditionalFormattings: new ConditionalFormattingsXform(),
+  headerFooter: new HeaderFooterXform(),
+  rowBreaks: new RowBreaksXform(),
+}
+const cell =
+      row[colNumber] ||
+      (row[colNumber] = {
+        sheetName,
+        address: colCache.n2l(colNumber) + rowNumber,
+        row: rowNumber,
+        col: colNumber,
+      })
+const map =
+        options.map ||
+        function(datum) {
+          if (datum === '') {
+            return null;
+          }
+          const datumNumber = Number(datum);
+          if (!Number.isNaN(datumNumber) && datumNumber !== Infinity) {
+            return datumNumber;
+          }
+          const dt = dateFormats.reduce((matchingDate, currentDateFormat) => {
+            if (matchingDate) {
+              return matchingDate;
+            }
+            const dayjsObj = dayjs(datum, currentDateFormat, true);
+            if (dayjsObj.isValid()) {
+              return dayjsObj;
+            }
+            return null;
+          }, null);
+          if (dt) {
+            return new Date(dt.valueOf());
+          }
+          const special = SpecialValues[datum];
+          if (special !== undefined) {
+            return special;
+          }
+          return datum;
+        }
+options.map ||
+        function(datum) {
+          if (datum === '') {
+            return null;
+          }
+          const datumNumber = Number(datum);
+          if (!Number.isNaN(datumNumber) && datumNumber !== Infinity) {
+            return datumNumber;
+          }
+          const dt = dateFormats.reduce((matchingDate, currentDateFormat) => {
+            if (matchingDate) {
+              return matchingDate;
+            }
+            const dayjsObj = dayjs(datum, currentDateFormat, true);
+            if (dayjsObj.isValid()) {
+              return dayjsObj;
+            }
+            return null;
+          }, null);
+          if (dt) {
+            return new Date(dt.valueOf());
+          }
+          const special = SpecialValues[datum];
+          if (special !== undefined) {
+            return special;
+          }
+          return datum;
+        }
+parsedText.split(',').forEach(item => {
+    if (!item) {
+      return;
+    }
+    const quotes = (item.match(/'/g) || []).length;
+
+    if (!quotes) {
+      if (quotesOpened) {
+        last += `${item},`;
+      } else if (isValidRange(item)) {
+        ranges.push(item);
+      }
+      return;
+    }
+    const quotesEven = quotes % 2 === 0;
+
+    if (!quotesOpened && quotesEven && isValidRange(item)) {
+      ranges.push(item);
+    } else if (quotesOpened && !quotesEven) {
+      quotesOpened = false;
+      if (isValidRange(last + item)) {
+        ranges.push(last + item);
+      }
+      last = '';
+    } else {
+      quotesOpened = true;
+      last += `${item},`;
+    }
+  })

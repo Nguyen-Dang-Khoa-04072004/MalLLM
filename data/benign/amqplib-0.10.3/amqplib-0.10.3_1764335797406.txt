@@ -1,0 +1,21 @@
+function encodeConnectionOpenOk = function encodeConnectionOpenOk(channel, fields) {
+  var offset = 0, val = null, varyingSize = 0;
+  val = fields.knownHosts;
+  if (void 0 === val) val = ""; else if (!("string" == typeof val && Buffer.byteLength(val) < 256)) throw new TypeError("Field 'knownHosts' is the wrong type; must be a string (up to 255 chars)");
+  var knownHosts_len = Buffer.byteLength(val, "utf8");
+  varyingSize += knownHosts_len;
+  var buffer = Buffer.alloc(13 + varyingSize);
+  buffer[0] = 1;
+  buffer.writeUInt16BE(channel, 1);
+  buffer.writeUInt32BE(655401, 7);
+  offset = 11;
+  val = fields.knownHosts;
+  void 0 === val && (val = "");
+  buffer[offset] = knownHosts_len;
+  offset++;
+  buffer.write(val, offset, "utf8");
+  offset += knownHosts_len;
+  buffer[offset] = 206;
+  buffer.writeUInt32BE(offset - 7, 3);
+  return buffer;
+}

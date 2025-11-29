@@ -1,0 +1,298 @@
+function assertBuildEndpoint = function assertBuildEndpoint(ep, id) {
+    const prefix = `endpoints[${id}]`;
+    (0, parsing_1.assertKeyTypes)(prefix, ep, {
+        region: "List",
+        platform: (platform) => build.AllFunctionsPlatforms.includes(platform),
+        entryPoint: "string",
+        omit: "Field<boolean>?",
+        availableMemoryMb: (mem) => mem === null || isCEL(mem) || build.isValidMemoryOption(mem),
+        maxInstances: "Field<number>?",
+        minInstances: "Field<number>?",
+        concurrency: "Field<number>?",
+        serviceAccount: "string?",
+        serviceAccountEmail: "string?",
+        timeoutSeconds: "Field<number>?",
+        vpc: "object?",
+        labels: "object?",
+        ingressSettings: (setting) => setting === null || build.AllIngressSettings.includes(setting),
+        environmentVariables: "object?",
+        secretEnvironmentVariables: "array?",
+        httpsTrigger: "object",
+        callableTrigger: "object",
+        eventTrigger: "object",
+        scheduleTrigger: "objec...
+function initNewCodebase = async function initNewCodebase(setup, config) {
+    logger_1.logger.info("Let's create a new codebase for your functions.");
+    logger_1.logger.info("A directory corresponding to the codebase will be created in your project");
+    logger_1.logger.info("with sample code pre-configured.\n");
+    logger_1.logger.info("See https://firebase.google.com/docs/functions/organize-functions for");
+    logger_1.logger.info("more information on organizing your functions using codebases.\n");
+    logger_1.logger.info(`Functions can be deployed with ${clc.bold("firebase deploy")}.\n`);
+    let source;
+    let codebase;
+    if (setup.config.functions.length === 0) {
+        source = "functions";
+        codebase = "default";
+    }
+    else {
+        let attempts = 0;
+        while (true) {
+            if (attempts++ >= MAX_ATTEMPTS) {
+                throw new error_1.FirebaseError("Exceeded max number of attempts to input valid codebase name. Please restart.");
+            }
+            codebase ...
+function testResourceIamPermissions = async function testResourceIamPermissions(origin, apiVersion, resourceName, permissions, quotaUser = "") {
+    const localClient = new apiv2_1.Client({ urlPrefix: origin, apiVersion });
+    if (process.env.FIREBASE_SKIP_INFORMATIONAL_IAM) {
+        logger_1.logger.debug(`[iam] skipping informational check of permissions ${JSON.stringify(permissions)} on resource ${resourceName}`);
+        return { allowed: Array.from(permissions).sort(), missing: [], passed: true };
+    }
+    const headers = {};
+    if (quotaUser) {
+        headers["x-goog-quota-user"] = quotaUser;
+    }
+    const response = await localClient.post(`/${resourceName}:testIamPermissions`, { permissions }, { headers });
+    const allowed = new Set(response.body.permissions || []);
+    const missing = new Set(permissions);
+    for (const p of allowed) {
+        missing.delete(p);
+    }
+    return {
+        allowed: Array.from(allowed).sort(),
+        missing: Array.from(missing).sort(),
+        passed: missing.size === 0...
+function functionsOpLogReject = function functionsOpLogReject(func, type, err) {
+    var _a, _b, _c, _d, _e, _f;
+    if ((_a = err === null || err === void 0 ? void 0 : err.message) === null || _a === void 0 ? void 0 : _a.includes("maxScale may not exceed")) {
+        const maxInstances = func.serviceConfig.maxInstanceCount || DEFAULT_MAX_INSTANCE_COUNT;
+        utils.logLabeledWarning("functions", `Your current project quotas don't allow for the current max instances setting of ${maxInstances}. ` +
+            "Either reduce this function's maximum instances, or request a quota increase on the underlying Cloud Run service " +
+            "at https://cloud.google.com/run/quotas.");
+        const suggestedFix = func.buildConfig.runtime.startsWith("python")
+            ? "firebase_functions.options.set_global_options(max_instances=10)"
+            : "setGlobalOptions({maxInstances: 10})";
+        utils.logLabeledWarning("functions", `You can adjust the max instances value in your function's runtime options:\n\t${sug...
+function setRewriteTags = async function setRewriteTags(rewrites, project, version) {
+    const services = await Promise.all(rewrites
+        .map((rewrite) => {
+        if (!("run" in rewrite)) {
+            return null;
+        }
+        if (rewrite.run.tag !== exports.TODO_TAG_NAME) {
+            return null;
+        }
+        return run.getService(`projects/${project}/locations/${rewrite.run.region}/services/${rewrite.run.serviceId}`);
+    })
+        .filter((s) => s !== null));
+    if (!services.length) {
+        return;
+    }
+    const needsGC = services
+        .map((service) => {
+        return service.spec.traffic.filter((traffic) => traffic.tag).length;
+    })
+        .some((length) => length >= garbageCollectionThreshold);
+    if (needsGC) {
+        await exports.gcTagsForServices(project, services);
+    }
+    const tags = await exports.ensureLatestRevisionTagged(services, `fh-${version}`);
+    for (const rewrite of rewrites) {
+        if (!("run" in rewrite) || rewrite.run.tag !== exports.TODO_TA...
+exports.command = new command_1.Command("open [link]")
+    .description("quickly open a browser to relevant project resources")
+    .before(requirePermissions_1.requirePermissions)
+    .before(requireDatabaseInstance_1.requireDatabaseInstance)
+    .before(requireHostingSite_1.requireHostingSite)
+    .action(async (linkName, options) => {
+    let link = LINKS.find((l) => l.arg === linkName);
+    if (linkName && !link) {
+        throw new error_1.FirebaseError("Unrecognized link name. Valid links are:\n\n" + LINKS.map((l) => l.arg).join("\n"));
+    }
+    if (!link) {
+        const name = await (0, prompt_1.promptOnce)({
+            type: "list",
+            message: "What link would you like to open?",
+            choices: CHOICES,
+        });
+        link = LINKS.find((l) => l.name === name);
+    }
+    if (!link) {
+        throw new error_1.FirebaseError("Unrecognized link name. Valid links are:\n\n" + LINKS.map((l) => l.arg).join("\n"));
+    }
+    let url;
+    if (link.consolePath) ...
+function resolveDeveloperNodeModule = async function resolveDeveloperNodeModule(name) {
+    const pkg = requirePackageJson();
+    if (!pkg) {
+        new types_1.EmulatorLog("SYSTEM", "missing-package-json", "").log();
+        throw new Error("Could not find package.json");
+    }
+    const dependencies = pkg.dependencies;
+    const devDependencies = pkg.devDependencies;
+    const isInPackageJSON = dependencies[name] || devDependencies[name];
+    if (!isInPackageJSON) {
+        return { declared: false, installed: false };
+    }
+    const resolveResult = await requireResolveAsync(name, { paths: [process.cwd()] }).catch(noOp);
+    if (!resolveResult) {
+        return { declared: true, installed: false };
+    }
+    const modPackageJSON = require(path.join((0, functionsEmulatorShared_1.findModuleRoot)(name, resolveResult), "package.json"));
+    const moduleResolution = {
+        declared: true,
+        installed: true,
+        version: modPackageJSON.version,
+        resolution: resolveResult,
+    };
+    logDebug(`Resolved ...
+function setInvokerUpdate = async function setInvokerUpdate(projectId, fnName, invoker) {
+    var _a;
+    if (invoker.length === 0) {
+        throw new error_1.FirebaseError("Invoker cannot be an empty array");
+    }
+    const invokerMembers = proto.getInvokerMembers(invoker, projectId);
+    const invokerRole = "roles/cloudfunctions.invoker";
+    const currentPolicy = await getIamPolicy(fnName);
+    const currentInvokerBinding = (_a = currentPolicy.bindings) === null || _a === void 0 ? void 0 : _a.find((binding) => binding.role === invokerRole);
+    if (currentInvokerBinding &&
+        JSON.stringify(currentInvokerBinding.members.sort()) === JSON.stringify(invokerMembers.sort())) {
+        return;
+    }
+    const bindings = (currentPolicy.bindings || []).filter((binding) => binding.role !== invokerRole);
+    bindings.push({
+        role: invokerRole,
+        members: invokerMembers,
+    });
+    const policy = {
+        bindings: bindings,
+        etag: currentPolicy.etag || "",
+        version: 3,
+    };
+    a...
+_tmp_1.dataSets = [
+                {
+                    timeSeriesFilter: {
+                        filter: `metric.type="firebaseextensions.googleapis.com/extension/version/active_instances"` +
+                            ` resource.type="firebaseextensions.googleapis.com/ExtensionVersion"` +
+                            ` resource.label.extension="${args.extensionName}"`,
+                        minAlignmentPeriod: "86400s",
+                        aggregations: [
+                            {
+                                perSeriesAligner: "ALIGN_MEAN",
+                                crossSeriesReducer: "REDUCE_MAX",
+                                alignmentPeriod: "86400s",
+                                groupByFields: ['resource.label."extension"', 'resource.label."version"'],
+                            },
+                            {
+                                crossSeriesReducer: "REDUCE_NONE",
+                                alignmentPeriod: "60s",
+                                g...
+function selectProjectFromList = async function selectProjectFromList(projects = []) {
+    const choices = projects
+        .filter((p) => !!p)
+        .map((p) => {
+        return {
+            name: p.projectId + (p.displayName ? ` (${p.displayName})` : ""),
+            value: p.projectId,
+        };
+    })
+        .sort((a, b) => a.name.localeCompare(b.name));
+    if (choices.length >= 25) {
+        utils.logBullet(`Don't want to scroll through all your projects? If you know your project ID, ` +
+            `you can initialize it directly using ${clc.bold("firebase init --project <project_id>")}.\n`);
+    }
+    const projectId = await (0, prompt_1.promptOnce)({
+        type: "list",
+        name: "id",
+        message: "Select a default Firebase project for this directory:",
+        choices,
+    });
+    const project = projects.find((p) => p.projectId === projectId);
+    if (!project) {
+        throw new error_1.FirebaseError("Unexpected error. Project does not exist");
+    }
+    return project;
+}
+function printIamErrors = function printIamErrors(results) {
+    const iamFailures = results.filter((r) => r.error instanceof DeploymentError && r.error.op === "set invoker");
+    if (!iamFailures.length) {
+        return;
+    }
+    logger_1.logger.info("");
+    logger_1.logger.info("Unable to set the invoker for the IAM policy on the following functions:" +
+        iamFailures.map((result) => `\n\t${(0, functionsDeployHelper_1.getFunctionLabel)(result.endpoint)}`).join(""));
+    logger_1.logger.info("");
+    logger_1.logger.info("Some common causes of this:");
+    logger_1.logger.info("");
+    logger_1.logger.info("- You may not have the roles/functions.admin IAM role. Note that " +
+        "roles/functions.developer does not allow you to change IAM policies.");
+    logger_1.logger.info("");
+    logger_1.logger.info("- An organization policy that restricts Network Access on your project.");
+    const hadImplicitMakePublic = iamFailures.find((r) => backend.isHttpsTriggered(r.endpoint) && !r.endpoint.httpsTri...
+function configureInstance = async function configureInstance(args) {
+    var _a;
+    const reqBody = {
+        projectId: args.projectId,
+        instanceId: args.instanceId,
+        updateMask: "config.params",
+        validateOnly: (_a = args.validateOnly) !== null && _a !== void 0 ? _a : false,
+        data: {
+            config: {
+                params: args.params,
+            },
+        },
+    };
+    if (args.canEmitEvents) {
+        if (args.allowedEventTypes === undefined || args.eventarcChannel === undefined) {
+            throw new error_1.FirebaseError(`This instance is configured to emit events, but either allowed event types or eventarc channel is undefined.`);
+        }
+        reqBody.data.config.allowedEventTypes = args.allowedEventTypes;
+        reqBody.data.config.eventarcChannel = args.eventarcChannel;
+    }
+    reqBody.updateMask += ",config.allowed_event_types,config.eventarc_channel";
+    if (args.systemParams) {
+        reqBody.data.config.systemParams = args.systemParams;
+        reqBo...
+function parseDatabaseLocation = function parseDatabaseLocation(location, defaultLocation) {
+    if (!location) {
+        return defaultLocation;
+    }
+    switch (location.toLowerCase()) {
+        case "us-central1":
+            return DatabaseLocation.US_CENTRAL1;
+        case "europe-west1":
+            return DatabaseLocation.EUROPE_WEST1;
+        case "asia-southeast1":
+            return DatabaseLocation.ASIA_SOUTHEAST1;
+        case "":
+            return defaultLocation;
+        default:
+            throw new error_1.FirebaseError(`Unexpected location value: ${location}. Only us-central1, europe-west1, and asia-southeast1 locations are supported`);
+    }
+}
+function setProjectAccount = function setProjectAccount(projectDir, email) {
+    logger_1.logger.debug(`setProjectAccount(${projectDir}, ${email})`);
+    const activeAccounts = configstore_1.configstore.get("activeAccounts") || {};
+    activeAccounts[projectDir] = email;
+    configstore_1.configstore.set("activeAccounts", activeAccounts);
+}
+const newHandler = (data, context) => {
+        if (context.rawRequest) {
+            const authContext = context.rawRequest.header(functionsEmulatorShared_1.HttpConstants.CALLABLE_AUTH_HEADER);
+            if (authContext) {
+                logDebug("Callable functions auth override", {
+                    key: functionsEmulatorShared_1.HttpConstants.CALLABLE_AUTH_HEADER,
+                    value: authContext,
+                });
+                context.auth = JSON.parse(decodeURIComponent(authContext));
+                delete context.rawRequest.headers[functionsEmulatorShared_1.HttpConstants.CALLABLE_AUTH_HEADER];
+            }
+            else {
+                logDebug("No callable functions auth found");
+            }
+            const originalAuth = context.rawRequest.header(functionsEmulatorShared_1.HttpConstants.ORIGINAL_AUTH_HEADER);
+            if (originalAuth) {
+                context.rawRequest.headers["authorization"] = originalAuth;
+                delete context.rawReque...
+(0, marked_1.marked)("See https://firebase.google.com/docs/extensions/publishers/user-documentation#writing-changelog for more details.")
+<operator>.formatString("", clc.bold("Source in GitHub:"), " ", source, "\n")

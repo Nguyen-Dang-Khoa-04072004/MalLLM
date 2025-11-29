@@ -1,0 +1,13 @@
+this.client.request(
+			'GetDevice',
+			{
+				AccessToken: this.signInUserSession.getAccessToken().getJwtToken(),
+				DeviceKey: this.deviceKey,
+			},
+			(err, data) => {
+				if (err) {
+					return callback.onFailure(err);
+				}
+				return callback.onSuccess(data);
+			}
+		)

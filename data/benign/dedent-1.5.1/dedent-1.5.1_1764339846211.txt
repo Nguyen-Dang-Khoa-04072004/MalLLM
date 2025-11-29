@@ -1,0 +1,1 @@
+asFunction(referencePath.parentPath.get("arguments"), state, babel)

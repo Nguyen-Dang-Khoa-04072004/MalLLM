@@ -1,0 +1,18 @@
+possibilities
+    .map(p => {
+      return {suggestion: p,  distance: levenshtein.get(input, p)};
+    })
+    .filter(p => p.distance <= 2)
+    .sort((a, b) => a.distance - b.distance)
+    .map(p => p.suggestion)
+const kebabCase = require('lodash').kebabCase
+CaporalTransport.prototype.log = function (level, msg, meta, callback) {
+  if (meta !== null && typeof meta === 'object' && Object.keys(meta).length) {
+    msg += "\n" + prettyjson.render(meta);
+  }
+  msg += "\n";
+  const levelInt = winston.levels[level];
+  const stdio = levelInt <= 1 ? 'stderr' : 'stdout';
+  process[stdio].write(msg);
+  callback(null, true, stdio);
+}

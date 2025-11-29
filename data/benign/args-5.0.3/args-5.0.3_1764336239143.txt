@@ -1,0 +1,9 @@
+process.platform === 'win32'
+process.on('SIGINT', () => {
+      if (this.child) {
+        this.child.kill('SIGINT')
+        this.child.kill('SIGTERM') // If that didn't work, we're probably in an infinite loop, so make it die
+      }
+    })
+(_tmp_39 = this.child).kill
+(_tmp_40 = this.child).kill

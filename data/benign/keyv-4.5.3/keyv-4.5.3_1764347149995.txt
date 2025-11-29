@@ -1,0 +1,101 @@
+promises.push(Promise.resolve()
+					.then(() => store.get(key))
+					.then(data => (typeof data === 'string') ? this.opts.deserialize(data) : (this.opts.compression ? this.opts.deserialize(data) : data))
+					.then(data => {
+						if (data === undefined || data === null) {
+							return undefined;
+						}
+
+						if (typeof data.expires === 'number' && Date.now() > data.expires) {
+							return this.delete(key).then(() => undefined);
+						}
+
+						return (options && options.raw) ? data : data.value;
+					}),
+				)
+typeof data === 'string' ? this.opts.deserialize(data) : this.opts.compression ? this.opts.deserialize(data) : data
+data => {
+						if (data === undefined || data === null) {
+							return undefined;
+						}
+
+						if (typeof data.expires === 'number' && Date.now() > data.expires) {
+							return this.delete(key).then(() => undefined);
+						}
+
+						return (options && options.raw) ? data : data.value;
+					}
+this.delete(key).then(() => undefined)
+Promise.resolve()
+			.then(() => isArray ? store.getMany(keyPrefixed) : store.get(keyPrefixed))
+			.then(data => (typeof data === 'string') ? this.opts.deserialize(data) : (this.opts.compression ? this.opts.deserialize(data) : data))
+			.then(data => {
+				if (data === undefined || data === null) {
+					return undefined;
+				}
+
+				if (isArray) {
+					const result = [];
+
+					for (let row of data) {
+						if ((typeof row === 'string')) {
+							row = this.opts.deserialize(row);
+						}
+
+						if (row === undefined || row === null) {
+							result.push(undefined);
+							continue;
+						}
+
+						if (typeof row.expires === 'number' && Date.now() > row.expires) {
+							this.delete(key).then(() => undefined);
+							result.push(undefined);
+						} else {
+							result.push((options && options.raw) ? row : row.value);
+						}
+					}
+
+					return result;
+				}
+
+				if (typeof data.expires === 'number' && Date.now() > data.expires) {
+					return this.delete(key).then(() => undefined);
+			...
+typeof data === 'string' ? this.opts.deserialize(data) : this.opts.compression ? this.opts.deserialize(data) : data
+data => {
+				if (data === undefined || data === null) {
+					return undefined;
+				}
+
+				if (isArray) {
+					const result = [];
+
+					for (let row of data) {
+						if ((typeof row === 'string')) {
+							row = this.opts.deserialize(row);
+						}
+
+						if (row === undefined || row === null) {
+							result.push(undefined);
+							continue;
+						}
+
+						if (typeof row.expires === 'number' && Date.now() > row.expires) {
+							this.delete(key).then(() => undefined);
+							result.push(undefined);
+						} else {
+							result.push((options && options.raw) ? row : row.value);
+						}
+					}
+
+					return result;
+				}
+
+				if (typeof data.expires === 'number' && Date.now() > data.expires) {
+					return this.delete(key).then(() => undefined);
+				}
+
+				return (options && options.raw) ? data : data.value;
+			}
+this.delete(key).then(() => undefined)
+this.delete(key).then(() => undefined)

@@ -1,0 +1,2 @@
+const cache = dataCache.get(this)
+let result = cache.explicitMatches.get(filePath)

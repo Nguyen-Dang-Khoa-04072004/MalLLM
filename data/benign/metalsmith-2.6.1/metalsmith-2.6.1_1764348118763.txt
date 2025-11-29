@@ -1,0 +1,146 @@
+Matter.prototype.options = function (options) {
+  if (isUndefined(options)) return Object.assign(Object.create(null), this[_options])
+  this[_options] = Object.assign(this[_options], options)
+}
+readFile(join(projectDir, 'package.json'), 'utf-8', (err, data) => {
+  if (err) return
+  let parsed = false
+  try {
+    parsed = JSON.parse(data)
+  } catch (err) {
+    return
+  }
+  if (!parsed) return
+
+  const toCheck = []
+
+  if (isObject(parsed.devDependencies)) {
+    toCheck.push.apply(toCheck, Object.keys(parsed.devDependencies))
+  }
+  if (isObject(parsed.dependencies)) {
+    toCheck.push.apply(toCheck, Object.keys(parsed.dependencies))
+  }
+
+  const pluginMap = toCheck.reduce((all, fullname) => {
+    if (!fullname.startsWith('metalsmith-')) return all
+    const name = fullname.replace(/^metalsmith-/, '')
+    if (outdatedPlugins.includes(name)) {
+      const newName = renamedPlugins[name] ? renamedPlugins[name] : name
+      all[`metalsmith-${name}`] = `@metalsmith/${newName}`
+    }
+    return all
+  }, {})
+
+  if (Object.keys(pluginMap).length) {
+    process.stdout.write(
+      `\x1b[43m\x1b[30m WARN \x1b[0m\x1b[49m\x1b[33m Metalsmith has detected deprecated core plugins that have m...
+<operator>.formatString("", buffer.toString().slice(0, 200), "...")
+const parsed = matter(fileBuffer.toString(), this[_options])
+function rerun = function rerun() {
+    const originalFiles = cloneDeepWith(fileCache, (value) => {
+      if (Buffer.isBuffer(value)) return Buffer.from(value)
+    })
+    return metalsmith.metadata(meta).run(originalFiles, metalsmith.plugins)
+  }
+const originalFiles = cloneDeepWith(fileCache, (value) => {
+      if (Buffer.isBuffer(value)) return Buffer.from(value)
+    })
+metalsmith.metadata(meta).run(originalFiles, metalsmith.plugins)
+function transformFilesObj = function transformFilesObj(evt, p, metalsmith) {
+    // we only care about in-source files & dirs to update the fileCache
+    // other files are eventually added or processed by plugins
+    let filesTransform = Promise.resolve()
+    const relPath = sourceRelPath(p, metalsmith)
+
+    if (isInSource(relPath)) {
+      switch (evt) {
+        case 'unlinkDir':
+          metalsmith.match(relPath, Object.keys(fileCache)).forEach((r) => delete fileCache[r])
+          break
+        case 'unlink':
+          delete fileCache[relPath]
+          break
+        case 'add':
+        case 'change':
+          filesTransform = metalsmith.readFile(metalsmith.path(p)).then((file) => {
+            fileCache[relPath] = file
+          })
+          break
+      }
+    }
+
+    return filesTransform
+  }
+!fullname.startsWith('metalsmith-')
+const name = fullname.replace(/^metalsmith-/, '')
+let filesTransform = Promise.resolve()
+const newName = renamedPlugins[name] ? renamedPlugins[name] : name
+function readdir = function readdir(dir, ignores) {
+  if (Array.isArray(ignores)) {
+    ignores = {
+      str: ignores.filter(isString),
+      fn: ignores.filter(isFunction)
+    }
+  }
+
+  if (isString(dir)) {
+    dir = {
+      current: dir,
+      root: dir
+    }
+  }
+  const result = fsPromises
+    .readdir(dir.current)
+    .then((children) => {
+      const filtered = []
+
+      children.forEach((child) => {
+        const res = resolve(dir.current, child)
+        const rel = relative(dir.root, res)
+
+        if (!match(rel, ignores.str).length) {
+          filtered.push(
+            stat(res).then((stat) => {
+              // it would be better to put this check together with the previous if,
+              // but that would break backwards-compatibility with Metalsmith 2.3.0
+              // as the stat object needs to be passed to ignore fns
+              if (ignores.fn.some((fn) => fn(rel, stat))) {
+                return null
+              }
+              if (stat.isDirectory()) {
+                retur...
+ignores = {
+      str: ignores.filter(isString),
+      fn: ignores.filter(isFunction)
+    }
+<operator>.formatString("invalid debugger namespace "", namespace, """)
+Object.entries(pluginMap).forEach(([oldName, newName]) => {
+      process.stdout.write(`· ${oldName} -> ${newName}\n`)
+    })
+<operator>.formatString("· ", oldName, " -> ", newName, "\n")
+process.stdout.write(
+      [
+        '\nRun the commands below to migrate:',
+        ` npm remove ${Object.keys(pluginMap).join(' ')}`,
+        ` npm i ${Object.values(pluginMap).join(' ')}\n`,
+        'For all available core plugins, see https://github.com/search?q=topic%3Ametalsmith-plugin+org%3Ametalsmith&type=Repositories',
+        '\x1b[0m'
+      ].join('\n')
+    )
+(_tmp_12 = [
+        '\nRun the commands below to migrate:',
+        ` npm remove ${Object.keys(pluginMap).join(' ')}`,
+        ` npm i ${Object.values(pluginMap).join(' ')}\n`,
+        'For all available core plugins, see https://github.com/search?q=topic%3Ametalsmith-plugin+org%3Ametalsmith&type=Repositories',
+        '\x1b[0m'
+      ]).join
+(
+    typeof this[_options].delimiters === 'string'
+      ? [this[_options].delimiters, dataString.toString(), this[_options].delimiters]
+      : [this[_options].delimiters[0], dataString.toString(), this[_options].delimiters[1]]
+  ).join('\n')
+(_tmp_7 = typeof this[_options].delimiters === 'string'
+      ? [this[_options].delimiters, dataString.toString(), this[_options].delimiters]
+      : [this[_options].delimiters[0], dataString.toString(), this[_options].delimiters[1]])
+_tmp_13.push("For all available core plugins, see https://github.com/search?q=topic%3Ametalsmith-plugin+org%3Ametalsmith&type=Repositories")
+_tmp_9.push(this[_options].delimiters[0])

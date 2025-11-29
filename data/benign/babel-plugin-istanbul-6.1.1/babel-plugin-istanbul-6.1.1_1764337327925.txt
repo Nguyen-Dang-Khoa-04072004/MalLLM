@@ -1,0 +1,5 @@
+const args = [_path.default.resolve(__dirname, 'load-nyc-config-sync.js'), cwd]
+args.push(opts.nycrcPath)
+memokey += memosep + opts.nycrcPath
+memoize.has(memokey)
+memoize.get(memokey)

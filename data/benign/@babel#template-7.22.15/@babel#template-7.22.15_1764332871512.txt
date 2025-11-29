@@ -1,0 +1,1 @@
+applyReplacement(placeholder, ast, replacements && replacements[placeholder.name] || null)

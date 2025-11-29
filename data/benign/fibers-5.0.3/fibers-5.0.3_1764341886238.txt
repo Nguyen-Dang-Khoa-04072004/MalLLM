@@ -1,0 +1,15 @@
+var args = process.argv.slice(2).filter(function(arg) {
+	if (arg === '-f') {
+		force = true;
+		return false;
+	} else if (arg.substring(0, 13) === '--target_arch') {
+		arch = arg.substring(14);
+	} else if (arg.substring(0, 10) === '--modules=') {
+		modules = arg.substring(10);
+		return false;
+	} else if (arg === '--debug') {
+		debug = true;
+	}
+	return true;
+})
+var aw = process.binding('async_wrap')

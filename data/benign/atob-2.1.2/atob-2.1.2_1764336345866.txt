@@ -1,0 +1,2 @@
+var str = process.argv[2]
+'function' === typeof atobNative

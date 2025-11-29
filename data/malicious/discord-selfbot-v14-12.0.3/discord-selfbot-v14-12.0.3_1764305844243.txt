@@ -1,0 +1,6 @@
+this.client.rest.methods.sendWebhookMessage(
+          this,
+          content,
+          options,
+          files
+        )

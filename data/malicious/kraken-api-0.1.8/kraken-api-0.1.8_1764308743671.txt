@@ -1,0 +1,31 @@
+var req = request.post(options, function(error, response, body) {
+			if(typeof callback === 'function') {
+				var data;
+
+				if(error) {
+					return callback.call(self, new Error('Error in server response: ' + JSON.stringify(error)), null);
+				}
+
+				try {
+					data = JSON.parse(body);
+				}
+				catch(e) {
+					return callback.call(self, new Error('Could not understand response from server: ' + body), null);
+				}
+				//If any errors occured, Kraken will give back an array with error strings under
+				//the key "error". We should then propagate back the error message as a proper error.
+				if(data.error && data.error.length) {
+					var krakenError = null;
+					data.error.forEach(function(element) {
+						if (element.charAt(0) === "E") {
+							krakenError = element.substr(1);
+							return false;
+						}
+					});
+					if (krakenError) {
+						return callback.call(self, new Error('Kraken API returned error: ' + krakenError), null);
+					}
+				}
+				else {
+					return callback.call(self,...
+callback.call(self, new Error('Error in server response: ' + JSON.stringify(error)), null)

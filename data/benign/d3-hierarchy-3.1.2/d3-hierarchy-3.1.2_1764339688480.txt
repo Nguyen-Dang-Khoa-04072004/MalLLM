@@ -1,0 +1,3 @@
+treemap.padding = function(x) {
+    return arguments.length ? treemap.paddingInner(x).paddingOuter(x) : treemap.paddingInner();
+  }

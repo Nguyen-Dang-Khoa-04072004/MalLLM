@@ -1,0 +1,4 @@
+const eslintPackageJson = fs.readFileSync(path.join(eslintFolder, 'package.json')).toString()
+const eslintPackageObject = JSON.parse(eslintPackageJson)
+const eslintPackageVersion = eslintPackageObject.version
+const versionMatch = /^([0-9]+)\./.exec(eslintPackageVersion)

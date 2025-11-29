@@ -1,0 +1,4 @@
+const EventEmitter = require('events').EventEmitter
+function clone = function clone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}

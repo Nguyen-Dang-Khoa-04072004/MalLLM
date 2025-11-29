@@ -1,0 +1,1 @@
+const isUrl = typeof diagnostic.absFilePath === 'string' && diagnostic.absFilePath.indexOf('http') === 0

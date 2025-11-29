@@ -1,0 +1,80 @@
+const createTime = (fnName, tagName = '') => {
+    if (BUILD.profile && performance.mark) {
+        const key = `st:${fnName}:${tagName}:${i++}`;
+        // Start
+        performance.mark(key);
+        // End
+        return () => performance.measure(`[Stencil] ${fnName}() <${tagName}>`, key);
+    }
+    else {
+        return () => {
+            return;
+        };
+    }
+}
+"@" !== e.selector[0] ? c = ((e, t, o, s) => e.split(",").map((e => s && e.indexOf("." + s) > -1 ? e.trim() : ((e, t) => !(e => (e = e.replace(/\[/g, "\\[").replace(/\]/g, "\\]"), 
+ new RegExp("^(" + e + ")([>\\s~+[.,{:][\\s\\S]*)?$", "m")))(t).test(e))(e, t) ? ((e, t, o) => {
+  const s = "." + (t = t.replace(/\[is=([^\]]*)\]/g, ((e, ...t) => t[0]))), c = e => {
+   let c = e.trim();
+   if (!c) return "";
+   if (e.indexOf("-shadowcsshost-no-combinator") > -1) c = ((e, t, o) => {
+    if (_polyfillHostRe.lastIndex = 0, _polyfillHostRe.test(e)) {
+     const t = `.${o}`;
+     return e.replace(_polyfillHostNoCombinatorRe, ((e, o) => injectScopingSelector(o, t))).replace(_polyfillHostRe, t + " ");
+    }
+    return t + " " + e;
+   })(e, t, o); else {
+    const t = e.replace(_polyfillHostRe, "");
+    t.length > 0 && (c = injectScopingSelector(t, s));
+   }
+   return c;
+  }, r = (e => {
+   const t = [];
+   let o = 0;
+   return {
+    content: (e = e.replace(/(\[[^\]]*\])/g, ((e, s) => {
+     const c = `__ph-${o}__`;
+ ... : (e.selector.startsWith("@media") || e.selector.startsWith("@supports") || e.selector.startsWith("@page") || e.selector.startsWith("@document")) && (r = scopeSelectors(e.content, t, o, s))
+c = ((e, t, o) => {
+    if (_polyfillHostRe.lastIndex = 0, _polyfillHostRe.test(e)) {
+     const t = `.${o}`;
+     return e.replace(_polyfillHostNoCombinatorRe, ((e, o) => injectScopingSelector(o, t))).replace(_polyfillHostRe, t + " ");
+    }
+    return t + " " + e;
+   })(e, t, o)
+const r = (e => {
+   const t = [];
+   let o = 0;
+   return {
+    content: (e = e.replace(/(\[[^\]]*\])/g, ((e, s) => {
+     const c = `__ph-${o}__`;
+     return t.push(s), o++, c;
+    }))).replace(/(:nth-[-\w]+)(\([^)]+\))/g, ((e, s, c) => {
+     const r = `__ph-${o}__`;
+     return t.push(c), o++, s + r;
+    })),
+    placeholders: t
+   };
+  })(e)
+function patchDomImplementation = function patchDomImplementation(e, t) {
+ let r;
+ if (null != e.defaultView ? (t.destroyWindow = !0, patchWindow(e.defaultView), r = e.defaultView) : (t.destroyWindow = !0, 
+ t.destroyDocument = !1, r = new MockWindow(!1)), r.document !== e && (r.document = e), 
+ e.defaultView !== r && (e.defaultView = r), "function" != typeof e.documentElement.constructor.prototype.getRootNode && (e.createElement("unknown-element").constructor.prototype.getRootNode = getRootNode), 
+ "function" == typeof e.createEvent) {
+  const t = e.createEvent("CustomEvent").constructor;
+  r.CustomEvent !== t && (r.CustomEvent = t);
+ }
+ try {
+  e.baseURI;
+ } catch (t) {
+  Object.defineProperty(e, "baseURI", {
+   get() {
+    const t = e.querySelector("base[href]");
+    return t ? new URL(t.getAttribute("href"), r.location.href).href : r.location.href;
+   }
+  });
+ }
+ return r;
+}
+this.__items.find((attr) => attr.name === attrName && getNamespaceURI(attr.namespaceURI) === namespaceURI) || null

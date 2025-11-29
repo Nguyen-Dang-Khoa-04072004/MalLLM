@@ -1,0 +1,8 @@
+var opts = {
+    env: _.defaults(env, process.env),
+    stdio: 'inherit',
+  }
+ws.once('open', function() {
+    callback(null, ws);
+  })
+var child = cp.spawn(_.head(cmd), _.tail(cmd), opts)

@@ -1,0 +1,1 @@
+settingsRepo.checkValueIsValidOption(updatedValue, filter[setting].options)

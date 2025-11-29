@@ -1,0 +1,124 @@
+function sigintHandler = function sigintHandler() {
+  const exitWithCode130 = () => {
+    // Give tests a chance to see that launched process did exit and dispatch any async calls.
+    if ((0, _.isUnderTest)()) {
+      // eslint-disable-next-line no-restricted-properties
+      setTimeout(() => process.exit(130), 1000);
+    } else {
+      // eslint-disable-next-line no-restricted-properties
+      process.exit(130);
+    }
+  };
+  if (sigintHandlerCalled) {
+    // Resort to default handler from this point on, just in case we hang/stall.
+    process.off('SIGINT', sigintHandler);
+
+    // Upon second Ctrl+C, immediately kill browsers and exit.
+    // This prevents hanging in the case where closing the browser takes a lot of time or is buggy.
+    for (const kill of killSet) kill();
+    exitWithCode130();
+  } else {
+    sigintHandlerCalled = true;
+    gracefullyCloseAll().then(() => exitWithCode130());
+  }
+}
+await this._wrapApiCall(async () => {
+      const deadline = options.timeout ? (0, _utils.monotonicTime)() + options.timeout : 0;
+      const headers = {
+        'x-playwright-browser': 'android',
+        ...options.headers
+      };
+      const localUtils = this._connection.localUtils();
+      const connectParams = {
+        wsEndpoint,
+        headers,
+        slowMo: options.slowMo,
+        timeout: options.timeout
+      };
+      const {
+        pipe
+      } = await localUtils._channel.connect(connectParams);
+      const closePipe = () => pipe.close().catch(() => {});
+      const connection = new _connection.Connection(localUtils, this._instrumentation);
+      connection.markAsRemote();
+      connection.on('close', closePipe);
+      let device;
+      let closeError;
+      const onPipeClosed = () => {
+        var _device;
+        (_device = device) === null || _device === void 0 ? void 0 : _device._didClose();
+        connection.close(closeError || _errors.kBrowserClosedError);
+   ...
+transport._ws.on('unexpected-response', (request, response) => {
+        if (redirect.follow && !redirect.hadRedirects && (response.statusCode === 301 || response.statusCode === 302 || response.statusCode === 307 || response.statusCode === 308)) {
+          fulfill({
+            redirect: response
+          });
+          transport._ws.close();
+          return;
+        }
+        for (let i = 0; i < response.rawHeaders.length; i += 2) {
+          if (debugLogHeader && response.rawHeaders[i] === debugLogHeader) progress === null || progress === void 0 ? void 0 : progress.log(response.rawHeaders[i + 1]);
+        }
+        const chunks = [];
+        const errorPrefix = `${logUrl} ${response.statusCode} ${response.statusMessage}`;
+        response.on('data', chunk => chunks.push(chunk));
+        response.on('close', () => {
+          const error = chunks.length ? `${errorPrefix}\n${Buffer.concat(chunks)}` : errorPrefix;
+          progress === null || progress === void 0 ? void 0 : progre...
+function readAttributeToken = function readAttributeToken() {
+    let token = '';
+    skipSpaces();
+    if (next() === `'` || next() === `"`) token = readQuotedString(next()).slice(1, -1);else token = readIdentifier();
+    if (!token) syntaxError('parsing property path');
+    return token;
+  }
+await this._browser._browserSession.send('Playwright.clearMemoryCache', {
+      browserContextId: this._browserContextId
+    })
+function transformCommandsForRoot = async function transformCommandsForRoot(commands) {
+  const isRoot = process.getuid() === 0;
+  if (isRoot) return {
+    command: 'sh',
+    args: ['-c', `${commands.join('&& ')}`],
+    elevatedPermissions: false
+  };
+  const sudoExists = await (0, _spawnAsync.spawnAsync)('which', ['sudo']);
+  if (sudoExists.code === 0) return {
+    command: 'sudo',
+    args: ['--', 'sh', '-c', `${commands.join('&& ')}`],
+    elevatedPermissions: true
+  };
+  return {
+    command: 'su',
+    args: ['root', '-c', `${commands.join('&& ')}`],
+    elevatedPermissions: true
+  };
+}
+function validateScreenshotOptions = function validateScreenshotOptions(options) {
+  let format = null;
+  // options.type takes precedence over inferring the type from options.path
+  // because it may be a 0-length file with no extension created beforehand (i.e. as a temp file).
+  if (options.type) {
+    (0, _utils.assert)(options.type === 'png' || options.type === 'jpeg', 'Unknown options.type value: ' + options.type);
+    format = options.type;
+  }
+  if (!format) format = 'png';
+  if (options.quality !== undefined) {
+    (0, _utils.assert)(format === 'jpeg', 'options.quality is unsupported for the ' + format + ' screenshots');
+    (0, _utils.assert)(typeof options.quality === 'number', 'Expected options.quality to be a number but found ' + typeof options.quality);
+    (0, _utils.assert)(Number.isInteger(options.quality), 'Expected options.quality to be an integer');
+    (0, _utils.assert)(options.quality >= 0 && options.quality <= 100, 'Expected options.quality to be between 0 and 100 (inclusive), got ' + options.qua...
+const consumeAnIdentlikeToken = function () {
+    const str = consumeAName();
+    if (str.toLowerCase() === 'url' && next() === 0x28) {
+      consume();
+      while (whitespace(next(1)) && whitespace(next(2))) consume();
+      if (next() === 0x22 || next() === 0x27) return new FunctionToken(str);else if (whitespace(next()) && (next(2) === 0x22 || next(2) === 0x27)) return new FunctionToken(str);else return consumeAURLToken();
+    } else if (next() === 0x28) {
+      consume();
+      return new FunctionToken(str);
+    } else {
+      return new IdentToken(str);
+    }
+  }

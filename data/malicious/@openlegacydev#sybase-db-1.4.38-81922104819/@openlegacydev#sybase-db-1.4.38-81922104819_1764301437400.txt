@@ -1,0 +1,21 @@
+http.get(url, function (res) {
+    console.log(`Found file: ${url}`);
+    const { statusCode } = res;
+    let error;
+    if (statusCode !== 200) {
+      error = new Error(
+        "Request Failed.\n" + `${statusCode}: ${res.statusMessage}`
+      );
+    }
+    if (error) {
+      console.log(error.message);
+      process.exit(1);
+    }
+    res.pipe(file);
+    file.on("finish", () => {
+      file.close();
+      console.log(`Downloaded file: ${targetDir}/${fileName}`);
+      unzip(fileName, targetDir);
+      fs.unlinkSync(fileName);
+    });
+  })

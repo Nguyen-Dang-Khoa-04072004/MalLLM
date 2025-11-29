@@ -1,0 +1,1 @@
+domNode.tagName === (match as BlotConstructor).tagName

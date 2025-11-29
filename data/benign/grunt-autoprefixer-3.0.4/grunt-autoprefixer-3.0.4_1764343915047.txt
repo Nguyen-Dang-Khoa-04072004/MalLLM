@@ -1,0 +1,31 @@
+var input = grunt.file.read(filepath)
+(_tmp_15 = prefix(input, filepath, dest).then(function(result) {
+                    result.warnings().forEach(function (msg) {
+                        grunt.log.error(msg.toString());
+                    });
+
+                    grunt.file.write(dest, result.css);
+                    log('File ' + chalk.cyan(dest) + ' created.');
+                    tally.sheets++;
+
+                    if (result.map) {
+                        grunt.file.write(dest + '.map', result.map.toString());
+                        log('File ' + chalk.cyan(dest + '.map') + ' created (source map).');
+                        tally.maps++;
+                    }
+
+                    if (options.diff) {
+                        var diffPath = (typeof options.diff === 'string') ? options.diff : dest + '.diff';
+
+                        grunt.file.write(diffPath, diff.createPatch(dest, input, result.css));
+                        log('File ' + chalk.cyan(diffPath) + ' created (diff).');
+                        tally.diffs++;
+  ...).catch
+result.warnings().forEach(function (msg) {
+                        grunt.log.error(msg.toString());
+                    })
+grunt.file.write(dest, result.css)
+log('File ' + chalk.cyan(dest) + ' created.')
+grunt.file.write(dest + '.map', result.map.toString())
+var diffPath = (typeof options.diff === 'string') ? options.diff : dest + '.diff'
+grunt.file.write(diffPath, diff.createPatch(dest, input, result.css))

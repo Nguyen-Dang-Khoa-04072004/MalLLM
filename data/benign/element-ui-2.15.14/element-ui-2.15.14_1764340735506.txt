@@ -1,0 +1,1 @@
+var stacked = stack.get(srcValue)

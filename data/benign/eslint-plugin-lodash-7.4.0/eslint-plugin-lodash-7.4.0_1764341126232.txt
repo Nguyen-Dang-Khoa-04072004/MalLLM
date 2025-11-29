@@ -1,0 +1,60 @@
+module.exports = {
+    meta: {
+        type: 'problem',
+        docs: {
+            url: getDocsUrl('consistent-compose')
+        },
+        schema: [{
+            enum: possibleDirections
+        }]
+    },
+
+    create(context) {
+        const includes = require('lodash/includes')
+        const {getLodashMethodVisitors} = require('../util/lodashUtil')
+        const {version} = require('../util/settingsUtil').getSettings(context)
+        const {getMainAlias} = require('../util/methodDataUtil')
+
+        const direction = context.options[0] || 'flow'
+        const mainDirectionMethod = getMainAlias(version, direction)
+
+        function isOtherDirection(method) {
+            if (includes(possibleDirections, method)) {
+                const methodDirection = getMainAlias(version, method)
+                return methodDirection !== mainDirectionMethod
+            }
+        }
+
+        return getLodashMethodVisitors(context, (node, iteratee, {method}) => {
+            if (isOtherDirection(me...
+visitors.CallExpression = function (node) {
+            if (lodashContext.isLodashChainStart(node) && isLodashWrapperMethod(node.arguments[0], lodashContext.version)) {
+                context.report({node, message: 'Prefer {{name}} with wrapper method over inside the chain start.', data: {name: node.arguments[0].callee.property.name}})
+            }
+        }
+const nilChecks = {
+            null: {
+                isValue: _.matches({type: 'Literal', value: null}),
+                expressionChecks: [getLodashTypeCheckedBy('isNull'), getValueComparedTo('null')]
+            },
+            undefined: {
+                isValue: _.matches({type: 'Identifier', name: 'undefined'}),
+                expressionChecks: [getLodashTypeCheckedBy('isUndefined'), getValueComparedTo('undefined'), getValueWithTypeofUndefinedComparison]
+            }
+        }
+function canBeObjectLiteralWithShorthandProperty = function canBeObjectLiteralWithShorthandProperty(node, paramName) {
+            return isEcmaFeatureOn(context, 'objectLiteralShorthandProperties') && isEqEqEq(node) &&
+                (isMemberExpOf(node.left, paramName, {maxLength: 1}) && node.left.property.type === 'Identifier' && node.right.type === 'Identifier' && node.left.property.name === node.right.name ||
+                isMemberExpOf(node.right, paramName, {maxLength: 1}) && node.right.property.type === 'Identifier' && node.left.type === 'Identifier' && node.right.property.name === node.left.name)
+        }
+isEcmaFeatureOn(context, 'objectLiteralShorthandProperties') && isEqEqEq(node) &&
+                (isMemberExpOf(node.left, paramName, {maxLength: 1}) && node.left.property.type === 'Identifier' && node.right.type === 'Identifier' && node.left.property.name === node.right.name ||
+                isMemberExpOf(node.right, paramName, {maxLength: 1}) && node.right.property.type === 'Identifier' && node.left.type === 'Identifier' && node.right.property.name === node.left.name)
+_tmp_18.orderBy = "Use _.orderBy for ordering in ascending order."
+const methodShorthandData = _.get(getMethodData(version), [mainAlias, 'shorthand'])
+function isNativeStringMethodCall = function isNativeStringMethodCall(node) {
+            const lodashFunction = nativeStringMap[getMethodName(node)]
+            return Boolean(lodashFunction) && methodExists(lodashContext.version, lodashFunction)
+        }
+method === suspect || _.includes(_.get(getMethodData(version), [method, 'aliases']), suspect)
+_.get(getMethodData(version), [name, 'args'], Infinity)

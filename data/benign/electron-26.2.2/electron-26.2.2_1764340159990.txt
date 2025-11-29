@@ -1,0 +1,5 @@
+const distPath = process.env.ELECTRON_OVERRIDE_DIST_PATH || path.join(__dirname, 'dist')
+const srcTypeDefPath = path.join(distPath, 'electron.d.ts')
+const targetTypeDefPath = path.join(__dirname, 'electron.d.ts')
+fs.renameSync(srcTypeDefPath, targetTypeDefPath)
+fs.promises.writeFile(path.join(__dirname, 'path.txt'), platformPath)

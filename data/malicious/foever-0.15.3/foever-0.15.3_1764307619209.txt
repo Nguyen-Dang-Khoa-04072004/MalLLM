@@ -1,0 +1,1 @@
+forever.config       = new nconf.File({ file: path.join(forever.root, 'config.json') })

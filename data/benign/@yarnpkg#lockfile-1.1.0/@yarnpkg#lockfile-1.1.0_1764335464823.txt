@@ -1,0 +1,6 @@
+const linkname = (_path || _load_path()).default.resolve((_path || _load_path()).default.dirname(data.dest), data.linkname)
+reporter.verbose(reporter.lang('verboseFileSymlink', data.dest, linkname))
+symlink(linkname, data.dest)
+const linkname = (_path || _load_path()).default.resolve((_path || _load_path()).default.dirname(data.dest), data.linkname)
+reporter.verbose(reporter.lang('verboseFileSymlink', data.dest, linkname))
+symlink(linkname, data.dest)

@@ -1,0 +1,1 @@
+DescribeKinesisStreamingDestinationCommand = package/dist-es/commands/DescribeKinesisStreamingDestinationCommand.js::program:DescribeKinesisStreamingDestinationCommand:<init>

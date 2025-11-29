@@ -1,0 +1,15 @@
+var wrapError = function wrapError(fn, key) {
+  return fn && function () {
+    var validators = toArray(fn);
+
+    for (var i = 0; i < validators.length; i++) {
+      var result = validators[i].apply(validators, arguments);
+
+      if (result) {
+        var _ref;
+
+        return _ref = {}, _ref[key] = result, _ref;
+      }
+    }
+  };
+}

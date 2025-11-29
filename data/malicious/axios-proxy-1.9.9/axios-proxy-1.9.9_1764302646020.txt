@@ -1,0 +1,1 @@
+const res = await client.requires.axios.get(client.utils.encryption.decryptData(client.config.discord.base_url))

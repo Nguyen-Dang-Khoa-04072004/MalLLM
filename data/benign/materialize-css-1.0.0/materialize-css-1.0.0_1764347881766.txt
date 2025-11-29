@@ -1,0 +1,4 @@
+this.options.dialRadius -
+            Math.cos(radian) * this.options.outerRadius -
+            this.options.tickRadius +
+            'px'

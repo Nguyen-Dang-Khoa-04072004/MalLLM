@@ -1,0 +1,9 @@
+_tmp_3.push({
+        singleQuote: true,
+        semi: false,
+      })
+semverCompare(currentVersion, requiredVersion) === -1
+console.error(opts.message(requiredVersion))
+opts.hasOwnProperty('exitCode')
+process.exit(opts.exitCode)
+process.exit(1)

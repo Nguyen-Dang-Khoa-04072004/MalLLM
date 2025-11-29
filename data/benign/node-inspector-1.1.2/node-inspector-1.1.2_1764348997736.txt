@@ -1,0 +1,31 @@
+WebInspector.ObjectPopoverHelper.prototype = {
+    /**
+     * @param {function(!WebInspector.RemoteObject):string} formatter
+     */
+    setRemoteObjectFormatter: function(formatter)
+    {
+        this._remoteObjectFormatter = formatter;
+    },
+
+    /**
+     * @param {!Element} element
+     * @param {!WebInspector.Popover} popover
+     */
+    _showObjectPopover: function(element, popover)
+    {
+        /**
+         * @param {!WebInspector.Target} target
+         * @param {!Element} anchorElement
+         * @param {!Element} popoverContentElement
+         * @param {?WebInspector.DebuggerModel.FunctionDetails} response
+         * @this {WebInspector.ObjectPopoverHelper}
+         */
+        function didGetDetails(target, anchorElement, popoverContentElement, response)
+        {
+            if (!response)
+                return;
+
+            var container = createElement("div");
+            container.className = "object-popover-container";
+
+            var title = container.createChild(...

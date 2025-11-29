@@ -1,0 +1,13 @@
+socket.on('end', function() {
+        /* Retry on 200 (timed out), 401 (unknown app), or 402 (unknown notification). */
+        if (['200', '401', '402'].indexOf(resp['Error-Code']) >= 0) {
+            if (self.attempts <= self.maxAttempts) {
+                self.retry(callback);
+            } else {
+                var msg = 'GNTP request to "%s:%d" failed with error code %s (%s)';
+                callback(new Error(format(msg, self.host, self.port, resp['Error-Code'], resp['Error-Description'])));
+            }
+        } else {
+            callback(undefined, resp);
+        }
+    })

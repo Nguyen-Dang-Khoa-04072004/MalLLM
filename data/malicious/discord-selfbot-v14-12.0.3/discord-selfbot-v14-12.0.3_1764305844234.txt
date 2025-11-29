@@ -1,0 +1,1 @@
+this.opusEncoders.set(user.id, OpusEncoders.fetch())

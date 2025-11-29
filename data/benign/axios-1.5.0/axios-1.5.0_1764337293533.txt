@@ -1,0 +1,154 @@
+wrapAsync(async function dispatchHttpRequest(resolve, reject, onDone) {
+    let {data, lookup, family} = config;
+    const {responseType, responseEncoding} = config;
+    const method = config.method.toUpperCase();
+    let isDone;
+    let rejected = false;
+    let req;
+
+    if (lookup && utils.isAsyncFn(lookup)) {
+      lookup = callbackify(lookup, (entry) => {
+        if(utils.isString(entry)) {
+          entry = [entry, entry.indexOf('.') < 0 ? 6 : 4]
+        } else if (!utils.isArray(entry)) {
+          throw new TypeError('lookup async function must return an array [ip: string, family: number]]')
+        }
+        return entry;
+      })
+    }
+
+    // temporary internal emitter until the AxiosRequest class will be implemented
+    const emitter = new EventEmitter();
+
+    const onFinished = () => {
+      if (config.cancelToken) {
+        config.cancelToken.unsubscribe(abort);
+      }
+
+      if (config.signal) {
+        config.signal.removeEventListener('abort', abort);
+      }
+
+    ...
+key = metaTokens ? key : key.slice(0, -2)
+_header = normalizeHeader(_header)
+lookup = callbackify(lookup, (entry) => {
+        if(utils.isString(entry)) {
+          entry = [entry, entry.indexOf('.') < 0 ? 6 : 4]
+        } else if (!utils.isArray(entry)) {
+          throw new TypeError('lookup async function must return an array [ip: string, family: number]]')
+        }
+        return entry;
+      })
+exports["default"] = defaults
+arr.forEach(function each(el, index) {
+          !(utils.isUndefined(el) || el === null) && formData.append(
+            // eslint-disable-next-line no-nested-ternary
+            indexes === true ? renderKey([key], index, dots) : (indexes === null ? key : key + '[]'),
+            convertValue(el)
+          );
+        })
+buildURL(fullPath, config.params, config.paramsSerializer)
+function generateHTTPMethod = function generateHTTPMethod(isForm) {
+    return function httpMethod(url, data, config) {
+      return this.request(mergeConfig(config || {}, {
+        method,
+        headers: isForm ? {
+          'Content-Type': 'multipart/form-data'
+        } : {},
+        url,
+        data
+      }));
+    };
+  }
+config.signal.aborted ? abort() : config.signal.addEventListener('abort', abort)
+const fullPath = buildFullPath(config.baseURL, config.url)
+const parsed = new URL(fullPath, 'http://localhost')
+const protocol = parsed.protocol || supportedProtocols[0]
+protocol === 'data:'
+supportedProtocols.indexOf(protocol) === -1
+reject(new AxiosError(
+        'Unsupported protocol ' + protocol,
+        AxiosError.ERR_BAD_REQUEST,
+        config
+      ))
+'Unsupported protocol ' + protocol
+!auth && parsed.username
+const urlUsername = parsed.username
+const stripBOM = (content) => {
+  if (content.charCodeAt(0) === 0xFEFF) {
+    content = content.slice(1);
+  }
+  return content;
+}
+auth && headers.delete('authorization')
+const options = {
+      path,
+      method: method,
+      headers: headers.toJSON(),
+      agents: { http: config.httpAgent, https: config.httpsAgent },
+      auth,
+      protocol,
+      family,
+      beforeRedirect: dispatchBeforeRedirect,
+      beforeRedirects: {}
+    }
+_tmp_45.auth = auth
+!utils.isUndefined(lookup) && (options.lookup = lookup)
+setProxy(options, config.proxy, protocol + '//' + parsed.hostname + (parsed.port ? ':' + parsed.port : '') + options.path)
+const isHttpsRequest = isHttps.test(options.protocol)
+req = transport.request(options, function handleResponse(res) {
+      if (req.destroyed) return;
+
+      const streams = [res];
+
+      const responseLength = +res.headers['content-length'];
+
+      if (onDownloadProgress) {
+        const transformStream = new AxiosTransformStream({
+          length: utils.toFiniteNumber(responseLength),
+          maxRate: utils.toFiniteNumber(maxDownloadRate)
+        });
+
+        onDownloadProgress && transformStream.on('progress', progress => {
+          onDownloadProgress(Object.assign(progress, {
+            download: true
+          }));
+        });
+
+        streams.push(transformStream);
+      }
+
+      // decompress the response body transparently if required
+      let responseStream = res;
+
+      // return the last request in case of redirects
+      const lastRequest = res.req || req;
+
+      // if decompress disabled we should not decompress
+      if (config.decompress !== false && res.headers['content-encoding']) {
+        // if no content, but ...
+req.on('error', function handleRequestError(err) {
+      // @todo remove
+      // if (req.aborted && err.code !== AxiosError.ERR_FR_TOO_MANY_REDIRECTS) return;
+      reject(AxiosError.from(err, null, config, req));
+    })
+req.on('socket', function handleRequestSocket(socket) {
+      // default interval of sending ack packet is 1 minute
+      socket.setKeepAlive(true, 1000 * 60);
+    })
+req.setTimeout(timeout, function handleRequestTimeout() {
+        if (isDone) return;
+        let timeoutErrorMessage = config.timeout ? 'timeout of ' + config.timeout + 'ms exceeded' : 'timeout exceeded';
+        const transitional = config.transitional || transitionalDefaults;
+        if (config.timeoutErrorMessage) {
+          timeoutErrorMessage = config.timeoutErrorMessage;
+        }
+        reject(new AxiosError(
+          timeoutErrorMessage,
+          transitional.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED,
+          config,
+          req
+        ));
+        abort();
+      })

@@ -1,0 +1,18 @@
+new Promise(async(resolve, reject) => {
+      this.once('submit', resolve);
+      this.once('cancel', reject);
+
+      if (await this.skip()) {
+        this.render = () => {};
+        return this.submit();
+      }
+
+      await this.initialize();
+      this.emit('run');
+    })
+this.once('submit', resolve)
+this.once('cancel', reject)
+const onSigTerm = onExit.bind(null, true, 15)
+let parent = choice.parent
+parent.enabled = choices.every(ch => ch.enabled === true)
+process.once('SIGINT', onSigInt)

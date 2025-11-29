@@ -1,0 +1,17 @@
+var hostname = (isProxyHost) ? ctx.config.envConf[bundle][env].hostname.replace(/\:\d+$/, '') : ctx.config.envConf[bundle][env].hostname
+noneDefaultJs[t] = merge(url, noneDefaultJs[t])
+let $img = document.createElement('IMG')
+(_tmp_178 = /\?/).test
+noneDefaultJs = merge.setKeyComparison('url')(files['templates']._common.javascripts, noneDefaultJs, true)
+var headInfos = {
+                    'location': path
+                }
+var webrootLen = self.conf[self.appName][self.env].server.webroot.length
+res.writeHead(code, merge(headInfos, {
+                        'cache-control': 'no-cache, no-store, must-revalidate', // preventing browsers from using cache
+                        'pragma': 'no-cache',
+                        'expires': '0'
+                    }))
+code_point = (iso2022jp_jis0212 === false) ?
+              indexCodePointFor(pointer, indexes['jis0208']) :
+              indexCodePointFor(pointer, indexes['jis0212'])

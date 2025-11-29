@@ -1,0 +1,5 @@
+var currentPath = path.resolve(basePath, source)
+var targetPath = path.resolve(basePath, dest)
+startCopy(currentPath)
+var target = file.name.replace(currentPath, targetPath)
+target =  rename(target)

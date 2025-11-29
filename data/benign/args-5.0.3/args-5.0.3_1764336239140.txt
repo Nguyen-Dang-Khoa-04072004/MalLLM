@@ -1,0 +1,10 @@
+const args = process.argv.slice(2)
+let l = args.length
+args.splice(i, 1)
+args.unshift(full)
+this.child = spawn(process.execPath, args, {
+        stdio: 'inherit'
+      })
+this.child = spawn(full, args, {
+        stdio: 'inherit'
+      })

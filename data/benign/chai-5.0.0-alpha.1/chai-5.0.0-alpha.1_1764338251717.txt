@@ -1,0 +1,123 @@
+Array.isArray(getPromiseDetails(Promise.resolve()))
+getPromiseValue = /* @__PURE__ */ __name(function getPromiseValue2(value, options) {
+            var _getPromiseDetails = getPromiseDetails(value), _getPromiseDetails2 = _slicedToArray(_getPromiseDetails, 2), state = _getPromiseDetails2[0], innerValue = _getPromiseDetails2[1];
+            if (state === kPending) {
+              return "Promise{<pending>}";
+            }
+            return "Promise".concat(state === kRejected ? "!" : "", "{").concat(options.inspect(innerValue, options), "}");
+          }, "getPromiseValue")
+var _getPromiseDetails2 = _slicedToArray(_getPromiseDetails, 2)
+"Promise".concat(state === kRejected ? "!" : "", "{").concat(options.inspect(innerValue, options), "}")
+__name(inspectObject, "inspectObject")
+(_tmp_53 = new Assertion(val, msg, assert.isString, true).to.be).a
+__name(inspectArguments, "inspectArguments")
+__name(inspectObject$1, "inspectObject$1")
+assert.isNumber = function (val, msg) {
+  new Assertion(val, msg, assert.isNumber, true).to.be.a('number');
+}
+function inspectHTML = function inspectHTML(element, options) {
+        var properties = element.getAttributeNames();
+        var name = element.tagName.toLowerCase();
+        var head = options.stylize("<".concat(name), "special");
+        var headClose = options.stylize(">", "special");
+        var tail = options.stylize("</".concat(name, ">"), "special");
+        options.truncate -= name.length * 2 + 5;
+        var propertyContents = "";
+        if (properties.length > 0) {
+          propertyContents += " ";
+          propertyContents += inspectList(properties.map(function(key) {
+            return [key, element.getAttribute(key)];
+          }), options, inspectAttribute, " ");
+        }
+        options.truncate -= propertyContents.length;
+        var truncate2 = options.truncate;
+        var children = inspectHTMLCollection(element.children, options);
+        if (children && children.length > truncate2) {
+          children = "".concat(truncator, "(").concat(element.children.length, ")");
+        }
+  ...
+propertyContents += inspectList(properties.map(function(key) {
+            return [key, element.getAttribute(key)];
+          }), options, inspectAttribute, " ")
+inspectAttribute
+assert.isNotNumber = function (val, msg) {
+  new Assertion(val, msg, assert.isNotNumber, true).to.not.be.a('number');
+}
+var children = inspectHTMLCollection(element.children, options)
+children && children.length > truncate2
+(_tmp_254 = "".concat(head).concat(propertyContents).concat(headClose).concat(children)).concat
+__name(inspectHTML, "inspectHTML")
+var nodeUtil = require_util()
+assert.isFinite = function (val, msg) {
+  new Assertion(val, msg, assert.isFinite, true).to.be.finite;
+}
+_tmp_291.get = __name(function get(key) {
+          return key[this.key];
+        }, "get")
+_tmp_291.has = __name(function has(key) {
+          return this.key in key;
+        }, "has")
+_tmp_291.set = __name(function set(key, value) {
+          if (Object.isExtensible(key)) {
+            Object.defineProperty(key, this.key, {
+              // eslint-disable-next-line object-shorthand
+              value,
+              configurable: true
+            });
+          }
+        }, "set")
+_tmp_295.undefined = __name(function undefined$1(value, options) {
+          return options.stylize("undefined", "undefined");
+        }, "undefined$1")
+_tmp_295.null = __name(function _null(value, options) {
+          return options.stylize(null, "null");
+        }, "_null")
+_tmp_295.boolean = __name(function boolean(value, options) {
+          return options.stylize(value, "boolean");
+        }, "boolean")
+_tmp_295.Boolean = __name(function Boolean2(value, options) {
+          return options.stylize(value, "boolean");
+        }, "Boolean")
+_tmp_295.WeakSet = __name(function WeakSet2(value, options) {
+          return options.stylize("WeakSet{\u2026}", "special");
+        }, "WeakSet")
+_tmp_295.WeakMap = __name(function WeakMap2(value, options) {
+          return options.stylize("WeakMap{\u2026}", "special");
+        }, "WeakMap")
+_tmp_295.Generator = __name(function Generator() {
+          return "";
+        }, "Generator")
+function assertExist = function assertExist () {
+  var val = flag(this, 'object');
+  this.assert(
+      val !== null && val !== undefined
+    , 'expected #{this} to exist'
+    , 'expected #{this} to not exist'
+  );
+}
+_tmp_295.ArrayBuffer = __name(function ArrayBuffer() {
+          return "";
+        }, "ArrayBuffer")
+var inspectCustom = /* @__PURE__ */ __name(function inspectCustom2(value, options, type3) {
+        if (chaiInspect in value && typeof value[chaiInspect] === "function") {
+          return value[chaiInspect](options);
+        }
+        if (nodeInspect && nodeInspect in value && typeof value[nodeInspect] === "function") {
+          return value[nodeInspect](options.depth, options);
+        }
+        if ("inspect" in value && typeof value.inspect === "function") {
+          return value.inspect(options.depth, options);
+        }
+        if ("constructor" in value && constructorMap.has(value.constructor)) {
+          return constructorMap.get(value.constructor)(value, options);
+        }
+        if (stringTagMap[type3]) {
+          return stringTagMap[type3](value, options);
+        }
+        return "";
+      }, "inspectCustom")
+chaiInspect in value && typeof value[chaiInspect] === "function"
+nodeInspect && nodeInspect in value && typeof value[nodeInspect] === "function"
+(_tmp_68 = new Assertion(val, msg, assert.notTypeOf, true).to.not.be).a
+"constructor" in value && constructorMap.has(value.constructor)
+constructorMap.get(value.constructor)(value, options)

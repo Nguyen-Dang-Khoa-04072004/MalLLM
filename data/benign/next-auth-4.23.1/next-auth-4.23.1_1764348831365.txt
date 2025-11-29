@@ -1,0 +1,9 @@
+send({
+        html: (0, _signout.default)({
+          csrfToken: params.csrfToken,
+          url,
+          theme,
+          ...props
+        }),
+        title: "Sign Out"
+      })

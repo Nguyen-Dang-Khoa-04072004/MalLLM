@@ -1,0 +1,1 @@
+resultsCache.get(directory)

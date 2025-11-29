@@ -1,0 +1,13 @@
+vendors.some(function (vendor) {
+    var rafMethod = getKey(vendor, 'request');
+
+    if (rafMethod in window) {
+      cancelMethod = getKey(vendor, 'cancel'); // @ts-ignore
+
+      rafImpl = function rafImpl(cb) {
+        return window[rafMethod](cb);
+      };
+    }
+
+    return !!rafImpl;
+  })

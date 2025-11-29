@@ -1,0 +1,14 @@
+_tmp_8.push({
+      key: "close",
+      value: function close() {
+        this._deactivate();
+
+        this._closed = true;
+
+        if (this._parent != null) {
+          this._parent.write(this._whatToAppendToBlock());
+        }
+
+        return this;
+      }
+    })

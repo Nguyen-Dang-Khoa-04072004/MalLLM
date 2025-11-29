@@ -1,0 +1,2 @@
+this.client.setTimeout(() => this.deleted.delete(channelID + messageID),
+      this.client.options.restWsBridgeTimeout)

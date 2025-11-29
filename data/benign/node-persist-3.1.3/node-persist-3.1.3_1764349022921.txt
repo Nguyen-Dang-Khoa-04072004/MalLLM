@@ -1,0 +1,23 @@
+fs.exists(dir, (exists) => {
+				if (exists) {
+					return resolve(result);
+				} else {
+					//create the directory
+					fs.mkdir(dir, { recursive: true }, (err) => {
+						if (err) {
+							return reject(err);
+						}
+						this.log('created ' + dir);
+						resolve(result);
+					});
+				}
+			})
+resolve(result)
+fs.mkdir(dir, { recursive: true }, (err) => {
+						if (err) {
+							return reject(err);
+						}
+						this.log('created ' + dir);
+						resolve(result);
+					})
+reject(err)

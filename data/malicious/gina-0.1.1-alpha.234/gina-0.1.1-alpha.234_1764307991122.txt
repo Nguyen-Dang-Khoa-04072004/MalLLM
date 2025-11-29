@@ -1,0 +1,1213 @@
+var setup = function(namespace) {
+        if ( typeof(namespace) == 'undefined' || namespace == '') {
+            console.error('[ MODEL ][ '+ namespace +' ] MODEL:ERR:1 EEMPTY: Model namespace',  __stack);
+        }
+
+        var model, namespace = namespace.split(/\//g);
+        _connector = namespace[1];//Has to be writtien the same for the connetors.json decalration or for the model folder
+        var bundle = namespace[0];
+        namespace.shift();
+        //Capitalize - Normalize
+        if (namespace.length > 1) {
+            //            for (var i; i<namespace.length; ++i) {
+            //                namespace[i] = namespace[i].substring(0, 1).toUpperCase() + namespace[i].substring(1);
+            //            }
+
+            model = namespace.join(".");
+        } else {
+            //Dir name.
+            model = namespace[0];
+        }
+
+
+        console.debug('[ MODEL ][ ' + model +' ] Bundle: '+ bundle);
+        //console.debug('[ MODEL ][ ' + model +' ] Model: '+ model...
+var buildEnv = function(b, e) {
+
+        if ( e > local.envs.length-1 ) {
+            return buildBundle(b+1);
+        }
+
+        var bundle          = self.bundles[b]
+            , env           = local.envs[e]
+            , manifest      = local.manifest
+            , releasePath   = self.projectLocation +'/'+ manifest.bundles[bundle].releases[env].target
+            , release       = new _(releasePath, true)
+            , srcPath       = _(self.bundlesLocation +'/'+ bundle, true)
+        ;
+
+        console.debug('Building bundle env `'+ env +'` for `'+ bundle + '@'+ self.projectName + '`');
+
+        // cleanup
+        if (release.existsSync()) {
+            release.rmSync()
+        }
+        new _(srcPath).cp(releasePath, function onCopied(err, destination) {
+            if (err) {
+                return end(err)
+            }
+
+            buildEnv(b, e+1);
+        })
+    }
+_tmp_0.windows-1255 = [8364,129,8218,402,8222,8230,8224,8225,710,8240,138,8249,140,141,142,143,144,8216,8217,8220,8221,8226,8211,8212,732,8482,154,8250,156,157,158,159,160,161,162,163,8362,165,166,167,168,169,215,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,247,187,188,189,190,191,1456,1457,1458,1459,1460,1461,1462,1463,1464,1465,null,1467,1468,1469,1470,1471,1472,1473,1474,1475,1520,1521,1522,1523,1524,null,null,null,null,null,null,null,1488,1489,1490,1491,1492,1493,1494,1495,1496,1497,1498,1499,1500,1501,1502,1503,1504,1505,1506,1507,1508,1509,1510,1511,1512,1513,1514,null,null,8206,8207,null]
+var onError = function (err, next) {
+            delete self.instance.reconnecting;
+            self.instance.reconnected = self.instance.connected = false;
+            console.error('[ CONNECTOR ][ ' + local.bundle +' ] couchbase could not be reached !!\n'+ ( err.stack || err.message || err ) );
+
+            // reconnecting
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ][ ' + dbString.database +' ] trying to reconnect in a few secs...');
+            self.instance.reconnecting = true;
+
+            setTimeout( function onRetry(){
+                if ( typeof(next) != 'undefined' ) {
+                    self.connect(dbString, next)
+                } else {
+                    self.connect(dbString)
+                }
+            }, 5000)
+
+        }
+var onConnect = function onConnect(cb){
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ] couchbase is alive !!');
+            console.debug('[ CONNECTOR ][ ' + local.bundle +' ][ ' + dbString.connector +' ] now connected...');
+
+            self.instance.reconnected  = self.instance.connected   = true;
+            var options = local.options;
+
+            // updating context
+            var ctx = getContext()
+                , bundle = ctx.bundle
+                , env = ctx.env
+                , conf = ctx['gina'].config.envConf[bundle][env]
+                , name = dbString.database
+                //Reload models.
+                , modelsPath = _(conf.modelsPath)
+            ;
+            // will send heartbeat every 4 minutes if keepAlive == `true`
+            self.ping(options.pingInterval, cb, function onPing(cb){
+
+                local.bundle = bundle;
+                local.env = env;
+
+                if ( typeof(cb) != 'undefined' ) { // this portition is not workin...
+client.on('data', (data) => {
+            //console.log('[MQSpeaker]  (data): ' + data.toString());
+            payloads = data.toString();
+
+            // from speakers & tail
+            if ( /^(\{\"|\[\{\")/.test(payloads) ) {
+                payloads = payloads.split(/\r\n/g);
+                //console.log(payloads);
+                i = -1;
+                while(i < payloads.length) {
+                    i++;
+                    let payload = payloads[i];
+                    if (
+                        /^\{/.test(payload) && /\}$/.test(payload)
+                        || /^\[\{/.test(payload) && /\}\]$/.test(payload)
+                    ) {
+                        let pl = null;
+                        try {
+                            pl = JSON.parse(payload);
+                        } catch(plErr) {
+                            process.stdout.write(  '[MQSpeaker] (exception) '+ payload +'\n' );
+                            continue;
+                        }
+
+
+                 ...
+s.on('error', function(err) {
+            s.destroy();
+            // silently catch all errors - assume the port is closed => available for use
+            if ( /ECONNREFUSED/i.test(err.message) ) {
+                if ( !opt.ignore.length || opt.ignore.length > 0 && opt.ignore.indexOf( port ) == -1 ) {
+                    // ports.push(''+port);
+                    ports.push(port);
+                    ports.sort();
+                    console.debug('available port found '+ port +' ['+ ports.length +'/'+ total +']');
+                    opt.limit--;
+                }
+
+                if (opt.limit <= 0) {
+                    cb(false, ports);
+                } else {
+                    port++;
+                    find(port);
+                }
+                return;
+            } else if (err) {
+                // error not handled - not connection to the network ?
+                console.warn('exeption not handled: '+ err);
+                cb(err);
+                return;
+       ...
+function PostInstall = function PostInstall() {
+
+    var self = {};
+
+    var configure = function() {
+
+        // TODO - handle windows case
+        if ( /^true$/i.test(isWin32()) ) {
+            throw new Error('Windows in not yet fully supported. Thank you for your patience');
+        }
+
+        self.isWin32            = isWin32();
+        self.isGlobalInstall    = ( typeof(process.env.npm_config_global) != 'undefined' && /^(true|false)$/i.test(process.env.npm_config_global) )
+                                    ? (/^true$/i.test(process.env.npm_config_global) ? true: false)
+                                    : false;
+        self.isResetNeeded      = ( typeof(process.env.npm_config_reset) != 'undefined' && /^(true|false)$/i.test(process.env.npm_config_reset) )
+                                    ? (/^true$/i.test(process.env.npm_config_reset) ? true: false)
+                                    : false;
+        self.defaultPrefix      = execSync('npm config get prefix').toString().repl...
+_tmp_2.fr = {
+            dayNames: [
+                "dim", "lun", "mar", "mer", "jeu", "ven", "sam",
+                "dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"
+            ],
+            monthNames: [
+                "Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc",
+                "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+            ],
+            masks: {
+                "default":      "ddd mmm dd yyyy HH:MM:ss",
+                shortDate:      "d/m/yy",
+                shortDate2:      "dd/mm/yyyy",
+                mediumDate:     "d mmm, yyyy",
+                longDate:       "d mmmm, yyyy",
+                fullDate:       "dddd, d mmmm, yyyy"
+            }
+        }
+var start = function (interval) {
+        var options = this.options;
+        var self    = this;
+
+
+        var interval        =  options.interval || interval; // for a minute
+        var isRealInterval  = ( /\s+/.test(interval) ) ? false : true;
+        var value           = interval.match(/\d+/);
+        var unit            = null; // will be seconds by default
+        try {
+            unit = interval.match(/[a-z]+/i)[0]
+        } catch(err) {
+            unit = 's'
+        }
+
+        switch ( unit.toLowerCase() ) {
+            case 's':
+                interval = value * 1000;
+                break;
+
+            case 'm':
+                interval = value * 60 * 1000;
+                break;
+
+            case 'h':
+                interval = value * 60 * 60 * 1000;
+                break;
+
+            case 'd':
+                interval = value * 60 * 60 * 1000 * 24;
+                break;
+
+            default: // seconds by default
+                interval = value * 1000;
+        }
+
+
+ ...
+function setup = function setup(group, filenames, props) {
+        //var group = process.title; // gina, frontend@myproject ...
+        console.log('['+ mqId +'] setting up '+ group);
+
+        // we only want the bundle's logs
+        if (
+            !/\@/.test(group)
+            // ||
+            // props.bundles
+            // && props.bundles.length == 0
+            // ||
+            // props.bundles
+            // && props.bundles.indexOf(group) < 0
+        ) {
+            return
+        }
+
+        if ( !filenames[group] ) {
+            filenames[group] = {}
+        }
+        process.stdout.write( format(opt.name, 'info', '['+ mqId +'] setting up '+ group +'\nFilenames: '+ JSON.stringify(filenames, null, 2)) );
+        /// aready defiened
+        if ( filenames[group].filename) {
+            return
+        }
+
+        // retriving hostname
+        var bfnArr = group.split(/\@/);
+        var bundleName = bfnArr[0];
+        var projectName = bfnArr[1];
+        var homeDir = getUserHome() || proces...
+self.ping(options.pingInterval, cb, function onPing(cb){
+
+                local.bundle = bundle;
+                local.env = env;
+
+                if ( typeof(cb) != 'undefined' ) { // this portition is not working yet on Mac OS X
+                    console.debug('[ CONNECTOR ][ ' + local.bundle +' ][ '+ env +' ] connected to couchbase !!');
+
+
+                    modelUtil.setConnection(bundle, name, self.instance);
+
+                    if ( fs.existsSync(modelsPath) ) {
+                        modelUtil.setConnection(bundle, name, self.instance);
+                        modelUtil.reloadModels(
+                            conf,
+                            function doneReloadingModel(err) {
+                                self.reconnecting = false;
+                                cb(err)
+                            })
+                    } else {
+                        cb(new Error('[ CONNECTOR ][ ' + local.bundle +' ][ '+ env +' ] '+ modelsPath+ ' not found') )
+                   ...
+var parse = function(file, list) {
+        //console.log('replacing: ', file);
+        try {
+            var f;
+            f =(f=file.split(/\//))[f.length-1];
+            var isJS = /\.js/.test(f.substring(f.length-3))
+                , isJSON = /\.js/.test(f.substring(f.length-5));
+
+            if ( isJS || isJSON && /config\/app\.json/.test(file) ) {
+                var contentFile = fs.readFileSync(file, 'utf8').toString();
+                var dic = {
+                    "Bundle" : local.bundle.substring(0, 1).toUpperCase() + local.bundle.substring(1),
+                    "bundle" : local.bundle,
+                    "Namespace" : (local.namespace) ? local.namespace.substring(0, 1).toUpperCase() + local.namespace.substring(1) : '',
+                    "namespace" : local.namespace || ''
+                };
+
+                contentFile = whisper(dic, contentFile);
+                //rewrite file
+                lib.generator.createFileFromDataSync(contentFile, file)
+            }
+
+    ...
+var init = function(reload) {
+
+        var bundle          = self.bundle;
+        var model           = self.model;
+        var modelDirName    = self.modelDirName;
+        var connectorPath   = null;
+
+        // this is supposed to happen on load or for dev env; on reload, with a checksum
+        var conf        = getConfigSync(bundle);
+        //local.locals    = conf.locals;
+
+        if (conf) {
+            _configuration = conf.connectors;
+            self.connector = _configuration[self.name].connector;
+
+            console.debug('[ MODEL ][ ' + model +' ] About to scan: '+ conf.path);
+            //TODO - More controls...
+
+            //For now, I just need the F..ing entity name.
+            connectorPath       = local.connectorPath = _(GINA_FRAMEWORK_DIR +'/core/connectors/'+ self.connector);
+            var modelPath       = local.modelPath = _(conf.path + '/' + modelDirName);
+            var entitiesPath    = local.entitiesPath = _(modelPath + '/entities');
+            console...
+this.route = function(request, response, next, params) {
+
+        /**
+        * ExpressJS modules + HTTP2 fix
+        * Hack required until `express-<plugin>` get support for http2 `express-session`
+        * or similar modules
+        */
+        if (!response._implicitHeader) {
+            response._implicitHeader = function(){ return; }; // we need to force it
+        }
+
+        /**
+        * EO Passport JS HTTP2 fix
+        */
+
+        /**
+        * BO Passport JS HTTP2 fix : taken from passport/request.js
+        */
+       if ( typeof(request._passport) != 'undefined' && typeof(request.isAuthenticated) == 'undefined' ) {
+            request.isAuthenticated = function() {
+                var property = 'user';
+                if (this._passport && this._passport.instance) {
+                    property = this._passport.instance._userProperty || 'user';
+                }
+                var isAuthenticated = (this[property]) ? true : false;
+                if (isAuthenticated) {
+ ...
+lib.generator.createFileFromDataSync(portsReverse, portsReversePath)
+setContext = function(name, obj, force) {
+        // redefinition needed for none-dev env: cache issue
+        var merge = require('./../lib/merge');
+
+        if (arguments.length > 1) {
+            //console.log("Globla setter active ", name, obj);
+            if ( typeof(name) == 'undefined' || name == '' ) {
+                name = 'global'
+            }
+
+            if (/\./.test(name) ) {
+                var keys        = name.split(/\./g)
+                    , newObj    = {}
+                    , str       = '{'
+                    , _count    = 0;
+
+                for (var k = 0, len = keys.length; k<len; ++k) {
+                    str +=  "\""+ keys.splice(0,1)[0] + "\":{";
+
+                    ++_count;
+                    if (k == len-1) {
+                        str = str.substr(0, str.length-1);
+                        str += "\"_content_\"";
+                        for (var c = 0; c<_count; ++c) {
+                            str += "}"
+                        }
+         ...
+var end = function (output, type, messageOnly) {
+        var err = false;
+        if ( typeof(output) != 'undefined') {
+            if ( output instanceof Error ) {
+                err = output = ( typeof(messageOnly) != 'undefined' && /^true$/i.test(messageOnly) ) ? output.message : (output.stack||output.message);
+            }
+            if ( typeof(type) != 'undefined' ) {
+                console[type](output)
+            } else {
+                console.log(output);
+            }
+        }
+
+        process.exit( err ? 1:0 )
+    }
+client.on('error', (data) => {
+            var err = data.toString();
+            console.error('[MQTail] ' + err + ' - Gina might not be running');
+            console.info('[MQTail] Waitting for `MQListener` to be started ...');
+
+            // var mqPort = null;
+            // nIntervId = setInterval(() => {
+            //     try {
+            //         mqPort = ~~(fs.readFileSync(mqPortFile).toString());
+            //         if (mqPort) {
+            //             process.emit('gina#mqlistener-started', mqPort, host);
+            //         }
+            //     } catch (fileErr) {}
+            // }, 100);
+        })
+var makeObject = function(obj, value, args, len, i) {
+
+        if (i >= len) {
+            return false
+        }
+
+        var key     = args[i];
+        var nextKey = ( i < len-1 && typeof(args[i+1]) != 'undefined' ) ?  args[i+1] : null;
+
+        if ( typeof(obj[key]) == 'undefined' ) {
+            if (nextKey && /^\d+$/.test(nextKey)) {
+                nextKey = parseInt(nextKey);
+                obj[key] = []
+            } else {
+                obj[key] = {}
+            }
+        }
+
+        for (var o in obj) {
+
+            if ( typeof(obj[o]) == 'object' ) {
+
+                if ( Array.isArray(obj[o]) ) {
+
+                    if (o === key) {
+
+                        var _args = JSON.clone(args);
+                        _args.splice(0, 1);
+
+                        for (var a = i, aLen = _args.length; a < aLen; ++a) {
+                            key = parseInt(_args[a])
+                            obj[o][key] = {};
+
+                            if (a == aLen-1) {
+                    ...
+gina.onError(function(err, req, res, next){
+                // (code)   message
+                // (16)     Generic network failure. Enable detailed error codes (via LCB_CNTL_DETAILED_ERRCODES, or via `detailed_errcodes` in the connection string) and/or enable logging to get more information
+                // (23)     Client-Side timeout exceeded for operation. Inspect network conditions or increase the timeout
+                //          cannot perform operations on a shutdown bucket
+                //          err instanceof CouchbaseError
+
+                if (!self.instance.connected) {
+                    self.instance.reconnected = false;
+                    self.instance.reconnecting = false;
+                }
+
+                if (
+                    err instanceof couchbase.Error && err.code == 16 && !self.reconnected
+                    //|| err instanceof couchbase.Error && err.code == 23 && !self.reconnecting
+                    || /cannot perform operations on a shutdow...
+var processSrc = function(method, src, target, zipInstance, options, cb) {
+
+            if ( !fs.existsSync(src) ) {
+                self.emit('archiver-'+ method +'#complete', new Error('file not found `'+ src +'`'));
+
+                return;
+            }
+
+            stats = fs.statSync(src);
+
+            var isBatchProcessing = ( typeof(cb) != 'undefined' ) ? true : false;
+
+            if ( stats.isFile() ) { // single file compression
+
+
+                var input   = null;
+                var output  = null;
+
+                if ( isBatchProcessing ) {
+                    input   = src;
+                    output  = target
+                } else {
+                    // targeted filename
+                    if ( typeof(options.name) != 'undefined' && options.name != 'default') {
+                        target += options.name;
+                    } else {
+                        target += src.substr(src.lastIndexOf('/')+1);
+                    }
+
+                    input   = fs.creat...
+request.login =
+            request.logIn = function(user, options, done) {
+                if (typeof options == 'function') {
+                    done = options;
+                    options = {};
+                }
+                options = options || {};
+
+                var property = 'user';
+                if (this._passport && this._passport.instance) {
+                    property = this._passport.instance._userProperty || 'user';
+                }
+                var session = (options.session === undefined) ? true : options.session;
+
+                this[property] = user;
+
+                if (session) {
+                    if (!this._passport) { throw new Error('passport.initialize() middleware not in use'); }
+                    if (typeof done != 'function') { throw new Error('req#login requires a callback function'); }
+
+                    var self = this;
+                    this._passport.instance._sm.logIn(this, user, function(err) {
+                    if (err) {
+   ...
+request.logIn = function(user, options, done) {
+                if (typeof options == 'function') {
+                    done = options;
+                    options = {};
+                }
+                options = options || {};
+
+                var property = 'user';
+                if (this._passport && this._passport.instance) {
+                    property = this._passport.instance._userProperty || 'user';
+                }
+                var session = (options.session === undefined) ? true : options.session;
+
+                this[property] = user;
+
+                if (session) {
+                    if (!this._passport) { throw new Error('passport.initialize() middleware not in use'); }
+                    if (typeof done != 'function') { throw new Error('req#login requires a callback function'); }
+
+                    var self = this;
+                    this._passport.instance._sm.logIn(this, user, function(err) {
+                    if (err) {
+                        self[pr...
+CouchbaseStore.prototype.get = function(sid, fn){
+        if ('function' !== typeof fn) { fn = noop; }
+        sid = this.prefix + sid;
+        debug('GET "%s"', sid);
+        this.client.get(sid, function(err, data){
+            //Handle Key Not Found error
+            if (err && err.code == 13) {
+                return fn();
+            }
+            if (err) return fn(err);
+            if (!data || !data.value) return fn();
+            var result;
+            data = data.value.toString();
+            debug('GOT %s', data);
+            try {
+                result = JSON.parse(data);
+            } catch (err) {
+                return fn(err);
+            }
+            return fn(null, result);
+        });
+    }
+const onPath = function(path, cb, allowAll) {
+
+        var queryParams = null
+            , i         = null
+            , len       = null
+            , p         = null
+            , arr       = null
+            , a         = null
+        ;
+
+        // http2stream handle by the Router class & the SuperController class
+        // See `${core}/router.js` & `${core}/controller/controller.js`
+
+        server.on('request', (request, response) => {
+            // healthcheck
+            // TODO - add a top level API : server.api.js (check, get ...)
+            // TODO - on 90% RAM usage, redirect to `come back later then restart bundle`
+            // TODO - check url against wroot : getContext() ?
+            if ( /^get$/i.test(request.method) && /\_gina\/health\/check$/i.test(request.url) ) {
+                // server.toApi(reques, response)
+                // console.debug('[200] '+ request.url);
+                response.setHeader('content-type', 'application/json; charset=utf8' );
+       ...
+var readSource = function (entities, entityName, source) {
+        var arr             = source.split(/\//g)
+            , name          = arr[arr.length-1].replace(/\.sql/, '') || null
+            , comments      = ''
+            , queryString   = null
+            , includes      = null
+            , queryStatement= null // this is the usable queryString
+            , params        = []
+            , inlineParams  = [] // order of use inside the query
+            , returnType    = null // Array or Object : Array by default
+            , returnVariable= null // return variable
+        ;
+
+
+        if (! /^\./.test(source) && name && typeof(conn[name]) == 'undefined' ) {
+            // N.B: because of the cache, if replacement of placeholders is done, it will affect the statement
+            queryString = fs.readFileSync( source ).toString();
+            // handle includes
+            includes = queryString.match(/\@include(.*)\;/g) || null;
+            if ( includes && includes.length > ...
+var addBundlePorts = function(b) {
+        loadAssets();
+
+        if (b > self.bundles.length-1) { // writing to files on complete
+
+            hasPastProtocolAndSchemeCheck(self.defaultProtocol, self.defaultScheme, true);
+
+            //console.debug('self.protocols ...', self.protocols);
+            // get user protocols list
+            var protocols = JSON.clone(self.protocols);
+            // get user schemes list
+            var schemes = JSON.clone(self.schemes);
+            var projectConfig   = JSON.clone(self.projects);
+
+            //console.debug('about to update project ports conf\n\rBundles: '+ JSON.stringify(self.projectData, null, 4));
+            var ports               = JSON.clone(self.portsData) // cloning
+                , portsReverse      = JSON.clone(self.portsReverseData) // cloning
+                , portsList         = local.ports
+                , isPortUsed        = false
+                , envs              = self.envs
+                , i                 = 0
+...
+function CodePointInputStream = function CodePointInputStream(string) {
+  /**
+   * @param {string} string Input string of UTF-16 code units.
+   * @returns {Array.<number>} Code points.
+   */
+  function stringToCodePoints(string) {
+    /** @type {Array.<number>} */
+    var cps = [];
+    // Based on http://www.w3.org/TR/WebIDL/#idl-DOMString
+    var i = 0, n = string.length;
+    while (i < string.length) {
+      var c = string.charCodeAt(i);
+      if (!inRange(c, 0xD800, 0xDFFF)) {
+        cps.push(c);
+      } else if (inRange(c, 0xDC00, 0xDFFF)) {
+        cps.push(0xFFFD);
+      } else { // (inRange(cu, 0xD800, 0xDBFF))
+        if (i === n - 1) {
+          cps.push(0xFFFD);
+        } else {
+          var d = string.charCodeAt(i + 1);
+          if (inRange(d, 0xDC00, 0xDFFF)) {
+            var a = c & 0x3FF;
+            var b = d & 0x3FF;
+            i += 1;
+            cps.push(0x10000 + (a << 10) + b);
+          } else {
+            cps.push(0xFFFD);
+          }
+        }
+      }
+      i += 1;
+    }
+    return cps...
+self.emit('model#ready', new Error('[ MODEL ][ '+ model +' ] No connector found'), self.bundle, self.name, conn)
+Object.defineProperty( Object.prototype, 'count', {
+            writable:   true,
+            enumerable: false,
+            //If loaded several times, it can lead to an exception. That's why I put this.
+            configurable: true,
+            value: function(){
+                var i = 0;
+                try {
+                    var self = this;
+                    if (this instanceof String) self = JSON.parse(this);
+
+                    for (var prop in this)
+                        if (this.hasOwnProperty(prop)) ++i;
+
+                    return i;
+                } catch (err) {
+                    return i;
+                }
+
+            }
+        })
+var createPackageFile = function(target, isCreatedFromExistingPackage) {
+
+        loadAssets();
+
+        var conf = _(getPath('gina').core +'/template/conf/package.json', true);
+        var contentFile = requireJSON(conf);
+        var dic = {
+            'project' : self.projectName,
+            'node_version' : GINA_NODE_VERSION.match(/\d+/g).join('.'),
+            'gina_version' : GINA_VERSION
+        };
+
+        contentFile = whisper(dic, contentFile);//data
+
+        // Updating package.json if needed
+        if (
+            typeof(isCreatedFromExistingPackage) != 'undefined'
+            && /^true$/i.test(isCreatedFromExistingPackage)
+        ) {
+            var existingPack = require(target);
+            contentFile = merge(contentFile, existingPack);
+            new _(target, true).rmSync()
+        }
+
+        lib.generator.createFileFromDataSync(
+            contentFile,
+            target
+        );
+
+        end(true)
+    }
+compressFile(method, input, output, zipInstance, isBatchProcessing, function(err, target, zipInstance) {
+                    if ( isBatchProcessing ) {
+                        cb(err, zipInstance);
+                    } else {
+                        self.emit('archiver-'+ method +'#complete', err, target)
+                    }
+
+                })
+connector.onReady( function(err, conn){
+                self.connectors[_connector].err = err;
+                self.connectors[_connector].conn = conn;
+
+                callback(err, conn);
+            })
+resetContext = function() {
+        setPath('gina.root', getEnvVar('GINA_DIR'));
+        var frameworkPath = getEnvVar('GINA_FRAMEWORK_DIR');
+        setPath('framework', frameworkPath);
+        setPath('gina.core', getEnvVar('GINA_CORE'));
+        setPath('gina.lib', _(frameworkPath +'/lib'));
+        setPath('gina.helpers', _(frameworkPath +'/helpers'));
+        setPath( 'node', _(process.argv[0]), true);
+        var projects    = require( _(getEnvVar('GINA_HOMEDIR') + '/projects.json', true) );
+        var projectName = getContext('projectName');
+        var root        = projects[projectName].path;
+        setPath('project', root);
+        var env         = getContext('env');
+        var isDev       = (env === projects[projectName]['dev_env']) ? true: false;
+        var bundlesPath = projects[projectName]['path'] + '/bundles'; // by default
+        var isProductionScope = ('production' === projects[projectName]['def_scope']) ? true: false;
+        if (isDev) {
+            bundle...
+var setEnv = function(env) {
+        var supported   = mainConf['envs'][GINA_SHORT_VERSION]
+            , err       = null
+        ;
+        if (supported.indexOf(env) < 0) {
+            err = new Error('Environment `'+ env +'` is not supported at the moment');
+            console.error(err.message);
+            return;
+        }
+        mainConf['def_env'][GINA_SHORT_VERSION] = env;
+        // save to ~/.gina/main.json
+        lib.generator.createFileFromDataSync(mainConf, mainConfPath);
+    }
+var getConfigSync = function(bundle, i) {
+        var i = i || 0;
+
+        var configuration = null;
+        var env = null, conf = null, connectors = null;
+        if ( typeof (_config) != 'undefined' ) {
+            configuration = _config;
+            env = _config.env;
+            conf = _config;
+            connectors = _config.content.connectors;
+        } else {
+            configuration = config.getInstance(bundle);
+            env = configuration.Env.current;
+            conf = configuration.Env.getConf(bundle, env);
+        }
+        console.debug('[ MODEL ][ ' + _connector + ' ] env ', conf.env);
+        console.debug('[ MODEL ][ ' + _connector + ' ] configuration modelsPath ', conf.modelsPath);
+        console.debug('[ MODEL ][ ' + _connector + ' ] connectors ', connectors);
+
+        // try {
+
+        //     var locals = _locals = configLib.getSync('gina', 'locals.json')
+        // } catch (err) {
+        //     console.emerg('[ MODEL ][ ' + _connector +' ] Error while calli...
+var listAll = function() {
+
+        var projects  = self.projects
+            , list      = []
+            , p         = null
+            , re        = null
+            , found     = false
+            , strTmp    = ''
+            , str       = ''
+        ;
+
+        for (p in projects) {
+            list.push(p)
+        }
+        list.sort();
+
+        var jsonCollection =  new Collection([]);
+        p = 0;
+        for (; p < list.length; ++p) {
+            let projectName = list[p];
+            let project     = projects[projectName];
+            let protocols   = project.protocols;
+            let schemes     = project.schemes;
+
+            re = new RegExp('\@' + projectName + '\/', '');// searching by projectName
+            str += '------------------------------------\n\r';
+            if (!project.exists || project.exists && protocols.length == 0) {
+                str += '?! '
+            }
+            str += projectName + '\n\r';
+            str += '-------------------------------...
+this.boy.emit('field', decodeText(this._key, 'binary', this.charset),
+                           decodeText(this._val, 'binary', this.charset),
+                           this._keyTrunc,
+                           this._valTrunc)
+projects[self.projectName] = {
+            "path": self.projectLocation,
+            "homedir": self.projectHomedir,
+            "def_prefix": GINA_PREFIX,
+            "framework": "v" + GINA_VERSION,
+            "envs": self.envs,
+            "def_env": self.defaultEnv,
+            "dev_env": self.devEnv,
+            "protocols": (created) ? self.protocolsAvailable : self.protocols,
+            "def_protocol": self.defaultProtocol,
+            "schemes": (created) ? self.schemesAvailable : self.schemes,
+            "def_scheme": self.defaultScheme
+        }
+rl.setPrompt('Found templates for [ '+ local.bundle +'@'+ self.projectName +' ]. Do you want to override ? (yes|no) > \n')
+rl.on('line', function(line) {
+                switch( line.trim().toLowerCase() ) {
+                    case 'y':
+                    case 'yes':
+                        createFile(templatesConf, target);
+                        break;
+                    case 'n':
+                    case 'no':
+                        process.exit(0);
+                        break;
+                    default:
+                        console.log('Please, write "yes" to proceed or "no" to cancel. ');
+                        rl.prompt();
+                        break;
+                }
+            }).on('close', function() {
+                console.log('exiting ['+ local.bundle +'@'+ self.projectName +'] templates installation');
+
+                ++local.b;
+                addViews(local.b)
+            })
+this.verifyCertificate = async function(endpoint, port) {
+        let sslDetails = null;
+        console.debug('Checking certificate validity...');
+        try {
+            sslDetails = await sslChecker(endpoint, {
+                method: 'GET',
+                // rejectUnauthorized: true,
+                port: port || 443,
+                ca: fs.readFileSync(self.conf[self.appName][self.env].content.settings.server.credentials.ca),
+                agent: new https.Agent({
+                    maxCachedSessions: 0
+                })
+            });
+        } catch (err) {
+            if (!sslDetails) {
+                throw new Error('DNS issue ? Did you check your `/etc/hosts` or your DNS configuration ?\n'+ err.stack);
+            }
+            throw new Error(sslDetails +'\n'+ err.stack);
+        }
+
+
+        const failed  = !sslDetails.valid;
+        const humanView = JSON.stringify(sslDetails, null, '  ');
+
+        // Wildcard exception - See https://github.com/dyaa/ssl-checker/...
+this[m].onComplete = function (cb) {
+
+                            //Setting local listener : normal case
+                            if (entity._triggers.indexOf(events[i].shortName) > -1) {
+                                console.debug('[ MODEL ][ ENTITY ] Setting listener for: [ ' + self.model + '/' + events[i].entityName + '::' + events[i].shortName + ' ]');
+
+                                if (typeof(entity._arguments) == 'undefined' || typeof(entity._arguments) != 'undefined' && typeof(entity._arguments[events[i].shortName]) == 'undefined') {
+
+                                    if (entity.listenerCount(events[i].shortName) > 0) {
+                                        entity.removeAllListeners([events[i].shortName])
+                                    }
+
+                                    entity.once(events[i].shortName, function () { // cannot be `entity.on` for prod/stage
+                                        // check if not already fired
+                                ...
+client.on('data', (data) => {
+
+            //console.log('['+ mqId +']  (data): ' + data.toString());
+            payloads = data.toString();
+
+            // from speakers
+            if ( /^(\{\"|\[\{\")/.test(payloads) ) {
+                payloads = payloads.split(/\r\n/g);
+                i = -1;
+                while(i < payloads.length) {
+                    i++;
+                    let payload = payloads[i];
+                    if (
+                        /^\{/.test(payload) && /\}$/.test(payload)
+                        || /^\[\{/.test(payload) && /\}\]$/.test(payload)
+                    ) {
+                        let pl = null;
+                        try {
+                            pl = JSON.parse(payload);
+                        } catch(plErr) {
+                            process.stdout.write( '['+ mqId +'] (exception) '+ payload +'\n' );
+                            continue;
+                        }
+
+
+                        if (!pl.content) {
+                    ...
+CouchbaseStore.prototype.touch = function (sid, sess, fn) {
+        if ('function' !== typeof fn) { fn = noop; }
+
+        var sid = this.prefix + sid
+            , maxAge = sess.cookie.maxAge
+            , ttl = this.ttl || ('number' == typeof maxAge
+                ? maxAge / 1000 | 0
+                : oneDay)
+            , currentDate = new Date()
+            , lastModified = sess.lastModified ? new Date(sess.lastModified).getTime() : 0;
+
+        // if the given options has a touchAfter property, check if the
+        // current timestamp - lastModified timestamp is bigger than
+        // the specified, if it's not, don't touch the session
+        if (ttl > 0 && lastModified > 0) {
+
+            var timeElapsed = currentDate.getTime() - lastModified;
+
+            if (timeElapsed > ttl) {
+                sess.lastModified = currentDate;
+            }
+        }
+
+        sess = JSON.stringify(sess);
+        this.client.upsert(sid, sess, {expiry:ttl}, function(err){
+            err || d...
+var parseLocalObj = function(obj, key, k, value) {
+
+        for (let i=0,len=key.length; i<len; i++) {
+            // by default
+            let _key = key[k];
+            if (i == k) {
+                // Array or Object ?
+                if ( typeof(obj[ key[k] ]) == 'undefined' || typeof(obj[ key[k] ]) == 'string' ) {
+                    if ( Array.isArray(obj) ) {
+                        // index
+                        // _key = obj.length;
+                        _key = ~~key[k];
+                        obj[ _key ] = ( /^\d+$/.test(key[k+1]) ) ? [] : {};
+                    } else {
+                        obj[ key[k] ] = ( /^\d+$/.test(key[k+1]) ) ? [] : {};
+                    }
+                }
+
+                // Assinging value
+                if (k == key.length-1) {
+                    let _value = ( typeof(value) != 'undefined' ) ? value : '';
+                    if ( Array.isArray( obj[key[k]] ) ) {
+                        obj[key[k]].push(_value);
+                       ...
+entities[entityName].prototype[name] = function() {
+                    var self = this;
+                    var key     = null
+                        , index = null
+                        , i     = null
+                        , len   = null
+                        , args  = Array.prototype.slice.call(arguments)
+                        , _mainCallback = null;
+
+                    if ( params && params.length != args.length && !/function/.test(typeof(args[args.length-1])) ) {
+                        throw new Error('[N1QL][ ' + entityName+'#'+name+'() ] arguments must match parameters length. Please refer to [ '+ source +' ]\nFound in param list: ('+ params.join(', ') +') !')
+                    } else if ( /function/.test( typeof(args[args.length-1]) ) ) {
+                        // to hande Nodejs Util.promisify
+                        _mainCallback = args[args.length-1]
+                    }
+
+                    var sdkVersion = conn.sdk.version || 2;
+                    var qu...
+this.emit = function(c) {
+    if (c <= 0xFFFF) {
+      string += String.fromCharCode(c);
+    } else {
+      c -= 0x10000;
+      string += String.fromCharCode(0xD800 + ((c >> 10) & 0x3ff));
+      string += String.fromCharCode(0xDC00 + (c & 0x3ff));
+    }
+  }
+var getFormById = function(formId) {
+        var $form = null, _id = formId;
+
+        if ( !instance['$forms'] )
+            throw new Error('`$forms` collection not found');
+
+        if ( typeof(_id) == 'undefined') {
+            throw new Error('[ FormValidator::getFormById(formId) ] `formId` is missing')
+        }
+
+        _id = _id.replace(/\#/, '');
+
+        // in case form is created on the fly and is not yet registered
+        if (document.getElementById(_id) != null && typeof (instance['$forms'][_id]) == 'undefined') {
+            initForm( document.getElementById(_id) );
+        }
+
+        if ( typeof(instance.$forms[_id]) != 'undefined' ) {
+            instance['$forms'][_id].withUserBindings = true;
+
+            if ( typeof(this.$forms) != 'undefined' && typeof(this.$forms[_id]) == 'undefined' ) {
+                $form = this.$forms[_id] = instance['$forms'][_id];
+            } else {
+                $form = instance.$forms[_id];
+            }
+        }
+
+        if (!$form) {...
+var processList = function(method, files, target, zipInstance, options, i, len, err) {
+
+                if (i >= len || err) {
+
+                    if (!err && zipInstance) {
+
+                        zipInstance
+                            .generateNodeStream({ compression: 'DEFLATE', compressionOptions : {level: options.level } })
+                            .pipe(outputStream);
+
+                        outputStream
+                            .once('err', function(){
+                                outputStream.close();
+                                self.emit('archiver-'+ method +'#complete', err, null);
+                            })
+                            .once('finish', function(){
+                                outputStream.close();
+                                self.emit('archiver-'+ method +'#complete', false, this.path);
+                            })
+
+                    } else {
+                        self.emit('archiver-'+ method +'#complete', err, null);
+        ...
+console.log('Project [ '+ self.projectName +' ] has been added')
+throw new Error('[N1QL][ ' + entityName+'#'+name+'() ] arguments must match parameters length. Please refer to [ '+ source +' ]\nFound in param list: ('+ params.join(', ') +') !')
+proc.on('SIGHUP', function(code){
+                console.debug('[ FRAMEWORK ] Hanging up ! Code: '+ code +'\n'+ process.argv);
+
+                var bundle = self.bundle;
+                var pid = self.getPidByBundleName(bundle);
+
+                dismiss(process.pid, "SIGINT");
+                dismiss(pid, "SIGINT");
+            })
+var init = function(dbString) {
+
+        var err = false;
+        try {
+            dbString        = merge(dbString, local.options);
+            local.options   = dbString;
+            local.bundle    = getConfig().bundle;
+
+            console.info('[ CONNECTOR ][ ' + local.bundle +' ][ ' + dbString.connector +' ][ ' + dbString.database +' ] authenticating to couchbase cluster @'+ dbString.protocol + dbString.host);
+
+            try {
+                self.cluster = new couchbase.Cluster(dbString.protocol + dbString.host);
+                // version 5.x
+                if ( typeof(self.cluster.authenticate) != 'undefined' )
+                    self.cluster.authenticate(dbString.username, dbString.password);
+            } catch(_err) {
+                console.error('[ CONNECTOR ][ ' + local.bundle +' ] could not authenticate to couchbase @`'+ dbString.protocol + dbString.host +'`\n'+ (_err.stack || _err.message || _err) );
+            }
+
+            console.info('[ CONNECTOR ][ ' + local...
+var init = function(dbString) {
+
+        var err = false;
+        try {
+            dbString        = merge(dbString, local.options);
+            local.options   = dbString;
+            local.bundle    = getConfig().bundle
+
+            console.info('[ CONNECTOR ][ ' + local.bundle +' ][ ' + dbString.connector +' ][ ' + dbString.database +' ] authenticating to couchbase cluster @'+ dbString.protocol + dbString.host);
+
+            try {
+                self.cluster = new couchbase.Cluster(dbString.protocol + dbString.host);
+                // version 5.x
+                if ( typeof(self.cluster.authenticate) != 'undefined' )
+                    self.cluster.authenticate(dbString.username, dbString.password);
+            } catch(_err) {
+                console.error('[ CONNECTOR ][ ' + local.bundle +' ] could not authenticate to couchbase @`'+ dbString.protocol + dbString.host +'`\n'+ (_err.stack || _err.message || _err) );
+            }
+
+            console.info('[ CONNECTOR ][ ' + local....
+var dismiss = function(pid, signal){
+        if (pid == undefined) {
+            pid = self.PID;
+        }
+        var index       = null
+            , mountPath = null
+        ;
+        try {
+            //console.debug('[ PROC ] => '+ JSON.stringify(process.list, null, 4));
+
+            for (let p in process.list) {
+                if ( typeof(process.list[p]) == 'undefined' || process.list[p] == null )
+                    continue;
+
+
+                if ( process.list[p].pid == pid &&  !/^gina\-/.test(process.list[p].name) ) {
+                    index       = p;
+
+                    try {
+                        // console.debug('removePidFileSync: ['+ process.list[p].pid +']');
+                        removePidFileSync(process.list[p].pid);
+                        if ( typeof(process.isMinion) == 'undefined' ) {
+                            mountPath   =  _(getPath('mountPath') + '/' + process.list[p].name);
+                            if ( fs.existsSync(mountPath) )
+                ...
+typeof(bundleSettings.server.scheme) != 'undefined'
+                                        && schemes.indexOf(bundleSettings.server.scheme) < 0
+onEnd = function() {
+          curField = undefined;
+          if (buffer.length)
+            buffer = decodeText(buffer, 'binary', charset);
+          boy.emit('field', fieldname, buffer, false, truncated, encoding, contype);
+          --nends;
+          checkFinished();
+        }
+var setTimezone = function(timezone) {
+        // save to ~/.gina/main.json
+        mainConf['def_timezone'][GINA_SHORT_VERSION] = timezone;
+        lib.generator.createFileFromDataSync(mainConf, mainConfPath);
+        // save to ~/.gina/{GINA_VERSION_SHORT}/settings.json
+        process['gina']['timezone'] = timezone;
+        mainSettingsConf['timezone'] = timezone;
+        lib.generator.createFileFromDataSync(mainSettingsConf, mainSettingsPath);
+    }
+var throwError = function(code, err, isFatal) {
+        var router      = getContext('router');
+        if (router) {
+            var res                 = router.response
+                , next              = router.next
+                , hasViews          = router.hasViews
+                , isUsingTemplate   = isUsingTemplate
+            ;
+
+
+            if (arguments.length < 2) {
+                err = code;
+                code = 500
+            }
+
+            if ( !hasViews || !isUsingTemplate ) {
+                if (!res.headersSent) {
+                    res.writeHead(code, { 'Content-Type': 'application/json'} );
+                    res.end(JSON.stringify({
+                        status: code,
+                        error: 'Error '+ code +'. '+ err.stack
+                    }))
+                } else {
+                    next()
+                }
+
+            } else {
+                if (!res.headersSent) {
+                    res.writeHead(code, { 'Content-Type': 'text/html'} ...
+server.use = function use(fn) {
+
+        var offset = 0;
+        //var path = '/';
+
+        // default path to '/'
+        // disambiguate app.use([fn])
+        if (typeof fn !== 'function') {
+          var arg = fn;
+
+          while (Array.isArray(arg) && arg.length !== 0) {
+            arg = arg[0];
+          }
+
+          // first arg is the path
+          if (typeof arg !== 'function') {
+            offset = 1;
+            path = fn;
+          }
+        }
+
+
+        var fns = merge(slice.call(arguments, offset));
+
+        if (fns.length === 0) {
+          throw new TypeError('server.use() requires a middleware function')
+        }
+
+        fns.forEach(function (fn) {
+            server._expressMiddlewares[server._expressMiddlewares.length] = fn;
+        });
+
+        return this;
+    }
+this.start = function(instance) {
+        if (instance) {
+            self.instance       = instance;
+            //Router configuration.
+            var router = local.router;
+
+            instance.throwError         = throwError;
+            instance.getAssets          = getAssets;
+            instance.completeHeaders    = completeHeaders;
+
+            router.setServerInstance(instance);
+        }
+
+        onRequest()
+    }

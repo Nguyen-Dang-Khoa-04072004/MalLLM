@@ -1,0 +1,20 @@
+socket.onclose = socket.onerror = function() {
+      if (closed) return;
+      closed = true;
+
+      var wasConnected = (self._state === self.CONNECTED);
+      socket.onopen = socket.onclose = socket.onerror = socket.onmessage = null;
+
+      delete self._socket;
+      self._state = self.UNCONNECTED;
+
+      var pending = self._pending ? self._pending.toArray() : [];
+      delete self._pending;
+
+      if (wasConnected || self._everConnected) {
+        self.setDeferredStatus('unknown');
+        self._handleError(pending, wasConnected);
+      } else {
+        self.setDeferredStatus('failed');
+      }
+    }

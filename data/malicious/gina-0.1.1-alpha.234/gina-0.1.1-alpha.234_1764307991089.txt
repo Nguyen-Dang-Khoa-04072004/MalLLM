@@ -1,0 +1,4 @@
+self.respond = function(sessionId, payload) {
+        //process.stdout.write(  '[MQListener] sending `'+ sessionId +'` '+ JSON.stringify(payload) +'\n' );
+        sessions[sessionId].write( JSON.stringify(payload) +'\r\n');
+    }

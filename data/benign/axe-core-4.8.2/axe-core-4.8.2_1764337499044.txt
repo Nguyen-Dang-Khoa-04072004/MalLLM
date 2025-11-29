@@ -1,0 +1,13 @@
+var request = new window.XMLHttpRequest()
+request.open('GET', url)
+request.addEventListener('error', reject)
+request.addEventListener('timeout', reject)
+request.addEventListener('loadend', function(event) {
+          if (event.loaded && request.responseText) {
+            return resolve(request.responseText);
+          }
+          reject(request.responseText);
+        })
+event.loaded && request.responseText
+resolve(request.responseText)
+request.send()

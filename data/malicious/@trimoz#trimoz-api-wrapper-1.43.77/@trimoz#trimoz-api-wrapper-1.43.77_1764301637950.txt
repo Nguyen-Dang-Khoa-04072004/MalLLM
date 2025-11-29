@@ -1,0 +1,1 @@
+searchParams.resources[0] ? <operator>.formatString("&resources=", searchParams.resources.join(','), "") : ""

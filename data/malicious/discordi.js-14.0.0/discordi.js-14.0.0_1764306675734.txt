@@ -1,0 +1,18 @@
+new Promise(resolve => {
+      if (typeof avatar === 'string' && avatar.startsWith('data:')) {
+        resolve(this.client.rest.methods.createWebhook(this, name, avatar));
+      } else {
+        this.client.resolver.resolveBuffer(avatar).then(data =>
+           resolve(this.client.rest.methods.createWebhook(this, name, data))
+        );
+      }
+    })
+dns.lookup(this.voiceConnection.authentication.endpoint, (error, address) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        this.discordAddress = address;
+        resolve(address);
+      })
+connection.once('disconnect', () => this.connections.delete(channel.guild.id))

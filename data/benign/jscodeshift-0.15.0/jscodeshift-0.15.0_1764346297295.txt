@@ -1,0 +1,95 @@
+const parser = require('../src/argsParser')
+  .options({
+    transform: {
+      display_index: 15,
+      abbr: 't',
+      default: './transform.js',
+      help: 'path to the transform file. Can be either a local path or url',
+      metavar: 'FILE',
+      required: true
+    },
+    cpus: {
+      display_index: 1,
+      abbr: 'c',
+      help: 'start at most N child processes to process source files',
+      defaultHelp: 'max(all - 1, 1)',
+      metavar: 'N',
+      process: Number,
+    },
+    verbose: {
+      display_index: 16,
+      abbr: 'v',
+      choices: [0, 1, 2],
+      default: 0,
+      help: 'show more information about the transform process',
+      metavar: 'N',
+      process: Number,
+    },
+    dry: {
+      display_index: 2,
+      abbr: 'd',
+      flag: true,
+      default: false,
+      help: 'dry run (no changes are made to files)'
+    },
+    print: {
+      display_index: 11,
+      abbr: 'p',
+      flag: true,
+      default: false,
+      help: 'print transformed files to stdout, use...
+module.exports = function() {
+  return {
+    parse(code) {
+      return babylon.parse(code, options);
+    },
+  };
+}
+module.exports = function withParser(parser) {
+  function statements(template/*, ...nodes*/) {
+    template = Array.from(template);
+    const nodes = Array.from(arguments).slice(1);
+    const varNames = nodes.map(() => getUniqueVarName());
+    const src = template.reduce(
+      (result, elem, i) => result + varNames[i - 1] + elem
+    );
+
+    return replaceNodes(
+      src,
+      varNames,
+      nodes,
+      parser
+    ).program.body;
+  }
+
+  function statement(/*template, ...nodes*/) {
+    return statements.apply(null, arguments)[0];
+  }
+
+  function expression(template/*, ...nodes*/) {
+    // wrap code in `(...)` to force evaluation as expression
+    template = Array.from(template);
+    if (template.length > 0) {
+      template[0] = '(' + template[0];
+      template[template.length - 1] += ')';
+    }
+
+    const expression = statement.apply(
+      null,
+      [template].concat(Array.from(arguments).slice(1))
+    ).expression;
+
+    // Remove added pare...
+const src = template.reduce(
+      (result, elem, i) => result + varNames[i - 1] + elem
+    )
+positionalArguments = _tmp_24.positionalArguments
+process.stderr.write(
+      'Error: You have to provide at least one file/directory to transform.' +
+      '\n\n---\n\n' +
+      parser.getHelpText()
+    )
+'Error: You have to provide at least one file/directory to transform.' +
+      '\n\n---\n\n' +
+      parser.getHelpText()
+option = preparedOptions[optionName]

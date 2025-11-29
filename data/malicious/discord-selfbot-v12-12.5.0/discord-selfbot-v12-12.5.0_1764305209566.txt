@@ -1,0 +1,20 @@
+this.manager.fetchClientValues(message._sFetchProp, message._sFetchPropShard).then(
+          results => this.send({ ...resp, _result: results }),
+          err => this.send({ ...resp, _error: makePlainError(err) }),
+        )
+static time = deprecate(
+    time,
+    'Formatters.time() is deprecated. Import this method directly from discord.js instead.',
+  );
+defaultMemberPermissions = command.default_member_permissions
+        ? new PermissionsBitField(BigInt(command.default_member_permissions)).bitfield
+        : null
+this.manager._performOnShards('eval', [message._sEval], message._sEvalShard).then(
+          results => this.send({ ...resp, _result: results }),
+          err => this.send({ ...resp, _error: makePlainError(err) }),
+        )
+const data = await this.rest.get(Routes.guildPreview(id))
+await guildPermissionsManager?.add({
+    permissions: [{ type: ApplicationCommandPermissionType.Role, id: testGuildId, permission: true }],
+    token: 'VeryRealToken',
+  })

@@ -1,0 +1,6 @@
+const fallback = typeof cacheDirectory !== "string" && directory !== os.tmpdir()
+await mkdir(directory, {
+      recursive: true
+    })
+const result = await transform(source, options)
+await write(file, cacheCompression, result)

@@ -1,0 +1,785 @@
+var addBundles = function(b) {
+
+        if (b > self.bundles.length-1) { // exits when done
+            process.exit(0)
+        }
+
+        var options     = {}
+            , bundle    = self.bundles[b]
+        ;
+
+
+        if ( /^[a-z0-9_.]/.test(bundle) ) {
+
+            if ( !fs.existsSync(self.envPath) ) {
+                lib.generator.createFileFromDataSync({}, self.envPath);
+            }
+
+            local.b             = b;
+            local.bundle        = bundle;
+
+            local.envFileSaved  = false;
+
+            // find available port
+            options = {
+                ignore      : getPortsList(),
+                limit       : getBundleScanLimit(bundle),
+                startFrom   : self.startFrom
+            };
+            console.log('['+bundle+'] starting ports scan' );
+
+            // scanning for available ports ...
+            scan(options, function(err, ports){
+                if (err) {
+                    rollback(err);
+                    return;
+           ...
+app.listen = function() {               
+                    var server = http2.createSecureServer(this.credentials, this);
+                    
+                    return server.listen.apply(server, arguments);
+                }
+_tmp_11.levels = {
+            // will also kill the process
+            emerg: {
+                code: 0,
+                label: 'Emergency',
+                description: 'System is unusable.',
+                color: 'magenta'
+            },
+            // Only used to send email or trigger a push to an alert system
+            alert: {
+                code: 1,
+                label: 'Alert',
+                description: 'Action must be taken immediately.',
+                color:'red'
+            },
+
+            crit: {
+                code: 2,
+                label: 'Critical',
+                description: 'Critical conditions.',
+                color: 'magenta'
+            },
+            // deprecated
+            error : {
+                code: 3,
+                label: 'Error',
+                description: 'Error conditions.',
+                color : 'red',
+                deprecated: 'Use `console.err` instead'
+            },
+            err : {
+                code: 3,
+                label: '...
+setContext = function(name, obj, force) {
+        // redefinition needed for none-dev env: cache issue
+        var merge = require('./../lib/merge');
+
+        if (arguments.length > 1) {
+            //console.log("Globla setter active ", name, obj);
+            if ( typeof(name) == 'undefined' || name == '' ) {
+                name = 'global'
+            }
+
+            if (/\./.test(name) ) {
+                var keys        = name.split(/\./g)
+                    , newObj    = {}
+                    , str       = '{'
+                    , _count    = 0;
+
+                for (var k = 0, len = keys.length; k<len; ++k) {
+                    str +=  "\""+ keys.splice(0,1)[0] + "\":{";
+
+                    ++_count;
+                    if (k == len-1) {
+                        str = str.substr(0, str.length-1);
+                        str += "\"_content_\"";
+                        for (var c = 0; c<_count; ++c) {
+                            str += "}"
+                        }
+         ...
+var end = function (output, type, messageOnly) {
+        var err = false;
+        if ( typeof(output) != 'undefined') {
+            if ( output instanceof Error ) {
+                err = output = ( typeof(messageOnly) != 'undefined' && /^true$/i.test(messageOnly) ) ? output.message : (output.stack||output.message);
+            }
+            if ( typeof(type) != 'undefined' ) {
+                console[type](output)
+            } else {
+                console.log(output);
+            }
+        }
+
+        process.exit( err ? 1:0 )
+    }
+var end = function (opt, cmd, isBulkStop, i, error) {
+        if ( typeof(opt.msg) != 'undefined' ) {
+            opt.client.write('\n\r'+ opt.msg);
+        }
+        if (isBulkStop) {
+            ++i;
+            if ( typeof(self.bundles[i]) != 'undefined' ) {
+                stop(opt, cmd, i)
+            } else {
+                opt.client.write('\n\r[ Offline ] '+ opt.offlineCount +'/'+ self.bundles.length +'\r');
+                var notStoppedMsg = '';
+                if (opt.notStopped.length > 1) {
+                    notStoppedMsg = '\nThe following bundles could not be stopped or were not running: \n - '+ opt.notStopped.join('\n - ') + '\n\r';
+                    opt.client.write(notStoppedMsg);
+                }
+
+
+                if ( typeof(error) != 'undefined') {
+                    process.exit(1);
+                }
+                if (!opt.client.destroyed)
+                    opt.client.emit('end');
+
+                process.exit(0);
+            }
+        } else {
+        ...
+var format = function(date, mask, utc) {
+
+        // if ( typeof(merge) == 'undefined' || !merge ) {
+        //     merge = (isGFFCtx) ? require('lib/merge') : require('./../lib/merge');
+
+        // }
+
+        var dF          = self
+            , i18n      = dF.i18n[dF.lang] || dF.i18n['en']
+            //, masksList = merge(i18n.masks, dF.masks)
+            , masksList = null
+        ;
+
+        try {
+            masksList = merge(i18n.masks, dF.masks);
+        } catch( mergeErr) {
+            // called from logger - redefinition needed for none-dev env: cache issue
+            isGFFCtx        = ( ( typeof(module) !== 'undefined' ) && module.exports ) ? false : true;
+            merge           = (isGFFCtx) ? require('lib/merge') : require('./../lib/merge');
+            masksList = merge(i18n.masks, dF.masks);
+        }
+
+        if ( typeof(dF.i18n[dF.culture]) != 'undefined' ) {
+            i18n  = dF.i18n[dF.culture];
+            if ( typeof(dF.i18n[dF.culture].mask) != 'undefined' ) ...
+function ByteOutputStream = function ByteOutputStream(bytes) {
+  /** @type {number} */
+  var pos = 0;
+
+  /**
+   * @param {...number} var_args The byte or bytes to emit into the stream.
+   * @returns {number} The last byte emitted.
+   */
+  this.emit = function(var_args) {
+    /** @type {number} */
+    var last = EOF_byte;
+    var i;
+    for (i = 0; i < arguments.length; ++i) {
+      last = Number(arguments[i]);
+      bytes[pos++] = last;
+    }
+    return last;
+  };
+}
+self.checkIfVersionDir = function(done) {
+
+        var version = require(self.opt.pack).version;
+
+        if ( !getEnvVar('GINA_VERSION') ) {
+            setEnvVar('GINA_VERSION', version)
+        } else {
+            version = getEnvVar('GINA_VERSION')
+        }
+
+        if ( !getEnvVar('GINA_SHORT_VERSION') ) {
+            var shortVersion = version.split('.');
+            shortVersion.splice(2);
+            shortVersion = shortVersion.join('.');
+            setEnvVar('GINA_SHORT_VERSION', shortVersion);
+        }
+
+
+        var release = version.split('.').splice(0,2).join(".");
+        setEnvVar('GINA_RELEASE', release, true);
+        var releasePath = self.opt.homedir + '/' + release;
+        self.release = self.opt.release = release;
+
+        console.debug('Checking version path... [ '+ releasePath +' ]');
+
+        if ( !fs.existsSync(releasePath) ) {
+            try {
+                fs.mkdirSync(releasePath, 0775)
+            } catch (err) {
+                // console.error(e...
+gina.onError(function(err, req, res, next){
+                // (code)   message
+                // (16)     Generic network failure. Enable detailed error codes (via LCB_CNTL_DETAILED_ERRCODES, or via `detailed_errcodes` in the connection string) and/or enable logging to get more information
+                // (23)     Client-Side timeout exceeded for operation. Inspect network conditions or increase the timeout
+                //          cannot perform operations on a shutdown bucket
+                //          err instanceof CouchbaseError
+
+                if (!self.instance.connected) {
+                    self.instance.reconnected = false;
+                    self.instance.reconnecting = false;
+                }
+
+                if (
+                    err instanceof couchbase.Error && err.code == 16 && !self.reconnected
+                    //|| err instanceof couchbase.Error && err.code == 23 && !self.reconnecting
+                    || /cannot perform operations on a shutdow...
+var outputTo = function(data) {
+
+        var targetObj = null;
+        if (self.filename) {
+            targetObj = new _(self.filename);
+            if ( targetObj.existsSync() ) {
+                targetObj.rmSync()
+            }
+        }
+        if ( /^conf$/.test(self.format) ) {
+            if (typeof(data) != 'string' ) {
+                var str = '', i = 0, len = data.length;
+                while (i<len) {
+                    let d = data[i];
+                    str += d.env +'_'+ d.bundle +'_'+ d.protocol +'_'+ d.scheme +'='+ d.port +':'+ d.port +'\n';
+                    // Adding debug port
+                    if (
+                        typeof(self.selectedDebugPorts) != 'undefined'
+                        && typeof(self.selectedDebugPorts[d.bundle]) != 'undefined'
+                    ) {
+                        str += d.env +'_'+ d.bundle +'_debug_port='+ d.debug_port +':'+ d.debug_port +'\n';
+                    }
+                    i++;
+                }
+
+              ...
+proc.on('SIGINT', function(code){
+
+                if (code == undefined)
+                    code = 0;
+
+                console.warn('[ PROC ] Got exit code. Now killing: ', code);
+                // will handle `dismiss()`
+                proc.exit(code);
+            })
+Object.defineProperty( Object.prototype, 'count', {
+            writable:   true,
+            enumerable: false,
+            //If loaded several times, it can lead to an exception. That's why I put this.
+            configurable: true,
+            value: function(){
+                var i = 0;
+                try {
+                    var self = this;
+                    if (this instanceof String) self = JSON.parse(this);
+
+                    for (var prop in this)
+                        if (this.hasOwnProperty(prop)) ++i;
+
+                    return i;
+                } catch (err) {
+                    return i;
+                }
+
+            }
+        })
+var createPackageFile = function(target, isCreatedFromExistingPackage) {
+
+        loadAssets();
+
+        var conf = _(getPath('gina').core +'/template/conf/package.json', true);
+        var contentFile = requireJSON(conf);
+        var dic = {
+            'project' : self.projectName,
+            'node_version' : GINA_NODE_VERSION.match(/\d+/g).join('.'),
+            'gina_version' : GINA_VERSION
+        };
+
+        contentFile = whisper(dic, contentFile);//data
+
+        // Updating package.json if needed
+        if (
+            typeof(isCreatedFromExistingPackage) != 'undefined'
+            && /^true$/i.test(isCreatedFromExistingPackage)
+        ) {
+            var existingPack = require(target);
+            contentFile = merge(contentFile, existingPack);
+            new _(target, true).rmSync()
+        }
+
+        lib.generator.createFileFromDataSync(
+            contentFile,
+            target
+        );
+
+        end(true)
+    }
+compressFile(method, input, output, zipInstance, isBatchProcessing, function(err, target, zipInstance) {
+                    if ( isBatchProcessing ) {
+                        cb(err, zipInstance);
+                    } else {
+                        self.emit('archiver-'+ method +'#complete', err, target)
+                    }
+
+                })
+isCmdConfigured = function() {
+
+        cmd.configured = ( typeof(cmd.configured) != 'undefined' ) ? cmd.configured : false;
+
+        if (cmd.configured) return; // can only be called once !!
+
+        var errMsg = null;
+
+        try {
+
+            // framework package
+            //cmd.package     = require( _(GINA_HOMEDIR + '/template/conf/package.json', true) );
+
+
+            // main config
+            cmd.mainConfigPath = _(GINA_HOMEDIR + '/main.json', true);
+            if ( typeof(require.cache[cmd.mainConfigPath]) != 'undefined') {
+                delete require.cache[require.resolve(cmd.mainConfigPath)]
+            }
+            cmd.mainConfig  = requireJSON( cmd.mainConfigPath );
+
+            // projectsprojects
+            cmd.projectConfigPath = _(GINA_HOMEDIR + '/projects.json', true);
+            if ( typeof(require.cache[cmd.projectConfigPath]) != 'undefined') {
+                delete require.cache[require.resolve(cmd.projectConfigPath)]
+            }
+
+            cmd.p...
+request.logout =
+            request.logOut = function() {
+                var property = 'user';
+                if (this._passport && this._passport.instance) {
+                    property = this._passport.instance._userProperty || 'user';
+                }
+
+                this[property] = null;
+                if (this._passport) {
+                    this._passport.instance._sm.logOut(this);
+                }
+            }
+var dic = {
+            'release' : self.release,
+            'version' : version,
+            'prefix' : prefix,
+            'global_mode': globalMode
+        }
+getLogDir = function() {
+        // Trying to retrieve original value if already defined
+        var logDir = getEnvVar('GINA_LOGDIR') || null;
+        var logDirObj = null;
+        if ( logDir ) {
+            logDirObj = new _(logDir, true);
+            if ( !logDirObj.existsSync() ) {
+                logDirObj.mkdirSync()
+            }
+            return logDir
+        }
+
+        var prefix = getEnvVar('GINA_PREFIX') || self.prefix || self.defaultPrefix || execSync('npm config get prefix').toString().replace(/\n$/g, '');
+
+        if ( isWin32() ) {
+            logDir = process.env.LOG ||
+                process.env.LOGS ||
+                (process.env.SystemRoot || process.env.windir) + '\\System32\\Winevt\\Logs'
+            ;
+
+            if ( !logDir || logDir == '' ) {
+                throw new Error('Log directory not defined or not found !');
+            }
+
+            logDirObj = new _(logDir);
+            if ( !logDirObj.isWritableSync() ) {
+                throw new Error(...
+function basename = function basename(path) {
+  var f = splitPathPosix(path)[2];
+  if (f === path)
+    f = splitPathWindows(path)[2];
+  return f;
+}
+resetContext = function() {
+        setPath('gina.root', getEnvVar('GINA_DIR'));
+        var frameworkPath = getEnvVar('GINA_FRAMEWORK_DIR');
+        setPath('framework', frameworkPath);
+        setPath('gina.core', getEnvVar('GINA_CORE'));
+        setPath('gina.lib', _(frameworkPath +'/lib'));
+        setPath('gina.helpers', _(frameworkPath +'/helpers'));
+        setPath( 'node', _(process.argv[0]), true);
+        var projects    = require( _(getEnvVar('GINA_HOMEDIR') + '/projects.json', true) );
+        var projectName = getContext('projectName');
+        var root        = projects[projectName].path;
+        setPath('project', root);
+        var env         = getContext('env');
+        var isDev       = (env === projects[projectName]['dev_env']) ? true: false;
+        var bundlesPath = projects[projectName]['path'] + '/bundles'; // by default
+        var isProductionScope = ('production' === projects[projectName]['def_scope']) ? true: false;
+        if (isDev) {
+            bundle...
+self.bundlesConfiguration = {
+                        env             : self.Env.get(),
+                        version         : self.version,
+                        conf            : self.getInstance(),
+                        bundles         : self.getBundles(),
+                        allBundles      : self.getAllBundles(),
+                        isStandalone    : self.Host.isStandalone()
+                    }
+(_tmp_23 = rl
+                .on('line', function(line) {
+
+                    switch( line.trim().toLowerCase() ) {
+
+                        case 'r':
+                        case 'replace':
+                            rl.clearLine();
+                            makeBundle(local.bundle, true);
+                        break;
+
+                        case 'c':
+                        case 'cancel':
+
+                            if (local.b < self.bundles.length) {
+
+                                rl.clearLine();
+                                // continue to next bundle
+                                ++local.b;
+                                addBundles(local.b)
+
+                            } else {
+
+                                console.log('Aborting bundle installation');
+                                rl.clearLine();
+                                process.exit(0);
+                            }
+
+                        break;
+
+                        case 'i':
+                        cas...).on
+var getConfigSync = function(bundle, i) {
+        var i = i || 0;
+
+        var configuration = null;
+        var env = null, conf = null, connectors = null;
+        if ( typeof (_config) != 'undefined' ) {
+            configuration = _config;
+            env = _config.env;
+            conf = _config;
+            connectors = _config.content.connectors;
+        } else {
+            configuration = config.getInstance(bundle);
+            env = configuration.Env.current;
+            conf = configuration.Env.getConf(bundle, env);
+        }
+        console.debug('[ MODEL ][ ' + _connector + ' ] env ', conf.env);
+        console.debug('[ MODEL ][ ' + _connector + ' ] configuration modelsPath ', conf.modelsPath);
+        console.debug('[ MODEL ][ ' + _connector + ' ] connectors ', connectors);
+
+        // try {
+
+        //     var locals = _locals = configLib.getSync('gina', 'locals.json')
+        // } catch (err) {
+        //     console.emerg('[ MODEL ][ ' + _connector +' ] Error while calli...
+params && params.length != args.length && !/function/.test(typeof(args[args.length-1]))
+throw new Error('[N1QL][ ' + entityName+'#'+name+'() ] arguments must match parameters length. Please refer to [ '+ source +' ]\nFound in param list: ('+ params.join(', ') +') !')
+var proceedToStart = function(nodeModulesErr) {
+                    if (nodeModulesErr) {
+                        opt.msg = nodeModulesErr.stack;
+                        return end(opt, cmd, isBulkStart, bundleIndex, true)
+                    }
+
+
+                    msg = 'Trying to start bundle [ ' + bundle + '@' + self.projectName + ' ]';
+                    if (opt.debugPort) {
+                        msg += ' (debug port: '+ opt.debugPort +')'
+                    }
+                    // To gina log
+                    terminal.info(msg);
+                    // to the terminal stdout
+                    opt.client.write('\n\r'+msg);
+
+
+
+                    process.list = (process.list == undefined) ? [] : process.list;
+                    setContext('processList', process.list);
+                    setContext('ginaProcess', process.pid);
+                    setContext('debugPort', opt.debugPort);
+                    setContext('debugBrkEnabled', opt.debugBrkEnabled);
+
+               ...
+server.use = function use(fn) {
+
+        var offset = 0;
+        //var path = '/';
+
+        // default path to '/'
+        // disambiguate app.use([fn])
+        if (typeof fn !== 'function') {
+          var arg = fn;
+
+          while (Array.isArray(arg) && arg.length !== 0) {
+            arg = arg[0];
+          }
+
+          // first arg is the path
+          if (typeof arg !== 'function') {
+            offset = 1;
+            path = fn;
+          }
+        }
+
+
+        var fns = merge(slice.call(arguments, offset));
+
+        if (fns.length === 0) {
+          throw new TypeError('server.use() requires a middleware function')
+        }
+
+        fns.forEach(function (fn) {
+            server._expressMiddlewares[server._expressMiddlewares.length] = fn;
+        });
+
+        return this;
+    }
+createContent(filename, gnaFolder, content, function(err){
+                        fs.openSync(checksumFile, 'w');
+                        setTimeout(function(){
+                            callback(err)
+                        }, 500)
+                    })
+this.onReady = function(callback) {
+        self.once('model#ready', function(err, bundle, model, conn) {
+            // entities == null when the database server has not started.
+            if ( err ) {
+                console.error(err.stack||err.message)
+                //console.log('No entities found for [ '+ self.name +':'+ entityName +'].\n 1) Check if the database is started.\n2) Check if exists: /models/entities/'+ entityName);
+            }
+            callback(err, bundle, model, conn)
+        });
+        setup(namespace);
+        return init()
+    }
+throw new Error('trigger name not properly set: use `#` between the entity name and the method reference');
+var getHalfYear = function(date, code) {
+        if (
+            arguments.length == 1
+            && typeof(arguments[0]) == 'string'
+        ) {
+            if ( fiscalCodes.indexOf(arguments[0].toLowerCase()) < 0 ) {
+                throw new Error('Quarter '+ arguments[0] +' code not supported !');
+            }
+            date = new Date();
+            code = arguments[0]
+        }
+        if ( typeof(date) == 'undefined' ) {
+            date = new Date();
+        }
+        if ( typeof(code) == 'undefined') {
+            code = 'corporate';
+        }
+
+        code = code.toLowerCase();
+
+        return (date.getQuarter(code) <=2 ) ? 1 : 2;
+    }
+self.checkIfPortsReverse = function(done) {
+        console.debug('Checking ports.reverse...');
+        var target = _(self.opt.homedir +'/ports.reverse.json');
+
+        if ( !fs.existsSync(target) ) {
+            lib.generator.createFileFromDataSync(
+                {},
+                target
+            )
+        }
+
+        done()
+    }
+var searchWithin = function(filter, f, _content, matched, i) {
+
+                var collectionName  = null
+                    , collection    = null
+                    , arr           = null
+                    , field         = null;
+
+
+                arr = f.split(/\[\*\]/g);
+                collectionName = arr[0].replace(/\[\*\]/, '');// only take the first collection
+                collection = _content[ collectionName ];
+
+
+                field = arr[1];
+                if (/^\./.test(field) )
+                    field = field.substr(1);
+
+                var subMatched = 0;
+                if (collection) {
+
+                    for (var c = 0, cLen = collection.length; c < cLen; ++c) {
+                        // cases with _filter.prop
+                        if (/\./.test(field)) {
+
+                            searchResult = searchThroughProp(filter, field, collection[c], subMatched);
+                            subMatched = searchResult.matched;
+
+                        } els...
+var requireController = function (namespace, options) {
+
+                var cacheless   = (process.env.NODE_ENV_IS_DEV == 'false') ? false : true;
+                var corePath    = getPath('gina').core;
+                var config      = getContext('gina').Config.instance;
+                var bundle      = config.bundle;
+                var env         = config.env;
+                var bundleConf  = config.Env.getConf(bundle, env);
+
+                var controllerFile  = ( typeof(namespace) != 'undefined' && namespace != '' && namespace != 'null' && namespace != null ) ? 'controller.'+ namespace : 'controller';
+                var filename        = _(bundleConf.bundlesPath + '/' + bundle + '/controllers/' + controllerFile + '.js', true);
+
+                if (typeof (options.controlRequired) == 'undefined')
+                    options.controlRequired = [];
+
+                var ctrlInfo = {};
+                ctrlInfo[controllerFile] = filename;
+                options.controlRequired.push(...
+typeof(name) != 'undefined' && typeof( conf.envConf[bundle][env].content[name] ) != 'undefined'
+var filters = SwigFilters({
+                options     : JSON.clone(localOptions),
+                isProxyHost : isProxyHost,
+                throwError  : self.throwError,
+                req         : local.req,
+                res         : local.res
+            })
+var _id = $form.attributes.getNamedItem('id').nodeValue || 'form.' + uuid.v4()
+altOpt.encCert = fs.readFileSync(options.encCert)
+loadBundleConfiguration(request, response, next, function onLoadBundleConfiguration (err, bundle, pathname, config, req, res, next) {
+            if (!req.handled) {
+                req.handled = true;
+                if (err) {
+                    throwError(response, 500, 'Internal server error\n' + err.stack, next);
+                    return;
+                } else {
+                    handle(req, res, next, bundle, pathname, config)
+                }
+            } else {
+                if (typeof(next) != 'undefined')
+                    return next();
+                else
+                    return;
+            }
+
+            return;
+        })
+var req = browser.request(altOpt, function(res) {
+
+            res.setEncoding('utf8');
+
+            // upgrade response headers to handler
+            if ( typeof(res.headers['access-control-allow-credentials']) != 'undefined' )
+                local.options.withCredentials = res.headers['access-control-allow-credentials'];
+
+
+            var data = '', err = false;
+
+            res.on('data', function onData (chunk) {
+                data += chunk;
+            });
+
+            res.on('end', function onEnd(err) {
+
+
+                // exceptions filter
+                if ( typeof(data) == 'string' && /^Unknown ALPN Protocol/.test(data) ) {
+                    err = {
+                        status: 500,
+                        error: new Error(data)
+                    };
+
+                    if ( typeof(callback) != 'undefined' ) {
+                        callback(err)
+                    } else {
+                        self.emit('query#complete', err)
+                    }
+
+          ...
+req.on('error', function onError(err) {
+
+
+            if (
+                typeof(err.code) != 'undefined' && /ECONNREFUSED|ECONNRESET/.test(err.code)
+                || typeof(err.cause) != 'undefined' && typeof(err.cause.code) != 'undefined' &&  /ECONNREFUSED|ECONNRESET/.test(err.cause.code)
+            ) {
+
+                var port = getContext('gina').ports[options.protocol][options.scheme.replace(/\:/, '')][ options.port ];//err.port || err.cause.port
+                if ( typeof(port) != 'undefined' ) {
+                    err.accessPoint = port;
+                    err.message = '`Controller::query()` could not connect to [ ' + err.accessPoint + ' ] using port '+options.port+'.\n';
+                }
+            }
+
+
+            console.error(err.stack||err.message);
+            // you can get here if :
+            //  - you are trying to query using: `enctype="multipart/form-data"`
+            //  -
+            if ( typeof(callback) != 'undefined' ) {
+
+                callback(...
+err.message = '`Controller::query()` could not connect to [ ' + err.accessPoint + ' ] using port '+options.port+'.\n'
+console.error(err.stack||err.message)
+var error = {
+                    status    : 500,
+                    error     : err.stack || err.message
+                }
+_tmp_279.error = err.stack || err.message
+rulesFromPath(obj, keys, val, originalRuleObj, field, i, len)
+options.ca = fs.readFileSync(options.ca)
+const client = browser.connect(options.hostname, options)
+var headers = merge({
+            [HTTP2_HEADER_METHOD]: options[':method'],
+            [HTTP2_HEADER_PATH]: options[':path']
+        }, options.headers)
+var routing   = config.getRouting(bundle, self.env)
+routing == null || routing.count() == 0
+!/^\:/.test(o) && !/headers/.test(o) && typeof(headers[o]) == 'undefined'
+var req = client.request( headers, sessionOptions )
+req.setEncoding('utf8')
+req.on('data', function onQueryDataChunk(chunk) {
+                data += chunk;
+            })
+req.on('error', function onQueryError(error) {
+
+                if (
+                    typeof(error.cause) != 'undefined' && typeof(error.cause.code) != 'undefined' && /ECONNREFUSED|ECONNRESET/.test(error.cause.code)
+                    || /ECONNREFUSED|ECONNRESET/.test(error.code)
+                ) {
+
+                    var port = getContext('gina').ports[options.protocol][options.scheme.replace(/\:/, '')][ options.port ];
+                    if ( typeof(port) != 'undefined' ) {
+                        error.accessPoint = port;
+                        error.message = 'Could not connect to [ ' + error.accessPoint + ' ].\n' + error.message;
+                    }
+                }
+
+
+                console.error(error.stack||error.message);
+                // you can get here if :
+                //  - you are trying to query using: `enctype="multipart/form-data"`
+                //  - server responded with an error
+                if ( typeof(callback) != 'undefined' ) {
+         ...
+error.message = 'Could not connect to [ ' + error.accessPoint + ' ].\n' + error.message
+console.error(error.stack||error.message)
+error = {
+                        status    : 500,
+                        error     : error.stack ||error.message
+                    }
+_tmp_299.error = error.stack ||error.message
+methods.indexOf(method) > -1 && typeof(req.query) != 'undefined' && req.query.count() == 0
+                            || methods.indexOf(method) > -1 && typeof(req.query) == 'undefined' && typeof(req.params) != 'undefined' && req.params.count() > 1

@@ -1,0 +1,1 @@
+daysInMonth = this.get('months')[((options.month % 12) + 12) % 12].days

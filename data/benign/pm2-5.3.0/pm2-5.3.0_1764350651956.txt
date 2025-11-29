@@ -1,0 +1,72 @@
+module.exports = function(God) {
+  /**
+   * Description
+   * @method getMonitorData
+   * @param {} env
+   * @param {} cb
+   * @return
+   */
+  God.getMonitorData = function getMonitorData(env, cb) {
+    var processes = God.getFormatedProcesses();
+    var pids = processes.filter(filterBadProcess)
+      .map(function(pro, i) {
+        var pid = getProcessId(pro)
+        return pid;
+      })
+
+    // No pids, return empty statistics
+    if (pids.length === 0) {
+      return cb(null, processes.map(function(pro) {
+        pro['monit'] = {
+          memory : 0,
+          cpu : 0
+        };
+
+        return pro
+      }))
+    }
+
+    pidusage(pids, function retPidUsage(err, statistics) {
+      // Just log, we'll set empty statistics
+      if (err) {
+        console.error('Error caught while calling pidusage');
+        console.error(err);
+
+        return cb(null, processes.map(function(pro) {
+          pro['monit'] = {
+            memory : 0,
+            cpu : 0
+          };
+          return pro...
+Daemon.prototype.start = function() {
+  var that = this;
+  var d = domain.create();
+
+  d.once('error', function(err) {
+    fmt.sep();
+    fmt.title('PM2 global error caught');
+    fmt.field('Time', new Date());
+    console.error(err.message);
+    console.error(err.stack);
+    fmt.sep();
+
+    console.error('[PM2] Resurrecting PM2');
+
+		var path = cst.IS_WINDOWS ? __dirname + '/../bin/pm2' : process.env['_'];
+    var fork_new_pm2 = require('child_process').spawn('node', [path, 'update'], {
+      detached: true,
+      windowsHide: true,
+      stdio: 'inherit'
+    });
+
+    fork_new_pm2.on('close', function() {
+      console.log('PM2 successfully forked');
+      process.exit(0);
+    })
+
+  });
+
+  d.run(function() {
+    that.innerStart();
+  });
+}

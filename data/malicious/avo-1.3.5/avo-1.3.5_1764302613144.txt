@@ -1,0 +1,10 @@
+var req = require('https').request(options, (res) => {
+        const chunks = [];
+        res.on('data', (data) => chunks.push(data));
+        res.on('end', () => {
+          try {
+            const data = JSON.parse(Buffer.concat(chunks));
+            _avo_sampling_rate = data.sa;
+          } catch(e) {}
+        });
+      })

@@ -1,0 +1,56 @@
+var subscription = this.queryManager
+            .startGraphQLSubscription({
+            query: options.document,
+            variables: options.variables,
+        })
+            .subscribe({
+            next: function (subscriptionData) {
+                var updateQuery = options.updateQuery;
+                if (updateQuery) {
+                    _this.updateQuery(function (previous, _a) {
+                        var variables = _a.variables;
+                        return updateQuery(previous, {
+                            subscriptionData: subscriptionData,
+                            variables: variables,
+                        });
+                    });
+                }
+            },
+            error: function (err) {
+                if (options.onError) {
+                    options.onError(err);
+                    return;
+                }
+                process.env.NODE_ENV === "production" || invariant.error('Unhandled GraphQL subscription error', err);
+            },
+  ...
+this.subscriptions.add(subscription)
+_this.subscriptions.delete(subscription)
+var subscription = this.queryManager.startGraphQLSubscription({
+        query: options.document,
+        variables: options.variables
+      }).subscribe({
+        next: function (subscriptionData) {
+          var updateQuery = options.updateQuery;
+
+          if (updateQuery) {
+            _this.updateQuery(function (previous, _a) {
+              var variables = _a.variables;
+              return updateQuery(previous, {
+                subscriptionData: subscriptionData,
+                variables: variables
+              });
+            });
+          }
+        },
+        error: function (err) {
+          if (options.onError) {
+            options.onError(err);
+            return;
+          }
+
+          process.env.NODE_ENV === "production" || _tsInvariant.invariant.error('Unhandled GraphQL subscription error', err);
+        }
+      })
+_this.observers.delete(observer) && !_this.observers.size
+_this.subscriptions.delete(subscription)

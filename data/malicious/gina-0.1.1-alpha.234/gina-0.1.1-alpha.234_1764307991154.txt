@@ -1,0 +1,2 @@
+inRange(code_point, 0xFF61, 0xFF9F) &&
+        iso2022jp_state !== state.Katakana

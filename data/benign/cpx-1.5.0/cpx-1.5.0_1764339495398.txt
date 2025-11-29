@@ -1,0 +1,4 @@
+var createWatcher = _require3.watch
+console.error("Invalid --transform option")
+var DEREFERENCE = (0, _symbol2.default)("dereference")
+var OUT_DIR = (0, _symbol2.default)("outDir")

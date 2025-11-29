@@ -1,0 +1,1 @@
+warning.create('FastifyDeprecation', 'FSTDEP008', 'You are using route constraints via the route { version: "..." } option, use { constraints: { version: "..." } } option instead.')

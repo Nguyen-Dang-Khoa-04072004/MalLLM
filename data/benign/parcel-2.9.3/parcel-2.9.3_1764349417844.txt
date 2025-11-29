@@ -1,0 +1,68 @@
+entries = entries.map(entry => _path().default.resolve(entry))
+let parcel = new Parcel({
+    entries,
+    // $FlowFixMe[extra-arg] - flow doesn't know about the `paths` option (added in Node v8.9.0)
+    defaultConfig: require.resolve('@parcel/config-default', {
+      paths: [fs.cwd(), __dirname]
+    }),
+    shouldPatchConsole: false,
+    ...options
+  })
+function run = async function run(
+  entries: Array<string>,
+  _opts: any, // using pre v7 Commander options as properties
+  command: any,
+) {
+  if (entries.length === 0) {
+    entries = ['.'];
+  }
+
+  entries = entries.map(entry => path.resolve(entry));
+
+  let Parcel = require('@parcel/core').default;
+  let fs = new NodeFS();
+  let options = await normalizeOptions(command, fs);
+  let parcel = new Parcel({
+    entries,
+    // $FlowFixMe[extra-arg] - flow doesn't know about the `paths` option (added in Node v8.9.0)
+    defaultConfig: require.resolve('@parcel/config-default', {
+      paths: [fs.cwd(), __dirname],
+    }),
+    shouldPatchConsole: false,
+    ...options,
+  });
+
+  let disposable = new Disposable();
+  let unsubscribe: () => Promise<mixed>;
+  let isExiting;
+  async function exit(exitCode: number = 0) {
+    if (isExiting) {
+      return;
+    }
+
+    isExiting = true;
+    if (unsubscribe != null) {
+      await unsubscribe();
+    } else if (parcel.isProfiling) {
+      await parcel.stopProfiling...
+_tmp_21.defaultConfig = require.resolve('@parcel/config-default', {
+      paths: [fs.cwd(), __dirname]
+    })
+_tmp_6 = __ecma.Array.factory()
+entries = entries.map(entry => path.resolve(entry))
+let parcel = new Parcel({
+    entries,
+    // $FlowFixMe[extra-arg] - flow doesn't know about the `paths` option (added in Node v8.9.0)
+    defaultConfig: require.resolve('@parcel/config-default', {
+      paths: [fs.cwd(), __dirname],
+    }),
+    shouldPatchConsole: false,
+    ...options,
+  })
+_tmp_9.entries = entries
+_tmp_9.defaultConfig = require.resolve('@parcel/config-default', {
+      paths: [fs.cwd(), __dirname],
+    })
+process.stdin.isTTY && process.stdin.isRaw
+await parcel.run()
+await parcel.run()

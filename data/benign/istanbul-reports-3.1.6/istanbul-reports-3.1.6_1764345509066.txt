@@ -1,0 +1,108 @@
+window.onpopstate = () => {
+            const routingState = decodeLocation();
+            if (routingState) {
+                // make sure all the state is set before rendering to avoid url updates
+                // alternative is to merge all the states into one so it can be set in one go
+                // https://github.com/facebook/react/issues/14259
+                ReactDOM.unstable_batchedUpdates(() => {
+                    setFilters(routingState.activeFilters);
+                    setSort(routingState.activeSort);
+                    setIsFlat(routingState.isFlat);
+                    setExpandedLines(routingState.expandedLines);
+                    setFileFilter(routingState.fileFilter);
+                });
+            }
+        }
+fs.readdirSync(srcDir).forEach(f => {
+            const resolvedSource = path.resolve(srcDir, f);
+            const resolvedDestination = '.';
+            const stat = fs.statSync(resolvedSource);
+            let dest;
+
+            if (stat.isFile()) {
+                dest = resolvedDestination + '/' + f;
+                if (this.verbose) {
+                    console.log('Write asset: ' + dest);
+                }
+                writer.copyFile(resolvedSource, dest);
+            }
+        })
+function loadRowData = function loadRowData(tableRow) {
+        var tableCols = tableRow.querySelectorAll('td'),
+            colNode,
+            col,
+            data = {},
+            i,
+            val;
+        for (i = 0; i < tableCols.length; i += 1) {
+            colNode = tableCols[i];
+            col = cols[i];
+            val = colNode.getAttribute('data-value');
+            if (col.type === 'number') {
+                val = Number(val);
+            }
+            data[col.key] = val;
+        }
+        return data;
+    }
+metricsTemplate(details.metrics.functions, 'Functions')
+module.exports = function SummaryTableHeader({
+    onSort,
+    activeSort,
+    metricsToShow
+}) {
+    return (
+        <thead>
+            <tr className="topheading">
+                <th></th>
+                {metricsToShow.statements && <th colSpan={4}>Statements</th>}
+                {metricsToShow.branches && <th colSpan={4}>Branches</th>}
+                {metricsToShow.functions && <th colSpan={4}>Functions</th>}
+                {metricsToShow.lines && <th colSpan={4}>Lines</th>}
+            </tr>
+            <tr className="subheading">
+                <FileHeaderCell onSort={onSort} activeSort={activeSort} />
+                {metricsToShow.statements && (
+                    <SubHeadings
+                        sortKeyPrefix="statements"
+                        onSort={onSort}
+                        activeSort={activeSort}
+                    />
+                )}
+                {metricsToShow.branches && (
+                    <SubHeadings
+                        sortKeyPrefi...
+childData[i] = {
+                ...child,
+                children: sort(child.children, activeSort)
+            }
+const srcDir = path.resolve(__dirname, 'assets', subdir)
+fs.readdirSync(srcDir).forEach(f => {
+                const resolvedSource = path.resolve(srcDir, f);
+                const resolvedDestination = '.';
+                const stat = fs.statSync(resolvedSource);
+                let dest;
+
+                if (stat.isFile()) {
+                    dest = resolvedDestination + '/' + f;
+                    if (this.verbose) {
+                        console.log('Write asset: ' + dest);
+                    }
+                    writer.copyFile(
+                        resolvedSource,
+                        dest,
+                        assetHeaders[path.extname(f)]
+                    );
+                }
+            })
+const resolvedSource = path.resolve(srcDir, f)
+const stat = fs.statSync(resolvedSource)
+dest = resolvedDestination + '/' + f
+writer.copyFile(
+                        resolvedSource,
+                        dest,
+                        assetHeaders[path.extname(f)]
+                    )
+resolvedSource
+dest
+assetHeaders[path.extname(f)]

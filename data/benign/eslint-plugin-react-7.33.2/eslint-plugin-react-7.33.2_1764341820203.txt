@@ -1,0 +1,313 @@
+function getIdentifiersFromBinaryExpression = function getIdentifiersFromBinaryExpression(side) {
+      if (side.type === 'Identifier') {
+        return side;
+      }
+
+      if (side.type === 'BinaryExpression') {
+        // recurse
+        const left = getIdentifiersFromBinaryExpression(side.left);
+        const right = getIdentifiersFromBinaryExpression(side.right);
+        return [].concat(left, right).filter(Boolean);
+      }
+
+      return null;
+    }
+Object.keys(thisList).filter((i) => thisList[i].confidence < 2).forEach((i) => {
+      let component = null;
+      let node = null;
+      node = thisList[i].node;
+      while (!component && node.parent) {
+        node = node.parent;
+        // Stop moving up if we reach a decorator
+        if (node.type === 'Decorator') {
+          break;
+        }
+        component = this.get(node);
+      }
+      if (component) {
+        const newUsedProps = (thisList[i].usedPropTypes || []).filter((propType) => !propType.node || propType.node.kind !== 'init');
+
+        const componentId = getId(component.node);
+
+        usedPropTypes[componentId] = mergeUsedPropTypes(usedPropTypes[componentId] || [], newUsedProps);
+      }
+    })
+function isReturningOnlyNull = function isReturningOnlyNull(ASTnode, context) {
+  let found = false;
+  let foundSomethingElse = false;
+  astUtil.traverseReturns(ASTnode, context, (node) => {
+    // Traverse return statement
+    astUtil.traverse(node, {
+      enter(childNode) {
+        const setFound = () => {
+          found = true;
+          this.skip();
+        };
+        const setFoundSomethingElse = () => {
+          foundSomethingElse = true;
+          this.skip();
+        };
+        switch (childNode.type) {
+          case 'ReturnStatement':
+            break;
+          case 'ConditionalExpression':
+            if (childNode.consequent.value === null && childNode.alternate.value === null) {
+              setFound();
+            }
+            break;
+          case 'Literal':
+            if (childNode.value === null) {
+              setFound();
+            }
+            break;
+          default:
+            setFoundSomethingElse();
+        }
+      },
+    });
+  });
+
+  return found && !foundSomethingElse;
+}
+(_tmp_24 = rawText.split('\n').map((line) => {
+        if (line.trim() === '') {
+          return line;
+        }
+        const firstCharIndex = line.search(/[^\s]/);
+        const leftWhitespace = line.slice(0, firstCharIndex);
+        const text = line.slice(firstCharIndex);
+
+        if (containsHTMLEntity(line)) {
+          return `${leftWhitespace}${wrapNonHTMLEntities(text)}`;
+        }
+        return `${leftWhitespace}{${JSON.stringify(text)}}`;
+      })).join
+astUtil.traverseReturns(ASTnode, context, (node) => {
+    // Traverse return statement
+    astUtil.traverse(node, {
+      enter(childNode) {
+        const setFound = () => {
+          found = true;
+          this.skip();
+        };
+        const setFoundSomethingElse = () => {
+          foundSomethingElse = true;
+          this.skip();
+        };
+        switch (childNode.type) {
+          case 'ReturnStatement':
+            break;
+          case 'ConditionalExpression':
+            if (childNode.consequent.value === null && childNode.alternate.value === null) {
+              setFound();
+            }
+            break;
+          case 'Literal':
+            if (childNode.value === null) {
+              setFound();
+            }
+            break;
+          default:
+            setFoundSomethingElse();
+        }
+      },
+    });
+  })
+function checkPropValue = function checkPropValue(node) {
+      if (isArrayIndex(node)) {
+        // key={bar}
+        report(context, messages.noArrayIndex, 'noArrayIndex', {
+          node,
+        });
+        return;
+      }
+
+      if (node.type === 'TemplateLiteral') {
+        // key={`foo-${bar}`}
+        node.expressions.filter(isArrayIndex).forEach(() => {
+          report(context, messages.noArrayIndex, 'noArrayIndex', {
+            node,
+          });
+        });
+
+        return;
+      }
+
+      if (node.type === 'BinaryExpression') {
+        // key={'foo' + bar}
+        const identifiers = getIdentifiersFromBinaryExpression(node);
+
+        identifiers.filter(isArrayIndex).forEach(() => {
+          report(context, messages.noArrayIndex, 'noArrayIndex', {
+            node,
+          });
+        });
+
+        return;
+      }
+
+      if (node.type === 'CallExpression'
+          && node.callee
+          && node.callee.type === 'MemberExpression'
+          && node.callee.object
+          && isArrayIndex(nod...
+source = nodes.reduceRight((acc, attr, index) => {
+        const sortedAttr = sortedAttributes[index];
+        const sourceCodeText = sourceCode.getText();
+        const commentNode = commentnodeMap.get(sortedAttr);
+        let sortedAttrText = sourceCodeText.slice(commentNode.start, commentNode.end);
+        if (sortShapeProp && isShapeProp(sortedAttr.value)) {
+          const shape = getShapeProperties(sortedAttr.value);
+          if (shape) {
+            const attrSource = sortInSource(
+              shape,
+              originalSource
+            );
+            sortedAttrText = attrSource.slice(sortedAttr.range[0], sortedAttr.range[1]);
+          }
+        }
+        return `${acc.slice(0, commentnodeMap.get(attr).start)}${sortedAttrText}${acc.slice(commentnodeMap.get(attr).end)}`;
+      }, source)
+function getFixer = function getFixer(node, options) {
+      const sourceCode = context.getSourceCode();
+      const source = sourceCode.getText();
+
+      const typeAnnotation = getTypeAnnotation(node, source);
+
+      if (options.type === 'function-declaration' && typeAnnotation) {
+        return;
+      }
+      if (options.type === 'arrow-function' && hasOneUnconstrainedTypeParam(node)) {
+        return;
+      }
+      if (isUnfixableBecauseOfExport(node)) return;
+      if (isFunctionExpressionWithName(node)) return;
+      let varType = fileVarType;
+      if (
+        (node.type === 'FunctionExpression' || node.type === 'ArrowFunctionExpression')
+        && node.parent.type === 'VariableDeclarator'
+      ) {
+        varType = node.parent.parent.kind;
+      }
+
+      return (fixer) => fixer.replaceTextRange(
+        options.range,
+        buildFunction(options.template, {
+          typeAnnotation,
+          typeParams: getNodeText(node.typeParameters, source),
+          params: getParams(node, source),
+  ...
+textToReplace = `"${expressionType === 'TemplateLiteral'
+                ? expression.quasis[0].value.raw
+                : expression.raw.slice(1, -1)
+              }"`
+function getTokensLocations = function getTokensLocations(node) {
+      const sourceCode = context.getSourceCode();
+      const opening = sourceCode.getFirstToken(node).loc.start;
+      const closing = sourceCode.getLastTokens(node, node.selfClosing ? 2 : 1)[0].loc.start;
+      const tag = sourceCode.getFirstToken(node.name).loc.start;
+      let lastProp;
+      if (node.attributes.length) {
+        lastProp = node.attributes[node.attributes.length - 1];
+        lastProp = {
+          column: sourceCode.getFirstToken(lastProp).loc.start.column,
+          firstLine: sourceCode.getFirstToken(lastProp).loc.start.line,
+          lastLine: sourceCode.getLastToken(lastProp).loc.end.line,
+        };
+      }
+      const openingLine = sourceCode.lines[opening.line - 1];
+      const closingLine = sourceCode.lines[closing.line - 1];
+      const isTab = {
+        openTab: /^\t/.test(openingLine),
+        closeTab: /^\t/.test(closingLine),
+      };
+      const openingStartOfLine = {
+        column: /^\s*/.exec(openingLine)[0]...
+const utils = {
+    /**
+     * Check if variable is destructured from pragma import
+     *
+     * @param {string} variable The variable name to check
+     * @returns {Boolean} True if createElement is destructured from the pragma
+     */
+    isDestructuredFromPragmaImport(variable) {
+      return isDestructuredFromPragmaImport(variable, context);
+    },
+
+    isReturningJSX(ASTNode, strict) {
+      return jsxUtil.isReturningJSX(ASTNode, context, strict, true);
+    },
+
+    isReturningJSXOrNull(ASTNode, strict) {
+      return jsxUtil.isReturningJSX(ASTNode, context, strict);
+    },
+
+    isReturningOnlyNull(ASTNode) {
+      return jsxUtil.isReturningOnlyNull(ASTNode, context);
+    },
+
+    getPragmaComponentWrapper(node) {
+      let isPragmaComponentWrapper;
+      let currentNode = node;
+      let prevNode;
+      do {
+        currentNode = currentNode.parent;
+        isPragmaComponentWrapper = this.isPragmaComponentWrapper(currentNode);
+        if (isPragmaComponentWrapper) {
+          prevNod...
+_tmp_45.suggest = [
+        Object.assign(
+          getMessageData('suggestRemoveDefault', messages.suggestRemoveDefault),
+          { fix }
+        ),
+      ]
+_tmp_47.push(Object.assign(
+          getMessageData('suggestRemoveDefault', messages.suggestRemoveDefault),
+          { fix }
+        ))
+getMessageData('suggestRemoveDefault', messages.suggestRemoveDefault)
+_tmp_13.isTSInterfaceDeclaration = isTSInterfaceDeclaration
+const validTags = VALID_VALUES.get(attribute)
+function getStandardName = function getStandardName(name, context) {
+  if (has(DOM_ATTRIBUTE_NAMES, name)) {
+    return DOM_ATTRIBUTE_NAMES[name];
+  }
+  if (has(SVGDOM_ATTRIBUTE_NAMES, name)) {
+    return SVGDOM_ATTRIBUTE_NAMES[name];
+  }
+  const names = getDOMPropertyNames(context);
+  // Let's find a possible attribute match with a case-insensitive search.
+  return names.find((element) => element.toLowerCase() === name.toLowerCase());
+}
+annotation.typeName.right.name
+!COMPONENT_ATTRIBUTE_MAP.get(attribute).has(node.arguments[0].value)
+const tagNames = Array.from(
+        COMPONENT_ATTRIBUTE_MAP.get(attribute).values(),
+        (tagName) => `"<${tagName}>"`
+      ).join(', ')
+(_tmp_58 = COMPONENT_ATTRIBUTE_MAP.get(attribute)).values
+<operator>.formatString(""<", tagName, ">"")
+report(context, messages.onlyMeaningfulFor, 'onlyMeaningfulFor', {
+        node: prop.key,
+        data: {
+          attributeName: attribute,
+          tagNames,
+        },
+        suggest: false,
+      })
+components.set(component ? component.node : node, {
+        ignoreUnusedPropTypesValidation: node.argument.type !== 'ObjectExpression',
+      })
+_tmp_60.tagNames = tagNames
+report(context, messages.noMethod, 'noMethod', {
+        node: prop,
+        data: {
+          attributeName: attribute,
+        },
+        suggest: false,
+      })
+checkPropValidValue(context, node, value, attribute)
+checkPropValidValue(context, node, prop.value, attribute)
+componentNode && !components.get(componentNode)
+componentNode = componentNode.parent
+const component = components.get(componentNode)

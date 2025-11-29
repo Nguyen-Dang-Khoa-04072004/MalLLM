@@ -1,0 +1,44 @@
+var args = callExpression.get('arguments')
+var ReactLoadablePlugin = function () {
+  function ReactLoadablePlugin() {
+    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, ReactLoadablePlugin);
+
+    this.filename = opts.filename;
+  }
+
+  ReactLoadablePlugin.prototype.apply = function apply(compiler) {
+    var _this = this;
+
+    compiler.plugin('emit', function (compilation, callback) {
+      var manifest = buildManifest(compiler, compilation);
+      var json = JSON.stringify(manifest, null, 2);
+      var outputDirectory = path.dirname(_this.filename);
+      try {
+        fs.mkdirSync(outputDirectory);
+      } catch (err) {
+        if (err.code !== 'EEXIST') {
+          throw err;
+        }
+      }
+      fs.writeFileSync(_this.filename, json);
+      callback();
+    });
+  };
+
+  return ReactLoadablePlugin;
+}()
+function ReactLoadablePlugin = function ReactLoadablePlugin() {
+    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, ReactLoadablePlugin);
+
+    this.filename = opts.filename;
+  }
+var properties = options.get('properties')
+properties.forEach(function (property) {
+            var key = property.get('key');
+            propertiesMap[key.node.name] = property;
+          })
+var key = property.get('key')

@@ -1,0 +1,1 @@
+#observer = new EnhancedEventEmitter_1.EnhancedEventEmitter();

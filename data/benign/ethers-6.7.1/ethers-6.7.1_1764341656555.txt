@@ -1,0 +1,25 @@
+function loadWords = function loadWords() {
+    if (_wordlist !== null) {
+        return _wordlist;
+    }
+    const wordlist = [];
+    // Transforms for normalizing (sort is a not quite UTF-8)
+    const transform = {};
+    // Delete the diacritic marks
+    transform[toString([227, 130, 154])] = false;
+    transform[toString([227, 130, 153])] = false;
+    // Some simple transforms that sort out most of the order
+    transform[toString([227, 130, 133])] = toString([227, 130, 134]);
+    transform[toString([227, 129, 163])] = toString([227, 129, 164]);
+    transform[toString([227, 130, 131])] = toString([227, 130, 132]);
+    transform[toString([227, 130, 135])] = toString([227, 130, 136]);
+    // Normalize words using the transform
+    function normalize(word) {
+        let result = "";
+        for (let i = 0; i < word.length; i++) {
+            let kana = word[i];
+            const target = transform[kana];
+            if (target === false) {
+                continue;
+            }
+            if (target) ...

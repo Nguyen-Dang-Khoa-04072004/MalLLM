@@ -1,0 +1,1 @@
+module.exports[proto].get(redirectUrl, redirectCallback(reqUrl, redirect), redirect)

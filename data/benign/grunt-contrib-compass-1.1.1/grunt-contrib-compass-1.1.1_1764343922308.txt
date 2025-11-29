@@ -1,0 +1,2 @@
+var content = grunt.file.read(filename)
+grunt.file.write(filename, banner + grunt.util.linefeed + content)

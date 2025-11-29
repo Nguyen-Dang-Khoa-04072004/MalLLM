@@ -1,0 +1,29 @@
+var DefaultLegendContent = /*#__PURE__*/function (_PureComponent) {
+  _inherits(DefaultLegendContent, _PureComponent);
+  var _super = _createSuper(DefaultLegendContent);
+  function DefaultLegendContent() {
+    _classCallCheck(this, DefaultLegendContent);
+    return _super.apply(this, arguments);
+  }
+  _createClass(DefaultLegendContent, [{
+    key: "renderIcon",
+    value:
+    /**
+     * Render the path of icon
+     * @param {Object} data Data of each legend item
+     * @return {String} Path element
+     */
+    function renderIcon(data) {
+      var inactiveColor = this.props.inactiveColor;
+      var halfSize = SIZE / 2;
+      var sixthSize = SIZE / 6;
+      var thirdSize = SIZE / 3;
+      var color = data.inactive ? inactiveColor : data.color;
+      if (data.type === 'plainline') {
+        return /*#__PURE__*/React.createElement("line", {
+          strokeWidth: 4,
+          fill: "none",
+          stroke: color,
+          strokeDasharray: data.payload.strokeDasharray,
+          x1: 0,
+  ...

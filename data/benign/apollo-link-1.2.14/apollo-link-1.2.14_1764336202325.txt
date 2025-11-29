@@ -1,0 +1,123 @@
+new ApolloLink(function (operation) {
+            return test(operation)
+                ? leftLink.request(operation) || zen_observable_ts_1.default.of()
+                : rightLink.request(operation) || zen_observable_ts_1.default.of();
+        })
+test(operation) ? leftLink.request(operation) || zen_observable_ts_1.default.of() : rightLink.request(operation) || zen_observable_ts_1.default.of()
+leftLink.request(operation) || zen_observable_ts_1.default.of()
+rightLink.request(operation) || zen_observable_ts_1.default.of()
+new ApolloLink(function (operation, forward) {
+            return test(operation)
+                ? leftLink.request(operation, forward) || zen_observable_ts_1.default.of()
+                : rightLink.request(operation, forward) || zen_observable_ts_1.default.of();
+        })
+test(operation) ? leftLink.request(operation, forward) || zen_observable_ts_1.default.of() : rightLink.request(operation, forward) || zen_observable_ts_1.default.of()
+function toPromise = function toPromise(observable) {
+    var completed = false;
+    return new Promise(function (resolve, reject) {
+        observable.subscribe({
+            next: function (data) {
+                if (completed) {
+                    process.env.NODE_ENV === "production" || invariant.warn("Promise Wrapper does not support multiple results from Observable");
+                }
+                else {
+                    completed = true;
+                    resolve(data);
+                }
+            },
+            error: reject,
+        });
+    });
+}
+function toPromise = function toPromise(observable) {
+      var completed = false;
+      return new Promise(function (resolve, reject) {
+          observable.subscribe({
+              next: function (data) {
+                  if (completed) {
+                      process.env.NODE_ENV === "production" || tsInvariant.invariant.warn("Promise Wrapper does not support multiple results from Observable");
+                  }
+                  else {
+                      completed = true;
+                      resolve(data);
+                  }
+              },
+              error: reject,
+          });
+      });
+  }
+new ApolloLink(function (operation) {
+            return firstLink.request(operation, function (op) { return nextLink.request(op) || zen_observable_ts_1.default.of(); }) || zen_observable_ts_1.default.of();
+        })
+firstLink.request(operation, function (op) { return nextLink.request(op) || zen_observable_ts_1.default.of(); }) || zen_observable_ts_1.default.of()
+function fromPromise = function fromPromise(promise) {
+      return new Observable(function (observer) {
+          promise
+              .then(function (value) {
+              observer.next(value);
+              observer.complete();
+          })
+              .catch(observer.error.bind(observer));
+      });
+  }
+new Observable(function (observer) {
+          promise
+              .then(function (value) {
+              observer.next(value);
+              observer.complete();
+          })
+              .catch(observer.error.bind(observer));
+      })
+promise
+              .then(function (value) {
+              observer.next(value);
+              observer.complete();
+          })
+              .catch(observer.error.bind(observer))
+new ApolloLink(function (operation) {
+            return test(operation)
+                ? leftLink.request(operation) || Observable.of()
+                : rightLink.request(operation) || Observable.of();
+        })
+new ApolloLink(function (operation) {
+              return test(operation)
+                  ? leftLink.request(operation) || Observable.of()
+                  : rightLink.request(operation) || Observable.of();
+          })
+test(operation) ? leftLink.request(operation) || Observable.of() : rightLink.request(operation) || Observable.of()
+rightLink.request(operation) || Observable.of()
+rightLink.request(operation) || Observable.of()
+new ApolloLink(function (operation, forward) {
+            return test(operation)
+                ? leftLink.request(operation, forward) || Observable.of()
+                : rightLink.request(operation, forward) || Observable.of();
+        })
+new ApolloLink(function (operation, forward) {
+              return test(operation)
+                  ? leftLink.request(operation, forward) || Observable.of()
+                  : rightLink.request(operation, forward) || Observable.of();
+          })
+test(operation) ? leftLink.request(operation, forward) || Observable.of() : rightLink.request(operation, forward) || Observable.of()
+rightLink.request(operation, forward) || Observable.of()
+rightLink.request(operation, forward) || Observable.of()
+new ApolloLink(function (operation) {
+            return firstLink.request(operation, function (op) { return nextLink.request(op) || Observable.of(); }) || Observable.of();
+        })
+new ApolloLink(function (operation) {
+              return firstLink.request(operation, function (op) { return nextLink.request(op) || Observable.of(); }) || Observable.of();
+          })
+firstLink.request(operation, function (op) { return nextLink.request(op) || Observable.of(); }) || Observable.of()
+new ApolloLink(function (operation, forward) {
+            return (firstLink.request(operation, function (op) {
+                return nextLink.request(op, forward) || Observable.of();
+            }) || Observable.of());
+        })
+new ApolloLink(function (operation, forward) {
+              return (firstLink.request(operation, function (op) {
+                  return nextLink.request(op, forward) || Observable.of();
+              }) || Observable.of());
+          })
+firstLink.request(operation, function (op) {
+                  return nextLink.request(op, forward) || Observable.of();
+              }) || Observable.of()
+nextLink.request(op, forward) || Observable.of()

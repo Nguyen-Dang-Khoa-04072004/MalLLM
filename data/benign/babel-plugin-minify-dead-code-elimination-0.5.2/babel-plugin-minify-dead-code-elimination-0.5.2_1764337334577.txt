@@ -1,0 +1,78 @@
+canRemoveParams ? path.get("params") : __ecma.Array.factory()
+const param = paramsList[i]
+param.isIdentifier()
+param.isAssignmentPattern()
+const left = param.get("left")
+const right = param.get("right")
+var _iterator3 = _createForOfIteratorHelper(binding.referencePaths)
+const refPath = binding.referencePaths[0]
+const _prevSiblings = prevSiblings(replacementPath)
+forEachAncestor(refPath, ancestor => {
+                  if (_prevSiblings.indexOf(ancestor) > -1) {
+                    isReferencedBefore = true;
+                  }
+                })
+(_tmp_60 = replacementPath.get("id")).isIdentifier
+replacementPath = replacementPath.get("init")
+replacementPath.isIdentifier()
+replacementPath.isThisExpression()
+replacementPath.traverse({
+                  Function(path) {
+                    path.skip();
+                  },
+
+                  ThisExpression(path) {
+                    bail = true;
+                    path.stop();
+                  },
+
+                  ReferencedIdentifier({
+                    node
+                  }) {
+                    const binding = scope.getBinding(node.name);
+
+                    if (binding && refPath.scope.getBinding(node.name) === binding) {
+                      bail = binding.constantViolations.length > 0;
+
+                      if (bail) {
+                        path.stop();
+                      }
+                    }
+                  }
+
+                })
+let inExpression = replacementPath.isBinaryExpression({
+                operator: "in"
+              })
+replacementPath.traverse({
+                  Function(path) {
+                    path.skip();
+                  },
+
+                  BinaryExpression(path) {
+                    if (path.node.operator === "in") {
+                      inExpression = true;
+                      path.stop();
+                    }
+                  }
+
+                })
+const replaced = replace(binding.referencePaths[0], {
+                binding,
+                scope,
+                replacement,
+                replacementPath
+              })
+_tmp_66.replacementPath = replacementPath
+const discriminantPath = path.get("discriminant")
+const evaluated = evaluate(discriminantPath, {
+          tdz: this.tdz
+        })
+t.isSequenceExpression(discriminantPath.node)
+const expressions = discriminantPath.get("expressions")
+const cases = path.get("cases")
+const test = cases[i].get("test")
+const body = path.get("body")
+body.isBlockStatement()
+const stmts = body.get("body")
+binding.path = path.get("left").get("declarations")[0]

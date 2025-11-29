@@ -1,0 +1,28 @@
+const extraArgs = process.argv.slice(2)
+const child = spawn(process.execPath, [scriptPath, ...extraArgs, url], {
+        stdio: 'inherit',
+    })
+__awaiter(this, void 0, void 0, function* () {
+        const shouldTryOpenChromiumWithAppleScript = process.platform === 'darwin' &&
+            (typeof browser !== 'string' || browser === OSX_CHROME);
+        if (shouldTryOpenChromiumWithAppleScript) {
+            const supportedChromiumBrowsers = [
+                'Google Chrome Canary',
+                'Google Chrome',
+                'Microsoft Edge',
+                'Brave Browser',
+                'Vivaldi',
+                'Chromium',
+            ];
+            const _dirname = typeof __dirname === 'undefined'
+                ? path.dirname(fileURLToPath(import.meta.url))
+                : __dirname;
+            for (const chromiumBrowser of supportedChromiumBrowsers) {
+                try {
+                    execSync('ps cax | grep "' + chromiumBrowser + '"');
+                    execSync('osascript ../openChrome.applescript "' +
+                        encodeURI(url) +
+                        '" "' +
+                     ...
+const shouldTryOpenChromiumWithAppleScript = process.platform === 'darwin' &&
+            (typeof browser !== 'string' || browser === OSX_CHROME)

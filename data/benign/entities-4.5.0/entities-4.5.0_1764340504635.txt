@@ -1,0 +1,53 @@
+function encodeHTMLTrieRe = function encodeHTMLTrieRe(regExp, str) {
+    var ret = "";
+    var lastIdx = 0;
+    var match;
+    while ((match = regExp.exec(str)) !== null) {
+        var i = match.index;
+        ret += str.substring(lastIdx, i);
+        var char = str.charCodeAt(i);
+        var next = encode_html_js_1.default.get(char);
+        if (typeof next === "object") {
+            // We are in a branch. Try to match the next char.
+            if (i + 1 < str.length) {
+                var nextChar = str.charCodeAt(i + 1);
+                var value = typeof next.n === "number"
+                    ? next.n === nextChar
+                        ? next.o
+                        : undefined
+                    : next.n.get(nextChar);
+                if (value !== undefined) {
+                    ret += value;
+                    lastIdx = regExp.lastIndex += 1;
+                    continue;
+                }
+            }
+            next = next.v;
+        }
+        // We might have a tree node without a value; ...
+(code >= CharCodes.UPPER_A && code <= CharCodes.UPPER_Z) ||
+        (code >= CharCodes.LOWER_A && code <= CharCodes.LOWER_Z) ||
+        isNumber(code)
+const value = typeof next.n === "number"
+                    ? next.n === nextChar
+                        ? next.o
+                        : undefined
+                    : next.n.get(nextChar)
+var next = encode_html_js_1.default.get(char)
+ret += "".concat(str.substring(lastIdx, i), "&#x").concat((0, exports.getCodePoint)(str, i).toString(16), ";")
+function decode = function decode(data, options) {
+    if (options === void 0) { options = EntityLevel.XML; }
+    var level = typeof options === "number" ? options : options.level;
+    if (level === EntityLevel.HTML) {
+        var mode = typeof options === "object" ? options.mode : undefined;
+        return (0, decode_js_1.decodeHTML)(data, mode);
+    }
+    return (0, decode_js_1.decodeXML)(data);
+}
+function replaceCodePoint = function replaceCodePoint(codePoint) {
+    var _a;
+    if ((codePoint >= 0xd800 && codePoint <= 0xdfff) || codePoint > 0x10ffff) {
+        return 0xfffd;
+    }
+    return (_a = decodeMap.get(codePoint)) !== null && _a !== void 0 ? _a : codePoint;
+}

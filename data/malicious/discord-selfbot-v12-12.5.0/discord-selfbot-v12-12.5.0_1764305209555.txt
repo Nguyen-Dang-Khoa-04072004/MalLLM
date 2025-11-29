@@ -1,0 +1,76 @@
+const cleanup = () => {
+        clearTimeout(spawnTimeoutTimer);
+        this.off('ready', onReady);
+        this.off('disconnect', onDisconnect);
+        this.off('death', onDeath);
+      }
+const data = await this.client.rest.post(Routes.guildChannels(this.guild.id), {
+      body: {
+        name,
+        topic,
+        type,
+        nsfw,
+        bitrate,
+        user_limit: userLimit,
+        parent_id: parent,
+        position,
+        permission_overwrites: permissionOverwrites,
+        rate_limit_per_user: rateLimitPerUser,
+        rtc_region: rtcRegion,
+        video_quality_mode: videoQualityMode,
+      },
+      reason,
+    })
+_tmp_14.body = {
+        name,
+        topic,
+        type,
+        nsfw,
+        bitrate,
+        user_limit: userLimit,
+        parent_id: parent,
+        position,
+        permission_overwrites: permissionOverwrites,
+        rate_limit_per_user: rateLimitPerUser,
+        rtc_region: rtcRegion,
+        video_quality_mode: videoQualityMode,
+      }
+const onDisconnect = () => {
+        cleanup();
+        reject(new Error(ErrorCodes.ShardingReadyDisconnected, this.id));
+      }
+await globalPermissionsManager?.add({
+    command: globalCommandId,
+    guild: testGuildId,
+    permissions: [{ type: ApplicationCommandPermissionType.Role, id: testGuildId, permission: true }],
+    token: 'VeryRealToken',
+  })
+const data = await this.client.rest.post(Routes.guilds(), {
+      body: {
+        name,
+        icon,
+        verification_level: verificationLevel,
+        default_message_notifications: defaultMessageNotifications,
+        explicit_content_filter: explicitContentFilter,
+        roles,
+        channels,
+        afk_channel_id: afkChannelId,
+        afk_timeout: afkTimeout,
+        system_channel_id: systemChannelId,
+        system_channel_flags: systemChannelFlags,
+      },
+    })
+this.send(message).catch(err => {
+      const error = new globalThis.Error(`Error when sending ${type} response to master process: ${err.message}`);
+      error.stack = err.stack;
+      /**
+       * Emitted when the client encounters an error.
+       * <warn>Errors thrown within this event do not have a catch handler, it is
+       * recommended to not use async functions as `error` event handlers. See the
+       * [Node.js docs](https://nodejs.org/api/events.html#capture-rejections-of-promises) for details.</warn>
+       * @event Client#error
+       * @param {Error} error The error encountered
+       */
+      this.client.emit(Events.Error, error);
+    })
+const channel = this.client.channels.cache.get(matches.groups.id)

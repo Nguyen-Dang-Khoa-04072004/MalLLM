@@ -1,0 +1,9 @@
+const configBase = JSON.parse(fs.readFileSync(configBasePath))
+table.push(
+            ['First value', 'Second value']
+            , ['First value', 'Second value']
+        )
+res.send({
+                system: this._controller._system,
+                performance: this._controller.status
+            })

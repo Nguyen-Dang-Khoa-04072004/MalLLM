@@ -1,0 +1,51 @@
+function Cli = function Cli(argv) {
+  var Cucumber = require('cucumber');
+  var Command = require('commander').Command;
+  var path = require('path');
+
+  function collect(val, memo) {
+    memo.push(val);
+    return memo;
+  }
+
+  function getProgram() {
+    var program = new Command(path.basename(argv[1]));
+
+    program
+      .usage('[options] [<DIR|FILE[:LINE]>...]')
+      .version(Cucumber.VERSION, '-v, --version')
+      .option('-b, --backtrace', 'show full backtrace for errors')
+      .option('--compiler <EXTENSION:MODULE>', 'require files with the given EXTENSION after requiring MODULE (repeatable)', collect, [])
+      .option('-d, --dry-run', 'invoke formatters without executing steps')
+      .option('--fail-fast', 'abort the run on first failure')
+      .option('-f, --format <TYPE[:PATH]>', 'specify the output format, optionally supply PATH to redirect formatter output (repeatable)', collect, ['pretty'])
+      .option('--name <REGEXP>', 'only execute the scenarios with name matching the expres...
+function SessionManagerFactory = function SessionManagerFactory(options) {
+
+	  log.debug('[chimp][session-manager-factory] options are', options);
+
+	  if (!options) {
+		  throw new Error('options is required');
+	}
+
+	  if (!options.port) {
+		  throw new Error('options.port is required');
+	}
+
+	  if (!options.browser && !options.deviceName) {
+		  throw new Error('[chimp][session-manager-factory] options.browser or options.deviceName is required');
+	}
+
+	  if (options.host && (options.host.indexOf('browserstack') > -1 || options.host.indexOf('saucelabs') > -1 || options.host.indexOf('testingbot') > -1)) {
+
+		  if (!options.user || !options.key) {
+			  throw new Error('[chimp][session-manager-factory] options.user and options.key are required');
+		}
+
+		  if (options.host.indexOf('browserstack') > -1) {
+			  return new BsManager(options);
+		} else if (options.host.indexOf('saucelabs') > -1) {
+			  return new SlManager(options);
+		} else if (options.host.indexOf('testingbot') > -1) {
+			  return new TbManager(options);
+		}...

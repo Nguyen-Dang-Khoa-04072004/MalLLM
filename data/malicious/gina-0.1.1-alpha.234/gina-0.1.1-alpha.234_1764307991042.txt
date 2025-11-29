@@ -1,0 +1,67 @@
+browseCopy(source, path, excluded, function(err) {
+                                        //console.debug("copy Dir to Dir done");
+                                        //removed = true;
+                                        destination = null;
+                                        e.emit("cp#complete", err, path, method)
+                                    })
+result.notIn    = instance.notIn
+err.stack = 'Exception, bad syntax or undefined data found: start investigating in '+ mapping.filename +'\n' + err.stack
+self[el]['is'] = function(condition, errorMessage, errorStack) {
+            var isValid     = false;
+            var alias       = ( typeof(window) != 'undefined' && typeof(window._currentValidatorAlias) != 'undefined' ) ? window._currentValidatorAlias : 'is';
+            if ( typeof(window) != 'undefined'  && window._currentValidatorAlias)
+                delete window._currentValidatorAlias;
+
+            var errors      = self[this['name']]['errors'] || {};
+            local.data[this.name] = self[this.name].value;
+
+            if (
+                typeof(errors['isRequired']) == 'undefined'
+                && this.value == ''
+                && !/^false$/i.test(this.value)
+                && this.value != 0
+                ||
+                !errors['isRequired']
+                && this.value == ''
+                && !/^false$/i.test(this.value)
+                && this.value != 0
+            ) {
+                isValid = true;
+            } else if (!errors['isRequired'] && type...
+instance['insert'] = function (set) {
+
+        var result = null;
+        if ( typeof(set) !== 'object' ) {
+            throw new Error('filter must be an object');
+        } else {
+
+            var tmpContent = Array.isArray(this) ? this : content;
+
+            // Indexing;
+            set._uuid = uuid.v4();
+            tmpContent.push(set);
+
+            result = tmpContent;
+        }
+
+        // chaining
+        result.limit    = instance.limit;
+        result.find     = instance.find;
+        result.findOne  = instance.findOne;
+        result.update   = instance.update;
+        result.replace  = instance.replace;
+        result.orderBy  = instance.orderBy;
+        result.max      = instance.max;
+        result.notIn    = instance.notIn;
+        result.delete   = instance.delete;
+        result.toRaw    = instance.toRaw;
+        result.filter   = instance.filter;
+
+        return result
+    }
+isDeferModeEnabled = localOptions.template.javascriptsDeferEnabled || localOptions.conf.content.templates._common.javascriptsDeferEnabled || false
+typeof(request.isPreflightRequest) != 'undefined' && request.isPreflightRequest
+!/\{rootDomain\}/.test(newContent[app][env].host)
+let dir = versionsFolders[i]
+ext         = url.substr(url.lastIndexOf('.')).match(/(\.[A-Za-z0-9]+)/)[0]
+options = (typeof (options) != 'undefined') ? merge(options, xhrOptions) : xhrOptions

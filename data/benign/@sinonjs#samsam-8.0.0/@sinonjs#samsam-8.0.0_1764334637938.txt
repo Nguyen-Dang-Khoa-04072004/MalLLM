@@ -1,0 +1,66 @@
+createMatcher(function (actual) {
+        if (
+            actual === undefined ||
+            actual === null ||
+            get(actual, property) === undefined
+        ) {
+            return false;
+        }
+        return onlyProperty || deepEqual(get(actual, property), value);
+    }, message)
+actual === undefined ||
+            actual === null ||
+            get(actual, property) === undefined
+deepEqualCyclic(value, expectationObj.get(key))
+get(actual, property) === undefined
+onlyProperty || deepEqual(get(actual, property), value)
+createMatcher(function (actual) {
+        // Comparing lengths is the fastest way to spot a difference before iterating through every item
+        var sameLength = actual.size === expectation.size;
+        return (
+            typeOf(actual) === "map" &&
+            sameLength &&
+            every(actual, function (element, key) {
+                return expectation.has(key) && expectation.get(key) === element;
+            })
+        );
+    }, `deepEquals(Map[${iterableToString(expectation)}])`)
+var sameLength = actual.size === expectation.size
+return (
+            typeOf(actual) === "map" &&
+            sameLength &&
+            every(actual, function (element, key) {
+                return expectation.has(key) && expectation.get(key) === element;
+            })
+        )
+typeOf(actual) === "map" &&
+            sameLength &&
+            every(actual, function (element, key) {
+                return expectation.has(key) && expectation.get(key) === element;
+            })
+every(actual, function (element, key) {
+                return expectation.has(key) && expectation.get(key) === element;
+            })
+expectation.has(key) && expectation.get(key) === element
+createMatcher(function (actual) {
+        return (
+            typeOf(actual) === "map" &&
+            every(expectation, function (element, key) {
+                return actual.has(key) && actual.get(key) === element;
+            })
+        );
+    }, `contains(Map[${iterableToString(expectation)}])`)
+return (
+            typeOf(actual) === "map" &&
+            every(expectation, function (element, key) {
+                return actual.has(key) && actual.get(key) === element;
+            })
+        )
+typeOf(actual) === "map" &&
+            every(expectation, function (element, key) {
+                return actual.has(key) && actual.get(key) === element;
+            })
+every(expectation, function (element, key) {
+                return actual.has(key) && actual.get(key) === element;
+            })
+actual.has(key) && actual.get(key) === element

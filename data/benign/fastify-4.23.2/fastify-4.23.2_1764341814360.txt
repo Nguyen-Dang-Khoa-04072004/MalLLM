@@ -1,0 +1,19 @@
+function listen = function listen (listenOptions, ...args) {
+    let cb = args.slice(-1).pop()
+    // When the variadic signature deprecation is complete, the function
+    // declaration should become:
+    //   function listen (listenOptions = { port: 0, host: 'localhost' }, cb = undefined)
+    // Upon doing so, the `normalizeListenArgs` function is no longer needed,
+    // and all of this preamble to feed it correctly also no longer needed.
+    const firstArgType = Object.prototype.toString.call(arguments[0])
+    if (arguments.length === 0) {
+      listenOptions = normalizeListenArgs([])
+    } else if (arguments.length > 0 && (firstArgType !== '[object Object]' && firstArgType !== '[object Function]')) {
+      warnings.emit('FSTDEP011')
+      listenOptions = normalizeListenArgs(Array.from(arguments))
+      cb = listenOptions.cb
+    } else if (args.length > 1) {
+      // `.listen(obj, a, ..., n, callback )`
+      warnings.emit('FSTDEP011')
+      // Deal with `.listen(port, host, backlog, [cb])`
+     ...

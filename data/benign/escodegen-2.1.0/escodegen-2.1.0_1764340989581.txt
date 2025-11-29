@@ -1,0 +1,4 @@
+var args = optionator.parse(process.argv)
+var args = optionator.parse(process.argv)
+_tmp_3.tokens = true
+console.error('Error parsing config: ', err)

@@ -1,0 +1,106 @@
+function Build = function Build(opt, cmd) {
+    var self    = {}
+    , local     = {
+        // bundle index while searching or browsing
+        b : 0,
+        bundle : null,
+        bundlePath : null
+    };
+
+    var init = function() {
+        // import CMD helpers
+        new CmdHelper(self, opt.client, { port: opt.debugPort, brkEnabled: opt.debugBrkEnabled });
+
+        // check CMD configuration
+        if ( !isCmdConfigured() ) return false;
+
+        if (!self.bundles.length) {
+            return end( new Error('No bundle found in your project `'+ self.projectName +'`') );
+        }
+
+        console.debug('Building project `'+ self.projectName +'`');
+        buildBundle(0);
+    }
+
+    var buildBundle = function(b, e) {
+        if ( b > self.bundles.length-1 ) {
+            return end()
+        }
+        if (!e) {
+            e = 0;
+        }
+
+
+        var bundle = self.bundles[b];
+        if (!local.envs) {
+            try {
+                local.envs = [];
+                local.manifest = requi...
+function Link = function Link(opt, cmd) {
+
+    var self    = {
+        // destination prefix - usaually the project location
+        prefix: null
+    };
+
+    var init = function(opt, cmd) {
+        var err = false;
+        if ( !/^true$/i.test(GINA_GLOBAL_MODE) ) {
+            err = new Error('Gina is not installed globally: cannot proceed with linking.');
+            return end(err, 'error', true);
+        }
+
+        // import CMD helpers
+        new CmdHelper(self, opt.client, { port: opt.debugPort, brkEnabled: opt.debugBrkEnabled });
+
+        // check CMD configuration
+        if (!isCmdConfigured()) return false;
+
+        self.prefix = self.projectLocation;
+        var a = [], k = null, v = null;
+        for (let i=3; i<process.argv.length; ++i) {
+            a = process.argv[i].split(/=/);
+            k = a[0];
+            v = a[1];
+            // console.log('Preprocessing `framework:link '+ process.argv[i] +'` ['+k+'] -> ['+ v +']');
+            if ( /^\-\-prefix$/.test(k) ) {
+              ...
+function PathHelper = function PathHelper() {
+
+    this.paths = [];
+    var _this = this;
+
+    /**
+     * _
+     * PathHelper Constructor
+     *
+     * @constructor
+     *
+     * @param {string} path - Path to convert
+     * @param {boolean} [force] - Force conversion to match platform style (Only for string conversion)
+     *
+     * @returns {string|object} converted
+     * */
+
+    _ = function(path, force) {
+
+        if ( typeof(path) == 'undefined' || !path || path == '' || path.length <=2 ) {
+            throw new Error('This source cannot be used: `'+ path +'`')
+        }
+
+        // $HOME detection
+        if ( /^\~/.test(path) ) {
+            var homedir = null;
+            try {
+                homedir = execSync('echo $HOME').toString().replace(/(\r|\n)$/g, '');
+            } catch (err) {
+                throw err
+            }
+
+            path = path.replace(/^\~/, homedir);
+        }
+
+        if ( typeof(force) == undefined) {
+            force = _this.force = false
+        }
+        // Atte...

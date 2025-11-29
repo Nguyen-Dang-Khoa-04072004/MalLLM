@@ -1,0 +1,1 @@
+this.request('paper/docs/sharing_policy/set', arg, 'user', 'api', 'rpc', 'sharing.write')

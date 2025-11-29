@@ -1,0 +1,1 @@
+channel._typing.set(user.id, new TypingData(client, timestamp, timestamp, tooLate(channel, user)))

@@ -1,0 +1,30 @@
+_tmp_367.push({
+    key: "compile",
+    value: function compile(instructions, payer) {
+      var keyMetaMap = new Map();
+      var getOrInsertDefault = function getOrInsertDefault(pubkey) {
+        var address = pubkey.toBase58();
+        var keyMeta = keyMetaMap.get(address);
+        if (keyMeta === undefined) {
+          keyMeta = {
+            isSigner: false,
+            isWritable: false,
+            isInvoked: false
+          };
+          keyMetaMap.set(address, keyMeta);
+        }
+        return keyMeta;
+      };
+      var payerKeyMeta = getOrInsertDefault(payer);
+      payerKeyMeta.isSigner = true;
+      payerKeyMeta.isWritable = true;
+      var _iterator2 = _createForOfIteratorHelper$4(instructions),
+        _step2;
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var ix = _step2.value;
+          getOrInsertDefault(ix.programId).isInvoked = true;
+          var _iterator3 = _createForOfIteratorHelper$4(ix.keys),
+            _step3;
+          try {
+   ...)

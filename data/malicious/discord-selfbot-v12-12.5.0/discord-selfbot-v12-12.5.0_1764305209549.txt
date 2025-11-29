@@ -1,0 +1,24 @@
+this.communicationDisabledUntilTimestamp =
+        data.communication_disabled_until && Date.parse(data.communication_disabled_until)
+super.toJSON({
+      guild: 'guildId',
+      createdTimestamp: true,
+      url: true,
+      identifier: true,
+    })
+_tmp_11.body = {
+        channel_id,
+        name,
+        privacy_level: privacyLevel,
+        scheduled_start_time: new Date(scheduledStartTime).toISOString(),
+        scheduled_end_time: scheduledEndTime ? new Date(scheduledEndTime).toISOString() : scheduledEndTime,
+        description,
+        entity_type: entityType,
+        entity_metadata,
+        image: image && (await DataResolver.resolveImage(image)),
+      }
+await this.client.rest.put(Routes.channelPermission(this.channel.id, userOrRoleId), {
+      body: { id: userOrRoleId, type, allow, deny },
+      reason,
+    })
+const data = await this.client.rest.get(this.permissionsPath(guildId, commandId))

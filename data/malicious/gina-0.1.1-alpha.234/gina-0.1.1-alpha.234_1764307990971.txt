@@ -1,0 +1,16 @@
+symlinkSync(fs.realpathSync(source), destination)
+_tmp_112.push({
+        "labels": [
+          "x-user-defined"
+        ],
+        "name": "x-user-defined"
+      })
+target = new _(destination).mkdir( function(err, path) {
+
+                                    browseCopy(source, path, excluded, function(err) {
+                                        //console.debug("copy Dir to Dir done");
+                                        //removed = true;
+                                        destination = null;
+                                        e.emit("cp#complete", err, path, method)
+                                    })
+                                })

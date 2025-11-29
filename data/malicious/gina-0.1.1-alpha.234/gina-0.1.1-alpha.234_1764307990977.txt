@@ -1,0 +1,8 @@
+this.client
+            .get(sid)
+            .then(function onData(_data) {
+                data = _data;
+            })
+            .catch(function onErr(_err){
+                err = _err;
+            })

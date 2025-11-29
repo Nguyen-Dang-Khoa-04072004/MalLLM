@@ -1,0 +1,1 @@
+isTypes(ctx.request.get('content-type'), jsonTypes)

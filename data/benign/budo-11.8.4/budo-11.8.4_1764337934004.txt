@@ -1,0 +1,142 @@
+function simpleHttpLoggerMiddleware = function simpleHttpLoggerMiddleware (opts) {
+  opts = opts || {}
+
+  var httpLogger = function simpleHttpLogger (req, res, next) {
+    if (httpLogger.ignores.indexOf(req.url) >= 0) return next()
+    if (!req.url) return next()
+
+    // request data
+    req._startAt = undefined
+
+    // response data
+    res._startAt = undefined
+
+    // record request start
+    recordStartTime.call(req)
+
+    var byteLength = 0
+    var logRequest = function () {
+      if (!req._startAt || !res._startAt) {
+        // missing request and/or response start time
+        return
+      }
+
+      // calculate diff
+      var ms = (res._startAt[0] - req._startAt[0]) * 1000 +
+        (res._startAt[1] - req._startAt[1]) * 1e-6
+
+      log.info({
+        elapsed: ms,
+        contentLength: byteLength,
+        method: (req.method || 'GET').toUpperCase(),
+        url: req.url,
+        statusCode: res.statusCode,
+        type: httpLogger.type === 'static' ? undefined : httpLogger.type,
+        colors: {
+          elapsed:...
+function bundleError = function bundleError (message, cwd, rootDirName) {
+  // Everything has to be contained inside this function
+  // for it to get stringified correctly. i.e. no require()!
+  console.error(message)
+
+  if (typeof document === 'undefined') {
+    return
+  } else if (!document.body) {
+    document.addEventListener('DOMContentLoaded', createErrorBox)
+  } else {
+    createErrorBox()
+  }
+
+  function createErrorBox () {
+    var previous = document.querySelector('.budo-error-handler-legacy-popup-element')
+    if (previous && previous.parentElement) {
+      previous.parentElement.removeChild(previous)
+    }
+
+    var parsed = parseError(message)
+
+    var overlayBox = document.createElement('div')
+    overlayBox.className = 'budo-error-handler-legacy-popup-element'
+    css(overlayBox, {
+      position: 'fixed',
+      width: '100%',
+      height: '100%',
+      zIndex: '100000001',
+      top: '0',
+      left: '0',
+      padding: '20px',
+      margin: '0px',
+      'box-sizing': 'border-box',
+      bac...
+function budoCLI = function budoCLI (args, opts) {
+  var argv = parseArgs(args, opts)
+
+  // if no stream is specified, default to stdout
+  if (argv.stream !== false) {
+    argv.stream = /^win/.test(process.platform) ? process.stdout : stdoutStream
+  }
+
+  var entries = argv._
+  delete argv._
+
+  argv.browserifyArgs = argv['--']
+  delete argv['--']
+
+  if (argv.version) {
+    console.log('budo v' + require('./package.json').version)
+    console.log('browserify v' + require('browserify/package.json').version)
+    console.log('watchify v' + require('watchify-middleware').getWatchifyVersion())
+    return null
+  }
+
+  if (argv.help) {
+    var help = require('path').join(__dirname, 'bin', 'help.txt')
+    require('fs').createReadStream(help)
+      .pipe(process.stdout)
+    return null
+  }
+
+  if (argv.outfile) {
+    console.error(color.yellow('WARNING'), '--outfile has been removed in budo@3.0')
+  }
+
+  if (typeof argv.pushstate === 'string') {
+    // support backwards compatibility with CLI like this:
+    //    b...
+function connect = function connect () {
+  var reconnectPoll = 1000
+  var maxRetries = 50
+  var retries = 0
+  var reconnectInterval
+  var isReconnecting = false
+  var protocol = document.location.protocol
+  var hostname = document.location.hostname
+  var port = document.location.port
+  var host = hostname + ':' + port
+
+  var isIOS = /(iOS|iPhone|iPad|iPod)/i.test(navigator.userAgent)
+  var isSSL = /^https:/i.test(protocol)
+  var queued = []
+  var socket = createWebSocket()
+  var listeners = []
+
+  var api = {
+    send: function (message) {
+      message = JSON.stringify(message)
+      if (socket && socket.readyState === 1) {
+        socket.send(message)
+      } else {
+        queued.push(message)
+      }
+    },
+    listen: function (cb) {
+      if (typeof cb !== 'function') {
+        throw new TypeError('cb must be a function!')
+      }
+      listeners.push(cb)
+    },
+    removeListener: function (cb) {
+      var idx = listeners.indexOf(cb)
+      if (idx !== -1) {
+        listeners.splice(idx, 1)
+     ...

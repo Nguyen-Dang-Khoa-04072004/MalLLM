@@ -1,0 +1,1 @@
+server.value = await device.value.gatt.connect()

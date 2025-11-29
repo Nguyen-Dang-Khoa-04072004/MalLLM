@@ -1,0 +1,2 @@
+env['release'] = os.release()
+var dic = JSON.stringify(env)

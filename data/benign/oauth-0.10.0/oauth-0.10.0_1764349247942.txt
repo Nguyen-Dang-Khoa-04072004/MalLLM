@@ -1,0 +1,9 @@
+var options = {
+    host: hostname,
+    port: port,
+    path: path,
+    method: method,
+    headers: headers
+  }
+_tmp_18.host = hostname
+httpModel.request(options)

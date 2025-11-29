@@ -1,0 +1,5 @@
+validationError.error !== 'invalid_token' ||
+        (validationError.errorDescription &&
+          validationError.errorDescription.indexOf(
+            'Nonce (nonce) claim value mismatch in the ID token'
+          ) > -1)

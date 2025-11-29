@@ -1,0 +1,95 @@
+Object(result) === result ? result : child
+this.rawSocket = net.connect(this.port, this.host)
+timeout = setTimeout(((function(_this) {
+      return function() {
+        _this.rawSocket.destroy();
+        return _this.emit('error', new err.ReqlTimeoutError("Could not connect to " + _this.host + ":" + _this.port + ", operation timed out."));
+      };
+    })(this)), this.timeout * 1000)
+(function(func, args, ctor) {
+      ctor.prototype = func.prototype;
+      var child = new ctor, result = func.apply(child, args);
+      return Object(result) === result ? result : child;
+    })(SpliceAt, [{}, this].concat(slice.call(args)), function(){})
+_this.emit('error', new err.ReqlTimeoutError("Could not connect to " + _this.host + ":" + _this.port + ", operation timed out."))
+[{}, this].concat(slice.call(args))
+this.rawSocket.once('error', (function(_this) {
+      return function() {
+        return clearTimeout(timeout);
+      };
+    })(this))
+this.rawSocket.once('connect', (function(_this) {
+      return function() {
+        var auth_i, auth_r, auth_salt, client_first_message_bare, compare_digest, handshake_callback, handshake_error, max, message, min, nullbyte, pbkdf2_hmac, protocol, r_string, server_first_message, server_signature, state, version, xor_bytes;
+        version = new Buffer(4);
+        version.writeUInt32LE(protoVersion, 0);
+        protocol = new Buffer(4);
+        protocol.writeUInt32LE(protoProtocol, 0);
+        r_string = new Buffer(crypto.randomBytes(18)).toString('base64');
+        _this.rawSocket.user = host["user"];
+        _this.rawSocket.password = host["password"];
+        if (_this.rawSocket.user === void 0) {
+          _this.rawSocket.user = "admin";
+        }
+        if (_this.rawSocket.password === void 0) {
+          _this.rawSocket.password = "";
+        }
+        client_first_message_bare = "n=" + _this.rawSocket.user + ",r=" + r_string;
+        message = JSON.stringify({
+          protoc...
+RDBVal.prototype.changeAt = function() {
+    var args;
+    args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
+    return (function(func, args, ctor) {
+      ctor.prototype = func.prototype;
+      var child = new ctor, result = func.apply(child, args);
+      return Object(result) === result ? result : child;
+    })(ChangeAt, [{}, this].concat(slice.call(args)), function(){});
+  }
+client_first_message_bare = "n=" + _this.rawSocket.user + ",r=" + r_string
+RDBVal.prototype.offsetsOf = function() {
+    var args;
+    args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
+    return (function(func, args, ctor) {
+      ctor.prototype = func.prototype;
+      var child = new ctor, result = func.apply(child, args);
+      return Object(result) === result ? result : child;
+    })(OffsetsOf, [{}, this].concat(slice.call(args.map(funcWrap))), function(){});
+  }
+(function(func, args, ctor) {
+      ctor.prototype = func.prototype;
+      var child = new ctor, result = func.apply(child, args);
+      return Object(result) === result ? result : child;
+    })(OffsetsOf, [{}, this].concat(slice.call(args.map(funcWrap))), function(){})
+RDBVal.prototype.filter = aropt(function(predicate, opts) {
+    return new Filter(opts, this, funcWrap(predicate));
+  })
+salted_password = pbkdf2_hmac(_this.rawSocket.password, auth_salt, auth_i)
+(function(func, args, ctor) {
+      ctor.prototype = func.prototype;
+      var child = new ctor, result = func.apply(child, args);
+      return Object(result) === result ? result : child;
+    })(ConcatMap, [{}, this].concat(slice.call(args.map(funcWrap))), function(){})
+stored_key = crypto.createHash("sha256").update(client_key).digest()
+client_signature = crypto.createHmac("sha256", stored_key).update(auth_message).digest()
+fn = (function(_this) {
+      return function(cb) {
+        if (_this._closeCbPromise != null) {
+          cb(new error.ReqlDriverError("Cursor is closed."));
+        }
+        if (_this.__index != null) {
+          return cb(null, _this.slice(_this.__index, _this.length));
+        } else {
+          return cb(null, _this);
+        }
+      };
+    })(this)
+server_key = crypto.createHmac("sha256", salted_password).update("Server Key").digest()
+server_signature = crypto.createHmac("sha256", server_key).update(auth_message).digest()
+message = JSON.stringify({
+                  authentication: client_final_message_without_proof + ",p=" + client_proof.toString("base64")
+                })
+_tmp_107.authentication = client_final_message_without_proof + ",p=" + client_proof.toString("base64")
+!compare_digest(v, server_signature.toString("base64"))
+response.__proto__ = {}
+results.push(funcWrap(attr))

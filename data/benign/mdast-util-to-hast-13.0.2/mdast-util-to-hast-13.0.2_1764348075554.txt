@@ -1,0 +1,169 @@
+const result = {
+    type: 'element',
+    tagName: 'td', // Assume body cell.
+    properties: {},
+    children: state.all(node)
+  }
+const siblings = parent ? parent.children : undefined
+const handlers = {
+  blockquote,
+  break: hardBreak,
+  code,
+  delete: strikethrough,
+  emphasis,
+  footnoteReference,
+  heading,
+  html,
+  imageReference,
+  image,
+  inlineCode,
+  linkReference,
+  link,
+  listItem,
+  list,
+  paragraph,
+  // @ts-expect-error: root is different, but hard to type.
+  root,
+  strong,
+  table,
+  tableCell,
+  tableRow,
+  text,
+  thematicBreak,
+  toml: ignore,
+  yaml: ignore,
+  definition: ignore,
+  footnoteDefinition: ignore
+}
+const align = parent && parent.type === 'table' ? parent.align : undefined
+let result = {
+    type: 'element',
+    tagName: 'code',
+    properties,
+    children: [{type: 'text', value}]
+  }
+const result = {
+    type: 'element',
+    tagName: 'a',
+    properties,
+    children: state.all(node)
+  }
+const body = {
+      type: 'element',
+      tagName: 'tbody',
+      properties: {},
+      children: state.wrap(rows, true)
+    }
+child.properties.className.includes('task-list-item')
+paragraph = {type: 'element', tagName: 'p', properties: {}, children: []}
+const link = {
+    type: 'element',
+    tagName: 'a',
+    properties: {
+      href: '#' + clobberPrefix + 'fn-' + safeId,
+      id:
+        clobberPrefix +
+        'fnref-' +
+        safeId +
+        (reuseCounter > 1 ? '-' + reuseCounter : ''),
+      dataFootnoteRef: true,
+      ariaDescribedBy: ['footnote-label']
+    },
+    children: [{type: 'text', value: String(counter)}]
+  }
+_tmp_5.properties = {
+      href: '#' + clobberPrefix + 'fn-' + safeId,
+      id:
+        clobberPrefix +
+        'fnref-' +
+        safeId +
+        (reuseCounter > 1 ? '-' + reuseCounter : ''),
+      dataFootnoteRef: true,
+      ariaDescribedBy: ['footnote-label']
+    }
+paragraph.children.unshift({
+      type: 'element',
+      tagName: 'input',
+      properties: {type: 'checkbox', checked: node.checked, disabled: true},
+      children: []
+    })
+clobberPrefix +
+        'fnref-' +
+        safeId +
+        (reuseCounter > 1 ? '-' + reuseCounter : '')
+const result = {
+    type: 'element',
+    tagName: 'table',
+    properties: {},
+    children: state.wrap(tableContent, true)
+  }
+state.patch(node, result)
+const sup = {
+    type: 'element',
+    tagName: 'sup',
+    properties: {},
+    children: [link]
+  }
+_tmp_12 = __ecma.Array.factory()
+loose ||
+      index !== 0 ||
+      child.type !== 'element' ||
+      child.tagName !== 'p'
+const def = state.footnoteById.get(state.footnoteOrder[referenceIndex])
+!def
+const content = state.all(def)
+const id = String(def.identifier).toUpperCase()
+const safeId = normalizeUri(id.toLowerCase())
+backReferences.push({
+        type: 'element',
+        tagName: 'a',
+        properties: {
+          href:
+            '#' +
+            clobberPrefix +
+            'fnref-' +
+            safeId +
+            (rereferenceIndex > 1 ? '-' + rereferenceIndex : ''),
+          dataFootnoteBackref: '',
+          ariaLabel:
+            typeof footnoteBackLabel === 'string'
+              ? footnoteBackLabel
+              : footnoteBackLabel(referenceIndex, rereferenceIndex),
+          className: ['data-footnote-backref']
+        },
+        children: Array.isArray(children) ? children : [children]
+      })
+_tmp_13.properties = {
+          href:
+            '#' +
+            clobberPrefix +
+            'fnref-' +
+            safeId +
+            (rereferenceIndex > 1 ? '-' + rereferenceIndex : ''),
+          dataFootnoteBackref: '',
+          ariaLabel:
+            typeof footnoteBackLabel === 'string'
+              ? footnoteBackLabel
+              : footnoteBackLabel(referenceIndex, rereferenceIndex),
+          className: ['data-footnote-backref']
+        }
+_tmp_14.href = '#' +
+            clobberPrefix +
+            'fnref-' +
+            safeId +
+            (rereferenceIndex > 1 ? '-' + rereferenceIndex : '')
+'#' +
+            clobberPrefix +
+            'fnref-' +
+            safeId +
+            (rereferenceIndex > 1 ? '-' + rereferenceIndex : '')
+content.push(...backReferences)
+const listItem = {
+      type: 'element',
+      tagName: 'li',
+      properties: {id: clobberPrefix + 'fn-' + safeId},
+      children: state.wrap(content, true)
+    }
+_tmp_20.properties = {id: clobberPrefix + 'fn-' + safeId}
+_tmp_20.children = state.wrap(content, true)
+state.patch(def, listItem)

@@ -1,0 +1,17 @@
+_tmp_43.level = {
+        1: {
+          all: true,
+        },
+        2: {
+          all: false,
+          removeDuplicateFontRules: true,
+          removeDuplicateMediaBlocks: true,
+          removeDuplicateRules: true,
+          removeEmpty: true,
+          mergeMedia: true,
+        },
+      }
+_tmp_44.1 = {
+          all: true,
+        }
+const response = await fetch(href, {...options, request: {...request, method}})

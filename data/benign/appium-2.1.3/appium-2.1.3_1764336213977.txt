@@ -1,0 +1,71 @@
+<operator>.formatString("with Appium. Missing fields: ", JSON.stringify(missingFields), "")
+function main = async function main() {
+  if (!(await init())) {
+    return;
+  }
+
+  const driverEnv = process.env.npm_config_drivers;
+  const pluginEnv = process.env.npm_config_plugins;
+
+  const spinner = ora({
+    text: 'Looking for extensions to automatically install...',
+    prefixText: '[Appium]',
+  }).start();
+
+  if (!driverEnv && !pluginEnv) {
+    spinner.succeed(
+      wrap(`No drivers or plugins to automatically install. 
+      If desired, provide arguments with comma-separated values "--drivers=<known_driver>[,known_driver...]" and/or "--plugins=<known_plugin>[,known_plugin...]" to the "npm install appium" command. The specified extensions will be installed automatically with Appium.  Note: to see the list of known extensions, run "appium <driver|plugin> list".`)
+    );
+    return;
+  }
+
+  /**
+   * @type {[[typeof DRIVER_TYPE, string?], [typeof PLUGIN_TYPE, string?]]}
+   */
+  const specs = [
+    [DRIVER_TYPE, driverEnv],
+    [PLUGIN_TYPE, pluginEnv],
+  ];
+
+  spinner.start('Resolving Appium ...
+_tmp_12.push([
+      [type],
+      {
+        type: 'str',
+        help:
+          `Name of the ${type} to install, for example: ` + type === DRIVER_TYPE
+            ? DRIVER_EXAMPLE
+            : PLUGIN_EXAMPLE,
+      },
+    ])
+function readConfigFile = async function readConfigFile(filepath, opts = {}) {
+  const lc = lilconfig('appium', {
+    loaders: {
+      '.yaml': yamlLoader,
+      '.yml': yamlLoader,
+      '.json': jsonLoader,
+      noExt: jsonLoader,
+    },
+    packageProp: 'appiumConfig',
+  });
+
+  const result = filepath ? await loadConfigFile(lc, filepath) : await searchConfigFile(lc);
+
+  if (result?.filepath && !result?.isEmpty) {
+    const {pretty = true} = opts;
+    try {
+      let configResult;
+      const errors = validate(result.config);
+      if (_.isEmpty(errors)) {
+        configResult = {...result, errors};
+      } else {
+        const reason = formatErrors(errors, result.config, {
+          json: rawConfig.get(result.filepath),
+          pretty,
+        });
+        configResult = reason ? {...result, errors, reason} : {...result, errors};
+      }
+
+      // normalize (to camel case) all top-level property names of the config file
+      configResult.config = normalizeConfig(/** @type {AppiumConfig} */ (configResul...

@@ -1,0 +1,10 @@
+const socket = this.namespaces[ns].clients.get(socket_id)
+!socket
+socket.send(JSON.stringify({
+                    notification: name,
+                    params: params || null
+                }))
+self.namespaces[name].clients.get(id).send(JSON.stringify({
+                        notification: event,
+                        params: params || []
+                    }))

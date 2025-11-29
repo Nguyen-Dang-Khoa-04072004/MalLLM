@@ -1,0 +1,168 @@
+exports.convert = (globalObject, obj, { context = "The provided value" } = {}) => {
+  if (obj !== undefined && typeof obj !== "object" && typeof obj !== "function") {
+    throw new globalObject.TypeError(`${context} is not an object.`);
+  }
+
+  const ret = Object.create(null);
+  exports._convertInherit(globalObject, obj, ret, { context });
+  return ret;
+}
+function nodeEquals = function nodeEquals(a, b) {
+  if (a.nodeType !== b.nodeType) {
+    return false;
+  }
+
+  switch (a.nodeType) {
+    case NODE_TYPE.DOCUMENT_TYPE_NODE:
+      if (a.name !== b.name || a.publicId !== b.publicId ||
+          a.systemId !== b.systemId) {
+        return false;
+      }
+      break;
+    case NODE_TYPE.ELEMENT_NODE:
+      if (a._namespaceURI !== b._namespaceURI || a._prefix !== b._prefix || a._localName !== b._localName ||
+          a._attributes.length !== b._attributes.length) {
+        return false;
+      }
+      break;
+    case NODE_TYPE.ATTRIBUTE_NODE:
+      if (a._namespace !== b._namespace || a._localName !== b._localName || a._value !== b._value) {
+        return false;
+      }
+      break;
+    case NODE_TYPE.PROCESSING_INSTRUCTION_NODE:
+      if (a._target !== b._target || a._data !== b._data) {
+        return false;
+      }
+      break;
+    case NODE_TYPE.TEXT_NODE:
+    case NODE_TYPE.COMMENT_NODE:
+      if (a._data !== b._data) {
+        return false;
+      }
+      ...
+function makeWrapper = function makeWrapper(globalObject, newTarget) {
+  let proto;
+  if (newTarget !== undefined) {
+    proto = newTarget.prototype;
+  }
+
+  if (!utils.isObject(proto)) {
+    proto = globalObject[ctorRegistrySymbol]["HTMLOptionsCollection"].prototype;
+  }
+
+  return Object.create(proto);
+}
+parser.on("text", saxesOptions.fragment ?
+    // In a fragment, all text events produced by saxes must result in a text
+    // node.
+    data => {
+      const ownerDocument = getOwnerDocument();
+      appendChild(Text.createImpl(globalObject, [], { data, ownerDocument }));
+    } :
+    // When parsing a whole document, we must ignore those text nodes that are
+    // produced outside the root element. Saxes produces events for them,
+    // but DOM trees do not record text outside the root element.
+    data => {
+      if (openStack.length > 1) {
+        const ownerDocument = getOwnerDocument();
+        appendChild(Text.createImpl(globalObject, [], { data, ownerDocument }));
+      }
+    })
+exports.install = (globalObject, globalNames) => {
+  if (!globalNames.some(globalName => exposed.has(globalName))) {
+    return;
+  }
+
+  const ctorRegistry = utils.initCtorRegistry(globalObject);
+  class AbortController {
+    constructor() {
+      return exports.setup(Object.create(new.target.prototype), globalObject, undefined);
+    }
+
+    abort() {
+      const esValue = this !== null && this !== undefined ? this : globalObject;
+      if (!exports.is(esValue)) {
+        throw new globalObject.TypeError(
+          "'abort' called on an object that is not a valid instance of AbortController."
+        );
+      }
+      const args = [];
+      {
+        let curArg = arguments[0];
+        if (curArg !== undefined) {
+          curArg = conversions["any"](curArg, {
+            context: "Failed to execute 'abort' on 'AbortController': parameter 1",
+            globals: globalObject
+          });
+        }
+        args.push(curArg);
+      }
+      return esValue[implSymbol].abort(...args);
+    ...
+function queueMutationObserverMicrotask = function queueMutationObserverMicrotask() {
+  if (mutationObserverMicrotaskQueueFlag) {
+    return;
+  }
+
+  mutationObserverMicrotaskQueueFlag = true;
+
+  Promise.resolve().then(() => {
+    notifyMutationObservers();
+  });
+}
+this.properties = {
+      beforeSend: false,
+      send: false,
+      client: null,
+
+      timeoutStart: 0,
+      timeoutId: 0,
+      timeoutFn: null,
+
+      responseBuffer: null,
+      responseCache: null,
+      responseTextCache: null,
+      responseXMLCache: null,
+
+      responseHeaders: {},
+      filteredResponseHeaders: [],
+
+      error: "",
+      uploadComplete: false,
+      uploadListener: false,
+
+      // Signifies that we're calling abort() from xhr-utils.js because of a window shutdown.
+      // In that case the termination reason is "fatal", not "end-user abort".
+      abortError: false,
+
+      cookieJar: _ownerDocument._cookieJar,
+      bufferStepSize: 1 * 1024 * 1024, // pre-allocate buffer increase step size. init value is 1MB
+      totalReceivedChunkSize: 0
+    }
+function tryUpgradeElement = function tryUpgradeElement(element) {
+  const { _ownerDocument, _namespaceURI, _localName, _isValue } = element;
+  const definition = lookupCEDefinition(_ownerDocument, _namespaceURI, _localName, _isValue);
+
+  if (definition !== null) {
+    enqueueCEUpgradeReaction(element, definition);
+  }
+}
+V = conversions["DOMString"](V, {
+        context: "Failed to set the 'type' property on 'HTMLObjectElement': The provided value",
+        globals: globalObject
+      })
+Object.defineProperties(DocumentType.prototype, {
+    before: { enumerable: true },
+    after: { enumerable: true },
+    replaceWith: { enumerable: true },
+    remove: { enumerable: true },
+    name: { enumerable: true },
+    publicId: { enumerable: true },
+    systemId: { enumerable: true },
+    [Symbol.toStringTag]: { value: "DocumentType", configurable: true },
+    [Symbol.unscopables]: {
+      value: { before: true, after: true, replaceWith: true, remove: true, __proto__: null },
+      configurable: true
+    }
+  })

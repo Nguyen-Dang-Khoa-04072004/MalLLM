@@ -1,0 +1,1 @@
+let filters = { 'username': username, 'role': role, 'action': action, 'ipAddress': ipAddress, 'dateStart': dateStart, 'dateStop': dateStop, 'appointmentNumber': appointment }

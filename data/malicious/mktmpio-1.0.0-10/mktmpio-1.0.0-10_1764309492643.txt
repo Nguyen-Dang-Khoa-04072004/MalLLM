@@ -1,0 +1,24 @@
+(_tmp_1 = realRequest(opts, function(res) {
+    collectJSON(res, function(err, data) {
+      if (!err && data.error) {
+        err = new Error(data.error);
+      }
+      callback(err, data);
+    });
+  })).end
+var params = {
+    v: '1',
+    tid: 'UA-63367092-1',
+    ds: 'npm',
+    cid: uuid(),
+    ua: userAgent,
+    t: 'event',
+    ec: 'npm',
+    ea: lifecycle,
+    el: name + '@' + version,
+  }
+_tmp_0.headers = {
+      'X-Auth-Token': conf.token,
+      'User-Agent': 'node-mktmpio/' + require('./package.json').version,
+    }
+_tmp_1.User-Agent = 'node-mktmpio/' + require('./package.json').version

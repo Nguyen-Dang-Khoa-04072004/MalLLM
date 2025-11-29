@@ -1,0 +1,3 @@
+var content = log.read()
+content !== null
+(_tmp_24 = process.stdout).write

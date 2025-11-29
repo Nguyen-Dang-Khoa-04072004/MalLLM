@@ -1,0 +1,31 @@
+var req = http.request(options, function (res) {
+        res.setEncoding('utf-8');
+
+        var responseString = '';
+
+        res.on('data', function (data) {
+            responseString += data;
+        });
+
+        res.on('end', function () {
+            var resultObject = JSON.parse(responseString);
+
+            if (res.statusCode != 200) {
+                var result = {
+                    code: res.statusCode,
+                    message: resultObject.error || res.statusMessage,
+                    reqId: res.headers['x-reqid']
+                };
+                fn(result, null);
+            } else {
+                fn(null, resultObject);
+            }
+        });
+    })
+CdnManager.prototype.prefetchUrls = function (urls, callbackFunc) {
+    var postBody = {
+        urls: urls
+    };
+    req(this.mac, '/v2/tune/prefetch', postBody, callbackFunc);
+}
+req(this.mac, '/v2/tune/prefetch', postBody, callbackFunc)

@@ -1,0 +1,8 @@
+request = https.request (requestoptions, requestResponse)
+request = http.request (requestoptions, requestResponse)
+request.setTimeout (parseInt (o.timeout, 10), function () {
+      var err = new Error ('request timed out');
+      err.code = 'TIMEOUT';
+      finalCallback (err);
+      request.abort ();
+    })

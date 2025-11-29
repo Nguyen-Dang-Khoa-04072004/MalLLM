@@ -1,0 +1,1 @@
+const Parser = parsers.get(options)

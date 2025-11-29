@@ -1,0 +1,3 @@
+var type = !nil(opts.type) ? opts.type : 'js'
+var compiled = loader.compile(classes, repos, type, includeDeps, theme, exclude, opt)
+fs.writeFileSync(opts.target, compiled.source, 'utf8')

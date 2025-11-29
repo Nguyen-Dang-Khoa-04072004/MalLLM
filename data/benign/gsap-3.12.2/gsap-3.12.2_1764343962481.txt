@@ -1,0 +1,9 @@
+this.ease = function (p) {
+      var point = lookup[p * l | 0] || lookup[l - 1];
+
+      if (point.nx < p) {
+        point = point.n;
+      }
+
+      return point.y + (p - point.x) / point.cx * point.cy;
+    }

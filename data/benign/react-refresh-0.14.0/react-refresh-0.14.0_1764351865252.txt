@@ -1,0 +1,3 @@
+updatedFamiliesByType.get(type)
+var signature = allSignaturesByType.get(type)
+allFamiliesByType.get(type)

@@ -1,0 +1,4 @@
+response.send(403, {
+          code: 403,
+          message: `Forbidden: You are not allowed to update settings details of others.`,
+        })

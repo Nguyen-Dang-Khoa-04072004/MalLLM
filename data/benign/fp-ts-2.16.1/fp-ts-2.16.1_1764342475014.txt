@@ -1,0 +1,6 @@
+exports.ApplicativePar = {
+    URI: exports.URI,
+    map: _map,
+    ap: _apPar,
+    of: exports.of
+}

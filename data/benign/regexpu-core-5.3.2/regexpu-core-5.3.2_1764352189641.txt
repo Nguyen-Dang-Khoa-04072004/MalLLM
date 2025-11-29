@@ -1,0 +1,1 @@
+let folded = (includeUnicode ? iuMappings.get(codePoint) : undefined) || []

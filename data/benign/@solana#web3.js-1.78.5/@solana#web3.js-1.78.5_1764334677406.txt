@@ -1,0 +1,7 @@
+request = method
+request = generateRequest(method, params, id, {
+          generator: this.options.generator,
+          version: this.options.version,
+          notificationIdNull: this.options.notificationIdNull,
+        })
+message = JSON.stringify(request, this.options.replacer)

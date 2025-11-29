@@ -1,0 +1,51 @@
+const Cache = {
+  /**
+   * The adapter interface. Extend this class to implement a specific adapter.
+   * @type CacheAdapter
+   */
+  CacheAdapter,
+  /**
+   * Set the cache adapter
+   * @param {CacheAdapter} adapter The cache adapter
+   */
+  setAdapter(adapter) {
+    if (this.adapter) {
+      console.warn("Overriding existing cache adapter");
+    }
+    this.adapter = adapter;
+  },
+  /**
+   * Get the adapter the Cache is using
+   * @return {CacheAdapter} the current cache adapter
+   */
+  getAdapter() {
+    return this.adapter;
+  },
+  /**
+   * Get an item from the cache
+   * @param {string} publicId
+   * @param {object} options
+   * @return {*}
+   */
+  get(publicId, options) {
+    if (!this.adapter) { return undefined; }
+    ensurePresenceOf({ publicId });
+    let transformation = generate_transformation_string({ ...options });
+    return this.adapter.get(
+      publicId, options.type || 'upload',
+      options.resource_type || 'image',
+      transformation,
+      options.format
+    );
+  },
+...
+var transformation = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+conf = Object.assign({}, conf, {
+      account_id: uri.host,
+      provisioning_api_key: uri.auth && uri.auth.split(":")[0],
+      provisioning_api_secret: uri.auth && uri.auth.split(":")[1]
+    })
+function generate_auth_token = function generate_auth_token(options) {
+  let token_options = Object.assign({}, config().auth_token, options);
+  return generate_token(token_options);
+}

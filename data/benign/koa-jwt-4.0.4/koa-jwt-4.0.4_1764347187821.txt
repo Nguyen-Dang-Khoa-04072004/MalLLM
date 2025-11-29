@@ -1,0 +1,1 @@
+key = _tmp_1.key === void 0 ? "user" : _tmp_1.key

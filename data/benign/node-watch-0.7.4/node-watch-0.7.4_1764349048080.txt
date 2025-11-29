@@ -1,0 +1,25 @@
+var TEMP_DIR = os.tmpdir && os.tmpdir()
+  || process.env.TMPDIR
+  || process.env.TEMP
+  || process.cwd()
+function checkStat = function checkStat(name, fn) {
+  try {
+    return fn(name);
+  } catch (err) {
+    if (/^(ENOENT|EPERM|EACCES)$/.test(err.code)) {
+      if (err.code !== 'ENOENT') {
+        console.warn('Warning: Cannot access %s', name);
+      }
+      return false;
+    }
+    throw err;
+  }
+}
+var dup = hasDup(cache.map(function(c) {
+      return c.replace(reg, '');
+    }))
+var child = stack.create('dir', parent)
+var file = stack.create('file', child)
+filtered = filtered.filter(function(m) {
+        return is.exists(m);
+      })

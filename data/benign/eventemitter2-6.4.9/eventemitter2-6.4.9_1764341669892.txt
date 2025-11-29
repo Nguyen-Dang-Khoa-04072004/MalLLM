@@ -1,0 +1,19 @@
+typeof type === 'function'
+temp = setupListener.call(this, type, listener, options)
+listener = temp[0]
+this.emit('newListener', type, listener)
+var ns = typeof type === 'string' ? type.split(this.delimiter) : type.slice()
+leafs = searchListenerTree.call(this, null, ns, this.listenerTree, 0)
+!leafs
+var leaf = leafs[iLeaf]
+handlers = leaf._listeners
+isArray(handlers)
+handlers[i] === listener ||
+            (handlers[i].listener && handlers[i].listener === listener) ||
+            (handlers[i]._origin && handlers[i]._origin === listener)
+this.emit("removeListener", type, listener)
+handlers === listener ||
+        (handlers.listener && handlers.listener === listener) ||
+        (handlers._origin && handlers._origin === listener)
+handlers.listener && handlers.listener === listener
+this.emit("removeListener", type, listener)

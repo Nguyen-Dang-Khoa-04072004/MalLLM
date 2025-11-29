@@ -1,0 +1,49 @@
+it("should leave provided params objects unmutated", function () {
+        var rs = fs.createReadStream(__dirname + "/data/complexJSONCSV");
+        var includeColumns = [
+            'fieldA.title',
+            'description',
+        ];
+        return src_1.default({
+            includeColumns: /(fieldA\.title|description)/,
+        })
+            .fromStream(rs)
+            .on("json", function (j, idx) {
+            assert(idx >= 0);
+        })
+            .on("header", function (header) {
+            includeColumns.forEach(function (value, index) {
+                assert.equal(index, header.indexOf(value));
+            });
+        });
+    })
+var rs = fs.createReadStream(__dirname + "/data/complexJSONCSV")
+src_1.default({
+            includeColumns: /(fieldA\.title|description)/,
+        })
+            .fromStream(rs)
+            .on("json", function (j, idx) {
+            assert(idx >= 0);
+        })
+            .on("header", function (header) {
+            includeColumns.forEach(function (value, index) {
+                assert.equal(index, header.indexOf(value));
+            });
+        })
+this.param.eol
+it("should only call done once", function (done) {
+        var counter = 0;
+        src_1.default()
+            .fromString('"a","b", "c""')
+            .on('done', function () {
+            counter++;
+        });
+        setTimeout(function () {
+            assert.equal(counter, 1);
+            done();
+        }, 100);
+    })
+setTimeout(function () {
+            assert.equal(counter, 1);
+            done();
+        }, 100)

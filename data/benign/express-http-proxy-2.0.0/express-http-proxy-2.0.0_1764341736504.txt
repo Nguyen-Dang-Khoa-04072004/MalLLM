@@ -1,0 +1,31 @@
+function Container = function Container(req, res, next, host, userOptions) {
+  return {
+    user: {
+      req: req,
+      res: res,
+      next: next,
+    },
+    proxy: {
+      req: undefined,
+      res: undefined,
+      resData: undefined, // from proxy res
+      bodyContent: undefined, // for proxy req
+      reqBuilder: {},  // reqOpt, intended as first arg to http(s)?.request
+    },
+    options: resolveOptions(userOptions),
+    params: {
+      host: host,
+      userOptions: userOptions
+    }
+  };
+}
+var decorateUserResHeaders       = require('./app/steps/decorateUserResHeaders')
+proxyReq.on('socket', function (socket) {
+      if (options.timeout) {
+        socket.setTimeout(options.timeout, function () {
+          proxyReq.abort();
+        });
+      }
+    })
+'forwardPath and forwardPathAsync are DEPRECATED' +
+      ' and should be replaced with proxyReqPathResolver'

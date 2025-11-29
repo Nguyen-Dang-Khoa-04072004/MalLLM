@@ -1,0 +1,6 @@
+file.src.forEach(function(filePath){
+                var mdFileContent = fs.readFileSync(filePath, 'utf-8');
+                mdFileContent = lib.replaceHighlightToGithubPages(mdFileContent);
+                fs.writeFileSync(file.dest, "---\n" + frontMatter + "\n---\n" + mdFileContent);
+                ok('File processed: ' + path.basename(file.dest));
+            })

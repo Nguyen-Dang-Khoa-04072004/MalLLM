@@ -1,0 +1,10 @@
+function IsNumber = function IsNumber(options = {}, validationOptions) {
+    return (0, ValidateBy_1.ValidateBy)({
+        name: exports.IS_NUMBER,
+        constraints: [options],
+        validator: {
+            validate: (value, args) => isNumber(value, args === null || args === void 0 ? void 0 : args.constraints[0]),
+            defaultMessage: (0, ValidateBy_1.buildMessage)(eachPrefix => eachPrefix + '$property must be a number conforming to the specified constraints', validationOptions),
+        },
+    }, validationOptions);
+}

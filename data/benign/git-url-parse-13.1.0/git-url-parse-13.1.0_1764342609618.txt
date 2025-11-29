@@ -1,0 +1,1 @@
+gitUrlParse.stringify(this, type)

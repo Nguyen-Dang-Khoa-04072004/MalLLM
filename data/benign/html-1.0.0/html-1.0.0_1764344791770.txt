@@ -1,0 +1,2 @@
+var str = fs.readFileSync(files[0]).toString()
+process.stdout.write(prettify(str))

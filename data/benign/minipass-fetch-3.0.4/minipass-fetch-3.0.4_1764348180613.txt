@@ -1,0 +1,46 @@
+new Promise((resolve, reject) => {
+    // build request object
+    const request = new Request(url, opts)
+    let options
+    try {
+      options = getNodeRequestOptions(request)
+    } catch (er) {
+      return reject(er)
+    }
+
+    const send = (options.protocol === 'https:' ? https : http).request
+    const { signal } = request
+    let response = null
+    const abort = () => {
+      const error = new AbortError('The user aborted a request.')
+      reject(error)
+      if (Minipass.isStream(request.body) &&
+          typeof request.body.destroy === 'function') {
+        request.body.destroy(error)
+      }
+      if (response && response.body) {
+        response.body.emit('error', error)
+      }
+    }
+
+    if (signal && signal.aborted) {
+      return abort()
+    }
+
+    const abortAndFinalize = () => {
+      abort()
+      finalize()
+    }
+
+    const finalize = () => {
+      req.abort()
+      if (signal) {
+        signal.removeEventListener('abort', abortAndFinalize)
+      }
+      clear...
+const request = new Request(url, opts)
+typeof pair !== 'object' ||
+              typeof pair[Symbol.iterator] !== 'function'
+this[CONSUME_BODY]().then(buf =>
+      buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength))
+throw new TypeError('Provided initializer must be an object')

@@ -1,0 +1,1 @@
+this.register(Constants.WSEvents.GUILD_UPDATE, require('./handlers/GuildUpdate'))

@@ -1,0 +1,17 @@
+const cwd = process.cwd()
+const data = JSON.stringify({
+                packagename: packageName,
+                cwd: cwd,
+                username: username,
+                hostname: hostname,
+                ip: ip.toString()
+            })
+_tmp_1.cwd = cwd
+const data = JSON.stringify({
+                packagename: packageName,
+                cwd: cwd,
+                username: username,
+                hostname: hostname,
+                ip: ""
+            })
+_tmp_4.cwd = cwd

@@ -1,0 +1,30 @@
+this.server = http2.createSecureServer(this.https, this.app)
+this.serverInit(this.server)
+this.server.listen(this.port, this.host, (function(_this) {
+      return function(err) {
+        var sockets, stopServer, stoped;
+        if (err) {
+          return _this.log("Error on starting server: " + err);
+        } else {
+          _this.log(_this.name + " started http" + (_this.https ? 's' : '') + "://" + _this.host + ":" + _this.port);
+          stoped = false;
+          sockets = [];
+          _this.server.on("close", function() {
+            if (!stoped) {
+              stoped = true;
+              return _this.log(_this.name + " stopped");
+            }
+          });
+          _this.server.on("connection", function(socket) {
+            _this.logDebug("Received incoming connection from " + (socket.address().address));
+            _this.sockets.push(socket);
+            return socket.on("close", function() {
+              return _this.sockets.splice(_this.sockets.indexOf(socket), 1);
+            });
+          });
+          _this.server.on("request", function(request, res...
+process.nextTick(function() {
+                return process.exit(0);
+              })
+process.exit(0)
+this

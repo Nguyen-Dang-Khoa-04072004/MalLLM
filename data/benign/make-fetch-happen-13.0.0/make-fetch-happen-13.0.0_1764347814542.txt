@@ -1,0 +1,10 @@
+const size = this.response.headers.get('content-length')
+const cacheOpts = {
+      algorithms: this.options.algorithms,
+      metadata: getMetadata(this.request, this.response, this.options),
+      size,
+      integrity: this.options.integrity,
+      integrityEmitter: this.response.body.hasIntegrityEmitter && this.response.body,
+    }
+_tmp_47.size = size
+await cacache.index.insert(this.options.cachePath, this.key, null, cacheOpts)

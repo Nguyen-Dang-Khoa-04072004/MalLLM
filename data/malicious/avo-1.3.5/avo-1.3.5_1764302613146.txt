@@ -1,0 +1,22 @@
+var req = request(options, function(err, response, body) {
+      if (err) {
+        return reject(
+          new AvoError('Server Error. ' + err.message, {
+            original: err,
+            exit: 2
+          })
+        );
+      }
+
+      if (response.statusCode >= 400 && !logOptions.skipResponseBody) {
+        if (!options.resolveOnHTTPError) {
+          return reject(responseToError(response, body, options));
+        }
+      }
+
+      return resolve({
+        status: response.statusCode,
+        response: response,
+        body: body
+      });
+    })

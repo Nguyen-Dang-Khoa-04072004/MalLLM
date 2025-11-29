@@ -1,0 +1,26 @@
+function getJasmineConfig = function getJasmineConfig() {
+  const jasmineConfig = JSON.parse(process.env['chimp.jasmineConfig']);
+
+  if (jasmineConfig.specDir) {
+    if (!jasmineConfig.spec_dir) {
+      jasmineConfig.spec_dir = jasmineConfig.specDir;
+    }
+    delete jasmineConfig.specDir;
+  }
+
+  if (jasmineConfig.specFiles) {
+    if (!jasmineConfig.spec_files) {
+      jasmineConfig.spec_files = jasmineConfig.specFiles;
+    }
+    delete jasmineConfig.specFiles;
+  }
+
+  if (!jasmineConfig.helpers) {
+    jasmineConfig.helpers = [];
+  }
+  jasmineConfig.helpers.unshift(
+    path.relative(jasmineConfig.spec_dir, path.resolve(__dirname, 'jasmine-helpers.js'))
+  );
+
+  return jasmineConfig;
+}

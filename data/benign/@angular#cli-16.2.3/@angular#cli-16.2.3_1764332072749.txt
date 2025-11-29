@@ -1,0 +1,40 @@
+const requestParameters = {
+            [analytics_parameters_1.RequestParameter.ProtocolVersion]: 2,
+            [analytics_parameters_1.RequestParameter.ClientId]: userId,
+            [analytics_parameters_1.RequestParameter.UserId]: userId,
+            [analytics_parameters_1.RequestParameter.TrackingId]: /^\d+\.\d+\.\d+$/.test(version_1.VERSION.full) && version_1.VERSION.full !== '0.0.0'
+                ? TRACKING_ID_PROD
+                : TRACKING_ID_STAGING,
+            // Built-in user properties
+            [analytics_parameters_1.RequestParameter.SessionId]: (0, crypto_1.randomUUID)(),
+            [analytics_parameters_1.RequestParameter.UserAgentArchitecture]: os.arch(),
+            [analytics_parameters_1.RequestParameter.UserAgentPlatform]: os.platform(),
+            [analytics_parameters_1.RequestParameter.UserAgentPlatformVersion]: os.release(),
+            [analytics_parameters_1.RequestParameter.UserAgentMobile]: 0,
+            [analytics_parameters_1.RequestParameter.Sess...
+this.runSchematic({
+            collectionName,
+            schematicName: this.schematicName,
+            schematicOptions,
+            executionOptions: {
+                dryRun,
+                force,
+                interactive,
+                defaults,
+            },
+        })
+function askChoices = async function askChoices(message, choices, noTTYResponse) {
+    if (!(0, tty_1.isTTY)()) {
+        return noTTYResponse;
+    }
+    const question = {
+        type: 'checkbox',
+        name: 'answer',
+        prefix: '',
+        message,
+        choices,
+    };
+    const { prompt } = await Promise.resolve().then(() => __importStar(require('inquirer')));
+    const answers = await prompt([question]);
+    return answers['answer'];
+}

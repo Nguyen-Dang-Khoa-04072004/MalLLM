@@ -1,0 +1,3 @@
+const hooks = this._pres.get(name).
+      map(h => Object.assign({}, h, { name: name })).
+      filter(fn)

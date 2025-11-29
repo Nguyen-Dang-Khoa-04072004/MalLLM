@@ -1,0 +1,10 @@
+_tmp_0.et = {
+    name: 'Estonian',
+    nativeName: 'eesti',
+    iso639_1: 'et',
+    iso639_2: 'est',
+    itsupport: null,
+    people: 'Estonian',
+    search: 'et',
+    broadcast: 'et',
+  }

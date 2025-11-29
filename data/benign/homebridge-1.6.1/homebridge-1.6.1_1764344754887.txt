@@ -1,0 +1,1 @@
+_tmp_21.setupUri = (_g = (_f = (_e = this.bridgeService) === null || _e === void 0 ? void 0 : _e.bridge) === null || _f === void 0 ? void 0 : _f.setupURI()) !== null && _g !== void 0 ? _g : null

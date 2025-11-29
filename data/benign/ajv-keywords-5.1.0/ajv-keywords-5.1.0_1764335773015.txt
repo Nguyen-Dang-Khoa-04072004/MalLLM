@@ -1,0 +1,1 @@
+str`should have property matching pattern '${missingPattern}'`

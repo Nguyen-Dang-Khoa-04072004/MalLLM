@@ -1,0 +1,8 @@
+const pruned = lines.reduce((l, r) => {
+        if (!(r === null && l[l.length - 1] === null)) {
+          l.push(r)
+        }
+
+        return l
+      }, [])
+Promise.all(entries.map(f => fs.rm(`${path}/${f}`, { force: true, recursive: true })))

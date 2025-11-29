@@ -1,0 +1,112 @@
+module.exports = {
+  on: function on(eventName) {
+    if (eventName === "attached") {
+      this.attached = false;
+    }
+  },
+  postparse: function postparse(postparsed, _ref) {
+    var filePath = _ref.filePath;
+    if (filePath !== "word/settings.xml") {
+      return null;
+    }
+    return postparsed.map(function (part) {
+      if (part.type === "tag" && part.tag === "w:proofState") {
+        return {
+          type: "content",
+          value: ""
+        };
+      }
+      return part;
+    });
+  }
+}
+function collectContentTypes = function collectContentTypes(overrides, defaults, zip) {
+  var partNames = {};
+  for (var i = 0, len = overrides.length; i < len; i++) {
+    var override = overrides[i];
+    var contentType = override.getAttribute("ContentType");
+    var partName = override.getAttribute("PartName").substr(1);
+    partNames[partName] = contentType;
+  }
+  var _loop = function _loop() {
+    var def = defaults[_i];
+    var contentType = def.getAttribute("ContentType");
+    var extension = def.getAttribute("Extension");
+    // eslint-disable-next-line no-loop-func
+    zip.file(/./).map(function (_ref) {
+      var name = _ref.name;
+      if (name.slice(name.length - extension.length) === extension && !partNames[name] && name !== ctXML) {
+        partNames[name] = contentType;
+      }
+    });
+  };
+  for (var _i = 0, _len = defaults.length; _i < _len; _i++) {
+    _loop();
+  }
+  return partNames;
+}
+function DocXFileTypeConfig = function DocXFileTypeConfig() {
+  return {
+    getTemplatedFiles: function getTemplatedFiles() {
+      return [];
+    },
+    textPath: function textPath(doc) {
+      return doc.textTarget;
+    },
+    tagsXmlTextArray: ["Company", "HyperlinkBase", "Manager", "cp:category", "cp:keywords", "dc:creator", "dc:description", "dc:subject", "dc:title", "cp:contentStatus", "w:t", "m:t", "vt:lpstr", "vt:lpwstr"],
+    tagsXmlLexedArray: ["w:proofState", "w:tc", "w:tr", "w:tbl", "w:body", "w:document", "w:p", "w:r", "w:br", "w:rPr", "w:pPr", "w:spacing", "w:sdtContent", "w:drawing", "w:sectPr", "w:type", "w:headerReference", "w:footerReference", "w:bookmarkStart", "w:bookmarkEnd", "w:commentRangeStart", "w:commentRangeEnd", "w:commentReference"],
+    droppedTagsInsidePlaceholder: ["w:p", "w:br", "w:bookmarkStart", "w:bookmarkEnd"],
+    expandTags: [{
+      contains: "w:tc",
+      expand: "w:tr"
+    }],
+    onParagraphLoop: [{
+      contains: "w:p",
+      expand: "w:p",
+      onlyTextInTag: true
+...
+function _iterableToArrayLimit = function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+err.properties = {
+    xtag: first(options.xtag.split(" ")),
+    id: "duplicate_close_tag",
+    context: options.xtag,
+    offset: options.offset,
+    lIndex: options.lIndex,
+    explanation: "The tag ending with \"".concat(options.xtag.substr(0, 10), "\" has duplicate close tags")
+  }
+function ScopeManager = function ScopeManager(options) {
+    _classCallCheck(this, ScopeManager);
+    this.root = options.root || this;
+    this.resolveOffset = options.resolveOffset || 0;
+    this.scopePath = options.scopePath;
+    this.scopePathItem = options.scopePathItem;
+    this.scopePathLength = options.scopePathLength;
+    this.scopeList = options.scopeList;
+    this.scopeType = "";
+    this.scopeTypes = options.scopeTypes;
+    this.scopeLindex = options.scopeLindex;
+    this.parser = options.parser;
+    this.resolved = options.resolved;
+    this.cachedParsers = options.cachedParsers;
+  }
+function hasPageBreak = function hasPageBreak(chunk) {
+  return chunk.some(function (part) {
+    return part.tag === "w:br" && part.value.indexOf('w:type="page"') !== -1;
+  });
+}
+err.properties = {
+    id: "invalid_raw_xml_value",
+    xtag: tag,
+    value: value,
+    offset: offset,
+    explanation: "The value of the raw tag : '".concat(tag, "' is not a string")
+  }
+function has = function has(name, xmlElements) {
+  for (var i = 0; i < xmlElements.length; i++) {
+    var xmlElement = xmlElements[i];
+    if (xmlElement.indexOf("<".concat(name)) === 0) {
+      return true;
+    }
+  }
+  return false;
+}

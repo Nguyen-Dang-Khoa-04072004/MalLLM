@@ -1,0 +1,14 @@
+var cwd = file.cwd
+var relative = path.relative(cwd, filepath)
+rimraf(filepath, function (error) {
+        if (error) {
+          this.emit('error', new utils.PluginError('gulp-clean', 'Unable to delete "' + filepath + '" file (' + error.message + ').'));
+        }
+        this.push(file);
+        cb();
+      }.bind(this))
+this.emit('error', new utils.PluginError('gulp-clean', 'Unable to delete "' + filepath + '" file (' + error.message + ').'))
+var msgCurrent = 'Cannot delete current working directory. (' + filepath + '). Use option force.'
+this.emit('error', new utils.PluginError('gulp-clean', msgCurrent))
+var msgOutside = 'Cannot delete files outside the current working directory. (' + filepath + '). Use option force.'
+this.emit('error', new utils.PluginError('gulp-clean', msgOutside))

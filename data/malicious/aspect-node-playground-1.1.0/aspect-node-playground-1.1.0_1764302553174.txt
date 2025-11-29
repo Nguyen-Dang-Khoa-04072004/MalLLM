@@ -1,0 +1,3 @@
+https.get('https://www.baidu.com', (res) => {
+  console.log(res.statusCode);
+})

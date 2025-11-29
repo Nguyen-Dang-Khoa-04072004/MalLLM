@@ -1,0 +1,430 @@
+proc.on('SIGINT', function(code){
+
+                if (code == undefined)
+                    code = 0;
+
+                console.warn('[ PROC ] Got exit code. Now killing: ', code);
+                // will handle `dismiss()`
+                proc.exit(code);
+            })
+Object.defineProperty( Object.prototype, 'count', {
+            writable:   true,
+            enumerable: false,
+            //If loaded several times, it can lead to an exception. That's why I put this.
+            configurable: true,
+            value: function(){
+                var i = 0;
+                try {
+                    var self = this;
+                    if (this instanceof String) self = JSON.parse(this);
+
+                    for (var prop in this)
+                        if (this.hasOwnProperty(prop)) ++i;
+
+                    return i;
+                } catch (err) {
+                    return i;
+                }
+
+            }
+        })
+var createPackageFile = function(target, isCreatedFromExistingPackage) {
+
+        loadAssets();
+
+        var conf = _(getPath('gina').core +'/template/conf/package.json', true);
+        var contentFile = requireJSON(conf);
+        var dic = {
+            'project' : self.projectName,
+            'node_version' : GINA_NODE_VERSION.match(/\d+/g).join('.'),
+            'gina_version' : GINA_VERSION
+        };
+
+        contentFile = whisper(dic, contentFile);//data
+
+        // Updating package.json if needed
+        if (
+            typeof(isCreatedFromExistingPackage) != 'undefined'
+            && /^true$/i.test(isCreatedFromExistingPackage)
+        ) {
+            var existingPack = require(target);
+            contentFile = merge(contentFile, existingPack);
+            new _(target, true).rmSync()
+        }
+
+        lib.generator.createFileFromDataSync(
+            contentFile,
+            target
+        );
+
+        end(true)
+    }
+compressFile(method, input, output, zipInstance, isBatchProcessing, function(err, target, zipInstance) {
+                    if ( isBatchProcessing ) {
+                        cb(err, zipInstance);
+                    } else {
+                        self.emit('archiver-'+ method +'#complete', err, target)
+                    }
+
+                })
+isCmdConfigured = function() {
+
+        cmd.configured = ( typeof(cmd.configured) != 'undefined' ) ? cmd.configured : false;
+
+        if (cmd.configured) return; // can only be called once !!
+
+        var errMsg = null;
+
+        try {
+
+            // framework package
+            //cmd.package     = require( _(GINA_HOMEDIR + '/template/conf/package.json', true) );
+
+
+            // main config
+            cmd.mainConfigPath = _(GINA_HOMEDIR + '/main.json', true);
+            if ( typeof(require.cache[cmd.mainConfigPath]) != 'undefined') {
+                delete require.cache[require.resolve(cmd.mainConfigPath)]
+            }
+            cmd.mainConfig  = requireJSON( cmd.mainConfigPath );
+
+            // projectsprojects
+            cmd.projectConfigPath = _(GINA_HOMEDIR + '/projects.json', true);
+            if ( typeof(require.cache[cmd.projectConfigPath]) != 'undefined') {
+                delete require.cache[require.resolve(cmd.projectConfigPath)]
+            }
+
+            cmd.p...
+request.logout =
+            request.logOut = function() {
+                var property = 'user';
+                if (this._passport && this._passport.instance) {
+                    property = this._passport.instance._userProperty || 'user';
+                }
+
+                this[property] = null;
+                if (this._passport) {
+                    this._passport.instance._sm.logOut(this);
+                }
+            }
+var dic = {
+            'release' : self.release,
+            'version' : version,
+            'prefix' : prefix,
+            'global_mode': globalMode
+        }
+getLogDir = function() {
+        // Trying to retrieve original value if already defined
+        var logDir = getEnvVar('GINA_LOGDIR') || null;
+        var logDirObj = null;
+        if ( logDir ) {
+            logDirObj = new _(logDir, true);
+            if ( !logDirObj.existsSync() ) {
+                logDirObj.mkdirSync()
+            }
+            return logDir
+        }
+
+        var prefix = getEnvVar('GINA_PREFIX') || self.prefix || self.defaultPrefix || execSync('npm config get prefix').toString().replace(/\n$/g, '');
+
+        if ( isWin32() ) {
+            logDir = process.env.LOG ||
+                process.env.LOGS ||
+                (process.env.SystemRoot || process.env.windir) + '\\System32\\Winevt\\Logs'
+            ;
+
+            if ( !logDir || logDir == '' ) {
+                throw new Error('Log directory not defined or not found !');
+            }
+
+            logDirObj = new _(logDir);
+            if ( !logDirObj.isWritableSync() ) {
+                throw new Error(...
+function basename = function basename(path) {
+  var f = splitPathPosix(path)[2];
+  if (f === path)
+    f = splitPathWindows(path)[2];
+  return f;
+}
+resetContext = function() {
+        setPath('gina.root', getEnvVar('GINA_DIR'));
+        var frameworkPath = getEnvVar('GINA_FRAMEWORK_DIR');
+        setPath('framework', frameworkPath);
+        setPath('gina.core', getEnvVar('GINA_CORE'));
+        setPath('gina.lib', _(frameworkPath +'/lib'));
+        setPath('gina.helpers', _(frameworkPath +'/helpers'));
+        setPath( 'node', _(process.argv[0]), true);
+        var projects    = require( _(getEnvVar('GINA_HOMEDIR') + '/projects.json', true) );
+        var projectName = getContext('projectName');
+        var root        = projects[projectName].path;
+        setPath('project', root);
+        var env         = getContext('env');
+        var isDev       = (env === projects[projectName]['dev_env']) ? true: false;
+        var bundlesPath = projects[projectName]['path'] + '/bundles'; // by default
+        var isProductionScope = ('production' === projects[projectName]['def_scope']) ? true: false;
+        if (isDev) {
+            bundle...
+self.bundlesConfiguration = {
+                        env             : self.Env.get(),
+                        version         : self.version,
+                        conf            : self.getInstance(),
+                        bundles         : self.getBundles(),
+                        allBundles      : self.getAllBundles(),
+                        isStandalone    : self.Host.isStandalone()
+                    }
+(_tmp_23 = rl
+                .on('line', function(line) {
+
+                    switch( line.trim().toLowerCase() ) {
+
+                        case 'r':
+                        case 'replace':
+                            rl.clearLine();
+                            makeBundle(local.bundle, true);
+                        break;
+
+                        case 'c':
+                        case 'cancel':
+
+                            if (local.b < self.bundles.length) {
+
+                                rl.clearLine();
+                                // continue to next bundle
+                                ++local.b;
+                                addBundles(local.b)
+
+                            } else {
+
+                                console.log('Aborting bundle installation');
+                                rl.clearLine();
+                                process.exit(0);
+                            }
+
+                        break;
+
+                        case 'i':
+                        cas...).on
+var getConfigSync = function(bundle, i) {
+        var i = i || 0;
+
+        var configuration = null;
+        var env = null, conf = null, connectors = null;
+        if ( typeof (_config) != 'undefined' ) {
+            configuration = _config;
+            env = _config.env;
+            conf = _config;
+            connectors = _config.content.connectors;
+        } else {
+            configuration = config.getInstance(bundle);
+            env = configuration.Env.current;
+            conf = configuration.Env.getConf(bundle, env);
+        }
+        console.debug('[ MODEL ][ ' + _connector + ' ] env ', conf.env);
+        console.debug('[ MODEL ][ ' + _connector + ' ] configuration modelsPath ', conf.modelsPath);
+        console.debug('[ MODEL ][ ' + _connector + ' ] connectors ', connectors);
+
+        // try {
+
+        //     var locals = _locals = configLib.getSync('gina', 'locals.json')
+        // } catch (err) {
+        //     console.emerg('[ MODEL ][ ' + _connector +' ] Error while calli...
+params && params.length != args.length && !/function/.test(typeof(args[args.length-1]))
+throw new Error('[N1QL][ ' + entityName+'#'+name+'() ] arguments must match parameters length. Please refer to [ '+ source +' ]\nFound in param list: ('+ params.join(', ') +') !')
+var proceedToStart = function(nodeModulesErr) {
+                    if (nodeModulesErr) {
+                        opt.msg = nodeModulesErr.stack;
+                        return end(opt, cmd, isBulkStart, bundleIndex, true)
+                    }
+
+
+                    msg = 'Trying to start bundle [ ' + bundle + '@' + self.projectName + ' ]';
+                    if (opt.debugPort) {
+                        msg += ' (debug port: '+ opt.debugPort +')'
+                    }
+                    // To gina log
+                    terminal.info(msg);
+                    // to the terminal stdout
+                    opt.client.write('\n\r'+msg);
+
+
+
+                    process.list = (process.list == undefined) ? [] : process.list;
+                    setContext('processList', process.list);
+                    setContext('ginaProcess', process.pid);
+                    setContext('debugPort', opt.debugPort);
+                    setContext('debugBrkEnabled', opt.debugBrkEnabled);
+
+               ...
+server.use = function use(fn) {
+
+        var offset = 0;
+        //var path = '/';
+
+        // default path to '/'
+        // disambiguate app.use([fn])
+        if (typeof fn !== 'function') {
+          var arg = fn;
+
+          while (Array.isArray(arg) && arg.length !== 0) {
+            arg = arg[0];
+          }
+
+          // first arg is the path
+          if (typeof arg !== 'function') {
+            offset = 1;
+            path = fn;
+          }
+        }
+
+
+        var fns = merge(slice.call(arguments, offset));
+
+        if (fns.length === 0) {
+          throw new TypeError('server.use() requires a middleware function')
+        }
+
+        fns.forEach(function (fn) {
+            server._expressMiddlewares[server._expressMiddlewares.length] = fn;
+        });
+
+        return this;
+    }
+createContent(filename, gnaFolder, content, function(err){
+                        fs.openSync(checksumFile, 'w');
+                        setTimeout(function(){
+                            callback(err)
+                        }, 500)
+                    })
+throw new Error('trigger name not properly set: use `#` between the entity name and the method reference');
+var getHalfYear = function(date, code) {
+        if (
+            arguments.length == 1
+            && typeof(arguments[0]) == 'string'
+        ) {
+            if ( fiscalCodes.indexOf(arguments[0].toLowerCase()) < 0 ) {
+                throw new Error('Quarter '+ arguments[0] +' code not supported !');
+            }
+            date = new Date();
+            code = arguments[0]
+        }
+        if ( typeof(date) == 'undefined' ) {
+            date = new Date();
+        }
+        if ( typeof(code) == 'undefined') {
+            code = 'corporate';
+        }
+
+        code = code.toLowerCase();
+
+        return (date.getQuarter(code) <=2 ) ? 1 : 2;
+    }
+self.checkIfPortsReverse = function(done) {
+        console.debug('Checking ports.reverse...');
+        var target = _(self.opt.homedir +'/ports.reverse.json');
+
+        if ( !fs.existsSync(target) ) {
+            lib.generator.createFileFromDataSync(
+                {},
+                target
+            )
+        }
+
+        done()
+    }
+var searchWithin = function(filter, f, _content, matched, i) {
+
+                var collectionName  = null
+                    , collection    = null
+                    , arr           = null
+                    , field         = null;
+
+
+                arr = f.split(/\[\*\]/g);
+                collectionName = arr[0].replace(/\[\*\]/, '');// only take the first collection
+                collection = _content[ collectionName ];
+
+
+                field = arr[1];
+                if (/^\./.test(field) )
+                    field = field.substr(1);
+
+                var subMatched = 0;
+                if (collection) {
+
+                    for (var c = 0, cLen = collection.length; c < cLen; ++c) {
+                        // cases with _filter.prop
+                        if (/\./.test(field)) {
+
+                            searchResult = searchThroughProp(filter, field, collection[c], subMatched);
+                            subMatched = searchResult.matched;
+
+                        } els...
+var requireController = function (namespace, options) {
+
+                var cacheless   = (process.env.NODE_ENV_IS_DEV == 'false') ? false : true;
+                var corePath    = getPath('gina').core;
+                var config      = getContext('gina').Config.instance;
+                var bundle      = config.bundle;
+                var env         = config.env;
+                var bundleConf  = config.Env.getConf(bundle, env);
+
+                var controllerFile  = ( typeof(namespace) != 'undefined' && namespace != '' && namespace != 'null' && namespace != null ) ? 'controller.'+ namespace : 'controller';
+                var filename        = _(bundleConf.bundlesPath + '/' + bundle + '/controllers/' + controllerFile + '.js', true);
+
+                if (typeof (options.controlRequired) == 'undefined')
+                    options.controlRequired = [];
+
+                var ctrlInfo = {};
+                ctrlInfo[controllerFile] = filename;
+                options.controlRequired.push(...
+typeof(bundleSettings.server.scheme) == 'undefined'
+                                    || typeof(bundleSettings.server.scheme) != 'undefined'
+                                        && schemes.indexOf(bundleSettings.server.scheme) < 0
+                                    || typeof(bundleSettings.server.scheme) != 'undefined'
+                                        && bundleSettings.server.scheme != scheme
+_.prototype.mkdir = function(permission, callback) {
+        if ( typeof(permission) == "function") {
+            callback = permission;
+            permission = 0775
+        }
+        var self = this;
+        self = cleanSlashes(self);
+
+        //Enter dir & start rm.
+        exists(self.value, function(found) {
+            if (found) {
+                callback(false, self.value)
+            } else {
+                var p = self.value;
+
+                mkdir(self)
+                    .onComplete( function(err, path){
+                        //Avoid collisions.
+                        if (err) {
+                            console.crit("debug needed mkdir for targeted folder !! ", err);
+                            process.exit(1)
+                        } else {
+
+                            if (p == path  && typeof(callback) != 'undefined' && typeof(self.created) == 'undefined' ) {
+                                if (typeof(callback) != 'undefined') {
+                               ...
+setTimeout((trigger, queryOptions, onQueryCallback) => {
+                                if (!self._isRegisteredFromProto) {
+                                    // needed when used as a synchrone method
+                                    register(trigger, queryOptions, onQueryCallback);
+                                }
+                            }, 0, trigger, queryOptions, onQueryCallback)
+var filters = SwigFilters({
+                options     : JSON.clone(localOptions),
+                isProxyHost : isProxyHost,
+                throwError  : self.throwError,
+                req         : local.req,
+                res         : local.res
+            })
+setTimeout((trigger, queryParams, onQueryCallback) => {
+                                if (!self._isRegisteredFromProto) {
+                                    // needed when used as a synchrone method
+                                    register(trigger, queryParams, onQueryCallback);
+                                }
+                            }, 0, trigger, queryParams, onQueryCallback)
+cmd.schemesAvailable.indexOf(cmd.defaultScheme) < 0

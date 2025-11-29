@@ -1,0 +1,3 @@
+parsedType.elements.forEach(element => {
+                types = types.concat( getTypeStrings(element) );
+            })

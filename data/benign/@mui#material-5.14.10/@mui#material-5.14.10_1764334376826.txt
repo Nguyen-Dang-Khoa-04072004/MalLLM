@@ -1,0 +1,36 @@
+function usePagination = function usePagination(props = {}) {
+  // keep default values in sync with @default tags in Pagination.propTypes
+  const {
+      boundaryCount = 1,
+      componentName = 'usePagination',
+      count = 1,
+      defaultPage = 1,
+      disabled = false,
+      hideNextButton = false,
+      hidePrevButton = false,
+      onChange: handleChange,
+      page: pageProp,
+      showFirstButton = false,
+      showLastButton = false,
+      siblingCount = 1
+    } = props,
+    other = (0, _objectWithoutPropertiesLoose2.default)(props, _excluded);
+  const [page, setPageState] = (0, _utils.unstable_useControlled)({
+    controlled: pageProp,
+    default: defaultPage,
+    name: componentName,
+    state: 'page'
+  });
+  const handleClick = (event, value) => {
+    if (!pageProp) {
+      setPageState(value);
+    }
+    if (handleChange) {
+      handleChange(event, value);
+    }
+  };
+
+  // https://dev.to/namirsab/comment/2050
+  const range = (start, end) => {
+    const length = end - start + 1;
+    return Ar...

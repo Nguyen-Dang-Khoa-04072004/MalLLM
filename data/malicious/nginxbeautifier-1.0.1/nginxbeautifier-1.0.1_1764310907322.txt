@@ -1,0 +1,4 @@
+process.argv.length >= 2
+_iterator_3 = <operator>.iterator(process.argv)
+process.exit()
+process.exit()

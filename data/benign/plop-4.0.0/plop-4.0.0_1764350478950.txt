@@ -1,0 +1,3 @@
+fs.existsSync(process.cwd() + "/plopfile.js") && force === false
+fs.existsSync(process.cwd() + "/plopfile.cjs") && force === false
+fs.writeFileSync(process.cwd() + "/plopfile.js", initString)

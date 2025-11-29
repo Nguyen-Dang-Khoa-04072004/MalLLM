@@ -1,0 +1,9 @@
+const request = httpTransport.request(serverUrl, {
+        method: 'POST',
+        ...requestOptions,
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': body.length,
+          ...requestOptions.headers,
+        },
+      })

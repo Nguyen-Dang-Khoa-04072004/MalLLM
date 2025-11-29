@@ -1,0 +1,56 @@
+function header = function header(headerName) {
+	/*jshint validthis:true */
+	headerName = normalizeHeaderName(headerName);
+	return property(this.headers(), headerName);
+}
+function deprecationWarning = function deprecationWarning(relationship, deprecation) {
+			if (deprecation && console && console.warn || console.log) {
+				(console.warn || console.log).call(console, 'Relationship \'' + relationship + '\' is deprecated, see ' + deprecation);
+			}
+		}
+typeof Promise !== 'function' && console && console.log
+find.findProperties(root, '_embedded', function (embedded, resource, name) {
+				Object.keys(embedded).forEach(function (relationship) {
+					if (relationship in resource) { return; }
+					var related = responsePromise({
+						entity: embedded[relationship]
+					});
+					defineProperty(resource, relationship, related);
+				});
+				defineProperty(resource, name, embedded);
+			})
+options = mixin({}, request.mixin, parser.parse(url))
+clientRequest = client.request(options, function (clientResponse) {
+			// Array of Buffers to collect response chunks
+			var buffers = [];
+
+			response.raw = {
+				request: clientRequest,
+				response: clientResponse
+			};
+			response.status = {
+				code: clientResponse.statusCode
+				// node doesn't provide access to the status text
+			};
+			response.headers = {};
+			Object.keys(clientResponse.headers).forEach(function (name) {
+				response.headers[normalizeHeaderName(name)] = clientResponse.headers[name];
+			});
+
+			clientResponse.on('data', function (data) {
+				// Collect the next Buffer chunk
+				buffers.push(data);
+			});
+
+			clientResponse.on('end', function () {
+				// Create the final response entity
+				response.entity = buffers.length > 0 ? Buffer.concat(buffers).toString() : '';
+				buffers = null;
+
+				resolve(response);
+			});
+		})
+opts.registry.lookup(opts.mime.suffix).then(function (converter) {
+			return converter.write(obj, opts);
+		})
+response.status.code === 403

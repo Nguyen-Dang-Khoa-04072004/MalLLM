@@ -1,0 +1,2 @@
+const extBuffer = fs.readFileSync(ext)
+fs.writeFileSync(copyDestination, extBuffer)

@@ -1,0 +1,81 @@
+request.setEncoding(self.conf[self.appName][self.env].encoding)
+(_tmp_171 = /^(javascripts|stylesheets)$/).test
+var isWebrootHandledByRouting = ( self.conf[self.appName][self.env].server.webroot == request.url && !fs.existsSync( _(self.conf[self.appName][self.env].publicPath +'/index.html', true) ) ) ? true : false
+let xhrOptions = {
+                            url: url,
+                            method: method,
+                            isSynchrone: isSynchrone,
+                            headers : {
+                                // to upload, use `multipart/form-data` for `enctype`
+                                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                                // cross domain is enabled by default, but you need to setup `Access-Control-Allow-Origin`
+                                'X-Requested-With': 'XMLHttpRequest' // in case of cross domain origin
+                            }
+                        }
+!/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(request.url)
+function ShiftJISDecoder = function ShiftJISDecoder(options) {
+  var fatal = options.fatal;
+  var /** @type {number} */ shiftjis_lead = 0x00;
+  /**
+   * @param {ByteInputStream} byte_pointer The byte stream to decode.
+   * @returns {?number} The next code point decoded, or null if not enough
+   *     data exists in the input stream to decode a complete code point.
+   */
+  this.decode = function(byte_pointer) {
+    var bite = byte_pointer.get();
+    if (bite === EOF_byte && shiftjis_lead === 0x00) {
+      return EOF_code_point;
+    }
+    if (bite === EOF_byte && shiftjis_lead !== 0x00) {
+      shiftjis_lead = 0x00;
+      return decoderError(fatal);
+    }
+    byte_pointer.offset(1);
+    if (shiftjis_lead !== 0x00) {
+      var lead = shiftjis_lead;
+      shiftjis_lead = 0x00;
+      if (inRange(bite, 0x40, 0x7E) || inRange(bite, 0x80, 0xFC)) {
+        var offset = (bite < 0x7F) ? 0x40 : 0x41;
+        var lead_offset = (lead < 0xA0) ? 0x81 : 0xC1;
+        var code_point = indexCodePointFor((lead - lead_offset) * 1...
+matchedFirstInUrl && matchedFirstInUrl.length > 0
+this.downloadFromURL = function(url, options) {
+
+        var defaultOptions = {
+            // file name i  you want to rename the file
+            file: null,
+            fileSize: null,
+            // only if you want to store locally the downloaded file
+            toLocalDir: false, // this option will disable attachment download
+            // content-disposition (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition)
+            contentDisposition: 'attachment',
+            // content-type (https://developer.mozilla.org/en-US/docs/Web/Security/Securing_your_site/Configuring_server_MIME_types)
+            contentType: 'application/octet-stream',
+
+            agent: false,
+            // set to false to ignore certificate verification
+            rejectUnauthorized: true,
+            //responseType: 'blob',
+            port: 80,
+            method: 'GET',
+            keepAlive: true,
+            headers: {}
+        };
+
+        var opt = ( typeof(options) ...
+staticProps.isStaticFilename && new RegExp('^'+ staticProps.firstLevel).test(request.url)
+/\/$/.test(request.url) && !isWebrootHandledByRouting && !/\/engine\.io\//.test(request.url)
+request.routing = {
+                    'url': request.url,
+                    'method': 'GET',
+                    'bundle' : self.appName
+                }
+_tmp_222.url = request.url
+request = checkPreflightRequest(request, response)
+var lead_offset = (lead < 0xA0) ? 0x81 : 0xC1
+request.isPreflightRequest
+                    && /^isaac/.test(self.engine)
+                    && self.instance._expressMiddlewares.length > 0
+files['forms'] = loadForms(files['templates']._common.forms)
+ruleArr = importPath.replace(/(@import\s+|\"|\')/g, '').split(/\s/g)
+this.close()

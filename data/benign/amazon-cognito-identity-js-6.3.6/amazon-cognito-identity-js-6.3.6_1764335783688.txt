@@ -1,0 +1,17 @@
+this.client.request('GetUser', {
+      AccessToken: this.signInUserSession.getAccessToken().getJwtToken()
+    }, function (err, userData) {
+      if (err) {
+        return callback(err, null);
+      }
+      var attributeList = [];
+      for (var i = 0; i < userData.UserAttributes.length; i++) {
+        var attribute = {
+          Name: userData.UserAttributes[i].Name,
+          Value: userData.UserAttributes[i].Value
+        };
+        var userAttribute = new _CognitoUserAttribute["default"](attribute);
+        attributeList.push(userAttribute);
+      }
+      return callback(null, attributeList);
+    })

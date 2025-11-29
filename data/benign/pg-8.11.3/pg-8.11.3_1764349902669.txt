@@ -1,0 +1,26 @@
+this._Promise
+        .resolve()
+        .then(() => this.password())
+        .then((pass) => {
+          if (pass !== undefined) {
+            if (typeof pass !== 'string') {
+              con.emit('error', new TypeError('Password must be a string'))
+              return
+            }
+            this.connectionParameters.password = this.password = pass
+          } else {
+            this.connectionParameters.password = this.password = null
+          }
+          cb()
+        })
+        .catch((err) => {
+          con.emit('error', err)
+        })
+this.password()
+(err) => {
+          con.emit('error', err)
+        }
+connection.describe({
+      type: 'P',
+      name: this.portal || '',
+    })

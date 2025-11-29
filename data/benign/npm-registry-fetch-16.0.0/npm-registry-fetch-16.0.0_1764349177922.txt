@@ -1,0 +1,2 @@
+body.on('error', /* istanbul ignore next: unlikely and hard to test */
+        err => gz.emit('error', err))

@@ -1,0 +1,14 @@
+function tick = function tick() {
+      currentTime += 1 / 60;
+
+      var p = currentTime / time;
+      var t = easingEquations[easing](p);
+
+      if (p < 1) {
+        requestAnimFrame(tick);
+
+        window.scrollTo(0, scrollY + (scrollTargetY - scrollY) * t);
+      } else {
+        window.scrollTo(0, scrollTargetY);
+      }
+    }

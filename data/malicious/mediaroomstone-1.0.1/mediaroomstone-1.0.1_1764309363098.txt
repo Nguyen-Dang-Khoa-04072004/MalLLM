@@ -1,0 +1,1 @@
+this.#producerSocket.write(Buffer.from(Uint32Array.of(Buffer.byteLength(request)).buffer))

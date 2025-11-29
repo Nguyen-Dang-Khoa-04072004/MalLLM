@@ -1,0 +1,19 @@
+function findOne = function findOne(predicate, elems) {
+  let elem = null;
+  for (let i = 0, l = elems.length; i < l && !elem; i++) {
+    const node = elems[i];
+    if (typeof node === 'string') {
+      /* empty */
+    } else if (predicate(node)) {
+      elem = node;
+    } else {
+      const {
+        children
+      } = node;
+      if (children.length !== 0) {
+        elem = findOne(predicate, children);
+      }
+    }
+  }
+  return elem;
+}

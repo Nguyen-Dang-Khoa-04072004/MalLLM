@@ -1,0 +1,153 @@
+var removeEnv = function(projects, target) {
+        var err = null, env = local.env;
+        // default `dev env` cannot be removed
+        if(env === projects[self.projectName]['dev_env']|| env === projects[self.projectName]['def_env']) {
+            if (env === projects[self.projectName]['def_env']) {
+                err = new Error('Environment [ '+env+' ] is set as "default environment"')
+            } else {
+                err = new Error('Environment [ '+env+' ] is linked as "development environment"')
+            }
+
+            return end(err);
+        }
+
+        projects[self.projectName]['envs'].splice(projects[self.projectName]['envs'].indexOf(env), 1);
+        lib.generator.createFileFromDataSync(
+            projects,
+            target
+        );
+        // clean ports & reverse ports registered for the project
+        var portsPath = _(GINA_HOMEDIR + '/ports.json')
+            , portsReversePath = _(GINA_HOMEDIR + '/ports.reverse.json')
+            , ports = require(port...
+var setup = function(namespace) {
+        if ( typeof(namespace) == 'undefined' || namespace == '') {
+            console.error('[ MODEL ][ '+ namespace +' ] MODEL:ERR:1 EEMPTY: Model namespace',  __stack);
+        }
+
+        var model, namespace = namespace.split(/\//g);
+        _connector = namespace[1];//Has to be writtien the same for the connetors.json decalration or for the model folder
+        var bundle = namespace[0];
+        namespace.shift();
+        //Capitalize - Normalize
+        if (namespace.length > 1) {
+            //            for (var i; i<namespace.length; ++i) {
+            //                namespace[i] = namespace[i].substring(0, 1).toUpperCase() + namespace[i].substring(1);
+            //            }
+
+            model = namespace.join(".");
+        } else {
+            //Dir name.
+            model = namespace[0];
+        }
+
+
+        console.debug('[ MODEL ][ ' + model +' ] Bundle: '+ bundle);
+        //console.debug('[ MODEL ][ ' + model +' ] Model: '+ model...
+var saveEnvs = function() {
+        var file    = _(self.projects[self.projectName].path + '/env.json')
+            , ports = require(_(GINA_HOMEDIR + '/ports.json'))
+        ;
+
+
+        if ( !fs.existsSync( _(self.projects[self.projectName].path + '/manifest.json') )) {
+            console.error('project corrupted');
+            process.exit(1)
+        }
+
+        self.project = requireJSON(_(self.projects[self.projectName].path + '/manifest.json'));
+        self.portsList = []; // list of all ports to ignore whles scanning
+        var protocols = self.projects[self.projectName].protocols;
+        var schemes = self.projects[self.projectName].schemes;
+        for (let protocol in ports) {
+            if (protocols.indexOf(protocol) < 0) continue;
+            for (let scheme in ports[protocol]) {
+                if (schemes.indexOf(scheme) < 0) continue;
+                for (let p in ports[protocol][scheme]) {
+                    if ( self.portsList.indexOf(p) > -1 ) continue;
+          ...
+_tmp_0.windows-1255 = [8364,129,8218,402,8222,8230,8224,8225,710,8240,138,8249,140,141,142,143,144,8216,8217,8220,8221,8226,8211,8212,732,8482,154,8250,156,157,158,159,160,161,162,163,8362,165,166,167,168,169,215,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,247,187,188,189,190,191,1456,1457,1458,1459,1460,1461,1462,1463,1464,1465,null,1467,1468,1469,1470,1471,1472,1473,1474,1475,1520,1521,1522,1523,1524,null,null,null,null,null,null,null,1488,1489,1490,1491,1492,1493,1494,1495,1496,1497,1498,1499,1500,1501,1502,1503,1504,1505,1506,1507,1508,1509,1510,1511,1512,1513,1514,null,null,8206,8207,null]
+self.checkIfSettings = function(done) {
+        console.debug('Checking framework settings...');
+        var main            = require( _(self.opt.homedir + '/main.json', true) )
+            , version       = getEnvVar('GINA_VERSION')
+            , prefix        = getEnvVar('GINA_PREFIX') || main['def_prefix'][self.release]
+            , globalMode    = getEnvVar('GINA_GLOBAL_MODE') || main['def_global_mode'][self.release]
+            , arch          = getEnvVar('GINA_ARCH') || main['def_arch'][self.release]
+            , platform      = getEnvVar('GINA_PLATFORM') || main['def_platform'][self.release]
+            , env           = getEnvVar('GINA_ENV') || main['def_env'][self.release]
+            , scope         = getEnvVar('GINA_SCOPE') || main['def_scope'][self.release]
+            , settings      = requireJSON( _( getPath('gina').root + '/resources/home/settings.json', true ) )
+            , userSettings  = {}
+            , target        = _(self.opt.homedir +'/'+ self.release +'...
+skipFormating = (typeof(skipFormating) != 'undefined' && /true/i.test(skipFormating)) ? true : false
+var dic = {
+                'prefix' : prefix,
+                'global_mode': globalMode,
+                'version' : version,
+                'arch' : arch,
+                'platform': platform,
+                'env' : env,
+                'env_is_dev' : (main['dev_env'][self.release] == env) ? true : false,
+                'dev_env' : main['dev_env'][self.release],
+                'scope' : scope,
+                'scope_is_local' : (main['local_scope'][self.release] == scope) ? true : false,
+                'local_scope': main['local_scope'][self.release],
+                'culture' : getEnvVar('GINA_CULTURE'),
+                'timezone' : getEnvVar('GINA_TIMEZONE'),
+                'node_version': process.version,
+                'port' : getEnvVar('GINA_PORT') || 8124, // TODO - scan for the next available port
+                'debug_port' : getEnvVar('GINA_DEBUG_PORT') || process.debugPort || 5757,
+                'host_v4' : getEnvVar('GINA_HOST_V4') || '127.0.0.1',
+               ...
+self.cleanupIfNeeded = function(done) {
+
+        var frameworkPath = self.gina;
+        console.debug('Framework path is: ' + frameworkPath);
+
+        // Let's cleanup `colors` from `GINA_DIR`
+        if ( new _(frameworkPath +'/node_modules/colors', true).existsSync() ) {
+            var initialDir = process.cwd();
+            process.chdir(frameworkPath);
+            var oldConfigGlobal = process.env.npm_config_global;
+            process.env.npm_config_global=false;
+
+            // var cmd = self.prefix +'/bin/';
+            // cmd += ( isWin32() ) ? 'npm.cmd rm colors' : 'npm rm colors';
+
+            var cmd = ( isWin32() ) ? 'npm.cmd rm colors' : 'npm rm colors';
+
+            try {
+                execSync(cmd);
+                console.debug('Removed default `colors` module from `GINA_DIR`... This is normal ;)');
+            } catch (npmErr) {
+                process.chdir(initialDir);
+                return done(npmErr);
+            }
+
+            proc...
+typeof(errors[name]) == 'undefined' && /(form\-item\-error|form\-item\-warning)/.test($parent.className) || typeof(errors[name]) != 'undefined' && errors[name].count() == 0 && /(form\-item\-error|form\-item\-warning)/.test($parent.className)
+str += '"'+attr+'": "' + obj[attr]
+                            .replace(/\'/g, "\\'")
+                            .replace(/\"/g, '\\"') +'"'
+constructor = constructor
+                    .splice(constructor.length-1,1)
+                    .toString()
+console.warn('Dependency bundle config not found for `'+ app +'/'+ env +'`: trying to load on the fly from src')
+path = (isRenderingCustomError) ? _(file) : _(localOptions.template.html +'/'+ localOptions.namespace + '/' + file)
+newContent[app][env].bundlesPath = bundlesPath = appSrcPath.replace( new RegExp('/'+ app), '' )
+function () { // getting rid of the middleware context
+
+                        var Middleware = require(_(filename, true));
+                        // TODO - loop on a defined SuperController property like SuperController._allowedForExport
+
+
+                        // Exporting config & common methods
+                        Middleware.prototype.checkBundleStatus      = controller.checkBundleStatus;
+                        Middleware.prototype.getConfig              = controller.getConfig;
+                        Middleware.prototype.getFormsRules          = controller.getFormsRules;
+                        Middleware.prototype.getLocales             = controller.getLocales;
+                        Middleware.prototype.isCacheless            = controller.isCacheless;
+                        Middleware.prototype.isHaltedRequest        = controller.isHaltedRequest;
+                        Middleware.prototype.isWithCredentials      = controller.isWithCredentials;
+                    ...

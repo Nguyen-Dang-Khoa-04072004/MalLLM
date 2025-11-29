@@ -1,0 +1,41 @@
+nodes.sort(function (a, b) {
+    var sectionA = (0, _helperWasmBytecode.getSectionForNode)(a);
+    var sectionB = (0, _helperWasmBytecode.getSectionForNode)(b);
+    var aId = _helperWasmBytecode["default"].sections[sectionA];
+    var bId = _helperWasmBytecode["default"].sections[sectionB];
+
+    if (typeof aId !== "number" || typeof bId !== "number") {
+      throw new Error("Section id not found");
+    }
+
+    if (aId === bId) {
+      // $FlowIgnore originalOrder is filled for all nodes
+      return originalOrder.get(a) - originalOrder.get(b);
+    }
+
+    return aId - bId;
+  })
+(0, _ast.traverse)(ast, {
+      Func: function Func(_ref3) {
+        var node = _ref3.node;
+        var funcHasThisIntr = node.body.find(function (n) {
+          return n === newNode;
+        }) !== undefined; // Update func's body size if needed
+
+        if (funcHasThisIntr === true) {
+          // These are the old functions locations informations
+          (0, _ast.assertHasLoc)(node);
+          var oldNodeSize = (0, _wasmGen.encodeNode)(oldNode).length;
+          var bodySizeDeltaBytes = replacementByteArray.length - oldNodeSize;
+
+          if (bodySizeDeltaBytes !== 0) {
+            var newValue = node.metadata.bodySize + bodySizeDeltaBytes;
+            var newByteArray = (0, _encoder.encodeU32)(newValue); // function body size byte
+            // FIXME(sven): only handles one byte u32
+
+            var start = node.loc.start.column;
+            var end = start + 1;
+            uint8Buffer = (0, _helperBuffer.overrideBytesInBuffer)(uint8Buffer, start, end, newByteArray);
+       ...
+var sectionB = (0, _helperWasmBytecode.getSectionForNode)(b)
+var bodySizeDeltaBytes = replacementByteArray.length - oldNodeSize

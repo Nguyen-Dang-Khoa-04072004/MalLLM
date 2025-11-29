@@ -1,0 +1,16 @@
+module.exports = (options) => {
+  const uploadOptions = buildOptions(DEFAULT_OPTIONS, options);
+  return (req, res, next) => {
+    if (!isEligibleRequest(req)) {
+      debugLog(uploadOptions, 'Request is not eligible for file upload!');
+      return next();
+    }
+    processMultipart(uploadOptions, req, res, next);
+  };
+}
+const busboy = Busboy(busboyOptions)
+const closeConnection = (code, reason) => {
+    req.unpipe(busboy);
+    res.writeHead(code || 400, { Connection: 'close' });
+    res.end(reason || 'Bad Request');
+  }

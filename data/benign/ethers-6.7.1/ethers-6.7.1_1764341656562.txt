@@ -1,0 +1,5 @@
+concat([
+            "0x1901",
+            TypedDataEncoder.hashDomain(domain),
+            TypedDataEncoder.from(types).hash(value)
+        ])

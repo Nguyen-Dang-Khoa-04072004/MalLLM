@@ -1,0 +1,122 @@
+_tmp_14 = yargs(hideBin(process.argv)).help(false).version(false)
+worker.on('message', message => {
+			if (!message.ava) {
+				return;
+			}
+
+			switch (message.ava.type) {
+				case 'ready-for-options': {
+					send({type: 'options', options});
+					break;
+				}
+
+				case 'shared-worker-connect': {
+					const {channelId, filename, initialData, port} = message.ava;
+					emitter.emit('connectSharedWorker', {
+						filename,
+						initialData,
+						port,
+						signalError() {
+							send({type: 'shared-worker-error', channelId});
+						},
+					});
+					break;
+				}
+
+				case 'ping': {
+					send({type: 'pong'});
+					break;
+				}
+
+				default: {
+					emitStateChange(message.ava);
+				}
+			}
+		})
+timeoutTrigger = new TimeoutTrigger(() => {
+				// If failFast is active, prevent new test files from running after
+				// the current ones are exited.
+				if (failFast) {
+					bailed = true;
+				}
+
+				runStatus.emitStateChange({type: 'timeout', period: timeout});
+
+				for (const worker of pendingWorkers) {
+					timedOutWorkerFiles.add(worker.file);
+					worker.exit();
+				}
+			}, timeout)
+function normalizePattern = function normalizePattern(pattern) {
+	// Always use `/` in patterns, harmonizing matching across platforms
+	if (process.platform === 'win32') {
+		pattern = slash(pattern);
+	}
+
+	if (pattern.endsWith('/')) {
+		pattern = pattern.slice(0, -1);
+	}
+
+	if (pattern.startsWith('./')) {
+		return pattern.slice(2);
+	}
+
+	if (pattern.startsWith('!./')) {
+		return `!${pattern.slice(3)}`;
+	}
+
+	return pattern;
+}
+_tmp_21.value = new Proxy(root, {
+			apply(target, thisArg, argumentsList) {
+				target.apply(thisArg, argumentsList);
+			},
+			get(target, prop) {
+				if (prop === 'default') {
+					throw new TypeError('Cannot access default.default');
+				}
+
+				return target[prop];
+			},
+		})
+runStatus.on('stateChange', record => {
+				if (record.testFile && !timedOutWorkerFiles.has(record.testFile)) {
+					// Debounce the timer whenever there is activity from workers that
+					// haven't already timed out.
+					timeoutTrigger.debounce();
+				}
+
+				if (failFast && (record.type === 'hook-failed' || record.type === 'test-failed' || record.type === 'worker-failed')) {
+					// Prevent new test files from running once a test has failed.
+					bailed = true;
+
+					// Try to stop currently scheduled tests.
+					for (const worker of pendingWorkers) {
+						worker.notifyOfPeerFailure();
+					}
+				}
+			})
+waitForSerial = previous.then(() =>
+					// Serial runnables run as long as there was no previous failure, unless
+					// the runnable should always be run.
+					(allPassed || runnable.metadata.always) && runAndStoreResult(runnable),
+				)
+plan.status.on('stateChange', evt => {
+				if (evt.type !== 'worker-finished') {
+					return;
+				}
+
+				const fileStats = plan.status.stats.byFile.get(evt.testFile);
+				const ranExclusiveTests = fileStats.selectedTests > 0 && fileStats.declaredTests > fileStats.selectedTests;
+				this.updateExclusivity(evt.testFile, ranExclusiveTests);
+			})
+(_tmp_37 = this.sharedWorkerErrors).push
+const options = {
+					...forkOptions,
+					providerStates,
+					lineNumbers,
+					recordNewSnapshots: !isCi,
+					// If we're looking for matches, run every single test process in exclusive-only mode
+					runOnlyExclusive: apiOptions.match.length > 0 || runtimeOptions.runOnlyExclusive === true,
+				}
+compareWithSnapshot = _tmp_59.compareWithSnapshot === void 0 ? notImplemented : _tmp_59.compareWithSnapshot

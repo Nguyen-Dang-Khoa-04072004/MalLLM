@@ -1,0 +1,2 @@
+process.argv.includes('--help') || process.argv.includes('-h')
+let step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)

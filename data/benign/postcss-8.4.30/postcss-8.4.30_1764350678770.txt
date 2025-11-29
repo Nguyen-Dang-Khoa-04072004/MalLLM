@@ -1,0 +1,1 @@
+this.hasListener = Object.keys(this.listeners).length > 0

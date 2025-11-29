@@ -1,0 +1,34 @@
+this.send({ _fetchProp: prop }).catch(err => {
+        this.process.removeListener('message', listener);
+        this._fetches.delete(prop);
+        reject(err);
+      })
+new Promise((resolve, reject) => {
+      if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+        throw new Error(`Voice websocket not open to send ${data}.`);
+      }
+      this.ws.send(data, null, error => {
+        if (error) reject(error); else resolve(data);
+      });
+    })
+(_tmp_14 = [
+      Actions.GUILD_UPDATE,
+      Actions.CHANNEL_UPDATE,
+      Actions.CHANNEL_OVERWRITE_UPDATE,
+      Actions.MEMBER_UPDATE,
+      Actions.ROLE_UPDATE,
+      Actions.INVITE_UPDATE,
+      Actions.WEBHOOK_UPDATE,
+      Actions.EMOJI_UPDATE,
+    ]).includes
+this.sendPacket({
+      op: Constants.OPCodes.DISPATCH,
+      d: {
+        server_id: this.voiceConnection.channel.guild.id,
+        user_id: this.client.user.id,
+        token: this.voiceConnection.authentication.token,
+        session_id: this.voiceConnection.authentication.sessionID,
+      },
+    }).catch(() => {
+      this.emit('error', new Error('Tried to send join packet, but the WebSocket is not open.'));
+    })

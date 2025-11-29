@@ -1,0 +1,3 @@
+function TryConvertUndefined = function TryConvertUndefined(value) {
+    return (0, guard_1.IsString)(value) && value === 'undefined' ? undefined : value;
+}

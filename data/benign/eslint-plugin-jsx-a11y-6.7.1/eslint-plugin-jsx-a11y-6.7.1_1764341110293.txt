@@ -1,0 +1,100 @@
+var _default = {
+  a: _a["default"],
+  area: _area["default"],
+  article: _article["default"],
+  aside: _aside["default"],
+  body: _body["default"],
+  button: _button["default"],
+  datalist: _datalist["default"],
+  details: _details["default"],
+  dialog: _dialog["default"],
+  form: _form["default"],
+  h1: _h["default"],
+  h2: _h2["default"],
+  h3: _h3["default"],
+  h4: _h4["default"],
+  h5: _h5["default"],
+  h6: _h6["default"],
+  hr: _hr["default"],
+  img: _img["default"],
+  input: _input["default"],
+  li: _li["default"],
+  link: _link["default"],
+  menu: _menu["default"],
+  menuitem: _menuitem["default"],
+  meter: _meter["default"],
+  nav: _nav["default"],
+  ol: _ol["default"],
+  option: _option["default"],
+  output: _output["default"],
+  progress: _progress["default"],
+  section: _section["default"],
+  select: _select["default"],
+  tbody: _tbody["default"],
+  textarea: _textarea["default"],
+  tfoot: _tfoot["default"],
+  thead: _thead["default"],
+  ul: _ul["default"]
+}
+var _default = {
+  meta: {
+    docs: {
+      description: 'Enforce that a `label` tag has a text label and an associated control.',
+      url: 'https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-associated-control.md'
+    },
+    schema: [schema]
+  },
+  create: function create(context) {
+    var options = context.options[0] || {};
+    var labelComponents = options.labelComponents || [];
+    var assertType = options.assert || 'either';
+    var componentNames = ['label'].concat(labelComponents);
+    var elementType = (0, _getElementType["default"])(context);
+    var rule = function rule(node) {
+      if (componentNames.indexOf(elementType(node.openingElement)) === -1) {
+        return;
+      }
+      var controlComponents = ['input', 'meter', 'output', 'progress', 'select', 'textarea'].concat(options.controlComponents || []);
+      // Prevent crazy recursion.
+      var recursionDepth = Math.min(options.depth === undefined ? 2 : options.depth, 25);
+      var ...
+var _runVirtualRule = (0, _axeCore.runVirtualRule)('autocomplete-valid', {
+            nodeName: 'input',
+            attributes: {
+              autocomplete,
+              // Which autocomplete is valid depends on the input type
+              type: type === null ? undefined : type
+            }
+          })
+_tmp_0.configs = {
+    recommended: {
+      plugins: ['jsx-a11y'],
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true
+        }
+      },
+      rules: {
+        'jsx-a11y/alt-text': 'error',
+        'jsx-a11y/anchor-ambiguous-text': 'off',
+        // TODO: error
+        'jsx-a11y/anchor-has-content': 'error',
+        'jsx-a11y/anchor-is-valid': 'error',
+        'jsx-a11y/aria-activedescendant-has-tabindex': 'error',
+        'jsx-a11y/aria-props': 'error',
+        'jsx-a11y/aria-proptypes': 'error',
+        'jsx-a11y/aria-role': 'error',
+        'jsx-a11y/aria-unsupported-elements': 'error',
+        'jsx-a11y/autocomplete-valid': 'error',
+        'jsx-a11y/click-events-have-key-events': 'error',
+        'jsx-a11y/control-has-associated-label': ['off', {
+          ignoreElements: ['audio', 'canvas', 'embed', 'input', 'textarea', 'tr', 'video'],
+          ignoreRoles: ['grid', 'listbox', 'menu', 'menubar', 'radiogroup', 'row', 'tablist', 'toolbar', 'tree', 'treegrid'],
+          includeR...
+(0, _isHiddenFromScreenReader["default"])(type, props) || (0, _isPresentationRole["default"])(type, props)
+typeof value === 'string' && value.split(' ').every(function (token) {
+        return validityCheck(token, 'id', []);
+      })
+var hasInteractiveProps = handlers.some(function (prop) {
+          return (0, _jsxAstUtils.hasProp)(attributes, prop) && (0, _jsxAstUtils.getPropValue)((0, _jsxAstUtils.getProp)(attributes, prop)) != null;
+        })

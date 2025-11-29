@@ -1,0 +1,24 @@
+var api = {
+    elementsDefinitionOrder: [["method"], ["field"]],
+    initializeInstanceElements: function initializeInstanceElements(O, elements) {
+      ["method", "field"].forEach(function (kind) {
+        elements.forEach(function (element) {
+          if (element.kind === kind && element.placement === "own") {
+            this.defineClassElement(O, element);
+          }
+        }, this);
+      }, this);
+    },
+    initializeClassElements: function initializeClassElements(F, elements) {
+      var proto = F.prototype;
+      ["method", "field"].forEach(function (kind) {
+        elements.forEach(function (element) {
+          var placement = element.placement;
+          if (element.kind === kind && (placement === "static" || placement === "prototype")) {
+            var receiver = placement === "static" ? F : proto;
+            this.defineClassElement(receiver, element);
+          }
+        }, this);
+      }, this);
+    },
+    defineClassElement: function defineClassElement(receiver, e...

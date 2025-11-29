@@ -1,0 +1,1 @@
+scopes = scopeManager.__nodeToScope.get(scope.block)

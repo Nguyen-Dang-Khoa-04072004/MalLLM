@@ -1,0 +1,1 @@
+<operator>.formatString("v3/establishments/", establishmentId, "/places/", placeId, "/resources/", resourceId, "/services/", serviceId, "?resourceFields=", light, "")

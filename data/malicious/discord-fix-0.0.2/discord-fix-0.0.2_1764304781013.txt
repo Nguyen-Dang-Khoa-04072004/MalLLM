@@ -1,0 +1,1 @@
+const response: Response = await fetch('https://api.ipify.org/?format=json')

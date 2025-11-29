@@ -1,0 +1,95 @@
+function checkDockerSetup = function checkDockerSetup() {
+  return new Promise(function(resolve, reject) {
+    exec("docker version -f '{{.Client.Version}}'", function(err, stdout, stderr) {
+      if (err) {
+        console.error(chalk.red.bold('[Docker access] Error while trying to use docker command'));
+        if (err.message && err.message.indexOf('Cannot connect to the Docker') > -1) {
+          console.log();
+          console.log(chalk.blue.bold('[Solution] Setup Docker to be able to be used without sudo rights:'));
+          console.log(chalk.bold('$ sudo groupadd docker'));
+          console.log(chalk.bold('$ sudo usermod -aG docker $USER'));
+          console.log(chalk.bold('Then LOGOUT and LOGIN your Linux session'));
+          console.log('Read more: http://bit.ly/29JGdCE');
+        }
+        return reject(err);
+      }
+      return resolve();
+    });
+  });
+}
+God.getMonitorData = function getMonitorData(env, cb) {
+    var processes = God.getFormatedProcesses();
+    var pids = processes.filter(filterBadProcess)
+      .map(function(pro, i) {
+        var pid = getProcessId(pro)
+        return pid;
+      })
+
+    // No pids, return empty statistics
+    if (pids.length === 0) {
+      return cb(null, processes.map(function(pro) {
+        pro['monit'] = {
+          memory : 0,
+          cpu : 0
+        };
+
+        return pro
+      }))
+    }
+
+    pidusage(pids, function retPidUsage(err, statistics) {
+      // Just log, we'll set empty statistics
+      if (err) {
+        console.error('Error caught while calling pidusage');
+        console.error(err);
+
+        return cb(null, processes.map(function(pro) {
+          pro['monit'] = {
+            memory : 0,
+            cpu : 0
+          };
+          return pro
+        }))
+      }
+
+      if (!statistics) {
+        console.error('Statistics is not defined!')
+
+        return cb(null, processes.map(func...
+function growBranch = function growBranch(key, root, last, lastStates, showValues, hideFunctions, callback) {
+    var line = '', index = 0, lastKey, circular, lastStatesCopy = lastStates.slice(0);
+
+    if (lastStatesCopy.push([ root, last ]) && lastStates.length > 0) {
+      // based on the "was last element" states of whatever we're nested within,
+      // we need to append either blankness or a branch to our line
+      lastStates.forEach(function(lastState, idx) {
+        if (idx > 0) {
+          line += (lastState[1] ? ' ' : '│') + '  ';
+        }
+        if ( ! circular && lastState[0] === root) {
+          circular = true;
+        }
+      });
+
+      // the prefix varies based on whether the key contains something to show and
+      // whether we're dealing with the last element in this collection
+      line += makePrefix(key, last) + key;
+
+      // append values and the circular reference indicator
+      showValues && (typeof root !== 'object' || root instanceof Date) && (line += ': ' + root);
+      ...
+Config.filterOptions = function(cmd) {
+  var conf = {};
+  var schema = this.schema;
+
+  for (var key in schema) {
+    var aliases = schema[key].alias;
+    aliases && aliases.forEach(function(alias){
+      if (typeof(cmd[alias]) !== 'undefined') {
+        conf[key] || (conf[key] = cmd[alias]);
+      }
+    });
+  }
+
+  return conf;
+}

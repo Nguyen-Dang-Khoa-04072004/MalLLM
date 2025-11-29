@@ -1,0 +1,3 @@
+_tmp_2 = process.version.slice(1).split('.')
+process.version
+process.exit(1)

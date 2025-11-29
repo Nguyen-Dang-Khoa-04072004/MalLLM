@@ -1,0 +1,1 @@
+var bite = byte_pointer.get()

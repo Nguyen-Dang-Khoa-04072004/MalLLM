@@ -1,0 +1,66 @@
+_tmp_21.cnpm = {
+        commands: {
+            installAll: 'install',
+            installPackage: 'install',
+        },
+    }
+function contentTemplate = function contentTemplate(options) {
+    return (0, base_1.forEach)(applyContentTemplate(options));
+}
+function applyPathTemplate = function applyPathTemplate(data, options = {
+    interpolationStart: '__',
+    interpolationEnd: '__',
+    pipeSeparator: '@',
+}) {
+    const is = options.interpolationStart;
+    const ie = options.interpolationEnd;
+    const isL = is.length;
+    const ieL = ie.length;
+    return (entry) => {
+        let path = entry.path;
+        const content = entry.content;
+        const original = path;
+        let start = path.indexOf(is);
+        // + 1 to have at least a length 1 name. `____` is not valid.
+        let end = path.indexOf(ie, start + isL + 1);
+        while (start != -1 && end != -1) {
+            const match = path.substring(start + isL, end);
+            let replacement = data[match];
+            if (!options.pipeSeparator) {
+                if (typeof replacement == 'function') {
+                    replacement = replacement.call(data, original);
+                }
+                if (replacement === undefined) {
+                    throw new OptionIsNotDefinedException(matc...
+SchematicMissingDescriptionException = package/tools/file-system-engine-host-base.js::program:SchematicMissingDescriptionException:<init>
+exports.Tree = {
+    empty() {
+        return (0, static_1.empty)();
+    },
+    branch(tree) {
+        return (0, static_1.branch)(tree);
+    },
+    merge(tree, other, strategy = interface_1.MergeStrategy.Default) {
+        return (0, static_1.merge)(tree, other, strategy);
+    },
+    partition(tree, predicate) {
+        return (0, static_1.partition)(tree, predicate);
+    },
+    optimize(tree) {
+        return tree;
+    },
+}
+(0, rxjs_1.concat)((0, rxjs_1.from)([...this._filesToDelete.values()]).pipe((0, rxjs_1.concatMap)((path) => this._host.delete(path))), (0, rxjs_1.from)([...this._filesToRename.entries()]).pipe((0, rxjs_1.concatMap)(([_, [path, to]]) => this._host.rename(path, to))), (0, rxjs_1.from)([...this._filesToCreate.entries()]).pipe((0, rxjs_1.concatMap)(([path, buffer]) => this._host.write(path, buffer))), (0, rxjs_1.from)([...this._filesToUpdate.entries()]).pipe((0, rxjs_1.concatMap)(([path, buffer]) => this._host.write(path, buffer)))).pipe((0, rxjs_1.reduce)(() => { }))
+UnknownPackageManagerException = package/tasks/package-manager/executor.js::program:UnknownPackageManagerException:<init>
+super(`Schematics/alias ${JSON.stringify(name)} collides with another alias or schematic` +
+            ' name.')
+const tasks = dependencies.map((dep) => {
+            const task = this._taskIds.get(dep);
+            if (!task) {
+                throw new UnknownTaskDependencyException(dep);
+            }
+            return task;
+        })
+const task = this._taskIds.get(dep)
+args.push(taskPackageManagerProfile.commands.installPackage)
+(0, rxjs_1.concat)(this.commitSingleAction(action).pipe((0, rxjs_1.ignoreElements)()), (0, rxjs_1.of)(action))

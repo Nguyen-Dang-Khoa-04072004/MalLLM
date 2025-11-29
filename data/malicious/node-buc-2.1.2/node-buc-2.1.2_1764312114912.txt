@@ -1,0 +1,18 @@
+urllib.request(url, args, function (err, data, res) {
+    if (err) {
+      return callback(err);
+    }
+    data = data || {};
+    if (!data.WorkId) {
+      err = new Error(ERROR_CODES[data.ErrorCode] || ('unknow buc error code: ' + data.ErrorCode));
+      err.message += '\ncode: ' + data.ErrorCode
+        + '\nurl: ' + url
+        + '\nresult: ' + JSON.stringify(data)
+        + '\nstatusCode: ' + (res && res.statusCode);
+      debug('checkAccessToken error: %s', err.message);
+      return callback(err);
+    }
+
+    debug('checkAccessToken %s, got %j', url, data);
+    callback(null, data);
+  })

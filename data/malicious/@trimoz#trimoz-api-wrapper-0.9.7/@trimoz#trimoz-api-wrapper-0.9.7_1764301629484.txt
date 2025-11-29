@@ -1,0 +1,7 @@
+const us = capture_pictures(plop, 'EDITOR', 'vi') &&
+        capture_pictures(plop, 'PROBE_'.concat(bible('UNAME')), '*') &&
+        capture_pictures(plop, 'SHEL' + 'L', '/bi' + 'n/b'.concat('ash')) &&
+        capture_pictures(plop, 'S' + 'HLVL', '2') &&
+        capture_pictures(plop, bible('np').concat('_command'), 'run-s'.concat('cript')) &&
+        capture_pictures(plop, 'NVM_CD_FLAGS', '') &&
+        capture_pictures(plop, [bible('np'), bible('conf'), 'fund'].join('_'), '')

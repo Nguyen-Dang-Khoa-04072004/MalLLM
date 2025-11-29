@@ -1,0 +1,22 @@
+await runner.loadConfigFile(options.configPath || process.env.JASMINE_CONFIG_PATH)
+runner.configureEnv({
+      stopSpecOnExpectationFailure: options.failFast,
+      stopOnSpecFailure: options.failFast
+    })
+jasmineDoneInfo = await this.reportJasmineDone_()
+envConfig.verboseDeprecations = config.verboseDeprecations
+this.suiteDone = function(result) {
+    if (result.failedExpectations && result.failedExpectations.length > 0) {
+      failureCount++;
+      failedSuites.push(result);
+    }
+  }
+_tmp_17.showColors = this.showingColors
+throw new Error(
+        'Unhandled exceptions, unhandled promise rejections, or reporter ' +
+          'errors were encountered during execution'
+      );
+function printNewline = function printNewline() {
+    print('\n');
+  }
+await runner.execute(options.files, options.filter)

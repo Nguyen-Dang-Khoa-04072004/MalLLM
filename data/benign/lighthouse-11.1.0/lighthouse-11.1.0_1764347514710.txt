@@ -1,0 +1,32 @@
+function loadFlowArtifacts = function loadFlowArtifacts(basePath) {
+  log.log('Reading flow artifacts from disk:', basePath);
+
+  if (!fs.existsSync(basePath)) {
+    throw new Error('No saved flow artifacts found at ' + basePath);
+  }
+
+  /** @type {LH.UserFlow.FlowArtifacts} */
+  const flowArtifacts = JSON.parse(
+    fs.readFileSync(path.join(basePath, optionsFilename), 'utf-8')
+  );
+
+  const filenames = fs.readdirSync(basePath);
+
+  flowArtifacts.gatherSteps = [];
+  for (const filename of filenames) {
+    const regexResult = stepDirectoryRegex.exec(filename);
+    if (!regexResult) continue;
+
+    const index = Number(regexResult[1]);
+    if (!Number.isFinite(index)) continue;
+
+    const stepPath = path.join(basePath, filename);
+    if (!fs.lstatSync(stepPath).isDirectory()) continue;
+
+    /** @type {LH.UserFlow.GatherStep} */
+    const gatherStep = JSON.parse(
+      fs.readFileSync(path.join(stepPath, optionsFilename), 'utf-8')
+    );
+    gatherStep.artifacts = loadArtifacts(stepPath);
+
+    flowArtifacts.gatherSt...

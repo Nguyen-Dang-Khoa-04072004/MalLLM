@@ -1,0 +1,10 @@
+bar.get('bar1', { valueEncoding: 'json' }, function (err, value) {
+        t.notOk(err, 'getting object value by key has no error')
+        t.equal(value.obj, 'ect', 'and returns value for that key')
+
+        bar.del('bar1', { valueEncoding: 'json' }, function (err, value) {
+          bar.get('bar1', { valueEncoding: 'json' }, function (err, value) {
+            t.equal(err.name, 'NotFoundError', 'properly deletes json encoded value')
+          })
+        })
+      })

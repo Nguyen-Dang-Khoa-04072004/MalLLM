@@ -1,0 +1,1 @@
+this.request('files/delete_batch/check', arg, 'user', 'api', 'rpc', 'files.content.write')

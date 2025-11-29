@@ -1,0 +1,1 @@
+this.#payloadChannel.removeAllListeners(this.#internal.dataConsumerId)

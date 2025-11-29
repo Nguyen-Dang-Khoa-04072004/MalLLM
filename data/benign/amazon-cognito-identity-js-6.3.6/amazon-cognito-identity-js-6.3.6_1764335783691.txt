@@ -1,0 +1,25 @@
+this.client.request(
+					'ConfirmDevice',
+					{
+						DeviceKey: newDeviceMetadata.DeviceKey,
+						AccessToken: this.signInUserSession.getAccessToken().getJwtToken(),
+						DeviceSecretVerifierConfig: deviceSecretVerifierConfig,
+						DeviceName: userAgent,
+					},
+					(errConfirm, dataConfirm) => {
+						if (errConfirm) {
+							return callback.onFailure(errConfirm);
+						}
+
+						this.deviceKey =
+							dataAuthenticate.AuthenticationResult.NewDeviceMetadata.DeviceKey;
+						this.cacheDeviceKeyAndPassword();
+						if (dataConfirm.UserConfirmationNecessary === true) {
+							return callback.onSuccess(
+								this.signInUserSession,
+								dataConfirm.UserConfirmationNecessary
+							);
+						}
+						return callback.onSuccess(this.signInUserSession);
+					}
+				)

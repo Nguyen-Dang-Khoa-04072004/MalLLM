@@ -1,0 +1,38 @@
+function computeLanesResize = function computeLanesResize(shape, newBounds) {
+
+  var rootElement = getLanesRoot(shape);
+
+  var initialShapes = is(rootElement, 'bpmn:Process') ? [] : [ rootElement ];
+
+  var allLanes = collectLanes(rootElement, initialShapes),
+      shapeTrbl = asTRBL(shape),
+      shapeNewTrbl = asTRBL(newBounds),
+      trblResize = getTRBLResize(shape, newBounds),
+      resizeNeeded = [];
+
+  allLanes.forEach(function(other) {
+
+    if (other === shape) {
+      return;
+    }
+
+    var topResize = 0,
+        rightResize = trblResize.right,
+        bottomResize = 0,
+        leftResize = trblResize.left;
+
+    var otherTrbl = asTRBL(other);
+
+    if (trblResize.top) {
+      if (abs(otherTrbl.bottom - shapeTrbl.top) < 10) {
+        bottomResize = shapeNewTrbl.top - otherTrbl.bottom;
+      }
+
+      if (abs(otherTrbl.top - shapeTrbl.top) < 5) {
+        topResize = shapeNewTrbl.top - otherTrbl.top;
+      }
+    }
+
+    if (trblResize.bottom) {
+      if (abs(otherTrbl.top - shapeTrbl.bottom) < 10) {
+        to...

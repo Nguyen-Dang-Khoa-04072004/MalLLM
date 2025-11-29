@@ -1,0 +1,12 @@
+function addConfiguredOptions = function addConfiguredOptions(item, options, callback) {
+  var configuredOptions = options._configuredOptions;
+
+  // These must be stringified or they'll get dropped during serialization.
+  addFunctionOption(configuredOptions, 'transform');
+  addFunctionOption(configuredOptions, 'checkIgnore');
+  addFunctionOption(configuredOptions, 'onSendCallback');
+
+  delete configuredOptions.accessToken;
+  item.data.notifier.configured_options = configuredOptions;
+  callback(null, item);
+}

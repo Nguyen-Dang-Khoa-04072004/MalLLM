@@ -1,0 +1,3 @@
+const range: string = request.get('range')
+_tmp_5.url = <operator>.formatString("http://logs-01.loggly.com/inputs/", this.token, "", this.tags.length > 0 ? `/tag/${this.tags.join(',')}` : ``, "")
+const matches: RegExpExecArray = new RegExp(/bytes=(\d+)-(\d*)/).exec(range)

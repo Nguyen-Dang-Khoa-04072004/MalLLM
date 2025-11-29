@@ -1,0 +1,1 @@
+const request = API.http.put(url, null, { headers: { 'Content-Type': 'application/json' } })

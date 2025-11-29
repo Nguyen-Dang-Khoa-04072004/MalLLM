@@ -1,0 +1,29 @@
+var sockPath = forever.config.get('sockPath')
+var fullPath = path.join(sockPath, name)
+self.monitor.once('restart', function () {
+        socket.send(['restart', 'ok']);
+      })
+socket.connect(fullPath, function (err) {
+      if (err) {
+        next(err);
+      }
+
+      socket.dataOnce(['data'], function (data) {
+        data.socket = fullPath;
+        next(null, data);
+        socket.end();
+      });
+
+      socket.send(['data']);
+    })
+getSockets(sockPath, function (err, sockets) {
+    if (err || (sockets && sockets.length === 0)) {
+      return callback(err);
+    }
+
+    async.map(sockets, getProcess, function (err, processes) {
+      callback(err, processes.filter(Boolean));
+    });
+  })
+err || (sockets && sockets.length === 0)
+var reserved = ['root', 'pidPath']

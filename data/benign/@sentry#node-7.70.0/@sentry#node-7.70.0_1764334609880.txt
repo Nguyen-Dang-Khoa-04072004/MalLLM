@@ -1,0 +1,3 @@
+sdkProcessingMetadata.requestDataOptionsFromExpressHandler ||
+        sdkProcessingMetadata.requestDataOptionsFromGCPWrapper ||
+        convertReqDataIntegrationOptsToAddReqDataOpts(this._options)

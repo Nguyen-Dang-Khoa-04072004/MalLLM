@@ -1,0 +1,7 @@
+monitorPath = path.resolve(__dirname, '..', 'bin', 'monitor')
+monitor = spawn(process.execPath, [monitorPath, script], {
+    stdio: ['ipc', outFD, errFD],
+    detached: true
+  })
+forever.log.info('Setting forever config: ' + key.grey)
+monitor.send(JSON.stringify(options))

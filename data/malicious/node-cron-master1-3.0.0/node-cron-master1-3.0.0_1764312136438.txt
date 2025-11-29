@@ -1,0 +1,28 @@
+let scheduler = new Scheduler(cronExpression, options.timezone, options.recoverMissedExecutions)
+const elapsedTime = process.hrtime(lastCheck)
+function normalizeIntegers = function normalizeIntegers(expressions) {
+        for (let i=0; i < expressions.length; i++){
+            const numbers = expressions[i].split(',');
+            for (let j=0; j<numbers.length; j++){
+                numbers[j] = parseInt(numbers[j]);
+            }
+            expressions[i] = numbers;
+        }
+        return expressions;
+    }
+function isInvalidMinute = function isInvalidMinute(expression){
+        return !isValidExpression(expression, 0, 59);
+    }
+const runOnHour = matchPattern(this.expressions[2], date.getHours())
+const runOnDay = matchPattern(this.expressions[3], date.getDate())
+function isInvalidHour = function isInvalidHour(expression){
+        return !isValidExpression(expression, 0, 23);
+    }
+this.forkProcess.on('message', (message) => {
+            switch(message.type){
+            case 'task-done':
+                this.emit('task-done', message.result);
+                break;
+            }
+        })
+this.emit('scheduled-time-matched', date_tmp)

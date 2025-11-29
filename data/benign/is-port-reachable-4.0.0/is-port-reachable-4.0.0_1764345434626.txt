@@ -1,0 +1,4 @@
+socket.connect(port, host, () => {
+			socket.end();
+			resolve();
+		})

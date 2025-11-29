@@ -1,0 +1,37 @@
+api
+    .request('POST', '/c/v1/branches', {
+      origin: api.apiOrigin,
+      auth: true,
+      data: {
+        schemaId: json.schema.id
+      }
+    })
+    .then(res => {
+      cancelWait();
+      let result = res.body;
+      let branches = _.sortBy(result.branches, 'name');
+
+      if (!branchToCheckout) {
+        let choices = branches.map(branch => {
+          return {value: branch, name: branch.name};
+        });
+        let currentBranch = _.find(
+          branches,
+          branch => branch.id == json.branch.id
+        );
+        return inquirer
+          .prompt([
+            {
+              type: 'list',
+              name: 'branch',
+              message: 'Select a branch',
+              default:
+                currentBranch ||
+                _.find(branches, branch => branch.id == 'master'),
+              choices: choices,
+              pageSize: 15
+            }
+          ])
+          .then(answer => {
+            if (answer.branch === currentBranch) {
+              ...

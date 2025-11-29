@@ -1,0 +1,11 @@
+_tmp_22.pageSizes = {
+          immediate: true,
+          handler(newVal, oldVal) {
+            if (valueEquals(newVal, oldVal)) return;
+            if (Array.isArray(newVal)) {
+              this.$parent.internalPageSize = newVal.indexOf(this.$parent.pageSize) > -1
+                ? this.$parent.pageSize
+                : this.pageSizes[0];
+            }
+          }
+        }

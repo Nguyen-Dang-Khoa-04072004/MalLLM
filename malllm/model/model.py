@@ -1,18 +1,24 @@
+
 from pathlib import Path
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from .model_config import ModelConfig
 from .prompt import Prompt
 import torch
 
-# Load model & tokenizer
-# "deepseek-ai/deepseek-coder-6.7b-instruct"
 class AIModel:
-    def __init__(self, config : ModelConfig):
+    def __init__(self, config: ModelConfig):
         self.config = config
-        self.tokenizer = AutoTokenizer.from_pretrained(config.model_name,trust_remote_code=True)
-        self.model = AutoModelForCausalLM.from_pretrained(config.model_name,dtype=torch.float16, device_map="auto")
-    def read_file(self, file_path : Path):
-        # Nếu file_path là relative, resolve dựa trên folder model.py
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            config.model_name,
+            trust_remote_code=True
+        )
+        self.model = AutoModelForCausalLM.from_pretrained(
+            config.model_name,
+            torch_dtype=torch.float16,  # <- sửa từ dtype -> torch_dtype
+            device_map="auto"
+        )
+
+    def read_file(self, file_path: Path):
         if not file_path.exists() and not file_path.is_absolute():
             file_path = Path(__file__).parent / file_path
             if not file_path.exists():
@@ -20,8 +26,7 @@ class AIModel:
         with open(file_path, "r", encoding="utf-8") as f:
             return f.read().strip()
 
-    def tokenize(self, input_file_path : Path): 
-        # Read prompts from given file
+    def tokenize(self, input_file_path: Path):
         prompt = [
             {"role": "system", "content": self.read_file(Path("system-prompt.txt"))},
             {"role": "system", "content": self.read_file(input_file_path)}
@@ -35,8 +40,8 @@ class AIModel:
         if self.tokenizer.pad_token_id is None:
             self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
         return inputs
+
     def generate(self, inputs) -> str:
-        # Generate output
         outputs = self.model.generate(
             input_ids=inputs,
             attention_mask=(inputs != self.tokenizer.pad_token_id),
@@ -49,24 +54,21 @@ class AIModel:
             pad_token_id=self.tokenizer.pad_token_id,
             eos_token_id=self.tokenizer.eos_token_id
         )
-
-        # Decode only generated tokens
         return self.tokenizer.decode(
             outputs[0][inputs.shape[1]:],
             skip_special_tokens=True
         )
-        
-    def generate_batch(self, prompts : list[Prompt]) -> list[str]:
-        self.tokenizer.padding_side = "left"
 
+    def generate_batch(self, prompts: list[Prompt]) -> list[str]:
+        self.tokenizer.padding_side = "left"
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
 
         formatted_prompts = [
             self.tokenizer.apply_chat_template(
-                prompt, 
-                tokenize=False, 
+                prompt,
+                tokenize=False,
                 add_generation_prompt=True
             )
             for prompt in prompts
@@ -89,18 +91,15 @@ class AIModel:
                 top_k=self.config.top_k,
                 top_p=self.config.top_p,
                 temperature=self.config.temperature,
-                num_return_sequences=1, # Batching thì nên chỉ trả về 1 sequence mỗi prompt
+                num_return_sequences=1,
                 pad_token_id=self.tokenizer.pad_token_id,
                 eos_token_id=self.tokenizer.eos_token_id
             )
-        
+
         input_length = inputs.input_ids.shape[1]
-
         generated_tokens = outputs[:, input_length:]
-
         decoded_responses = self.tokenizer.batch_decode(
-            generated_tokens, 
+            generated_tokens,
             skip_special_tokens=True
         )
-
         return decoded_responses

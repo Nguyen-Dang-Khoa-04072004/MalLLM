@@ -29,8 +29,9 @@ def inference(sample, model):
         result = model.generate(inputs)
 
         # Output one JSON per text slice
-        json_output_path = out_pkg_dir / f"{sample.name[:-3]}json"
-        json_output_path.write_text(extract_json_string(result), encoding="utf-8")
+        if(result != None or result.replace(" ","") != ""):
+            json_output_path = out_pkg_dir / f"{sample.name[:-3]}json"
+            json_output_path.write_text(extract_json_string(result), encoding="utf-8")
 
         print(f"[INFO] Processed slice: {sample.package_name}/{sample.name}")
 
@@ -43,9 +44,6 @@ if __name__ == '__main__':
     samples = Dataloader().load_data()
     # Load model
     model = set_up_model(Path('../config/deepseek-coder-6.7b.json'))
-
-    # Shuffle to improve batch distribution
-    random.shuffle(samples)
 
     # Multithreaded inference
     with ThreadPoolExecutor(max_workers=NUM_WORKERS) as executor:

@@ -7,7 +7,7 @@ from eval.eval_model import *
 from utils.utils import *
 import random
 
-NUM_WORKERS = 4
+NUM_WORKERS = 1
 
 
 def set_up_model(config_file: Path):

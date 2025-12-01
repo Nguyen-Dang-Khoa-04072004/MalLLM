@@ -75,11 +75,12 @@ def evaluate(results_list):
             if(item['is_malware'] == 1): fn+=1
             else: tn+=1
     acc = (tn + tp) / ( tp + tn + fp + fn)
-    precision = tp / (tp + fp + 1)
-    recall = tp / (tp + fn + 1)
-    f1 = 2 * precision * recall / (precision + recall + 1)
+    precision = tp / (tp + fp )
+    recall = tp / (tp + fn )
+    f1 = 2 * precision * recall / (precision + recall )
     return {
         "accuracy": acc,
+        "precision": precision,
         "f1_score": f1,
         "false_positive": fp,
         "obfuscated_rate": interaction_mal_obs / tp, 
@@ -93,6 +94,7 @@ def evaluate(results_list):
 def print_report(metrics):
     print("==== Model Evaluation Report ====")
     print(f"Accuracy                   : {metrics['accuracy']:.4f}")
+    print(f"Precision                   : {metrics['precision']:.4f}")
     print(f"F1 Score                   : {metrics['f1_score']:.4f}")
     print(f"False Positives            : {metrics['false_positive']}")
     print(f"Obfuscated Rate            : {metrics['obfuscated_rate']}")

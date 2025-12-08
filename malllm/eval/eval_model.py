@@ -2,7 +2,9 @@ import json
 from pathlib import Path
 from utils.utils import *
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
-def load_predictions(base_dir="output"):
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_curve, auc
+def load_predictions(base_dir="output", threshold=0.8):
     base = Path(base_dir)
 
     results_list = []
@@ -17,7 +19,7 @@ def load_predictions(base_dir="output"):
                         results.append(json.load(f))
                     except: 
                         continue
-            final_result = calculate_result(results)
+            final_result = calculate_result(results, threshold)
             final_result['package_name'] = package
             final_result['label'] = label
             results_list.append(final_result)
@@ -31,7 +33,7 @@ def load_predictions(base_dir="output"):
 # malicious if malware > 0.8 else benign
 # (obfuscated NOT used for prediction)
 # ---------------------------------------------------
-def calculate_result(results):
+def calculate_result(results, threshold):
     confidence = 0
     obfuscated = 0
     malware = 0
@@ -43,7 +45,7 @@ def calculate_result(results):
         securityRisk = max(result.get("securityRisk", 0.0),securityRisk)
         
         # Numeric derived features
-    is_malware = 1 if malware >= 0.8 else 0
+    is_malware = 1 if malware >=threshold else 0
     is_obfuscated = 1 if obfuscated > 0.5 else 0
     threat_score = 0.6 * malware + 0.3 * obfuscated + 0.1 * securityRisk
     interaction_mal_obs = 1 if malware >= 0.8 and obfuscated >= 0.5 else 0
@@ -75,15 +77,15 @@ def evaluate(results_list):
             if(item['is_malware'] == 1): fn+=1
             else: tn+=1
     acc = (tn + tp) / ( tp + tn + fp + fn)
-    precision = tp / (tp + fp )
-    recall = tp / (tp + fn )
-    f1 = 2 * precision * recall / (precision + recall )
+    precision = tp / (tp + fp + 0.01)
+    recall = tp / (tp + fn + 0.01)
+    f1 = 2 * precision * recall / (precision + recall + 0.01)
     return {
         "accuracy": acc,
         "precision": precision,
         "f1_score": f1,
         "false_positive": fp,
-        "obfuscated_rate": interaction_mal_obs / tp, 
+        "obfuscated_rate": interaction_mal_obs / (tp + 0.01), 
         "tp": tp,
         "tn": tn,
         "fp": fp,
@@ -102,6 +104,40 @@ def print_report(metrics):
     print(f"TP: {metrics['tp']}  FP: {metrics['fp']}")
     print(f"FN: {metrics['fn']}  TN: {metrics['tn']}")
     print("===============================")
+
+def plot_roc_from_confusion():
+    plt.figure()
+    for output_path in ["../output_slice", "../output_no_slice"]:
+        tpr = []
+        fpr = []
+        labels = []
+        for threshold in [0.0,0.5,0.8,1.0]:
+            results = load_predictions(output_path,threshold)
+            metrics = evaluate(results)
+            tpr.append(metrics['tp'] / (metrics['tp'] + metrics['fn'] + 1.e-9))
+            fpr.append(metrics['fp'] / (metrics['fp'] + metrics['tn'] + 1.e-9))
+            labels.append(threshold)
+
+        # Draw ROC curve
+        plt.plot(fpr, tpr, marker='o', label=output_path)
+            # Label each (FPR, TPR) point
+        for i in range(len(labels)):
+            plt.text(fpr[i] + 0.01, tpr[i] + 0.01, str(labels[i]))
+
+    # Diagonal line (random classifier)
+    plt.plot([0, 1], [0, 1], '--', label="Random Guess")
+
+
+
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title("ROC Curve")
+    plt.grid(True)
+    plt.legend()
+
+    plt.savefig("roc.png")
+    plt.close()
+
 
 
 if __name__ == "__main__":

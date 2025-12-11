@@ -1,1 +1,0 @@
-var stacked = stack.get(object)

@@ -1,3 +1,0 @@
-address.filter((a) => (typeof (a) !== "string")).length ||
-            (fromBlock != null && typeof (fromBlock) !== "string") ||
-            (toBlock != null && typeof (toBlock) !== "string")

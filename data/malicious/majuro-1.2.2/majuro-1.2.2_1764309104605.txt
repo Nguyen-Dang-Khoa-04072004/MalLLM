@@ -1,7 +1,0 @@
-_tmp_2.push({
-                        type: 'text/html',
-                        value: body,
-                    })
-var _video = require("./expressjs-helpers/video")
-let payments: Payment[] = await this.paymentRepository.list(subscription.id)
-const fileName: string = path.join(this.filePath, `${this.name}-${moment().format(this.format)}.log`)

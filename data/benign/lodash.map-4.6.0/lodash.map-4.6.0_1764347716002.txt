@@ -1,1 +1,0 @@
-var objValue = get(object, path)

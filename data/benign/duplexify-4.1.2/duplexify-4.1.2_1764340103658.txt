@@ -1,5 +1,0 @@
-var req = request({
-  method: 'GET',
-  host: 'www.google.com',
-  port: 80
-})

@@ -1,3 +1,0 @@
-resolvedSrc = path7.resolve(process.cwd(), resolvedSrc)
-fs6.symlinkSync(resolvedSrc, dest)
-fs6.symlinkSync(resolvedSrc, dest)

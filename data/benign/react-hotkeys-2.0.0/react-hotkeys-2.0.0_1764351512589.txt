@@ -1,3 +1,0 @@
-var sequenceIds = sequenceHistory.map(function (keyCombination) {
-        return keyCombination.getIds();
-      })

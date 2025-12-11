@@ -1,4 +1,0 @@
-self.namespaces[name].clients.get(id).send(JSON.stringify({
-                        notification: event,
-                        params: params || []
-                    }))

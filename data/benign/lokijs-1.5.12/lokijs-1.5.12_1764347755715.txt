@@ -1,4 +1,0 @@
-wstream.on('close', function() {
-        self.saveNextPartition(dbname, pi, callback);
-      })
-found.insert(thevalue)

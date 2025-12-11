@@ -1,1 +1,0 @@
-<operator>.formatString("/v3/forms/search?value=", search, "&page=", currentPage, "&limit=", limit, "&sortBy=", sortBy, "")

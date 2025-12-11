@@ -1,4 +1,0 @@
-(promise || (promise = Promise.resolve()))
-    .then(cb)
-    .catch(err => setTimeout(() => { throw err }, 0))
-setTimeout(() => { throw err }, 0)

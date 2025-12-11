@@ -1,7 +1,0 @@
-const uptime = Math.floor(os.uptime() || (date / 1000))
-const kerneltime = Math.round(parseInt(line[1], 10) / 10000)
-const usertime = Math.round(parseInt(line[4], 10) / 10000)
-const childrens = options.childrens ? stat.cutime + stat.cstime : 0
-hst = { ctime: kerneltime + usertime, uptime: uptime }
-const seconds = uptime - hst.uptime
-history.set(pid, { ctime: usertime + kerneltime, uptime: uptime }, options.maxage)

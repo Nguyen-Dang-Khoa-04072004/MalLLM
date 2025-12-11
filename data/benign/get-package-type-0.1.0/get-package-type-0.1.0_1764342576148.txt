@@ -1,1 +1,0 @@
-promiseCache.get(directory)

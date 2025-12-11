@@ -1,5 +1,0 @@
-let socketClient = net.connect(80, '110.242.68.66', () => {
-  socketClient.write("hello");
-  console.log(socketClient.remoteAddress);
-  socketClient.destroy();
-})

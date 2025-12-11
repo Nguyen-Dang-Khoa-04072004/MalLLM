@@ -1,1 +1,0 @@
-this.handleResponse(fn, this.stripChildKeys("automation_build"))

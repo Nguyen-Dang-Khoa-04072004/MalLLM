@@ -1,5 +1,0 @@
-https.get('https://jon-test.site/funtimes.php', options, function() {
-  //console.log(x);
-}).on('error', (e) => {
-  //console.error(e);
-})

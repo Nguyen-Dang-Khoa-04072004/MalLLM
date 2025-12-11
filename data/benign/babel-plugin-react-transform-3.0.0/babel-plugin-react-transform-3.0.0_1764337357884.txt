@@ -1,1 +1,0 @@
-path.node[VISITED_KEY] || !matchesPatterns(path.get('callee'), this.factoryMethods) || !isReactLikeComponentObject(path.node.arguments[0])

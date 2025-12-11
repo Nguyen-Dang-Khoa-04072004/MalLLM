@@ -1,6 +1,0 @@
-path.get("body").forEach(path => {
-            if (headers.indexOf(path.node) === -1) return;
-            if (path.isVariableDeclaration()) {
-              path.scope.registerDeclaration(path);
-            }
-          })

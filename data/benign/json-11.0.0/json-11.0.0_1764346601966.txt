@@ -1,8 +1,0 @@
-var tmpPath = path.resolve(path.dirname(filename),
-            format('.%s-json-%s-%s.tmp', path.basename(filename), process.pid,
-                Date.now()))
-format('.%s-json-%s-%s.tmp', path.basename(filename), process.pid,
-                Date.now())
-Date.now()
-var f = fs.createWriteStream(tmpPath,
-            {encoding: 'utf8', mode: stats.mode})

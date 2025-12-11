@@ -1,1 +1,0 @@
-result = result << 8 | get(endByte)

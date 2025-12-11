@@ -1,1 +1,0 @@
-const value = await store.get(keyPrefixed)

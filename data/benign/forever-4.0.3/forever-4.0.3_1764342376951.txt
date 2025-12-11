@@ -1,8 +1,0 @@
-options.logFile = forever.logFilePath(options.logFile || forever.config.get('logFile') || options.uid + '.log')
-const outFD = fs.openSync(options.logFile, 'a')
-const errFD = fs.openSync(options.logFile, 'a')
-conf = conf.replace(/\{\s/, '{ \n')
-               .replace(/\}/, '\n}')
-               .replace('\\033[90m', '  \\033[90m')
-               .replace(/, /ig, ',\n  ')
-_tmp_58.stdio = ['ipc', outFD, errFD]

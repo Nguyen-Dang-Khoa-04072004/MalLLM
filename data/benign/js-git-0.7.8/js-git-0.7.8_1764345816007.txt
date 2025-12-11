@@ -1,7 +1,0 @@
-function onReceive = function onReceive(info) {
-    if (info.socketId !== socketId) return;
-    if (socket.put(new Uint8Array(info.data)) || paused) return;
-    paused = true;
-    tcp.setPaused(socketId, true);
-    socket.drain(onDrain);
-  }

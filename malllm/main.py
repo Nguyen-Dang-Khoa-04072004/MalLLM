@@ -7,7 +7,7 @@ from eval.eval_model import *
 from utils.utils import *
 import random
 
-NUM_WORKERS = 1
+NUM_WORKERS = 4
 
 
 def set_up_model(config_file: Path):
@@ -41,7 +41,9 @@ def inference(sample, model):
 
 if __name__ == '__main__':
     # Load samples using your existing Dataloader
+    print("[INFO] Loading samples...")
     samples = Dataloader().load_data()
+    print(f"[INFO] Loaded {len(samples)} samples.")
     # Load model
     model = set_up_model(Path('../config/deepseek-coder-6.7b.json'))
 

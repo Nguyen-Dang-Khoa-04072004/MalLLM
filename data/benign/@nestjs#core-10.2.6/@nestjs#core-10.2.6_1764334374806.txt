@@ -1,4 +1,0 @@
-(prototype = Reflect.getPrototypeOf(prototype)) &&
-            prototype !== Object.prototype &&
-            prototype
-!(0, shared_utils_1.isUndefined)(provider.useClass)

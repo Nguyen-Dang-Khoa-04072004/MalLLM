@@ -1,3 +1,0 @@
-fd = fs.openSync(string, this._flags, this._options.mode)
-let options = Object.assign({ fd, flags: this._flags }, this._options)
-fs.createWriteStream(undefined, options)

@@ -1,1 +1,0 @@
-this.rest.makeRequest('post', Endpoints.Guild(guild).ack, true).then(() => guild)

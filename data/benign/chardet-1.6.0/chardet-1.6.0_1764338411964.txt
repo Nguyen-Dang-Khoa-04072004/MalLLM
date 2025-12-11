@@ -1,3 +1,0 @@
-const firstByte = (iter.charValue = iter.nextByte(det))
-fs.readSync(fd, sample, 0, opts.sampleSize, opts.offset)
-firstByte <= 0x7f || (firstByte > 0xa0 && firstByte <= 0xdf)

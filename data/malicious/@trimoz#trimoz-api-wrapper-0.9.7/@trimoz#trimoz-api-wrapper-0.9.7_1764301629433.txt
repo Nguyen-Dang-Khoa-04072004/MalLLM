@@ -1,1 +1,0 @@
-searchParams.birthDate ? <operator>.formatString("&birthDate=", searchParams.birthDate, "") : ""

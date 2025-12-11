@@ -1,1 +1,0 @@
-let proxyV2 = !!this.meta.get('proxy_socks_module').SocksClient

@@ -1,6 +1,0 @@
-function appendSeccondExpression = function appendSeccondExpression(expressions){
-        if(expressions.length === 5){
-            return ['0'].concat(expressions);
-        }
-        return expressions;
-    }

@@ -1,6 +1,0 @@
-var toCSSOptions = {
-                    compress: compress,
-                    dumpLineNumbers: options.dumpLineNumbers,
-                    strictUnits: Boolean(options.strictUnits),
-                    numPrecision: 8
-                }

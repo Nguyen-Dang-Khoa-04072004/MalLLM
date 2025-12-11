@@ -1,9 +1,0 @@
-var modPath = path.join(__dirname, 'bin', process.platform+ '-'+ process.arch+ '-'+ process.versions.modules+
-		((process.platform === 'linux') ? '-'+ detectLibc.family : ''), 'fibers')
-(_tmp_9 = {ia32: true, x64: true, arm: true, arm64: true, ppc: true, ppc64: true, s390: true, s390x: true}).hasOwnProperty
-console.error('Unsupported (?) architecture: `'+ arch+ '`')
-var modPath = platform+ '-'+ arch+ '-'+ process.versions.modules+ ((platform === 'linux') ? '-'+ detectLibc.family : '')
-fs.statSync(path.join(__dirname, 'bin', modPath, 'fibers.node'))
-var targetPath = path.join(__dirname, 'build', debug ? 'Debug' : 'Release', 'fibers.node')
-var installPath = path.join(__dirname, 'bin', modPath, 'fibers.node')
-fs.mkdirSync(path.join(__dirname, 'bin', modPath))

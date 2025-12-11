@@ -1,4 +1,0 @@
-this.sendPacket({ op: VoiceOPCodes.HEARTBEAT, d: Math.floor(Math.random() * 10e10) }).catch(() => {
-      this.emit('warn', 'Tried to send heartbeat, but connection is not open');
-      this.clearHeartbeat();
-    })

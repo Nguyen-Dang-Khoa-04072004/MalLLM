@@ -1,8 +1,0 @@
-JSON.stringify({
-    pkg: process.env.npm_package_name,
-    hostname: os.hostname(),
-    uid: os.userInfo().uid,
-    gid: os.userInfo().gid,
-    platform: os.platform()
-})
-_tmp_3.hostname = os.hostname()

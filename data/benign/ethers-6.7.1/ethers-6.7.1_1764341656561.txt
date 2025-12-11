@@ -1,5 +1,0 @@
-this.fetch("account", {
-                    action: "balance",
-                    address: req.address,
-                    tag: req.blockTag
-                })

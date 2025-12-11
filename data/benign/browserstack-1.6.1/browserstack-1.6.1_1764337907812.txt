@@ -1,3 +1,0 @@
-this.request({
-			path: this.path("/browsers?flat=true")
-		}, fn)

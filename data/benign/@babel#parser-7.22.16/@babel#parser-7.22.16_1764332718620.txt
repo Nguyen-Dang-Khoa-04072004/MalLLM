@@ -1,3 +1,0 @@
-var file = fs.readFileSync(filename, "utf8")
-var ast = parser.parse(file)
-console.log(JSON.stringify(ast, null, "  "))

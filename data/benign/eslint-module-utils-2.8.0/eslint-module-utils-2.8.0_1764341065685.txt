@@ -1,1 +1,0 @@
-mod.paths = Module._nodeModulePaths(path.dirname(filename))

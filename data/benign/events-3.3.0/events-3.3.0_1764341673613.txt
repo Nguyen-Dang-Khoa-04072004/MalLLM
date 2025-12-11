@@ -1,5 +1,0 @@
-target.emit('newListener', type,
-                  listener.listener ? listener.listener : listener)
-listener.listener ? listener.listener : listener
-this.emit('removeListener', type, list.listener || listener)
-this.emit('removeListener', type, originalListener || listener)

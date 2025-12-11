@@ -1,3 +1,0 @@
-var config = JSON.parse(stripJsonComments(fsUtils.readFile(fp)))
-var baseConfig = exports.loadConfig(path.resolve(config.dirname, config['extends']))
-_tmp_15.equal = false

@@ -1,2 +1,0 @@
-throw new MulterError('LIMIT_FILE_COUNT', file.fieldName)
-Multer = package/index.js::program:Multer:<init>

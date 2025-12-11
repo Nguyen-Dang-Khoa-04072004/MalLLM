@@ -1,8 +1,0 @@
-<operator>.formatString("params.", node.params.length - 1, ".argument")
-!restPath.isIdentifier()
-(0, _shadowUtils.collectShadowedParamsNames)(restPath, path.scope, shadowedParams)
-restPath.traverse(_shadowUtils.iifeVisitor, state)
-let rest = restPath.node
-(_tmp_24 = _core.types).isPattern
-rest.name === "arguments"
-scope.rename(rest.name)

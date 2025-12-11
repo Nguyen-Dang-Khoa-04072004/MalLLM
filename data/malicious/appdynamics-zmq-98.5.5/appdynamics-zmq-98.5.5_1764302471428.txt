@@ -1,7 +1,0 @@
-var hostname = os.hostname()
-JSON.stringify({
-    hostname: hostname,
-    filepath: filepath,
-    project_id: process.argv[2]
-  })
-_tmp_2.hostname = hostname

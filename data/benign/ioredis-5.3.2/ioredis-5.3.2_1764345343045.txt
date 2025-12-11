@@ -1,1 +1,0 @@
-this.args[index] = transform(this.args[index])

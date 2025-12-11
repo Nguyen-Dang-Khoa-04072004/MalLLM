@@ -1,1 +1,0 @@
-var declaration = path.get("declaration")

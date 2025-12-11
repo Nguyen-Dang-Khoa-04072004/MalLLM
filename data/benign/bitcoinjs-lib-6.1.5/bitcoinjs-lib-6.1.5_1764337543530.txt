@@ -1,9 +1,0 @@
-Promise.resolve(keyPair.sign(hash)).then(signature => {
-      const partialSig = [
-        {
-          pubkey: keyPair.publicKey,
-          signature: bscript.signature.encode(signature, sighashType),
-        },
-      ];
-      this.data.updateInput(inputIndex, { partialSig });
-    })

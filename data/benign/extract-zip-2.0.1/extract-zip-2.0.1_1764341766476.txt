@@ -1,6 +1,0 @@
-const canonicalDestDir = await fs.realpath(destDir)
-const relativeDestDir = path.relative(this.opts.dir, canonicalDestDir)
-<operator>.formatString("Out of bound path "", canonicalDestDir, "" found while processing file ", entry.fileName, "")
-await this.extractEntry(entry)
-debug('finished processing', entry.fileName)
-(_tmp_15 = this.zipfile).close

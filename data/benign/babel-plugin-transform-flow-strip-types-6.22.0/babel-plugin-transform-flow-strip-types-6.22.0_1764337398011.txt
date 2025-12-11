@@ -1,6 +1,0 @@
-path.get("body.body").forEach(function (child) {
-          if (child.isClassProperty()) {
-            child.node.typeAnnotation = null;
-            if (!child.node.value) child.remove();
-          }
-        })

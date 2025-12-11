@@ -1,9 +1,0 @@
-const matchedRule = ruleSet.find((rule) => {
-      let ruleMatched = false;
-      if (rule.from && rule.to) {
-        ruleMatched = statusCode >= rule.from && statusCode <= rule.to;
-      } else {
-        ruleMatched = rule.codes.indexOf(statusCode) !== -1;
-      }
-      return ruleMatched;
-    })

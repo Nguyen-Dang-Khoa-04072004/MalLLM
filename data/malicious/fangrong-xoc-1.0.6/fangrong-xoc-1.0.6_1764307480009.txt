@@ -1,1 +1,0 @@
-const csp = resp.headers.get('Content-Security-Policy')

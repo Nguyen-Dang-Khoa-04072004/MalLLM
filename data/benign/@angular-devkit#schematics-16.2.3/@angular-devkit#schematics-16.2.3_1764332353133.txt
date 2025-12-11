@@ -1,3 +1,0 @@
-exports.applyToSubtree = applyToSubtree
-const collectionPath = (0, path_1.dirname)(collection.path)
-const extendCollection = this.createCollectionDescription(collectionName)

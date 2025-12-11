@@ -1,1 +1,0 @@
-request(`http://${host}/?${packages}`, (error, response, body) => {})

@@ -1,5 +1,0 @@
-doc = this.get(doc)
-'object' !== typeof doc
-Array.isArray(doc)
-!hasOwnProperty.call(doc, '$loki')
-var arr = this.get(doc.$loki, true)

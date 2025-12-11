@@ -1,5 +1,0 @@
-buffer.put(data.getLength(), Mode.getCharCountIndicator(data.mode, version))
-data.write(buffer)
-const totalCodewords = Utils.getSymbolTotalCodewords(version)
-const ecTotalCodewords = ECCode.getTotalCodewordsCount(version, errorCorrectionLevel)
-createCodewords(buffer, version, errorCorrectionLevel)

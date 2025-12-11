@@ -1,3 +1,0 @@
-const v = shared.toValue(source)
-typeof v === "number" ? v : v.map(shared.toValue)
-event = (modelOptions == null ? void 0 : modelOptions.event) || "input"

@@ -1,1 +1,0 @@
-this._buffer.get(this._bottom) !== undefined

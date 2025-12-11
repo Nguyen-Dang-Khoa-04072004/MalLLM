@@ -1,1 +1,0 @@
-throw new TypeError('caps is not an object');

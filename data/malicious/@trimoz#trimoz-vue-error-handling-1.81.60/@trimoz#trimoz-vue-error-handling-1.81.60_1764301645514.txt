@@ -1,1 +1,0 @@
-this.httpStatus = get(previousError, 'response.status', null)

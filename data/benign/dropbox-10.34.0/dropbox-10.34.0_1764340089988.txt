@@ -1,1 +1,0 @@
-this.request('files/unlock_file_batch', arg, 'user', 'api', 'rpc', 'files.content.write')

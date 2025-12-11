@@ -1,6 +1,0 @@
-Object.defineProperty(this, _1, {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        })

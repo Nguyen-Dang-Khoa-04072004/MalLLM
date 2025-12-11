@@ -1,1 +1,0 @@
-_tmp_325 = this._cache.get(CANVAS)

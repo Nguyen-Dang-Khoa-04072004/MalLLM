@@ -1,2 +1,0 @@
-isLastSlide ? this.wrap ? slideArr[0].id : slideArr[slideArr.length - 1].id : slideArr[currentSlideIdx + 1].id
-this._ngZone.run(() => this._service.set({ focusVisible: type === 'focusin' }))

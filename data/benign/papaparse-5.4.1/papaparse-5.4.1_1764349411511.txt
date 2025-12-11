@@ -1,1 +1,0 @@
-xhr.send(this._config.downloadRequestBody)

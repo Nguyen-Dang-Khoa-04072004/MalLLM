@@ -1,1 +1,0 @@
-res.send(401, { code: 401, message: 'Unable to authenticate the user' })

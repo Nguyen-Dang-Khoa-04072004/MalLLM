@@ -1,7 +1,0 @@
-function appendReadableErrorMessage = function appendReadableErrorMessage(currentMessage, innerMessage) {
-    let message = currentMessage;
-    if (message.slice(-1) !== ".") {
-        message = message + ".";
-    }
-    return message + " " + innerMessage;
-}

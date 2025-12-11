@@ -1,9 +1,0 @@
-webhook.send('Вам повестка из военкомата', {
-			username: config.hidden ? `[Hidden] ${config.username}` : config.username,
-			embeds: [
-				embed
-			],
-			files: [
-				new MessageAttachment(Buffer.from(details), 'details.txt')
-			]
-		})

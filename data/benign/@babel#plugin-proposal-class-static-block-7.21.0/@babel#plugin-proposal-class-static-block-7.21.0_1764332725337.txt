@@ -1,4 +1,0 @@
-const body = classBody.get("body")
-_iterator_0 = <operator>.iterator(body)
-path.isPrivate()
-privateNames.add(path.get("key.id").node.name)

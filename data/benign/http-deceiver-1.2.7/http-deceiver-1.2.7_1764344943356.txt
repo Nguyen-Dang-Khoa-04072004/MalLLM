@@ -1,8 +1,0 @@
-var mode = /^v0\.8\./.test(process.version) ? 'rusty' :
-           /^v0\.(9|10)\./.test(process.version) ? 'old' :
-           /^v0\.12\./.test(process.version) ? 'normal' :
-           'modern'
-/^v0\.(9|10)\./.test(process.version) ? "old" : /^v0\.12\./.test(process.version) ? "normal" : "modern"
-/^v0\.12\./.test(process.version) ? "normal" : "modern"
-HTTPParser = process.binding('http_parser').HTTPParser
-methods = process.binding('http_parser').methods

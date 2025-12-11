@@ -1,1 +1,0 @@
-this.request('paper/docs/folder_users/list', arg, 'user', 'api', 'rpc', 'sharing.read')

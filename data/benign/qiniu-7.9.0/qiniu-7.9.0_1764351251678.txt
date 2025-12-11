@@ -1,1 +1,0 @@
-putReq(ctx.config, uploadToken, key, rsStream, rsStreamLen, putExtra, callbackFunc)

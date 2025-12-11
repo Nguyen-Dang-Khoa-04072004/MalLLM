@@ -1,1 +1,0 @@
-const shape = Captures.get(pointerId)

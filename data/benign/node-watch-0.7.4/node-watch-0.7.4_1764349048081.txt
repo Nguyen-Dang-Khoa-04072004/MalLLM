@@ -1,4 +1,0 @@
-var watcherPath = path.resolve(info.fpath)
-var fullPath = path.resolve(name)
-self.close(fullPath)
-self.close(watcherPath)

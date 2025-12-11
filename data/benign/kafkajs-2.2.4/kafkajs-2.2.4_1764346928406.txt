@@ -1,8 +1,0 @@
-_tmp_98 = await broker.fetch({
-        maxWaitTime: this.maxWaitTime,
-        minBytes: this.minBytes,
-        maxBytes: this.maxBytes,
-        isolationLevel: this.isolationLevel,
-        topics: requests,
-        rackId: this.rackId,
-      })

@@ -1,1 +1,0 @@
-const umdFactory = umdWrapper.get("expression.arguments")[1].get("body")

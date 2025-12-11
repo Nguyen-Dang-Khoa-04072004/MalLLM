@@ -1,1 +1,0 @@
-kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)

@@ -1,1 +1,0 @@
-this.request('file_requests/update', arg, 'user', 'api', 'rpc', 'file_requests.write')

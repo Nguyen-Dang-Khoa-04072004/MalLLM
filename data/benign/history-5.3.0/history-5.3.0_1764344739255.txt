@@ -1,1 +1,0 @@
-process.env.NODE_ENV !== "production" ? warning(nextLocation.pathname.charAt(0) === '/', "Relative pathnames are not supported in hash history.push(" + JSON.stringify(to) + ")") : void 0

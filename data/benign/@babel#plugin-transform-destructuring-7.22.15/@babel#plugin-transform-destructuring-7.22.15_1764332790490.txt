@@ -1,1 +1,0 @@
-const bodyScopeBindings = statementPath.get("body").scope.bindings

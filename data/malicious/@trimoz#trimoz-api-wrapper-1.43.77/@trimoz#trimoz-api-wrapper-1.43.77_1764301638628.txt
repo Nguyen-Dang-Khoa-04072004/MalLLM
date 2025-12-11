@@ -1,3 +1,0 @@
-filters ? (filters[0] !== null ? '&filter1=' + filters[0] : '') +
-                (filters[1] !== null ? '&filter2=' + filters[1] : '') +
-                (filters[2] !== null ? '&filter3=' + filters[2] : '') : ""

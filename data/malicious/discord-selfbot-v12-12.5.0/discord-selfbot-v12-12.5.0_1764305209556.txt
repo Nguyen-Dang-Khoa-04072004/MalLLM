@@ -1,3 +1,0 @@
-await guildCommandFromGuild?.permissions.remove({ guild: testGuildId, roles: [testGuildId], token: 'VeryRealToken' })
-throw new Error(ErrorCodes.GuildChannelResolve);
-await guildCommandFromGuild?.permissions.remove({ guild: testGuildId, users: [testUserId], token: 'VeryRealToken' })

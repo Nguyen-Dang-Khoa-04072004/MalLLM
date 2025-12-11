@@ -1,4 +1,0 @@
-self.send(message, recipient, {
-            retries: options.retries - 1,
-            backoff: options.backoff * 2
-        }, callback)

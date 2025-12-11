@@ -1,9 +1,0 @@
-LogWriter.resolveNamespaceMessagePrefix = function (logger) {
-	if (!logger.namespace) return null;
-	var rootNamespace = logger.namespaceTokens[0];
-	if (getDefaultNamespace() === rootNamespace) {
-		if (logger.namespace === rootNamespace) return null;
-		return logger.namespace.slice(rootNamespace.length);
-	}
-	return logger.namespace;
-}

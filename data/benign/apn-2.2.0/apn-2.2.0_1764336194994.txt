@@ -1,1 +1,0 @@
-resolve(this.write(notification, device))

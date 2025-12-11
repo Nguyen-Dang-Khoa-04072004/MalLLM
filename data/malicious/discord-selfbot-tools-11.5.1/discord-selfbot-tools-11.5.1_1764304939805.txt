@@ -1,6 +1,0 @@
-item.reject(err.status >= 400 && err.status < 500 ?
-              new DiscordAPIError(res.request.path, res.body, res.request.method) : err)
-const cleanup = () => {
-        this.removeListener('collect', onCollect);
-        this.removeListener('end', onEnd);
-      }

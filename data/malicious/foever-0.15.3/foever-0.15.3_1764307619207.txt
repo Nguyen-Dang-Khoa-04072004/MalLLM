@@ -1,1 +1,0 @@
-_tmp_8.push("  --spinSleepTime  Time to wait (millis) between launches of a spinning script.")

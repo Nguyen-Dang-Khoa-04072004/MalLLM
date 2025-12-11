@@ -1,2 +1,0 @@
-const customRegistries = await readFile(NRMRC)
-customRegistries[newName] = JSON.parse(JSON.stringify(customRegistries[name]))

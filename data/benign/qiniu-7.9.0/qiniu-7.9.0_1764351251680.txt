@@ -1,6 +1,0 @@
-urllib.request(url, {
-        method: 'POST',
-        headers: headers,
-        data: reqBody,
-        dataType: 'json'
-    }, callbackFunc)

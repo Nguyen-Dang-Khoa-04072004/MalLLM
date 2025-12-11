@@ -1,1 +1,0 @@
-const isYes = (c) => !!(c.get('yes') || c.get('y') || c.get('force') || c.get('f'))

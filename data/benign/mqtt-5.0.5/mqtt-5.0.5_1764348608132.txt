@@ -1,9 +1,0 @@
-socketTask.send({
-			data: chunk.buffer,
-			success() {
-				next()
-			},
-			fail(errMsg) {
-				next(new Error(errMsg))
-			},
-		})

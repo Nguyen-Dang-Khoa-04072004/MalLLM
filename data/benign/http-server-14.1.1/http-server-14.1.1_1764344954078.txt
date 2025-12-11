@@ -1,6 +1,0 @@
-this.server = serverOptions.https && serverOptions.https.passphrase
-    // if passphrase is set, shim must be used as union does not support
-    ? require('./shims/https-server-shim')(serverOptions)
-    : union.createServer(serverOptions)
-union.createServer(serverOptions)
-this.server.setTimeout(options.timeout)

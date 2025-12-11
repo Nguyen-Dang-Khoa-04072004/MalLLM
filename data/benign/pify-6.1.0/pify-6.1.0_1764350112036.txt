@@ -1,1 +1,0 @@
-const cached = cache.get(property)

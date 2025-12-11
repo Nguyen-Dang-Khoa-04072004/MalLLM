@@ -1,1 +1,0 @@
-opts.pkgid ? opts.pkgid : <operator>.formatString("remote:", nameat, "", this.resolved, "")

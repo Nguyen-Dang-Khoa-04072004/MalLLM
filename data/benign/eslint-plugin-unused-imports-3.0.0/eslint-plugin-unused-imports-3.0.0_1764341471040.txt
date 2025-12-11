@@ -1,1 +1,0 @@
-rule = new eslint.Linter().getRules().get("no-unused-vars")

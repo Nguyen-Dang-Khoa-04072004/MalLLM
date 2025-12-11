@@ -1,3 +1,0 @@
-var result = require(resolve.sync(moduleName, { basedir: basedir }))
-this.emit('preload:success', moduleName, result)
-this.emit('preload:failure', moduleName, e)

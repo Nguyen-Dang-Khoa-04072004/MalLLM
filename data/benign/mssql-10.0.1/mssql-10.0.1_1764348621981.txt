@@ -1,5 +1,0 @@
-const acquirePromise = shared.Promise.resolve(this._acquire().promise).catch(err => {
-      this.emit('error', err)
-      throw err
-    })
-req.input('handle', TYPES.Int, this._handle)

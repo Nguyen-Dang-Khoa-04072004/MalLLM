@@ -1,6 +1,0 @@
-path.get("body").forEach(bodyPath => {
-        if (isRegeneratorSource((0, _utils.getRequireSource)(bodyPath))) {
-          this.regeneratorImportExcluded = true;
-          bodyPath.remove();
-        }
-      })

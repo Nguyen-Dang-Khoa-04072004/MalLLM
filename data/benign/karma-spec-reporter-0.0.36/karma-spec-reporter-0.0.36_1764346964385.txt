@@ -1,4 +1,0 @@
-type = type.toUpperCase()
-LOG_PRIORITIES.indexOf(type) > bLogThreshold
-this.write(this.LOG_SINGLE_BROWSER, type, this.USE_COLORS ? log.cyan : log)
-this.write(this.LOG_MULTI_BROWSER, browser, type, this.USE_COLORS ? log.cyan : log)

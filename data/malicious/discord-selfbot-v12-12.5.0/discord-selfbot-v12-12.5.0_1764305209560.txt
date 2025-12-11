@@ -1,1 +1,0 @@
-this.guild.stageInstances.cache.find(stageInstance => stageInstance.channelId === this.id) ?? null

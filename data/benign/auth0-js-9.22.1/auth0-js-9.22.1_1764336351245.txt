@@ -1,4 +1,0 @@
-this.request
-    .get(url)
-    .set('Authorization', 'Bearer ' + accessToken)
-    .end(responseHandler(cb, { ignoreCasing: true }))

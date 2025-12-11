@@ -1,5 +1,0 @@
-no_proxy
-      .split(',')
-      .some(
-        exemption => transportUrlSegments.host.endsWith(exemption) || transportUrlSegments.hostname.endsWith(exemption),
-      )

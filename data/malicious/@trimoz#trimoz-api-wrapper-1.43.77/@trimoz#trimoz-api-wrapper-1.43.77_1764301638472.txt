@@ -1,1 +1,0 @@
-const request = API.http.post(url, data, { headers: { 'Content-Type': 'application/json' } })

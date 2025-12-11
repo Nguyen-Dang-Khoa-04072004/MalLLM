@@ -1,4 +1,0 @@
-const loadNotPending = (l, n) => {
-    const loadState = i18n.services.backendConnector.state[`${l}|${n}`];
-    return loadState === -1 || loadState === 2;
-  }

@@ -1,2 +1,0 @@
-let template = readFileSync(join(__dirname, 'template.htm')).toString().split('{{content}}')
-output.write(minify.minify(eval(`\`${template[0]}\``), minifyCfg))

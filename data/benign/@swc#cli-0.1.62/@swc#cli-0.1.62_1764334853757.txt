@@ -1,1 +1,0 @@
-var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor

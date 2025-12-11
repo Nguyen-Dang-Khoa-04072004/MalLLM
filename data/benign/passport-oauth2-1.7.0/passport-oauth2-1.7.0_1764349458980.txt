@@ -1,1 +1,0 @@
-app && app.get && app.get('trust proxy')

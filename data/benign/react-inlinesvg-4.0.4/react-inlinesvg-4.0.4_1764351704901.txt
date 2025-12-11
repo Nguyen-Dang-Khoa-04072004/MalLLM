@@ -1,4 +1,0 @@
-const cache = this.cacheStore.get(url)
-cache?.status === STATUS.LOADING
-this.cacheStore.set(url, { content: '', status: STATUS.LOADING })
-const content = await request(url, fetchOptions)

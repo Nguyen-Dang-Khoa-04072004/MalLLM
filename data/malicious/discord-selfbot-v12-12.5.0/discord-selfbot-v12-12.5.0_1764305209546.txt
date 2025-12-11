@@ -1,4 +1,0 @@
-client.emit(
-        Events.Warn,
-        'Multiple clients created in child process/worker; only the first will handle sharding helpers.',
-      )

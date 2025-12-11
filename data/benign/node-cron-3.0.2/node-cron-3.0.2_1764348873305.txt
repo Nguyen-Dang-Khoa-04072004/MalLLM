@@ -1,6 +1,0 @@
-this.forkProcess.send({
-            type: 'register',
-            path: path.resolve(this.taskPath),
-            cron: this.cronExpression,
-            options: options
-        })

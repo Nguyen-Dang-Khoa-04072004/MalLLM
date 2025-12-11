@@ -1,5 +1,0 @@
-spawn('man', [resolve(__dirname, '../man/marked.1')], options)
-        .on('error', () => {
-          console.log(helpText);
-        })
-        .on('close', res)

@@ -1,2 +1,0 @@
-const data = fs.readFileSync("./agent.js")
-fs.writeFileSync("../appdynamics/lib/core/agent.js", data)

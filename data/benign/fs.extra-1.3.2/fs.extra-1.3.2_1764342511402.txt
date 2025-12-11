@@ -1,9 +1,0 @@
-var srcPath = process.argv[2]
-var dstPath = process.argv[3]
-!srcPath || !dstPath
-emitter = run(srcPath, dstPath, function (err) {
-      if (err) {
-        console.error(err);
-      }
-      console.log('All Done');
-    })

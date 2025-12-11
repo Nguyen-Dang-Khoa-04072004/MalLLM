@@ -1,7 +1,0 @@
-function initServer = function initServer(server: restify.Server): restify.Server {
-  server.use(restify.plugins.queryParser());
-  server.use(restify.plugins.bodyParser());
-  server.pre(cors.preflight);
-  server.use(cors.actual);
-  return server;
-}

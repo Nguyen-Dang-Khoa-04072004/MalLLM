@@ -1,9 +1,0 @@
-const customEventPromise = new Promise((resolve) => {
-      agent.customEventAggregator.once(
-        'finished custom_event_data data send.',
-        function onCustomEventsFinished() {
-          resolve()
-        }
-      )
-      agent.customEventAggregator.send()
-    })

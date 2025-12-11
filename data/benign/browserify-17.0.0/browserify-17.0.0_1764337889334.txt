@@ -1,6 +1,0 @@
-b.pipeline.get('deps').push(through.obj(
-        function (row, enc, next) {
-            console.log(row.file || row.id);
-            next()
-        }
-    ))

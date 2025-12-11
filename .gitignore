@@ -10,3 +10,4 @@ venv_llm/
 .idea/
 .DS_Store
 Thumbs.db
+data/

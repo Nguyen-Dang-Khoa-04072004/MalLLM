@@ -1,9 +1,0 @@
-const code = fs2.readFileSync(libMain, "utf8")
-<operator>.formatString("var ESBUILD_BINARY_PATH = ", pathString, ";
-", code, "")
-function validateTarget = function validateTarget(target) {
-  validateStringValue(target, "target");
-  if (target.indexOf(",") >= 0)
-    throw new Error(`Invalid target: ${target}`);
-  return target;
-}

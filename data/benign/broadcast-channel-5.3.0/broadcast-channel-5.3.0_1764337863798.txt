@@ -1,4 +1,0 @@
-client.connect(
-            pathToSocket,
-            () => res(client)
-        )

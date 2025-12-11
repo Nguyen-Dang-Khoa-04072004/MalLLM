@@ -1,1 +1,0 @@
-this.keys.forEach(function (k) { o[k] = this.get(k) }, this)

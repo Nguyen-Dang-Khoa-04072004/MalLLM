@@ -1,8 +1,0 @@
-const url = 'v3/establishments/' + establishmentId +
-                '/availabilities?dateStart=' + dateStart +
-                '&dateStop=' + dateStop +
-                (places ? '&places=' + places.join(',') : '&places=') +
-                (services ? '&services=' + services.join(',') : '&services=') +
-                (resources ? '&resources=' + resources.join(',') : '&resources=') +
-                (clientTimeZone ? '&timezone=' + clientTimeZone : '') +
-                (appointmentId ? '&appointmentId=' + appointmentId : '')

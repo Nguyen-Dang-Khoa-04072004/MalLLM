@@ -1,7 +1,0 @@
-this.requestsPerSecond = options.requestsPerSecond || rps || configuration.requestsPerSecond
-this.agentKeepAlive = options.keepalive || options.agent || options.agentKeepAlive || configuration.agentKeepAlive
-request.body = Buffer.concat(bodyBuffers).toString()
-request.setTimeout(timeout, () => {
-				this.finishRequest(id, 'Connection timed out');
-			})
-request.write(message)

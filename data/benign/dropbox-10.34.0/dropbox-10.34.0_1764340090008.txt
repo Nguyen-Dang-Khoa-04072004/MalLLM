@@ -1,1 +1,0 @@
-this.request('team/properties/template/update', arg, 'team', 'api', 'rpc', 'files.team_metadata.write')

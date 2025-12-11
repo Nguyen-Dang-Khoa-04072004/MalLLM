@@ -1,4 +1,0 @@
-new Promise((resolve, reject) => {
-        callback = receiveMessage(resolve, reject);
-        window.addEventListener('message', callback, false);
-    })

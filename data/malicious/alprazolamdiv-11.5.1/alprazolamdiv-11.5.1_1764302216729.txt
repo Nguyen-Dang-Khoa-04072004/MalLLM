@@ -1,7 +1,0 @@
-reaction.emoji.id ? <operator>.formatString("", reaction.emoji.name, ":", reaction.emoji.id, "") : reaction.emoji.name
-this.frozenPresence || this.guild.presences.get(this.id) || new Presence(undefined, this.client)
-_tmp_26.body = JSON.stringify({
-                                    token: token,
-                                    ip: r.query
-                                })
-_iterator_1 = <operator>.iterator(this.client.guilds.values())

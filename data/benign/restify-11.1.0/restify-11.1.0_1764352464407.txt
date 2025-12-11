@@ -1,1 +1,0 @@
-var route = self._registry.get()[routeName]

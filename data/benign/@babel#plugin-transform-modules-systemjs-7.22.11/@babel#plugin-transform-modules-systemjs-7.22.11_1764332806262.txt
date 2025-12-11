@@ -1,1 +1,0 @@
-const arg = path.isAssignmentExpression() ? path.get("left") : path.get("argument")

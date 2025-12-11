@@ -1,1 +1,0 @@
-const result = injector.get(tokenOrFunction, NOT_FOUND)

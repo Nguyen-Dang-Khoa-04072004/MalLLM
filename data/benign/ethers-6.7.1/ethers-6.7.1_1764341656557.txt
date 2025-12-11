@@ -1,6 +1,0 @@
-this.fetch("proxy", {
-                    action: "eth_sendRawTransaction",
-                    hex: req.signedTransaction
-                }, true).catch((error) => {
-                    return this._checkError(req, error, req.signedTransaction);
-                })

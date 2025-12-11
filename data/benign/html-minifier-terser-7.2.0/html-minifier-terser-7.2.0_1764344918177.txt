@@ -1,4 +1,0 @@
-attrValue = trimWhitespace(attrValue.split(/;/, 2)[0]).toLowerCase()
-await replaceAsync(endTagMatch[0], endTag, parseEndTag)
-const attrName = attrs[i].name.toLowerCase()
-config[key] = option[1](typeof value === 'string' ? value : JSON.stringify(value))

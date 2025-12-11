@@ -1,1 +1,0 @@
-results.get(event.target.name[0]).push(event.target.hz)

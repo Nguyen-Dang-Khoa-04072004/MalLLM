@@ -1,1 +1,0 @@
-const listeners = listenersMap.get(signal)

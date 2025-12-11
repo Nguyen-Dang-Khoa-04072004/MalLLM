@@ -1,1 +1,0 @@
-response.headers.get('content-type').indexOf('javascript') === -1

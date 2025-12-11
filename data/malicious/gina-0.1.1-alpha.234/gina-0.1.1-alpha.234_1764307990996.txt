@@ -1,1 +1,0 @@
-XHRData = '\t<input type="hidden" id="gina-without-layout-xhr-data" value="'+ encodeRFC5987ValueChars(JSON.stringify(data.page.data)) +'">\n\r'

@@ -1,3 +1,0 @@
-entry = indents.get(key)
-entry = entry === undefined ? [1, 0] : [entry[0] + use, entry[1] + weight]
-indents.set(key, entry)

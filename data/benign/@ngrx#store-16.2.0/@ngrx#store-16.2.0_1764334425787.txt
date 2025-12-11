@@ -1,7 +1,0 @@
-function createActionGroup = function createActionGroup(config) {
-    const { source, events } = config;
-    return Object.keys(events).reduce((actionGroup, eventName) => ({
-        ...actionGroup,
-        [toActionName(eventName)]: createAction(toActionType(source, eventName), events[eventName]),
-    }), {});
-}

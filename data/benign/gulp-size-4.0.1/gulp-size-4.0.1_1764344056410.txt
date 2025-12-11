@@ -1,7 +1,0 @@
-const sizeStrings = [...sizes].map(([key, size]) => {
-			size = options.pretty ? prettyBytes(size) : (size + ' B');
-			return chalk.magenta(size) + chalk.gray(description.get(key));
-		})
-size = options.pretty ? prettyBytes(size) : (size + ' B')
-chalk.magenta(size) + chalk.gray(description.get(key))
-totalSize.set(key, size + (totalSize.get(key) || 0))

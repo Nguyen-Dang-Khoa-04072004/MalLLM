@@ -1,1 +1,0 @@
-ResizeObserverController.connect(this, callback)

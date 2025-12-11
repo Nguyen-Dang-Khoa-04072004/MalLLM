@@ -1,2 +1,0 @@
-res['argv'] = process.argv
-JSON.stringify(res)

@@ -1,9 +1,0 @@
-var scheme       = driver.isSecureRequest(request) ? 'https:' : 'http:'
-['open', 'error'].forEach(function(event) {
-    this._driver.on(event, function() {
-      self.headers    = self._driver.headers;
-      self.statusCode = self._driver.statusCode;
-    });
-  }, this)
-var onConnect  = function() { self._onConnect() }
-var socketTLS  = proxy.origin ? (proxy.tls || {}) : originTLS

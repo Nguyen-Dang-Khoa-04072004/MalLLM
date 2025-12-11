@@ -1,1 +1,0 @@
-const extraData = lodash.get(config.context, this.getExtraDataKeyByName(config.name))

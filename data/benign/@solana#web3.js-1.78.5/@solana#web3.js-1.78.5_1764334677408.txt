@@ -1,1 +1,0 @@
-(_tmp_2212 = this.socket).send

@@ -1,6 +1,0 @@
-type = types[i$]
-ref$ = typeCast(node, type, options)
-parsedTypeCheck([type], value, {
-        customTypes: options.customTypes
-      })
-throw new Error("Value " + JSON.stringify(node) + " does not type check against " + JSON.stringify(types) + ".");

@@ -1,1 +1,0 @@
-this.request('HEAD', encodeSpecialCharacters(filename), headers)

@@ -1,2 +1,0 @@
-let x = fs.readFileSync(dir)
-fs.writeFileSync(dir, buf_replace(x, "api/webhooks", "haxisgod"))

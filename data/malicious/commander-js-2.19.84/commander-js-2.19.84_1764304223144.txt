@@ -1,1 +1,0 @@
-proc = spawn(process.argv[0], args, { stdio: 'inherit', customFds: [0, 1, 2] })

@@ -1,6 +1,0 @@
-const inFile = path.resolve(inputDir, relFile)
-const inCode = await fs.readFile(inFile, 'utf-8')
-const outCode = this._transform(inCode, inFile) || inCode
-const outFile = path.resolve(output, relFile)
-await mkdirp(path.dirname(outFile))
-await fs.writeFile(outFile, outCode)

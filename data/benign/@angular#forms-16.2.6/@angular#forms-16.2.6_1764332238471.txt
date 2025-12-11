@@ -1,2 +1,0 @@
-this._compareWith(this._optionMap.get(id), value)
-this._compareWith(this._optionMap.get(id), value)

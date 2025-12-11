@@ -1,1 +1,0 @@
-maxWidth = $previewContainer.getAttribute('data-preview-max-width') || null

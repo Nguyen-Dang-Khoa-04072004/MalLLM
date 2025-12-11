@@ -1,1 +1,0 @@
-this.request('GET', path, null, callback)

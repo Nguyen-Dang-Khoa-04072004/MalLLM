@@ -1,4 +1,0 @@
-this.markRegExp = (sv, opt) => {
-    instance.markRegExp(sv, opt);
-    return this;
-  }

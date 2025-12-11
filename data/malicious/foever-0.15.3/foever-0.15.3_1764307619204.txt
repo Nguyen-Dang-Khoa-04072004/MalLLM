@@ -1,1 +1,0 @@
-monitor.send(JSON.stringify(options))

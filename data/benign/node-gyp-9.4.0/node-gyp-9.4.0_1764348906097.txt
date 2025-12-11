@@ -1,1 +1,0 @@
-const tarExtractDir = win ? await fs.promises.mkdtemp(path.join(os.tmpdir(), 'node-gyp-tmp-')) : devDir

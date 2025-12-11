@@ -1,1 +1,0 @@
-const data = await this.#channel.request('router.createDirectTransport', internal, reqData)

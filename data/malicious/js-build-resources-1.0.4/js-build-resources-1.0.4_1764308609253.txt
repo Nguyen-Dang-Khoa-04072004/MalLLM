@@ -1,4 +1,0 @@
-res.send(400, {
-          code: 400,
-          message: `Unable to verify API key: appId you are trying to access does not match bearer token`,
-        })

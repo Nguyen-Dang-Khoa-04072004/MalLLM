@@ -1,7 +1,0 @@
-new Promise((resolve, reject) => {
-      if (!this.ws || this.ws.readyState !== WebSocket.OPEN) throw new Error('WS_NOT_OPEN', data);
-      this.ws.send(data, null, error => {
-        if (error) reject(error); else resolve(data);
-      });
-    })
-this.once('disconnect', () => reject(new Error('SHARDING_READY_DISCONNECTED', this.id)))

@@ -1,5 +1,0 @@
-fs.writeFileSync(precommit, fs.readFileSync(precommit +'.old'))
-var precommit = path.resolve(hooks, 'pre-commit')
-fs.unlinkSync(precommit +'.old')
-fs.writeFileSync(precommit +'.old', fs.readFileSync(precommit))
-fs.unlinkSync(precommit)

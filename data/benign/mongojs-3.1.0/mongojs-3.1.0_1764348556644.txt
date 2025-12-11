@@ -1,9 +1,0 @@
-mongodb.connect(connString, options, function (err, conn) {
-        if (err) {
-          self.emit('error', err) // It's safer to emit an error instead of rely on the cb to handle the error
-          return cb(err)
-        }
-
-        self.emit('connect')
-        cb(null, conn.db(this._dbname), conn)
-      })

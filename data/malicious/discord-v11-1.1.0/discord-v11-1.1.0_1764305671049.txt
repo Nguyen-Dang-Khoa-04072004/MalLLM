@@ -1,1 +1,0 @@
-const nextTime = data.length + (data.startTime + data.pausedTime + (data.count * data.length) - Date.now())

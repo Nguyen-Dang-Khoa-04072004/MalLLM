@@ -1,2 +1,0 @@
-const req = http.request(options)
-req.write(postData)

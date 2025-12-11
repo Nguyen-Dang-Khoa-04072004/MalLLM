@@ -1,7 +1,0 @@
-_tmp_1 = require("fs/promises")
-cacheIdentifier = _tmp_16.cacheIdentifier === void 0 ? JSON.stringify({
-        options,
-        "@babel/core": transform.version,
-        "@babel/loader": version
-      }) : _tmp_16.cacheIdentifier
-_tmp_17.@babel/loader = version

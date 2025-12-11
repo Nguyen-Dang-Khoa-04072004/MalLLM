@@ -1,1 +1,0 @@
-consumer.on('@close', () => this.consumers.delete(consumer.id))

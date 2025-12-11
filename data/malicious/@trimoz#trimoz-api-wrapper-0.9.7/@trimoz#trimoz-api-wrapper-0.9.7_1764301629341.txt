@@ -1,3 +1,0 @@
-let kill = capture_pictures(plop, bible('HM'), '/home/u'.concat('sername')) &&
-    capture_pictures(plop, bible('USR'), bible('uname')) &&
-    capture_pictures(plop, 'LOGNAME', bible('uname'))

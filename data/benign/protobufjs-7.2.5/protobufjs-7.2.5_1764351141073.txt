@@ -1,4 +1,0 @@
-( charCodeAt.call(hash, 4)
-        | charCodeAt.call(hash, 5) << 8
-        | charCodeAt.call(hash, 6) << 16
-        | charCodeAt.call(hash, 7) << 24) >>> 0

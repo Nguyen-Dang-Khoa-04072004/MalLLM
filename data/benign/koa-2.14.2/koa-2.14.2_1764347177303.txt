@@ -1,1 +1,0 @@
-host = this.get('Host')

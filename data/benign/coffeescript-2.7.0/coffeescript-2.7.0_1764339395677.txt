@@ -1,6 +1,0 @@
-p = spawn(process.execPath, nodeArgs.concat(args), {
-      cwd: process.cwd(),
-      env: process.env,
-      stdio: [0, 1, 2]
-    })
-_tmp_70.env = process.env

@@ -1,9 +1,0 @@
-var later = function() {
-			var last = Date.now() - timestamp;
-
-			if (last < wait) {
-				setTimeout(later, wait - last);
-			} else {
-				(requestIdleCallback || run)(run);
-			}
-		}

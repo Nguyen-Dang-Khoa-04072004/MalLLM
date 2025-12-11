@@ -1,3 +1,0 @@
-self.socket = common.createSocket(self._options)
-self._setup()
-self.connect()

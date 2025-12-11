@@ -1,4 +1,0 @@
-type && typeof(type) == "object"
-config = type
-type = undefined
-fs.writeFileSync(file, this.encode(type || path.extname(file), config))

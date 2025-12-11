@@ -1,3 +1,0 @@
-const request = createPipelineRequest(Object.assign(Object.assign({ abortSignal: getTokenOptions.abortSignal }, prepareRequestOptions(scopes, clientId, resourceId)), { 
-            // Generally, MSI endpoints use the HTTP protocol, without transport layer security (TLS).
-            allowInsecureConnection: true }))

@@ -1,1 +1,0 @@
-this.send(content, Object.assign(options, { file: { attachment, name } }))

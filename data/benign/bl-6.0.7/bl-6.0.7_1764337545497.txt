@@ -1,1 +1,0 @@
-this.get(offset + searchOffset) !== search[searchOffset]

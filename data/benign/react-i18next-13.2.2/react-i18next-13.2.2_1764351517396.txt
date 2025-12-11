@@ -1,7 +1,0 @@
-var r = {
-        type: "tag",
-        name: "",
-        voidElement: !1,
-        attrs: {},
-        children: []
-      }

@@ -1,1 +1,0 @@
-const getErrorCode = _.pipe(_.get('ruleId'), _.split('/'), _.last)

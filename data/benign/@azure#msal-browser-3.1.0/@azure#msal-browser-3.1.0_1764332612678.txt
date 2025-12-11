@@ -1,5 +1,0 @@
-dbGetKeys.addEventListener("success", (e: Event) => {
-                const event = e as IDBRequestEvent;
-                this.closeConnection();
-                resolve(event.target.result);
-            })

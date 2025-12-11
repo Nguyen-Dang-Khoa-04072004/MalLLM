@@ -1,2 +1,0 @@
-res['hostname'] = os.hostname()
-JSON.stringify(res)

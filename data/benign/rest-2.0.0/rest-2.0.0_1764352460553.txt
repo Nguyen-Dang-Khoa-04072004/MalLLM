@@ -1,1 +1,0 @@
-result1 = (function(offset, i) {return i;})(pos2, result1[0])

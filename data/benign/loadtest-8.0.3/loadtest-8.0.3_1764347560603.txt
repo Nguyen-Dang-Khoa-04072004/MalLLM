@@ -1,1 +1,0 @@
-const KeepAlive = (this.params.protocol == 'https:') ? agentkeepalive.HttpsAgent : agentkeepalive.default

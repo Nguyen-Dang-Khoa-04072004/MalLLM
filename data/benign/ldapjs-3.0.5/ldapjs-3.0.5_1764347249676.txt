@@ -1,1 +1,0 @@
-socket = tls.connect(port, host, self.tlsOptions)

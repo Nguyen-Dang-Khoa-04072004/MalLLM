@@ -1,1 +1,0 @@
-const p=(t,n,o)=>{const c=n&&"object"==typeof n?(t,e)=>""===t||-1<n.indexOf(t)?e:void 0:n||r,s=new Map,l=[],a=[];let i=+f(s,l,c.call({"":t},"",t)),p=!i;for(;i<l.length;)p=!0,a[i]=e(l[i++],u,o);return"["+a.join(",")+"]";function u(t,e){if(p)return p=!p,e;const n=c.call(this,t,e);switch(typeof n){case"object":if(null===n)return n;case"string":return s.get(n)||f(s,l,n)}return n}}

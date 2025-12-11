@@ -1,9 +1,0 @@
-(schema.$_terms._inclusions.length || schema.$_terms._requireds.length) &&
-                        !isValid
-const set = new Set()
-options.separator === true ? "[:-]" : options.separator === false ? "[]?" : <operator>.formatString("\\", options.separator, "")
-<operator>.formatString("^([\\[{\\(]?)[0-9A-F]{8}(", separator, ")[0-9A-F]{4}\\2?[", versionNumbers || '0-9A-F', "][0-9A-F]{3}\\2?[", versionNumbers ? '89AB' : '0-9A-F', "][0-9A-F]{3}\\2?[0-9A-F]{12}([\\]}\\)]?)$")
-Assert(!this._inRuleset(), 'Cannot concatenate onto a schema with open ruleset')
-obj.$_setFlag('_hasPatternMatch', true, { clone: false })
-_iterator_4 = <operator>.iterator(value)
-values.push(internals.stringify(item, original, state, prefs, local, { arrayItems: true, ...options }))

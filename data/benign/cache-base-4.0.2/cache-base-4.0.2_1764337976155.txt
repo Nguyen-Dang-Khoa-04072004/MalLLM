@@ -1,4 +1,0 @@
-let val = get(this[this.prop], key)
-typeof val === 'undefined' && this.defaults
-val = get(this.defaults, key)
-this.emit('get', key, val)

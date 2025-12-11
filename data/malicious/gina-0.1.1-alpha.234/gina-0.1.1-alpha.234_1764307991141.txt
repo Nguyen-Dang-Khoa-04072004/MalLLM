@@ -1,2 +1,0 @@
-options.ca = fs.readFileSync(options.ca)
-const client = browser.connect(options.hostname, options)

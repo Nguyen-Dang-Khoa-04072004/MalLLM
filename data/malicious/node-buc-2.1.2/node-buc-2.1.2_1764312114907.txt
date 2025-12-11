@@ -1,7 +1,0 @@
-request(url, args, function (err, content) {
-    if (err || !content) {
-      return callback(err, content);
-    }
-    var items = content.items || [];
-    callback(null, options.returnAll ? items : items[0]);
-  })

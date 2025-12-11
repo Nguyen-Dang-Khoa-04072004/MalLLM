@@ -1,1 +1,0 @@
-var version = (/v(\d+)\.(\d+)\.(\d+)/).exec(process.version)

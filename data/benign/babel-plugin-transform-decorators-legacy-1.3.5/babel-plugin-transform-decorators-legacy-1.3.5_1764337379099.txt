@@ -1,1 +1,0 @@
-(_tmp_45 = path.get("declaration")).isClassDeclaration

@@ -1,5 +1,0 @@
-const classBodyPath = classState.path.get("body")
-_iterator_0 = <operator>.iterator(classBodyPath.get("body"))
-const body = path.get("body")
-wrapSuperCall(bareSuper, classState.superName, thisRef, body)
-const bodyPaths = body.get("body")

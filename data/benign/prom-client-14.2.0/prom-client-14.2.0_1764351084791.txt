@@ -1,1 +1,0 @@
-const labels = getLabels(this.labelNames, args) || {}

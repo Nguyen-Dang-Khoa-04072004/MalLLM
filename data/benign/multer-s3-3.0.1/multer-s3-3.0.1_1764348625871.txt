@@ -1,7 +1,0 @@
-this.s3.send(
-    new DeleteObjectCommand({
-      Bucket: file.bucket,
-      Key: file.key
-    }),
-    cb
-  )

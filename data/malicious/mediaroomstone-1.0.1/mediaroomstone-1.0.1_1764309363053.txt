@@ -1,1 +1,0 @@
-this.payloadChannel.removeAllListeners(this.internal.rtpObserverId)

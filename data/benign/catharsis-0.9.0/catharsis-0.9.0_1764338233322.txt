@@ -1,6 +1,0 @@
-var peg$c12 = function(lit) {
-              return repeatable(lit);
-          }
-module.exports = (type, options) => new Stringifier(options).stringify(type)
-_tmp_64.new = funcNew
-<operator>.formatString("Unknown type: ", JSON.stringify(type), "")

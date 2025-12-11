@@ -1,3 +1,0 @@
-this.actionRunner.request({
-                    type: 'NOTHING',
-                })

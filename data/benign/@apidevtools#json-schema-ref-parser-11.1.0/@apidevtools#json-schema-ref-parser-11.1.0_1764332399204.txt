@@ -1,6 +1,0 @@
-const response = await fetch(u, {
-    method: "GET",
-    headers: httpOptions.headers || {},
-    credentials: httpOptions.withCredentials ? "include" : "same-origin",
-    signal: controller ? controller.signal : null,
-  })

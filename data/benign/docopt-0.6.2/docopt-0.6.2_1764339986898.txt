@@ -1,3 +1,0 @@
-argv = kwargs.argv === void 0 ? process.argv.slice(2) : kwargs.argv
-process.exit()
-process.exit(1)

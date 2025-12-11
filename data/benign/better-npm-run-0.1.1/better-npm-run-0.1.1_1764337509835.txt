@@ -1,9 +1,0 @@
-process.platform === 'win32'
-spawn(sh, [shFlag, command], {
-    env: env,
-    windowsVerbatimArguments: process.platform === 'win32',
-    stdio: 'inherit'
-  }).on('close', function(code) {
-    process.exit(code);
-  })
-_tmp_9.windowsVerbatimArguments = process.platform === 'win32'

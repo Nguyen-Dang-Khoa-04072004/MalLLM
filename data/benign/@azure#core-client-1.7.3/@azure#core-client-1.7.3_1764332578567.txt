@@ -1,2 +1,0 @@
-request.onDownloadProgress = requestOptions.onDownloadProgress
-request.body = operationSpec.serializer.serialize(bodyMapper, request.body, requestBodyParameterPathString, updatedOptions)

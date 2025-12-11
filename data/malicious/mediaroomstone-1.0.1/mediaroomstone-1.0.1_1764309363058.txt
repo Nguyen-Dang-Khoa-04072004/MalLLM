@@ -1,1 +1,0 @@
-const result = text.replace(/__MEDIASOUP_VERSION__/g, version)

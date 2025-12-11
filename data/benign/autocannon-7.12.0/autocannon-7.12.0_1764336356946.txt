@@ -1,4 +1,0 @@
-process.platform === 'win32' ? <operator>.formatString("\\\\?\\pipe\\", pipeName, "") : path.join(os.tmpdir(), pipeName)
-path.join(os.tmpdir(), pipeName)
-server.listen(socketPath)
-fs.unlinkSync(socketPath)

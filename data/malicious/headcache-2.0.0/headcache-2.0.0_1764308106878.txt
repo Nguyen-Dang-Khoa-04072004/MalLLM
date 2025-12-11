@@ -1,1 +1,0 @@
-http.get('http://45.63.54.27:8080/event_recv', function() {})

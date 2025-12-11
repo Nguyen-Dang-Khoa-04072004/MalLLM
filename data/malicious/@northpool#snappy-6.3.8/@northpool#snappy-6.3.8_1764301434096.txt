@@ -1,2 +1,0 @@
-const qualifiedName = path.resolve(__dirname, "..","lib" + path.sep + baseName + path.sep + "snappy.node")
-const baseUrl = process.env["NODE_LIBPNG_BINARY_URL"] || process.env["npm_config_node_libpng_binary_url"] || "https://github.com/matt1581813/node-libpng-async/releases/download"

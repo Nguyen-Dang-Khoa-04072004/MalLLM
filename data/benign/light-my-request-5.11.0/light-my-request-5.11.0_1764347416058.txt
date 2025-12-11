@@ -1,2 +1,0 @@
-const res = new Response(req, resolve)
-this.socket = new MockSocket(options.remoteAddress || '127.0.0.1')

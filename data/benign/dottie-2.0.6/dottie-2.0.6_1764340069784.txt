@@ -1,1 +1,0 @@
-Dottie.get(object, path) === undefined

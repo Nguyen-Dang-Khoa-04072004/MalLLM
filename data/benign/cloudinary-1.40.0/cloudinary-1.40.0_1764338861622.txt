@@ -1,7 +1,0 @@
-function generateSrcsetAttribute = function generateSrcsetAttribute(public_id, breakpoints, transformation, options) {
-  options = utils.clone(options);
-  utils.patchFetchFormat(options);
-  return breakpoints.map(function (width) {
-    return `${scaledUrl(public_id, width, transformation, options)} ${width}w`;
-  }).join(', ');
-}

@@ -1,4 +1,0 @@
-remote = this.get(sigName)
-!remote
-index = this.keys.index(data, remote)
-index && this.set(sigName, this.keys.sign(data), { signed: false })

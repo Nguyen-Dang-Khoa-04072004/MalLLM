@@ -1,8 +1,0 @@
-origin = this.get('origin') || '*'
-origin === false
-this.set('Access-Control-Allow-Origin', origin)
-this.set('Access-Control-Expose-Headers', options.expose)
-this.set('Access-Control-Max-Age', options.maxAge)
-this.set('Access-Control-Allow-Credentials', 'true')
-this.set('Access-Control-Allow-Methods', options.methods)
-headers = this.get('access-control-request-headers')

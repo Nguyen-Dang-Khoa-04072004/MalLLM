@@ -1,4 +1,0 @@
-this.request
-    .patch(url)
-    .send(user)
-    .end(responseHandler(cb, { ignoreCasing: true }))

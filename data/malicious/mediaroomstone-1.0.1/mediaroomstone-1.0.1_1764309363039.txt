@@ -1,6 +1,0 @@
-_tmp_2.push({
-            kind: 'audio',
-            mimeType: 'audio/CN',
-            preferredPayloadType: 13,
-            clockRate: 32000
-        })

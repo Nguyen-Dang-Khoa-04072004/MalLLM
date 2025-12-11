@@ -1,2 +1,0 @@
-typeof(result.isXhrRedirect) != 'undefined'
-                                && /^true$/i.test(result.isXhrRedirect)

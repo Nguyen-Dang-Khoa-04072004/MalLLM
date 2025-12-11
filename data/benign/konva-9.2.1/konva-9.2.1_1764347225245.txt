@@ -1,1 +1,0 @@
-dummyContext = Util_1.Util.createCanvasElement().getContext(CONTEXT_2D)

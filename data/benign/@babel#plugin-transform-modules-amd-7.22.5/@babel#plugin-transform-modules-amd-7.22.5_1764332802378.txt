@@ -1,3 +1,0 @@
-const amdFactoryCall = path.pushContainer("body", wrapper)[0].get("expression")
-const amdFactoryCallArgs = amdFactoryCall.get("arguments")
-const amdFactory = amdFactoryCallArgs[amdFactoryCallArgs.length - 1].get("body")

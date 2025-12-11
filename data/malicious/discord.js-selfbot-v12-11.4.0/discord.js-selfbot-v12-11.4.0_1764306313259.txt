@@ -1,5 +1,0 @@
-<operator>.formatString("Couldn't connect to ", gateway, " as the websocket is at state ", this.connection.status, "")
-const cleanup = () => {
-        this.removeListener('collect', onCollect);
-        this.removeListener('end', onEnd);
-      }

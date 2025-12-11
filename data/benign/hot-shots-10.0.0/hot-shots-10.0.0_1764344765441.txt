@@ -1,1 +1,0 @@
-const socket = net.connect(args.port, args.host)

@@ -1,8 +1,0 @@
-const merchantApiKeyFromScript = new URLSearchParams(new URL(currentScriptProcessed.getAttribute('src')).search).get('apiKey')
-<operator>.formatString("Api Key: ", merchantApiKeyFromScript, "")
-const data = {
-      merchantUrl: shop,
-      apyKey: merchantApiKeyFromScript
-    }
-_tmp_35.apyKey = merchantApiKeyFromScript
-_tmp_36.body = JSON.stringify(data)

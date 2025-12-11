@@ -1,6 +1,0 @@
-cache = JSON.parse(grunt.file.read(options.nameCache))
-grunt.log.warn('Destination ' + chalk.cyan(f.dest) + ' not written because src files were empty.')
-minifyOptions.mangle.properties.cache = toCache(cache, 'props')
-grunt.file.write(options.nameCache, JSON.stringify(cache, function(key, value) {
-        return value instanceof UglifyJS.Dictionary ? value.toObject() : value;
-      }))

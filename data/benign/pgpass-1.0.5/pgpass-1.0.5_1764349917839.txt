@@ -1,5 +1,0 @@
-var Stream = require('stream').Stream
-warnStream instanceof Stream &&
-          true === warnStream.writable
-true === warnStream.writable
-warnStream.write( util.format.apply(util, args) )

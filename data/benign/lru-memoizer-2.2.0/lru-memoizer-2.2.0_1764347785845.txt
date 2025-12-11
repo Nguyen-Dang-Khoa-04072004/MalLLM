@@ -1,1 +1,0 @@
-var fromCache = cache.get(key)

@@ -1,1 +1,0 @@
-result[i] = buffer.get(i)

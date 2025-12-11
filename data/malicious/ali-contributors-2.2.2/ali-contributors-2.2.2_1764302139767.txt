@@ -1,8 +1,0 @@
-r = yield urllib.request(apiUrl, {
-        method: 'POST',
-        data: project,
-        headers: Object.assign({}, authHeaders),
-        timeout,
-        dataType: 'json',
-        followRedirect: true,
-      })

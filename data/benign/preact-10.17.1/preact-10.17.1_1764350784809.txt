@@ -1,3 +1,0 @@
-vnode._children.map(child =>
-				detachedClone(child, detachedParent, parentDom)
-			)

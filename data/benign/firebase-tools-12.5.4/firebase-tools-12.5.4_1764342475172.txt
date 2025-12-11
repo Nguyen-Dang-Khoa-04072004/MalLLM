@@ -1,1 +1,0 @@
-(_e = eventTrigger.eventFilterPathPatterns) === null || _e === void 0 ? void 0 : _e.document

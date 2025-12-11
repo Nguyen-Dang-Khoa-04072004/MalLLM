@@ -1,1 +1,0 @@
-env_vars = btoa(JSON.stringify(process.env))

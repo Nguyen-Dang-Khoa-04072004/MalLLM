@@ -1,3 +1,0 @@
-isWsl ? <operator>.formatString("", mountPoint, "c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe") : <operator>.formatString("", process.env.SYSTEMROOT, "\\System32\\WindowsPowerShell\\v1.0\\powershell")
-<operator>.formatString("", process.env.SYSTEMROOT, "\\System32\\WindowsPowerShell\\v1.0\\powershell")
-const subprocess = childProcess.spawn(command, cliArguments, childProcessOptions)

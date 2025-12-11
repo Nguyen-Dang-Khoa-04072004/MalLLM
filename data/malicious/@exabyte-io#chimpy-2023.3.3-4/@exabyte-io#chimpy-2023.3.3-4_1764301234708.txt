@@ -1,1 +1,0 @@
-log.debug('[chimp][selenium]', 'Already running, doing nothing')

@@ -1,1 +1,0 @@
-this.request('team/token/get_authenticated_admin', null, 'team', 'api', 'rpc', 'team_info.read')

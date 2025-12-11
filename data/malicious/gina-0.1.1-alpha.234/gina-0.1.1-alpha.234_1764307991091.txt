@@ -1,9 +1,0 @@
-var setTimezone = function(timezone) {
-        // save to ~/.gina/main.json
-        mainConf['def_timezone'][GINA_SHORT_VERSION] = timezone;
-        lib.generator.createFileFromDataSync(mainConf, mainConfPath);
-        // save to ~/.gina/{GINA_VERSION_SHORT}/settings.json
-        process['gina']['timezone'] = timezone;
-        mainSettingsConf['timezone'] = timezone;
-        lib.generator.createFileFromDataSync(mainSettingsConf, mainSettingsPath);
-    }

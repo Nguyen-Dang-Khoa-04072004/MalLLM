@@ -1,1 +1,0 @@
-const ref = currentScope.set.get(identifier)

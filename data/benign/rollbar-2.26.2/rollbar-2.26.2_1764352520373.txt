@@ -1,1 +1,0 @@
-message = _.get(data, 'body.message.body')

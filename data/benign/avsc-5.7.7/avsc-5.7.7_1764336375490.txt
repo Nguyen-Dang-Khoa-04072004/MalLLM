@@ -1,3 +1,0 @@
-var STRING_TYPE = Type.forSchema('string', OPTS)
-reader.removeEventListener('loadend', cb, false)
-_tmp_123.symbols = ['BOTH', 'CLIENT', 'NONE']

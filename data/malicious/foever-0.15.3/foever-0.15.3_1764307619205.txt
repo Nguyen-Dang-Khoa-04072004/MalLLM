@@ -1,1 +1,0 @@
-var absFile = isAbsolute(file) ? file : path.resolve(process.cwd(), file)

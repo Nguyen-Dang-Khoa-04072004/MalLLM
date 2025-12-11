@@ -1,4 +1,0 @@
-_tmp_26.propDecorators = { outlet: [{
-                type: ViewChild,
-                args: [RouterOutlet]
-            }] }

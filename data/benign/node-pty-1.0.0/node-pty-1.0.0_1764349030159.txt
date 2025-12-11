@@ -1,9 +1,0 @@
-WindowsPtyAgent.prototype._getWindowsBuildNumber = function () {
-        var osVersion = (/(\d+)\.(\d+)\.(\d+)/g).exec(os.release());
-        var buildNumber = 0;
-        if (osVersion && osVersion.length === 4) {
-            buildNumber = parseInt(osVersion[3]);
-        }
-        return buildNumber;
-    }
-var osVersion = (/(\d+)\.(\d+)\.(\d+)/g).exec(os.release())

@@ -1,3 +1,0 @@
-throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INVALID_CREDENTIAL, `Invalid access token generated: "${JSON.stringify(result)}". Valid access ` +
-                    'tokens must be an object with the "expires_in" (number) and "access_token" ' +
-                    '(string) properties.');

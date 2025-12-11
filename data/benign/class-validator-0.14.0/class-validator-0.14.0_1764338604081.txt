@@ -1,5 +1,0 @@
-ValidationExecutor.prototype.conditionalValidations = function (object, value, metadatas) {
-        return metadatas
-            .map(function (metadata) { return metadata.constraints[0](object, value); })
-            .reduce(function (resultA, resultB) { return resultA && resultB; }, true);
-    }

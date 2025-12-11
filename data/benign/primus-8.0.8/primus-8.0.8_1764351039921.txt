@@ -1,4 +1,0 @@
-var req = this.request({
-          method: "POST",
-          data: data
-        })

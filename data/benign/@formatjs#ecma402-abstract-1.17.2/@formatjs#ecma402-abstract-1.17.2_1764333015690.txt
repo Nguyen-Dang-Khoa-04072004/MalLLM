@@ -1,3 +1,0 @@
-style === 'decimal' ||
-            style === 'unit' ||
-            (style === 'currency' && options.currencyDisplay === 'name')

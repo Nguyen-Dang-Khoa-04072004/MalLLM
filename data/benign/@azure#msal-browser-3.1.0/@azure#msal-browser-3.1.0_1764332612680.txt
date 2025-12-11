@@ -1,4 +1,0 @@
-const existingMeasurements = this.queueMeasurements.get(correlationId)
-existingMeasurements.push(queueMeasurement)
-this.queueMeasurements.set(correlationId, existingMeasurements)
-this.preQueueTimeByCorrelationId.delete(correlationId)

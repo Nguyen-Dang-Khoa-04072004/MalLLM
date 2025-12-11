@@ -1,1 +1,0 @@
-ws.onopen = function() { ws.send('connected'); }

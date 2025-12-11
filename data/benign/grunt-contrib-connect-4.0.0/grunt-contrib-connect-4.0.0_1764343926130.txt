@@ -1,4 +1,0 @@
-var hostname = options.hostname
-var targetHostname = hostname === '::' ? 'localhost' : hostname
-grunt.config.set('connect.' + taskTarget + '.options.hostname', hostname)
-grunt.event.emit('connect.' + taskTarget + '.listening', hostname, port)

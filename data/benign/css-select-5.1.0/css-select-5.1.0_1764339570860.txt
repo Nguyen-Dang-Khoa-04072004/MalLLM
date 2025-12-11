@@ -1,2 +1,0 @@
-options.cacheResults === false ||
-                typeof WeakSet === "undefined"

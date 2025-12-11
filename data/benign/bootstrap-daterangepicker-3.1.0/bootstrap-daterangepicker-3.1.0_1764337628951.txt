@@ -1,2 +1,0 @@
-this.events.error&&this.map.isDefine||g.onError!==
-ha

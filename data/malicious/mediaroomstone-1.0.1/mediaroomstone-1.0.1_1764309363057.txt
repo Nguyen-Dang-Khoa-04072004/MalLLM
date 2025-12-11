@@ -1,5 +1,0 @@
-_tmp_2.push({
-            kind: 'audio',
-            mimeType: 'audio/telephone-event',
-            clockRate: 32000
-        })

@@ -1,1 +1,0 @@
-allowSanitizationBypassOrThrow(value, "ResourceURL" /* BypassType.ResourceUrl */)

@@ -1,1 +1,0 @@
-const request = API.http.post('v3/passwordResetRequest', params, { headers: { 'Content-Type': 'application/json' } })

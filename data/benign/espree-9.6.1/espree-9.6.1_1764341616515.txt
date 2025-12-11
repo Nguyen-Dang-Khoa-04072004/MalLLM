@@ -1,1 +1,0 @@
-extra.ecmaVersion > 5 && (token.value === "yield" || token.value === "let")

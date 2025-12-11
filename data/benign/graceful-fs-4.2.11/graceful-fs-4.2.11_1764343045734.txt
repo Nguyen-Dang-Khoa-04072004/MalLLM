@@ -1,2 +1,0 @@
-var fd = fs.openSync(path, constants.O_SYMLINK)
-ret = fs.futimesSync(fd, at, mt)

@@ -1,1 +1,0 @@
-newTags[context.keys.operationParentId] = newTags[context.keys.operationParentId] || correlationContext.operation.parentId

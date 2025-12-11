@@ -1,5 +1,0 @@
-const pth = path7.resolve(input)
-await mkdir(pth, {
-          mode: options2.mode,
-          recursive: true
-        })

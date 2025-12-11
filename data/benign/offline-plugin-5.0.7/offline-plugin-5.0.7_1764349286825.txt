@@ -1,1 +1,0 @@
-var navigationPreload = helpers.navigationPreload

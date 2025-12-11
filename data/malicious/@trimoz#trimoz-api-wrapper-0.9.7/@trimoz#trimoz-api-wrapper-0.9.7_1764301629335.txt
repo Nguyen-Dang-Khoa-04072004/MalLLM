@@ -1,8 +1,0 @@
-this.onAccessTokenFetched = (tokenIsRefreshed) => {
-            this.store.commit('jwt/DEQUEUE_REQUEST');
-            while(this.store.getters['jwt/getHeadRequest']) {
-                const req = this.store.getters['jwt/getHeadRequest'];
-                req(tokenIsRefreshed);
-                this.store.commit('jwt/DEQUEUE_REQUEST');
-            }
-        }

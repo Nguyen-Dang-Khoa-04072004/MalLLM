@@ -1,1 +1,0 @@
-const content = this.sourceStore.get(filePath)

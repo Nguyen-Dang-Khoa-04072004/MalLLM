@@ -1,1 +1,0 @@
-let req = goto.request(options).on('error', function (err) { })

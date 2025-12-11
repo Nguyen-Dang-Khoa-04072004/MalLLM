@@ -1,4 +1,0 @@
-batchQueries.push({
-        query: srq.deleteUserSettingsByAppQuery,
-        params: [row.app_id, row.setting_name, userId],
-      })

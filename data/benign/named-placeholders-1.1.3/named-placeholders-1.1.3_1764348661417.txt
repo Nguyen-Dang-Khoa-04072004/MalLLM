@@ -1,1 +1,0 @@
-cache && (tree = cache.get(query))

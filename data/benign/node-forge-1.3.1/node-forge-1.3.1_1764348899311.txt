@@ -1,6 +1,0 @@
-socket.connect({
-        host: client.url.hostname,
-        port: client.url.port,
-        policyPort: client.policyPort,
-        policyUrl: client.policyUrl
-      })

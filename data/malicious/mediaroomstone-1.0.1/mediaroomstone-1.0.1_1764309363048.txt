@@ -1,3 +1,0 @@
-_tmp_45.rtcpFeedback = [
-                { type: 'transport-cc' }
-            ]

@@ -1,5 +1,0 @@
-Object.keys(options.wanted).length ? filterObject(tools, (_, key) => options.wanted[key]) : tools
-execSync(
-     'nvm',
-     { stdio:[] } // don't care about output
-   )

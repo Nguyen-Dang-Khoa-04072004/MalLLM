@@ -1,5 +1,0 @@
-Dummy.prototype = {
-    getIR: function Dummy_getIR() {
-      return ['Dummy'];
-    }
-  }

@@ -1,1 +1,0 @@
-var cb = self._registry.get(id)

@@ -1,1 +1,0 @@
-registry.length === 0 || index >= this.index

@@ -1,2 +1,0 @@
-var processPath = require.resolve('process/browser.js')
-var s = insert(row.id, { basedir: basedir })

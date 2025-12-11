@@ -1,2 +1,0 @@
-capExt.kind !== kind ||
-            (capExt.direction !== 'sendrecv' && capExt.direction !== 'sendonly')

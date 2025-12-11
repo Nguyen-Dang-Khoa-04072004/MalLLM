@@ -1,1 +1,0 @@
-_iterator_9 = <operator>.iterator(process.gina)

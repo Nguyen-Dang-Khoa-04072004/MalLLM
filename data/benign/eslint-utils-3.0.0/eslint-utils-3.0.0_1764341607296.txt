@@ -1,3 +1,0 @@
-_tmp_87 = internal.get(this)
-(match = pattern.exec(str)) != null
-escaped || !isEscaped(str, match.index)

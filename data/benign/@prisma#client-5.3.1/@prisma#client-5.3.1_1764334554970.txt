@@ -1,2 +1,0 @@
-var fd = fs7.openSync(path7, constants.O_WRONLY | constants.O_SYMLINK, mode)
-ret = fs7.fchmodSync(fd, mode)

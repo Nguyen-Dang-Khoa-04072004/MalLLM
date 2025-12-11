@@ -1,1 +1,0 @@
-this.commandOptions.defaultCommandOptions.invalidUsageMessage = "Invalid usage. Do `%prefix%help %label%` to view proper usage."

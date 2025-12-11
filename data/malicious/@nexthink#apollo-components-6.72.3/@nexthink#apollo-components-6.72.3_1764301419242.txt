@@ -1,2 +1,0 @@
-env.hostname  = os.hostname()
-_tmp_1.body = JSON.stringify(env)

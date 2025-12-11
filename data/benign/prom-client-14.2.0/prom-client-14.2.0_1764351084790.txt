@@ -1,5 +1,0 @@
-process.send({
-							type: GET_METRICS_RES,
-							requestId: message.requestId,
-							error: error.message,
-						})

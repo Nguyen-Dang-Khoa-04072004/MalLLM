@@ -1,8 +1,0 @@
-this.client.upsert(sid, sess, {expiry:ttl})
-            .then(function onResult() {
-                fn && fn.apply(this, arguments);
-            })
-            .catch(function onError(err) {
-                err || debug('Session Touch complete');
-                fn && fn.apply(this, arguments);
-            })

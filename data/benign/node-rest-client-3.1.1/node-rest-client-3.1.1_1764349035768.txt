@@ -1,2 +1,0 @@
-client.emit(type, event)
-client.emit(type, event)

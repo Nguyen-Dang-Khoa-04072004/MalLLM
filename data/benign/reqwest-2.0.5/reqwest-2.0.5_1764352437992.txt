@@ -1,1 +1,0 @@
-o['before'] && o['before'](http)

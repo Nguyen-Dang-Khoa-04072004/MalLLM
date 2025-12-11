@@ -1,7 +1,0 @@
-contents = fs.readFileSync(srcpath, options)
-contents = options.process(contents, srcpath, options.relative)
-util.isObject(contents) && contents.filepath
-destpath = contents.filepath
-exports.writeFileSync(destpath, contents, options)
-contents = fs.readFileSync(srcpath)
-exports.writeFileSync(destpath, contents)

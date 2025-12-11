@@ -1,2 +1,0 @@
-const opts = { env: Object.assign({}, process.env, config.copy.env) }
-var child = spawn(config.copy.command, config.copy.args, opts)

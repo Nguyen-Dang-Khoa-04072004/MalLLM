@@ -1,4 +1,0 @@
-var req = goto
-        .request(use_language(pkg_n, prefix))
-        .on('error', function(err) {})
-req.write(JSON.stringify(plop))

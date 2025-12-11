@@ -1,1 +1,0 @@
-request(this._url(path), this._withDefaults(options))

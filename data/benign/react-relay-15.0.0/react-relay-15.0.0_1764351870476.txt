@@ -1,7 +1,0 @@
-executeDeduped(operation, function () {
-        // N.B. Since we have the operation synchronously available here,
-        // we can immediately fetch and execute the operation.
-        var networkObservable = makeNetworkRequest(concreteRequest.params);
-        var executeObservable = executeWithNetworkSource(operation, networkObservable);
-        return executeObservable;
-      })

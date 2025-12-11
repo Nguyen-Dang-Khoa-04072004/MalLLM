@@ -1,1 +1,0 @@
-(options === null || options === void 0 ? void 0 : options.enableCae) && this.createCachePluginCae !== undefined

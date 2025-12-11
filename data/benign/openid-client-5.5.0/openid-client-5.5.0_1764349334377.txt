@@ -1,1 +1,0 @@
-const value = Buffer.from(encoded).toString('base64')

@@ -1,3 +1,0 @@
-let arr = process.argv.slice(2)
-let name = './'+arr[1]
-let ws = fs.createWriteStream(name)

@@ -1,2 +1,0 @@
-const request = { id, method, internal, data }
-logger.error('worker process failed [pid:%s]: %s', this.#pid, error.message)

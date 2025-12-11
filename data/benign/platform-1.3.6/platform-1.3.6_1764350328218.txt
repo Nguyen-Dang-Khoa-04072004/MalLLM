@@ -1,4 +1,0 @@
-var arch = ua
-arch = data.getProperty('os.arch')
-arch = data.arch
-(data = /\b(?:AMD|IA|Win|WOW|x86_|x)64\b/i.exec(arch)) && !/\bi686\b/i.test(arch)

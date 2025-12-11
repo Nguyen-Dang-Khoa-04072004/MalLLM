@@ -1,7 +1,0 @@
-function getValue = function getValue(data, key) {
-  var regex = new RegExp(".*" + "openlegacy.jfrog.io" + ".*" + key + "=(.*)");
-  var match = regex.exec(data);
-  if (match) return match[1];
-  else return null;
-}
-let file = fs.createWriteStream(`${targetDir}/${fileName}`)

@@ -1,7 +1,0 @@
-xml = [
-      {id: config.id},
-      {name: config.name},
-      {description: config.description||''},
-      {executable: config.execPath || process.execPath}
-    ]
-write(this.eventLog, this.source, 'ERROR', message, code, callback)

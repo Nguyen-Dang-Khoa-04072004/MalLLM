@@ -1,1 +1,0 @@
-const id = state.file.get(COMPONENT_POSITION) || 0

@@ -1,9 +1,0 @@
-var disconnect = function () {
-    var _a;
-    if (reconnectTimerRef.current) {
-      clearTimeout(reconnectTimerRef.current);
-    }
-    reconnectTimesRef.current = reconnectLimit;
-    (_a = websocketRef.current) === null || _a === void 0 ? void 0 : _a.close();
-    websocketRef.current = undefined;
-  }

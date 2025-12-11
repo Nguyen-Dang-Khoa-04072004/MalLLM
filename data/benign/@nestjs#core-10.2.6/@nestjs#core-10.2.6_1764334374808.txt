@@ -1,3 +1,0 @@
-(prototype = Reflect.getPrototypeOf(prototype)) &&
-            prototype !== Object.prototype &&
-            prototype

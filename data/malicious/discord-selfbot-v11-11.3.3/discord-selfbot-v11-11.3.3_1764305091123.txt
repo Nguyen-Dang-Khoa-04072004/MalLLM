@@ -1,5 +1,0 @@
-this.process = childProcess.fork(path.resolve(this.manager.file), args, {
-      env: this.env, execArgv,
-    })
-      .on('exit', this._exitListener)
-      .on('message', this._handleMessage.bind(this))

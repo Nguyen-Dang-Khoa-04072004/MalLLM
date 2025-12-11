@@ -1,9 +1,0 @@
-fs.writeFile(filename, middleware, function onWrote(err){
-                    if (err) {
-                        return done(err)
-                    }
-                    console.debug('Updated: def !== middleware case');
-                    // execSync(self.prefix +'/bin/gina framework:set --prefix='+ self.prefix);
-                    console.info(msg);
-                    done()
-                })

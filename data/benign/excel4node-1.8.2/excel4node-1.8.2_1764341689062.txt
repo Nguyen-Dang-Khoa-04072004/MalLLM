@@ -1,1 +1,0 @@
-(_tmp_117 = invoiceWS.cell(28, 4).string('Invoice Due?')).style

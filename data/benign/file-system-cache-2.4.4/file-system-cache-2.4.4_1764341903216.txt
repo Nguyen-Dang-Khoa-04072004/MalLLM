@@ -1,2 +1,0 @@
-<operator>.formatString("", name, ".", this.extension.replace(/^\./, ''), "")
-fs.writeFileSync(fsPath.resolve('./src/common/const.hashes.ts'), constDef)

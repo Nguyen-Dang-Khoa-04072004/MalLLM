@@ -1,6 +1,0 @@
-var value = context.lookup(token[1])
-value != null
-typeof value === 'number' && escape === mustache.escape ? String(value) : escape(value)
-var value = context.lookup(token[1])
-value != null
-typeof value === 'number' && escape === mustache.escape ? String(value) : escape(value)

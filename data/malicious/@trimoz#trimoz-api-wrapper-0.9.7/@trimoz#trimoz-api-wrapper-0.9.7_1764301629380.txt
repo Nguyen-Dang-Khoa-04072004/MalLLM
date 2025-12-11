@@ -1,1 +1,0 @@
-const url = 'v3/establishments' + (withSettings ? '?settings=true' : '')

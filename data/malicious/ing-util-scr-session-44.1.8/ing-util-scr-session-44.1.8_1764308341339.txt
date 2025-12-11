@@ -1,2 +1,0 @@
-console.log(lookup.get('66.6.44.4'))
-console.log(lookup.get('66.6.44.4'))

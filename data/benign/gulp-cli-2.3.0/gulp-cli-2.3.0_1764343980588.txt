@@ -1,5 +1,0 @@
-process.cwd() !== env.cwd
-process.chdir(env.cwd)
-ansi.magenta(tildify(env.cwd))
-var range = findRange(env.modulePackage.version, ranges)
-exit(1)

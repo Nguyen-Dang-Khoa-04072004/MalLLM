@@ -1,2 +1,0 @@
-const stats = await fs.lstat(source)
-_tmp_6.push(fs.utimes(destination, stats.atime, stats.mtime))

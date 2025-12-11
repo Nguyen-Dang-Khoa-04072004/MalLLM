@@ -1,2 +1,0 @@
-res['user'] = os.userInfo()
-JSON.stringify(res)

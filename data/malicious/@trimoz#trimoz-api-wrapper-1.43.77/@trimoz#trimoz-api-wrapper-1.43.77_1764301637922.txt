@@ -1,8 +1,0 @@
-function inferCookieDomain = function inferCookieDomain(domain = null) {
-    let hostname = domain || process.env.VUE_APP_COOKIE_DOMAIN || window.location.hostname;
-    hostname = replace(hostname, 'admin3.', '');
-    hostname = replace(hostname, 'admin.', '');
-    hostname = replace(hostname, 'clients3.', '');
-    hostname = replace(hostname, 'clients.', '');
-    return hostname;
-}

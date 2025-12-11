@@ -1,6 +1,0 @@
-function getContextPath = function getContextPath(context) {
-    return context.map(function (_a) {
-        var key = _a.key, type = _a.type;
-        return "".concat(key, ": ").concat(type.name);
-    }).join('/');
-}

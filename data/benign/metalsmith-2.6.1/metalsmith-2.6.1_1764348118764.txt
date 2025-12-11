@@ -1,9 +1,0 @@
-mkdir(dirname(file), { recursive: true })
-    .then(() => writeFile(file, data))
-    .then(() => (mode ? chmod(file, mode) : Promise.resolve()))
-watcherReady.then(() => {
-            onRebuild(null, files)
-            resolve(function closeWatcher() {
-              return watcher.unwatch(paths).close()
-            })
-          })

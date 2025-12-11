@@ -1,1 +1,0 @@
-this.request('sharing/share_folder', arg, 'user', 'api', 'rpc', 'sharing.write')

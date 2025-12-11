@@ -1,8 +1,0 @@
-this.clusterWorker_.send({
-        type: 'specFileDone',
-        overallStatus: this.jasmineDoneEvent_.overallStatus,
-        incompleteCode: this.jasmineDoneEvent_.incompleteCode,
-        incompleteReason: this.jasmineDoneEvent_.incompleteReason,
-        failedExpectations: this.jasmineDoneEvent_.failedExpectations,
-        deprecationWarnings: this.jasmineDoneEvent_.deprecationWarnings,
-      })

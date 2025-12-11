@@ -1,9 +1,0 @@
-callVisitor(
-              macroListener.exitName,
-              node,
-              macroListener.paramsMap.get(node)
-            )
-_tmp_46.includeComments = false
-setOffset(tokens, 1, exportToken)
-(_tmp_135 = macroListener.paramsMap).get
-(_tmp_136 = macroListener.paramsMap).delete

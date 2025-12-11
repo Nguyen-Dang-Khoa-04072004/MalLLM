@@ -1,2 +1,0 @@
-utils.log._log('log', 'command: ' + process.argv.join(' '))
-utils.log.detail('delaying restart for ' + config.options.delay + 'ms')

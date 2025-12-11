@@ -1,1 +1,0 @@
-this.request('file_requests/list_v2', arg, 'user', 'api', 'rpc', 'file_requests.read')

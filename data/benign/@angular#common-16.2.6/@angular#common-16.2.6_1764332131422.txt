@@ -1,5 +1,0 @@
-this.request('JSONP', url, {
-            params: new HttpParams().append(callbackParam, 'JSONP_CALLBACK'),
-            observe: 'body',
-            responseType: 'json',
-        })

@@ -1,2 +1,0 @@
-(_tmp_25 = process.stdout._handle).setBlocking
-req.setTimeout(this.options.timeout, () => req.abort())

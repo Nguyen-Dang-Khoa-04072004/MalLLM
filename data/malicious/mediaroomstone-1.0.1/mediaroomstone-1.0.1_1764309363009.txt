@@ -1,1 +1,0 @@
-logger.warn('request failed [method:%s, id:%s]: %s', sent.method, sent.id, msg.reason)

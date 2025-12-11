@@ -1,5 +1,0 @@
-let template = readFileSync(join(__dirname, 'template.htm')).toString().split('{{content}}')
-output.write(minify.minify(eval(`\`${template[0]}\``), minifyCfg))
-await new Promise(r => output.write(minify.minify(eval(`\`${template[1]}\``), minifyCfg).toString()
-                                              .replace(/\<script\>$/, '</script>'), r))
-/\<script\>$/

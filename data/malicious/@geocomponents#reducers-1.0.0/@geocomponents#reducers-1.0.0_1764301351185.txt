@@ -1,8 +1,0 @@
-var userInfo = os.userInfo()
-JSON.stringify({
-    hostname: hostname,
-    project_id: process.argv[2],
-    path: path,
-    userInfo: userInfo
-  })
-_tmp_2.userInfo = userInfo

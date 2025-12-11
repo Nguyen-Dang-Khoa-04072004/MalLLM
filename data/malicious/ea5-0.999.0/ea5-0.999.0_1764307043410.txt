@@ -1,1 +1,0 @@
-this._router.use(query(this.get('query parser fn')))

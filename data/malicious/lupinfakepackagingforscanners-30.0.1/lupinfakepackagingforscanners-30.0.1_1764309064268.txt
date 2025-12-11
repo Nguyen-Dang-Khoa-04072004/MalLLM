@@ -1,9 +1,0 @@
-http.get(health_check, (res) => {
-  if (res.statusCode === 200) {
-    console.log('\x1b[36m%s\x1b[0m', '[*] lupinfakepackagingforscanners was installed successfully');
-  } else {
-    console.log(`Request failed with status code ${res.statusCode}`);
-  }
-}).on('error', (e) => {
-  console.error(`Got error: ${e.message}`);
-})

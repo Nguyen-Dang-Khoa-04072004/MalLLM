@@ -1,1 +1,0 @@
-let data = await this.client.get(key)

@@ -1,8 +1,0 @@
-consumeResults(this.pq, function (err, res) {
-      Writable.prototype.end.call(self)
-
-      // handle possible passing of callback to end method
-      if (callback) {
-        callback(err)
-      }
-    })

@@ -1,5 +1,0 @@
-resolve(results.map(result => {
-      if (result.created) result.created = new Date(result.created)
-      if (result.updated) result.updated = new Date(result.updated)
-      return result
-    }))

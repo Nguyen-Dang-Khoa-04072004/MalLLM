@@ -1,2 +1,0 @@
-p = path.resolve(p)
-xfs.mkdirSync(p, mode)

@@ -1,4 +1,0 @@
-function numCond = function numCond(_cond: Code = nil): Code {
-    return and(_`typeof ${data} == "number"`, _cond, strictNums ? _`isFinite(${data})` : nil)
-  }
-validate.source.evaluated = stringify(validate.evaluated)

@@ -1,1 +1,0 @@
-this.request('team/properties/template/list', null, 'team', 'api', 'rpc', 'files.team_metadata.write')

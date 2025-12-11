@@ -1,3 +1,0 @@
-const getPlatformInfo = platformApi && platformApi.getEnvironmentInfo
-                ? () => platformApi.getEnvironmentInfo()
-                : _legacyPlatformInfo[platform]

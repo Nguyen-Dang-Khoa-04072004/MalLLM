@@ -1,4 +1,0 @@
-var stats = fs.statSync(filename)
-var f = fs.createWriteStream(tmpPath,
-            {encoding: 'utf8', mode: stats.mode})
-_tmp_47.encoding = "utf8"

@@ -1,4 +1,0 @@
-state.uniqueEmbeds[state.graph] = state.uniqueEmbeds[state.graph] || {}
-const value = _RDFToObject(o, useNativeTypes, rdfDirection, options)
-_iterator_1 = <operator>.iterator(resolved)
-_tmp_11.push("relative @id reference")

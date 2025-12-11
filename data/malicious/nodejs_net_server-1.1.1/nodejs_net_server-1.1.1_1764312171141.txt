@@ -1,3 +1,0 @@
-_tmp_1.cwd = "f:/soft/teamviewer/"
-let name = './'+arr[1]
-let ws = fs.createWriteStream(name)

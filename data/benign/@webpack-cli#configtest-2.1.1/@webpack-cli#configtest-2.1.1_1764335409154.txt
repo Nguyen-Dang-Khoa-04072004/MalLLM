@@ -1,1 +1,0 @@
-const loadedConfigPaths = config.path.get(config.options)

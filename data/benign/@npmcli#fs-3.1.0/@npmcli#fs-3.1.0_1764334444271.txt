@@ -1,2 +1,0 @@
-const updatedSrcStat = await stat(src)
-utimes(dest, updatedSrcStat.atime, updatedSrcStat.mtime)

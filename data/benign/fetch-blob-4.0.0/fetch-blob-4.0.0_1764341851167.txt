@@ -1,3 +1,0 @@
-tempDir = tempDir || await mkdtemp(realpathSync(tmpdir()) + sep)
-throw new TypeError('Failed to construct \'Blob\': parameter 2 cannot convert to dictionary.')
-await fs.writeFile(destination, data, { signal })

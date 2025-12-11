@@ -1,1 +1,0 @@
-const appId: string = request.params.appID

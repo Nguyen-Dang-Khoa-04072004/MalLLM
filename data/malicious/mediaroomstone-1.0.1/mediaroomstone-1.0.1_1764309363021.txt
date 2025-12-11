@@ -1,1 +1,0 @@
-let pipeTransportPairPromise = this.#mapRouterPairPipeTransportPairPromise.get(pipeTransportPairKey)

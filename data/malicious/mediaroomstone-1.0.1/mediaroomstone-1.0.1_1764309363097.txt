@@ -1,1 +1,0 @@
-await this.channel.request('transport.enableTraceEvent', this.internal, reqData)

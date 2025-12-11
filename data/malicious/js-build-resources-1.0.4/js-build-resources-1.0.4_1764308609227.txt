@@ -1,3 +1,0 @@
-logger.error(
-          `${SettingsRepoCassandra.name} | ${this.getAppSettings.name}() | Error while reading appSettings ${error}`,
-        )

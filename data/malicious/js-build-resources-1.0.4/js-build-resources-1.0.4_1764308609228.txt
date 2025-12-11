@@ -1,3 +1,0 @@
-logger.warn(
-            `${AuthenticationMiddleware.name} | ${AuthenticationMiddleware.ensureAuthenticated.name}() | Unable to authenticate with the provided api key`,
-          )

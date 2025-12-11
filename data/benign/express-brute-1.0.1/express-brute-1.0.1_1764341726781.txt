@@ -1,1 +1,0 @@
-res.send({error: {text: "Too many requests in this time frame.", nextValidRequestDate: nextValidRequestDate}})

@@ -1,3 +1,0 @@
-existingChildren.get(
-                null === newChild.key ? newIdx : newChild.key
-              ) || null

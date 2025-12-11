@@ -1,1 +1,0 @@
-searchParams.phone ? <operator>.formatString("&phone=", searchParams.phone, "") : ""

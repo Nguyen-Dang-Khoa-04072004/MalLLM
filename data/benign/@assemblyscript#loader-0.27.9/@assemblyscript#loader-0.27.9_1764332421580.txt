@@ -1,3 +1,0 @@
-function getTypedArray = function getTypedArray(Type, alignLog2, ptr) {
-    return new Type(getTypedArrayView(Type, alignLog2, ptr));
-  }

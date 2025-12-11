@@ -1,9 +1,0 @@
-const base = number * /** @type {number} */ (conversions.get(originalUnit))
-conversionUnits
-    .map(
-      (u) =>
-        dropLeadingZero(base / /** @type {number} */ (conversions.get(u))) + u
-    )
-    .reduce((a, b) => (a.length < b.length ? a : b))
-item.charCodeAt(0) === '.'.charCodeAt(0)
-dropLeadingZero(base / /** @type {number} */ (conversions.get(u))) + u

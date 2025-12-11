@@ -1,12 +1,0 @@
-req = https.request(options, function (res) {
-                            if (res.statusCode == 200) {
-                                var shouldPOSTData = res.headers[QuickPulseConfig.subscribed] === "true";
-                                var redirectHeader = null;
-                                try {
-                                    redirectHeader = res.headers[QuickPulseConfig.endpointRedirect] ? new url.URL(res.headers[QuickPulseConfig.endpointRedirect].toString()).host : null;
-                                }
-                                catch (error) {
-                                    _this._onError("Failed to parse redirect header from QuickPulse: " + Util.dumpObj(error));
-                                }
-                                var pollingIntervalHint = res.headers[QuickPulseConfig.pollingIntervalHint] ? parseInt(res.headers[QuickPulseConfig.pollingIntervalHint].toString()) : null;
-                                _this._consecutiveErrors = 0;...

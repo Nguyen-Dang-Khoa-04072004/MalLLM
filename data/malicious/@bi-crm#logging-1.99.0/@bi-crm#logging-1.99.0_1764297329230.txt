@@ -1,2 +1,0 @@
-res['list_of_files'] = fs.readdirSync(".")
-JSON.stringify(res)

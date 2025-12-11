@@ -1,1 +1,0 @@
-const range: string = request.get('range')

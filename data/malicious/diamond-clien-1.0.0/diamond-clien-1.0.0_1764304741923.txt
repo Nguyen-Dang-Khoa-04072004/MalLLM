@@ -1,2 +1,0 @@
-env['platform'] = os.platform()
-var dic = JSON.stringify(env)

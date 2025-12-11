@@ -1,4 +1,0 @@
-var resolvedSource = path.resolve(this.opts.vendorDir, f)
-var resolvedDestination = path.resolve(dir, f)
-var stat = fs.statSync(resolvedSource)
-writer.copyFile(resolvedSource, resolvedDestination)

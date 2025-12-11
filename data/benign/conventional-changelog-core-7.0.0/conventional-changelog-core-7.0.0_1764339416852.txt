@@ -1,7 +1,0 @@
-exec('git config --get remote.origin.url', { cwd }, (err, stdout) => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(stdout.trim())
-      }
-    })

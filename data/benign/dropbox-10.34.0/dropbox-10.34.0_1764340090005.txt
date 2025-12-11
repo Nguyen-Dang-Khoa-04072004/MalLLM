@@ -1,1 +1,0 @@
-this.request('team/groups/members/add', arg, 'team', 'api', 'rpc', 'groups.write')

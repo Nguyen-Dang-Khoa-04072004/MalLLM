@@ -1,2 +1,0 @@
-var childProcess = require('child_process')
-var fileStream = fs.createWriteStream(binaryPath)

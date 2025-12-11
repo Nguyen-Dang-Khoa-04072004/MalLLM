@@ -1,1 +1,0 @@
-!options.cache || !(cfg = options.cache.get(ecf.name))

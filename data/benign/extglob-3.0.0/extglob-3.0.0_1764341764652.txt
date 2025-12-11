@@ -1,3 +1,0 @@
-const key = utils.createKey(type + pattern, options)
-this.emit(node.val, node)
-cache.get(type, key)

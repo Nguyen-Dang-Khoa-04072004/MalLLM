@@ -1,8 +1,0 @@
-var filepaths = fs.readdirSync('test').map(function(filename) {
-  return path.join('test', filename);
-})
-_tmp_1.banner = '/*! <%= meta.name %> - v<%= pkg.version %> - <%= template.today("m/d/yyyy") %>\n' +
-            '* <%= pkg.homepage %>\n' +
-            '* Copyright (c) <%= template.today("yyyy") %> <%= pkg.author.name %>;' +
-            ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
-nodeunit.reporters.test.run(filepaths, {})

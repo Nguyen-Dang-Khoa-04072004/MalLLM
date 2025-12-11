@@ -1,2 +1,0 @@
-(chunk = node.decoder.read()) !== null
-hasher.write(chunk)

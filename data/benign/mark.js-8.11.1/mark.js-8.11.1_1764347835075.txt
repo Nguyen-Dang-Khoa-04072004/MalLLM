@@ -1,4 +1,0 @@
-this.unmark = (opt) => {
-    instance.unmark(opt);
-    return this;
-  }

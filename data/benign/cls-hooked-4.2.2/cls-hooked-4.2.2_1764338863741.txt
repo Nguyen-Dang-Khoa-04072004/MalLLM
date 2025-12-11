@@ -1,1 +1,0 @@
-let context = namespace._contexts.get(uid)

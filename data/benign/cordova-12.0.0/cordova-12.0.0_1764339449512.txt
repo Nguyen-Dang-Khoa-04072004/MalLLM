@@ -1,9 +1,0 @@
-inputArgs = inputArgs || process.argv
-let cmd = inputArgs[2]
-const subcommand = getSubCommand(inputArgs, cmd)
-const insightOptOut = insight.realOptOut === undefined
-conf.get(inputArgs[4]) !== undefined
-_tmp_23.children = await getPlatformInfo()
-const cfgXml = _fetchFileContents(cdvLibUtil.projectConfig(projectRoot))
-_tmp_25.push("--- End of Cordova JSON Snippet ---")
-logger.results(JSON.stringify(conf.all, null, 4))

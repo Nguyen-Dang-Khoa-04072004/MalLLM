@@ -1,5 +1,0 @@
-listenIp =
-                {
-                    ip: listenIp.ip,
-                    announcedIp: listenIp.announcedIp || undefined
-                }

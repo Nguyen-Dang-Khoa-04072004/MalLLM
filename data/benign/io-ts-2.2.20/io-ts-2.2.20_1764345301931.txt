@@ -1,5 +1,0 @@
-var fromSum = function (tag) {
-    var decoder = D.fromSum(tag);
-    var encoder = E.sum(tag);
-    return function (members) { return make(decoder(members), encoder(members)); };
-}

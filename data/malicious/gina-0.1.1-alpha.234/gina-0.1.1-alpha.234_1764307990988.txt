@@ -1,8 +1,0 @@
-getPath = function(name) {
-        var paths = getContext('paths');
-        if ( typeof(paths[name]) != "undefined" ) {
-            return paths[name]
-        } else {
-            throw new Error('Path `'+ name+'` not found. Check the spelling or add a new one using setPath("'+name+'", "\/your\/new\/pathname")')
-        }
-    }

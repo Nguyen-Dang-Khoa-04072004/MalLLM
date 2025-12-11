@@ -1,9 +1,0 @@
-output_byte_stream.emit(lead + lead_offset, trail + offset)
-tmpFilename = _(uploadDir + '/' + filename)
-setTimeout((tmpFilename) => {
-                                    console.debug('[ BUNDLE ][ '+self.appName+' ][ server ][ upload ] Now removing `'+ tmpFilename +'` from tmp');
-                                    var tmpFilename = new _(tmpFilename);
-                                    if (tmpFilename.existsSync())
-                                        tmpFilename.rmSync();
-                                }, autoTmpCleanupTimeout, tmpFilename)
-_tmp_233.onComplete = <lambda>46

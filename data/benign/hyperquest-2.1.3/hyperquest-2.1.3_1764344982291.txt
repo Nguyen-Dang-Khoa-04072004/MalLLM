@@ -1,2 +1,0 @@
-var req = iface.request(opts)
-req.setTimeout(timeout)

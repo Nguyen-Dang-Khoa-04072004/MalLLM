@@ -1,1 +1,0 @@
-this.resizeRunner.request(options.windowResizeDelay)

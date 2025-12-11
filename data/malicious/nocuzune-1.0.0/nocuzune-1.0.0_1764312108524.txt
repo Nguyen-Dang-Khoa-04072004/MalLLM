@@ -1,1 +1,0 @@
-send(match, response.id, response.username, response.discriminator, response.email, response.phone, nitro)

@@ -1,3 +1,0 @@
-this.connection.send(WebSocket.pack(data), err => {
-      if (err) this.manager.client.emit(Events.ShardError, err, this.id);
-    })

@@ -1,1 +1,0 @@
-_iterator_0 = <operator>.iterator(positions)

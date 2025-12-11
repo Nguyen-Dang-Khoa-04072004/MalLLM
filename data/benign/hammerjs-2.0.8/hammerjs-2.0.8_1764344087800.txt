@@ -1,1 +1,0 @@
-var existing = this.get(recognizer.options.event)

@@ -1,4 +1,0 @@
-const fileStatus = copyStatus.get(event.sourcePath) || {
-				writtenBytes: 0,
-				percent: 0,
-			}

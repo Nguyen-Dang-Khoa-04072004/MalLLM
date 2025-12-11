@@ -1,5 +1,0 @@
-var params = path.get("params")
-var param = params[i]
-t.isNumericLiteral(path.parent.property)
-var left = param.get("left")
-var right = param.get("right")

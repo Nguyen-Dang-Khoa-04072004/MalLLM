@@ -1,1 +1,0 @@
-decl.value = cache.get(value)

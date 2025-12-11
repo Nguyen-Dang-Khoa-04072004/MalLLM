@@ -1,3 +1,0 @@
-var json = fs.readFileSync("samplejson/basic.json")
-var TRUE          = C.TRUE          = 0x7
-var STOP    = C.STOP    = 0x12

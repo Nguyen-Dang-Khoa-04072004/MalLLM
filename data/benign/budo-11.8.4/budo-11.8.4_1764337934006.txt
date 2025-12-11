@@ -1,1 +1,0 @@
-var help = require('path').join(__dirname, 'bin', 'help.txt')

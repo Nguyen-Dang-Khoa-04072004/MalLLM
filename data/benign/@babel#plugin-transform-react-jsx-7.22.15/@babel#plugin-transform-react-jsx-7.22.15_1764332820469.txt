@@ -1,5 +1,0 @@
-const openingPath = path.get("openingElement")
-const args = [getTag(openingPath)]
-_iterator_0 = <operator>.iterator(openingPath.get("attributes"))
-const openingPath = path.get("openingElement")
-call(file, "createElement", [getTag(openingPath), buildCreateElementOpeningElementAttributes(file, path, openingPath.get("attributes")), ..._core.types.react.buildChildren(path.node)])

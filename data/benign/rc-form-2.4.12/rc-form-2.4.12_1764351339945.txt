@@ -1,1 +1,0 @@
-var fieldErrors = get(errorsGroup, name)

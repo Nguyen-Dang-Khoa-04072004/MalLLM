@@ -1,6 +1,0 @@
-this.resetTimeout = this.client.setTimeout(() => {
-            this.remaining = this.limit;
-            this.globalLimit = false;
-            this.handle();
-            this.resetTimeout = null;
-          }, Number(res.headers['retry-after']) + this.client.options.restTimeOffset)

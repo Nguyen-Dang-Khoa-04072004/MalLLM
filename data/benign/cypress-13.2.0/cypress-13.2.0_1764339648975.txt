@@ -1,3 +1,0 @@
-const addCypressOpenCommand = program => {
-  return program.command('open').usage('[options]').description('Opens Cypress in the interactive GUI.').option('-b, --browser <browser-path>', text('browser')).option('--component', text('component')).option('-c, --config <config>', text('config')).option('-C, --config-file <config-file>', text('configFile')).option('-d, --detached [bool]', text('detached'), coerceFalse).option('--e2e', text('e2e')).option('-e, --env <env>', text('env')).option('--global', text('global')).option('-p, --port <port>', text('port')).option('-P, --project <project-path>', text('project')).option('--dev', text('dev'), coerceFalse);
-}

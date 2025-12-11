@@ -1,1 +1,0 @@
-console.log(airlines.findWhere({ iata: 'LAX' }).get('name'))

@@ -1,1 +1,0 @@
-var cached = R.storage.get('github-profile-widget-languages', {json: true})

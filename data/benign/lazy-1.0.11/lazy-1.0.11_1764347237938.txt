@@ -1,2 +1,0 @@
-var x = em.read()
-self.emit(dataName, x)

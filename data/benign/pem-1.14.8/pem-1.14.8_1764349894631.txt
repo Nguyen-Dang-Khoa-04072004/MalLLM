@@ -1,1 +1,0 @@
-openssl.get('Vendor') === 'OPENSSL' && openssl.get('VendorVersionMajor') >= 3

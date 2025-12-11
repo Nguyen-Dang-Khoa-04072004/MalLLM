@@ -1,1 +1,0 @@
-resource = db.get(name).insert(req.body).value()

@@ -1,1 +1,0 @@
-const getContents = require('@npmcli/installed-package-contents')

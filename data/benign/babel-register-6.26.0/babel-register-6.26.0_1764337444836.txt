@@ -1,3 +1,0 @@
-var FILENAME = process.env.BABEL_CACHE_PATH || _path2.default.join(_homeOrTmp2.default, ".babel.json")
-(0, _mkdirp.sync)(_path2.default.dirname(FILENAME))
-_fs2.default.writeFileSync(FILENAME, serialised)

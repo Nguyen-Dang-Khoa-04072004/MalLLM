@@ -1,1 +1,0 @@
-this.request('team/members/recover', arg, 'team', 'api', 'rpc', 'members.delete')

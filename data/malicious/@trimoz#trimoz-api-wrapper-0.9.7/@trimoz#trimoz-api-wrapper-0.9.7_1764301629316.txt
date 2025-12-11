@@ -1,1 +1,0 @@
-searchParams.clientStatuses[0] || searchParams.clientStatuses[0] === 0 ? <operator>.formatString("&clientStatuses=", searchParams.clientStatuses.join(','), "") : ""

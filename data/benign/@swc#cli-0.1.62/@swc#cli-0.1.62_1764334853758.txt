@@ -1,1 +1,0 @@
-program.option("--no-swcrc", "Whether or not to look up .swcrc files")

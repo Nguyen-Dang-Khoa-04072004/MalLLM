@@ -1,7 +1,0 @@
-this._types = Object.create(null)
-args.includes('--version') || args.includes('-v') || args.includes('--v')
-args.includes('--name') || args.includes('-n') || args.includes('--n')
-args.includes('--help') || args.includes('-h') || args.includes('--h')
-let file = args[0]
-let type = mime.getType(file)
-process.stdout.write(type + '\n')

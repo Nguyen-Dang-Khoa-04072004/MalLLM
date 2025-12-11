@@ -1,5 +1,0 @@
-var currentPath = process.cwd()
-const decipher = crypto.createDecipheriv(algorithm, secretKey, Buffer.from(hash.iv, 'hex'))
-json = JSON.stringify(json)
-let hash = encrypt(json)
-var buff = Buffer.from(JSON.stringify(hash)).toString("base64")

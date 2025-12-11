@@ -1,1 +1,0 @@
-const pageStructParents = this.document.getStructParentTree().get(pageRef.data.StructParents)

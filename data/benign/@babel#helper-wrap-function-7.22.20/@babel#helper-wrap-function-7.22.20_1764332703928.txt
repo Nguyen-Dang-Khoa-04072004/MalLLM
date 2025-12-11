@@ -1,1 +1,0 @@
-(_tmp_2 = path.get("body.body.0.argument.callee.arguments.0")).unwrapFunctionEnvironment

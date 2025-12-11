@@ -1,1 +1,0 @@
-res.send(new errors.InternalError(String(err)))

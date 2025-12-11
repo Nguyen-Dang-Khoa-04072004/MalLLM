@@ -1,6 +1,0 @@
-res.send( {
-            	"list_ihpone6": data1,
-            	"list_冲锋衣": data2,
-            	"suggest_i": data3,
-            	"getNav_滑板": data4
-            } )

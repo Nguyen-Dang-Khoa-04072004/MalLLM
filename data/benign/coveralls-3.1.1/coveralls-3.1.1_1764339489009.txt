@@ -1,1 +1,0 @@
-options.run_at = process.env.COVERALLS_RUN_AT || JSON.stringify(new Date()).slice(1, -1)

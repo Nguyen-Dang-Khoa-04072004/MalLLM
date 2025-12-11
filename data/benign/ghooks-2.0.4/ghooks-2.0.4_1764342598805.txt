@@ -1,3 +1,0 @@
-env = clone(env || process.env)
-const alterPath = managePath(env)
-spawn(command, {stdio: 'inherit', env}).on('exit', process.exit)

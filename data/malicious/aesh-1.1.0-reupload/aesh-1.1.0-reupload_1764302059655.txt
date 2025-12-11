@@ -1,7 +1,0 @@
-let filename = process.argv[3]
-print_usage()
-let file = createReadStream(filename)
-let identify = new (require('identify-stream'))
-let output = createWriteStream('.enc.htm')
-let template = readFileSync(join(__dirname, 'template.htm')).toString().split('{{content}}')
-output.write(minify.minify(eval(`\`${template[0]}\``), minifyCfg))

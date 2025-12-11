@@ -1,7 +1,0 @@
-const hasRtkpCookie = (domain = window.location.hostname, cookies = document.cookie) => {
-    const rtkps = filter(split(cookies, '; '), cookie => startsWith(cookie, 'rtkp='));
-    return some(rtkps, rtkp => {
-        const rtkpValue = split(rtkp, '=')[1];
-        return rtkpValue === expectedRtkpValue(domain);
-    });
-}

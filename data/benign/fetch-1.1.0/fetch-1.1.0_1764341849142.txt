@@ -1,5 +1,0 @@
-fetch.on('error', function (e) {
-    console.log('ERROR: ' + (e && e.message || e));
-})
-_tmp_1.no-invalid-this = 2
-this.emit('error', new Error('url not defined'))

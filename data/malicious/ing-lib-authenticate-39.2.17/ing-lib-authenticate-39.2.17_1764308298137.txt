@@ -1,1 +1,0 @@
-console.log(airlines.at(0).get('name'))

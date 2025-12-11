@@ -1,1 +1,0 @@
-const metricsApi = datadogClients.get(this)

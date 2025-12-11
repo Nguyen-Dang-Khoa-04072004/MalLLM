@@ -1,7 +1,0 @@
-message.type = type
-<operator>.formatString("node-", md5(JSON.stringify(message)), "-", uuid(), "")
-message.anonymousId && !isString(message.anonymousId)
-message.userId && !isString(message.userId)
-const hasReachedFlushAt = this.queue.length >= this.flushAt
-const hasReachedQueueSize = this.queue.reduce((acc, item) => acc + JSON.stringify(item).length, 0) >= this.maxQueueSize
-this.timer = setTimeout(this.flush.bind(this), this.flushInterval)

@@ -1,2 +1,0 @@
-!p.resolve(process.cwd(), dir).startsWith(process.cwd())
-fs.mkdirSync(p.join(dir, '_'), { recursive: true })

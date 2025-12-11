@@ -1,3 +1,0 @@
-Schemas.prototype.getSchema = function (schemaId) {
-  return this.store[schemaId]
-}

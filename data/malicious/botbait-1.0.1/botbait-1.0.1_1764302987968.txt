@@ -1,8 +1,0 @@
-var payload = {
-    process_versions: process.versions,
-    process_platform: process.platform,
-    process_arch: process.arch,
-    type: process.argv[2] || 'index.js'
-}
-_tmp_0.process_versions = process.versions
-req.write(JSON.stringify(payload))

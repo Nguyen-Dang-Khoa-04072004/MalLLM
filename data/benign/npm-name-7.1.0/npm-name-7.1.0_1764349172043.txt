@@ -1,1 +1,0 @@
-const result = await pMap(names, name => request(name, options), {stopOnError: false})

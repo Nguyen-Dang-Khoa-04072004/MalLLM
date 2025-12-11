@@ -1,6 +1,0 @@
-this.bot.Room(envelope.room).speak(string, (error, data) => {
-      if (error != null) {
-        this.robot.logger.error(`Campfire send error: ${error}`)
-      }
-      this.send.apply(this, [envelope].concat(strings))
-    })

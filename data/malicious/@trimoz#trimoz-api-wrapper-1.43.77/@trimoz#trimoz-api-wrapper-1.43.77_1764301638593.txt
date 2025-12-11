@@ -1,1 +1,0 @@
-const request = API.http.post(url, params, { headers: { 'Content-Type': 'multipart/form-data' }, timeout: 30000 })

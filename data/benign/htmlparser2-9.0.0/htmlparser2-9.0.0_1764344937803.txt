@@ -1,1 +1,0 @@
-const impliesClose = this.htmlMode && openImpliesClose.get(name)

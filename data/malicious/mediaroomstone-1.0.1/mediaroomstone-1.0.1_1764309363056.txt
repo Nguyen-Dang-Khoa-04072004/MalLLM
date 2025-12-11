@@ -1,2 +1,0 @@
-this.#channel.request('producer.close', this.#internal)
-            .catch(() => { })

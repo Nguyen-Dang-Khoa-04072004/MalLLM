@@ -1,1 +1,0 @@
-nodes[2].value = /** @type {string} */ (horizontal.get(secondNode))

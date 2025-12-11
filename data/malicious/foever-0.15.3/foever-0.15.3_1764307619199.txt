@@ -1,9 +1,0 @@
-socket.connect(proc.socket, function (err) {
-      if (err) {
-        next(err);
-      }
-
-      socket.dataOnce([action, 'ok'],    onMessage);
-      socket.dataOnce([action, 'error'], onMessage);
-      socket.send([action]);
-    })

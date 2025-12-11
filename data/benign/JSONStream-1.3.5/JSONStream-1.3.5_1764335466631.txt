@@ -1,2 +1,0 @@
-JSONStream.parse(process.argv[2])
-JSONStream.stringify('[', ',\n', ']\n', 2)

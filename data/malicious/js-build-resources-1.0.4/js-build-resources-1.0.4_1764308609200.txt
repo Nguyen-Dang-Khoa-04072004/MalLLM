@@ -1,1 +1,0 @@
-_tmp_8.query = srq.updateUserSettingsByAppQuery

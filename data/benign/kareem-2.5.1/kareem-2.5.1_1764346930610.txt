@@ -1,1 +1,0 @@
-clone.numAsync = this._pres.get(key).numAsync

@@ -1,1 +1,0 @@
-this.request('files/alpha/upload', arg, 'user', 'content', 'upload', 'files.content.write')

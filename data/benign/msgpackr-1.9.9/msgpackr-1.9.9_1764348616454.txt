@@ -1,2 +1,0 @@
-let sharedLength = structures.sharedLength || 0
-jsonView = JSON.stringify(result, (_, value) => typeof value === "bigint" ? `${value}n` : value).slice(0, 100)

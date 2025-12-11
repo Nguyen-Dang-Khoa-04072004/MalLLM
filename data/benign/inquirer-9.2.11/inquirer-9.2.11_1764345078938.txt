@@ -1,1 +1,0 @@
-const validation = this.handleSubmitEvents(this.editorResult)

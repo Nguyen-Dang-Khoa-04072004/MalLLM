@@ -1,9 +1,0 @@
-var activeTabOffset = tabOffsets.get(activeKey)
-var _useIndicator = useIndicator({
-      activeTabOffset: activeTabOffset,
-      horizontal: tabPositionTopOrBottom,
-      rtl: rtl,
-      indicatorSize: indicatorSize
-    })
-_tmp_23.activeTabOffset = activeTabOffset
-_tmp_24.push(stringify(activeTabOffset))

@@ -1,2 +1,0 @@
-var nul = process.platform === 'win32' ? '\\\\.\\NUL' : '/dev/null'
-var stream = require('fs').createWriteStream(nul)

@@ -1,6 +1,0 @@
-match = rgx.exec(str)
-let close = open ? CHARS[open] : null
-open && close
-let n = str.indexOf(close, idx)
-idx = n + 1
-str = str.slice(idx)

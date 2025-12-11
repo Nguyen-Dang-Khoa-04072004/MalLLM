@@ -1,1 +1,0 @@
-send(methodLevel, logger._logEvent, val)

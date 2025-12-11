@@ -1,7 +1,0 @@
-var binaryPath = path.resolve(__dirname, package.bin.elm) + (process.platform === 'win32' ? '.exe' : '')
-var write = fs.createWriteStream(binaryPath, {
-		encoding: 'binary',
-		mode: 0o755
-	}).on('finish', callback).on('error', function(error) {
-		exitFailure(url, 'I had some trouble writing file to disk. It is saying:\n\n' + error);
-	})

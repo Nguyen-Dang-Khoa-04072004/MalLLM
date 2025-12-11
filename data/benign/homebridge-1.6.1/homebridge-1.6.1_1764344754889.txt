@@ -1,8 +1,0 @@
-(function (InternalAPIEvent) {
-    InternalAPIEvent["REGISTER_ACCESSORY"] = "registerAccessory";
-    InternalAPIEvent["REGISTER_PLATFORM"] = "registerPlatform";
-    InternalAPIEvent["PUBLISH_EXTERNAL_ACCESSORIES"] = "publishExternalAccessories";
-    InternalAPIEvent["REGISTER_PLATFORM_ACCESSORIES"] = "registerPlatformAccessories";
-    InternalAPIEvent["UPDATE_PLATFORM_ACCESSORIES"] = "updatePlatformAccessories";
-    InternalAPIEvent["UNREGISTER_PLATFORM_ACCESSORIES"] = "unregisterPlatformAccessories";
-})(InternalAPIEvent = exports.InternalAPIEvent || (exports.InternalAPIEvent = {}))

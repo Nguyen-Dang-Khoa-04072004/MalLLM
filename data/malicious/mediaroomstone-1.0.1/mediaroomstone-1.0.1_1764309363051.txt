@@ -1,1 +1,0 @@
-this.#consumerSocket.on('end', () => (logger.debug('Consumer Channel ended by the worker process')))

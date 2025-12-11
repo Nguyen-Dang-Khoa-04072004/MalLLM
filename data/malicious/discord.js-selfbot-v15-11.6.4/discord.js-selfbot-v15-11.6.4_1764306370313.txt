@@ -1,5 +1,0 @@
-(_tmp_27 = chan.send(list[index], options).then(message => {
-              messages.push(message);
-              if (index >= list.length - 1) return resolve(messages);
-              return sendChunk(list, ++index);
-            })).catch

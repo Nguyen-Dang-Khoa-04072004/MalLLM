@@ -1,4 +1,0 @@
-handler.send('StartRenderPage', {
-            transparency: partialEvaluator.hasBlendModes(self.resources),
-            pageIndex: self.pageIndex
-            })

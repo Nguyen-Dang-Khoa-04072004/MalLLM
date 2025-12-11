@@ -1,6 +1,0 @@
-var fileContents = fs.readFileSync(file, "utf8")
-var cleanLines = clean_lines(fileContents)
-cleanLines = join_opening_bracket(cleanLines)
-cleanLines = perform_indentation(cleanLines)
-var outputContents = cleanLines.join("\n")
-fs.writeFileSync(file, outputContents, 'utf8')

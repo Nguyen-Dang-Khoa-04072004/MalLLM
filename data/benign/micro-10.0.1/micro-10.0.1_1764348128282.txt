@@ -1,1 +1,0 @@
-send(res, res.statusCode || 200, val)

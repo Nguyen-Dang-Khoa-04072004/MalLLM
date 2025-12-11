@@ -1,2 +1,0 @@
-ReactInlineSVG = package/src/index.tsx::program:ReactInlineSVG:<init>
-const contentType = response.headers.get('content-type')

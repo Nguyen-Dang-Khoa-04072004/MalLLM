@@ -1,1 +1,0 @@
-options.qs = {x_auth_access_type: provider.custom_params.x_auth_access_type}

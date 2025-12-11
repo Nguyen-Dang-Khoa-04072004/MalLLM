@@ -1,7 +1,0 @@
-config = require(path.resolve(configPath))
-handleStartTag(startTagMatch)
-function isStyleLinkTypeAttribute = function isStyleLinkTypeAttribute(attrValue) {
-  attrValue = trimWhitespace(attrValue).toLowerCase();
-  return attrValue === '' || attrValue === 'text/css';
-}
-config[key] = option[1](typeof value === 'string' ? value : JSON.stringify(value))

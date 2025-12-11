@@ -1,9 +1,0 @@
-var cache = new MapOrSimilar(process.env.FORCE_SIMILAR_INSTEAD_OF_MAP === 'true')
-var currentCache = cache
-this.lastItem = this.list[index]
-currentCache = currentCache.get(arguments[i])
-newMap = new MapOrSimilar(process.env.FORCE_SIMILAR_INSTEAD_OF_MAP === 'true')
-currentCache.set(arguments[i], newMap)
-this.lastItem && this.isEqual(this.lastItem.key, key)
-currentCache.has(arguments[argsLengthMinusOne])
-fnResult = currentCache.get(arguments[argsLengthMinusOne])

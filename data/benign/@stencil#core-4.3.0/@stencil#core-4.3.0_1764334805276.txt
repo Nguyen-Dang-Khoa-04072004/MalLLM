@@ -1,1 +1,0 @@
-(_tmp_771 = Object.prototype.hasOwnProperty).call

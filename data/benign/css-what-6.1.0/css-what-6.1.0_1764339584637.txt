@@ -1,1 +1,0 @@
-const possibleAction = actionTypes.get(selector.charCodeAt(selectorIndex))

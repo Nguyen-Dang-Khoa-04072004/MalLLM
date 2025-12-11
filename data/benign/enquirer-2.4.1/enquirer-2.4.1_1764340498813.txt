@@ -1,1 +1,0 @@
-ele.value = [ele.value, ele.name].find(this.isValue.bind(this))

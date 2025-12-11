@@ -1,5 +1,0 @@
-var files = grunt.file.expand({filter: 'isFile'}, file.src).map(function (f) {
-    return path.resolve(f);
-  })
-destinations[destination]
-runner.run(files, file.dest, options, next)

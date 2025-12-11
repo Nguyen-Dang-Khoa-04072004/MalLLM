@@ -1,1 +1,0 @@
-pseudoEl = el[pseudoElPropName] = $('<span />').get(0)

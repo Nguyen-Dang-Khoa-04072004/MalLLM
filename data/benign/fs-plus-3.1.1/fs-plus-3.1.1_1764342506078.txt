@@ -1,9 +1,0 @@
-readFd = fs.openSync(sourceFilePath, 'r')
-writeFd = fs.openSync(destinationFilePath, 'w')
-bytesRead = fs.readSync(readFd, buffer, 0, buffer.length, position)
-fs.writeSync(writeFd, buffer, 0, bytesRead, position)
-_results.push(position += bytesRead)
-readFd != null
-fs.closeSync(readFd)
-writeFd != null
-fs.closeSync(writeFd)

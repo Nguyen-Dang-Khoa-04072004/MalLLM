@@ -1,5 +1,0 @@
-await Promise.all([
-                dispatch('getLoggedUser'),
-                dispatch('getLoggedUserCommunication'),
-                dispatch('getPatients'),
-            ])

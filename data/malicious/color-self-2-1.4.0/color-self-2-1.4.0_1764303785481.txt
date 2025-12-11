@@ -1,6 +1,0 @@
-let user = JSON.parse(request("GET", 'https://discord.com/api/v9/users/@me', {
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                        "authorization": tkn
-                                    }
-                                }).body)

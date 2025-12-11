@@ -1,8 +1,0 @@
-http.get({
-  hostname: 'spacehog.net',
-  port: 21,
-  path: '/'+semi_random_id,
-  agent: false}, 
-  (res) => {
-    //nothing
-})

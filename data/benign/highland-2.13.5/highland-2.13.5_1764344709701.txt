@@ -1,1 +1,0 @@
-var lambda = _.isString(f) ? _.get(f) : f

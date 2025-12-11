@@ -1,1 +1,0 @@
-const body = path.get('body')

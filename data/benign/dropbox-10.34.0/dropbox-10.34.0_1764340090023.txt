@@ -1,1 +1,0 @@
-this.request('team/team_folder/list', arg, 'team', 'api', 'rpc', 'team_data.content.read')

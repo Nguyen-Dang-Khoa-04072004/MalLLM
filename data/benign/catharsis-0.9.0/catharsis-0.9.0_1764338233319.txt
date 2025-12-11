@@ -1,1 +1,0 @@
-result ? <operator>.formatString(": ", this.type(result), "") : ""

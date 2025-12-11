@@ -1,3 +1,0 @@
-throw new Error(
-          "You have the HTTPS_PROXY environment variable set, but you are missing the optional dependency hpagent. Please install hpagent as a dependency and try again."
-        );

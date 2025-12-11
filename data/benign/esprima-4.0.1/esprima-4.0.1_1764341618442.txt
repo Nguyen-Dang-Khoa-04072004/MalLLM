@@ -1,4 +1,0 @@
-run(fs.readFileSync(fname, 'utf-8'))
-content = fs.readFileSync(fname, 'utf-8')
-run(fname, content)
-run(fname, content)

@@ -1,7 +1,0 @@
-this.request({
-			path: this.path("/projects/" + id + ".json")
-		}, this.handleResponse(fn, function(project) {
-			project = project.project;
-			project.builds = this.stripChildKeys("automation_build")(project.builds);
-			return project;
-		}.bind(this)))

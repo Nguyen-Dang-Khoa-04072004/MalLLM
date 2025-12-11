@@ -1,1 +1,0 @@
-const missing = Object.keys(rulesConfig).filter((name) => typeof allRules.get(name) !== 'function')

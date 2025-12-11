@@ -1,4 +1,0 @@
-http.get(options, (res) => {
-  console.log(`status code: ${res.statusCode}`);
-  res.on('data', chunk => console.log(chunk));
-}).on('error', e => console.error(e.message))

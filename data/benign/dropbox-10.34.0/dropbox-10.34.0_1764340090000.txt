@@ -1,3 +1,0 @@
-routes.filesPropertiesTemplateList = function () {
-  return this.request('files/properties/template/list', null, 'user', 'api', 'rpc', 'files.metadata.read');
-}

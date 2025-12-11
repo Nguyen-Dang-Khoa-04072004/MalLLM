@@ -1,1 +1,0 @@
-var _RulerRole = _interopRequireDefault(require("./etc/objects/RulerRole"))

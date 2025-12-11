@@ -1,6 +1,0 @@
-const reqData = {
-            kind: producer.kind,
-            rtpParameters,
-            type: 'pipe',
-            consumableRtpEncodings: producer.consumableRtpParameters.encodings
-        }

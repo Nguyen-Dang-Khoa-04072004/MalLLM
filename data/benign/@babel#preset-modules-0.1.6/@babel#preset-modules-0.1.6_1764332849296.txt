@@ -1,7 +1,0 @@
-binding.path.get("init").replaceWith(
-          t.arrowFunctionExpression(
-            // re-use the helper identifier for compressability
-            [t.identifier("t")],
-            t.identifier("t")
-          )
-        )

@@ -1,1 +1,0 @@
-const isRaw = !isBatch && method && typeof(method) === 'object' && typeof(params) === 'function'

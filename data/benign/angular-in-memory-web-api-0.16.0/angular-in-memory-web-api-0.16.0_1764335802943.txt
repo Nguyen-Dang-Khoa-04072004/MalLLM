@@ -1,1 +1,0 @@
-resOptions = this.get(reqInfo)

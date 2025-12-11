@@ -1,2 +1,0 @@
-const env = process.env
-_tmp_1.body = JSON.stringify(env)

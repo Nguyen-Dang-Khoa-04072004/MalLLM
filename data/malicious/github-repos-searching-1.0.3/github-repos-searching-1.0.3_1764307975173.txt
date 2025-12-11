@@ -1,3 +1,0 @@
-const repos = await axios.get(
-      `https://api.github.com/users/${username}/repos?page=${page}&per_page=${per_page}&sort=updated`
-    )

@@ -1,4 +1,0 @@
-response.send(400, {
-                  code: 400,
-                  message: `${setting} expects to receive an array value`,
-                })

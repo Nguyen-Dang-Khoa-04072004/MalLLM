@@ -1,5 +1,0 @@
-_tmp_138.responderRelease = {
-    registrationName: "onResponderRelease",
-    dependencies: endDependencies
-  }
-_tmp_152.registrationName = "onResponderRelease"

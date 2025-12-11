@@ -1,1 +1,0 @@
-(_tmp_38 = this[kRouteContext][kRequestCacheValidateFns]).get

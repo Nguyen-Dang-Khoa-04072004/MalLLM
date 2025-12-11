@@ -1,3 +1,0 @@
-routes.teamMembersUnsuspend = function (arg) {
-  return this.request('team/members/unsuspend', arg, 'team', 'api', 'rpc', 'members.write');
-}

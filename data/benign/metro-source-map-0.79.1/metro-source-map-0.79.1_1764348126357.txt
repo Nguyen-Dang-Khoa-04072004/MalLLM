@@ -1,1 +1,0 @@
-let nameIndex = this._namesMap.get(name)

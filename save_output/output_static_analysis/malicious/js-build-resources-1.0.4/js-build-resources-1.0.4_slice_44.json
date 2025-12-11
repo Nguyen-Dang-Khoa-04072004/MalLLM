@@ -1,0 +1,17 @@
+{
+  "confidence": 0.95,
+  "obfuscated": 0.00,
+  "malware": 0.00,
+  "securityRisk": 0.05
+}
+
+### Example 4 — Unknown
+Input:
+const a = b;
+Output:
+{
+  "confidence": 0.00,
+  "obfuscated": 0.00,
+  "malware": 0.00,
+  "securityRisk": 0.00
+}

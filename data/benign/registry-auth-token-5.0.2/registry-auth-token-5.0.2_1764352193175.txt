@@ -1,1 +1,0 @@
-const url = rc.config.get(scope + ':registry') || rc.config.get('registry') || npmConf.defaults.registry

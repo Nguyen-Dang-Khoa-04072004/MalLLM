@@ -1,0 +1,15 @@
+{
+  "confidence": 0.95,
+  "obfuscated": 0.00,
+  "malware": 0.00,
+  "securityRisk": 0.05
+}
+
+### IMPORTANT INSTRUCTIONS
+- Only respond with a single JSON object.
+- No explanations, no extra text, no markdown, no commentary.
+- Work step-by-step internally to ensure accuracy, but output only JSON.
+
+### Example 3 — Safe
+Input:
+let result = {}

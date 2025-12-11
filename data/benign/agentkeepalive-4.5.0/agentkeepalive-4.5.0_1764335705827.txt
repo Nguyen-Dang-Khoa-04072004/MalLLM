@@ -1,1 +1,0 @@
-const newSocket = super.createConnection(options, onNewCreate)

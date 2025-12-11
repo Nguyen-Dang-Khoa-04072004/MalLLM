@@ -1,2 +1,0 @@
-'changes after filters (before/after): ' +
-      [files.length, matched.result.length].join('/')

@@ -1,8 +1,0 @@
-this.requestOnFulfilled = (config) => {
-            if (config.url === 'v3/auth/token') return config;
-            if (this.store.getters['jwt/getIsInRetryMode']) {
-                return this.waitForAccessTokenAndRetryRequest(config);
-            }
-            this.setAuthorisationHeader(config);
-            return config;
-        }

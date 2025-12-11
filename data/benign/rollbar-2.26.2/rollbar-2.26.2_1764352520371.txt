@@ -1,4 +1,0 @@
-var custom = {
-      originalEvent: event,
-      originalRequestId: context.awsRequestId,
-    }

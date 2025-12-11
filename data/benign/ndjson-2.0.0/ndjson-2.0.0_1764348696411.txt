@@ -1,3 +1,0 @@
-const args = minimist(process.argv.slice(2))
-ndjson.parse(args)
-ndjson.stringify(args)

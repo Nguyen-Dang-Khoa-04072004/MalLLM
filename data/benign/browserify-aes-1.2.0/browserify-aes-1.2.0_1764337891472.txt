@@ -1,2 +1,0 @@
-self._cache = self._cache.slice(chunk.length)
-thing = this._mode.decrypt(this, chunk)

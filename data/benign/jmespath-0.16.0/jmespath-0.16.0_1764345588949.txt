@@ -1,1 +1,0 @@
-console.log(JSON.stringify(jmespath.search(parsedInput, process.argv[2])))

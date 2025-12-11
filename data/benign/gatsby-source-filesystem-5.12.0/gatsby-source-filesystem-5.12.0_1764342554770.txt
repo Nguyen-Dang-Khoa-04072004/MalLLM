@@ -1,5 +1,0 @@
-fsMachine.send({
-      type: `CHOKIDAR_CHANGE`,
-      pathType: `file`,
-      path
-    })
